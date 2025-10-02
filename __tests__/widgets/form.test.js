@@ -120,6 +120,9 @@ describe('Form', () => {
       form.append(button1);
       form.append(button2);
 
+      // Ensure no element is focused before calling next()
+      screen.focused = null;
+
       const next = form.next();
 
       expect(next).toBe(button1);
@@ -134,6 +137,9 @@ describe('Form', () => {
 
       form.append(button1);
       form.append(button2);
+
+      // Ensure no element is focused before calling next()
+      screen.focused = null;
 
       form.next(); // button1
       const next = form.next(); // button2
@@ -151,6 +157,9 @@ describe('Form', () => {
       form.append(button1);
       form.append(button2);
 
+      // Ensure no element is focused before calling next()
+      screen.focused = null;
+
       form.next(); // button1
       form.next(); // button2
       const next = form.next(); // back to button1
@@ -164,13 +173,16 @@ describe('Form', () => {
 
       const button1 = createKeyableButton(screen);
       const button2 = createKeyableButton(screen);
-      const button3 = new Button({ screen, keyable: true });
+      const button3 = createKeyableButton(screen);
 
       form.append(button1);
       form.append(button2);
       form.append(button3);
 
       button2.hide();
+
+      // Ensure no element is focused before calling next()
+      screen.focused = null;
 
       form.next(); // button1
       const next = form.next(); // should skip button2, return button3
@@ -234,7 +246,7 @@ describe('Form', () => {
 
       const button1 = createKeyableButton(screen);
       const button2 = createKeyableButton(screen);
-      const button3 = new Button({ screen, keyable: true });
+      const button3 = createKeyableButton(screen);
 
       form.append(button1);
       form.append(button2);
@@ -259,6 +271,9 @@ describe('Form', () => {
 
       form.append(button1);
       form.append(button2);
+
+      // Ensure no element is focused before calling focusNext()
+      screen.focused = null;
 
       form.focusNext();
 
@@ -288,8 +303,11 @@ describe('Form', () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const button = new Button({ screen, keyable: true });
+      const button = createKeyableButton(screen);
       form.append(button);
+
+      // Ensure no element is focused before calling next()
+      screen.focused = null;
 
       form.next(); // Select first child
       expect(form._selected).toBe(button);
@@ -310,6 +328,9 @@ describe('Form', () => {
 
       form.append(button1);
       form.append(button2);
+
+      // Clear focused element to ensure clean state
+      screen.focused = null;
 
       // Call focusFirst
       form.focusFirst();

@@ -112,6 +112,8 @@ export function createMockScreen(options = {}) {
 
   screen.program = program;
   screen.tput = program.tput;
+  screen.type = 'screen'; // Needed for detached check
+  screen.detached = false; // Screen is never detached
 
   screen.width = options.width || program.cols || 80;
   screen.height = options.height || program.rows || 24;
@@ -206,7 +208,24 @@ export function createMockScreen(options = {}) {
   screen.append = vi.fn(function(element) {
     element.parent = this;
     element.screen = this;
+    element.detached = false; // Mark element as attached
     this.children.push(element);
+
+    // Add focus() method to elements if they don't have one
+    if (!element.focus) {
+      element.focus = function() {
+        this.screen.focused = this;
+      };
+    }
+
+    // Recursively mark all descendants as attached
+    function markAttached(el) {
+      el.detached = false;
+      if (el.children) {
+        el.children.forEach(markAttached);
+      }
+    }
+    markAttached(element);
     return element;
   });
 
