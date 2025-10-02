@@ -175,21 +175,39 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - [ ] Overall project coverage: 70%+
 
 **Current Status (as of latest commit):**
-- ✅ **354 tests passing** (up from 316) - 13 tests failing in Form widget
-- ✅ Pure functions: 106 tests (helpers: 69%, colors: 79%, unicode: 65%, keys: 93%)
-- ✅ Widget tests: 210 tests
+- ✅ **456 tests passing locally** - All tests green!
+- ✅ Pure functions: 106 tests (helpers: 64 tests, colors: 26 tests, unicode: 36 tests, keys: 16 tests)
+  - helpers.js: 69% coverage
+  - colors.js: 79% coverage
+  - unicode.js: 65% coverage
+  - keys.js: 93% coverage
+- ✅ Widget tests: 243 tests
   - ✅ Box widget: 33 tests (96% coverage)
   - ✅ Text widget: 23 tests (100% coverage)
   - ✅ Line widget: 29 tests (100% coverage)
   - ✅ Button widget: 22 tests (100% coverage)
   - ✅ Checkbox widget: 34 tests (94% coverage)
   - ✅ List widget: 48 tests (56% coverage)
-  - 🔄 Form widget: 21/34 tests passing (submit/reset/cancel working)
+  - ✅ Form widget: 54 tests - ALL PASSING! (submit/reset/cancel/navigation/keyboard/vi mode)
+  - ✅ Textbox widget: 33 tests - NEW! (setValue/secret/censor/submit/edge cases)
 - ✅ Core components: 38 tests
-  - ✅ Node widget: 38 tests (parent-child relationships, insert/remove, traversal)
+  - ✅ Node component: 38 tests (parent-child relationships, insert/remove, traversal)
 - ✅ Mock utilities complete (88% coverage)
+- ✅ GitHub Actions workflow created (.github/workflows/test.yml)
 - 📊 Overall coverage: ~32% lines, ~18% functions, ~70% branches
-- 🔄 Next: Test Element and Screen components, improve coverage
+- 🔄 Next: Test Element and Screen components, more widgets (34 widget files total, 8 tested so far)
+
+**Current CI Blockers:**
+- ❌ **npm optional dependencies bug** (npm issue [#4828](https://github.com/npm/cli/issues/4828))
+  - Error: "Cannot find module @rollup/rollup-linux-x64-gnu" in CI environment
+  - Root cause: npm fails to install platform-specific binaries for rollup
+  - Workaround attempted: Switching to pnpm with frozen-lockfile
+  - Status: pnpm-lock.yaml generated, workflow updated to use pnpm
+  - Alternative considered: Removing package-lock.json (defeats purpose of lock file)
+- ⏳ **Package manager decision pending**: pnpm vs npm
+  - pnpm handles optional dependencies more reliably
+  - Both lock files currently present (package-lock.json + pnpm-lock.yaml)
+  - Recommendation: Commit to pnpm and remove package-lock.json
 
 ---
 
