@@ -89,6 +89,11 @@ export function createMockProgram(options = {}) {
   program.fg = vi.fn();
   program.bg = vi.fn();
 
+  // Mock cursor methods
+  program.cup = vi.fn();
+  program.lsaveCursor = vi.fn();
+  program.lrestoreCursor = vi.fn();
+
   // Mock terminal capabilities
   program.enableMouse = vi.fn();
   program.disableMouse = vi.fn();
@@ -163,6 +168,22 @@ export function createMockScreen(options = {}) {
   screen.hover = null;
   screen.history = [];
   screen.cleanSides = vi.fn();
+
+  // Mock _getPos for positioning calculations
+  screen._getPos = vi.fn(function() {
+    return {
+      xi: this.left || 0,
+      xl: this.width,
+      yi: this.top || 0,
+      yl: this.height,
+      aleft: this.left || 0,
+      aright: 0,
+      atop: this.top || 0,
+      abottom: 0,
+      width: this.width,
+      height: this.height
+    };
+  });
 
   // Screen buffer
   screen.lines = [];
