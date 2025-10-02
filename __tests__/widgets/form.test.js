@@ -110,6 +110,11 @@ describe('Form', () => {
   });
 
   describe('next()', () => {
+    // NOTE: screen.focused = null is used in these tests to simulate a "clean slate"
+    // scenario where no elements are pre-focused. In real usage, Node.prototype.insert()
+    // automatically focuses the first appended element. See "real-world scenarios" tests
+    // for behavior with pre-focused elements.
+
     it('should return first child when nothing selected', () => {
       const form = new Form({ screen });
       screen.append(form);
@@ -517,12 +522,340 @@ describe('Form', () => {
     });
   });
 
+  describe('edge cases', () => {
+    it('should handle form with no children', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const next = form.next();
+      const prev = form.previous();
+
+      expect(next).toBeUndefined();
+      expect(prev).toBeUndefined();
+    });
+
+    it('should handle form with no keyable children', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      // Add non-keyable elements
+      const box1 = new Button({ screen });
+      const box2 = new Button({ screen });
+      // Don't set keyable to true
+
+      form.append(box1);
+      form.append(box2);
+
+      const next = form.next();
+      const prev = form.previous();
+
+      expect(next).toBeUndefined();
+      expect(prev).toBeUndefined();
+    });
+
+    it('should handle form with single child', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button = createKeyableButton(screen);
+      form.append(button);
+
+      screen.focused = null;
+
+      const next = form.next();
+      expect(next).toBe(button);
+
+      // Calling next again should wrap to same button
+      const nextAgain = form.next();
+      expect(nextAgain).toBe(button);
+    });
+
+    it('should handle all children invisible', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      button1.hide();
+      button2.hide();
+
+      screen.focused = null;
+
+      const next = form.next();
+      const prev = form.previous();
+
+      expect(next).toBeUndefined();
+      expect(prev).toBeUndefined();
+    });
+
+    it('should handle invisible first child', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      button1.hide();
+
+      screen.focused = null;
+
+      const next = form.next();
+      expect(next).toBe(button2);
+    });
+
+    it('should handle invisible last child', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      button2.hide();
+
+      const prev = form.previous();
+      expect(prev).toBe(button1);
+    });
+  });
+
+  describe('_visible()', () => {
+    it('should return true when there are visible children', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button = createKeyableButton(screen);
+      form.append(button);
+
+      form._refresh();
+      const hasVisible = form._visible();
+
+      expect(hasVisible).toBe(true);
+    });
+
+    it('should return false when all children are hidden', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      button1.hide();
+      button2.hide();
+
+      form._refresh();
+      const hasVisible = form._visible();
+
+      expect(hasVisible).toBe(false);
+    });
+
+    it('should return false when no children', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      form._refresh();
+      const hasVisible = form._visible();
+
+      expect(hasVisible).toBe(false);
+    });
+  });
+
+  describe('focus verification', () => {
+    it('should actually call focus() on element', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      button1.focus = vi.fn();
+      button2.focus = vi.fn();
+
+      screen.focused = null;
+
+      form.focusNext();
+
+      expect(button1.focus).toHaveBeenCalled();
+    });
+
+    it('should update screen.focused', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button = createKeyableButton(screen);
+      form.append(button);
+
+      screen.focused = null;
+
+      form.focusNext();
+
+      expect(screen.focused).toBe(button);
+    });
+  });
+
+  describe('real-world scenarios', () => {
+    // NOTE: These tests document the actual behavior when elements are
+    // auto-focused by Node.prototype.insert(). In real usage, the first
+    // appended element becomes focused automatically.
+
+    it('should skip already-focused element and move to next', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      // When we append, button1 becomes auto-focused by Node.insert()
+      form.append(button1);
+      form.append(button2);
+
+      // At this point, screen.focused === button1
+      expect(screen.focused).toBe(button1);
+
+      // Calling next() when button1 is already focused should move to button2
+      const next = form.next();
+
+      // The form sees button1 is already focused, so continues to button2
+      expect(next).toBe(button2);
+    });
+
+    it('should work correctly with pre-focused elements', () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+      const button3 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+      form.append(button3);
+
+      // Manually focus button2
+      button2.focus();
+      expect(screen.focused).toBe(button2);
+
+      // Reset form state
+      form.resetSelected();
+
+      // Now call next() - it should select button1 since button2 is focused
+      const next = form.next();
+      expect(next).toBe(button1);
+    });
+  });
+
   describe('keyboard navigation', () => {
     it('should setup keyboard listener when keys option is true', () => {
       const form = new Form({ screen, keys: true });
 
       // Just verify the form was created with keys option
       expect(form.options.keys).toBe(true);
+    });
+
+    it('should navigate forward with Tab key', () => {
+      const form = new Form({ screen, keys: true });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      screen.focused = null;
+      form.focusFirst();
+
+      // Simulate Tab key
+      form.emit('element keypress', button1, '\t', { name: 'tab', shift: false });
+
+      expect(form._selected).toBe(button2);
+    });
+
+    it('should navigate backward with Shift+Tab key', () => {
+      const form = new Form({ screen, keys: true });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      form.focusLast();
+
+      // Simulate Shift+Tab key
+      form.emit('element keypress', button2, '\t', { name: 'tab', shift: true });
+
+      expect(form._selected).toBe(button1);
+    });
+
+    it('should navigate forward with Down arrow key', () => {
+      const form = new Form({ screen, keys: true });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      screen.focused = null;
+      form.focusFirst();
+
+      // Simulate Down arrow
+      form.emit('element keypress', button1, '', { name: 'down' });
+
+      expect(form._selected).toBe(button2);
+    });
+
+    it('should navigate backward with Up arrow key', () => {
+      const form = new Form({ screen, keys: true });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      form.focusLast();
+
+      // Simulate Up arrow
+      form.emit('element keypress', button2, '', { name: 'up' });
+
+      expect(form._selected).toBe(button1);
+    });
+
+    it('should focus form on Escape key', () => {
+      const form = new Form({ screen, keys: true });
+      screen.append(form);
+
+      const button = createKeyableButton(screen);
+      form.append(button);
+
+      button.focus();
+      expect(screen.focused).toBe(button);
+
+      form.focus = vi.fn();
+
+      // Simulate Escape key
+      form.emit('element keypress', button, '\x1b', { name: 'escape' });
+
+      expect(form.focus).toHaveBeenCalled();
     });
   });
 
@@ -532,6 +865,43 @@ describe('Form', () => {
 
       // Just verify the form was created with vi option
       expect(form.options.vi).toBe(true);
+    });
+
+    it('should navigate forward with j key in vi mode', () => {
+      const form = new Form({ screen, keys: true, vi: true });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      screen.focused = null;
+      form.focusFirst();
+
+      // Simulate 'j' key
+      form.emit('element keypress', button1, 'j', { name: 'j' });
+
+      expect(form._selected).toBe(button2);
+    });
+
+    it('should navigate backward with k key in vi mode', () => {
+      const form = new Form({ screen, keys: true, vi: true });
+      screen.append(form);
+
+      const button1 = createKeyableButton(screen);
+      const button2 = createKeyableButton(screen);
+
+      form.append(button1);
+      form.append(button2);
+
+      form.focusLast();
+
+      // Simulate 'k' key
+      form.emit('element keypress', button2, 'k', { name: 'k' });
+
+      expect(form._selected).toBe(button1);
     });
   });
 
