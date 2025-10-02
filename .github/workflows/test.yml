@@ -18,11 +18,11 @@ jobs:
       with:
         node-version: 22.x
 
-    - name: Clean npm cache
-      run: npm cache clean --force
+    - name: Remove package-lock.json
+      run: rm -f package-lock.json
 
     - name: Install dependencies
-      run: npm install --prefer-offline --no-audit
+      run: npm install
 
     - name: Run tests
       run: npx vitest run
