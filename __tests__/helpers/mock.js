@@ -91,6 +91,10 @@ export function createMockProgram(options = {}) {
 
   // Mock cursor methods
   program.cup = vi.fn();
+  program.cuf = vi.fn(); // Cursor forward
+  program.cub = vi.fn(); // Cursor backward
+  program.cud = vi.fn(); // Cursor down
+  program.cuu = vi.fn(); // Cursor up
   program.lsaveCursor = vi.fn();
   program.lrestoreCursor = vi.fn();
 
