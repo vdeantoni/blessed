@@ -1,5 +1,8 @@
 # blessed
 
+> [!WARNING]
+> This is a fork of the original `blessed` library and is currently undergoing a major modernization effort. The API may change, and features are actively being developed. For more details on the modernization plan, please see the [Agent Instructions for `blessed` Modernization](AGENTS.md).
+
 A curses-like library with a high level terminal interface API for node.js.
 
 ![blessed](https://raw.githubusercontent.com/chjj/blessed/master/img/v0.1.0-3.gif)
