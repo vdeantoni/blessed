@@ -175,18 +175,19 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - [ ] Overall project coverage: 70%+
 
 **Current Status (as of latest commit):**
-- ✅ **295 tests passing** (up from 139)
+- ✅ **316 tests passing** (up from 295) - 13 tests failing in Form widget
 - ✅ Pure functions: 106 tests (helpers: 69%, colors: 79%, unicode: 65%, keys: 93%)
-- ✅ Widget tests: 189 tests
+- ✅ Widget tests: 210 tests
   - ✅ Box widget: 33 tests (96% coverage)
   - ✅ Text widget: 23 tests (100% coverage)
   - ✅ Line widget: 29 tests (100% coverage)
   - ✅ Button widget: 22 tests (100% coverage)
   - ✅ Checkbox widget: 34 tests (94% coverage)
   - ✅ List widget: 48 tests (56% coverage)
+  - 🔄 Form widget: 21/34 tests passing (submit/reset/cancel working)
 - ✅ Mock utilities complete (88% coverage)
-- 📊 Overall coverage: 29.38% lines, 16.66% functions, 69.35% branches
-- 🔄 Next: Form widget, core components (Node, Element, Screen)
+- 📊 Overall coverage: ~30% lines, ~17% functions, ~69% branches
+- 🔄 Next: Fix Form widget visibility issues, test core components
 
 ---
 
