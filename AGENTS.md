@@ -175,27 +175,32 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - [ ] Overall project coverage: 70%+
 
 **Current Status (as of latest commit):**
-- ✅ **456 tests passing locally** - All tests green!
+- ✅ **639 tests passing locally** - All tests green!
 - ✅ Pure functions: 106 tests (helpers: 64 tests, colors: 26 tests, unicode: 36 tests, keys: 16 tests)
   - helpers.js: 69% coverage
   - colors.js: 79% coverage
   - unicode.js: 65% coverage
   - keys.js: 93% coverage
-- ✅ Widget tests: 243 tests
+- ✅ Widget tests: 395 tests
   - ✅ Box widget: 33 tests (96% coverage)
   - ✅ Text widget: 23 tests (100% coverage)
   - ✅ Line widget: 29 tests (100% coverage)
   - ✅ Button widget: 22 tests (100% coverage)
   - ✅ Checkbox widget: 34 tests (94% coverage)
   - ✅ List widget: 48 tests (56% coverage)
-  - ✅ Form widget: 54 tests - ALL PASSING! (submit/reset/cancel/navigation/keyboard/vi mode)
-  - ✅ Textbox widget: 33 tests - NEW! (setValue/secret/censor/submit/edge cases)
+  - ✅ Form widget: 54 tests (submit/reset/cancel/navigation/keyboard/vi mode)
+  - ✅ Textbox widget: 33 tests (setValue/secret/censor/submit/edge cases)
+  - ✅ Textarea widget: 64 tests - NEW! (comprehensive tests)
+  - ✅ RadioButton widget: 26 tests - NEW! (check/uncheck/events)
+  - ✅ RadioSet widget: 14 tests - NEW! (container functionality)
+  - ✅ Progressbar widget: 39 tests - NEW! (progress/reset/keyboard/mouse/orientation)
+  - ✅ Scrollablebox widget: 40 tests - NEW! (scroll/scrollTo/keyboard/mouse/vi mode)
 - ✅ Core components: 38 tests
   - ✅ Node component: 38 tests (parent-child relationships, insert/remove, traversal)
 - ✅ Mock utilities complete (88% coverage)
 - ✅ GitHub Actions workflow created (.github/workflows/test.yml)
 - 📊 Overall coverage: ~32% lines, ~18% functions, ~70% branches
-- 🔄 Next: Test Element and Screen components, more widgets (34 widget files total, 8 tested so far)
+- 🔄 Next: Test Element and Screen components, more widgets (34 widget files total, 13 tested so far)
 
 **Current CI Blockers:**
 - ❌ **npm optional dependencies bug** (npm issue [#4828](https://github.com/npm/cli/issues/4828))
