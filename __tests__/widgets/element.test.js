@@ -1033,4 +1033,416 @@ describe('Element', () => {
       expect(el.border.type).toBe('line');
     });
   });
+
+  describe('Line manipulation methods', () => {
+    it('should have insertLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.insertLine).toBe('function');
+    });
+
+    it('should have deleteLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.deleteLine).toBe('function');
+    });
+
+    it('should have insertTop method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.insertTop).toBe('function');
+    });
+
+    it('should have insertBottom method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.insertBottom).toBe('function');
+    });
+
+    it('should have deleteTop method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.deleteTop).toBe('function');
+    });
+
+    it('should have deleteBottom method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.deleteBottom).toBe('function');
+    });
+
+    it('should have setLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.setLine).toBe('function');
+    });
+
+    it('should have getLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.getLine).toBe('function');
+    });
+
+    it('should have clearLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.clearLine).toBe('function');
+    });
+
+    it('should have unshiftLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.unshiftLine).toBe('function');
+    });
+
+    it('should have shiftLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.shiftLine).toBe('function');
+    });
+
+    it('should have pushLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.pushLine).toBe('function');
+    });
+
+    it('should have popLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.popLine).toBe('function');
+    });
+
+    it('should have getLines method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.getLines).toBe('function');
+    });
+
+    it('should have getScreenLines method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.getScreenLines).toBe('function');
+    });
+
+    it('should have setBaseLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.setBaseLine).toBe('function');
+    });
+
+    it('should have getBaseLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.getBaseLine).toBe('function');
+    });
+
+    it('should have clearBaseLine method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.clearBaseLine).toBe('function');
+    });
+  });
+
+  describe('Label methods', () => {
+    it('should setLabel with string', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        border: { type: 'line' }
+      });
+
+      screen.append(el);
+      el.setLabel('Test Label');
+
+      expect(el._label).toBeDefined();
+    });
+
+    it('should setLabel with options', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        border: { type: 'line' }
+      });
+
+      screen.append(el);
+      el.setLabel({ text: 'Test', side: 'right' });
+
+      expect(el._label).toBeDefined();
+    });
+
+    it('should removeLabel', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        border: { type: 'line' }
+      });
+
+      screen.append(el);
+      el.setLabel('Test Label');
+      el.removeLabel();
+
+      expect(el._label).toBeUndefined();
+    });
+  });
+
+  describe('Index/Z-order methods', () => {
+    it('should setIndex to change z-order', () => {
+      const parent = new Element({ screen, width: 100, height: 100 });
+      const child1 = new Element({ screen, width: 10, height: 10 });
+      const child2 = new Element({ screen, width: 10, height: 10 });
+      const child3 = new Element({ screen, width: 10, height: 10 });
+
+      screen.append(parent);
+      parent.append(child1);
+      parent.append(child2);
+      parent.append(child3);
+
+      child1.setIndex(2);
+
+      expect(parent.children.indexOf(child1)).toBe(2);
+    });
+
+    it('should setFront to move to front', () => {
+      const parent = new Element({ screen, width: 100, height: 100 });
+      const child1 = new Element({ screen, width: 10, height: 10 });
+      const child2 = new Element({ screen, width: 10, height: 10 });
+
+      screen.append(parent);
+      parent.append(child1);
+      parent.append(child2);
+
+      child1.setFront();
+
+      expect(parent.children.indexOf(child1)).toBe(parent.children.length - 1);
+    });
+
+    it('should setBack to move to back', () => {
+      const parent = new Element({ screen, width: 100, height: 100 });
+      const child1 = new Element({ screen, width: 10, height: 10 });
+      const child2 = new Element({ screen, width: 10, height: 10 });
+
+      screen.append(parent);
+      parent.append(child1);
+      parent.append(child2);
+
+      child2.setBack();
+
+      expect(parent.children.indexOf(child2)).toBe(0);
+    });
+  });
+
+  describe('Input handling', () => {
+    it('should have enableKeys method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.enableKeys).toBe('function');
+    });
+
+    it('should have enableMouse method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.enableMouse).toBe('function');
+    });
+
+    it('should have enableInput method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.enableInput).toBe('function');
+    });
+
+    it('should have key method for key binding', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.key).toBe('function');
+    });
+
+    it('should have onceKey for one-time key binding', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.onceKey).toBe('function');
+    });
+
+    it('should have unkey to remove key binding', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.unkey).toBe('function');
+      expect(typeof el.removeKey).toBe('function');
+    });
+  });
+
+  describe('Screen event helpers', () => {
+    it('should have onScreenEvent method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.onScreenEvent).toBe('function');
+    });
+
+    it('should have onceScreenEvent method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.onceScreenEvent).toBe('function');
+    });
+
+    it('should have removeScreenEvent method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.removeScreenEvent).toBe('function');
+    });
+  });
+
+  describe('Utility methods', () => {
+    it('should have strWidth method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.strWidth).toBe('function');
+      const width = el.strWidth('Hello');
+      expect(typeof width).toBe('number');
+    });
+
+    it('should have clearPos method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.clearPos).toBe('function');
+    });
+
+    it('should have free method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.free).toBe('function');
+    });
+
+    it('should have screenshot method', () => {
+      const el = new Element({ screen, width: 20, height: 10 });
+      expect(typeof el.screenshot).toBe('function');
+    });
+  });
+
+  describe('Visibility getters', () => {
+    it('should have visible getter', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10
+      });
+
+      screen.append(el);
+
+      expect(typeof el.visible).toBe('boolean');
+    });
+
+    it('should have _detached getter', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10
+      });
+
+      expect(typeof el._detached).toBe('boolean');
+      expect(el._detached).toBe(true);
+
+      screen.append(el);
+      expect(el._detached).toBe(false);
+    });
+
+    it('should have focused getter', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10
+      });
+
+      screen.append(el);
+
+      expect(typeof el.focused).toBe('boolean');
+    });
+  });
+
+  describe('Alignment', () => {
+    it('should support left alignment', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        align: 'left',
+        content: 'Test'
+      });
+
+      screen.append(el);
+
+      expect(el.align).toBe('left');
+    });
+
+    it('should support center alignment', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        align: 'center',
+        content: 'Test'
+      });
+
+      screen.append(el);
+
+      expect(el.align).toBe('center');
+    });
+
+    it('should support right alignment', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        align: 'right',
+        content: 'Test'
+      });
+
+      screen.append(el);
+
+      expect(el.align).toBe('right');
+    });
+
+    it('should support top valign', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        valign: 'top',
+        content: 'Test'
+      });
+
+      screen.append(el);
+
+      expect(el.valign).toBe('top');
+    });
+
+    it('should support middle valign', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        valign: 'middle',
+        content: 'Test'
+      });
+
+      screen.append(el);
+
+      expect(el.valign).toBe('middle');
+    });
+
+    it('should support bottom valign', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        valign: 'bottom',
+        content: 'Test'
+      });
+
+      screen.append(el);
+
+      expect(el.valign).toBe('bottom');
+    });
+  });
+
+  describe('Content wrapping', () => {
+    it('should wrap content by default', () => {
+      const el = new Element({
+        screen,
+        width: 10,
+        height: 5,
+        content: 'This is a long line that should wrap'
+      });
+
+      screen.append(el);
+
+      expect(el.wrap).toBe(true);
+    });
+
+    it('should support wrap: false', () => {
+      const el = new Element({
+        screen,
+        width: 10,
+        height: 5,
+        wrap: false,
+        content: 'This is a long line that should not wrap'
+      });
+
+      screen.append(el);
+
+      expect(el.wrap).toBe(false);
+    });
+  });
 });
