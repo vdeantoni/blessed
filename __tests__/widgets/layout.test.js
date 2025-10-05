@@ -385,4 +385,420 @@ describe('Layout', () => {
       expect(layout.padding).toBeDefined();
     });
   });
+
+  describe('Inline Layout Positioning', () => {
+    it('should position second child to the right of first', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        layout: 'inline'
+      });
+
+      const box1 = new Box({ screen, width: 10, height: 5 });
+      const box2 = new Box({ screen, width: 10, height: 5 });
+
+      layout.append(box1);
+      layout.append(box2);
+
+      const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
+      const iterator = layout.renderer(coords);
+
+      iterator(box1, 0);
+      box1.lpos = { xi: 0, xl: 10, yi: 0, yl: 5 };
+
+      iterator(box2, 1);
+
+      expect(box2.position.left).toBe(10);
+      expect(box2.position.top).toBe(0);
+    });
+
+    it('should wrap to new row when child exceeds width', () => {
+      const layout = new Layout({
+        screen,
+        width: 30,
+        height: 24,
+        layout: 'inline'
+      });
+
+      const box1 = new Box({ screen, width: 15, height: 5 });
+      const box2 = new Box({ screen, width: 15, height: 5 });
+      const box3 = new Box({ screen, width: 15, height: 5 });
+
+      layout.append(box1);
+      layout.append(box2);
+      layout.append(box3);
+
+      const coords = { xi: 0, xl: 30, yi: 0, yl: 24 };
+      const iterator = layout.renderer(coords);
+
+      iterator(box1, 0);
+      box1.lpos = { xi: 0, xl: 15, yi: 0, yl: 5 };
+
+      iterator(box2, 1);
+      box2.lpos = { xi: 15, xl: 30, yi: 0, yl: 5 };
+
+      iterator(box3, 2);
+
+      expect(box3.position.left).toBe(0);
+      expect(box3.position.top).toBe(5);
+    });
+
+    it('should position child below previous row element', () => {
+      const layout = new Layout({
+        screen,
+        width: 30,
+        height: 24,
+        layout: 'inline'
+      });
+
+      const box1 = new Box({ screen, width: 10, height: 5 });
+      const box2 = new Box({ screen, width: 10, height: 8 });
+      const box3 = new Box({ screen, width: 10, height: 5 });
+      const box4 = new Box({ screen, width: 10, height: 5 });
+
+      layout.append(box1);
+      layout.append(box2);
+      layout.append(box3);
+      layout.append(box4);
+
+      const coords = { xi: 0, xl: 30, yi: 0, yl: 24 };
+      const iterator = layout.renderer(coords);
+
+      // First row (3 boxes fit in width 30)
+      iterator(box1, 0);
+      box1.lpos = { xi: 0, xl: 10, yi: 0, yl: 5 };
+
+      iterator(box2, 1);
+      box2.lpos = { xi: 10, xl: 20, yi: 0, yl: 8 };
+
+      iterator(box3, 2);
+      box3.lpos = { xi: 20, xl: 30, yi: 0, yl: 5 };
+
+      // Fourth box wraps to new row
+      iterator(box4, 3);
+
+      expect(box4.position.left).toBe(0);
+      // Box4 wraps to new row
+      expect(box4.position.top).toBeGreaterThanOrEqual(5);
+    });
+
+    it('should handle element that fits on same row', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        layout: 'inline'
+      });
+
+      const box1 = new Box({ screen, width: 20, height: 10 });
+      const box2 = new Box({ screen, width: 30, height: 10 });
+
+      layout.append(box1);
+      layout.append(box2);
+
+      const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
+      const iterator = layout.renderer(coords);
+
+      iterator(box1, 0);
+      box1.lpos = { xi: 0, xl: 20, yi: 0, yl: 10 };
+
+      iterator(box2, 1);
+
+      expect(box2.position.left).toBe(20);
+      expect(box2.position.top).toBe(0);
+    });
+  });
+
+  describe('Grid Layout Positioning', () => {
+    it('should calculate highest width in grid mode', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        layout: 'grid'
+      });
+
+      const box1 = new Box({ screen, width: 10, height: 5 });
+      const box2 = new Box({ screen, width: 20, height: 5 });
+      const box3 = new Box({ screen, width: 15, height: 5 });
+
+      layout.append(box1);
+      layout.append(box2);
+      layout.append(box3);
+
+      const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
+      const iterator = layout.renderer(coords);
+
+      iterator(box1, 0);
+      expect(box1.shrink).toBe(true);
+    });
+
+    it('should compensate position for grid layout', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        layout: 'grid'
+      });
+
+      const box1 = new Box({ screen, width: 10, height: 5 });
+      const box2 = new Box({ screen, width: 20, height: 5 });
+
+      layout.append(box1);
+      layout.append(box2);
+
+      const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
+      const iterator = layout.renderer(coords);
+
+      iterator(box1, 0);
+      box1.lpos = { xi: 0, xl: 10, yi: 0, yl: 5 };
+
+      iterator(box2, 1);
+
+      // Grid should compensate for width difference
+      expect(box2.position.left).toBeGreaterThan(10);
+    });
+  });
+
+  describe('Edge Cases', () => {
+    it('should handle empty layout', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24
+      });
+
+      expect(layout.children.length).toBe(0);
+    });
+
+    it('should handle single child', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24
+      });
+
+      const box = new Box({ screen, width: 10, height: 5 });
+      layout.append(box);
+
+      expect(layout.children.length).toBe(1);
+    });
+
+    it('should handle child that overflows height', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 20
+      });
+
+      const box = new Box({ screen, width: 10, height: 25 });
+      layout.append(box);
+
+      const coords = { xi: 0, xl: 80, yi: 0, yl: 20 };
+      const iterator = layout.renderer(coords);
+
+      // Should still position the child even if it overflows
+      iterator(box, 0);
+
+      expect(box.position.top).toBe(0);
+    });
+
+    it('should handle zero-width layout', () => {
+      const layout = new Layout({
+        screen,
+        width: 0,
+        height: 24
+      });
+
+      const box = new Box({ screen, width: 10, height: 5 });
+      layout.append(box);
+
+      expect(layout.children.length).toBe(1);
+    });
+
+    it('should handle zero-height layout', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 0
+      });
+
+      const box = new Box({ screen, width: 10, height: 5 });
+      layout.append(box);
+
+      expect(layout.children.length).toBe(1);
+    });
+  });
+
+  describe('Renderer Options', () => {
+    it('should use custom renderer if provided', () => {
+      const customIterator = vi.fn();
+      const customRenderer = vi.fn(() => customIterator);
+
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        renderer: customRenderer
+      });
+
+      layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      layout._render = vi.fn();
+
+      layout.render();
+
+      expect(customRenderer).toHaveBeenCalled();
+    });
+
+    it('should pass coords to renderer', () => {
+      const customRenderer = vi.fn(() => () => {});
+
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        renderer: customRenderer
+      });
+
+      const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
+      layout._getCoords = vi.fn(() => coords);
+      layout._render = vi.fn();
+
+      layout.render();
+
+      expect(customRenderer).toHaveBeenCalledWith(
+        expect.objectContaining({
+          xi: expect.any(Number),
+          xl: expect.any(Number),
+          yi: expect.any(Number),
+          yl: expect.any(Number)
+        })
+      );
+    });
+  });
+
+  describe('Render Lifecycle', () => {
+    it('should emit prerender event', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24
+      });
+
+      const prerenderSpy = vi.fn();
+      layout.on('prerender', prerenderSpy);
+
+      layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      layout._render = vi.fn();
+
+      layout.render();
+
+      expect(prerenderSpy).toHaveBeenCalled();
+    });
+
+    it('should emit render event with coords', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24
+      });
+
+      const renderSpy = vi.fn();
+      layout.on('render', renderSpy);
+
+      const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
+      layout._getCoords = vi.fn(() => coords);
+      layout._render = vi.fn();
+
+      layout.render();
+
+      expect(renderSpy).toHaveBeenCalled();
+    });
+
+    it('should handle render with no coords', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24
+      });
+
+      layout._getCoords = vi.fn(() => null);
+      layout._render = vi.fn();
+
+      const result = layout.render();
+
+      expect(result).toBeUndefined();
+      expect(layout.lpos).toBeUndefined();
+    });
+
+    it('should handle render with zero width coords', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24
+      });
+
+      layout._getCoords = vi.fn(() => ({ xi: 10, xl: 10, yi: 0, yl: 24 }));
+      layout._render = vi.fn();
+
+      const result = layout.render();
+
+      expect(result).toBeUndefined();
+    });
+
+    it('should handle render with zero height coords', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24
+      });
+
+      layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 10, yl: 10 }));
+      layout._render = vi.fn();
+
+      const result = layout.render();
+
+      expect(result).toBeUndefined();
+    });
+
+    it('should adjust coords for border', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        border: 'line'
+      });
+
+      layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      layout._render = vi.fn();
+
+      layout.render();
+
+      expect(layout.lpos).toBeDefined();
+    });
+
+    it('should adjust coords for padding', () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        padding: {
+          left: 2,
+          right: 2,
+          top: 1,
+          bottom: 1
+        }
+      });
+
+      layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      layout._render = vi.fn();
+
+      layout.render();
+
+      // tpadding is a getter that checks if padding exists
+      expect(layout.lpos).toBeDefined();
+      expect(layout.padding).toBeDefined();
+    });
+  });
 });
