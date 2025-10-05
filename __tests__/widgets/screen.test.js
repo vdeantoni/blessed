@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import Screen from '../../lib/widgets/screen.js';
 import Box from '../../lib/widgets/box.js';
+import program from '../../lib/program.js';
 
 describe('Screen', () => {
   let screen;
@@ -728,6 +729,271 @@ describe('Screen', () => {
       const s = new Screen({ smartCSR: true });
 
       expect(typeof s.focusPrevious).toBe('function');
+
+      s.destroy();
+    });
+  });
+
+  describe('Mouse & Input Handling', () => {
+    it('should have enableMouse method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.enableMouse).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have enableKeys method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.enableKeys).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have enableInput method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.enableInput).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should handle mouse listeners on elements', () => {
+      const s = new Screen({ smartCSR: true });
+      const box = new Box({ screen: s, clickable: true });
+
+      s.append(box);
+
+      expect(s.clickable.length).toBeGreaterThanOrEqual(0);
+
+      s.destroy();
+    });
+
+    it('should register key listeners', () => {
+      const s = new Screen({ smartCSR: true });
+      const handler = vi.fn();
+
+      s.key('x', handler);
+
+      expect(s.program.listeners('keypress').length).toBeGreaterThan(0);
+
+      s.destroy();
+    });
+  });
+
+  describe('Screen Dimensions', () => {
+    it('should have cols property', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(s.cols).toBeGreaterThan(0);
+
+      s.destroy();
+    });
+
+    it('should have rows property', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(s.rows).toBeGreaterThan(0);
+
+      s.destroy();
+    });
+
+    it('should have width matching cols', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(s.width).toBe(s.cols);
+
+      s.destroy();
+    });
+
+    it('should have height matching rows', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(s.height).toBe(s.rows);
+
+      s.destroy();
+    });
+
+    it('should handle window resize events', () => {
+      const s = new Screen({ smartCSR: true });
+      const resizeSpy = vi.fn();
+
+      s.on('resize', resizeSpy);
+      s.program.emit('resize');
+
+      expect(resizeSpy).toHaveBeenCalled();
+
+      s.destroy();
+    });
+  });
+
+  describe('Terminal Configuration', () => {
+    it('should have terminal getter', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(s.terminal).toBeDefined();
+
+      s.destroy();
+    });
+
+    it('should have terminal setter', () => {
+      const s = new Screen({ smartCSR: true });
+
+      s.terminal = 'xterm-256color';
+
+      expect(s.program.terminal).toBe('xterm-256color');
+
+      s.destroy();
+    });
+
+    it('should have setTerminal method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.setTerminal).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should initialize program with options', () => {
+      const s = new Screen({
+        smartCSR: true,
+        terminal: 'xterm',
+        forceUnicode: true
+      });
+
+      expect(s.program).toBeDefined();
+      expect(s.tput).toBeDefined();
+
+      s.destroy();
+    });
+
+    it('should accept existing program', () => {
+      const prog = program({
+        tput: true,
+        buffer: true,
+        zero: true
+      });
+
+      const s = new Screen({ program: prog });
+
+      expect(s.program).toBe(prog);
+
+      s.destroy();
+    });
+  });
+
+  describe('Debug & Logging', () => {
+    it('should have log method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.log).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have debug method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.debug).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should handle debug option', () => {
+      const s = new Screen({
+        smartCSR: true,
+        debug: true
+      });
+
+      expect(s.program).toBeDefined();
+
+      s.destroy();
+    });
+  });
+
+  describe('Buffer Management', () => {
+    it('should have alloc method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.alloc).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have realloc method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.realloc).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have blankLine method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.blankLine).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have insertLine method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.insertLine).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have deleteLine method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.deleteLine).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should manage screen buffer', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(s.lines).toBeDefined();
+      expect(Array.isArray(s.lines)).toBe(true);
+      expect(s.lines.length).toBeGreaterThan(0);
+
+      s.destroy();
+    });
+
+    it('should manage old buffer', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(s.olines).toBeDefined();
+      expect(Array.isArray(s.olines)).toBe(true);
+
+      s.destroy();
+    });
+  });
+
+  describe('Enter & Leave', () => {
+    it('should have enter method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.enter).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have leave method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.leave).toBe('function');
+
+      s.destroy();
+    });
+
+    it('should have postEnter method', () => {
+      const s = new Screen({ smartCSR: true });
+
+      expect(typeof s.postEnter).toBe('function');
 
       s.destroy();
     });

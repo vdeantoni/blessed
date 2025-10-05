@@ -902,4 +902,316 @@ describe('Table', () => {
       expect(table.options.clickable).toBe(true);
     });
   });
+
+  describe('Border Rendering', () => {
+    it('should accept border configuration', () => {
+      const table = new Table({
+        screen,
+        top: 0,
+        left: 0,
+        width: 40,
+        border: { type: 'line' },
+        data: [
+          ['Name', 'Age'],
+          ['Alice', '30'],
+          ['Bob', '25']
+        ]
+      });
+
+      screen.append(table);
+
+      expect(table.border).toBeDefined();
+      expect(table.border.type).toBe('line');
+    });
+
+    it('should accept noCellBorders option', () => {
+      const table = new Table({
+        screen,
+        top: 0,
+        left: 0,
+        width: 40,
+        border: { type: 'line' },
+        noCellBorders: true,
+        data: [
+          ['Col1', 'Col2'],
+          ['A', 'B']
+        ]
+      });
+
+      screen.append(table);
+
+      expect(table.options.noCellBorders).toBe(true);
+    });
+
+    it('should accept fillCellBorders option', () => {
+      const table = new Table({
+        screen,
+        top: 0,
+        left: 0,
+        width: 50,
+        border: { type: 'line' },
+        fillCellBorders: true,
+        style: {
+          header: { bg: 'blue' },
+          cell: { bg: 'black' }
+        },
+        data: [
+          ['Header1', 'Header2', 'Header3'],
+          ['Cell1', 'Cell2', 'Cell3'],
+          ['Data1', 'Data2', 'Data3']
+        ]
+      });
+
+      screen.append(table);
+
+      expect(table.options.fillCellBorders).toBe(true);
+    });
+
+    it('should accept partial border configuration', () => {
+      const table = new Table({
+        screen,
+        top: 0,
+        left: 0,
+        width: 40,
+        border: {
+          type: 'line',
+          left: false,
+          right: true,
+          top: true,
+          bottom: true
+        },
+        data: [
+          ['A', 'B'],
+          ['1', '2']
+        ]
+      });
+
+      screen.append(table);
+
+      expect(table.border.left).toBe(false);
+      expect(table.border.right).toBe(true);
+      expect(table.border.top).toBe(true);
+      expect(table.border.bottom).toBe(true);
+    });
+
+    it('should handle tables with many rows', () => {
+      const table = new Table({
+        screen,
+        top: 0,
+        left: 0,
+        width: 60,
+        border: { type: 'line' },
+        data: [
+          ['ID', 'Name', 'Status'],
+          ['1', 'Alice', 'Active'],
+          ['2', 'Bob', 'Inactive'],
+          ['3', 'Charlie', 'Active'],
+          ['4', 'Diana', 'Active'],
+          ['5', 'Eve', 'Inactive']
+        ]
+      });
+
+      screen.append(table);
+
+      expect(table.rows.length).toBe(6);
+      expect(table.border).toBeDefined();
+    });
+
+    it('should work without borders', () => {
+      const table = new Table({
+        screen,
+        top: 0,
+        left: 0,
+        width: 40,
+        data: [
+          ['Name', 'Value'],
+          ['Test', '123']
+        ]
+      });
+
+      screen.append(table);
+
+      expect(table.border).toBeUndefined();
+    });
+
+    it('should have render method', () => {
+      const table = new Table({
+        screen,
+        data: [['A', 'B']]
+      });
+
+      expect(typeof table.render).toBe('function');
+    });
+
+    it('should calculate maxes before rendering', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['Col1', 'Col2'],
+          ['A', 'B']
+        ]
+      });
+
+      screen.append(table);
+      const maxes = table._calculateMaxes();
+
+      expect(maxes).toBeDefined();
+      expect(Array.isArray(maxes)).toBe(true);
+    });
+  });
+
+  describe('Content Alignment in Cells', () => {
+    it('should accept center alignment option', () => {
+      const table = new Table({
+        screen,
+        align: 'center',
+        data: [
+          ['Short', 'Longer Text'],
+          ['A', 'B']
+        ]
+      });
+
+      expect(table.align).toBe('center');
+    });
+
+    it('should accept left alignment option', () => {
+      const table = new Table({
+        screen,
+        align: 'left',
+        data: [
+          ['Col1', 'Col2'],
+          ['A', 'B']
+        ]
+      });
+
+      expect(table.align).toBe('left');
+    });
+
+    it('should accept right alignment option', () => {
+      const table = new Table({
+        screen,
+        align: 'right',
+        data: [
+          ['Col1', 'Col2'],
+          ['A', 'B']
+        ]
+      });
+
+      expect(table.align).toBe('right');
+    });
+
+    it('should accept cell padding with center alignment', () => {
+      const table = new Table({
+        screen,
+        align: 'center',
+        pad: 3,
+        data: [
+          ['A', 'B', 'C'],
+          ['1', '2', '3']
+        ]
+      });
+
+      expect(table.pad).toBe(3);
+      expect(table.align).toBe('center');
+    });
+
+    it('should support multiple columns for alignment', () => {
+      const table = new Table({
+        screen,
+        width: 30,
+        align: 'center',
+        data: [
+          ['X', 'Y', 'Z'],
+          ['A', 'B', 'C']
+        ]
+      });
+
+      screen.append(table);
+
+      expect(table.rows[0].length).toBe(3);
+      expect(table.align).toBe('center');
+    });
+
+    it('should maintain alignment setting through data updates', () => {
+      const table = new Table({
+        screen,
+        width: 30,
+        align: 'left',
+        data: [
+          ['X', 'Y'],
+          ['A', 'B']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.align).toBe('left');
+
+      table.rows = [['M', 'N'], ['1', '2']];
+      expect(table.align).toBe('left');
+    });
+
+    it('should handle wide tables with alignment', () => {
+      const table = new Table({
+        screen,
+        width: 80,
+        align: 'right',
+        data: [
+          ['Col1', 'Col2', 'Col3', 'Col4'],
+          ['A', 'B', 'C', 'D']
+        ]
+      });
+
+      screen.append(table);
+
+      expect(table.rows[0].length).toBe(4);
+      expect(table.align).toBe('right');
+    });
+
+    it('should calculate cell widths for alignment', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['Col1', 'Col2', 'Col3'],
+          ['A', 'B', 'C']
+        ]
+      });
+
+      screen.append(table);
+      const maxes = table._calculateMaxes();
+
+      expect(maxes).toBeDefined();
+      expect(Array.isArray(maxes)).toBe(true);
+      expect(maxes.length).toBe(3);
+    });
+
+    it('should handle alignment with padding', () => {
+      const table = new Table({
+        screen,
+        pad: 5,
+        align: 'center',
+        data: [
+          ['A', 'B'],
+          ['1', '2']
+        ]
+      });
+
+      expect(table.pad).toBe(5);
+      expect(table.align).toBe('center');
+    });
+
+    it('should store row data for content generation', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['Row1'],
+          ['Row2'],
+          ['Row3']
+        ]
+      });
+
+      expect(table.rows.length).toBe(3);
+      expect(table.rows[0][0]).toBe('Row1');
+      expect(table.rows[2][0]).toBe('Row3');
+    });
+  });
 });
