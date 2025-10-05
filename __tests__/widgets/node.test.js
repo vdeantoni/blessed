@@ -454,4 +454,393 @@ describe('Node', () => {
       expect(parent2.children).toContain(child);
     });
   });
+
+  describe('collectDescendants()', () => {
+    it('should collect all descendants', () => {
+      const parent = new Node({ screen });
+      const child1 = new Node({ screen });
+      const child2 = new Node({ screen });
+      const grandchild = new Node({ screen });
+
+      parent.append(child1);
+      parent.append(child2);
+      child1.append(grandchild);
+
+      const descendants = parent.collectDescendants();
+
+      expect(descendants).toContain(child1);
+      expect(descendants).toContain(child2);
+      expect(descendants).toContain(grandchild);
+      expect(descendants.length).toBe(3);
+    });
+
+    it('should include self when param is true', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+
+      parent.append(child);
+
+      const descendants = parent.collectDescendants(true);
+
+      expect(descendants).toContain(parent);
+      expect(descendants).toContain(child);
+      expect(descendants.length).toBe(2);
+    });
+  });
+
+  describe('collectAncestors()', () => {
+    it('should collect all ancestors', () => {
+      const grandparent = new Node({ screen });
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+
+      grandparent.append(parent);
+      parent.append(child);
+
+      const ancestors = child.collectAncestors();
+
+      expect(ancestors).toContain(parent);
+      expect(ancestors).toContain(grandparent);
+      expect(ancestors.length).toBe(2);
+    });
+
+    it('should include self when param is true', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+
+      parent.append(child);
+
+      const ancestors = child.collectAncestors(true);
+
+      expect(ancestors).toContain(child);
+      expect(ancestors).toContain(parent);
+      expect(ancestors.length).toBe(2);
+    });
+  });
+
+  describe('emitDescendants()', () => {
+    it('should have emitDescendants method', () => {
+      const node = new Node({ screen });
+
+      expect(typeof node.emitDescendants).toBe('function');
+    });
+  });
+
+  describe('emitAncestors()', () => {
+    it('should have emitAncestors method', () => {
+      const node = new Node({ screen });
+
+      expect(typeof node.emitAncestors).toBe('function');
+    });
+  });
+
+  describe('hasDescendant()', () => {
+    it('should return true for direct child', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+
+      parent.append(child);
+
+      expect(parent.hasDescendant(child)).toBe(true);
+    });
+
+    it('should return true for grandchild', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+      const grandchild = new Node({ screen });
+
+      parent.append(child);
+      child.append(grandchild);
+
+      expect(parent.hasDescendant(grandchild)).toBe(true);
+    });
+
+    it('should return false for non-descendant', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+      const other = new Node({ screen });
+
+      parent.append(child);
+
+      expect(parent.hasDescendant(other)).toBe(false);
+    });
+
+    it('should return false for self', () => {
+      const parent = new Node({ screen });
+
+      expect(parent.hasDescendant(parent)).toBe(false);
+    });
+  });
+
+  describe('hasAncestor()', () => {
+    it('should return true for direct parent', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+
+      parent.append(child);
+
+      expect(child.hasAncestor(parent)).toBe(true);
+    });
+
+    it('should return true for grandparent', () => {
+      const grandparent = new Node({ screen });
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+
+      grandparent.append(parent);
+      parent.append(child);
+
+      expect(child.hasAncestor(grandparent)).toBe(true);
+    });
+
+    it('should return false for non-ancestor', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+      const other = new Node({ screen });
+
+      parent.append(child);
+
+      expect(child.hasAncestor(other)).toBe(false);
+    });
+
+    it('should return false for self', () => {
+      const node = new Node({ screen });
+
+      expect(node.hasAncestor(node)).toBe(false);
+    });
+  });
+
+  describe('get() and set()', () => {
+    it('should set and get data', () => {
+      const node = new Node({ screen });
+
+      node.set('key', 'value');
+
+      expect(node.get('key')).toBe('value');
+    });
+
+    it('should return default value if key not found', () => {
+      const node = new Node({ screen });
+
+      expect(node.get('nonexistent', 'default')).toBe('default');
+    });
+
+    it('should return undefined if key not found and no default', () => {
+      const node = new Node({ screen });
+
+      expect(node.get('nonexistent')).toBeUndefined();
+    });
+
+    it('should store data in $ and data properties', () => {
+      const node = new Node({ screen });
+
+      node.set('key', 'value');
+
+      expect(node.$['key']).toBe('value');
+      expect(node.data['key']).toBe('value');
+      expect(node._['key']).toBe('value');
+    });
+  });
+
+  describe('free()', () => {
+    it('should have free method', () => {
+      const node = new Node({ screen });
+
+      expect(typeof node.free).toBe('function');
+    });
+
+    it('should be callable without error', () => {
+      const node = new Node({ screen });
+
+      expect(() => {
+        node.free();
+      }).not.toThrow();
+    });
+  });
+
+  describe('attach/detach events', () => {
+    it('should emit attach when attached to attached parent', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+      const spy = vi.fn();
+
+      // Parent must be attached first
+      screen.append(parent);
+      parent.detached = false;
+
+      child.on('attach', spy);
+      parent.append(child);
+
+      expect(spy).toHaveBeenCalled();
+      expect(child.detached).toBe(false);
+    });
+
+    it('should emit detach when removed from parent', () => {
+      const parent = createNode({ screen });
+      const child = createNode({ screen });
+      const spy = vi.fn();
+
+      // Attach both first
+      screen.append(parent);
+      parent.detached = false;
+      parent.append(child);
+
+      child.on('detach', spy);
+      parent.remove(child);
+
+      expect(spy).toHaveBeenCalled();
+      expect(child.detached).toBe(true);
+    });
+
+    it('should propagate attach to descendants', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+      const grandchild = new Node({ screen });
+
+      child.append(grandchild);
+
+      const childSpy = vi.fn();
+      const grandchildSpy = vi.fn();
+
+      child.on('attach', childSpy);
+      grandchild.on('attach', grandchildSpy);
+
+      // Parent must be attached
+      screen.append(parent);
+      parent.detached = false;
+      parent.append(child);
+
+      expect(childSpy).toHaveBeenCalled();
+      expect(grandchildSpy).toHaveBeenCalled();
+    });
+
+    it('should propagate detach to descendants', () => {
+      const parent = createNode({ screen });
+      const child = createNode({ screen });
+      const grandchild = createNode({ screen });
+
+      // Attach all first
+      screen.append(parent);
+      parent.detached = false;
+      parent.append(child);
+      child.append(grandchild);
+
+      const childSpy = vi.fn();
+      const grandchildSpy = vi.fn();
+
+      child.on('detach', childSpy);
+      grandchild.on('detach', grandchildSpy);
+
+      parent.remove(child);
+
+      expect(childSpy).toHaveBeenCalled();
+      expect(grandchildSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('screen reference', () => {
+    it('should inherit screen from parent', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ parent });
+
+      expect(child.screen).toBe(screen);
+    });
+
+    it('should set initial focused element', () => {
+      const parent = new Node({ screen });
+      const child = new Node({ screen });
+
+      screen.focused = null;
+      parent.append(child);
+
+      expect(screen.focused).toBe(child);
+    });
+
+    it('should not override existing focused element', () => {
+      const parent = new Node({ screen });
+      const child1 = new Node({ screen });
+      const child2 = new Node({ screen });
+
+      screen.focused = null;
+      parent.append(child1);
+      parent.append(child2);
+
+      expect(screen.focused).toBe(child1);
+    });
+  });
+
+  describe('index property', () => {
+    it('should default index to -1', () => {
+      const node = new Node({ screen });
+
+      expect(node.index).toBe(-1);
+    });
+
+    it('should preserve custom index if set', () => {
+      const node = new Node({ screen });
+      node.index = 5;
+
+      expect(node.index).toBe(5);
+    });
+  });
+
+  describe('options property', () => {
+    it('should store options', () => {
+      const options = { screen, custom: 'value' };
+      const node = new Node(options);
+
+      expect(node.options).toBe(options);
+      expect(node.options.custom).toBe('value');
+    });
+  });
+
+  describe('screen management', () => {
+    it('should remove from clickable array on remove', () => {
+      const parent = createNode({ screen });
+      const child = createNode({ screen });
+
+      screen.clickable = [child];
+      parent.append(child);
+      parent.remove(child);
+
+      expect(screen.clickable).not.toContain(child);
+    });
+
+    it('should remove from keyable array on remove', () => {
+      const parent = createNode({ screen });
+      const child = createNode({ screen });
+
+      screen.keyable = [child];
+      parent.append(child);
+      parent.remove(child);
+
+      expect(screen.keyable).not.toContain(child);
+    });
+
+    it('should rewind focus when removing focused element', () => {
+      const parent = createNode({ screen });
+      const child = createNode({ screen });
+
+      screen.rewindFocus = vi.fn();
+      parent.append(child);
+      screen.focused = child;
+
+      parent.remove(child);
+
+      expect(screen.rewindFocus).toHaveBeenCalled();
+    });
+  });
+
+  describe('error handling', () => {
+    it('should throw error when switching screens', () => {
+      const screen1 = createMockScreen();
+      const screen2 = createMockScreen();
+      const parent = new Node({ screen: screen1 });
+      const child = new Node({ screen: screen2 });
+
+      expect(() => {
+        parent.append(child);
+      }).toThrow("Cannot switch a node's screen.");
+    });
+  });
 });
