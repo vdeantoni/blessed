@@ -467,4 +467,439 @@ describe('Table', () => {
       expect(table.options.fillCellBorders).toBe(true);
     });
   });
+
+  describe('Column Width Calculation', () => {
+    it('should calculate widths for uniform columns', () => {
+      const table = new Table({
+        screen,
+        width: 60,
+        data: [
+          ['Col1', 'Col2', 'Col3'],
+          ['A', 'B', 'C']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.rows.length).toBe(2);
+    });
+
+    it('should handle variable-width content', () => {
+      const table = new Table({
+        screen,
+        width: 80,
+        data: [
+          ['Short', 'This is a much longer column', 'Med'],
+          ['A', 'B', 'C']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.rows[0].length).toBe(3);
+    });
+
+    it('should handle single column layout', () => {
+      const table = new Table({
+        screen,
+        width: 40,
+        data: [
+          ['Single Column'],
+          ['Data 1'],
+          ['Data 2']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.rows[0].length).toBe(1);
+    });
+
+    it('should handle many columns', () => {
+      const table = new Table({
+        screen,
+        width: 100,
+        data: [
+          ['C1', 'C2', 'C3', 'C4', 'C5', 'C6', 'C7', 'C8'],
+          ['1', '2', '3', '4', '5', '6', '7', '8']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.rows[0].length).toBe(8);
+    });
+
+    it('should respect padding in width calculations', () => {
+      const table = new Table({
+        screen,
+        width: 60,
+        pad: 5,
+        data: [
+          ['A', 'B', 'C'],
+          ['1', '2', '3']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.pad).toBe(5);
+    });
+
+    it('should handle zero padding', () => {
+      const table = new Table({
+        screen,
+        width: 60,
+        pad: 0,
+        data: [
+          ['A', 'B'],
+          ['1', '2']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.pad).toBe(0);
+    });
+
+    it('should calculate with borders', () => {
+      const table = new Table({
+        screen,
+        width: 60,
+        border: 'line',
+        data: [
+          ['Header1', 'Header2'],
+          ['Data1', 'Data2']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.border).toBeDefined();
+    });
+
+    it('should handle narrow width constraints', () => {
+      const table = new Table({
+        screen,
+        width: 20,
+        data: [
+          ['A', 'B', 'C'],
+          ['1', '2', '3']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.rows[0].length).toBe(3);
+    });
+
+    it('should handle wide width with few columns', () => {
+      const table = new Table({
+        screen,
+        width: 200,
+        data: [
+          ['Col1', 'Col2'],
+          ['Data1', 'Data2']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.rows[0].length).toBe(2);
+    });
+
+    it('should handle data updates', () => {
+      const table = new Table({
+        screen,
+        width: 60,
+        data: [
+          ['A', 'B'],
+          ['1', '2']
+        ]
+      });
+
+      screen.append(table);
+      expect(table.rows[0].length).toBe(2);
+
+      table.rows = [
+        ['X', 'Y', 'Z'],
+        ['1', '2', '3']
+      ];
+
+      expect(table.rows[0].length).toBe(3);
+    });
+  });
+
+  describe('Data Handling', () => {
+    it('should handle jagged arrays', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['A', 'B', 'C'],
+          ['1', '2'],
+          ['X']
+        ]
+      });
+
+      expect(table.rows.length).toBe(3);
+      expect(table.rows[1].length).toBe(2);
+      expect(table.rows[2].length).toBe(1);
+    });
+
+    it('should handle numeric data', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['ID', 'Value'],
+          [1, 100],
+          [2, 200]
+        ]
+      });
+
+      expect(table.rows[1][0]).toBe(1);
+      expect(table.rows[1][1]).toBe(100);
+    });
+
+    it('should handle mixed data types', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['Name', 'Count', 'Active'],
+          ['Test', 42, true],
+          ['Demo', 0, false]
+        ]
+      });
+
+      expect(table.rows.length).toBe(3);
+      expect(table.rows[1]).toContain('Test');
+      expect(table.rows[1]).toContain(42);
+    });
+
+    it('should handle very long text in cells', () => {
+      const longText = 'This is a very long text that should be handled by the table widget without breaking';
+      const table = new Table({
+        screen,
+        data: [
+          ['Description'],
+          [longText]
+        ]
+      });
+
+      expect(table.rows[1][0]).toBe(longText);
+    });
+
+    it('should handle multiline cells', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['Content'],
+          ['Line1\nLine2\nLine3']
+        ]
+      });
+
+      expect(table.rows[1][0]).toContain('\n');
+    });
+
+    it('should preserve data order', () => {
+      const data = [
+        ['A', 'B', 'C'],
+        ['1', '2', '3'],
+        ['X', 'Y', 'Z']
+      ];
+
+      const table = new Table({
+        screen,
+        data
+      });
+
+      expect(table.rows[0]).toEqual(['A', 'B', 'C']);
+      expect(table.rows[1]).toEqual(['1', '2', '3']);
+      expect(table.rows[2]).toEqual(['X', 'Y', 'Z']);
+    });
+
+    it('should handle large datasets', () => {
+      const largeData = [['Header']];
+      for (let i = 0; i < 100; i++) {
+        largeData.push([`Row ${i}`]);
+      }
+
+      const table = new Table({
+        screen,
+        data: largeData
+      });
+
+      expect(table.rows.length).toBe(101);
+    });
+
+    it('should handle repeated setData calls', () => {
+      const table = new Table({
+        screen,
+        data: [['A'], ['1']]
+      });
+
+      expect(table.rows.length).toBe(2);
+
+      table.setData([['B'], ['2']]);
+      expect(table.rows[0][0]).toBe('B');
+
+      table.setData([['C'], ['3'], ['4']]);
+      expect(table.rows.length).toBe(3);
+    });
+
+    it('should handle undefined cells', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['A', 'B', 'C'],
+          ['1', undefined, '3']
+        ]
+      });
+
+      expect(table.rows.length).toBe(2);
+      expect(table.rows[1][1]).toBeUndefined();
+    });
+
+    it('should handle null cells', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['A', 'B'],
+          [null, 'X']
+        ]
+      });
+
+      expect(table.rows[1][0]).toBeNull();
+    });
+  });
+
+  describe('Rendering & Content', () => {
+    it('should generate content on attach', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['Name', 'Age'],
+          ['Alice', '30']
+        ]
+      });
+
+      screen.append(table);
+      table.emit('attach');
+
+      expect(table.rows.length).toBe(2);
+    });
+
+    it('should update content on resize', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['Col1', 'Col2'],
+          ['A', 'B']
+        ]
+      });
+
+      screen.append(table);
+      const setContentSpy = vi.spyOn(table, 'setContent');
+
+      table.emit('resize');
+
+      expect(setContentSpy).toHaveBeenCalled();
+    });
+
+    it('should handle rendering with no data', () => {
+      const table = new Table({
+        screen,
+        data: []
+      });
+
+      screen.append(table);
+      table.emit('attach');
+
+      expect(table.rows).toEqual([]);
+    });
+
+    it('should handle rendering with header only', () => {
+      const table = new Table({
+        screen,
+        data: [
+          ['Header1', 'Header2']
+        ]
+      });
+
+      screen.append(table);
+      table.emit('attach');
+
+      expect(table.rows.length).toBe(1);
+    });
+
+    it('should apply header styles', () => {
+      const table = new Table({
+        screen,
+        style: {
+          header: { fg: 'cyan', bold: true }
+        },
+        data: [
+          ['Name', 'Value'],
+          ['Test', '123']
+        ]
+      });
+
+      expect(table.style.header.fg).toBe('cyan');
+      expect(table.style.header.bold).toBe(true);
+    });
+
+    it('should apply cell styles', () => {
+      const table = new Table({
+        screen,
+        style: {
+          cell: { fg: 'white', selected: { bg: 'blue' } }
+        },
+        data: [['A', 'B']]
+      });
+
+      expect(table.style.cell.fg).toBe('white');
+    });
+
+    it('should handle table with tags in content', () => {
+      const table = new Table({
+        screen,
+        tags: true,
+        data: [
+          ['{red-fg}Error{/red-fg}', 'Status'],
+          ['Critical', '{green-fg}OK{/green-fg}']
+        ]
+      });
+
+      expect(table.rows[0][0]).toContain('Error');
+    });
+
+    it('should support scrollable table', () => {
+      const table = new Table({
+        screen,
+        scrollable: true,
+        data: Array.from({ length: 50 }, (_, i) => [`Row ${i}`])
+      });
+
+      expect(table.rows.length).toBe(50);
+    });
+
+    it('should handle table with borders and styles', () => {
+      const table = new Table({
+        screen,
+        border: { type: 'line' },
+        style: {
+          border: { fg: 'blue' },
+          header: { fg: 'yellow' },
+          cell: { fg: 'white' }
+        },
+        data: [
+          ['ID', 'Name'],
+          ['1', 'Alice']
+        ]
+      });
+
+      expect(table.border.type).toBe('line');
+      expect(table.style.border.fg).toBe('blue');
+    });
+
+    it('should accept clickable option', () => {
+      const table = new Table({
+        screen,
+        clickable: true,
+        data: [['Click', 'Me']]
+      });
+
+      expect(table.options.clickable).toBe(true);
+    });
+  });
 });

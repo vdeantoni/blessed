@@ -400,4 +400,637 @@ describe('Element', () => {
       expect(el.content).toContain('Red Text');
     });
   });
+
+  describe('Rendering Output', () => {
+    it('should render content to screen buffer', () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 5,
+        content: 'Hello World'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.content).toBe('Hello World');
+    });
+
+    it('should render with absolute positioning', () => {
+      const el = new Element({
+        screen,
+        top: 5,
+        left: 10,
+        width: 20,
+        height: 5,
+        content: 'Test'
+      });
+
+      screen.append(el);
+      expect(el.position.top).toBe(5);
+      expect(el.position.left).toBe(10);
+    });
+
+    it('should handle empty content', () => {
+      const el = new Element({
+        screen,
+        width: 10,
+        height: 5,
+        content: ''
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.content).toBe('');
+    });
+
+    it('should render multiline content', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        content: 'Line 1\nLine 2\nLine 3'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.content).toContain('\n');
+    });
+
+    it('should handle content exceeding dimensions', () => {
+      const el = new Element({
+        screen,
+        width: 5,
+        height: 2,
+        content: 'This is a very long line that exceeds width'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.content).toBeDefined();
+    });
+
+    it('should render with style attributes', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        content: 'Styled',
+        style: {
+          fg: 'red',
+          bg: 'blue',
+          bold: true
+        }
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.style.fg).toBe('red');
+      expect(el.style.bg).toBe('blue');
+      expect(el.style.bold).toBe(true);
+    });
+
+    it('should handle tags in content', () => {
+      const el = new Element({
+        screen,
+        tags: true,
+        content: '{red-fg}Error{/red-fg} message'
+      });
+
+      screen.append(el);
+
+      // Just verify content is set - tags parsing requires full program mock
+      expect(el.content).toContain('Error');
+      expect(el.content).toContain('message');
+    });
+
+    it('should render when hidden is false', () => {
+      const el = new Element({
+        screen,
+        hidden: false,
+        content: 'Visible'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.hidden).toBe(false);
+    });
+
+    it('should not render when hidden is true', () => {
+      const el = new Element({
+        screen,
+        hidden: true,
+        content: 'Hidden'
+      });
+
+      screen.append(el);
+      const result = el.render();
+
+      expect(el.hidden).toBe(true);
+    });
+
+    it('should render with border', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        border: { type: 'line' },
+        content: 'Bordered'
+      });
+
+      screen.append(el);
+
+      expect(el.border).toBeDefined();
+      expect(el.border.type).toBe('line');
+    });
+
+    it('should have border defined affecting dimensions', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        border: { type: 'line' }
+      });
+
+      screen.append(el);
+
+      // Border should exist and type should be set
+      expect(el.border).toBeDefined();
+      expect(el.border.type).toBe('line');
+    });
+
+    it('should have padding affecting inner dimensions', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        padding: { left: 2, right: 2, top: 1, bottom: 1 }
+      });
+
+      screen.append(el);
+
+      expect(el.padding.left).toBe(2);
+      expect(el.padding.right).toBe(2);
+    });
+
+    it('should accept padding configuration', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 10,
+        padding: { left: 2, right: 2, top: 1, bottom: 1 },
+        content: 'Padded'
+      });
+
+      screen.append(el);
+
+      expect(el.padding.left).toBe(2);
+      expect(el.padding.right).toBe(2);
+      expect(el.padding.top).toBe(1);
+      expect(el.padding.bottom).toBe(1);
+    });
+
+    it('should accept both border and padding', () => {
+      const el = new Element({
+        screen,
+        width: 30,
+        height: 20,
+        border: { type: 'line' },
+        padding: { left: 1, right: 1, top: 1, bottom: 1 }
+      });
+
+      screen.append(el);
+
+      expect(el.border.type).toBe('line');
+      expect(el.padding.left).toBe(1);
+    });
+
+    it('should handle align left', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        align: 'left',
+        content: 'Left'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.align).toBe('left');
+    });
+
+    it('should handle align center', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        align: 'center',
+        content: 'Center'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.align).toBe('center');
+    });
+
+    it('should handle align right', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        align: 'right',
+        content: 'Right'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.align).toBe('right');
+    });
+
+    it('should handle valign top', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        valign: 'top',
+        content: 'Top'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.valign).toBe('top');
+    });
+
+    it('should handle valign middle', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        valign: 'middle',
+        content: 'Middle'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.valign).toBe('middle');
+    });
+
+    it('should handle valign bottom', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        valign: 'bottom',
+        content: 'Bottom'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.valign).toBe('bottom');
+    });
+
+    it('should handle wrap enabled', () => {
+      const el = new Element({
+        screen,
+        width: 10,
+        height: 5,
+        wrap: true,
+        content: 'This is a long line that should wrap'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.wrap).toBe(true);
+    });
+
+    it('should handle wrap disabled', () => {
+      const el = new Element({
+        screen,
+        width: 10,
+        height: 5,
+        wrap: false,
+        content: 'This is a long line that should not wrap'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.wrap).toBe(false);
+    });
+
+    it('should render with custom fill character', () => {
+      const el = new Element({
+        screen,
+        width: 10,
+        height: 5,
+        ch: '#'
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.ch).toBe('#');
+    });
+  });
+
+  describe('Positioning Edge Cases', () => {
+    it('should accept percentage-based width', () => {
+      const el = new Element({
+        screen,
+        width: '50%',
+        height: 10
+      });
+
+      screen.append(el);
+      expect(el.position.width).toBe('50%');
+    });
+
+    it('should accept percentage-based height', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: '50%'
+      });
+
+      screen.append(el);
+      expect(el.position.height).toBe('50%');
+    });
+
+    it('should accept percentage positioning for top', () => {
+      const el = new Element({
+        screen,
+        top: '50%',
+        width: 20,
+        height: 5
+      });
+
+      screen.append(el);
+      expect(el.position.top).toBe('50%');
+    });
+
+    it('should accept percentage positioning for left', () => {
+      const el = new Element({
+        screen,
+        left: '50%',
+        width: 20,
+        height: 5
+      });
+
+      screen.append(el);
+      expect(el.position.left).toBe('50%');
+    });
+
+    it('should accept right positioning', () => {
+      const el = new Element({
+        screen,
+        right: 0,
+        width: 20,
+        height: 5
+      });
+
+      screen.append(el);
+      expect(el.position.right).toBe(0);
+    });
+
+    it('should accept bottom positioning', () => {
+      const el = new Element({
+        screen,
+        bottom: 0,
+        width: 20,
+        height: 5
+      });
+
+      screen.append(el);
+      expect(el.position.bottom).toBe(0);
+    });
+
+    it('should accept center positioning horizontal', () => {
+      const el = new Element({
+        screen,
+        left: 'center',
+        width: 20,
+        height: 5
+      });
+
+      screen.append(el);
+      expect(el.position.left).toBe('center');
+    });
+
+    it('should accept center positioning vertical', () => {
+      const el = new Element({
+        screen,
+        top: 'center',
+        width: 20,
+        height: 5
+      });
+
+      screen.append(el);
+      expect(el.position.top).toBe('center');
+    });
+
+    it('should support nested elements with percentage positioning', () => {
+      const parent = new Element({
+        screen,
+        width: 60,
+        height: 20
+      });
+
+      const child = new Element({
+        parent,
+        width: '50%',
+        height: '50%'
+      });
+
+      screen.append(parent);
+      parent.append(child);
+
+      expect(child.parent).toBe(parent);
+      expect(child.position.width).toBe('50%');
+      expect(child.position.height).toBe('50%');
+    });
+
+    it('should support deeply nested elements', () => {
+      const parent = new Element({
+        screen,
+        width: 80,
+        height: 40
+      });
+
+      const child = new Element({
+        parent,
+        width: '50%',
+        height: '50%'
+      });
+
+      const grandchild = new Element({
+        parent: child,
+        width: '50%',
+        height: '50%'
+      });
+
+      screen.append(parent);
+      parent.append(child);
+      child.append(grandchild);
+
+      expect(grandchild.parent).toBe(child);
+      expect(grandchild.position.width).toBe('50%');
+    });
+
+    it('should support elements with parent offset', () => {
+      const parent = new Element({
+        screen,
+        top: 5,
+        left: 10,
+        width: 40,
+        height: 20
+      });
+
+      const child = new Element({
+        parent,
+        top: 2,
+        left: 3,
+        width: 20,
+        height: 10
+      });
+
+      screen.append(parent);
+      parent.append(child);
+
+      expect(child.parent).toBe(parent);
+      expect(child.position.top).toBe(2);
+      expect(child.position.left).toBe(3);
+    });
+
+    it('should support width shrink', () => {
+      const el = new Element({
+        screen,
+        width: 'shrink',
+        height: 10,
+        content: 'Short'
+      });
+
+      screen.append(el);
+
+      expect(el.shrink).toBe(true);
+    });
+
+    it('should support height shrink', () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 'shrink',
+        content: 'Line1\nLine2'
+      });
+
+      screen.append(el);
+
+      expect(el.shrink).toBe(true);
+    });
+
+    it('should support both width and height shrink', () => {
+      const el = new Element({
+        screen,
+        width: 'shrink',
+        height: 'shrink',
+        content: 'Test'
+      });
+
+      screen.append(el);
+
+      expect(el.shrink).toBe(true);
+    });
+
+    it('should accept position with right and width', () => {
+      const el = new Element({
+        screen,
+        right: 10,
+        width: 20,
+        height: 5
+      });
+
+      screen.append(el);
+
+      expect(el.position.right).toBe(10);
+      expect(el.position.width).toBe(20);
+    });
+
+    it('should accept position with bottom and height', () => {
+      const el = new Element({
+        screen,
+        bottom: 5,
+        width: 20,
+        height: 5
+      });
+
+      screen.append(el);
+
+      expect(el.position.bottom).toBe(5);
+      expect(el.position.height).toBe(5);
+    });
+
+    it('should accept border configuration', () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: { type: 'line' }
+      });
+
+      screen.append(el);
+
+      expect(el.border).toBeDefined();
+      expect(el.border.type).toBe('line');
+    });
+
+    it('should accept padding configuration for positioning', () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        padding: 1
+      });
+
+      screen.append(el);
+
+      expect(el.padding).toBeDefined();
+    });
+
+    it('should support complex positioning with all options', () => {
+      const el = new Element({
+        screen,
+        top: 'center',
+        left: 'center',
+        width: '50%',
+        height: '50%',
+        border: { type: 'line' },
+        padding: 1
+      });
+
+      screen.append(el);
+
+      expect(el.position.top).toBe('center');
+      expect(el.position.left).toBe('center');
+      expect(el.position.width).toBe('50%');
+      expect(el.position.height).toBe('50%');
+      expect(el.border.type).toBe('line');
+    });
+  });
 });

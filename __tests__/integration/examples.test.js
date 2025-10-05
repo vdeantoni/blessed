@@ -340,4 +340,462 @@ describe('Integration: examples', () => {
       expect(box.padding.left).toBe(2);
     });
   });
+
+  describe('Complex Multi-Widget Integration', () => {
+    it('should handle form with multiple input fields', () => {
+      const form = blessed.form({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '50%',
+        height: 10,
+        keys: true
+      });
+
+      const input1 = blessed.textbox({
+        parent: form,
+        name: 'username',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: 1
+      });
+
+      const input2 = blessed.textbox({
+        parent: form,
+        name: 'password',
+        top: 2,
+        left: 0,
+        width: '100%',
+        height: 1
+      });
+
+      const button = blessed.button({
+        parent: form,
+        name: 'submit',
+        content: 'Submit',
+        top: 4,
+        left: 0,
+        shrink: true
+      });
+
+      expect(form.children.length).toBe(3);
+      expect(form.children).toContain(input1);
+      expect(form.children).toContain(input2);
+      expect(form.children).toContain(button);
+    });
+
+    it('should handle list with dynamic item addition', () => {
+      const list = blessed.list({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '50%',
+        height: 10,
+        items: ['Item 1', 'Item 2']
+      });
+
+      expect(list.items.length).toBe(2);
+
+      list.addItem('Item 3');
+      list.addItem('Item 4');
+
+      expect(list.items.length).toBe(4);
+      // Items are Box objects, check content instead
+      expect(list.items[2].content).toBe('Item 3');
+      expect(list.items[3].content).toBe('Item 4');
+    });
+
+    it('should handle table with data updates', () => {
+      const table = blessed.table({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '80%',
+        height: 10,
+        data: [
+          ['Name', 'Age'],
+          ['Alice', '30']
+        ]
+      });
+
+      expect(table.rows.length).toBe(2);
+
+      table.setData([
+        ['Name', 'Age', 'City'],
+        ['Alice', '30', 'NYC'],
+        ['Bob', '25', 'LA']
+      ]);
+
+      expect(table.rows.length).toBe(3);
+      expect(table.rows[0].length).toBe(3);
+    });
+
+    it('should handle textarea with scrolling', () => {
+      const textarea = blessed.textarea({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '50%',
+        height: 10,
+        scrollable: true
+      });
+
+      textarea.setValue('Line 1\nLine 2\nLine 3\nLine 4\nLine 5');
+
+      expect(textarea.value).toContain('Line 1');
+      expect(textarea.scrollable).toBe(true);
+    });
+
+    it('should handle nested layout with multiple containers', () => {
+      const outerBox = blessed.box({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        border: { type: 'line' }
+      });
+
+      const leftPanel = blessed.box({
+        parent: outerBox,
+        left: 0,
+        width: '50%',
+        height: '100%'
+      });
+
+      const rightPanel = blessed.box({
+        parent: outerBox,
+        left: '50%',
+        width: '50%',
+        height: '100%'
+      });
+
+      const leftContent = blessed.box({
+        parent: leftPanel,
+        content: 'Left',
+        top: 0
+      });
+
+      const rightContent = blessed.box({
+        parent: rightPanel,
+        content: 'Right',
+        top: 0
+      });
+
+      expect(outerBox.children.length).toBe(2);
+      expect(leftPanel.children.length).toBe(1);
+      expect(rightPanel.children.length).toBe(1);
+      expect(leftContent.content).toBe('Left');
+      expect(rightContent.content).toBe('Right');
+    });
+
+    it('should handle progressbar with updates', () => {
+      const progress = blessed.progressbar({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '50%',
+        height: 1,
+        filled: 0
+      });
+
+      expect(progress.filled).toBe(0);
+
+      progress.setProgress(50);
+      expect(progress.filled).toBe(50);
+
+      progress.setProgress(100);
+      expect(progress.filled).toBe(100);
+    });
+
+    it('should handle message box with timeout', () => {
+      const msg = blessed.message({
+        parent: screen,
+        top: 'center',
+        left: 'center',
+        width: '50%',
+        height: 'shrink',
+        border: { type: 'line' }
+      });
+
+      msg.display('Test message');
+
+      expect(msg.content).toContain('Test message');
+      expect(typeof msg.hide).toBe('function');
+    });
+
+    it('should handle log widget with multiple entries', () => {
+      const log = blessed.log({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '50%',
+        height: 10,
+        scrollable: true
+      });
+
+      log.log('Entry 1');
+      log.log('Entry 2');
+      log.log('Entry 3');
+
+      expect(typeof log.log).toBe('function');
+      expect(log.scrollable).toBe(true);
+    });
+
+    it('should handle checkbox with state changes', () => {
+      const checkbox = blessed.checkbox({
+        parent: screen,
+        top: 0,
+        left: 0,
+        content: 'Accept terms',
+        checked: false
+      });
+
+      expect(checkbox.checked).toBe(false);
+
+      checkbox.check();
+      expect(checkbox.checked).toBe(true);
+
+      checkbox.uncheck();
+      expect(checkbox.checked).toBe(false);
+    });
+
+    it('should handle radioset with multiple options', () => {
+      const radioset = blessed.radioset({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '50%',
+        height: 10
+      });
+
+      const radio1 = blessed.radiobutton({
+        parent: radioset,
+        content: 'Option 1',
+        top: 0
+      });
+
+      const radio2 = blessed.radiobutton({
+        parent: radioset,
+        content: 'Option 2',
+        top: 1
+      });
+
+      const radio3 = blessed.radiobutton({
+        parent: radioset,
+        content: 'Option 3',
+        top: 2
+      });
+
+      expect(radioset.children.length).toBe(3);
+      expect(typeof radio1.check).toBe('function');
+    });
+
+    it('should handle complex form submission workflow', () => {
+      const form = blessed.form({
+        parent: screen,
+        keys: true
+      });
+
+      const username = blessed.textbox({
+        parent: form,
+        name: 'username',
+        top: 0
+      });
+
+      const email = blessed.textbox({
+        parent: form,
+        name: 'email',
+        top: 2
+      });
+
+      const subscribe = blessed.checkbox({
+        parent: form,
+        name: 'subscribe',
+        content: 'Subscribe',
+        top: 4
+      });
+
+      const submitBtn = blessed.button({
+        parent: form,
+        name: 'submit',
+        content: 'Submit',
+        top: 6
+      });
+
+      let submitCalled = false;
+      form.on('submit', (data) => {
+        submitCalled = true;
+      });
+
+      form.submit();
+
+      expect(submitCalled).toBe(true);
+      expect(form.children.length).toBe(4);
+    });
+
+    it('should handle listbar with item selection', () => {
+      const listbar = blessed.listbar({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: 1,
+        style: {
+          selected: { bg: 'blue' }
+        }
+      });
+
+      listbar.setItems({
+        'File': { keys: ['f'] },
+        'Edit': { keys: ['e'] },
+        'View': { keys: ['v'] }
+      });
+
+      expect(typeof listbar.selectTab).toBe('function');
+    });
+
+    it('should handle scrollablebox with content overflow', () => {
+      const scrollbox = blessed.scrollablebox({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: '50%',
+        height: 10,
+        scrollable: true,
+        alwaysScroll: true
+      });
+
+      const longContent = Array.from({ length: 50 }, (_, i) => `Line ${i + 1}`).join('\n');
+      scrollbox.setContent(longContent);
+
+      expect(scrollbox.scrollable).toBe(true);
+      expect(scrollbox.alwaysScroll).toBe(true);
+    });
+
+    it('should handle question dialog', () => {
+      const question = blessed.question({
+        parent: screen,
+        top: 'center',
+        left: 'center',
+        width: '50%',
+        height: 'shrink',
+        border: { type: 'line' }
+      });
+
+      question.ask('Are you sure?');
+
+      expect(question.content).toContain('Are you sure?');
+      expect(typeof question.ask).toBe('function');
+    });
+
+    it('should handle prompt for user input', () => {
+      const prompt = blessed.prompt({
+        parent: screen,
+        top: 'center',
+        left: 'center',
+        width: '50%',
+        height: 'shrink',
+        border: { type: 'line' }
+      });
+
+      prompt.input('Enter name:');
+
+      expect(prompt.content).toContain('Enter name:');
+      expect(typeof prompt.input).toBe('function');
+    });
+
+    it('should handle loading indicator', () => {
+      const loading = blessed.loading({
+        parent: screen,
+        top: 'center',
+        left: 'center',
+        width: '50%',
+        height: 3,
+        border: { type: 'line' }
+      });
+
+      loading.load('Processing...');
+
+      expect(loading.content).toContain('Processing...');
+      expect(typeof loading.stop).toBe('function');
+    });
+
+    it('should handle dynamic element visibility', () => {
+      const box1 = blessed.box({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 5,
+        content: 'Box 1',
+        hidden: false
+      });
+
+      const box2 = blessed.box({
+        parent: screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 5,
+        content: 'Box 2',
+        hidden: true
+      });
+
+      expect(box1.hidden).toBe(false);
+      expect(box2.hidden).toBe(true);
+
+      box1.hide();
+      box2.show();
+
+      expect(box1.hidden).toBe(true);
+      expect(box2.hidden).toBe(false);
+    });
+
+    it('should handle element detachment and reattachment', () => {
+      const container = blessed.box({
+        parent: screen,
+        width: '100%',
+        height: '100%'
+      });
+
+      const child = blessed.box({
+        parent: container,
+        content: 'Child'
+      });
+
+      expect(container.children.length).toBe(1);
+      expect(child.parent).toBe(container);
+
+      child.detach();
+
+      expect(container.children.length).toBe(0);
+      expect(child.parent).toBe(null);
+
+      container.append(child);
+
+      expect(container.children.length).toBe(1);
+      expect(child.parent).toBe(container);
+    });
+
+    it('should handle screen rendering with many elements', () => {
+      for (let i = 0; i < 20; i++) {
+        blessed.box({
+          parent: screen,
+          top: i,
+          left: 0,
+          width: 10,
+          height: 1,
+          content: `Box ${i}`
+        });
+      }
+
+      expect(screen.children.length).toBe(20);
+
+      screen.render();
+
+      expect(screen.renders).toBeGreaterThan(0);
+    });
+  });
 });

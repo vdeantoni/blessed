@@ -86,6 +86,14 @@ export function createMockProgram(options = {}) {
 
   // Mock attributes
   program.attr = vi.fn();
+  program._attr = vi.fn((param) => {
+    // Basic mock of _attr for tags parsing
+    if (typeof param === 'string') {
+      // Return some mock attribute code
+      return '\x1b[0m'; // reset
+    }
+    return null;
+  });
   program.fg = vi.fn();
   program.bg = vi.fn();
 
