@@ -80,30 +80,36 @@ describe('FileManager', () => {
       expect(typeof fm.refresh).toBe('function');
     });
 
-    it('should emit refresh event when called', (done) => {
-      const fm = new FileManager({ screen, cwd: process.cwd() });
+    it('should emit refresh event when called', () => {
+      return new Promise((resolve) => {
+        const fm = new FileManager({ screen, cwd: process.cwd() });
 
-      fm.on('refresh', () => {
-        done();
-      });
+        fm.on('refresh', () => {
+          resolve();
+        });
 
-      fm.refresh();
-    });
-
-    it('should accept callback parameter', (done) => {
-      const fm = new FileManager({ screen, cwd: process.cwd() });
-
-      fm.refresh(() => {
-        done();
+        fm.refresh();
       });
     });
 
-    it('should accept new cwd and callback', (done) => {
-      const fm = new FileManager({ screen, cwd: '/old' });
+    it('should accept callback parameter', () => {
+      return new Promise((resolve) => {
+        const fm = new FileManager({ screen, cwd: process.cwd() });
 
-      fm.refresh(process.cwd(), () => {
-        expect(fm.cwd).toBe(process.cwd());
-        done();
+        fm.refresh(() => {
+          resolve();
+        });
+      });
+    });
+
+    it('should accept new cwd and callback', () => {
+      return new Promise((resolve) => {
+        const fm = new FileManager({ screen, cwd: '/old' });
+
+        fm.refresh(process.cwd(), () => {
+          expect(fm.cwd).toBe(process.cwd());
+          resolve();
+        });
       });
     });
   });
@@ -132,31 +138,35 @@ describe('FileManager', () => {
       expect(typeof fm.pick).toBe('function');
     });
 
-    it('should accept callback parameter', (done) => {
-      const fm = new FileManager({ screen, cwd: process.cwd() });
+    it('should accept callback parameter', () => {
+      return new Promise((resolve) => {
+        const fm = new FileManager({ screen, cwd: process.cwd() });
 
-      fm.pick((err, file) => {
-        // Will complete when file or cancel event fires
-        done();
+        fm.pick((err, file) => {
+          // Will complete when file or cancel event fires
+          resolve();
+        });
+
+        // Simulate file selection
+        setTimeout(() => {
+          fm.emit('file', '/test/file.txt');
+        }, 10);
       });
-
-      // Simulate file selection
-      setTimeout(() => {
-        fm.emit('file', '/test/file.txt');
-      }, 10);
     });
 
-    it('should handle cancel event', (done) => {
-      const fm = new FileManager({ screen, cwd: process.cwd() });
+    it('should handle cancel event', () => {
+      return new Promise((resolve) => {
+        const fm = new FileManager({ screen, cwd: process.cwd() });
 
-      fm.pick((err, file) => {
-        expect(file).toBeUndefined();
-        done();
+        fm.pick((err, file) => {
+          expect(file).toBeUndefined();
+          resolve();
+        });
+
+        setTimeout(() => {
+          fm.emit('cancel');
+        }, 10);
       });
-
-      setTimeout(() => {
-        fm.emit('cancel');
-      }, 10);
     });
   });
 
@@ -167,20 +177,24 @@ describe('FileManager', () => {
       expect(typeof fm.reset).toBe('function');
     });
 
-    it('should accept callback parameter', (done) => {
-      const fm = new FileManager({ screen, cwd: process.cwd() });
+    it('should accept callback parameter', () => {
+      return new Promise((resolve) => {
+        const fm = new FileManager({ screen, cwd: process.cwd() });
 
-      fm.reset(() => {
-        done();
+        fm.reset(() => {
+          resolve();
+        });
       });
     });
 
-    it('should accept cwd and callback', (done) => {
-      const fm = new FileManager({ screen, cwd: '/old' });
+    it('should accept cwd and callback', () => {
+      return new Promise((resolve) => {
+        const fm = new FileManager({ screen, cwd: '/old' });
 
-      fm.reset(process.cwd(), () => {
-        expect(fm.cwd).toBe(process.cwd());
-        done();
+        fm.reset(process.cwd(), () => {
+          expect(fm.cwd).toBe(process.cwd());
+          resolve();
+        });
       });
     });
   });
