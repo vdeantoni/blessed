@@ -129,12 +129,16 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 | **1.4.1: Test Node** | Test node tree operations (append, detach, insert, events). | 80% | Medium | ✅ **DONE** |
 | **1.4.2: Test Element** | Test base element functionality (positioning, rendering, events). | 70% | High | ✅ **DONE** |
 | **1.4.3: Test Screen** | Test screen lifecycle, rendering, focus management. | 60% | High | ✅ **DONE** |
-| **1.4.4: Integration Tests from Examples** | Convert all files in `example/` to integration tests. | 100% of examples | Medium | ⏳ TODO |
+| **1.4.4: Integration Tests from Examples** | Convert all files in `example/` to integration tests. | 100% of examples | Medium | ✅ **DONE** |
 
 **What was done:**
 - Node: 38 tests - Tree operations, parent-child relationships, insert/remove/detach, traversal
 - Element: 45 tests - Base element class with positioning, styling, visibility, content management
 - Screen: 43 tests - Screen lifecycle, keyboard handling, focus management, rendering, cursor config
+- **Integration tests: 31 tests** covering all 8 example files
+  - simple-form.js: 5 tests (form submission, reset, keyboard navigation)
+  - widget.js: 8 tests (centered box, tags, click/key events, focus, styles)
+  - examples.js: 18 tests (time clock, multiplex screens, ANSI viewer, general integration)
 
 #### 1.5: Low-Level Testing (Integration Level)
 
@@ -177,14 +181,14 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - [x] **Testing infrastructure setup** (Vitest, mocks, coverage) ✅
 - [x] **All pure function modules tested** (helpers, colors, unicode, keys) ✅
 - [x] **All widgets have basic render + event tests** (70%+ coverage) ✅ - **COMPLETED** (31 widgets)
-- [ ] All examples converted to passing integration tests - ⏳ TODO
+- [x] **All examples converted to passing integration tests** ✅ - **COMPLETED** (31 tests, 8 examples)
 - [x] **Core components** (Node, Element, Screen) at 60%+ coverage ✅
 - [ ] 12 performance benchmarks documented with baseline numbers - ⏳ TODO
 - [ ] CI pipeline running tests and benchmarks automatically - ⏳ TODO
-- [x] **Overall project coverage: 48%** (target 70%+) - Good progress, need integration tests
+- [x] **Overall project coverage: 48.4%** (target 70%+) - Good progress, need benchmarking
 
 **Current Status (Updated):**
-- ✅ **1,196 tests passing locally** - All tests green!
+- ✅ **1,227 tests passing locally** - All tests green! (was 1,196)
 - ✅ Pure functions: 142 tests
   - helpers.js: 64 tests (84% coverage)
   - colors.js: 26 tests (72% coverage)
@@ -203,14 +207,18 @@ This roadmap is divided into phases to provide a structured, safe approach to th
   - Input: 10 tests, ScrollableText: 27 tests
 - ✅ Core components: **126 tests** - **COMPLETED**
   - Node: 38 tests (66% coverage)
-  - Element: 45 tests (19% coverage, large file needs integration tests)
-  - Screen: 43 tests (17% coverage, large file needs integration tests)
+  - Element: 45 tests (19% coverage, large file needs more integration coverage)
+  - Screen: 43 tests (17% coverage, large file needs more integration coverage)
+- ✅ **Integration tests: 31 tests** - **COMPLETED** ✨ NEW!
+  - simple-form.js: 5 tests (form submission, reset, keyboard navigation)
+  - widget.js: 8 tests (centered box, tags, click/key events, focus, styles)
+  - examples.js: 18 tests (time clock, multiplex screens, ANSI viewer, general patterns)
 - ✅ Mock utilities complete (88% coverage)
 - ✅ GitHub Actions workflow created (.github/workflows/test.yml)
-- 📊 **Overall coverage: 48% lines** (~70% branches)
+- 📊 **Overall coverage: 48.4% lines** (~67% branches)
 - 🎯 **Phase 1.3 COMPLETED** - All practical widgets tested!
-- 🎯 **Phase 1.4 COMPLETED** - Core components tested!
-- 🔄 Next: Integration tests from examples (1.4.4), benchmarking (1.6)
+- 🎯 **Phase 1.4 COMPLETED** - Core components AND integration tests done!
+- 🔄 Next: Benchmarking (1.6) to complete Phase 1
 
 **Current CI Blockers:**
 - ❌ **npm optional dependencies bug** (npm issue [#4828](https://github.com/npm/cli/issues/4828))
