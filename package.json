@@ -34,7 +34,9 @@
   "scripts": {
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "bench": "node benchmarks/run-all.js",
+    "bench:gc": "node --expose-gc benchmarks/run-all.js"
   },
   "browserify": {
     "transform": [
