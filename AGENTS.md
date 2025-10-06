@@ -161,17 +161,30 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - Widget improvements: Checkbox (+6 tests), Textbox (+7 tests), Progressbar (+10 tests)
 - **Overall project coverage improved from 48.4% to 50.78%** (+2.38 percentage points)
 
-#### 1.6: Performance Baseline & Benchmarking
+#### 1.6: Performance Baseline & Benchmarking ✅ **INFRASTRUCTURE COMPLETE**
 
-| Task | Description | Complexity |
-|------|-------------|------------|
-| **1.6.1: Create Benchmark Harness** | Setup infrastructure in `/benchmarks` with consistent timing/memory measurement. | Medium |
-| **1.6.2: Rendering Benchmarks** | Create benchmarks for screen render, incremental render, widget rendering. | Medium |
-| **1.6.3: Layout Benchmarks** | Create benchmarks for positioning calculations, nested layouts. | Medium |
-| **1.6.4: Event Processing Benchmarks** | Create benchmarks for key/mouse event handling, event bubbling. | Low |
-| **1.6.5: Scalability Benchmarks** | Create benchmarks for large lists (10K items), tables (100x100), deep trees. | Medium |
-| **1.6.6: Document Baseline Metrics** | Run all benchmarks, document current performance numbers. | Low |
-| **1.6.7: Setup CI Benchmark Tracking** | Add CI job to run benchmarks and track performance over time. | Medium |
+| Task | Description | Complexity | Status |
+|------|-------------|------------|--------|
+| **1.6.1: Create Benchmark Harness** | Setup infrastructure in `/benchmarks` with consistent timing/memory measurement. | Medium | ✅ **DONE** |
+| **1.6.2: Rendering Benchmarks** | Create benchmarks for screen render, incremental render, widget rendering. | Medium | ✅ **DONE** |
+| **1.6.3: Layout Benchmarks** | Create benchmarks for positioning calculations, nested layouts. | Medium | ✅ **DONE** |
+| **1.6.4: Event Processing Benchmarks** | Create benchmarks for key/mouse event handling, event bubbling. | Low | ✅ **DONE** |
+| **1.6.5: Scalability Benchmarks** | Create benchmarks for large lists (10K items), tables (100x100), deep trees. | Medium | ✅ **DONE** |
+| **1.6.6: Document Baseline Metrics** | Run all benchmarks, document current performance numbers. | Low | ⏳ **PENDING** |
+| **1.6.7: Setup CI Benchmark Tracking** | Add CI job to run benchmarks and track performance over time. | Medium | ⏳ **PENDING** |
+
+**What was done:**
+- **12 benchmark files created** covering all performance-critical areas
+- Benchmark utilities with timing and memory measurement (`utils.js`)
+- Main runner script to execute all benchmarks (`run-all.js`)
+- Documentation: README.md and BASELINE.md
+- Package scripts: `npm run bench` and `npm run bench:gc`
+- Infrastructure complete and ready for baseline measurements
+
+**Pending:**
+- Mock program refinement needed to run benchmarks without terminal I/O
+- Initial baseline measurements to be documented
+- CI workflow for continuous performance tracking
 
 **Key Benchmarks to Establish:**
 ```

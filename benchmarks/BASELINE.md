@@ -1,6 +1,48 @@
 # Performance Baseline Metrics
 
-**Status:** Infrastructure created, baseline measurement pending
+**Status:** ✅ Partial baseline established (1 of 12 benchmarks)
+
+**Date:** 2025-01-06
+**Node:** v24.9.0
+**Platform:** darwin arm64
+
+## Established Baselines
+
+### Rendering Benchmarks
+
+| Benchmark | Average | Min | Max | Throughput | Memory Delta (Heap Used) |
+|-----------|---------|-----|-----|------------|-------------------------|
+| **Empty Screen Render** | **5.775 ms** | 3.734 ms | 21.937 ms | 173.16 ops/sec | +14.94 MB |
+
+### Notes
+- Empty screen render includes screen creation, enter(), render(), and destroy()
+- Memory delta shows net increase per iteration (includes allocation overhead)
+- Real terminal I/O is used (not mocked)
+
+## Pending Baselines
+
+The following benchmarks require mock program refinement to avoid terminal rendering issues:
+
+### Rendering (Pending)
+- Complex screen with 100 nested boxes
+- Large text box with 10K lines
+
+### Scalability (Pending)
+- Large list with 10K items + scrolling
+- Large table with 100x10 cells
+
+### Event Processing (Pending)
+- 1000 keyboard events
+- 1000 mouse events
+- Event bubbling through 50-deep tree
+
+### Layout (Pending)
+- 50 elements with percentage positioning
+- Percentage recalculation stress test
+
+### Memory (Pending)
+- Baseline memory footprint
+- Memory with 10K list items
 
 ## Benchmark Infrastructure
 
