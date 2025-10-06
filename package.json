@@ -2,7 +2,7 @@
   "name": "@vdeantoni/blessed",
   "description": "A high-level terminal interface library for node.js.",
   "author": "Christopher Jeffrey",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "license": "MIT",
   "main": "./lib/blessed.js",
   "bin": {
@@ -36,6 +36,14 @@
   "engines": {
     "node": ">= 22.0.0"
   },
+  "files": [
+    "lib/**/*.js",
+    "!lib/**/*.ts",
+    "bin/**/*.js",
+    "LICENSE",
+    "README.md",
+    "index.js"
+  ],
   "scripts": {
     "build": "tsup",
     "build:watch": "tsup --watch",
