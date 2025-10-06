@@ -36,6 +36,14 @@
   "engines": {
     "node": ">= 22.0.0"
   },
+  "files": [
+    "lib/**/*.js",
+    "!lib/**/*.ts",
+    "bin/**/*.js",
+    "LICENSE",
+    "README.md",
+    "index.js"
+  ],
   "scripts": {
     "build": "tsup",
     "build:watch": "tsup --watch",
