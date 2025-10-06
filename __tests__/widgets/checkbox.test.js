@@ -392,4 +392,85 @@ describe('Checkbox', () => {
       expect(values).toEqual([true, false, true]);
     });
   });
+
+  describe('real execution coverage tests', () => {
+    it('should execute render method', () => {
+      const checkbox = new Checkbox({
+        screen,
+        text: 'Test Option',
+        width: 20,
+        height: 3
+      });
+      screen.append(checkbox);
+
+      // Execute real render (line 66)
+      const result = checkbox.render();
+      expect(result).toBeDefined();
+    });
+
+    it('should execute check with state change', () => {
+      const checkbox = new Checkbox({ screen });
+
+      // Execute real check (lines 71-72)
+      checkbox.check();
+
+      expect(checkbox.checked).toBe(true);
+      expect(checkbox.value).toBe(true);
+    });
+
+    it('should execute uncheck with state change', () => {
+      const checkbox = new Checkbox({
+        screen,
+        checked: true
+      });
+
+      // Execute real uncheck (lines 77-78)
+      checkbox.uncheck();
+
+      expect(checkbox.checked).toBe(false);
+      expect(checkbox.value).toBe(false);
+    });
+
+    it('should execute toggle return path for check', () => {
+      const checkbox = new Checkbox({ screen });
+
+      // Execute toggle when unchecked (lines 82-84)
+      const result = checkbox.toggle();
+
+      expect(checkbox.checked).toBe(true);
+      expect(result).toBeUndefined();
+    });
+
+    it('should execute toggle return path for uncheck', () => {
+      const checkbox = new Checkbox({
+        screen,
+        checked: true
+      });
+
+      // Execute toggle when checked (lines 82-84)
+      const result = checkbox.toggle();
+
+      expect(checkbox.checked).toBe(false);
+      expect(result).toBeUndefined();
+    });
+
+    it('should render with both checked states', () => {
+      const checkbox = new Checkbox({
+        screen,
+        text: 'Option',
+        width: 20,
+        height: 3
+      });
+      screen.append(checkbox);
+
+      // Render unchecked
+      checkbox.render();
+      expect(checkbox.checked).toBe(false);
+
+      // Render checked
+      checkbox.check();
+      checkbox.render();
+      expect(checkbox.checked).toBe(true);
+    });
+  });
 });

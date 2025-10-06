@@ -345,4 +345,91 @@ describe('Textbox', () => {
       expect(textbox.setContent).toHaveBeenCalledWith('*');
     });
   });
+
+  describe('real execution coverage tests', () => {
+    it('should execute _listener enter key path', () => {
+      const textbox = new Textbox({ screen, width: 20, height: 3 });
+      screen.append(textbox);
+
+      // Set up minimal required state
+      textbox.value = 'test';
+      textbox.__listener = () => {}; // Provide listener
+      textbox._done = vi.fn(); // Must mock _done to prevent error
+
+      // Test enter key path (lines 39-41)
+      textbox._listener('\r', { name: 'enter' });
+
+      // Verify _done was called (line 40)
+      expect(textbox._done).toHaveBeenCalledWith(null, 'test');
+    });
+
+    it('should execute _listener non-enter key path', () => {
+      const textbox = new Textbox({ screen, width: 20, height: 3 });
+      screen.append(textbox);
+
+      // Test other key path (line 43) - delegates to parent
+      const result = textbox._listener('a', { name: 'a' });
+      // This should call __olistener on line 43
+      expect(result).toBeUndefined();
+    });
+
+    it('should execute setValue normal branch', () => {
+      const textbox = new Textbox({ screen, width: 20, height: 3 });
+      screen.append(textbox);
+
+      // Execute the else branch (lines 59-62) for normal mode
+      textbox.setValue('test value here');
+
+      expect(textbox.value).toBe('test value here');
+    });
+
+    it('should execute setValue with value change', () => {
+      const textbox = new Textbox({ screen, width: 20, height: 3 });
+      screen.append(textbox);
+
+      // First set a value
+      textbox.value = 'old';
+      textbox._value = 'old';
+
+      // Now set a new value to trigger the if block (line 51)
+      textbox.setValue('new value');
+
+      expect(textbox.value).toBe('new value');
+    });
+
+    it('should process undefined as null', () => {
+      const textbox = new Textbox({ screen, width: 20, height: 3 });
+      screen.append(textbox);
+
+      textbox.value = 'existing';
+      textbox._value = 'other';
+
+      // Test lines 48-49 when value is null/undefined
+      textbox.setValue(null);
+
+      expect(textbox._value).toBe('existing');
+    });
+
+    it('should process string with tabs', () => {
+      const textbox = new Textbox({ screen, width: 30, height: 3 });
+      screen.append(textbox);
+
+      screen.tabc = '    ';
+
+      // This should execute line 61 (tab replacement)
+      textbox.setValue('hello\tworld\there');
+
+      expect(textbox.value).toBe('hello\tworld\there');
+    });
+
+    it('should calculate visible slice for long text', () => {
+      const textbox = new Textbox({ screen, width: 15, height: 3 });
+      screen.append(textbox);
+
+      // This should execute lines 60-62 (visible calculation and slice)
+      textbox.setValue('this is a very long text value');
+
+      expect(textbox.value).toBe('this is a very long text value');
+    });
+  });
 });

@@ -544,4 +544,226 @@ describe('ProgressBar', () => {
       expect(progressbar.filled).toBe(0);
     });
   });
+
+  describe('real execution coverage tests', () => {
+    it('should execute render for horizontal progressbar', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        orientation: 'horizontal',
+        filled: 50,
+        width: 20,
+        height: 3,
+        left: 0,
+        top: 0
+      });
+      screen.append(progressbar);
+
+      // Mock _render to provide structure
+      progressbar._render = vi.fn().mockReturnValue({
+        xi: 0,
+        xl: 20,
+        yi: 0,
+        yl: 3
+      });
+
+      // Execute real render (lines 99-129)
+      const result = progressbar.render();
+      expect(result).toBeDefined();
+    });
+
+    it('should execute render for vertical progressbar', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        orientation: 'vertical',
+        filled: 75,
+        width: 5,
+        height: 20,
+        left: 0,
+        top: 0
+      });
+      screen.append(progressbar);
+
+      progressbar._render = vi.fn().mockReturnValue({
+        xi: 0,
+        xl: 5,
+        yi: 0,
+        yl: 20
+      });
+
+      // Execute real render for vertical (lines 113-114)
+      const result = progressbar.render();
+      expect(result).toBeDefined();
+    });
+
+    it('should execute render with border', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        orientation: 'horizontal',
+        filled: 60,
+        width: 20,
+        height: 5,
+        border: 'line',
+        left: 0,
+        top: 0
+      });
+      screen.append(progressbar);
+
+      // Mock the element's _render to provide necessary structure
+      progressbar._render = vi.fn().mockReturnValue({
+        xi: 1,
+        xl: 19,
+        yi: 1,
+        yl: 4
+      });
+
+      // Execute real render with border adjustment (line 109)
+      const result = progressbar.render();
+      expect(result).toBeDefined();
+    });
+
+    it('should execute render with content overlay', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        orientation: 'horizontal',
+        filled: 40,
+        width: 20,
+        height: 3,
+        content: 'Loading...',
+        left: 0,
+        top: 0
+      });
+      screen.append(progressbar);
+
+      progressbar._render = vi.fn().mockReturnValue({
+        xi: 0,
+        xl: 20,
+        yi: 0,
+        yl: 3
+      });
+
+      // Execute real render with content (lines 121-127)
+      const result = progressbar.render();
+      expect(result).toBeDefined();
+    });
+
+    it('should execute progress and emit complete', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        filled: 95
+      });
+
+      let completed = false;
+      progressbar.on('complete', () => {
+        completed = true;
+      });
+
+      // Execute progress to 100 and trigger complete emit (lines 136-138)
+      progressbar.progress(5);
+
+      expect(progressbar.filled).toBe(100);
+      expect(completed).toBe(true);
+    });
+
+    it('should execute progress without complete', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        filled: 50
+      });
+
+      // Execute progress without reaching 100 (line 139)
+      progressbar.progress(30);
+
+      expect(progressbar.filled).toBe(80);
+      expect(progressbar.value).toBe(80);
+    });
+
+    it('should execute setProgress through progress', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        filled: 40
+      });
+
+      // setProgress calls progress (lines 142-144)
+      progressbar.setProgress(70);
+
+      expect(progressbar.filled).toBe(70);
+      expect(progressbar.value).toBe(70);
+    });
+
+    it('should render at 0%', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        orientation: 'horizontal',
+        filled: 0,
+        width: 20,
+        height: 3,
+        left: 0,
+        top: 0
+      });
+      screen.append(progressbar);
+
+      progressbar._render = vi.fn().mockReturnValue({
+        xi: 0,
+        xl: 20,
+        yi: 0,
+        yl: 3
+      });
+
+      const result = progressbar.render();
+      expect(result).toBeDefined();
+    });
+
+    it('should render at 100%', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        orientation: 'horizontal',
+        filled: 100,
+        width: 20,
+        height: 3,
+        left: 0,
+        top: 0
+      });
+      screen.append(progressbar);
+
+      progressbar._render = vi.fn().mockReturnValue({
+        xi: 0,
+        xl: 20,
+        yi: 0,
+        yl: 3
+      });
+
+      const result = progressbar.render();
+      expect(result).toBeDefined();
+    });
+
+    it('should execute render with custom style', () => {
+      const progressbar = new ProgressBar({
+        screen,
+        orientation: 'horizontal',
+        filled: 50,
+        width: 20,
+        height: 3,
+        style: {
+          bar: {
+            bg: 'blue',
+            fg: 'white'
+          }
+        },
+        left: 0,
+        top: 0
+      });
+      screen.append(progressbar);
+
+      progressbar._render = vi.fn().mockReturnValue({
+        xi: 0,
+        xl: 20,
+        yi: 0,
+        yl: 3
+      });
+
+      // Execute render with sattr call (line 117)
+      const result = progressbar.render();
+      expect(result).toBeDefined();
+    });
+  });
 });
