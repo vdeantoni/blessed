@@ -1,9 +1,18 @@
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+  },
   test: {
     globals: true,
     environment: 'node',
+    // Tell vitest to transform all source files through Vite
+    server: {
+      deps: {
+        inline: true  // Process all dependencies through Vite/esbuild
+      }
+    },
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
