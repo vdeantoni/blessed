@@ -13,6 +13,10 @@ export default defineConfig({
   // Output directory
   outDir: 'dist',
 
+  // IMPORTANT: Don't bundle - blessed uses dynamic requires
+  // We'll just transpile when we have TypeScript files
+  bundle: false,
+
   // Generate declaration files
   dts: false, // Will enable when we start converting to TS
 

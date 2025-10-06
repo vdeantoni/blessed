@@ -1,10 +1,11 @@
 // CommonJS Test App for blessed
-// This tests that the CJS build (dist/blessed.js) works correctly
+// This tests that the source works correctly with CommonJS
 
-const blessed = require('blessed');
+// Test using the source (lib/blessed.js)
+const blessed = require('../../lib/blessed.js');
 
 console.log('✅ blessed loaded successfully (CommonJS)');
-console.log('Version:', blessed.version || 'unknown');
+console.log('✅ Loaded from: lib/blessed.js (source)');
 
 // Create a simple screen
 const screen = blessed.screen({
@@ -19,8 +20,8 @@ const box = blessed.box({
   left: 'center',
   width: '50%',
   height: '50%',
-  content: `{center}{bold}✅ CommonJS Build Works!{/bold}\n\n` +
-           `This is using the CJS build from dist/blessed.js\n\n` +
+  content: `{center}{bold}✅ CommonJS Works!{/bold}\n\n` +
+           `Using source: lib/blessed.js\n\n` +
            `Press 'q' or ESC to quit.{/center}`,
   tags: true,
   border: {

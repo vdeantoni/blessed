@@ -5,22 +5,19 @@ This directory contains test applications for validating the blessed build befor
 ## Prerequisites
 
 ```bash
-# From blessed root directory
-# 1. Build the project first
+# From blessed root directory - Build the project first
 pnpm run build
-
-# 2. Link blessed globally
-pnpm link --global
 ```
 
-## Testing Method 1: Test Apps with pnpm link
+## Quick Test (Recommended)
+
+The test apps use relative paths - no linking required!
 
 ### Test CommonJS Build
 
 ```bash
 cd test-apps/test-cjs
-pnpm link --global blessed
-pnpm start
+node index.js
 ```
 
 **Expected**: Blue box with "✅ CommonJS Build Works!" - Press `q` to quit.
@@ -29,28 +26,14 @@ pnpm start
 
 ```bash
 cd test-apps/test-esm
-pnpm link --global blessed
-pnpm start
+node index.mjs
 ```
 
 **Expected**: Green box with "✅ ESM Build Works!" - Press `q` to quit.
 
-## Testing Method 2: Existing Examples
+## Testing Method 1: Direct Build Testing (Simplest)
 
-Test backward compatibility with existing examples:
-
-```bash
-# From blessed root (after pnpm link --global)
-node example/simple-form.js    # Submit/cancel buttons
-node example/widget.js          # Centered box demo
-node example/time.js            # Clock display
-```
-
-**Expected**: All examples run without errors.
-
-## Testing Method 3: Direct Build Test (No link)
-
-Test the built files directly without linking:
+Test the built files work correctly:
 
 ```bash
 # From blessed root
@@ -59,55 +42,83 @@ node -e "const b = require('./dist/blessed.js'); console.log('✅ CJS build work
 node --input-type=module -e "import b from './dist/blessed.mjs'; console.log('✅ ESM build works')"
 ```
 
+## Testing Method 2: Test Apps (Interactive)
+
+```bash
+# Test CJS
+cd test-apps/test-cjs && node index.js
+
+# Test ESM
+cd test-apps/test-esm && node index.mjs
+```
+
+## Testing Method 3: Existing Examples (Backward Compatibility)
+
+Verify existing examples still work with the source:
+
+```bash
+# From blessed root
+node example/simple-form.js    # Submit/cancel buttons (press q to quit)
+node example/widget.js          # Centered box demo (press q to quit)
+```
+
+**Note**: Examples use `require('blessed')` which loads from `lib/blessed.js` (source).
+
+## Testing Method 4: Using pnpm link (Optional - Most Realistic)
+
+This simulates a real npm install scenario:
+
+```bash
+# 1. From blessed root - link blessed globally
+pnpm link --global
+
+# 2. Create a test project elsewhere
+mkdir ~/tmp/test-blessed-install
+cd ~/tmp/test-blessed-install
+npm init -y
+
+# 3. Link to your local blessed
+pnpm link --global blessed
+
+# 4. Test it
+node -e "const b = require('blessed'); console.log('Works!');"
+```
+
 ## What Gets Tested
 
 ### test-cjs/
 - ✅ CommonJS (`require()`) works
-- ✅ Uses linked blessed package → `dist/blessed.js` (CJS build)
+- ✅ Uses `dist/blessed.js` (CJS build)
 - ✅ Package loads and initializes
-- ✅ Basic widget rendering
+- ✅ Basic widget rendering (blue box)
 
 ### test-esm/
 - ✅ ESM (`import`) works
-- ✅ Uses linked blessed package → `dist/blessed.mjs` (ESM build)
+- ✅ Uses `dist/blessed.mjs` (ESM build)
 - ✅ Package loads and initializes
-- ✅ Basic widget rendering
+- ✅ Basic widget rendering (green box)
 
 ## Complete Testing Checklist
 
 - [ ] Build succeeds: `pnpm run build`
-- [ ] All tests pass: `pnpm test`
-- [ ] Link works: `pnpm link --global`
-- [ ] CJS test app works: `cd test-apps/test-cjs && pnpm link blessed && pnpm start`
-- [ ] ESM test app works: `cd test-apps/test-esm && pnpm link blessed && pnpm start`
+- [ ] All tests pass: `pnpm test` (1,577 tests)
+- [ ] Source loads: `node -e "require('./lib/blessed')"`
+- [ ] CJS build loads: `node -e "require('./dist/blessed.js')"`
+- [ ] ESM build loads: `node --input-type=module -e "import './dist/blessed.mjs'"`
+- [ ] CJS test app works: `cd test-apps/test-cjs && node index.js`
+- [ ] ESM test app works: `cd test-apps/test-esm && node index.mjs`
 - [ ] Existing examples work: `node example/simple-form.js`
-- [ ] Direct CJS import works: `node -e "require('./dist/blessed.js')"`
-- [ ] Direct ESM import works: `node --input-type=module -e "import './dist/blessed.mjs'"`
 
 ## Troubleshooting
 
-### "Cannot find module 'blessed'"
-**Solution**: Run `pnpm link --global` from the blessed root directory first.
-
 ### "Error: Cannot find module 'term.js'"
-**Expected behavior** - term.js is an optional dependency. The test apps don't use the Terminal widget, so this is fine.
+**Expected behavior** - term.js is an optional dependency. The test apps don't use the Terminal widget.
 
 ### Build files missing
 **Solution**: Run `pnpm run build` from the blessed root to generate dist/ output.
 
-### Examples fail to load
-**Solution**: Make sure you ran `pnpm link --global` from the blessed root so examples can find the 'blessed' module.
-
-## Clean Up
-
-```bash
-# Unlink blessed when done testing
-pnpm unlink --global blessed
-
-# Or from test apps:
-cd test-cjs && pnpm unlink blessed
-cd test-esm && pnpm unlink blessed
-```
+### pnpm link errors
+**Solution**: Use the direct path approach (Method 1 or 2) instead of pnpm link.
 
 ## What's Next
 

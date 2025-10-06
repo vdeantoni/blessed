@@ -1,7 +1,7 @@
 # blessed
 
-> [!WARNING]
-> This is a fork of the original `blessed` library and is currently undergoing a major modernization effort. The API may change, and features are actively being developed. For more details on the modernization plan, please see the [Agent Instructions for `blessed` Modernization](AGENTS.md).
+> [!NOTE]
+> **🎉 blessed 1.0.0-alpha is here!** After 10 years, blessed is getting the production-ready 1.0 release it deserves - with TypeScript, comprehensive tests, and modern tooling. This is an active modernization effort leading to the full 1.0.0 release. The core API remains stable and backward-compatible. See [AGENTS.md](AGENTS.md) for the full modernization roadmap.
 
 A curses-like library with a high level terminal interface API for node.js.
 
@@ -36,8 +36,14 @@ The blessed API itself has gone on to inspire [termui][termui] for Go.
 ## Install
 
 ``` bash
-$ npm install blessed
+# Install the alpha release
+$ npm install @vdeantoni/blessed@alpha
+
+# Or install a specific alpha version
+$ npm install @vdeantoni/blessed@1.0.0-alpha.1
 ```
+
+> **Note:** This is the modernized fork of blessed. Install `@vdeantoni/blessed@alpha` to get the latest alpha release with TypeScript support, comprehensive tests, and modern tooling.
 
 ## Example
 

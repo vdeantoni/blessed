@@ -1,3 +1,90 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+---
+
+## [1.0.0-alpha.1] - 2025-10-06
+
+### 🎉 Announcement
+
+**blessed 1.0.0-alpha is here!** After 10 years since the last update, blessed is getting the production-ready 1.0 release it deserves. This marks the beginning of a comprehensive modernization effort while maintaining the core API and backward compatibility.
+
+### Added
+
+- **TypeScript support** - tsconfig.json with allowJs for gradual migration to TypeScript
+- **Modern build system** - tsup configured for dual CJS/ESM outputs
+- **Comprehensive testing** - Vitest setup with 50.78% code coverage (1,576 tests passing)
+  - Testing infrastructure with mock utilities
+  - 31 widget test files
+  - Core component tests (Node, Element, Screen)
+  - Integration tests from examples
+- **Code quality tools**
+  - ESLint with TypeScript support
+  - Prettier for consistent formatting
+  - Pre-configured scripts for linting and formatting
+- **Developer documentation**
+  - AGENTS.md - Complete modernization roadmap with integrated Phase 0 decisions, known issues, and terminal compatibility
+  - docs/CONTRIBUTING.md - Developer setup and guidelines
+  - TERMINAL_COMPATIBILITY.md - Terminal support matrix (now in AGENTS.md Section 8)
+  - KNOWN_ISSUES.md - Cataloged bugs and limitations (now in AGENTS.md Section 7)
+  - API_REFERENCE.md - Complete API baseline documentation
+- **Performance benchmarking infrastructure** - 12 benchmarks covering rendering, layout, events, and scalability
+- **Local testing infrastructure** - Test apps for CJS and ESM compatibility validation
+- **Publishing documentation** - docs/PUBLISHING.md with npm publishing guide and browserify details
+- **Strategic planning** - docs/STRATEGIC_PLAN.md with comprehensive roadmap and adoption strategy
+
+### Changed
+
+- **Package name** - Now published as `@vdeantoni/blessed` (scoped package)
+- **Node.js requirement** - Updated to >= 22.0.0 (will be reconsidered in future releases)
+- **Repository** - Moved to github.com/vdeantoni/blessed
+
+### Fixed
+
+- Improved .npmignore to exclude test files, coverage reports, and development tooling from npm package
+
+### Known Issues
+
+- **Dynamic requires** - lib/widget.js:48 uses dynamic requires that prevent modern bundling
+  - Workaround: Use source files (lib/blessed.js) as entry point
+  - Resolution: Will be fixed in Phase 3 TypeScript conversion
+- **dist/ outputs** - Built outputs don't work yet due to dynamic requires
+- **Some widgets untested** - Terminal, Video, OverlayImage widgets require external dependencies
+
+### Modernization Progress
+
+- ✅ **Phase 0**: Analysis & Critical Decisions - Complete
+- ✅ **Phase 1**: Testing Infrastructure & Baseline Metrics - 95% Complete
+  - Testing infrastructure complete
+  - 50.78% code coverage achieved
+  - Benchmark infrastructure complete (baseline measurements pending)
+- ✅ **Phase 2**: Build System & Development Experience - Complete
+- 🚧 **Phase 3**: TypeScript Conversion - Starting next
+- 📋 **Phase 4**: Performance Optimization - Planned
+- 📋 **Phase 5**: Polish & Release v1.0.0 - Planned
+
+### Installation
+
+```bash
+# Install the latest alpha
+npm install @vdeantoni/blessed@alpha
+
+# Install specific version
+npm install @vdeantoni/blessed@1.0.0-alpha.1
+```
+
+### Credits
+
+This is a modernization of the original blessed library created by Christopher Jeffrey. The original blessed library was last updated in 2015 and has been unmaintained for 10 years. This fork aims to continue the legacy with modern tooling, TypeScript support, and comprehensive testing while maintaining backward compatibility.
+
+---
+
+## Historical Changelog (Original blessed by Christopher Jeffrey)
+
 # Blessed v0.1.0 - new terminal goodies for node.js
 
 ![blessed](https://raw.githubusercontent.com/chjj/blessed/master/img/v0.1.0-3.gif)

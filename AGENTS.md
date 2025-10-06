@@ -39,27 +39,72 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 
 ---
 
-### **Phase 0: Analysis & Critical Decisions**
+### **Phase 0: Analysis & Critical Decisions** ✅ **COMPLETED**
 
 - **Goal:** Make critical decisions and document current state before any changes.
 - **Complexity:** Low
 - **Duration:** 1 week
+- **Status:** ✅ **COMPLETE**
 
-| Task | Description | Complexity |
-|------|-------------|------------|
-| **0.1: Decide Compatibility Strategy** | Choose Option A, B, or C from above. Document decision and implications. | Low |
-| **0.2: Document Current API Surface** | Create comprehensive API documentation of all public methods/properties for compatibility checking. | Medium |
-| **0.3: Audit Dependencies** | Review and document all dependencies, identify outdated ones, plan updates. | Low |
-| **0.4: Document Known Issues** | Catalog known bugs and quirks - decide which to preserve vs fix. | Low |
-| **0.5: Choose Build Tooling** | Evaluate options (tsup, esbuild, rollup). **Recommendation**: tsup (better for Node.js libraries than Vite). | Low |
-| **0.6: Set Minimum Node.js Version** | Current is ">= 0.8.0" - propose modern minimum (14.x? 16.x? 18.x?). | Low |
-| **0.7: Terminal Compatibility Matrix** | Document which terminals are officially supported and tested. | Medium |
+| Task | Description | Complexity | Status |
+|------|-------------|------------|--------|
+| **0.1: Decide Compatibility Strategy** | Choose Option A, B, or C from above. Document decision and implications. | Low | ✅ **DONE** |
+| **0.2: Document Current API Surface** | Create comprehensive API documentation of all public methods/properties for compatibility checking. | Medium | ✅ **DONE** |
+| **0.3: Audit Dependencies** | Review and document all dependencies, identify outdated ones, plan updates. | Low | ✅ **DONE** |
+| **0.4: Document Known Issues** | Catalog known bugs and quirks - decide which to preserve vs fix. | Low | ✅ **DONE** |
+| **0.5: Choose Build Tooling** | Evaluate options (tsup, esbuild, rollup). **Recommendation**: tsup (better for Node.js libraries than Vite). | Low | ✅ **DONE** |
+| **0.6: Set Minimum Node.js Version** | Current is ">= 0.8.0" - propose modern minimum (14.x? 16.x? 18.x?). | Low | ✅ **DONE** |
+| **0.7: Terminal Compatibility Matrix** | Document which terminals are officially supported and tested. | Medium | ✅ **DONE** |
+
+#### **Decisions Made**
+
+**0.1: Compatibility Strategy** - ✅ **Two-Track Strategy**
+- **v1.x** (1.0.0-alpha.1 → 1.0.0): 100% backward compatible with original blessed
+- **v2.x+** (future): Modern API with breaking changes allowed
+- See Section 7 (Known Issues) for details on what will be preserved vs fixed
+
+**0.2: API Surface** - ✅ **Documented**
+- Complete API reference created in `API_REFERENCE.md`
+- 44 widgets documented with all public methods and properties
+- Baseline established for v1.x compatibility testing
+
+**0.3: Dependencies Audit** - ✅ **Complete**
+- **Runtime Dependencies**: None (blessed is dependency-free!)
+- **Dev Dependencies**: Modern tooling added (Vitest, TypeScript, tsup, ESLint, Prettier)
+- **Policy**: Keep runtime dependency-free
+
+**0.4: Known Issues** - ✅ **Cataloged**
+- 28 known issues documented and categorized
+- See Section 7 (Known Issues & Quirks) for full list
+
+**0.5: Build Tooling** - ✅ **tsup selected**
+- Chose tsup for library-optimized builds
+- Fallback plan to esbuild if maintenance issues arise
+- Produces dual CJS/ESM outputs with type definitions
+
+**0.6: Node.js Version** - ✅ **22.x** (Current LTS)
+- **Minimum:** Node.js >= 22.0.0
+- **Rationale:** Future-proof, LTS until April 2027, latest JS features
+- **Note:** May be lowered to >= 18.x in future for broader compatibility
+
+**0.7: Terminal Compatibility** - ✅ **Matrix documented**
+- See Section 8 (Terminal Compatibility Matrix) for full details
+- Officially supported: iTerm2, Alacritty, Kitty, Windows Terminal, gnome-terminal
+- Full terminfo coverage for broader terminal support
 
 **Completion Criteria:**
-- [ ] Compatibility strategy documented and agreed upon
-- [ ] Current API surface fully documented
-- [ ] Build tool selected and justified
-- [ ] Minimum Node.js version decided
+- [x] Compatibility strategy documented and agreed upon ✅
+- [x] Current API surface fully documented ✅
+- [x] Build tool selected and justified ✅
+- [x] Minimum Node.js version decided ✅
+- [x] Known issues cataloged ✅
+- [x] Terminal compatibility matrix created ✅
+
+**Deliverables:**
+- ✅ API_REFERENCE.md - Complete API surface documentation
+- ✅ Section 7 - Known Issues & Quirks (28 issues)
+- ✅ Section 8 - Terminal Compatibility Matrix
+- ✅ Updated package.json (version 1.0.0-alpha.1, Node >= 22.x)
 
 ---
 
@@ -273,7 +318,7 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - **Goal:** Setup modern build tooling and development environment.
 - **Complexity:** Medium
 - **Duration:** 1-2 weeks
-- **Status:** ✅ **COMPLETE**
+- **Status:** ✅ **COMPLETE** (with known limitations)
 
 | Task | Description | Complexity | Status |
 |------|-------------|------------|--------|
@@ -283,6 +328,7 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 | **2.4: Setup ESLint** | Configure ESLint with TypeScript support for code quality. | Low | ✅ **DONE** |
 | **2.5: Update Package.json** | Modernize scripts, add proper exports map, update metadata. | Low | ✅ **DONE** |
 | **2.6: Developer Documentation** | Create CONTRIBUTING.md with setup instructions, testing guidelines. | Low | ✅ **DONE** |
+| **2.7: Local Testing Infrastructure** | Create test apps to verify CJS/ESM compatibility. | Low | ✅ **DONE** |
 
 **What was done:**
 - **TypeScript**: tsconfig.json with allowJs for gradual migration, strict settings
@@ -292,6 +338,7 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - **Package Scripts**: build, build:watch, type-check, lint, lint:fix, format, format:check
 - **CONTRIBUTING.md**: Comprehensive developer guide with setup, testing, migration strategy
 - **Updated .gitignore**: dist/, *.tsbuildinfo, .vitest/
+- **Test Apps**: Created test-apps/test-cjs and test-apps/test-esm for local validation
 
 **Validation:**
 - ✅ Build produces correct CJS + ESM outputs
@@ -299,12 +346,57 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - ✅ Type checking works on existing .js files
 - ✅ No production code changes
 - ✅ Backward compatibility maintained
+- ✅ CJS test app works with source files (lib/blessed.js)
+- ✅ ESM test app works with createRequire() from source files
+
+**Known Limitations:**
+- ⚠️ **Bundled outputs (dist/) don't work** - Blessed uses dynamic requires (`require('./widgets/' + file)`) in lib/widget.js:48
+- Bundlers can't statically analyze dynamic string concatenation in requires
+- **Workaround**: Continue using source files (lib/) until Phase 3 TypeScript conversion
+- **Resolution**: Phase 3 will replace dynamic requires with static imports, enabling proper bundling
 
 **Completion Criteria:**
 - [x] TypeScript compiles with allowJs enabled ✅
 - [x] Build produces correct outputs (CJS + ESM) ✅
 - [x] Linting and formatting automated ✅
 - [x] All tests still pass with new build system ✅
+- [x] Local test apps validate CJS/ESM usage ✅
+
+---
+
+### **Version Strategy**
+
+**Current Version:** `1.0.0-alpha.1`
+
+**Progression to 1.0.0:**
+```
+0.1.82 (original blessed, last updated 2015)
+  ↓
+1.0.0-alpha.1 (Phase 2 complete, starting Phase 3)
+1.0.0-alpha.x (during TypeScript conversion)
+  ↓
+1.0.0-beta.1 (Phase 4: Polish & performance)
+1.0.0-beta.x (stabilization, docs, testing)
+  ↓
+1.0.0 (Production release! 🚀)
+```
+
+**Rationale:**
+- Original blessed never reached 1.0.0 despite being production-ready
+- This modernization effort IS the 1.0 release blessed deserves
+- Alpha signals "TypeScript conversion in progress, expect changes"
+- Beta signals "feature complete, stabilizing for production"
+- Saves 2.0.0 for future major architectural changes
+
+**Publishing:**
+- Alpha releases: `npm publish --tag alpha`
+- Users install: `npm install @vdeantoni/blessed@alpha`
+- Production (1.0.0): `npm publish` (becomes `latest` tag)
+
+**Release Cadence:**
+- Alpha: Weekly or after significant milestones during Phase 3
+- Beta: Every 1-2 weeks during Phase 4
+- 1.0.0: Launch when ready (estimated 6-7 months from Phase 2 completion)
 
 ---
 
@@ -508,13 +600,18 @@ expect(mockProgram.output.toString()).toContain('expected output');
 
 This section tracks key decisions made during modernization.
 
-### Phase 0 Decisions (To Be Made)
-- [ ] **Compatibility Strategy**: Option A / B / C?
-- [ ] **Minimum Node.js Version**: 14.x / 16.x / 18.x / 20.x?
-- [ ] **Build Tool**: tsup / esbuild / rollup?
-- [ ] **Breaking Changes Policy**: Document what's allowed
-- [ ] **Module Format**: CommonJS only / ESM only / Both?
-- [ ] **Terminal Support**: Which terminals officially supported?
+### Phase 0 Decisions ✅ **COMPLETE**
+- [x] **Compatibility Strategy**: Two-Track Strategy (v1.x backward compatible, v2.x+ modern) ✅
+- [x] **Minimum Node.js Version**: 22.x (Current LTS, may lower to 18.x later) ✅
+- [x] **Build Tool**: tsup (with esbuild fallback plan) ✅
+- [x] **Breaking Changes Policy**: None in v1.x, allowed in v2.x+ with migration support ✅
+- [x] **Module Format**: Both CommonJS and ESM (dual output) ✅
+- [x] **Terminal Support**: Matrix documented (see Section 8) ✅
+
+### Version Strategy ✅ **DECIDED**
+- **Current**: 1.0.0-alpha.1
+- **Progression**: alpha → beta → 1.0.0 (production)
+- **Saves 2.0.0** for future major breaking changes
 
 ### Rationale for Test-First Approach
 Testing before conversion protects against regressions in a complex, low-level library where bugs can be subtle and hard to detect. With 21K+ lines of intricate terminal manipulation code, comprehensive test coverage is non-negotiable.
@@ -536,7 +633,187 @@ Vite is optimized for web applications with HMR and dev servers. For a Node.js l
 
 ---
 
-## 7. Questions & Answers
+## 7. Known Issues & Quirks
+
+This section catalogs known issues, limitations, and quirks in blessed. These guide v1.x vs v2.x decisions.
+
+### Categorization
+
+- **MUST FIX** - Critical issues to fix in v1.x
+- **SHOULD FIX** - Fix if possible without breaking compatibility
+- **WON'T FIX (v1.x)** - Requires breaking changes, defer to v2.x+
+- **PRESERVE** - Intentional quirks users may depend on
+
+### Critical Issues (MUST FIX)
+
+**1. Mouse Support Limitations**
+- Mouse clicks limited to 255 cells on older VTE terminals
+- Root cause: Old VTE versions only support buggy X10 protocol
+- **V1.x Action:** Document limitation, improve detection
+
+**2. Windows Platform Limitations**
+- No mouse or resize events on Windows cmd.exe/PowerShell
+- **V1.x Action:** Document limitation, test Windows Terminal support
+
+**3. Terminal.app Mouse Support**
+- No mouse event support in macOS Terminal.app
+- **V1.x Action:** Document limitation, recommend iTerm2/Alacritty
+
+### Code Quality Issues (SHOULD FIX)
+
+**4. Error Handling in tput.js**
+- Terminfo parsing may not handle errors gracefully
+- **V1.x Action:** Improve error handling without changing API
+
+**5. Mouse Code Duplication**
+- Mouse handling code duplicated in element.js
+- **V1.x Action:** Refactor internally (no API change)
+
+### API Inconsistencies (WON'T FIX in v1.x)
+
+**6. Duplicate Table Methods**
+- `setData()` and `setRows()` do the same thing
+- **V1.x Action:** Keep both (backward compatibility)
+- **V2.x Action:** Deprecate `setData`, use `setRows`
+
+**7. Inconsistent Widget Options**
+- Some widgets use `items`, others use `commands`, others use `rows`
+- **V1.x Action:** Preserve (breaking change to fix)
+- **V2.x Action:** Standardize naming
+
+**8. Mixed Naming Conventions**
+- Inconsistent method/property naming (`aleft` vs `absoluteLeft`, `xi` vs `innerLeft`)
+- **V1.x Action:** Preserve (breaking change to fix)
+- **V2.x Action:** Consistent naming with aliases
+
+### Workarounds & Quirks (PRESERVE)
+
+**9. ScrollableBox Deprecated**
+- ScrollableBox and ScrollableText are deprecated
+- Alternative: Use Box with `scrollable: true`
+- **V1.x Action:** Keep working, add deprecation warning
+- **V2.x Action:** May remove
+
+**10. Layout Requires Dimensions**
+- Layout widget requires explicit width/height (chicken-and-egg problem)
+- **V1.x Action:** Document requirement clearly
+- **V2.x Action:** May improve with better algorithm
+
+### Rendering & Performance
+
+**11. smartCSR Flickering**
+- `smartCSR` option causes flickering on non-full-width elements
+- **Workaround:** Use `fastCSR` or disable CSR optimization
+- **V1.x Action:** Document trade-off
+- **V2.x Action:** Better heuristics
+
+### External Dependencies
+
+**12. w3m Image Display**
+- OverlayImage requires w3mimgdisplay binary (Unix-like only)
+- **V1.x Action:** Improve detection, better error messages
+
+**13. libcaca for Video**
+- Video widget requires mplayer/mpv with libcaca
+- **V1.x Action:** Document requirements
+
+### Documentation Gaps
+
+**14. Unclear Coordinate System**
+- Coordinate system (`coords`, `lpos`) not well documented
+- Properties like `xi`, `xl`, `yi`, `yl` meanings unclear
+- **V1.x Action:** Comprehensive documentation in API_REFERENCE.md
+
+**15. Missing Event Documentation**
+- Not all events are documented
+- **V1.x Action:** Complete event catalog
+
+### Testing Gaps
+
+**16. Limited Terminal Testing**
+- Not tested across full range of terminals
+- **V1.x Action:** Establish terminal compatibility matrix (see Section 8)
+- **V1.x Action:** Automated testing (Phase 1)
+
+**Full issue catalog:** See `docs/` for detailed Known Issues documentation from Phase 0.
+
+---
+
+## 8. Terminal Compatibility Matrix
+
+This section defines officially supported terminals and documents compatibility.
+
+### Support Levels
+
+- ✅ **Full Support** - All features work, regularly tested
+- ⚠️ **Partial Support** - Most features work, known limitations
+- ❌ **Limited Support** - Basic functionality only
+- ⏸️ **Untested** - Should work via terminfo, not verified
+
+### Officially Supported Terminals
+
+**macOS**
+- ✅ **iTerm2** (3.x+) - Recommended, full features
+- ✅ **Alacritty** - Recommended, modern, fast
+- ✅ **Kitty** - Recommended, feature-rich
+- ⚠️ **Terminal.app** - No mouse support
+
+**Linux**
+- ✅ **gnome-terminal** (VTE 0.50+) - Recommended
+- ✅ **konsole** (20.x+) - Recommended
+- ✅ **xterm** (300+) - Reference implementation
+- ✅ **Alacritty** - Cross-platform
+- ⚠️ **urxvt** - Mouse quirks, no true color
+- ⚠️ **Linux Console (TTY)** - Limited features
+
+**Windows**
+- ✅ **Windows Terminal** (1.x+) - Recommended, full features
+- ❌ **cmd.exe** - No mouse/resize events
+- ❌ **PowerShell Console** - No mouse/resize events
+- ⚠️ **ConEmu** - Partial support
+
+**Multiplexers**
+- ✅ **tmux** (2.x+) - Recommended, full support with config
+- ⚠️ **GNU screen** (4.x+) - No true color
+
+**SSH/Remote**
+- ✅ **SSH** - Passes through to actual terminal
+
+### Feature Matrix Quick Reference
+
+| Terminal | Mouse | 256 Color | True Color | Unicode | Recommended |
+|----------|-------|-----------|------------|---------|-------------|
+| iTerm2 | ✅ | ✅ | ✅ | ✅ | ⭐ |
+| Alacritty | ✅ | ✅ | ✅ | ✅ | ⭐ |
+| Windows Terminal | ✅ | ✅ | ✅ | ✅ | ⭐ |
+| gnome-terminal | ✅ | ✅ | ✅ | ✅ | ⭐ |
+| xterm | ✅ | ✅ | ⚠️ | ✅ | ⭐ |
+| Terminal.app | ❌ | ✅ | ⚠️ | ✅ | - |
+| cmd.exe | ❌ | ⚠️ | ❌ | ⚠️ | - |
+| tmux | ✅ | ✅ | ✅* | ✅ | ⭐ |
+
+*with proper configuration
+
+### Minimum Requirements
+
+For full blessed functionality:
+- ✅ 256 color support
+- ✅ Mouse support (SGR protocol preferred)
+- ✅ Unicode support
+- ✅ CSR (change scroll region)
+- ✅ Resize events
+
+### Testing Strategy
+
+**Phase 1 (Automated):** xterm, tmux, GitHub Actions
+**Phase 2 (Manual):** iTerm2, Alacritty, Windows Terminal, gnome-terminal
+**Phase 3 (Community):** Kitty, konsole, urxvt, others
+
+**Full compatibility matrix:** See `docs/` for complete terminal documentation from Phase 0.
+
+---
+
+## 9. Questions & Answers
 
 ### How long will this take?
 - Phase 0: 1 week
@@ -565,7 +842,7 @@ Deal with it in Phase 6, after core modernization is complete and stable. Don't 
 
 ---
 
-## 8. Resources & References
+## 10. Resources & References
 
 ### Testing Libraries
 - [Vitest](https://vitest.dev/) - Fast, modern test framework

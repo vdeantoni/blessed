@@ -1,8 +1,8 @@
 {
-  "name": "blessed",
+  "name": "@vdeantoni/blessed",
   "description": "A high-level terminal interface library for node.js.",
   "author": "Christopher Jeffrey",
-  "version": "0.1.82",
+  "version": "1.0.0-alpha.1",
   "license": "MIT",
   "main": "./lib/blessed.js",
   "bin": "./bin/tput.js",
