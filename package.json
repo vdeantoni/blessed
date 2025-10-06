@@ -2,12 +2,17 @@
   "name": "@vdeantoni/blessed",
   "description": "A high-level terminal interface library for node.js.",
   "author": "Christopher Jeffrey",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.0",
   "license": "MIT",
   "main": "./lib/blessed.js",
-  "bin": "./bin/tput.js",
+  "bin": {
+    "blessed": "bin/tput.js"
+  },
   "preferGlobal": false,
-  "repository": "git://github.com/vdeantoni/blessed.git",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vdeantoni/blessed.git"
+  },
   "homepage": "https://github.com/vdeantoni/blessed",
   "bugs": {
     "url": "https://github.com/vdeantoni/blessed/issues"
