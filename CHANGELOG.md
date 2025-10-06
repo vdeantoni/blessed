@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.0-alpha.2] - 2025-10-06
+
+### 🎯 Phase 3.1: Helper Modules Converted to TypeScript
+
+**Milestone:** All utility/helper modules are now in TypeScript with full type annotations.
+
+### Changed
+
+- **TypeScript Conversion** - Converted 4 helper modules from JavaScript to TypeScript:
+  - `lib/helpers.ts` - 166 lines with utility functions (merge, sort, escape, tag parsing)
+  - `lib/colors.ts` - 531 lines with color matching and conversion (RGB, hex, xterm colors)
+  - `lib/unicode.ts` - 790 lines with wide character and surrogate pair handling
+  - `lib/keys.ts` - 342 lines with keypress event handling
+- **Type Safety** - Added comprehensive type annotations:
+  - Function signatures with parameter and return types
+  - Interfaces for complex data structures (RGB, ColorNames, etc.)
+  - Type aliases for clarity (HexColor, ColorIndex, etc.)
+- **Modern Syntax** - Modernized all helper modules:
+  - `var` → `const`/`let`
+  - Function expressions → arrow functions
+  - CommonJS → ES6 imports/exports
+- **Migration Strategy** - Created CommonJS shims (helpers.js, colors.js, unicode.js, keys.js) for gradual migration
+  - JavaScript files can still `require()` helper modules
+  - Shims will be removed once all files are TypeScript
+
+### Testing
+
+- **All 1,577 tests passing** - Zero regressions from TypeScript conversion
+- **Type checking enabled** - `npm run type-check` validates TypeScript compilation
+
+### Technical Details
+
+- Vitest configuration updated to resolve `.ts` extensions and process all deps through esbuild
+- Fixed dynamic require issues with proper module exports
+- Maintained 100% backward compatibility with existing JavaScript code
+
+---
+
 ## [1.0.0-alpha.1] - 2025-10-06
 
 ### 🎉 Announcement
