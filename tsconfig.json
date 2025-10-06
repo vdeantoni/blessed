@@ -1,0 +1,59 @@
+{
+  "compilerOptions": {
+    // Enable JavaScript files
+    "allowJs": true,
+    "checkJs": false,
+
+    // Target and module
+    "target": "ES2020",
+    "module": "commonjs",
+    "lib": ["ES2020"],
+
+    // Module resolution
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // Output
+    "outDir": "./dist",
+    "rootDir": "./",
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+
+    // Type checking (strict for TS files, permissive for JS)
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+
+    // Additional checks
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": false,
+
+    // Other options
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "lib/**/*",
+    "bin/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test",
+    "__tests__",
+    "benchmarks",
+    "example",
+    "coverage"
+  ]
+}

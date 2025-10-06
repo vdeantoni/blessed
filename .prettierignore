@@ -1,0 +1,16 @@
+# Ignore build outputs
+dist/
+coverage/
+
+# Ignore vendor code
+vendor/
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore benchmark results
+benchmarks/results/
+
+# Ignore legacy test files (not in __tests__)
+test/

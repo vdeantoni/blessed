@@ -32,6 +32,13 @@
     "node": ">= 22.0.0"
   },
   "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint lib/ bin/ __tests__/",
+    "lint:fix": "eslint lib/ bin/ __tests__/ --fix",
+    "format": "prettier --write \"lib/**/*.{js,ts}\" \"bin/**/*.{js,ts}\" \"__tests__/**/*.{js,ts}\"",
+    "format:check": "prettier --check \"lib/**/*.{js,ts}\" \"bin/**/*.{js,ts}\" \"__tests__/**/*.{js,ts}\"",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
@@ -44,8 +51,16 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "24.6.2",
+    "@typescript-eslint/eslint-plugin": "8.45.0",
+    "@typescript-eslint/parser": "8.45.0",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
+    "eslint": "9.37.0",
+    "eslint-config-prettier": "10.1.8",
+    "prettier": "3.6.2",
+    "tsup": "8.5.0",
+    "typescript": "5.9.3",
     "vitest": "^3.2.4"
   }
 }
