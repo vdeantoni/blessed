@@ -9,7 +9,7 @@
  */
 
 import * as fs from 'fs';
-import * as unicode from './unicode.js';
+import unicode from './unicode.js';
 
 /**
  * Types
