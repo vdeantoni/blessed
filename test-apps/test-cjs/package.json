@@ -1,0 +1,11 @@
+{
+  "name": "test-blessed-cjs",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "description": "Test CommonJS build of blessed",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {}
+}

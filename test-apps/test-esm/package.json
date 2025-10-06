@@ -1,0 +1,11 @@
+{
+  "name": "test-blessed-esm",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Test ESM build of blessed",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs"
+  },
+  "dependencies": {}
+}

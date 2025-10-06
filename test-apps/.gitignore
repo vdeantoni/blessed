@@ -1,0 +1,11 @@
+# Ignore dependencies and lock files in test apps
+*/node_modules/
+*/package-lock.json
+*/pnpm-lock.yaml
+
+# Ignore any additional test projects users create
+test-*/
+
+# But keep the template test apps
+!test-cjs/
+!test-esm/
