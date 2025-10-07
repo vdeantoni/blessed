@@ -2,7 +2,7 @@
   "name": "@vdeantoni/blessed",
   "description": "A high-level terminal interface library for node.js.",
   "author": "Christopher Jeffrey",
-  "version": "1.0.0-alpha.5",
+  "version": "1.0.0-alpha.6",
   "license": "MIT",
   "main": "./lib/blessed.js",
   "bin": {
@@ -40,6 +40,7 @@
     "lib/**/*.js",
     "!lib/**/*.ts",
     "bin/**/*.js",
+    "vendor/**/*.js",
     "LICENSE",
     "README.md",
     "index.js"
