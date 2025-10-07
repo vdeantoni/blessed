@@ -998,4 +998,26 @@ describe('Screen', () => {
       s.destroy();
     });
   });
+
+  describe('Error handling / Cleanup', () => {
+    it('should not crash when leave() is called with undefined program', () => {
+      const s = new Screen({ smartCSR: true });
+
+      // Simulate error state where program becomes undefined
+      s.program = undefined;
+
+      // This should not throw an error
+      expect(() => s.leave()).not.toThrow();
+    });
+
+    it('should not crash when destroy() is called with undefined program', () => {
+      const s = new Screen({ smartCSR: true });
+
+      // Simulate error state where program becomes undefined
+      s.program = undefined;
+
+      // This should not throw an error (destroy calls leave internally)
+      expect(() => s.destroy()).not.toThrow();
+    });
+  });
 });
