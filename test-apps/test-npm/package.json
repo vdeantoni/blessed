@@ -8,6 +8,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@vdeantoni/blessed": "1.0.0-alpha.1"
+    "@vdeantoni/blessed": "1.0.0-alpha.3"
   }
 }
