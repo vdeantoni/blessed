@@ -362,6 +362,15 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - [x] All tests still pass with new build system ✅
 - [x] Local test apps validate CJS/ESM usage ✅
 
+**Post-Completion Fixes:**
+- ✅ **Emoji/Symbol Width Calculation Fix** (commit ae8d2df)
+  - **Problem**: Emojis and symbols (U+2600-U+27BF like ✅) were calculated as single-width characters, causing extra spacing issues in terminal output
+  - **Root Cause**: `lib/unicode.js` charWidth() function and regex patterns didn't include emoji ranges
+  - **Solution**: Added emoji/symbol ranges to charWidth() function and updated chars.wide/chars.swide regex patterns
+  - **Impact**: Proper rendering of emojis when `fullUnicode: true` is enabled
+  - **Testing**: Test apps now properly render emojis without spacing issues
+  - **Version**: Bumped to 1.0.0-alpha.7
+
 ---
 
 ### **Version Strategy**
