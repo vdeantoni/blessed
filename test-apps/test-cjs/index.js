@@ -10,6 +10,7 @@ console.log('✅ Loaded from: lib/blessed.js (source)');
 // Create a simple screen
 const screen = blessed.screen({
   smartCSR: true,
+  fullUnicode: true,  // Enable proper emoji/unicode width calculation
   title: 'Blessed CJS Test'
 });
 
