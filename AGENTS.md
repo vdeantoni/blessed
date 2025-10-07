@@ -420,14 +420,86 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 ---
 
-### **Phase 3: Incremental TypeScript Conversion**
+### **Phase 3: Incremental TypeScript Conversion** 🔄 **IN PROGRESS**
 
 - **Goal:** Convert codebase to TypeScript incrementally, maintaining test coverage throughout.
 - **Complexity:** High
-- **Duration:** 6-8 weeks
-- **Strategy:** Convert high-level to low-level, keep tests green, never break the build
+- **Duration:** 14-20 weeks (split into Phase 3A + 3B)
+- **Strategy:** Two-phase approach - get it working (3A), then get it right (3B)
+- **Current Status:** ✅ tsconfig relaxed, 🔄 Converting helpers.ts
 
-#### Conversion Order (Safest → Riskiest)
+#### **Phase 3A: Conversion with Permissive Types** 🔄 **CURRENT PHASE**
+
+**Goal:** Get all `.js` files converted to `.ts` and compiling (4-6 weeks)
+
+**Strategy:**
+- ✅ Relaxed TypeScript compiler settings (strict: false, noImplicitAny: false)
+- Use `any` types liberally for complex scenarios
+- Focus on syntax conversion, not type perfection
+- Create `.js` shim files for compatibility during migration
+- Keep all 1,577 tests passing
+- Ship alpha releases frequently (every 2-3 files)
+
+**Current Progress:**
+- ✅ tsconfig.json relaxed for migration (commit pending)
+- ✅ lib/helpers.ts converted (first TypeScript file!)
+- ⏳ 44 files remaining
+
+**Conversion Order:**
+
+**Week 1-2: Helper Modules** (4 files)
+1. ✅ `lib/helpers.ts` - First conversion complete!
+2. 🔜 `lib/colors.ts` - Color utilities
+3. 🔜 `lib/unicode.ts` - String/char utilities
+4. 🔜 `lib/keys.ts` - Key event parsing
+
+**Week 3-4: Core Infrastructure** (3 files)
+5. `lib/events.ts` - EventEmitter extension
+6. `lib/widget.ts` - Widget registry (**fixes dynamic requires!**)
+7. `lib/widgets/node.ts` - Base node class
+
+**Week 5-6: Simple Widgets** (~15 files)
+- Box, Text, Line, Button, Checkbox, etc.
+
+**Week 7-8: Complex Widgets** (~16 files)
+- Element (2,571 lines - will take 2-3 days)
+- Screen (1,906 lines)
+- List, Form, Table, etc.
+
+**Week 9-10: Low-Level** (3 files)
+- program.ts, tput.ts, blessed.ts
+
+**Key Pattern - Compatibility Shims:**
+```javascript
+// lib/helpers.js (temporary shim during migration)
+module.exports = require('./helpers.ts');
+```
+This allows `.js` files to require `.ts` files during gradual migration.
+
+#### **Phase 3B: Type Refinement with Strictness** 📅 **FUTURE**
+
+**Goal:** Achieve production-quality TypeScript (8-12 weeks after 3A)
+
+**Strategy:**
+- Re-enable strict TypeScript flags one at a time
+- Replace `any` with proper types
+- Add interfaces and generics
+- Document complex type patterns
+
+**Flags to Re-enable (in order):**
+1. `noImplicitReturns`
+2. `noFallthroughCasesInSwitch`
+3. `strictFunctionTypes`
+4. `strictBindCallApply`
+5. `noImplicitThis`
+6. `noImplicitAny` ← most work here
+7. `strictNullChecks`
+8. `strictPropertyInitialization`
+9. `noUnusedLocals` / `noUnusedParameters`
+
+**Will be tracked in separate phase after 3A completion.**
+
+#### Original Conversion Order (Safest → Riskiest)
 
 **3.1: Helper Modules (Week 1)**
 - Convert `lib/helpers.js` → `.ts`
