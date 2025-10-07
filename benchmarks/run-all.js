@@ -19,7 +19,17 @@ const { benchmarkPercentageRecalc } = require('./04-layout-percentage');
 const { benchmarkMemorySimple } = require('./05-memory-simple');
 const { benchmarkMemoryLargeData } = require('./05-memory-large');
 
-const { formatResult } = require('./utils');
+const { formatResult, sleep } = require('./utils');
+
+/**
+ * Force garbage collection and wait for it to settle
+ */
+async function forceGC() {
+  if (global.gc) {
+    global.gc();
+    await sleep(200);
+  }
+}
 
 async function runAllBenchmarks() {
   console.log('\n' + '='.repeat(70));
@@ -28,6 +38,7 @@ async function runAllBenchmarks() {
   console.log(`Date: ${new Date().toISOString()}`);
   console.log(`Node: ${process.version}`);
   console.log(`Platform: ${process.platform} ${process.arch}`);
+  console.log(`GC Available: ${global.gc ? 'Yes' : 'No (run with --expose-gc)'}`);
   console.log('='.repeat(70) + '\n');
 
   const results = [];
@@ -43,17 +54,21 @@ async function runAllBenchmarks() {
 
     results.push(await benchmarkLargeTextBox());
     console.log(formatResult(results[results.length - 1]));
+    await forceGC();
 
     // Scalability benchmarks
     console.log('\n📈 SCALABILITY BENCHMARKS\n');
     results.push(await benchmarkLargeList());
     console.log(formatResult(results[results.length - 1]));
+    await forceGC();
 
     results.push(await benchmarkListScroll());
     console.log(formatResult(results[results.length - 1]));
+    await forceGC();
 
     results.push(await benchmarkLargeTable());
     console.log(formatResult(results[results.length - 1]));
+    await forceGC();
 
     // Event processing benchmarks
     console.log('\n⚡ EVENT PROCESSING BENCHMARKS\n');

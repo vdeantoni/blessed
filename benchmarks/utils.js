@@ -46,9 +46,12 @@ async function measure(name, fn, options = {}) {
 
     results.push({ duration, memDelta });
 
-    // Small delay between iterations
+    // Force GC between iterations to prevent memory buildup
     if (i < iterations - 1) {
-      await sleep(10);
+      if (global.gc) {
+        global.gc();
+      }
+      await sleep(50);
     }
   }
 
@@ -246,7 +249,7 @@ function createMockProgram(options = {}) {
     tput: {
       features: { unicode: true },
       unicode: true,
-      numbers: { colors: 256, pairs: 32767 },
+      numbers: { colors: 256, pairs: 32767, U8: 1 },
       strings: {
         keypad_xmit: '',
         keypad_local: '',
@@ -257,9 +260,31 @@ function createMockProgram(options = {}) {
         cursor_visible: '',
         ena_acs: '',
         enter_alt_charset_mode: '',
-        exit_alt_charset_mode: ''
+        exit_alt_charset_mode: '',
+        change_scroll_region: 'csr',
+        delete_line: 'dl',
+        insert_line: 'il'
       },
-      bools: {}
+      bools: {},
+      // Terminal capability methods (return empty strings for benchmarking)
+      enacs: () => '',
+      csr: () => '',
+      cup: () => '',
+      il: () => '',
+      dl: () => '',
+      el: () => '',
+      ech: () => '',
+      cuf: () => '',
+      smacs: () => '',
+      rmacs: () => '',
+      sc: () => '',
+      rc: () => '',
+      civis: () => '',
+      cnorm: () => '',
+      setaf: () => '',
+      setab: () => '',
+      sgr: () => '',
+      sgr0: () => ''
     },
     put: {
       keypad_xmit: () => {},

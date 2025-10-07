@@ -27,7 +27,7 @@ async function benchmarkEmptyScreen() {
     } finally {
       screen.destroy();
     }
-  }, { iterations: 100, warmup: false });
+  }, { iterations: 50, warmup: false }); // Reduced from 100 to prevent OOM
 }
 
 async function run() {

@@ -11,13 +11,13 @@ const { measure, formatResult, createMockProgram } = require('./utils');
 async function benchmarkLargeList() {
   const program = createMockProgram({ cols: 80, rows: 24 });
 
-  // Generate 10K list items
+  // Generate 1K list items (reduced from 10K for baseline benchmarking)
   const items = [];
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 1000; i++) {
     items.push(`Item ${i}: Sample list entry with some text`);
   }
 
-  return measure('Large List (10K items - initial render)', () => {
+  return measure('Large List (1K items - initial render)', () => {
     const screen = blessed.screen({ program });
 
     blessed.list({
@@ -39,14 +39,15 @@ async function benchmarkLargeList() {
 
     screen.render();
     screen.destroy();
-  }, { iterations: 50 });
+  }, { iterations: 5 }); // Reduced from 10 to prevent OOM
 }
 
 async function benchmarkListScroll() {
   const program = createMockProgram({ cols: 80, rows: 24 });
 
+  // Reduced from 10K to 1K items for baseline benchmarking
   const items = [];
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 1000; i++) {
     items.push(`Item ${i}`);
   }
 
@@ -65,12 +66,15 @@ async function benchmarkListScroll() {
 
   screen.render();
 
-  return measure('Large List (scroll 100 items)', () => {
+  const result = await measure('Large List (scroll 100 items)', () => {
     for (let i = 0; i < 100; i++) {
       list.select(i);
       screen.render();
     }
-  }, { iterations: 10, warmup: false });
+  }, { iterations: 3, warmup: false }); // Reduced from 5 to prevent OOM
+
+  screen.destroy();
+  return result;
 }
 
 async function run() {

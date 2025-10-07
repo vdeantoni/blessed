@@ -29,7 +29,7 @@ async function benchmarkComplexLayout() {
 
     screen.render();
     screen.destroy();
-  }, { iterations: 100 });
+  }, { iterations: 50 }); // Reduced from 100 to prevent OOM
 }
 
 async function run() {
