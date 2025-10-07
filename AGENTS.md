@@ -617,6 +617,435 @@ This allows `.js` files to require `.ts` files during gradual migration.
 
 ---
 
+### **Phase 7: Future Considerations - Declarative UI APIs**
+
+- **Goal:** (Post-v1.0.0) Explore and implement declarative alternatives to the imperative OOP API
+- **Complexity:** Medium-High
+- **Duration:** 4-6 weeks
+- **Priority:** Low - v2.x+ consideration
+- **Status:** 📋 Design exploration documented
+
+#### Background & Motivation
+
+**Current API (Imperative OOP):**
+```javascript
+const blessed = require('blessed');
+const screen = blessed.screen({ smartCSR: true });
+
+const box = blessed.box({
+  top: 'center',
+  left: 'center',
+  width: '50%',
+  height: '50%',
+  content: 'Hello world!',
+  border: { type: 'line' }
+});
+
+screen.append(box);  // Imperative append()
+screen.render();
+```
+
+**Challenges:**
+- Imperative `.append()` calls separate from widget creation
+- Parent-child relationships not clear from code structure
+- Harder to visualize UI hierarchy
+- Less familiar to developers from web/mobile backgrounds (React, Flutter, SwiftUI)
+
+**User Request:**
+Community feedback indicates interest in more declarative, markup-style APIs similar to modern UI frameworks.
+
+---
+
+#### Proposed Approaches
+
+**1. Tagged Template Literals (Recommended - Priority 1)**
+
+*Inspired by: lit-html, htm*
+
+```javascript
+const { html } = require('blessed/declarative');
+
+const app = html`
+  <screen title="My App">
+    <box top="center" left="center" width="50%" height="50%"
+         border="line" style="fg: white, bg: blue">
+      Hello {bold}world{/bold}!
+
+      <list top="4" left="0" width="50%" height="10"
+            border="line" items="${['Item 1', 'Item 2', 'Item 3']}">
+      </list>
+    </box>
+
+    <button bottom="0" left="center" width="10" height="3"
+            on:press="${() => screen.destroy()}">
+      Quit
+    </button>
+  </screen>
+`;
+
+app.mount(screen);
+```
+
+**Pros:**
+- ✅ HTML-like syntax (familiar to web developers)
+- ✅ Clear visual hierarchy
+- ✅ No build step required
+- ✅ Expression interpolation with `${}`
+- ✅ Event handlers with `on:` prefix
+
+**Cons:**
+- ❌ No autocomplete inside template strings
+- ❌ Requires HTML parser
+- ❌ Tagged template limitations
+
+**Autocomplete:** Limited - only in `${}` expressions, not in markup itself.
+
+---
+
+**2. Hyperscript h() Function (Recommended - Priority 2)**
+
+*Inspired by: React.createElement, Vue h(), Preact, Mithril*
+
+```javascript
+const { h, render } = require('blessed/declarative');
+
+const app = h('screen', { title: 'My App' }, [
+  h('box', {
+    top: 'center',
+    left: 'center',
+    width: '50%',
+    height: '50%',
+    border: { type: 'line' },
+    style: { fg: 'white', bg: 'blue' },
+    content: 'Hello world!'
+  }, [
+    h('list', {
+      top: 4,
+      left: 0,
+      width: '50%',
+      height: 10,
+      border: { type: 'line' },
+      items: ['Item 1', 'Item 2', 'Item 3']
+    })
+  ]),
+
+  h('button', {
+    bottom: 0,
+    left: 'center',
+    width: 10,
+    height: 3,
+    onPress: () => screen.destroy(),
+    content: 'Quit'
+  })
+]);
+
+render(app, screen);
+```
+
+**Pros:**
+- ✅ Pure JavaScript (no parsing)
+- ✅ Full TypeScript autocomplete
+- ✅ Works with JSX (optional)
+- ✅ Familiar to React developers
+- ✅ Type-safe
+
+**Cons:**
+- ❌ More verbose than templates
+- ❌ Nested h() calls harder to read
+
+**Autocomplete:** Excellent with TypeScript definitions.
+
+---
+
+**3. Builder Pattern (Priority 3)**
+
+*Inspired by: SwiftUI, Jetpack Compose, Flutter*
+
+```javascript
+const { Screen, Box, List, Button } = require('blessed/declarative');
+
+const screen = Screen({ smartCSR: true })
+  .title('My App')
+  .child(
+    Box({ top: 'center', left: 'center', width: '50%', height: '50%' })
+      .border('line')
+      .style({ fg: 'white', bg: 'blue' })
+      .content('Hello world!')
+      .child(
+        List({ top: 4, left: 0, width: '50%', height: 10 })
+          .border('line')
+          .items(['Item 1', 'Item 2', 'Item 3'])
+      )
+  )
+  .child(
+    Button({ bottom: 0, left: 'center', width: 10, height: 3 })
+      .content('Quit')
+      .onPress(() => screen.destroy())
+  )
+  .build();
+
+screen.render();
+```
+
+**Pros:**
+- ✅ Fluent, chainable API
+- ✅ Excellent discoverability
+- ✅ Type-safe with TypeScript
+- ✅ No parsing needed
+
+**Cons:**
+- ❌ Verbose for simple cases
+- ❌ `.build()` can be forgotten
+- ❌ Less familiar to web developers
+
+**Autocomplete:** Excellent with TypeScript.
+
+---
+
+**4. JSX Support (Optional)**
+
+*Inspired by: React, Preact, Solid.js*
+
+**Multiple Transpiler Options:**
+
+| Tool | Speed | Build Step | Node.js | Best For |
+|------|-------|------------|---------|----------|
+| **TypeScript** | Fast | Required | ✅ | TypeScript users |
+| **esbuild** | Very Fast | Required | ✅ | Speed & simplicity |
+| **SWC** | Very Fast | Required | ✅ | Babel replacement |
+| **Bun** | Instant | None! | ❌ (Bun) | Modern runtimes |
+| **Babel** | Slow | Required | ✅ | Legacy projects |
+
+**Example with TypeScript (tsconfig.json):**
+
+```json
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment"
+  }
+}
+```
+
+**Usage:**
+
+```tsx
+/** @jsx h */
+import { h, render } from 'blessed/declarative';
+
+function App() {
+  return (
+    <screen title="My App">
+      <box top="center" left="center" width="50%" height="50%"
+           border={{ type: 'line' }}
+           style={{ fg: 'white', bg: 'blue' }}>
+        Hello world!
+
+        <list top={4} left={0} width="50%" height={10}
+              border={{ type: 'line' }}
+              items={['Item 1', 'Item 2', 'Item 3']} />
+      </box>
+
+      <button bottom={0} left="center" width={10} height={3}
+              onPress={() => screen.destroy()}>
+        Quit
+      </button>
+    </screen>
+  );
+}
+
+const screen = blessed.screen({ smartCSR: true });
+render(<App />, screen);
+```
+
+**Pros:**
+- ✅ Best of both worlds (markup + JavaScript)
+- ✅ Familiar to React developers
+- ✅ Excellent TypeScript support
+- ✅ Can use components, props, state
+
+**Cons:**
+- ❌ Requires build step
+- ❌ More complex tooling
+
+**Autocomplete:** Excellent with TypeScript + JSX.
+
+---
+
+#### Recommended Implementation Strategy
+
+**Hybrid Approach - Support Multiple Styles:**
+
+1. **Core: Hyperscript `h()` function**
+   - Pure JavaScript, works everywhere
+   - Foundation for all other approaches
+   - Full TypeScript definitions
+
+2. **Tagged Templates (convenience layer)**
+   - Built on top of hyperscript
+   - Best DX for markup-style UIs
+   - No additional dependencies
+
+3. **JSX Support (documentation only)**
+   - Document JSX pragma: `/** @jsx h */`
+   - Let users choose their transpiler
+   - No blessed-specific tooling needed
+
+4. **Builder Pattern (optional)**
+   - For users who prefer fluent APIs
+   - Good discoverability
+
+**Implementation Phases:**
+
+| Phase | Deliverable | Complexity | Duration |
+|-------|-------------|------------|----------|
+| **7A.1** | Core hyperscript `h()` function | Medium | 1 week |
+| **7A.2** | TypeScript definitions | Medium | 1 week |
+| **7A.3** | Tagged template parser | High | 2 weeks |
+| **7A.4** | Builder pattern wrappers | Low | 1 week |
+| **7A.5** | Documentation & examples | Low | 1 week |
+
+**File Structure:**
+```
+lib/declarative/
+  ├── index.js          # Main exports
+  ├── hyperscript.js    # h() function
+  ├── render.js         # Render to blessed screen
+  ├── html.js           # Tagged template parser
+  ├── builder.js        # Builder pattern (optional)
+  └── types.d.ts        # TypeScript definitions
+```
+
+---
+
+#### Benefits
+
+**For Users:**
+- ✅ More intuitive - Clear parent-child relationships
+- ✅ More declarative - Focus on "what" not "how"
+- ✅ Familiar - Borrows from React, Vue, SwiftUI, Flutter
+- ✅ Choice - Multiple styles for different preferences
+- ✅ Type-safe - Full TypeScript support
+
+**For blessed:**
+- ✅ Modern DX - Attracts developers from web/mobile
+- ✅ Backward compatible - Doesn't break existing code
+- ✅ Competitive - Matches modern TUI libraries (ink, ratatui)
+- ✅ Flexible - Users pick their preferred style
+
+---
+
+#### Autocomplete Considerations
+
+**Summary:**
+
+| Approach | Autocomplete | Requires |
+|----------|--------------|----------|
+| Tagged Templates | ❌ Limited (only in `${}`) | Nothing |
+| Hyperscript | ✅ Excellent | TypeScript definitions |
+| Builder Pattern | ✅ Excellent | TypeScript definitions |
+| JSX | ✅ Excellent | TypeScript + transpiler |
+
+**Recommendation:**
+- Implement hyperscript with comprehensive TypeScript definitions
+- Document tagged templates as convenience option
+- Document JSX setup for users who want it
+- Focus autocomplete efforts on hyperscript/JSX
+
+---
+
+#### Comparison to Other TUI Libraries
+
+**ink (React for CLIs):**
+```jsx
+// ink uses React
+import React from 'react';
+import { Box, Text } from 'ink';
+
+const App = () => (
+  <Box flexDirection="column">
+    <Text color="cyan">Hello World</Text>
+  </Box>
+);
+```
+
+**blessed declarative (proposed):**
+```jsx
+// Similar but blessed-native
+import { h, Box, Text } from 'blessed/declarative';
+
+const App = () => (
+  <Box top="center" left="center">
+    <Text style={{ fg: 'cyan' }}>Hello World</Text>
+  </Box>
+);
+```
+
+**Key Differences:**
+- ink requires React (heavy dependency)
+- blessed declarative is lightweight (no React)
+- ink uses flexbox, blessed uses terminal coordinates
+- blessed has deeper terminal integration
+
+---
+
+#### Decision Points
+
+**Before Implementation:**
+
+1. **Is there sufficient user demand?**
+   - Gather community feedback
+   - Survey users on preferred style
+   - Validate assumptions with prototypes
+
+2. **What's the maintenance burden?**
+   - Additional test coverage needed
+   - Documentation requirements
+   - Support for multiple APIs
+
+3. **How does this fit with v1.x vs v2.x?**
+   - v1.x: Keep imperative API only
+   - v2.x: Add declarative as opt-in
+   - v3.x: Consider making declarative primary
+
+**Recommendation:**
+- ⏸️ **Defer to post-v1.0.0**
+- 📋 Document design exploration (this section)
+- 🗳️ Gather community feedback via GitHub issue
+- 🧪 Build proof-of-concept prototype
+- 📊 Evaluate maintenance cost vs user benefit
+
+---
+
+#### Resources & Prior Art
+
+**Declarative TUI Libraries:**
+- [ink](https://github.com/vadimdemedes/ink) - React for CLIs (8.5k stars)
+- [Bubble Tea](https://github.com/charmbracelet/bubbletea) - Go TUI with Elm architecture
+- [Ratatui](https://github.com/ratatui-org/ratatui) - Rust TUI library
+- [textual](https://github.com/Textualize/textual) - Python TUI with CSS
+
+**Hyperscript Implementations:**
+- [hyperscript](https://github.com/hyperhype/hyperscript) - Original implementation
+- [snabbdom](https://github.com/snabbdom/snabbdom) - Virtual DOM with h()
+- [preact](https://github.com/preactjs/preact) - React alternative with h()
+
+**Tagged Template Libraries:**
+- [lit-html](https://lit.dev/) - Efficient HTML templates
+- [htm](https://github.com/developit/htm) - JSX-like syntax with template literals
+
+**Completion Criteria (if implemented):**
+- [ ] Core hyperscript `h()` function implemented
+- [ ] TypeScript definitions with full autocomplete
+- [ ] Tagged template parser with expression interpolation
+- [ ] Documentation with examples for all approaches
+- [ ] Test coverage for declarative APIs
+- [ ] Migration guide for users wanting declarative style
+- [ ] Example apps showcasing each approach
+
+---
+
 ## 4. Testing Strategy for Terminal UI Library
 
 ### Challenge
