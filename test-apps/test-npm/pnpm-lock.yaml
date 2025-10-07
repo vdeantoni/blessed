@@ -9,16 +9,16 @@ importers:
   .:
     dependencies:
       '@vdeantoni/blessed':
-        specifier: 1.0.0-alpha.3
-        version: 1.0.0-alpha.3
+        specifier: 1.0.0-alpha.5
+        version: 1.0.0-alpha.5
 
 packages:
 
-  '@vdeantoni/blessed@1.0.0-alpha.3':
-    resolution: {integrity: sha512-a+CsGfVYpx4J1AHKPAnCcsXAyA3YNjyc+mlbBAkHdg5PXD+pix1a8wLCr5DOk/o0c+ajaKdkIEoSpN0RsXyNsg==}
+  '@vdeantoni/blessed@1.0.0-alpha.5':
+    resolution: {integrity: sha512-yf+0xen42aBaiwo5jWHZLsGVsuNsQ2uupnD6zqaJpBRbidQA4ZUpnuG4XzBe+stCjZTSWvMS30Zel5GWkBx+Iw==}
     engines: {node: '>= 22.0.0'}
     hasBin: true
 
 snapshots:
 
-  '@vdeantoni/blessed@1.0.0-alpha.3': {}
+  '@vdeantoni/blessed@1.0.0-alpha.5': {}
