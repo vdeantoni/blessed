@@ -36,7 +36,7 @@ async function benchmarkLargeTextBox() {
 
     screen.render();
     screen.destroy();
-  }, { iterations: 50 });
+  }, { iterations: 25 }); // Reduced from 50 to prevent OOM
 }
 
 async function run() {
