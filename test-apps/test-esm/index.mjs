@@ -15,6 +15,7 @@ console.log('Note: Native ESM will be available after TypeScript conversion');
 // Create a simple screen
 const screen = blessed.screen({
   smartCSR: true,
+    fullUnicode: true,  // Enable proper emoji/unicode width calculation
   title: 'Blessed ESM Test'
 });
 

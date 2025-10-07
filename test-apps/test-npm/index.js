@@ -22,6 +22,7 @@ console.log('');
 // Create a screen
 const screen = blessed.screen({
   smartCSR: true,
+    fullUnicode: true,  // Enable proper emoji/unicode width calculation
   title: 'blessed npm test'
 });
 
