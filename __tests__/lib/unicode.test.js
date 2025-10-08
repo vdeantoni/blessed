@@ -232,6 +232,23 @@ describe('unicode', () => {
       expect(result).toContain('\x03');
     });
 
+    it('should handle surrogate pair emojis correctly', () => {
+      const result = unicode.padWideChars('🎉 test');
+      // 🎉 is a surrogate pair (2 JS chars) with width 2
+      // Padding must come AFTER both surrogate parts, not in the middle
+      // Bug: high + \x03 + low → broken emoji ��
+      // Fix: high + low + \x03 → correct emoji 🎉
+
+      // Check that padding is after the complete emoji
+      expect(result.charCodeAt(0)).toBe(0xd83c); // high surrogate
+      expect(result.charCodeAt(1)).toBe(0xdf89); // low surrogate
+      expect(result.charCodeAt(2)).toBe(0x0003); // padding AFTER complete emoji
+      expect(result.charCodeAt(3)).toBe(0x0020); // space
+
+      // Visual check
+      expect(result).toBe('🎉\x03 test');
+    });
+
     it('should handle mixed content correctly', () => {
       const result = unicode.padWideChars('✓ normal ✅ wide 你好');
       // ✓ = no padding, ✅ = padding, 你 = padding, 好 = padding
@@ -253,6 +270,15 @@ describe('unicode', () => {
     it('should replace wide characters with ??', () => {
       const result = unicode.replaceWideChars('✅ test');
       // ✅ is width 2, so it should be replaced with ??
+      expect(result).toBe('?? test');
+    });
+
+    it('should handle surrogate pair emojis correctly', () => {
+      const result = unicode.replaceWideChars('🎉 test');
+      // 🎉 is a surrogate pair (2 JS chars) with width 2
+      // Should replace the entire emoji (both surrogates) with ??
+      // Bug: would process each surrogate separately → broken output
+      // Fix: process as complete character → correct ??
       expect(result).toBe('?? test');
     });
 
