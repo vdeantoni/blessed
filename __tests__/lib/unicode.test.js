@@ -192,4 +192,28 @@ describe('unicode', () => {
       expect(typeof firstRange[1]).toBe('number');
     });
   });
+
+  describe('East Asian Width handling', () => {
+    it('should treat CHECK MARK (U+2713) as width 1 (neutral)', () => {
+      // ✓ (U+2713) has East Asian Width "N" (Neutral), should be 1 column
+      const checkmark = '\u2713'; // ✓
+      expect(unicode.charWidth(checkmark, 0)).toBe(1);
+      expect(unicode.strWidth('  ✓ test')).toBe(8); // 2 spaces + 1 (✓) + 1 space + 4 (test)
+    });
+
+    it('should treat WHITE HEAVY CHECK MARK (U+2705) as width 2 (wide)', () => {
+      // ✅ (U+2705) has East Asian Width "W" (Wide), should be 2 columns
+      const heavyCheckmark = '\u2705'; // ✅
+      expect(unicode.charWidth(heavyCheckmark, 0)).toBe(2);
+    });
+
+    it('should handle text alignment with neutral characters', () => {
+      // This test demonstrates the fix: lines with ✓ should align properly with borders
+      const line1 = '  ✓ blessed.screen() works';
+      const line2 = '  X blessed.screen() works';
+
+      // Both lines should have the same width since ✓ and X are both single-width
+      expect(unicode.strWidth(line1)).toBe(unicode.strWidth(line2));
+    });
+  });
 });
