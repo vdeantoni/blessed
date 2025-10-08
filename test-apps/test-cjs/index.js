@@ -21,7 +21,7 @@ const box = blessed.box({
   left: 'center',
   width: '50%',
   height: '50%',
-  content: `{center}{bold}✅ CommonJS Works!{/bold}\n\n` +
+  content: `{center}{bold}✅ CommonJS Works! 🎉{/bold}\n\n` +
        `✓ Using source: lib/blessed.js\n\n` +
            `Press 'q' or ESC to quit.{/center}`,
   tags: true,
