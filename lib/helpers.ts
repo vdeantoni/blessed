@@ -146,7 +146,16 @@ const helpers = {
   dropUnicode(text: string): string {
     if (!text) return '';
     return text
-      .replace(unicode.chars.all, '??')
+      .split('')
+      .map((char: string, i: number, arr: string[]) => {
+        // Use unicode.replaceWideChars logic inline for better performance with chaining
+        const width = unicode.charWidth(char, 0);
+        if (width === 2) {
+          return '??';
+        }
+        return char;
+      })
+      .join('')
       .replace(unicode.chars.combining, '')
       .replace(unicode.chars.surrogate, '?');
   },
