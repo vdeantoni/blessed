@@ -1445,4 +1445,54 @@ describe('Element', () => {
       expect(el.wrap).toBe(false);
     });
   });
+
+  describe('Unicode width handling', () => {
+    it('should correctly handle neutral-width characters like ✓', () => {
+      // Enable fullUnicode mode
+      screen.fullUnicode = true;
+
+      const el = new Element({
+        screen,
+        width: 50,
+        height: 5,
+        content: '✓ test',
+        border: { type: 'line' }
+      });
+
+      screen.append(el);
+      el.parseContent();
+
+      // ✓ is width 1, so the parsed content should NOT have extra padding
+      // With the old regex-based approach, it incorrectly adds \x03 after ✓
+      const parsedContent = el._pcontent;
+
+      // Count actual characters (excluding ANSI codes)
+      const stripped = parsedContent.replace(/\x1b\[[0-9;]*m/g, '');
+
+      // Should be "✓ test" without extra \x03 padding
+      // Old behavior would make it "✓\x03 test" (8 chars instead of 7)
+      expect(stripped.replace(/\x03/g, '').length).toBe(stripped.length); // No \x03 chars
+    });
+
+    it('should correctly handle wide characters like ✅', () => {
+      screen.fullUnicode = true;
+
+      const el = new Element({
+        screen,
+        width: 50,
+        height: 5,
+        content: '✅ test'
+      });
+
+      screen.append(el);
+      el.parseContent();
+
+      // ✅ is width 2, so padding SHOULD be added
+      const parsedContent = el._pcontent;
+      const stripped = parsedContent.replace(/\x1b\[[0-9;]*m/g, '');
+
+      // Should contain \x03 padding after ✅
+      expect(stripped).toContain('\x03');
+    });
+  });
 });

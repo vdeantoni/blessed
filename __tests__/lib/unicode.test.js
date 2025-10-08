@@ -216,4 +216,54 @@ describe('unicode', () => {
       expect(unicode.strWidth(line1)).toBe(unicode.strWidth(line2));
     });
   });
+
+  describe('padWideChars', () => {
+    it('should NOT add padding after neutral-width characters', () => {
+      const result = unicode.padWideChars('✓ test');
+      // ✓ is width 1, so no \x03 padding should be added
+      expect(result).toBe('✓ test');
+      expect(result).not.toContain('\x03');
+    });
+
+    it('should add padding after wide characters', () => {
+      const result = unicode.padWideChars('✅ test');
+      // ✅ is width 2, so \x03 padding should be added after it
+      expect(result).toBe('✅\x03 test');
+      expect(result).toContain('\x03');
+    });
+
+    it('should handle mixed content correctly', () => {
+      const result = unicode.padWideChars('✓ normal ✅ wide 你好');
+      // ✓ = no padding, ✅ = padding, 你 = padding, 好 = padding
+      expect(result).toBe('✓ normal ✅\x03 wide 你\x03好\x03');
+    });
+
+    it('should handle empty string', () => {
+      expect(unicode.padWideChars('')).toBe('');
+    });
+  });
+
+  describe('replaceWideChars', () => {
+    it('should NOT replace neutral-width characters', () => {
+      const result = unicode.replaceWideChars('✓ test');
+      // ✓ is width 1, so it should not be replaced
+      expect(result).toBe('✓ test');
+    });
+
+    it('should replace wide characters with ??', () => {
+      const result = unicode.replaceWideChars('✅ test');
+      // ✅ is width 2, so it should be replaced with ??
+      expect(result).toBe('?? test');
+    });
+
+    it('should handle mixed content correctly', () => {
+      const result = unicode.replaceWideChars('✓ normal ✅ wide 你好');
+      // ✓ stays, ✅ → ??, 你 → ??, 好 → ??
+      expect(result).toBe('✓ normal ?? wide ????');
+    });
+
+    it('should handle empty string', () => {
+      expect(unicode.replaceWideChars('')).toBe('');
+    });
+  });
 });
