@@ -13,14 +13,15 @@ const screen = blessed.screen({
 // Create a box
 const box = blessed.box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
+  top: 1,
+  left: 1,
+  width: '48%',
   height: '50%',
   content: '{center}{bold}✅ CommonJS Works! 🎉{/bold}\n\n' +
            '✓ Using source: lib/blessed.js\n' +
            '✓ Factory functions work\n' +
-           '✓ Classes work with new\n\n' +
+           '✓ Classes work with new\n' +
+           '✓ List widget works\n\n' +
            'Press \'q\' or ESC to quit.{/center}',
   tags: true,
   border: {
@@ -35,15 +36,57 @@ const box = blessed.box({
   }
 });
 
+// Create a list to test the fix
+const items = [];
+for (let i = 1; i <= 20; i++) {
+  items.push(`Item ${i}: Test list entry #${i}`);
+}
+
+const list = blessed.list({
+  parent: box,
+  bottom: 0,
+  left: '50%',
+  width: '48%',
+  height: '50%',
+  label: 'Scrollable List',
+  items: items,
+  scrollable: true,
+  mouse: true,
+  keys: true,
+  vi: true,
+  draggable: true,
+  border: {
+    type: 'line'
+  },
+  style: {
+    fg: 'white',
+    border: {
+      fg: 'cyan'
+    },
+    selected: {
+      bg: 'green',
+      fg: 'black',
+      bold: true
+    }
+  },
+  scrollbar: {
+    ch: ' ',
+    style: {
+      bg: 'yellow'
+    }
+  }
+});
+
 // Quit on q or ESC
 screen.key(['q', 'escape', 'C-c'], () => {
   screen.destroy();
   return process.exit(0);
 });
 
-// Focus and render
-box.focus();
+// Focus the list by default
+list.focus();
 screen.render();
 
-console.log('\n📺 Screen rendered. You should see a blue box.');
+console.log('\n📺 Screen rendered. You should see a blue box and a list.');
+console.log('💡 Use arrow keys or j/k to navigate the list.');
 console.log('💡 Press "q" or ESC to quit.\n');
