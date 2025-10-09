@@ -7,58 +7,90 @@ console.log('✅ blessed loaded successfully (ESM via require)');
 console.log('✅ Loaded from: lib/blessed.js (source)');
 console.log('Note: Native ESM will be available after TypeScript conversion');
 
-console.log('\n🔍 Debugging:');
-console.log('- blessed.screen type:', typeof blessed.screen);
-console.log('- blessed.Screen type:', typeof blessed.Screen);
-console.log('- blessed.box type:', typeof blessed.box);
-
 // Create a simple screen
-console.log('\n📺 Creating screen...');
 const screen = blessed.screen({
-  smartCSR: true,
-  fullUnicode: true,
-  title: 'Blessed ESM Test - Press q to quit'
+    smartCSR: true,
+    fullUnicode: true,
+    title: 'Blessed CJS Test - Press q to quit'
 });
-console.log('✓ Screen created:', screen.constructor.name);
 
 // Create a box
-console.log('📦 Creating box...');
 const box = blessed.box({
-  parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: '{center}{bold}✅ ESM Compatible! 🎉{/bold}\n\n' +
-           '✓ Using source via createRequire()\n' +
-           '✓ Factory functions work\n' +
-           '✓ Classes work with new\n\n' +
-           'Press \'q\' or ESC to quit.{/center}',
-  tags: true,
-  border: {
-    type: 'line'
-  },
-  style: {
-    fg: 'white',
-    bg: 'green',
+    parent: screen,
+    top: 1,
+    left: 1,
+    width: '48%',
+    height: '50%',
+    content: '{center}{bold}✅ ESM Works! 🎉{/bold}\n\n' +
+        '✓ Using source: lib/blessed.js\n' +
+        '✓ Factory functions work\n' +
+        '✓ Classes work with new\n' +
+        '✓ List widget works\n\n' +
+        'Press \'q\' or ESC to quit.{/center}',
+    tags: true,
     border: {
-      fg: '#ffff00'
+        type: 'line'
+    },
+    style: {
+        fg: 'white',
+        bg: 'blue',
+        border: {
+            fg: '#00ffff'
+        }
     }
-  }
 });
-console.log('✓ Box created:', box.constructor.name);
+
+// Create a list to test the fix
+const items = [];
+for (let i = 1; i <= 20; i++) {
+    items.push(`Item ${i}: Test list entry #${i}`);
+}
+
+const list = blessed.list({
+    parent: box,
+    bottom: 0,
+    left: '50%',
+    width: '48%',
+    height: '50%',
+    label: 'Scrollable List',
+    items: items,
+    scrollable: true,
+    mouse: true,
+    keys: true,
+    vi: true,
+    draggable: true,
+    border: {
+        type: 'line'
+    },
+    style: {
+        fg: 'white',
+        border: {
+            fg: 'cyan'
+        },
+        selected: {
+            bg: 'green',
+            fg: 'black',
+            bold: true
+        }
+    },
+    scrollbar: {
+        ch: ' ',
+        style: {
+            bg: 'yellow'
+        }
+    }
+});
 
 // Quit on q or ESC
 screen.key(['q', 'escape', 'C-c'], () => {
-  console.log('\n👋 Exiting...');
-  screen.destroy();
-  return process.exit(0);
+    screen.destroy();
+    return process.exit(0);
 });
 
-// Focus and render
-box.focus();
+// Focus the list by default
+list.focus();
 screen.render();
 
-console.log('\n📺 Screen rendered! You should see a green box.');
-console.log('💡 Press "q", ESC, or Ctrl+C to quit.');
-console.log('⏳ Waiting for input...\n');
+console.log('\n📺 Screen rendered. You should see a blue box and a list.');
+console.log('💡 Use arrow keys or j/k to navigate the list.');
+console.log('💡 Press "q" or ESC to quit.');
