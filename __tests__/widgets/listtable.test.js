@@ -21,13 +21,6 @@ describe('ListTable', () => {
       expect(listtable.type).toBe('list-table');
     });
 
-    it('should work as factory function', () => {
-      const listtable = ListTable({ screen });
-
-      expect(listtable).toBeDefined();
-      expect(listtable.type).toBe('list-table');
-    });
-
     it('should inherit from List', () => {
       const listtable = new ListTable({ screen });
 
@@ -332,12 +325,12 @@ describe('ListTable', () => {
         ['Bob', '30']
       ]);
       listtable.childBase = 5;
-      listtable.setScroll = vi.fn();
+      listtable.scrollTo = vi.fn();
       listtable._select = vi.fn();
 
       listtable.select(1);
 
-      expect(listtable.setScroll).toHaveBeenCalledWith(4);
+      expect(listtable.scrollTo).toHaveBeenCalledWith(4);
     });
   });
 

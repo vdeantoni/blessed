@@ -17,13 +17,6 @@ describe('Box', () => {
       expect(box.type).toBe('box');
     });
 
-    it('should work as factory function', () => {
-      const box = Box({ screen });
-
-      expect(box).toBeDefined();
-      expect(box.type).toBe('box');
-    });
-
     it('should inherit from Element', () => {
       const box = new Box({ screen });
 

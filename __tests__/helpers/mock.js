@@ -167,6 +167,7 @@ export function createMockScreen(options = {}) {
   screen.ignoreLocked = options.ignoreLocked || [];
   screen.fullUnicode = options.fullUnicode || false;
   screen._unicode = program.tput.unicode;
+  screen._borderStops = {};
 
   screen.dattr = ((0 << 18) | (0x1ff << 9)) | 0x1ff;
   screen.renders = 0;

@@ -1,7 +1,3 @@
-// CommonJS Test App for blessed
-// This tests that the source works correctly with CommonJS
-
-// Test using the source (lib/blessed.js)
 const blessed = require('../../lib/blessed.js');
 
 console.log('✅ blessed loaded successfully (CommonJS)');
@@ -10,8 +6,8 @@ console.log('✅ Loaded from: lib/blessed.js (source)');
 // Create a simple screen
 const screen = blessed.screen({
   smartCSR: true,
-  fullUnicode: true,  // Enable proper emoji/unicode width calculation
-  title: 'Blessed CJS Test'
+  fullUnicode: true,
+  title: 'Blessed CJS Test - Press q to quit'
 });
 
 // Create a box
@@ -21,9 +17,11 @@ const box = blessed.box({
   left: 'center',
   width: '50%',
   height: '50%',
-  content: `{center}{bold}✅ CommonJS Works! 🎉{/bold}\n\n` +
-       `✓ Using source: lib/blessed.js\n\n` +
-           `Press 'q' or ESC to quit.{/center}`,
+  content: '{center}{bold}✅ CommonJS Works! 🎉{/bold}\n\n' +
+           '✓ Using source: lib/blessed.js\n' +
+           '✓ Factory functions work\n' +
+           '✓ Classes work with new\n\n' +
+           'Press \'q\' or ESC to quit.{/center}',
   tags: true,
   border: {
     type: 'line'
@@ -32,13 +30,14 @@ const box = blessed.box({
     fg: 'white',
     bg: 'blue',
     border: {
-      fg: 'cyan'
+      fg: '#00ffff'
     }
   }
 });
 
 // Quit on q or ESC
-screen.key(['q', 'escape'], () => {
+screen.key(['q', 'escape', 'C-c'], () => {
+  screen.destroy();
   return process.exit(0);
 });
 
@@ -46,4 +45,5 @@ screen.key(['q', 'escape'], () => {
 box.focus();
 screen.render();
 
-console.log('Screen rendered. Press "q" to quit.');
+console.log('\n📺 Screen rendered. You should see a blue box.');
+console.log('💡 Press "q" or ESC to quit.\n');

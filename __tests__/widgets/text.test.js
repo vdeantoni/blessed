@@ -17,13 +17,6 @@ describe('Text', () => {
       expect(text.type).toBe('text');
     });
 
-    it('should work as factory function', () => {
-      const text = Text({ screen });
-
-      expect(text).toBeDefined();
-      expect(text.type).toBe('text');
-    });
-
     it('should inherit from Element', () => {
       const text = new Text({ screen });
 

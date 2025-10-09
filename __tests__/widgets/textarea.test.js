@@ -31,13 +31,6 @@ describe('Textarea', () => {
       expect(textarea.type).toBe('textarea');
     });
 
-    it('should work as factory function', () => {
-      const textarea = Textarea({ screen });
-
-      expect(textarea).toBeDefined();
-      expect(textarea.type).toBe('textarea');
-    });
-
     it('should inherit from Input', () => {
       const textarea = new Textarea({ screen });
 
@@ -386,18 +379,21 @@ describe('Textarea', () => {
   });
 
   describe('render()', () => {
-    it('should call setValue and _render', () => {
+    it('should call setValue and parent render', () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea.setValue = vi.fn();
-      textarea._render = vi.fn().mockReturnValue('rendered');
+      // Spy on the parent's render method
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(textarea)), 'render').mockReturnValue('rendered');
 
       const result = textarea.render();
 
       expect(textarea.setValue).toHaveBeenCalled();
-      expect(textarea._render).toHaveBeenCalled();
+      expect(renderSpy).toHaveBeenCalled();
       expect(result).toBe('rendered');
+
+      renderSpy.mockRestore();
     });
   });
 

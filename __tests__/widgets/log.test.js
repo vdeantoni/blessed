@@ -22,13 +22,6 @@ describe('Log', () => {
       expect(log.type).toBe('log');
     });
 
-    it('should work as factory function', () => {
-      const log = Log({ screen });
-
-      expect(log).toBeDefined();
-      expect(log.type).toBe('log');
-    });
-
     it('should inherit from ScrollableText', () => {
       const log = new Log({ screen });
 

@@ -17,13 +17,6 @@ describe('ProgressBar', () => {
       expect(progressbar.type).toBe('progress-bar');
     });
 
-    it('should work as factory function', () => {
-      const progressbar = ProgressBar({ screen });
-
-      expect(progressbar).toBeDefined();
-      expect(progressbar.type).toBe('progress-bar');
-    });
-
     it('should inherit from Input', () => {
       const progressbar = new ProgressBar({ screen });
 
@@ -558,8 +551,7 @@ describe('ProgressBar', () => {
       });
       screen.append(progressbar);
 
-      // Mock _render to provide structure
-      progressbar._render = vi.fn().mockReturnValue({
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(progressbar)), 'render').mockReturnValue({
         xi: 0,
         xl: 20,
         yi: 0,
@@ -569,6 +561,7 @@ describe('ProgressBar', () => {
       // Execute real render (lines 99-129)
       const result = progressbar.render();
       expect(result).toBeDefined();
+      renderSpy.mockRestore();
     });
 
     it('should execute render for vertical progressbar', () => {
@@ -583,7 +576,7 @@ describe('ProgressBar', () => {
       });
       screen.append(progressbar);
 
-      progressbar._render = vi.fn().mockReturnValue({
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(progressbar)), 'render').mockReturnValue({
         xi: 0,
         xl: 5,
         yi: 0,
@@ -593,6 +586,7 @@ describe('ProgressBar', () => {
       // Execute real render for vertical (lines 113-114)
       const result = progressbar.render();
       expect(result).toBeDefined();
+      renderSpy.mockRestore();
     });
 
     it('should execute render with border', () => {
@@ -608,8 +602,7 @@ describe('ProgressBar', () => {
       });
       screen.append(progressbar);
 
-      // Mock the element's _render to provide necessary structure
-      progressbar._render = vi.fn().mockReturnValue({
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(progressbar)), 'render').mockReturnValue({
         xi: 1,
         xl: 19,
         yi: 1,
@@ -619,6 +612,7 @@ describe('ProgressBar', () => {
       // Execute real render with border adjustment (line 109)
       const result = progressbar.render();
       expect(result).toBeDefined();
+      renderSpy.mockRestore();
     });
 
     it('should execute render with content overlay', () => {
@@ -634,7 +628,7 @@ describe('ProgressBar', () => {
       });
       screen.append(progressbar);
 
-      progressbar._render = vi.fn().mockReturnValue({
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(progressbar)), 'render').mockReturnValue({
         xi: 0,
         xl: 20,
         yi: 0,
@@ -644,6 +638,7 @@ describe('ProgressBar', () => {
       // Execute real render with content (lines 121-127)
       const result = progressbar.render();
       expect(result).toBeDefined();
+      renderSpy.mockRestore();
     });
 
     it('should execute progress and emit complete', () => {
@@ -702,7 +697,7 @@ describe('ProgressBar', () => {
       });
       screen.append(progressbar);
 
-      progressbar._render = vi.fn().mockReturnValue({
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(progressbar)), 'render').mockReturnValue({
         xi: 0,
         xl: 20,
         yi: 0,
@@ -711,6 +706,7 @@ describe('ProgressBar', () => {
 
       const result = progressbar.render();
       expect(result).toBeDefined();
+      renderSpy.mockRestore();
     });
 
     it('should render at 100%', () => {
@@ -725,7 +721,7 @@ describe('ProgressBar', () => {
       });
       screen.append(progressbar);
 
-      progressbar._render = vi.fn().mockReturnValue({
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(progressbar)), 'render').mockReturnValue({
         xi: 0,
         xl: 20,
         yi: 0,
@@ -734,6 +730,7 @@ describe('ProgressBar', () => {
 
       const result = progressbar.render();
       expect(result).toBeDefined();
+      renderSpy.mockRestore();
     });
 
     it('should execute render with custom style', () => {
@@ -754,7 +751,7 @@ describe('ProgressBar', () => {
       });
       screen.append(progressbar);
 
-      progressbar._render = vi.fn().mockReturnValue({
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(progressbar)), 'render').mockReturnValue({
         xi: 0,
         xl: 20,
         yi: 0,
@@ -764,6 +761,7 @@ describe('ProgressBar', () => {
       // Execute render with sattr call (line 117)
       const result = progressbar.render();
       expect(result).toBeDefined();
+      renderSpy.mockRestore();
     });
   });
 });

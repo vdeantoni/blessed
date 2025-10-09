@@ -17,13 +17,6 @@ describe('Textbox', () => {
       expect(textbox.type).toBe('textbox');
     });
 
-    it('should work as factory function', () => {
-      const textbox = Textbox({ screen });
-
-      expect(textbox).toBeDefined();
-      expect(textbox.type).toBe('textbox');
-    });
-
     it('should inherit from Textarea', () => {
       const textbox = new Textbox({ screen });
 

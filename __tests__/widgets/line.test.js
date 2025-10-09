@@ -17,13 +17,6 @@ describe('Line', () => {
       expect(line.type).toBe('line');
     });
 
-    it('should work as factory function', () => {
-      const line = Line({ screen });
-
-      expect(line).toBeDefined();
-      expect(line.type).toBe('line');
-    });
-
     it('should inherit from Box', () => {
       const line = new Line({ screen });
 

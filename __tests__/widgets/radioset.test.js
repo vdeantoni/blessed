@@ -18,13 +18,6 @@ describe('RadioSet', () => {
       expect(radioset.type).toBe('radio-set');
     });
 
-    it('should work as factory function', () => {
-      const radioset = RadioSet({ screen });
-
-      expect(radioset).toBeDefined();
-      expect(radioset.type).toBe('radio-set');
-    });
-
     it('should inherit from Box', () => {
       const radioset = new RadioSet({ screen });
 

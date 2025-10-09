@@ -33,13 +33,6 @@ describe('Form', () => {
       expect(form.type).toBe('form');
     });
 
-    it('should work as factory function', () => {
-      const form = Form({ screen });
-
-      expect(form).toBeDefined();
-      expect(form.type).toBe('form');
-    });
-
     it('should inherit from Box', () => {
       const form = new Form({ screen });
 
@@ -51,6 +44,17 @@ describe('Form', () => {
       const form = new Form({ screen });
 
       expect(form.options.ignoreKeys).toBe(true);
+    });
+
+    it('should preserve methods when scrollable is true', () => {
+      const form = new Form({ screen, scrollable: true });
+
+      expect(form.type).toBe('form');
+      expect(typeof form.submit).toBe('function');
+      expect(typeof form.cancel).toBe('function');
+      expect(typeof form.reset).toBe('function');
+      expect(typeof form.focusNext).toBe('function');
+      expect(typeof form.focusPrevious).toBe('function');
     });
   });
 

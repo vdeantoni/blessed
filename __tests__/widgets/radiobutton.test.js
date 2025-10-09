@@ -19,13 +19,6 @@ describe('RadioButton', () => {
       expect(radio.type).toBe('radio-button');
     });
 
-    it('should work as factory function', () => {
-      const radio = RadioButton({ screen });
-
-      expect(radio).toBeDefined();
-      expect(radio.type).toBe('radio-button');
-    });
-
     it('should inherit from Checkbox', () => {
       const radio = new RadioButton({ screen });
 

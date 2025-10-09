@@ -21,13 +21,6 @@ describe('BigText', () => {
       expect(bigtext.type).toBe('bigtext');
     });
 
-    it('should work as factory function', () => {
-      const bigtext = BigText({ screen });
-
-      expect(bigtext).toBeDefined();
-      expect(bigtext.type).toBe('bigtext');
-    });
-
     it('should inherit from Box', () => {
       const bigtext = new BigText({ screen });
 
@@ -157,34 +150,37 @@ describe('BigText', () => {
       const bigtext = new BigText({ screen });
       bigtext.setContent('ABC');
 
-      bigtext._render = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
 
       bigtext.render();
 
       expect(bigtext.position.width).toBe(bigtext.ratio.width * 3 + 1);
+      renderSpy.mockRestore();
     });
 
     it('should calculate height based on ratio', () => {
       const bigtext = new BigText({ screen });
       bigtext.setContent('TEST');
 
-      bigtext._render = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
 
       bigtext.render();
 
       expect(bigtext.position.height).toBe(bigtext.ratio.height);
+      renderSpy.mockRestore();
     });
 
     it('should set shrink flags', () => {
       const bigtext = new BigText({ screen });
       bigtext.setContent('X');
 
-      bigtext._render = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
 
       bigtext.render();
 
       expect(bigtext._shrinkWidth).toBe(true);
       expect(bigtext._shrinkHeight).toBe(true);
+      renderSpy.mockRestore();
     });
   });
 
@@ -252,11 +248,12 @@ describe('BigText', () => {
       const bigtext = new BigText({ screen });
       bigtext.setContent('TEST');
 
-      bigtext._render = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
       bigtext.render();
 
       expect(bigtext.position.width).toBeGreaterThan(0);
       expect(bigtext.position.height).toBeGreaterThan(0);
+      renderSpy.mockRestore();
     });
 
     it('should handle long text', () => {

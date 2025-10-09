@@ -50,6 +50,45 @@ describe('unicode', () => {
       const width = unicode.charWidth(emoji, 0);
       expect(width).toBeGreaterThanOrEqual(1);
     });
+
+    // Comprehensive emoji and symbol tests
+    describe('emoji width detection', () => {
+      it('should return 2 for emoji faces', () => {
+        expect(unicode.charWidth('😀', 0)).toBe(2); // U+1F600 Grinning face
+        expect(unicode.charWidth('😂', 0)).toBe(2); // U+1F602 Face with tears of joy
+        expect(unicode.charWidth('😍', 0)).toBe(2); // U+1F60D Heart eyes
+      });
+
+      it('should return 2 for emoji objects', () => {
+        expect(unicode.charWidth('🎉', 0)).toBe(2); // U+1F389 Party popper
+        expect(unicode.charWidth('🚀', 0)).toBe(2); // U+1F680 Rocket
+        expect(unicode.charWidth('🌍', 0)).toBe(2); // U+1F30D Earth globe
+      });
+
+      it('should return 2 for emoji hands', () => {
+        expect(unicode.charWidth('👍', 0)).toBe(2); // U+1F44D Thumbs up
+        expect(unicode.charWidth('👋', 0)).toBe(2); // U+1F44B Waving hand
+      });
+
+      it('should return 2 for miscellaneous symbol emojis', () => {
+        expect(unicode.charWidth('✅', 0)).toBe(2); // U+2705 White heavy check mark
+        expect(unicode.charWidth('❌', 0)).toBe(2); // U+274C Cross mark
+        expect(unicode.charWidth('⚡', 0)).toBe(2); // U+26A1 High voltage
+        expect(unicode.charWidth('☀', 0)).toBe(2); // U+2600 Sun
+      });
+
+      it('should return 1 for plain text symbols', () => {
+        expect(unicode.charWidth('✓', 0)).toBe(1); // U+2713 Check mark (plain text)
+        expect(unicode.charWidth('✗', 0)).toBe(1); // U+2717 Ballot X (plain text)
+      });
+
+      it('should return 2 for CJK characters', () => {
+        expect(unicode.charWidth('杜', 0)).toBe(2); // U+675C
+        expect(unicode.charWidth('鹃', 0)).toBe(2); // U+9E43
+        expect(unicode.charWidth('中', 0)).toBe(2); // U+4E2D
+        expect(unicode.charWidth('文', 0)).toBe(2); // U+6587
+      });
+    });
   });
 
   describe('isSurrogate', () => {

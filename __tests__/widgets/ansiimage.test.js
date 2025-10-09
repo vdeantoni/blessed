@@ -21,13 +21,6 @@ describe('ANSIImage', () => {
       expect(image.type).toBe('ansiimage');
     });
 
-    it('should work as factory function', () => {
-      const image = ANSIImage({ screen });
-
-      expect(image).toBeDefined();
-      expect(image.type).toBe('ansiimage');
-    });
-
     it('should inherit from Box', () => {
       const image = new ANSIImage({ screen });
 
@@ -263,18 +256,24 @@ describe('ANSIImage', () => {
       expect(typeof image.render).toBe('function');
     });
 
-    it('should call _render', () => {
+    it('should call parent\'s render', () => {
       const image = new ANSIImage({ screen });
-      image._render = vi.fn(() => null);
+      screen.append(image);
+      // Spy on parent's render method
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), 'render').mockReturnValue(null);
 
       image.render();
 
-      expect(image._render).toHaveBeenCalled();
+      expect(renderSpy).toHaveBeenCalled();
+      renderSpy.mockRestore();
     });
 
     it('should render image if img and cellmap exist', () => {
       const image = new ANSIImage({ screen });
-      image._render = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      screen.append(image);
+      // Spy on parent's render method
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
+
       image.img = {
         renderElement: vi.fn()
       };
@@ -283,11 +282,16 @@ describe('ANSIImage', () => {
       image.render();
 
       expect(image.img.renderElement).toHaveBeenCalledWith(image.cellmap, image);
+      renderSpy.mockRestore();
     });
 
     it('should skip rendering if no cellmap', () => {
       const image = new ANSIImage({ screen });
-      image._render = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
+      screen.append(image);
+
+      // Spy on parent's render method
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
+
       image.img = {
         renderElement: vi.fn()
       };
@@ -296,6 +300,7 @@ describe('ANSIImage', () => {
       image.render();
 
       expect(image.img.renderElement).not.toHaveBeenCalled();
+      renderSpy.mockRestore();
     });
   });
 

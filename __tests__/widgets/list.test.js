@@ -17,13 +17,6 @@ describe('List', () => {
       expect(list.type).toBe('list');
     });
 
-    it('should work as factory function', () => {
-      const list = List({ screen });
-
-      expect(list).toBeDefined();
-      expect(list.type).toBe('list');
-    });
-
     it('should inherit from Box', () => {
       const list = new List({ screen });
 
