@@ -1,4 +1,4 @@
-var blessed = require('blessed');
+var blessed = require('../');
 var screen = blessed.screen({
   autoPadding: true,
   warnings: true
@@ -24,7 +24,7 @@ var tab = blessed.box({
   }
 });
 
-var form = blessed.box({
+var form = blessed.form({
   parent: tab,
   top: 0,
   left: 1,
@@ -133,6 +133,7 @@ form._.submit = blessed.button({
   width: 10,
   content: 'send',
   tags: true,
+  mouse: true,
   style: {
     bg: 'black',
     focus: {
@@ -145,7 +146,7 @@ form._.submit = blessed.button({
 });
 
 form._.submit.on('press', function() {
-  tabs.send._.form.submit();
+  form.submit();
 });
 
 form.on('submit', function(data) {
@@ -157,5 +158,8 @@ form.on('submit', function(data) {
 screen.key('q', function() {
   screen.destroy();
 });
+
+// Focus first field to enable inputOnFocus
+form._.foo.focus();
 
 screen.render();

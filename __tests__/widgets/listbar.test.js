@@ -21,13 +21,6 @@ describe('Listbar', () => {
       expect(listbar.type).toBe('listbar');
     });
 
-    it('should work as factory function', () => {
-      const listbar = Listbar({ screen });
-
-      expect(listbar).toBeDefined();
-      expect(listbar.type).toBe('listbar');
-    });
-
     it('should inherit from Box', () => {
       const listbar = new Listbar({ screen });
 

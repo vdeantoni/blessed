@@ -1,35 +1,39 @@
-// ESM Test App for blessed
-// Note: Testing ESM with current JavaScript source requires experimental features
-// This will work properly once we convert to TypeScript with proper ESM exports
-
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
-// For now, load via require until we have proper ESM builds
 const blessed = require('../../lib/blessed.js');
 
 console.log('✅ blessed loaded successfully (ESM via require)');
 console.log('✅ Loaded from: lib/blessed.js (source)');
 console.log('Note: Native ESM will be available after TypeScript conversion');
 
+console.log('\n🔍 Debugging:');
+console.log('- blessed.screen type:', typeof blessed.screen);
+console.log('- blessed.Screen type:', typeof blessed.Screen);
+console.log('- blessed.box type:', typeof blessed.box);
+
 // Create a simple screen
+console.log('\n📺 Creating screen...');
 const screen = blessed.screen({
   smartCSR: true,
-    fullUnicode: true,  // Enable proper emoji/unicode width calculation
-  title: 'Blessed ESM Test'
+  fullUnicode: true,
+  title: 'Blessed ESM Test - Press q to quit'
 });
+console.log('✓ Screen created:', screen.constructor.name);
 
 // Create a box
+console.log('📦 Creating box...');
 const box = blessed.box({
   parent: screen,
   top: 'center',
   left: 'center',
   width: '50%',
   height: '50%',
-  content: `{center}{bold}✅ ESM Compatible!{/bold}\n\n` +
-           `Using source via createRequire()\n` +
-           `Native ESM after TS conversion\n\n` +
-           `Press 'q' or ESC to quit.{/center}`,
+  content: '{center}{bold}✅ ESM Compatible! 🎉{/bold}\n\n' +
+           '✓ Using source via createRequire()\n' +
+           '✓ Factory functions work\n' +
+           '✓ Classes work with new\n\n' +
+           'Press \'q\' or ESC to quit.{/center}',
   tags: true,
   border: {
     type: 'line'
@@ -38,13 +42,16 @@ const box = blessed.box({
     fg: 'white',
     bg: 'green',
     border: {
-      fg: 'yellow'
+      fg: '#ffff00'
     }
   }
 });
+console.log('✓ Box created:', box.constructor.name);
 
 // Quit on q or ESC
-screen.key(['q', 'escape'], () => {
+screen.key(['q', 'escape', 'C-c'], () => {
+  console.log('\n👋 Exiting...');
+  screen.destroy();
   return process.exit(0);
 });
 
@@ -52,4 +59,6 @@ screen.key(['q', 'escape'], () => {
 box.focus();
 screen.render();
 
-console.log('Screen rendered. Press "q" to quit.');
+console.log('\n📺 Screen rendered! You should see a green box.');
+console.log('💡 Press "q", ESC, or Ctrl+C to quit.');
+console.log('⏳ Waiting for input...\n');

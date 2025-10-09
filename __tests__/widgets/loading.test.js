@@ -23,18 +23,19 @@ describe('Loading', () => {
       expect(loading.type).toBe('loading');
     });
 
-    it('should work as factory function', () => {
-      const loading = Loading({ screen });
-
-      expect(loading).toBeDefined();
-      expect(loading.type).toBe('loading');
-    });
-
     it('should inherit from Box', () => {
       const loading = new Loading({ screen });
 
       expect(loading.screen).toBe(screen);
       expect(typeof loading.append).toBe('function');
+    });
+
+    it('should preserve methods when scrollable is true', () => {
+      const loading = new Loading({ screen, scrollable: true });
+
+      expect(loading.type).toBe('loading');
+      expect(typeof loading.load).toBe('function');
+      expect(typeof loading.stop).toBe('function');
     });
 
     it('should create icon text element', () => {

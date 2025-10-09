@@ -138,14 +138,6 @@ describe('Program - Core Infrastructure', () => {
       oldStyleProgram.destroy();
     });
 
-    it('should work as a constructor without new keyword', () => {
-      program = Program({
-        input,
-        output,
-      });
-
-      expect(program).toBeInstanceOf(Program);
-    });
 
     it('should initialize position and dimensions', () => {
       program = new Program({

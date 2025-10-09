@@ -18,13 +18,6 @@ describe('ScrollableBox', () => {
       expect(box.type).toBe('scrollable-box');
     });
 
-    it('should work as factory function', () => {
-      const box = ScrollableBox({ screen });
-
-      expect(box).toBeDefined();
-      expect(box.type).toBe('scrollable-box');
-    });
-
     it('should inherit from Box', () => {
       const box = new ScrollableBox({ screen });
 

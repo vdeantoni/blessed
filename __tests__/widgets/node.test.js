@@ -24,13 +24,6 @@ describe('Node', () => {
       expect(node.type).toBe('node');
     });
 
-    it('should work as factory function', () => {
-      const node = Node({ screen });
-
-      expect(node).toBeDefined();
-      expect(node.type).toBe('node');
-    });
-
     it('should inherit from EventEmitter', () => {
       const node = new Node({ screen });
 

@@ -21,13 +21,6 @@ describe('Prompt', () => {
       expect(prompt.type).toBe('prompt');
     });
 
-    it('should work as factory function', () => {
-      const prompt = Prompt({ screen });
-
-      expect(prompt).toBeDefined();
-      expect(prompt.type).toBe('prompt');
-    });
-
     it('should inherit from Box', () => {
       const prompt = new Prompt({ screen });
 
@@ -39,6 +32,15 @@ describe('Prompt', () => {
       const prompt = new Prompt({ screen });
 
       expect(prompt.options.hidden).toBe(true);
+    });
+
+    it('should preserve methods when scrollable is true', () => {
+      const prompt = new Prompt({ screen, scrollable: true });
+
+      expect(prompt.type).toBe('prompt');
+      expect(typeof prompt.readInput).toBe('function');
+      expect(typeof prompt.input).toBe('function'); // alias
+      expect(typeof prompt.setInput).toBe('function'); // alias
     });
 
     it('should create input textbox', () => {

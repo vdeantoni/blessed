@@ -14,12 +14,6 @@ describe('Image', () => {
       expect(typeof Image).toBe('function');
     });
 
-    it('should work as factory function', () => {
-      const image = Image({ screen });
-
-      expect(image).toBeDefined();
-    });
-
     it('should default type to ansi', () => {
       const image = new Image({ screen });
 

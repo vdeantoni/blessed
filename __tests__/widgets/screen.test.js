@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import Screen from '../../lib/widgets/screen.js';
 import Box from '../../lib/widgets/box.js';
-import program from '../../lib/program.js';
+import Program from "../../lib/program.js";
 
 describe('Screen', () => {
   let screen;
@@ -24,15 +24,6 @@ describe('Screen', () => {
     it('should create a screen instance', () => {
       expect(screen).toBeDefined();
       expect(screen.type).toBe('screen');
-    });
-
-    it('should work as factory function', () => {
-      const s = Screen({ smartCSR: true });
-
-      expect(s).toBeDefined();
-      expect(s.type).toBe('screen');
-
-      s.destroy();
     });
 
     it('should inherit from Node', () => {
@@ -869,7 +860,7 @@ describe('Screen', () => {
     });
 
     it('should accept existing program', () => {
-      const prog = program({
+      const prog = new Program({
         tput: true,
         buffer: true,
         zero: true

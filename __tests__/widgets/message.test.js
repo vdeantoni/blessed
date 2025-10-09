@@ -22,13 +22,6 @@ describe('Message', () => {
       expect(message.type).toBe('message');
     });
 
-    it('should work as factory function', () => {
-      const message = Message({ screen });
-
-      expect(message).toBeDefined();
-      expect(message.type).toBe('message');
-    });
-
     it('should inherit from Box', () => {
       const message = new Message({ screen });
 

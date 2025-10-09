@@ -17,13 +17,6 @@ describe('Checkbox', () => {
       expect(checkbox.type).toBe('checkbox');
     });
 
-    it('should work as factory function', () => {
-      const checkbox = Checkbox({ screen });
-
-      expect(checkbox).toBeDefined();
-      expect(checkbox.type).toBe('checkbox');
-    });
-
     it('should inherit from Input', () => {
       const checkbox = new Checkbox({ screen });
 

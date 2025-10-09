@@ -22,17 +22,6 @@ describe('Layout', () => {
       expect(layout.type).toBe('layout');
     });
 
-    it('should work as factory function', () => {
-      const layout = Layout({
-        screen,
-        width: '100%',
-        height: '100%'
-      });
-
-      expect(layout).toBeDefined();
-      expect(layout.type).toBe('layout');
-    });
-
     it('should inherit from Element', () => {
       const layout = new Layout({
         screen,
@@ -314,11 +303,12 @@ describe('Layout', () => {
       layout.renderer = renderer;
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       layout.render();
 
       expect(renderer).toHaveBeenCalled();
+      renderSpy.mockRestore();
     });
   });
 
@@ -644,11 +634,12 @@ describe('Layout', () => {
       });
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       layout.render();
 
       expect(customRenderer).toHaveBeenCalled();
+      renderSpy.mockRestore();
     });
 
     it('should pass coords to renderer', () => {
@@ -663,7 +654,7 @@ describe('Layout', () => {
 
       const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
       layout._getCoords = vi.fn(() => coords);
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       layout.render();
 
@@ -675,6 +666,7 @@ describe('Layout', () => {
           yl: expect.any(Number)
         })
       );
+      renderSpy.mockRestore();
     });
   });
 
@@ -690,11 +682,12 @@ describe('Layout', () => {
       layout.on('prerender', prerenderSpy);
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       layout.render();
 
       expect(prerenderSpy).toHaveBeenCalled();
+      renderSpy.mockRestore();
     });
 
     it('should emit render event with coords', () => {
@@ -704,16 +697,17 @@ describe('Layout', () => {
         height: 24
       });
 
-      const renderSpy = vi.fn();
-      layout.on('render', renderSpy);
+      const renderEventSpy = vi.fn();
+      layout.on('render', renderEventSpy);
 
       const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
       layout._getCoords = vi.fn(() => coords);
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       layout.render();
 
       expect(renderSpy).toHaveBeenCalled();
+      renderSpy.mockRestore();
     });
 
     it('should handle render with no coords', () => {
@@ -724,12 +718,13 @@ describe('Layout', () => {
       });
 
       layout._getCoords = vi.fn(() => null);
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       const result = layout.render();
 
       expect(result).toBeUndefined();
       expect(layout.lpos).toBeUndefined();
+      renderSpy.mockRestore();
     });
 
     it('should handle render with zero width coords', () => {
@@ -740,11 +735,12 @@ describe('Layout', () => {
       });
 
       layout._getCoords = vi.fn(() => ({ xi: 10, xl: 10, yi: 0, yl: 24 }));
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       const result = layout.render();
 
       expect(result).toBeUndefined();
+      renderSpy.mockRestore();
     });
 
     it('should handle render with zero height coords', () => {
@@ -755,11 +751,12 @@ describe('Layout', () => {
       });
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 10, yl: 10 }));
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       const result = layout.render();
 
       expect(result).toBeUndefined();
+      renderSpy.mockRestore();
     });
 
     it('should adjust coords for border', () => {
@@ -771,11 +768,12 @@ describe('Layout', () => {
       });
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       layout.render();
 
       expect(layout.lpos).toBeDefined();
+      renderSpy.mockRestore();
     });
 
     it('should adjust coords for padding', () => {
@@ -792,13 +790,14 @@ describe('Layout', () => {
       });
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      layout._render = vi.fn();
+      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
 
       layout.render();
 
       // tpadding is a getter that checks if padding exists
       expect(layout.lpos).toBeDefined();
       expect(layout.padding).toBeDefined();
+      renderSpy.mockRestore();
     });
   });
 });

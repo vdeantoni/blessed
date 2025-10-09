@@ -21,13 +21,6 @@ describe('Question', () => {
       expect(question.type).toBe('question');
     });
 
-    it('should work as factory function', () => {
-      const question = Question({ screen });
-
-      expect(question).toBeDefined();
-      expect(question.type).toBe('question');
-    });
-
     it('should inherit from Box', () => {
       const question = new Question({ screen });
 
@@ -39,6 +32,13 @@ describe('Question', () => {
       const question = new Question({ screen });
 
       expect(question.options.hidden).toBe(true);
+    });
+
+    it('should preserve methods when scrollable is true', () => {
+      const question = new Question({ screen, scrollable: true });
+
+      expect(question.type).toBe('question');
+      expect(typeof question.ask).toBe('function');
     });
 
     it('should create okay button', () => {

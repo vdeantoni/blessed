@@ -17,13 +17,6 @@ describe('Input', () => {
       expect(input.type).toBe('input');
     });
 
-    it('should work as factory function', () => {
-      const input = Input({ screen });
-
-      expect(input).toBeDefined();
-      expect(input.type).toBe('input');
-    });
-
     it('should inherit from Box', () => {
       const input = new Input({ screen });
 

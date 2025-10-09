@@ -17,13 +17,6 @@ describe('Button', () => {
       expect(button.type).toBe('button');
     });
 
-    it('should work as factory function', () => {
-      const button = Button({ screen });
-
-      expect(button).toBeDefined();
-      expect(button.type).toBe('button');
-    });
-
     it('should inherit from Input', () => {
       const button = new Button({ screen });
 

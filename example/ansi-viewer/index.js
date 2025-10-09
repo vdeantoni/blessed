@@ -5,7 +5,7 @@
  * https://github.com/chjj/blessed
  */
 
-var blessed = require('blessed')
+var blessed = require('../../')
   , request = require('request')
   , singlebyte = require('./singlebyte')
   , fs = require('fs');

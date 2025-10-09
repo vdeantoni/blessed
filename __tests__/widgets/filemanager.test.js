@@ -22,13 +22,6 @@ describe('FileManager', () => {
       expect(fm.type).toBe('file-manager');
     });
 
-    it('should work as factory function', () => {
-      const fm = FileManager({ screen });
-
-      expect(fm).toBeDefined();
-      expect(fm.type).toBe('file-manager');
-    });
-
     it('should inherit from List', () => {
       const fm = new FileManager({ screen });
 

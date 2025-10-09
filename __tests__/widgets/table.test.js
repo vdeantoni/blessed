@@ -17,13 +17,6 @@ describe('Table', () => {
       expect(table.type).toBe('table');
     });
 
-    it('should work as factory function', () => {
-      const table = Table({ screen });
-
-      expect(table).toBeDefined();
-      expect(table.type).toBe('table');
-    });
-
     it('should inherit from Box', () => {
       const table = new Table({ screen });
 
