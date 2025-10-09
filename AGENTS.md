@@ -466,8 +466,16 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 **Current Progress:**
 - ✅ Phase 3A-prep complete - ES6+ modernization done (commit 9ed7553)
+- ✅ Scrollable refactoring complete - removed constructor workarounds (commits 73a6318-f7f3ca2)
 - 🔜 Ready to start TypeScript conversion
 - ⏳ 45 files to convert
+
+**Recent Work:**
+- **Scrollable Refactoring**: Eliminated constructor workarounds by introducing `ScrollableBox.initScrollable()` static method
+  - Fixed class identity preservation (Form with scrollable stays Form)
+  - Removed 152 lines of workaround code across 6 widgets
+  - All 1600 tests passing
+  - Cleaner ES6 design ready for TypeScript conversion
 
 **Conversion Order:**
 
