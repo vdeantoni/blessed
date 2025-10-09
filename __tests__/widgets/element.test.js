@@ -180,6 +180,16 @@ describe('Element', () => {
 
       expect(el.ch).toBe(' ');
     });
+
+    it('should apply scrollable behavior when scrollable option is true', () => {
+      const el = new Element({ screen, scrollable: true });
+
+      expect(typeof el.scroll).toBe('function');
+      expect(typeof el.scrollTo).toBe('function');
+      expect(typeof el.getScroll).toBe('function');
+      expect(typeof el.resetScroll).toBe('function');
+      expect(el.scrollable).toBe(true);
+    });
   });
 
   describe('show() and hide()', () => {

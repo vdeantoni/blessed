@@ -56,6 +56,14 @@ describe('Form', () => {
       expect(typeof form.focusNext).toBe('function');
       expect(typeof form.focusPrevious).toBe('function');
     });
+
+    it('should maintain Form class identity with scrollable', () => {
+      const form = new Form({ screen, scrollable: true });
+
+      expect(form).toBeInstanceOf(Form);
+      expect(form.constructor.name).toBe('Form');
+      expect(form.type).toBe('form');
+    });
   });
 
   describe('_refresh()', () => {
