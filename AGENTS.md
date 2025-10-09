@@ -425,30 +425,54 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - **Goal:** Convert codebase to TypeScript incrementally, maintaining test coverage throughout.
 - **Complexity:** High
 - **Duration:** 14-20 weeks (split into Phase 3A + 3B)
-- **Strategy:** Two-phase approach - get it working (3A), then get it right (3B)
-- **Current Status:** ✅ tsconfig relaxed, 🔄 Converting helpers.ts
+- **Strategy:** Three-phase approach - modernize to ES6+ (3A-prep), convert to TS (3A), then add strict types (3B)
+- **Current Status:** ✅ Phase 3A-prep complete (ES6+ modernization), ready for TypeScript conversion
 
-#### **Phase 3A: Conversion with Permissive Types** 🔄 **CURRENT PHASE**
+#### **Phase 3A-prep: ES5 to ES6+ Modernization** ✅ **COMPLETED**
+
+**Goal:** Modernize JavaScript syntax before TypeScript conversion (1 week)
+
+**Why this was needed:**
+- Original codebase used ES5 syntax (`var`, `function` expressions, etc.)
+- Direct ES5 → TypeScript conversion would be more complex
+- Modern JavaScript is easier to convert to TypeScript
+- Better baseline for understanding code during conversion
+
+**What was done (commit 9ed7553):**
+- ✅ Replaced `var` with `const`/`let` throughout entire codebase
+- ✅ Converted function expressions to arrow functions
+- ✅ Converted `function()` to `() => {}` in callbacks
+- ✅ Renamed `example/ping` to `example/ping.js` for consistency
+- ✅ Applied to 89 files: all lib/, widgets/, tests/, and examples/
+- ✅ All 1,598 tests passing - zero functionality changes
+
+**Results:**
+- Modern, clean JavaScript baseline ready for TypeScript
+- 16,394 insertions, 15,781 deletions across codebase
+- No breaking changes, pure syntax modernization
+- Removed premature `lib/helpers.ts` - will reconvert properly
+
+#### **Phase 3A: Conversion with Permissive Types** 📅 **NEXT**
 
 **Goal:** Get all `.js` files converted to `.ts` and compiling (4-6 weeks)
 
 **Strategy:**
-- ✅ Relaxed TypeScript compiler settings (strict: false, noImplicitAny: false)
+- Relaxed TypeScript compiler settings (strict: false, noImplicitAny: false)
 - Use `any` types liberally for complex scenarios
 - Focus on syntax conversion, not type perfection
 - Create `.js` shim files for compatibility during migration
-- Keep all 1,577 tests passing
+- Keep all 1,598 tests passing
 - Ship alpha releases frequently (every 2-3 files)
 
 **Current Progress:**
-- ✅ tsconfig.json relaxed for migration (commit pending)
-- ✅ lib/helpers.ts converted (first TypeScript file!)
-- ⏳ 44 files remaining
+- ✅ Phase 3A-prep complete - ES6+ modernization done (commit 9ed7553)
+- 🔜 Ready to start TypeScript conversion
+- ⏳ 45 files to convert
 
 **Conversion Order:**
 
 **Week 1-2: Helper Modules** (4 files)
-1. ✅ `lib/helpers.ts` - First conversion complete!
+1. 🔜 `lib/helpers.ts` - Pure functions, easiest first
 2. 🔜 `lib/colors.ts` - Color utilities
 3. 🔜 `lib/unicode.ts` - String/char utilities
 4. 🔜 `lib/keys.ts` - Key event parsing
