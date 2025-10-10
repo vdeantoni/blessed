@@ -16,7 +16,7 @@
     }
   },
   "bin": {
-    "blessed": "./dist/tput.js"
+    "blessed": "dist/tput.js"
   },
   "preferGlobal": false,
   "repository": {
