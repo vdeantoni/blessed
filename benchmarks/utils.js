@@ -341,7 +341,7 @@ function createMockProgram(options = {}) {
   return program;
 }
 
-module.exports = {
+export {
   measure,
   measureThroughput,
   formatResult,

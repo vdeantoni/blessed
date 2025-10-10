@@ -5,8 +5,8 @@
  * Tests table rendering and cell formatting.
  */
 
-const blessed = require('../lib/blessed');
-const { measure, formatResult, createMockProgram } = require('./utils');
+import blessed from '../lib/blessed.js';
+import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkLargeTable() {
   const program = createMockProgram({ cols: 120, rows: 40 });
@@ -54,8 +54,8 @@ async function run() {
   console.log(formatResult(result));
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   run().catch(console.error);
 }
 
-module.exports = { benchmarkLargeTable };
+export { benchmarkLargeTable };

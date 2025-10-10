@@ -5,8 +5,8 @@
  * Tests nested layout calculations and buffer operations.
  */
 
-const blessed = require('../lib/blessed');
-const { measure, formatResult, createMockProgram } = require('./utils');
+import blessed from '../lib/blessed.js';
+import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkComplexScreen() {
   const program = createMockProgram({ cols: 80, rows: 24 });
@@ -39,8 +39,9 @@ async function run() {
   console.log(formatResult(result));
 }
 
-if (require.main === module) {
+// Check if this file is being run directly
+if (import.meta.url === `file://${process.argv[1]}`) {
   run().catch(console.error);
 }
 
-module.exports = { benchmarkComplexScreen };
+export { benchmarkComplexScreen };
