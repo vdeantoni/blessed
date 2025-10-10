@@ -3,8 +3,8 @@ import { defineConfig } from 'tsup';
 export default defineConfig({
   // Entry points
   entry: {
-    blessed: 'lib/blessed.js',
-    tput: 'bin/tput.js'
+    blessed: 'lib/blessed.ts',
+    tput: 'bin/tput.ts'
   },
 
   // Output formats
@@ -21,7 +21,7 @@ export default defineConfig({
   // Build options
   clean: true,
   sourcemap: true,
-  dts: false,
+  dts: true,
   minify: true,
   shims: true,
 

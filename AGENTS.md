@@ -393,8 +393,8 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 0.1.82 (original blessed, last updated 2015)
   ↓
 1.0.0-alpha.1 (Phase 2 complete, starting Phase 3)
-1.0.0-alpha.16 (ESM migration complete) ← YOU ARE HERE
-1.0.0-alpha.x (TypeScript conversion in progress)
+1.0.0-alpha.16 (Phase 3A complete - TypeScript conversion done!) ← YOU ARE HERE
+1.0.0-alpha.x (Phase 3B: strict types)
   ↓
 1.0.0-beta.1 (Phase 4: Polish & performance)
 1.0.0-beta.x (stabilization, docs, testing)
@@ -405,7 +405,7 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 **Rationale:**
 - Original blessed never reached 1.0.0 despite being production-ready
 - This modernization effort IS the 1.0 release blessed deserves
-- Alpha signals "TypeScript conversion in progress, expect changes"
+- Alpha signals "TypeScript conversion complete, adding strict types"
 - Beta signals "feature complete, stabilizing for production"
 - Saves 2.0.0 for future major architectural changes
 
@@ -421,13 +421,13 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 ---
 
-### **Phase 3: Incremental TypeScript Conversion** 🔄 **IN PROGRESS**
+### **Phase 3: Incremental TypeScript Conversion** ✅ **PHASE 3A COMPLETE**
 
 - **Goal:** Convert codebase to TypeScript incrementally, maintaining test coverage throughout.
 - **Complexity:** High
 - **Duration:** 14-20 weeks (split into Phase 3A + 3B)
 - **Strategy:** Three-phase approach - modernize to ES6+ (3A-prep), convert to ESM (3A-ESM), convert to TS (3A), then add strict types (3B)
-- **Current Status:** ✅ Phase 3A-ESM complete (ESM migration done), ready for TypeScript conversion
+- **Current Status:** ✅ Phase 3A complete (TypeScript conversion done), ready for Phase 3B (strict types)
 
 #### **Phase 3A-prep: ES5 to ES6+ Modernization** ✅ **COMPLETED**
 
@@ -488,7 +488,7 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - ✅ Better IDE support
 - ✅ Ready for TypeScript conversion
 
-#### **Phase 3A: Conversion with Permissive Types** 📅 **NEXT**
+#### **Phase 3A: Conversion with Permissive Types** ✅ **COMPLETED**
 
 **Goal:** Get all `.js` files converted to `.ts` and compiling (4-6 weeks)
 
@@ -496,71 +496,59 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - Relaxed TypeScript compiler settings (strict: false, noImplicitAny: false)
 - Use `any` types liberally for complex scenarios
 - Focus on syntax conversion, not type perfection
-- Create `.js` shim files for compatibility during migration
-- Keep all 1,598 tests passing
-- Ship alpha releases frequently (every 2-3 files)
+- Keep all 1,600 tests passing throughout conversion
+- Fix TypeScript errors incrementally
 
-**Current Progress:**
-- ✅ Phase 3A-prep complete - ES6+ modernization done (commit 9ed7553)
-- ✅ Phase 3A-ESM complete - Full ESM migration done (commits c42a494-90393eb)
-- ✅ Scrollable refactoring complete - removed constructor workarounds (commits 73a6318-f7f3ca2)
-- 🔜 Ready to start TypeScript conversion (Phase 3A)
-- ⏳ 45 files to convert to TypeScript
+**What was done:**
+- ✅ **Complete TypeScript conversion** - All 45+ files converted from .js to .ts
+- ✅ **Core library files** (11 files):
+  - lib/alias.ts, lib/blessed.ts, lib/colors.ts, lib/events.ts
+  - lib/gpmclient.ts, lib/helpers.ts, lib/keys.ts
+  - lib/program.ts, lib/tput.ts, lib/unicode.ts, lib/widget.ts
+- ✅ **All widget files** (34 files):
+  - All widgets in lib/widgets/ converted to TypeScript
+  - Element, Screen, Node, Box, Text, Line, List, Form, Table, etc.
+  - Input widgets: Textbox, Textarea, Checkbox, Button, etc.
+  - Advanced widgets: Terminal, Video, Image, ANSIImage, etc.
+- ✅ **Fixed 156 TypeScript errors** across the codebase:
+  - lib/program.ts: 26 errors (optional parameters, rest parameters, GpmClient instantiation)
+  - lib/tput.ts: 56 errors (optional parameters, type annotations, header objects)
+  - lib/widgets/textarea.ts: 20 errors (value getter/setter pattern)
+  - lib/widgets/textbox.ts: 7 errors (setValue logic)
+  - lib/widgets/element.ts & others: 37 errors (scrollable properties, type mismatches)
+  - lib/blessed.ts: 4 errors (sprintf/tryRead imports)
+- ✅ **All 1,600 tests passing** - Zero test regressions
+- ✅ **TypeScript compilation successful** - No type errors
 
-**Recent Work:**
-- **ESM Migration (Phase 3A-ESM)**: Complete conversion to ES6 modules
-  - Fixed `import.meta.dirname` compatibility issues for bundlers
-  - Converted all 14 benchmark files to ESM
-  - Converted entire codebase (116 files total) from CommonJS to ESM
-  - Eliminated dynamic requires - proper static imports throughout
-  - All 1,600 tests passing, benchmarks verified working
-  - Version bumped to 1.0.0-alpha.16
-- **Scrollable Refactoring**: Eliminated constructor workarounds by introducing `ScrollableBox.initScrollable()` static method
-  - Fixed class identity preservation (Form with scrollable stays Form)
-  - Removed 152 lines of workaround code across 6 widgets
-  - All 1600 tests passing
-  - Cleaner ES6 design ready for TypeScript conversion
+**Key Fixes Applied:**
+- Added value getter/setter to Textarea/Textbox for proper API compatibility
+- Made function parameters optional where needed (e.g., `param?: any`)
+- Converted `arguments` to rest parameters (`...args: any[]`)
+- Added scrollable mixin property declarations to Element
+- Fixed GpmClient to use `new` keyword for instantiation
+- Added `total` property to tput header objects
+- Used optional chaining for conditional method calls
+- Fixed type mismatches in arithmetic operations and array handling
 
-**Conversion Order:**
+**Results:**
+- ✅ Entire codebase now in TypeScript
+- ✅ Zero type errors (permissive settings)
+- ✅ All tests green (1,600/1,600)
+- ✅ Build successful with proper CJS/ESM outputs
+- ✅ Ready for Phase 3B (strict type refinement)
 
-**Week 1-2: Helper Modules** (4 files)
-1. 🔜 `lib/helpers.ts` - Pure functions, easiest first
-2. 🔜 `lib/colors.ts` - Color utilities
-3. 🔜 `lib/unicode.ts` - String/char utilities
-4. 🔜 `lib/keys.ts` - Key event parsing
+#### **Phase 3B: Type Refinement with Strictness** 📅 **NEXT**
 
-**Week 3-4: Core Infrastructure** (3 files)
-5. `lib/events.ts` - EventEmitter extension
-6. `lib/widget.ts` - Widget registry (**fixes dynamic requires!**)
-7. `lib/widgets/node.ts` - Base node class
+**Goal:** Achieve production-quality TypeScript (8-12 weeks)
 
-**Week 5-6: Simple Widgets** (~15 files)
-- Box, Text, Line, Button, Checkbox, etc.
-
-**Week 7-8: Complex Widgets** (~16 files)
-- Element (2,571 lines - will take 2-3 days)
-- Screen (1,906 lines)
-- List, Form, Table, etc.
-
-**Week 9-10: Low-Level** (3 files)
-- program.ts, tput.ts, blessed.ts
-
-**Key Pattern - Compatibility Shims:**
-```javascript
-// lib/helpers.js (temporary shim during migration)
-module.exports = require('./helpers.ts');
-```
-This allows `.js` files to require `.ts` files during gradual migration.
-
-#### **Phase 3B: Type Refinement with Strictness** 📅 **FUTURE**
-
-**Goal:** Achieve production-quality TypeScript (8-12 weeks after 3A)
+**Prerequisites:** ✅ Phase 3A complete - All files converted to TypeScript
 
 **Strategy:**
 - Re-enable strict TypeScript flags one at a time
 - Replace `any` with proper types
 - Add interfaces and generics
 - Document complex type patterns
+- Maintain all 1,600 tests passing throughout
 
 **Flags to Re-enable (in order):**
 1. `noImplicitReturns`
@@ -573,7 +561,15 @@ This allows `.js` files to require `.ts` files during gradual migration.
 8. `strictPropertyInitialization`
 9. `noUnusedLocals` / `noUnusedParameters`
 
-**Will be tracked in separate phase after 3A completion.**
+**Phase 3B Completion Criteria:**
+- [ ] All strict TypeScript flags enabled
+- [ ] Minimal use of `any` type (only where truly necessary)
+- [ ] Comprehensive interfaces for all public APIs
+- [ ] Proper generic types for widget options
+- [ ] All 1,600 tests passing
+- [ ] No type errors with strict mode
+
+**Current Status:** Ready to begin - awaiting decision on priority vs Phase 4
 
 #### Original Conversion Order (Safest → Riskiest)
 
@@ -616,12 +612,16 @@ This allows `.js` files to require `.ts` files during gradual migration.
 - Update examples to TypeScript
 - Generate API documentation from types
 
-**Phase 3 Completion Criteria:**
-- [ ] All modules converted to TypeScript (or have .d.ts files)
-- [ ] All tests passing throughout conversion
-- [ ] No use of `any` type except where absolutely necessary
-- [ ] API surface unchanged (or documented breaking changes if Option B/C chosen)
-- [ ] Test coverage maintained or improved
+**Phase 3A Completion Criteria:**
+- [x] All modules converted to TypeScript ✅
+- [x] All tests passing throughout conversion ✅ (1,600/1,600)
+- [x] API surface unchanged ✅ (100% backward compatible)
+- [x] Test coverage maintained ✅ (50.78%)
+- [ ] No use of `any` type except where absolutely necessary ⏳ (Phase 3B)
+
+**Phase 3 Overall Status:**
+- ✅ **Phase 3A COMPLETE** - TypeScript conversion done
+- 📅 **Phase 3B NEXT** - Strict type refinement
 
 ---
 

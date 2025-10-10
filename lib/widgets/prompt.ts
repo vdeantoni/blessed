@@ -1,0 +1,119 @@
+/**
+ * prompt.ts - prompt element for blessed
+ * Copyright (c) 2013-2015, Christopher Jeffrey and contributors (MIT License).
+ * https://github.com/chjj/blessed
+ */
+
+/**
+ * Modules
+ */
+
+import Box from './box.js';
+import Button from './button.js';
+import Textbox from './textbox.js';
+
+/**
+ * Prompt
+ */
+
+class Prompt extends Box {
+  type = 'prompt';
+
+  constructor(options: any = {}) {
+    options.hidden = true;
+
+    super(options);
+
+    this._.input = new Textbox({
+      parent: this,
+      top: 3,
+      height: 1,
+      left: 2,
+      right: 2,
+      bg: 'black'
+    });
+
+    this._.okay = new Button({
+      parent: this,
+      top: 5,
+      height: 1,
+      left: 2,
+      width: 6,
+      content: 'Okay',
+      align: 'center',
+      bg: 'black',
+      hoverBg: 'blue',
+      autoFocus: false,
+      mouse: true
+    });
+
+    this._.cancel = new Button({
+      parent: this,
+      top: 5,
+      height: 1,
+      shrink: true,
+      left: 10,
+      width: 8,
+      content: 'Cancel',
+      align: 'center',
+      bg: 'black',
+      hoverBg: 'blue',
+      autoFocus: false,
+      mouse: true
+    });
+  }
+
+  readInput(text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void): void {
+    let okay: any, cancel: any;
+
+    if (!callback) {
+      callback = value as ((err: any, data: any) => void);
+      value = '';
+    }
+
+    // Keep above:
+    // var parent = this.parent;
+    // this.detach();
+    // parent.append(this);
+
+    this.show();
+    this.setContent(' ' + text);
+
+    this._.input.value = value;
+
+    this.screen.saveFocus();
+
+    this._.okay.on('press', okay = () => {
+      this._.input.submit();
+    });
+
+    this._.cancel.on('press', cancel = () => {
+      this._.input.cancel();
+    });
+
+    this._.input.readInput((err: any, data: any) => {
+      this.hide();
+      this.screen.restoreFocus();
+      this._.okay.removeListener('press', okay);
+      this._.cancel.removeListener('press', cancel);
+      return callback!(err, data);
+    });
+
+    this.screen.render();
+  }
+
+  get input(): (text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void) => void {
+    return this.readInput;
+  }
+
+  get setInput(): (text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void) => void {
+    return this.readInput;
+  }
+}
+
+/**
+ * Expose
+ */
+
+export default Prompt;
+export { Prompt };
