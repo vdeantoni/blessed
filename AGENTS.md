@@ -353,18 +353,18 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 **Validation:**
 - ✅ Build produces correct CJS + ESM outputs
-- ✅ All 1,577 tests passing with new tooling
+- ✅ All 1,600 tests passing with new tooling
 - ✅ Type checking works on existing .js files
 - ✅ No production code changes
 - ✅ Backward compatibility maintained
 - ✅ CJS test app works with source files (lib/blessed.js)
 - ✅ ESM test app works with createRequire() from source files
 
-**Known Limitations:**
-- ⚠️ **Bundled outputs (dist/) don't work** - Blessed uses dynamic requires (`require('./widgets/' + file)`) in lib/widget.js:48
-- Bundlers can't statically analyze dynamic string concatenation in requires
-- **Workaround**: Continue using source files (lib/) until Phase 3 TypeScript conversion
-- **Resolution**: Phase 3 will replace dynamic requires with static imports, enabling proper bundling
+**Known Limitations (RESOLVED in Phase 3A-ESM):**
+- ✅ **FIXED** - Bundled outputs (dist/) now work after ESM migration
+- ~~⚠️ Blessed used dynamic requires (`require('./widgets/' + file)`) in lib/widget.js:48~~
+- ✅ Phase 3A-ESM replaced all dynamic requires with static imports
+- ✅ Proper bundling now enabled
 
 **Completion Criteria:**
 - [x] TypeScript compiles with allowJs enabled ✅
@@ -386,14 +386,15 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 ### **Version Strategy**
 
-**Current Version:** `1.0.0-alpha.1`
+**Current Version:** `1.0.0-alpha.16`
 
 **Progression to 1.0.0:**
 ```
 0.1.82 (original blessed, last updated 2015)
   ↓
 1.0.0-alpha.1 (Phase 2 complete, starting Phase 3)
-1.0.0-alpha.x (during TypeScript conversion)
+1.0.0-alpha.16 (ESM migration complete) ← YOU ARE HERE
+1.0.0-alpha.x (TypeScript conversion in progress)
   ↓
 1.0.0-beta.1 (Phase 4: Polish & performance)
 1.0.0-beta.x (stabilization, docs, testing)
@@ -425,8 +426,8 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - **Goal:** Convert codebase to TypeScript incrementally, maintaining test coverage throughout.
 - **Complexity:** High
 - **Duration:** 14-20 weeks (split into Phase 3A + 3B)
-- **Strategy:** Three-phase approach - modernize to ES6+ (3A-prep), convert to TS (3A), then add strict types (3B)
-- **Current Status:** ✅ Phase 3A-prep complete (ES6+ modernization), ready for TypeScript conversion
+- **Strategy:** Three-phase approach - modernize to ES6+ (3A-prep), convert to ESM (3A-ESM), convert to TS (3A), then add strict types (3B)
+- **Current Status:** ✅ Phase 3A-ESM complete (ESM migration done), ready for TypeScript conversion
 
 #### **Phase 3A-prep: ES5 to ES6+ Modernization** ✅ **COMPLETED**
 
@@ -452,6 +453,41 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - No breaking changes, pure syntax modernization
 - Removed premature `lib/helpers.ts` - will reconvert properly
 
+#### **Phase 3A-ESM: Complete ESM Migration** ✅ **COMPLETED**
+
+**Goal:** Convert entire codebase to ES6 modules (1 week)
+
+**Why this was needed:**
+- CommonJS (`require`/`module.exports`) is legacy
+- TypeScript works better with ES6 imports
+- Modern bundlers optimize ESM better
+- Dual ESM/CJS output requires ESM source
+
+**What was done (commits c42a494, 980120c, 4192175, 90393eb):**
+- ✅ Fixed `import.meta.dirname` compatibility for bundlers (lib/tput.js, lib/widgets/bigtext.js)
+- ✅ Converted all 14 benchmark files to ESM
+- ✅ Converted entire codebase (102 files) to ESM:
+  - All lib/ modules (require → import, module.exports → export)
+  - All test/ and __tests__/ files
+  - All example/ files
+  - Updated tsconfig.json and tsup.config.ts
+- ✅ Created lib/mixins/scrollable.js for modular structure
+- ✅ All 1,600 tests passing after conversion
+- ✅ Build successful with no warnings
+- ✅ Benchmarks working correctly
+
+**Results:**
+- Complete ES6 module codebase ready for TypeScript
+- No dynamic requires - bundling now works properly
+- Clean import/export structure throughout
+- Version bumped to 1.0.0-alpha.16
+
+**Key Benefits:**
+- ✅ Tree-shaking enabled for bundlers
+- ✅ Static analysis possible
+- ✅ Better IDE support
+- ✅ Ready for TypeScript conversion
+
 #### **Phase 3A: Conversion with Permissive Types** 📅 **NEXT**
 
 **Goal:** Get all `.js` files converted to `.ts` and compiling (4-6 weeks)
@@ -466,11 +502,19 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 **Current Progress:**
 - ✅ Phase 3A-prep complete - ES6+ modernization done (commit 9ed7553)
+- ✅ Phase 3A-ESM complete - Full ESM migration done (commits c42a494-90393eb)
 - ✅ Scrollable refactoring complete - removed constructor workarounds (commits 73a6318-f7f3ca2)
-- 🔜 Ready to start TypeScript conversion
-- ⏳ 45 files to convert
+- 🔜 Ready to start TypeScript conversion (Phase 3A)
+- ⏳ 45 files to convert to TypeScript
 
 **Recent Work:**
+- **ESM Migration (Phase 3A-ESM)**: Complete conversion to ES6 modules
+  - Fixed `import.meta.dirname` compatibility issues for bundlers
+  - Converted all 14 benchmark files to ESM
+  - Converted entire codebase (116 files total) from CommonJS to ESM
+  - Eliminated dynamic requires - proper static imports throughout
+  - All 1,600 tests passing, benchmarks verified working
+  - Version bumped to 1.0.0-alpha.16
 - **Scrollable Refactoring**: Eliminated constructor workarounds by introducing `ScrollableBox.initScrollable()` static method
   - Fixed class identity preservation (Form with scrollable stays Form)
   - Removed 152 lines of workaround code across 6 widgets
