@@ -704,7 +704,8 @@ main:
                 // NOTE: Could optimize this by putting
                 // it in the parent for loop.
                 if (unicode.isSurrogate(line, i)) i--;
-                for (let s = 0, n = 0; n < i; n++) {
+                let s = 0, n = 0;
+                for (; n < i; n++) {
                   if (unicode.isSurrogate(line, n)) s++, n++;
                 }
                 i += s;
