@@ -5,7 +5,7 @@
  * Tests virtualization and scrolling performance.
  */
 
-import blessed from '../lib/blessed.js';
+import blessed from '../dist/blessed.js';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkLargeList() {

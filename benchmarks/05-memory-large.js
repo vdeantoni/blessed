@@ -4,7 +4,7 @@
  * Measures memory footprint with large datasets.
  */
 
-import blessed from '../lib/blessed.js';
+import blessed from '../dist/blessed.js';
 import { formatBytes, sleep } from './utils.js';
 
 async function benchmarkMemoryLargeData() {

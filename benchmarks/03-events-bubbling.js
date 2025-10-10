@@ -5,7 +5,7 @@
  * Tests event bubbling and capture phases.
  */
 
-import blessed from '../lib/blessed.js';
+import blessed from '../dist/blessed.js';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkEventBubbling() {
