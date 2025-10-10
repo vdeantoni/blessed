@@ -4,13 +4,17 @@
  * https://github.com/chjj/tng
  */
 
-var fs = require('fs')
-  , util = require('util')
-  , path = require('path')
-  , zlib = require('zlib')
-  , assert = require('assert')
-  , cp = require('child_process')
-  , exec = cp.execFileSync;
+import fs from 'fs';
+import util from 'util';
+import path from 'path';
+import zlib from 'zlib';
+import assert from 'assert';
+import cp from 'child_process';
+import { createRequire } from 'module';
+import colors from '../lib/colors.js';
+
+const require = createRequire(import.meta.url);
+const exec = cp.execFileSync;
 
 /**
  * PNG
@@ -29,7 +33,7 @@ function PNG(file, options) {
   if (!file) throw new Error('no file');
 
   this.options = options || {};
-  this.colors = options.colors || require('blessed/lib/colors');
+  this.colors = options.colors || colors;
   this.optimization = this.options.optimization || 'mem';
   this.speed = this.options.speed || 1;
 
@@ -1748,8 +1752,9 @@ GIF.prototype.decompress = function(input, codeSize) {
  * Expose
  */
 
-exports = PNG;
-exports.png = PNG;
-exports.gif = GIF;
+PNG.png = PNG;
+PNG.gif = GIF;
 
-module.exports = exports;
+export default PNG;
+export { PNG, GIF };
+

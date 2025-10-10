@@ -1,5 +1,7 @@
-var blessed = require('../');
-var fs = require('fs');
+import blessed from "../index.js";
+import fs from 'fs';
+
+const __dirname = import.meta.dirname;
 
 var argv = {};
 

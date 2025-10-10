@@ -6,11 +6,11 @@
  * Copyright (c) 2013-2015, Christopher Jeffrey (MIT License)
  * A terminal multiplexer created by blessed.
  */
+import blessed from "../index.js";
 
 process.title = 'multiplex.js';
 
-var blessed = require('../')
-  , screen;
+var screen;
 
 screen = blessed.screen({
   smartCSR: true,

@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import Tput from '../../lib/tput.js';
+import Tput, {sprintf} from '../../lib/tput.js';
 
 describe('Tput', () => {
   describe('terminfo compiler', () => {
@@ -406,35 +406,35 @@ describe('Tput', () => {
 
   describe('sprintf function', () => {
     it('should format integers with %d', () => {
-      expect(Tput.sprintf('%d', 42)).toBe('42');
-      expect(Tput.sprintf('%d', -42)).toBe('-42');
+      expect(sprintf('%d', 42)).toBe('42');
+      expect(sprintf('%d', -42)).toBe('-42');
     });
 
     it('should format hex with %x', () => {
-      expect(Tput.sprintf('%x', 255)).toBe('ff');
-      expect(Tput.sprintf('%X', 255)).toBe('FF');
+      expect(sprintf('%x', 255)).toBe('ff');
+      expect(sprintf('%X', 255)).toBe('FF');
     });
 
     it('should format octal with %o', () => {
-      expect(Tput.sprintf('%o', 8)).toBe('10');
+      expect(sprintf('%o', 8)).toBe('10');
     });
 
     it('should format strings with %s', () => {
-      expect(Tput.sprintf('%s', 'hello')).toBe('hello');
+      expect(sprintf('%s', 'hello')).toBe('hello');
     });
 
     it('should format characters with %c', () => {
-      expect(Tput.sprintf('%c', 65)).toBe('A');
-      expect(Tput.sprintf('%c', 0x41)).toBe('A');
+      expect(sprintf('%c', 65)).toBe('A');
+      expect(sprintf('%c', 0x41)).toBe('A');
     });
 
     it('should handle multiple format specifiers', () => {
-      expect(Tput.sprintf('%d:%d:%d', 255, 128, 64)).toBe('255:128:64');
+      expect(sprintf('%d:%d:%d', 255, 128, 64)).toBe('255:128:64');
     });
 
     it('should handle width specifiers', () => {
-      expect(Tput.sprintf('%2d', 5)).toBe('05');
-      expect(Tput.sprintf('%3d', 42)).toBe('042');
+      expect(sprintf('%2d', 5)).toBe('05');
+      expect(sprintf('%3d', 42)).toBe('042');
     });
   });
 });

@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import List from '../../lib/widgets/list.js';
+import Box from '../../lib/widgets/box.js';
 import { createMockScreen } from '../helpers/mock.js';
 
 describe('List', () => {
@@ -1304,7 +1305,7 @@ describe('List', () => {
       });
       screen.append(list);
 
-      const box = new (require('../../lib/widgets/box.js'))({ screen });
+      const box = new Box({ screen });
       list.append(box);
 
       expect(box.fixed).toBe(true);

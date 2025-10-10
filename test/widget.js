@@ -1,7 +1,8 @@
-var blessed = require('../')
-  , screen;
+import blessed from "../index.js";
 
-screen = blessed.screen({
+const __dirname = import.meta.dirname;
+
+const screen = blessed.screen({
   dump: __dirname + '/logs/widget.log',
   title: 'widget test',
   resizeTimeout: 300,

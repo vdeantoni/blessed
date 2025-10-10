@@ -1,4 +1,4 @@
-var blessed = require('../');
+import blessed from "../index.js";
 
 // Create a screen object.
 var screen = blessed.screen();

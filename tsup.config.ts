@@ -13,43 +13,38 @@ export default defineConfig({
   // Output directory
   outDir: 'dist',
 
-  // IMPORTANT: Don't bundle - blessed uses dynamic requires
-  // We'll just transpile when we have TypeScript files
-  bundle: false,
-
-  // Generate declaration files
-  dts: false, // Will enable when we start converting to TS
-
-  // Source maps
-  sourcemap: true,
-
-  // Clean output directory before build
-  clean: true,
-
-  // Keep original file structure
+  // Bundling strategy
+  bundle: true,
   splitting: false,
+  treeshake: false,
 
-  // Don't bundle dependencies
+  // Build options
+  clean: true,
+  sourcemap: true,
+  dts: false,
+  minify: true,
+  shims: true,
+
+  // CJS/ESM interop
+  cjsInterop: true,
+
+  // External dependencies
   external: [
     /^node:.*/,
     'term.js',
-    'pty.js',
-    'blessed/lib/colors'
+    'pty.js'
   ],
-
-  // Preserve dynamic requires (important for blessed's plugin system)
-  shims: true,
 
   // Target Node.js environment
   platform: 'node',
-  target: 'node14',
+  target: 'node22',
 
-  // Don't minify for better debugging
-  minify: false,
+  // Add footer to make CJS work like traditional CommonJS
+  // This allows: const blessed = require('blessed')
+  footer: {
+    js: 'if (typeof module !== "undefined" && module.exports) { module.exports = module.exports.default || module.exports.blessed || module.exports; }'
+  },
 
-  // Preserve original names
-  treeshake: false,
-
-  // Copy other assets
+  // Success message
   onSuccess: 'echo "✅ Build complete"'
 });

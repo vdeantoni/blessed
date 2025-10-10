@@ -1,7 +1,8 @@
-const blessed = require('../../lib/blessed.js');
+const blessed = require('../../dist/blessed.cjs');
 
 console.log('✅ blessed loaded successfully (CommonJS)');
-console.log('✅ Loaded from: lib/blessed.js (source)');
+console.log('✅ Loaded from: dist/blessed.cjs (built)');
+
 
 // Create a simple screen
 const screen = blessed.screen({
@@ -18,7 +19,7 @@ const box = blessed.box({
   width: '48%',
   height: '50%',
   content: '{center}{bold}✅ CommonJS Works! 🎉{/bold}\n\n' +
-           '✓ Using source: lib/blessed.js\n' +
+           '✓ Using built: dist/blessed.cjs\n' +
            '✓ Factory functions work\n' +
            '✓ Classes work with new\n' +
            '✓ List widget works\n\n' +

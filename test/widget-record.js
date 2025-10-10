@@ -1,7 +1,9 @@
-var blessed = require('../')
-  , fs = require('fs');
+import blessed from "../index.js";
+import fs from 'fs';
 
-var screen = blessed.screen({
+const __dirname = import.meta.dirname;
+
+const screen = blessed.screen({
   dump: __dirname + '/logs/record.log',
   smartCSR: true,
   warnings: true

@@ -7,13 +7,13 @@
  * A blessed telnet server.
  * See: https://github.com/TooTallNate/node-telnet
  */
+import blessed from '../index.js';
+import path from 'path';
+import telnet from 'telnet2';
+
+const __dirname = import.meta.dirname;
 
 process.title = 'blessed-telnet';
-
-var fs = require('fs');
-var path = require('path');
-var blessed = require('../');
-var telnet = require('telnet2');
 
 var server = telnet({ tty: true }, function(client) {
   client.on('debug', function(msg) {

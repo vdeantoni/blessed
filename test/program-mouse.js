@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+import blessed from "../index.js";
+import util from "util";
 
-var blessed = require('../')
-  , util = require('util')
-  , program;
+const __dirname = import.meta.dirname;
 
-program = blessed.program({
+const program = blessed.program({
   dump: __dirname + '/logs/mouse.log'
 });
 
