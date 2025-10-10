@@ -5,7 +5,7 @@
  * Tests hit detection and event routing.
  */
 
-import blessed from '../lib/blessed.js';
+import blessed from '../dist/blessed.js';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkMouseEvents() {

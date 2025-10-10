@@ -67,7 +67,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "bench": "node --expose-gc benchmarks/run-all.js"
+    "bench": "pnpm run build && node --expose-gc benchmarks/run-all.js"
   },
   "browserify": {
     "transform": [

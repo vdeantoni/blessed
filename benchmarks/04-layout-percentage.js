@@ -5,7 +5,7 @@
  * Tests layout invalidation and reflow.
  */
 
-import blessed from '../lib/blessed.js';
+import blessed from '../dist/blessed.js';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkPercentageRecalc() {

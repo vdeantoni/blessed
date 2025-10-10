@@ -5,7 +5,7 @@
  * Tests nested layout calculations and buffer operations.
  */
 
-import blessed from '../lib/blessed.js';
+import blessed from '../dist/blessed.js';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkComplexScreen() {

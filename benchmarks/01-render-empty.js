@@ -5,7 +5,7 @@
  * This establishes the minimum overhead of the blessed rendering system.
  */
 
-import blessed from '../lib/blessed.js';
+import blessed from '../dist/blessed.js';
 import { measure, formatResult } from './utils.js';
 
 async function benchmarkEmptyScreen() {
