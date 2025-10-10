@@ -3,9 +3,9 @@
  * Copyright (c) 2013, Christopher Jeffrey (MIT License).
  * https://github.com/chjj/blessed
  */
+import blessed from "../index.js";
 
-var blessed = require('../')
-  , program = blessed.program();
+var program = blessed.program();
 
 process.title = 'blessed';
 

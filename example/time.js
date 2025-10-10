@@ -5,6 +5,7 @@
  * Copyright (c) 2013, Christopher Jeffrey (MIT License).
  * https://github.com/chjj/blessed
  */
+import blessed from "../index.js";
 
 process.title = 'time.js';
 
@@ -16,10 +17,9 @@ if (~argv.indexOf('-h') || ~argv.indexOf('--help')) {
   console.log('-n - No leading zero on hours.');
   console.log('-d - Show date box.');
   console.log('--skinny - Skinny text.');
-  return process.exit(0);
+  process.exit(0);
 }
 
-var blessed = require('../');
 
 var screen = blessed.screen({
   autoPadding: true

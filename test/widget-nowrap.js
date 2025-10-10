@@ -1,11 +1,12 @@
-var fs = require('fs')
-  , blessed = require('../')
-  , screen;
+import blessed from "../index.js";
+import fs from 'fs';
+
+const __dirname = import.meta.dirname;
 
 // {open}xxxx{close} xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 // xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx {red-bg}xxxx xxxx xxxx{/red-bg}
 
-screen = blessed.screen({
+const screen = blessed.screen({
   dump: __dirname + '/logs/nowrap.log',
   warnings: true
 });

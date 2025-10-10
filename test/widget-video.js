@@ -1,5 +1,6 @@
-var blessed = require('../');
-var fs = require('fs');
+import blessed from "../index.js";
+
+const __dirname = import.meta.dirname;
 
 var screen = blessed.screen({
   tput: true,

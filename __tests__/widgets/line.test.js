@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import Line from '../../lib/widgets/line.js';
+import Box from '../../lib/widgets/box.js';
 import { createMockScreen } from '../helpers/mock.js';
 
 describe('Line', () => {
@@ -205,7 +206,6 @@ describe('Line', () => {
     });
 
     it('should be added to box', () => {
-      const Box = require('../../lib/widgets/box.js');
       const box = new Box({ screen });
       const line = new Line({ screen });
 

@@ -6,6 +6,8 @@
  * Copyright (c) 2013, Christopher Jeffrey (MIT License)
  * Online (ping)pong in your terminal.
  */
+import blessed from "../index.js";
+import nssocket from "nssocket";
 
 // Example Usage:
 // Server: $ ./example/ping 3000
@@ -21,15 +23,6 @@ if (/^(-h|--help|-\?)$/.test(process.argv[2])) {
   console.log('Client: $ node-ping 127.0.0.1 3000');
   console.log('Demo: $ node-ping');
   return process.exit(0);
-}
-
-var blessed = require('../')
-  , nssocket;
-
-try {
-  nssocket = require('nssocket');
-} catch (e) {
-  ;
 }
 
 var server

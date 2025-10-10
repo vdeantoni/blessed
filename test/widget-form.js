@@ -1,7 +1,8 @@
-var blessed = require('../')
-  , screen;
+import blessed from "../index.js";
 
-screen = blessed.screen({
+const __dirname = import.meta.dirname;
+
+const screen = blessed.screen({
   dump: __dirname + '/logs/form.log',
   warnings: true
 });
@@ -152,7 +153,6 @@ var submit = blessed.button({
   },
   left: 29,
   top: 3,
-  shrink: true,
   name: 'submit',
   content: 'submit',
   style: {
@@ -222,7 +222,6 @@ var output = blessed.scrollabletext({
   left: 0,
   top: 20,
   height: 5,
-  left: 0,
   right: 0,
   style: {
     bg: 'red'

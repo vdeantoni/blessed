@@ -1,8 +1,9 @@
-var blessed = require('../')
-  , assert = require('assert')
-  , screen;
+import blessed from "../index.js";
+import assert from 'assert';
 
-screen = blessed.screen({
+const __dirname = import.meta.dirname;
+
+const screen = blessed.screen({
   dump: __dirname + '/logs/pos.log'
 });
 

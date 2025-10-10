@@ -9,7 +9,15 @@ import { StringDecoder } from 'string_decoder';
 
 // Mock child_process and fs before requiring program
 vi.mock('child_process');
-vi.mock('fs');
+vi.mock('fs', async () => {
+  const actualFs = await vi.importActual('fs');
+  return {
+    ...actualFs,
+    createWriteStream: vi.fn(() => ({
+      write: vi.fn(),
+    })),
+  };
+});
 
 // Dynamic imports for mocked modules
 import cp from 'child_process';
@@ -17,9 +25,6 @@ import fs from 'fs';
 
 // Setup default mocks
 cp.execFileSync = vi.fn(() => 'tmux 2.5');
-fs.createWriteStream = vi.fn(() => ({
-  write: vi.fn(),
-}));
 
 // Import Program after mocking
 import ProgramModule from '../../lib/program.js';

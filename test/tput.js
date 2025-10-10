@@ -24,7 +24,9 @@
 // $ node test/tput.js xterm-256color --ifile ~/.terminfo/x/xterm-256color | tee out
 // $ cdiff test/terminfo out
 
-var blessed = require('../');
+import blessed from "../index.js";
+
+const __dirname = import.meta.dirname;
 
 // Simple argument parser
 // Copyright (c) 2012, Christopher Jeffrey (MIT License)

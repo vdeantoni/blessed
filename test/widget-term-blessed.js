@@ -1,6 +1,8 @@
-var blessed = require('../');
+import blessed from "../index.js";
 
-var screen = blessed.screen({
+const __dirname = import.meta.dirname;
+
+const screen = blessed.screen({
   dump: __dirname + '/logs/termblessed.log',
   smartCSR: true,
   warnings: true

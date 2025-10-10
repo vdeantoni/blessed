@@ -4,9 +4,19 @@
   "author": "Christopher Jeffrey",
   "version": "1.0.0-alpha.0",
   "license": "MIT",
-  "main": "./lib/blessed.js",
+  "type": "module",
+  "main": "./dist/blessed.js",
+  "module": "./dist/blessed.js",
+  "types": "./dist/blessed.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/blessed.d.ts",
+      "import": "./dist/blessed.js",
+      "require": "./dist/blessed.cjs"
+    }
+  },
   "bin": {
-    "blessed": "bin/tput.js"
+    "blessed": "./dist/tput.js"
   },
   "preferGlobal": false,
   "repository": {
@@ -37,13 +47,14 @@
     "node": ">= 22.0.0"
   },
   "files": [
-    "lib/**/*.js",
-    "!lib/**/*.ts",
-    "bin/**/*.js",
+    "dist/**/*.js",
+    "dist/**/*.cjs",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.cts",
+    "dist/**/*.map",
     "vendor/**/*.js",
     "LICENSE",
-    "README.md",
-    "index.js"
+    "README.md"
   ],
   "scripts": {
     "build": "tsup",

@@ -5,10 +5,12 @@
  * https://github.com/chjj/blessed
  */
 
-var blessed = require('../../')
-  , request = require('request')
-  , singlebyte = require('./singlebyte')
-  , fs = require('fs');
+import blessed from '../../index.js';
+import request from 'request';
+import singlebyte from './singlebyte.js';
+import fs from 'fs';
+
+const __dirname = import.meta.dirname;
 
 // $ wget -r -o log --tries=10 'http://artscene.textfiles.com/ansi/'
 // $ grep 'http.*\.ans$' log | awk '{ print $3 }' > ansi-art.list

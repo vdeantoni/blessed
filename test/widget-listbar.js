@@ -1,9 +1,10 @@
-var blessed = require('../')
-  , screen;
+import blessed from "../index.js";
+
+const __dirname = import.meta.dirname;
 
 var auto = true;
 
-screen = blessed.screen({
+const screen = blessed.screen({
   dump: __dirname + '/logs/listbar.log',
   autoPadding: auto,
   warnings: true

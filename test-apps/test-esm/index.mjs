@@ -1,11 +1,8 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import blessed from '../../dist/blessed.js';
 
-const blessed = require('../../lib/blessed.js');
+console.log('✅ blessed loaded successfully (ESM)');
+console.log('✅ Loaded from: dist/blessed.js (built)');
 
-console.log('✅ blessed loaded successfully (ESM via require)');
-console.log('✅ Loaded from: lib/blessed.js (source)');
-console.log('Note: Native ESM will be available after TypeScript conversion');
 
 // Create a simple screen
 const screen = blessed.screen({
@@ -22,7 +19,8 @@ const box = blessed.box({
     width: '48%',
     height: '50%',
     content: '{center}{bold}✅ ESM Works! 🎉{/bold}\n\n' +
-        '✓ Using source: lib/blessed.js\n' +
+        '✓ Using built: dist/blessed.js\n' +
+        '✓ Native ESM import\n' +
         '✓ Factory functions work\n' +
         '✓ Classes work with new\n' +
         '✓ List widget works\n\n' +
