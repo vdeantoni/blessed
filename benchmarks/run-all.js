@@ -2,24 +2,27 @@
  * Run all benchmarks and collect results
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Import all benchmarks
-const { benchmarkEmptyScreen } = require('./01-render-empty');
-const { benchmarkComplexScreen } = require('./01-render-complex');
-const { benchmarkLargeTextBox } = require('./01-render-large-text');
-const { benchmarkLargeList, benchmarkListScroll } = require('./02-scalability-list');
-const { benchmarkLargeTable } = require('./02-scalability-table');
-const { benchmarkKeyEvents } = require('./03-events-keys');
-const { benchmarkMouseEvents } = require('./03-events-mouse');
-const { benchmarkEventBubbling } = require('./03-events-bubbling');
-const { benchmarkComplexLayout } = require('./04-layout-complex');
-const { benchmarkPercentageRecalc } = require('./04-layout-percentage');
-const { benchmarkMemorySimple } = require('./05-memory-simple');
-const { benchmarkMemoryLargeData } = require('./05-memory-large');
+import { benchmarkEmptyScreen } from './01-render-empty.js';
+import { benchmarkComplexScreen } from './01-render-complex.js';
+import { benchmarkLargeTextBox } from './01-render-large-text.js';
+import { benchmarkLargeList, benchmarkListScroll } from './02-scalability-list.js';
+import { benchmarkLargeTable } from './02-scalability-table.js';
+import { benchmarkKeyEvents } from './03-events-keys.js';
+import { benchmarkMouseEvents } from './03-events-mouse.js';
+import { benchmarkEventBubbling } from './03-events-bubbling.js';
+import { benchmarkComplexLayout } from './04-layout-complex.js';
+import { benchmarkPercentageRecalc } from './04-layout-percentage.js';
+import { benchmarkMemorySimple } from './05-memory-simple.js';
+import { benchmarkMemoryLargeData } from './05-memory-large.js';
 
-const { formatResult, sleep } = require('./utils');
+import { formatResult, sleep } from './utils.js';
 
 /**
  * Force garbage collection and wait for it to settle
@@ -160,8 +163,8 @@ function formatMemResult(result) {
   return lines.join('\n');
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   runAllBenchmarks().catch(console.error);
 }
 
-module.exports = { runAllBenchmarks };
+export { runAllBenchmarks };

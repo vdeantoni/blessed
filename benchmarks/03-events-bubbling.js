@@ -5,8 +5,8 @@
  * Tests event bubbling and capture phases.
  */
 
-const blessed = require('../lib/blessed');
-const { measure, formatResult, createMockProgram } = require('./utils');
+import blessed from '../lib/blessed.js';
+import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkEventBubbling() {
   const program = createMockProgram({ cols: 80, rows: 24 });
@@ -47,8 +47,8 @@ async function run() {
   console.log(formatResult(result));
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   run().catch(console.error);
 }
 
-module.exports = { benchmarkEventBubbling };
+export { benchmarkEventBubbling };

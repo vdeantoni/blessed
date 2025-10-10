@@ -5,8 +5,8 @@
  * Tests virtualization and scrolling performance.
  */
 
-const blessed = require('../lib/blessed');
-const { measure, formatResult, createMockProgram } = require('./utils');
+import blessed from '../lib/blessed.js';
+import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkLargeList() {
   const program = createMockProgram({ cols: 80, rows: 24 });
@@ -87,8 +87,8 @@ async function run() {
   console.log(formatResult(result2));
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   run().catch(console.error);
 }
 
-module.exports = { benchmarkLargeList, benchmarkListScroll };
+export { benchmarkLargeList, benchmarkListScroll };

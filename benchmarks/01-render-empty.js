@@ -5,8 +5,8 @@
  * This establishes the minimum overhead of the blessed rendering system.
  */
 
-const blessed = require('../lib/blessed');
-const { measure, formatResult } = require('./utils');
+import blessed from '../lib/blessed.js';
+import { measure, formatResult } from './utils.js';
 
 async function benchmarkEmptyScreen() {
   return measure('Empty Screen Render', () => {
@@ -37,8 +37,8 @@ async function run() {
   console.log(formatResult(result));
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   run().catch(console.error);
 }
 
-module.exports = { benchmarkEmptyScreen };
+export { benchmarkEmptyScreen };

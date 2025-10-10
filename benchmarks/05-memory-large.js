@@ -4,8 +4,8 @@
  * Measures memory footprint with large datasets.
  */
 
-const blessed = require('../lib/blessed');
-const { formatBytes, sleep } = require('./utils');
+import blessed from '../lib/blessed.js';
+import { formatBytes, sleep } from './utils.js';
 
 async function benchmarkMemoryLargeData() {
   if (global.gc) global.gc();
@@ -13,8 +13,7 @@ async function benchmarkMemoryLargeData() {
 
   const memBefore = process.memoryUsage();
 
-  const program = require('../lib/blessed').program();
-  const screen = blessed.screen({ program });
+  const screen = blessed.screen();
 
   // Generate 10K list items
   const items = [];
@@ -86,8 +85,8 @@ async function run() {
   console.log(formatMemResult(result));
 }
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   run().catch(console.error);
 }
 
-module.exports = { benchmarkMemoryLargeData };
+export { benchmarkMemoryLargeData };
