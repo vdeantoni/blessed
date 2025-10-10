@@ -1,6 +1,9 @@
-var fs = require('fs')
-  , blessed = require('../')
-  , unicode = blessed.unicode;
+import blessed from "../index.js";
+import fs from 'fs';
+
+const __dirname = import.meta.dirname;
+
+var unicode = blessed.unicode;
 
 var screen = blessed.screen({
   dump: __dirname + '/logs/unicode.log',
