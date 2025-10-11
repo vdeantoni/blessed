@@ -1,4 +1,5 @@
 import blessed from "@vdeantoni/blessed";
+import fs from "fs";
 
 const __dirname = import.meta.dirname;
 
@@ -8,7 +9,7 @@ const screen = blessed.screen({
   warnings: true
 });
 
-var lorem = require('fs').readFileSync(__dirname + '/git.diff', 'utf8');
+var lorem = fs.readFileSync(__dirname + '/git.diff', 'utf8');
 
 var btext = blessed.box({
   parent: screen,

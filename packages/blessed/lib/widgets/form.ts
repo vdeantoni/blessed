@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { FormOptions } from '../types/options.js';
 import Box from './box.js';
 
 /**
@@ -20,7 +21,7 @@ class Form extends Box {
   _selected: any;
   submission: any;
 
-  constructor(options: any = {}) {
+  constructor(options: FormOptions = {}) {
     options.ignoreKeys = true;
     super(options);
 

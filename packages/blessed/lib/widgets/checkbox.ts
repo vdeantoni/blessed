@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { CheckboxOptions } from '../types/options.js';
 import Input from './input.js';
 
 /**
@@ -20,7 +21,7 @@ class Checkbox extends Input {
   checked: boolean;
   value: boolean;
 
-  constructor(options: any = {}) {
+  constructor(options: CheckboxOptions = {}) {
     super(options);
 
     this.text = options.content || options.text || '';

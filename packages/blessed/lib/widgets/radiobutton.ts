@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { RadioButtonOptions } from '../types/options.js';
 import Checkbox from './checkbox.js';
 
 /**
@@ -17,7 +18,7 @@ import Checkbox from './checkbox.js';
 class RadioButton extends Checkbox {
   type = 'radio-button';
 
-  constructor(options: any = {}) {
+  constructor(options: RadioButtonOptions = {}) {
     super(options);
 
     this.on('check', () => {

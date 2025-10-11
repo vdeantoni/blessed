@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { ProgressBarOptions } from '../types/options.js';
 import Input from './input.js';
 
 /**
@@ -21,7 +22,7 @@ class ProgressBar extends Input {
   pch: string;
   orientation: string;
 
-  constructor(options: any = {}) {
+  constructor(options: ProgressBarOptions = {}) {
     super(options);
 
     let filled: number | string = options.filled || 0;

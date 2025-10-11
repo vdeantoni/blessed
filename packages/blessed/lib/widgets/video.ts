@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { VideoOptions } from '../types/options.js';
 import cp from 'child_process';
 import Node from './node.js';
 import Box from './box.js';
@@ -23,7 +24,7 @@ class Video extends Box {
   now: number;
   start: number;
 
-  constructor(options: any = {}) {
+  constructor(options: VideoOptions = {}) {
     super(options);
 
     let shell: string;

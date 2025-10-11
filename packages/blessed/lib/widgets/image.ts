@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { ImageOptions } from '../types/options.js';
 import Box from './box.js';
 import ANSIImage from './ansiimage.js';
 import OverlayImage from './overlayimage.js';
@@ -19,7 +20,7 @@ import OverlayImage from './overlayimage.js';
 class Image extends Box {
   type = 'image';
 
-  constructor(options: any = {}) {
+  constructor(options: ImageOptions = {}) {
     const imageType = options.itype || options.type || 'ansi';
     options.type = imageType;
 

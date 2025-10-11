@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { BigTextOptions } from '../types/options.js';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -29,7 +30,7 @@ class BigText extends Box {
   _shrinkWidth?: boolean;
   _shrinkHeight?: boolean;
 
-  constructor(options: any = {}) {
+  constructor(options: BigTextOptions = {}) {
     options.font = options.font
       || __dirname + '/usr/fonts/ter-u14n.json';
     options.fontBold = options.font

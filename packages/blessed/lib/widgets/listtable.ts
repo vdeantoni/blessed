@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { ListTableOptions } from '../types/options.js';
 import Box from './box.js';
 import List from './list.js';
 import Table from './table.js';
@@ -24,7 +25,7 @@ class ListTable extends List {
   rows: any[];
   _maxes: any;
 
-  constructor(options: any = {}) {
+  constructor(options: ListTableOptions = {}) {
     // options.shrink = true;
     options.normalShrink = true;
     options.style = options.style || {};

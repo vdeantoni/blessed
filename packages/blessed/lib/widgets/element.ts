@@ -13,7 +13,8 @@ import colors from '../colors.js';
 import unicode from '../unicode.js';
 import helpers from '../helpers.js';
 import Node from './node.js';
-import { makeScrollable } from '../mixins/scrollable.js';
+import { makeScrollable, type ScrollableMethods } from '../mixins/scrollable.js';
+import type { ElementOptions, ScrollbarConfig, TrackConfig } from '../types/options.js';
 
 const nextTick = global.setImmediate || process.nextTick.bind(process);
 
@@ -59,25 +60,31 @@ class Element extends Node {
   childBase?: number;
   childOffset?: number;
   alwaysScroll?: boolean;
-  track?: any;
-  scrollbar?: any;
+  baseLimit?: number;
+  track?: TrackConfig;
+  scrollbar?: ScrollbarConfig;
   items?: any[];
 
-  // Scrollable mixin properties and methods
+  // Scrollable mixin - flag indicating if element is scrollable
   scrollable?: boolean;
-  scroll?(offset: any, always?: boolean): void;
-  scrollTo?(offset: number): void;
-  setScroll?(offset: number, always?: boolean): void;
-  getScrollHeight?(): number;
-  getScrollPerc?(): number;
-  setScrollPerc?(percent: number): void;
-  resetScroll?(): void;
+
+  // Scrollable mixin methods - added at runtime by makeScrollable()
+  scroll?: ScrollableMethods['scroll'];
+  scrollTo?: ScrollableMethods['scrollTo'];
+  setScroll?: ScrollableMethods['setScroll'];
+  getScroll?: ScrollableMethods['getScroll'];
+  getScrollHeight?: ScrollableMethods['getScrollHeight'];
+  getScrollPerc?: ScrollableMethods['getScrollPerc'];
+  setScrollPerc?: ScrollableMethods['setScrollPerc'];
+  resetScroll?: ScrollableMethods['resetScroll'];
+  _scrollBottom?: ScrollableMethods['_scrollBottom'];
+  _recalculateIndex?: ScrollableMethods['_recalculateIndex'];
 
   get focused(): boolean {
     return this.screen.focused === this;
   }
 
-  constructor(options: any = {}) {
+  constructor(options: ElementOptions = {}) {
     super(options);
 
     this.name = options.name;
@@ -241,7 +248,7 @@ class Element extends Node {
     [['hoverEffects', 'mouseover', 'mouseout', '_htemp'],
      ['focusEffects', 'focus', 'blur', '_ftemp']].forEach((props: any) => {
       const pname = props[0], over = props[1], out = props[2], temp = props[3];
-      this.screen.setEffects(this, this, over, out, this.options[pname], temp);
+      this.screen.setEffects(this, this, over, out, (this.options as any)[pname], temp);
     });
 
     if (this.options.draggable) {

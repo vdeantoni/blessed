@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { IScreenOptions } from '../types/options.js';
 import path from 'path';
 import fs from 'fs';
 import cp from 'child_process';
@@ -80,7 +81,7 @@ class Screen extends Node {
   destroyed?: boolean;
   type = 'screen';
 
-  constructor(options: any = {}) {
+  constructor(options: IScreenOptions = {}) {
     if (options.rsety && options.listen) {
       options = { program: options };
     }

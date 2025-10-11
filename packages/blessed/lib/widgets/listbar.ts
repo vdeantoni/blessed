@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { ListbarOptions } from '../types/options.js';
 import helpers from '../helpers.js';
 import Box from './box.js';
 
@@ -29,7 +30,7 @@ class Listbar extends Box {
     return this.leftBase + this.leftOffset;
   }
 
-  constructor(options: any = {}) {
+  constructor(options: ListbarOptions = {}) {
     super(options);
 
     this.items = [];

@@ -9,6 +9,7 @@
  */
 
 import Element from './element.js';
+import type { BoxOptions } from '../types/options.js';
 
 /**
  * Box
@@ -17,7 +18,7 @@ import Element from './element.js';
 class Box extends Element {
   type = 'box';
 
-  constructor(options: any = {}) {
+  constructor(options: BoxOptions = {}) {
     super(options);
   }
 }

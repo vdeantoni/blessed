@@ -109,7 +109,7 @@ class Tput {
       }
   };
 
-    term(is) {
+    term(is: string) {
         return this.terminal.indexOf(is) === 0;
     };
 
@@ -134,17 +134,17 @@ class Tput {
         return this.injectTerminfo(__dirname + '/usr/xterm');
     };
 
-    _useInternalInfo(name) {
+    _useInternalInfo(name: string) {
         name = path.basename(name);
         return this.injectTerminfo(__dirname + '/usr/' + name);
     };
 
-    _useInternalCap(name) {
+    _useInternalCap(name: string) {
         name = path.basename(name);
         return this.injectTermcap(__dirname + '/usr/' + name + '.termcap');
     };
 
-    readTerminfo(term) {
+    readTerminfo(term: string) {
         var data
             , file
             , info;
@@ -168,9 +168,9 @@ class Tput {
      * All shorts are little-endian
      */
 
-    parseTerminfo(data, file) {
+    parseTerminfo(data: Buffer, file?: string) {
         var info: any = {}
-            , extended
+            , extended: any
             , l = data.length
             , i = 0
             , v
@@ -363,10 +363,11 @@ class Tput {
     //   h.symOffsetCount = h.strTableSize - h.strCount;
     //   h.symOffsetSize = (h.strTableSize - h.strCount) * 2;
 
-    parseExtended(data) {
+    parseExtended(data: Buffer) {
         var info: any = {}
             , l = data.length
-            , i = 0;
+            , i = 0
+            , j: number;
 
         var h = info.header = {
             dataSize: data.length,
@@ -459,8 +460,7 @@ class Tput {
         i += high + 1;
         l = data.length;
 
-        var sym = []
-            , j;
+        var sym: string[] = [];
 
         for (; i < l; i++) {
             j = i;
@@ -493,7 +493,7 @@ class Tput {
         return info;
     };
 
-    compileTerminfo(term) {
+    compileTerminfo(term: string) {
         return this.compile(this.readTerminfo(term));
     };
 
@@ -505,7 +505,7 @@ class Tput {
      * Compiler - terminfo cap->javascript
      */
 
-    compile(info) {
+    compile(info: any) {
         var self = this;
 
         if (!info) {
@@ -526,21 +526,21 @@ class Tput {
             });
         });
 
-        Tput.bools.forEach(function(key) {
+        Tput.bools.forEach(function(key: string) {
             if (info.methods[key] == null) info.methods[key] = false;
         });
 
-        Tput.numbers.forEach(function(key) {
+        Tput.numbers.forEach(function(key: string) {
             if (info.methods[key] == null) info.methods[key] = -1;
         });
 
-        Tput.strings.forEach(function(key) {
+        Tput.strings.forEach(function(key: string) {
             if (!info.methods[key]) info.methods[key] = noop;
         });
 
         Object.keys(info.methods).forEach(function(key) {
             if (!Tput.alias[key]) return;
-            Tput.alias[key].forEach(function(alias) {
+            Tput.alias[key].forEach(function(alias: string) {
                 info.methods[alias] = info.methods[key];
             });
             // Could just use:
@@ -552,7 +552,7 @@ class Tput {
         return info;
     };
 
-    inject(info) {
+    inject(info: any) {
         var self = this
             , methods = info.methods || info;
 
@@ -593,7 +593,7 @@ class Tput {
     // See:
     // ~/ncurses/ncurses/tinfo/lib_tparm.c
     // ~/ncurses/ncurses/tinfo/comp_scan.c
-    _compile(info, key, str) {
+    _compile(info: any, key: string, str: any) {
         var v;
 
         this._debug?.('Compiling %s: %s', key, JSON.stringify(str));
@@ -638,14 +638,14 @@ class Tput {
             , code = header
             , val = str
             , buff = ''
-            , cap
+            , cap: RegExpExecArray | null = null
             , ch
             , fi
             , then
             , els
             , end;
 
-        function read(regex, no?) {
+        function read(regex: RegExp, no?: boolean) {
             cap = regex.exec(val);
             if (!cap) return;
             val = val.substring(cap[0].length);
@@ -654,7 +654,7 @@ class Tput {
             return cap;
         }
 
-        function stmt(c) {
+        function stmt(c: string) {
             if (code[code.length - 1] === ',') {
                 code = code.slice(0, -1);
                 // Only add semicolon before standalone closing braces (not before } else)
@@ -665,16 +665,16 @@ class Tput {
             code += c;
         }
 
-        function expr(c) {
+        function expr(c: string) {
             code += c + ',';
         }
 
-        function echo(c) {
+        function echo(c: string) {
             if (c === '""') return;
             expr('out.push(' + c + ')');
         }
 
-        function print(c) {
+        function print(c: string) {
             buff += c;
         }
 
@@ -698,7 +698,7 @@ class Tput {
                     // NOTE: ncurses appears to simply
                     // continue in this situation, but
                     // I could be wrong.
-                    print(cap[0]);
+                    print(cap?.[0] || '');
                     continue;
                 }
                 if (ch === '?') {
@@ -769,7 +769,7 @@ class Tput {
                         break;
                     default:
                         this._debug('%s: bad backslash char.', tkey);
-                        ch = cap[0];
+                        ch = cap?.[0] || '';
                         break;
                 }
                 print(ch);
@@ -779,7 +779,7 @@ class Tput {
             // $<5> -> padding
             // e.g. flash_screen: '\u001b[?5h$<100/>\u001b[?5l',
             if (read(/^\$<(\d+)([*\/]{0,2})>/, true)) {
-                if (this.padding) print(cap[0]);
+                if (this.padding) print(cap?.[0] || '');
                 continue;
             }
 
@@ -800,12 +800,12 @@ class Tput {
             // "Print (e.g., "%d") is a special case."
             // %s   print pop() like %s in printf
             if (read(/^%((?::-|[+# ]){1,4})?(\d+(?:\.\d+)?)?([doxXsc])/)) {
-                if (this.printf || cap[1] || cap[2] || ~'oxX'.indexOf(cap[3])) {
-                    echo('sprintf("'+ cap[0].replace(':-', '-') + '", stack.pop())');
-                } else if (cap[3] === 'c') {
+                if (this.printf || cap?.[1] || cap?.[2] || ~'oxX'.indexOf(cap?.[3] || '')) {
+                    echo('sprintf("'+ (cap?.[0] || '').replace(':-', '-') + '", stack.pop())');
+                } else if (cap?.[3] === 'c') {
                     echo('(v = stack.pop(), isFinite(v) '
                         + '? String.fromCharCode(v || 0200) : "")');
-                } else if (cap[3] === 'd') {
+                } else if (cap?.[3] === 'd') {
                     // Convert to integer for %d
                     echo('(stack.pop()|0)');
                 } else {
@@ -817,7 +817,7 @@ class Tput {
             // %p[1-9]
             //   push i'th parameter
             if (read(/^%p([1-9])/)) {
-                expr('(stack.push(v = params[' + (ch - 1) + ']), v)');
+                expr('(stack.push(v = params[' + (+ch - 1) + ']), v)');
                 continue;
             }
 
@@ -1136,7 +1136,7 @@ class Tput {
         return this._print.apply(fake, arguments);
     };
 
-    readTermcap(term) {
+    readTermcap(term?: string) {
         var self = this
             , terms
             , term_
@@ -1206,7 +1206,7 @@ class Tput {
         return root;
     };
 
-    _tryCap(file?, term?) {
+    _tryCap(file?: any, term?: string): any {
         if (!file) return;
 
         var terms
@@ -1261,8 +1261,8 @@ class Tput {
     //  :sc=\E7:rc=\E8:cs=\E[%i%d;%dr:vs=\E[?7l:ve=\E[?7h:\
     //  :mi:al=\E[L:dc=\E[P:dl=\E[M:ei=\E[4l:im=\E[4h:
 
-    parseTermcap(data, file) {
-        var terms = {}
+    parseTermcap(data: string, file?: string) {
+        var terms: any = {}
             , parts
             , term
             , entries
@@ -1297,8 +1297,11 @@ class Tput {
                         file: ~file.indexOf(path.sep)
                             ? path.resolve(file)
                             : file,
-                        termcap: true
-                    };
+                        termcap: true,
+                        bools: {},
+                        numbers: {},
+                        strings: {}
+                    } as any;
 
                     for (k = 0; k < names.length; k++) {
                         terms[names[k]] = term;
@@ -1331,9 +1334,9 @@ class Tput {
      *  man termcap
      */
 
-    translateTermcap(info) {
+    translateTermcap(info: any) {
         var self = this
-            , out = {};
+            , out: any = {};
 
         if (!info) return;
 
@@ -1345,7 +1348,7 @@ class Tput {
 
         // Separate aliases for termcap
         var map = (function() {
-            var out = {};
+            var out: any = {};
 
             Object.keys(Tput.alias).forEach(function(key) {
                 var aliases = Tput.alias[key];
@@ -1379,7 +1382,7 @@ class Tput {
         return out;
     };
 
-    compileTermcap(term) {
+    compileTermcap(term?: string) {
         return this.compile(this.readTermcap(term));
     };
 
@@ -1400,7 +1403,7 @@ class Tput {
      *    pad translations if >=0
      */
 
-    _captoinfo(cap?, s?, parameterized?) {
+    _captoinfo(cap?: any, s?: string, parameterized?: number) {
         var self = this;
 
         var capstart;
@@ -1410,7 +1413,7 @@ class Tput {
         }
 
         var MAX_PUSHED = 16
-            , stack = [];
+            , stack: any[] = [];
 
         var stackptr = 0
             , onstack = 0
@@ -1426,16 +1429,16 @@ class Tput {
             return self._debug.apply(self, args);
         }
 
-        function isdigit(ch) {
+        function isdigit(ch: string) {
             return ch >= '0' && ch <= '9';
         }
 
-        function isgraph(ch) {
+        function isgraph(ch: string) {
             return ch > ' ' && ch <= '~';
         }
 
         // convert a character to a terminfo push
-        function cvtchar(sp) {
+        function cvtchar(sp: string) {
             var c = '\0'
                 , len;
 
@@ -1503,7 +1506,7 @@ class Tput {
         }
 
         // push n copies of param on the terminfo stack if not already there
-        function getparm(parm, n) {
+        function getparm(parm: number, n: number) {
             if (seenr) {
                 if (parm === 1) {
                     parm = 2;
@@ -1863,15 +1866,15 @@ class Tput {
     getAll() {
         var dir = this._prefix()
             , list = asort(fs.readdirSync(dir))
-            , infos = [];
+            , infos: any[] = [];
 
-        list.forEach(function(letter) {
+        list.forEach(function(letter: string) {
             var terms = asort(fs.readdirSync(path.resolve(dir, letter)));
             infos.push.apply(infos, terms);
         });
 
-        function asort(obj) {
-            return obj.sort(function(a, b) {
+        function asort(obj: any[]) {
+            return obj.sort(function(a: any, b: any) {
                 a = a.toLowerCase().charCodeAt(0);
                 b = b.toLowerCase().charCodeAt(0);
                 return a - b;
@@ -1881,9 +1884,9 @@ class Tput {
         return infos;
     };
 
-    compileAll(start) {
+    compileAll(start?: string) {
         var self = this
-            , all = {};
+            , all: any = {};
 
         this.getAll().forEach(function(name) {
             if (start && name !== start) {
@@ -1901,7 +1904,7 @@ class Tput {
      * Detect Features / Quirks
      */
 
-    detectFeatures(info) {
+    detectFeatures(info: any) {
         var data = this.parseACS(info);
         info.features = {
             unicode: this.detectUnicode(info),
@@ -1944,7 +1947,7 @@ class Tput {
     // ~/ncurses/ncurses/tinfo/lib_acs.c
     // ~/ncurses/ncurses/tinfo/tinfo_driver.c
     // ~/ncurses/ncurses/tinfo/lib_setup.c
-    detectBrokenACS(info) {
+    detectBrokenACS(info: any) {
         // ncurses-compatible env variable.
         if (process.env.NCURSES_NO_UTF8_ACS != null) {
             return !!+process.env.NCURSES_NO_UTF8_ACS;
@@ -1988,7 +1991,7 @@ class Tput {
     // If enter_pc_charset is the same as enter_alt_charset,
     // the terminal does not support SCLD as ACS.
     // See: ~/ncurses/ncurses/tinfo/lib_acs.c
-    detectPCRomSet(info) {
+    detectPCRomSet(info: any) {
         var s = info.strings;
         if (s.enter_pc_charset_mode && s.enter_alt_charset_mode
             && s.enter_pc_charset_mode === s.enter_alt_charset_mode
@@ -2010,7 +2013,7 @@ class Tput {
         return process.env.NCURSES_NO_SETBUF == null;
     };
 
-    parseACS(info): any {
+    parseACS(info: any): any {
         var data: any = {};
 
         data.acsc = {};
@@ -2081,7 +2084,7 @@ class Tput {
         return ccp;
     };
 
-    has(name) {
+    has(name: string) {
         name = Tput.aliasMap[name];
 
         var val = this.all[name];
@@ -2095,7 +2098,7 @@ class Tput {
         return !!val;
     };
 
-    _prefix(term?) {
+    _prefix(term?: string) {
         // If we have a terminfoFile, or our
         // term looks like a filename, use it.
         if (term) {
@@ -2125,13 +2128,13 @@ class Tput {
         throw new Error('Terminfo directory not found.');
     }
 
-    _tprefix(prefix?, term?, soft?) {
+    _tprefix(prefix?: any, term?: string, soft?: boolean) {
         if (!prefix) return;
 
-        let file;
-        let dir;
-        let sdiff;
-        let sfile;
+        let file: any;
+        let dir: any;
+        let sdiff: any;
+        let sfile: any;
         let list;
 
         if (Array.isArray(prefix)) {
@@ -2142,7 +2145,7 @@ class Tput {
             return;
         }
 
-        const find = (word) => {
+        const find = (word: string) => {
             let file = path.resolve(prefix, word[0]);
             try {
                 fs.statSync(file);
@@ -2263,21 +2266,21 @@ function noop() {
 
 noop.unsupported = true;
 
-function merge(a, b) {
+function merge(a: any, b: any) {
   Object.keys(b).forEach(function(key) {
     a[key] = b[key];
   });
   return a;
 }
 
-function write(data) {
+function write(data: string) {
   return process.stdout.write(data);
 }
 
-function tryRead(file) {
+function tryRead(file: any): string {
   if (Array.isArray(file)) {
     for (var i = 0; i < file.length; i++) {
-      var data = tryRead(file[i]);
+      var data: string = tryRead(file[i]);
       if (data) return data;
     }
     return '';
@@ -2296,15 +2299,15 @@ function tryRead(file) {
  *  http://www.cplusplus.com/reference/cstdio/printf/
  */
 
-function sprintf(src, ...params: any[]) {
+function sprintf(src: string, ...params: any[]) {
   var rule = /%([\-+# ]{1,4})?(\d+(?:\.\d+)?)?([doxXsc])/g
     , i = 0;
 
-  return src.replace(rule, function(_, flag, width, type) {
+  return src.replace(rule, function(_: any, flag: string, widthStr: string, type: string) {
     var flags = (flag || '').split('')
       , param = params[i] != null ? params[i] : ''
       , initial = param
-      // , width = +width
+      , width: number = widthStr ? +(widthStr.split('.')[0]) : 0
       , opt: any = {}
       , pre = '';
 
@@ -2332,7 +2335,7 @@ function sprintf(src, ...params: any[]) {
         break;
     }
 
-    flags.forEach(function(flag) {
+    flags.forEach(function(flag: string) {
       switch (flag) {
         // left-justify by width
         case '-':
@@ -2354,8 +2357,6 @@ function sprintf(src, ...params: any[]) {
           break;
       }
     });
-
-    width = width ? +width.split('.')[0] : 0;
 
     // Should this be for opt.left too?
     // Example: %2.2X - turns 0 into 00
@@ -2393,9 +2394,9 @@ function sprintf(src, ...params: any[]) {
     }
 
     if (opt.left) {
-      if (width > (pre.length + param.length)) {
-        width -= pre.length + param.length;
-        pre = Array(width + 1).join(' ') + pre;
+      if (width > (pre.length + (param + '').length)) {
+        const leftPad = width - (pre.length + (param + '').length);
+        pre = Array(leftPad + 1).join(' ') + pre;
       }
     }
 
@@ -2435,7 +2436,7 @@ Tput.aliasMap = {};
 
 Object.keys(Tput.alias).forEach(function(key) {
   Tput.aliasMap[key] = key;
-  Tput.alias[key].forEach(function(k) {
+  Tput.alias[key].forEach(function(k: string) {
     Tput.aliasMap[k] = key;
   });
 });

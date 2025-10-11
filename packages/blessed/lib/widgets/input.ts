@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { InputOptions } from '../types/options.js';
 import Box from './box.js';
 
 /**
@@ -17,7 +18,7 @@ import Box from './box.js';
 class Input extends Box {
   type = 'input';
 
-  constructor(options: any = {}) {
+  constructor(options: InputOptions = {}) {
     super(options);
   }
 }

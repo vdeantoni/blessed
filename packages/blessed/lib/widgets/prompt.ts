@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { PromptOptions } from '../types/options.js';
 import Box from './box.js';
 import Button from './button.js';
 import Textbox from './textbox.js';
@@ -19,7 +20,7 @@ import Textbox from './textbox.js';
 class Prompt extends Box {
   type = 'prompt';
 
-  constructor(options: any = {}) {
+  constructor(options: PromptOptions = {}) {
     options.hidden = true;
 
     super(options);
