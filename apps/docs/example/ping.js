@@ -22,7 +22,7 @@ if (/^(-h|--help|-\?)$/.test(process.argv[2])) {
   console.log('Server: $ node-ping 3000');
   console.log('Client: $ node-ping 127.0.0.1 3000');
   console.log('Demo: $ node-ping');
-  return process.exit(0);
+  process.exit(0);
 }
 
 var server
@@ -418,7 +418,7 @@ function startClient() {
 function main() {
   screen.on('keypress', function(ch, key) {
     if (key.name === 'q' || key.name === 'escape') {
-      return process.exit(0);
+      process.exit(0);
     }
   });
 

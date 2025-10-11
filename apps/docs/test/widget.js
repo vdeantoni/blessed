@@ -310,7 +310,7 @@ screen.on('keypress', function(ch, key) {
       : screen.focusNext();
   }
   if (key.name === 'escape' || key.name === 'q') {
-    return process.exit(0);
+    process.exit(0);
   }
 });
 

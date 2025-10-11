@@ -107,7 +107,7 @@ if (argv[0] === 'all') {
 
   rl.question(text, function(result) {
     result = result.trim().toLowerCase();
-    if (result !== 'y') return process.exit(0);
+    if (result !== 'y') process.exit(0);
     console.log('\x1b[32m(You bet your ass I wish to proceed.)\x1b[m');
     blessed.tput.print(
       '$<1000/>.$<1000/>.$<1000/>.$<100/>Let\'s go...',

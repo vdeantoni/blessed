@@ -223,7 +223,7 @@ screen.key('s', function() {
 });
 
 screen.key('q', function() {
-  return process.exit(0);
+  process.exit(0);
 });
 
 screen.render();
