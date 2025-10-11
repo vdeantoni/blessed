@@ -424,14 +424,14 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 ### **Version Strategy**
 
-**Current Version:** `1.0.0-alpha.17`
+**Current Version:** `1.0.0-alpha.18`
 
 **Progression to 1.0.0:**
 ```
 0.1.82 (original blessed, last updated 2015)
   ↓
 1.0.0-alpha.1 (Phase 2 complete, starting Phase 3)
-1.0.0-alpha.17 (Phase 3A complete - TypeScript conversion done!) ← YOU ARE HERE
+1.0.0-alpha.18 (Phase 3A complete - TypeScript conversion + monorepo!) ← YOU ARE HERE
 1.0.0-alpha.x (Phase 3B: strict types)
   ↓
 1.0.0-beta.1 (Phase 4: Polish & performance)
