@@ -45,7 +45,7 @@ box.key('enter', function() {
 
 // Quit on Escape, q, or Control-C.
 screen.key(['escape', 'q', 'C-c'], function(ch, key) {
-  return process.exit(0);
+  process.exit(0);
 });
 
 // Focus our element.

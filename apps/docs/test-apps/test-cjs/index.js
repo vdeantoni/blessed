@@ -81,7 +81,7 @@ const list = blessed.list({
 // Quit on q or ESC
 screen.key(['q', 'escape', 'C-c'], () => {
   screen.destroy();
-  return process.exit(0);
+  process.exit(0);
 });
 
 // Focus the list by default

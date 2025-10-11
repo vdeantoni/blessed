@@ -103,7 +103,7 @@ const progressInterval = setInterval(() => {
 // Quit on q or Ctrl+C
 screen.key(['q', 'C-c'], function(ch, key) {
   clearInterval(progressInterval);
-  return process.exit(0);
+  process.exit(0);
 });
 
 // Focus the box
