@@ -58,8 +58,8 @@ const scrollMethods = {
     return this.scroll(offset - (this.childBase + this.childOffset), always);
   },
 
-  get setScroll() {
-    return this.scrollTo;
+  setScroll(...args) {
+    return this.scrollTo(...args);
   },
 
   getScroll() {
@@ -384,14 +384,6 @@ export function makeScrollable(element, options = {}) {
   });
 
   // Add getter properties
-  if (!Object.getOwnPropertyDescriptor(element, 'setScroll')) {
-    Object.defineProperty(element, 'setScroll', {
-      get() {
-        return this.scrollTo;
-      },
-      configurable: true,
-    });
-  }
   if (!Object.getOwnPropertyDescriptor(element, 'reallyScrollable')) {
     Object.defineProperty(element, 'reallyScrollable', {
       get() {
