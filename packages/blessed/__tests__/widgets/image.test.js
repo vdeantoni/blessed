@@ -23,7 +23,8 @@ describe('Image', () => {
     it('should accept itype option', () => {
       const image = new Image({
         screen,
-        itype: 'overlay'
+        itype: 'overlay',
+        search: false // Prevent filesystem search for w3mimgdisplay in CI
       });
 
       expect(image.options.type).toBe('overlay');
@@ -32,7 +33,8 @@ describe('Image', () => {
     it('should accept type option', () => {
       const image = new Image({
         screen,
-        type: 'overlay'
+        type: 'overlay',
+        search: false // Prevent filesystem search for w3mimgdisplay in CI
       });
 
       expect(image.options.type).toBe('overlay');
