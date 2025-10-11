@@ -3,3 +3,7 @@ coverage
 dist/
 *.tsbuildinfo
 .vitest/
+.turbo/
+
+# Benchmark results
+tools/benchmarks/results/*.json

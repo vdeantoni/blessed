@@ -106,6 +106,48 @@ This roadmap is divided into phases to provide a structured, safe approach to th
 - ✅ Section 8 - Terminal Compatibility Matrix
 - ✅ Updated package.json (version 1.0.0-alpha.1, Node >= 22.x)
 
+**Post-Phase 3A: Monorepo Structure** ✅ **IMPLEMENTED**
+
+The repository was converted to a Turborepo monorepo to improve organization and developer experience:
+
+**Structure:**
+```
+blessed/ (root)
+├── packages/blessed/      # Core library
+│   ├── lib/              # Source code
+│   ├── bin/              # CLI tools
+│   ├── __tests__/        # Unit tests
+│   ├── usr/              # Resources (fonts)
+│   └── vendor/           # Vendored dependencies
+├── apps/docs/            # Documentation (framework TBD)
+│   ├── examples/         # Example applications
+│   ├── test/             # Manual test files
+│   └── test-apps/        # Integration test apps
+└── tools/benchmarks/     # Performance benchmarks
+```
+
+**Benefits:**
+- Clean separation of concerns (library / docs / tools)
+- Faster builds with Turborepo caching
+- Examples and tests can import published package
+- Benchmarks don't bloat the library package
+
+**Workspace Commands:**
+```bash
+# Build all packages
+pnpm build
+
+# Run tests
+pnpm test
+
+# Run benchmarks
+pnpm bench
+
+# Workspace-specific
+pnpm --filter blessed build
+pnpm --filter benchmarks bench
+```
+
 ---
 
 ### **Phase 1: Testing Infrastructure & Baseline Metrics**
@@ -310,17 +352,13 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - 🎯 **Phase 1.5 COMPLETED** - Additional coverage improvements for key widgets!
 - 🔄 Next: Benchmarking (1.6) to complete Phase 1
 
-**Current CI Blockers:**
-- ❌ **npm optional dependencies bug** (npm issue [#4828](https://github.com/npm/cli/issues/4828))
-  - Error: "Cannot find module @rollup/rollup-linux-x64-gnu" in CI environment
-  - Root cause: npm fails to install platform-specific binaries for rollup
-  - Workaround attempted: Switching to pnpm with frozen-lockfile
-  - Status: pnpm-lock.yaml generated, workflow updated to use pnpm
-  - Alternative considered: Removing package-lock.json (defeats purpose of lock file)
-- ⏳ **Package manager decision pending**: pnpm vs npm
-  - pnpm handles optional dependencies more reliably
-  - Both lock files currently present (package-lock.json + pnpm-lock.yaml)
-  - Recommendation: Commit to pnpm and remove package-lock.json
+**Package Manager Decision:**
+- ✅ **pnpm selected as official package manager**
+  - Resolves npm optional dependencies bug (issue [#4828](https://github.com/npm/cli/issues/4828))
+  - More reliable handling of platform-specific binaries
+  - package-lock.json removed, using pnpm-lock.yaml exclusively
+  - All workflows updated to use pnpm
+  - Developers should use `pnpm install` and `pnpm run <script>`
 
 ---
 
@@ -386,14 +424,14 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 ### **Version Strategy**
 
-**Current Version:** `1.0.0-alpha.16`
+**Current Version:** `1.0.0-alpha.17`
 
 **Progression to 1.0.0:**
 ```
 0.1.82 (original blessed, last updated 2015)
   ↓
 1.0.0-alpha.1 (Phase 2 complete, starting Phase 3)
-1.0.0-alpha.16 (Phase 3A complete - TypeScript conversion done!) ← YOU ARE HERE
+1.0.0-alpha.17 (Phase 3A complete - TypeScript conversion done!) ← YOU ARE HERE
 1.0.0-alpha.x (Phase 3B: strict types)
   ↓
 1.0.0-beta.1 (Phase 4: Polish & performance)
@@ -410,9 +448,9 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - Saves 2.0.0 for future major architectural changes
 
 **Publishing:**
-- Alpha releases: `npm publish --tag alpha`
-- Users install: `npm install @vdeantoni/blessed@alpha`
-- Production (1.0.0): `npm publish` (becomes `latest` tag)
+- Alpha releases: `pnpm publish --tag alpha`
+- Users install: `npm install @vdeantoni/blessed@alpha` (or `pnpm add @vdeantoni/blessed@alpha`)
+- Production (1.0.0): `pnpm publish` (becomes `latest` tag)
 
 **Release Cadence:**
 - Alpha: Weekly or after significant milestones during Phase 3
@@ -536,6 +574,20 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - ✅ All tests green (1,600/1,600)
 - ✅ Build successful with proper CJS/ESM outputs
 - ✅ Ready for Phase 3B (strict type refinement)
+
+**Post-Completion Optimizations:**
+- ✅ **Unicode charWidth Performance** (commit af5de57)
+  - **Problem**: `process.env.BLESSED_FORCE_UNICODE` was being checked on every character width calculation
+  - **Solution**: Cache the environment variable check in module scope
+  - **Impact**: Micro-optimization for character width calculations (hot path in rendering)
+  - **Version**: 1.0.0-alpha.17
+
+- ✅ **Benchmark Infrastructure Update** (commit 8c019e5)
+  - **Problem**: Benchmarks were testing source files, not actual bundled output users would use
+  - **Solution**: Updated benchmarks to test bundled dist/ output + minor optimizations
+  - **Impact**: More accurate performance measurements of actual shipped code
+  - **Version**: 1.0.0-alpha.17
+
 
 #### **Phase 3B: Type Refinement with Strictness** 📅 **NEXT**
 
@@ -1211,13 +1263,16 @@ See Section 1.6 above for complete baseline metrics table.
 # Run all benchmarks with garbage collection
 pnpm run bench
 
+# Or run benchmarks directly in the workspace
+pnpm --filter benchmarks bench
+
 # Results are saved with timestamp
 # Compare against baseline metrics in Section 1.6
 ```
 
 **Benchmark Locations:**
-- Source: `benchmarks/` directory
-- Results: `benchmarks/results/`
+- Source: `tools/benchmarks/` directory (moved to monorepo workspace)
+- Results: `tools/benchmarks/results/`
 - Baseline: Section 1.6 of this document
 
 ---

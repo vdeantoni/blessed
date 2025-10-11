@@ -1,0 +1,122 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": [
+        "lib/**/*.ts",
+        "bin/**/*.ts",
+        "tsconfig.json",
+        "tsup.config.ts",
+        "package.json"
+      ],
+      "outputs": ["dist/**"],
+      "outputLogs": "new-only"
+    },
+    "build:watch": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true,
+      "outputLogs": "new-only"
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.js",
+        "__tests__/**/*.js",
+        "__tests__/**/*.ts",
+        "vitest.config.ts"
+      ],
+      "outputs": ["coverage/**"],
+      "outputLogs": "new-only"
+    },
+    "test:watch": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true,
+      "outputLogs": "new-only"
+    },
+    "test:ui": {
+      "dependsOn": ["build"],
+      "cache": false,
+      "persistent": true,
+      "outputLogs": "new-only"
+    },
+    "test:coverage": {
+      "dependsOn": ["build"],
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.js",
+        "__tests__/**/*.js",
+        "__tests__/**/*.ts",
+        "vitest.config.ts"
+      ],
+      "outputs": ["coverage/**"],
+      "outputLogs": "new-only"
+    },
+    "bench": {
+      "dependsOn": ["build"],
+      "inputs": [
+        "*.js",
+        "benchmarks/**/*.js"
+      ],
+      "outputs": ["results/**/*.json"],
+      "cache": false,
+      "outputLogs": "new-only"
+    },
+    "lint": {
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.js",
+        "bin/**/*.ts",
+        "__tests__/**/*.js",
+        "__tests__/**/*.ts",
+        "eslint.config.js",
+        ".eslintignore"
+      ],
+      "outputLogs": "new-only"
+    },
+    "lint:check": {
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.js",
+        "bin/**/*.ts",
+        "__tests__/**/*.js",
+        "__tests__/**/*.ts",
+        "eslint.config.js",
+        ".eslintignore"
+      ],
+      "outputLogs": "new-only"
+    },
+    "format": {
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.js",
+        "bin/**/*.ts",
+        "__tests__/**/*.js",
+        "__tests__/**/*.ts",
+        ".prettierrc",
+        ".prettierignore"
+      ],
+      "outputLogs": "new-only"
+    },
+    "format:check": {
+      "inputs": [
+        "lib/**/*.ts",
+        "lib/**/*.js",
+        "bin/**/*.ts",
+        "__tests__/**/*.js",
+        "__tests__/**/*.ts",
+        ".prettierrc",
+        ".prettierignore"
+      ],
+      "outputLogs": "new-only"
+    }
+  },
+  "globalEnv": ["NODE_ENV"],
+  "globalDependencies": [
+    "package.json",
+    "pnpm-lock.yaml"
+  ]
+}

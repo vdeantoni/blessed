@@ -1,0 +1,13 @@
+{
+  "name": "benchmarks",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Performance benchmarks for blessed",
+  "type": "module",
+  "scripts": {
+    "bench": "node --expose-gc run-all.js"
+  },
+  "dependencies": {
+    "@vdeantoni/blessed": "workspace:*"
+  }
+}
