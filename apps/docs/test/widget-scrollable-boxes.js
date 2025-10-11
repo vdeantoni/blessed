@@ -12,6 +12,7 @@ var box = blessed.box({
   parent: screen,
   //padding: 2,
   scrollable: true,
+  mouse: true,
   left: 'center',
   top: 'center',
   width: '80%',

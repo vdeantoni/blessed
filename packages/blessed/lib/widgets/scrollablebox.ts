@@ -22,11 +22,6 @@ class ScrollableBox extends Box {
     super(options);
     makeScrollable(this, options);
   }
-
-  get reallyScrollable(): boolean {
-    if (this.shrink) return this.scrollable;
-    return this.getScrollHeight() > this.height;
-  }
 }
 
 /**

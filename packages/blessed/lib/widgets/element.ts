@@ -2382,11 +2382,6 @@ main:
     return this.render();
   }
 
-  _scrollBottom(): number {
-    // Placeholder method - should be provided by scrollable mixin or subclass
-    return 0;
-  }
-
   /**
    * Content Methods
    */
