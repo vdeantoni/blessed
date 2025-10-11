@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { ButtonOptions } from '../types/options.js';
 import Input from './input.js';
 
 /**
@@ -18,7 +19,7 @@ class Button extends Input {
   type = 'button';
   value?: boolean;
 
-  constructor(options: any = {}) {
+  constructor(options: ButtonOptions = {}) {
     if (options.autoFocus == null) {
       options.autoFocus = false;
     }

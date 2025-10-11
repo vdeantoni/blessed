@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { ScrollableBoxOptions } from '../types/options.js';
 import Box from './box.js';
 import { makeScrollable } from '../mixins/scrollable.js';
 
@@ -18,7 +19,7 @@ import { makeScrollable } from '../mixins/scrollable.js';
 class ScrollableBox extends Box {
   type = 'scrollable-box';
 
-  constructor(options: any = {}) {
+  constructor(options: ScrollableBoxOptions = {}) {
     super(options);
     makeScrollable(this, options);
   }

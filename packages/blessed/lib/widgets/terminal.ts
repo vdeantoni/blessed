@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { TerminalOptions } from '../types/options.js';
 import Box from './box.js';
 import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
@@ -33,7 +34,7 @@ class Terminal extends Box {
   dattr: any;
   title?: string;
 
-  constructor(options: any = {}) {
+  constructor(options: TerminalOptions = {}) {
     options.scrollable = false;
 
     super(options);

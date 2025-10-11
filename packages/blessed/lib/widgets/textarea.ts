@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { TextareaOptions } from '../types/options.js';
 import unicode from '../unicode.js';
 import Input from './input.js';
 
@@ -36,7 +37,7 @@ class Textarea extends Input {
     this._value = val;
   }
 
-  constructor(options: any = {}) {
+  constructor(options: TextareaOptions = {}) {
     options.scrollable = options.scrollable !== false;
 
     super(options);

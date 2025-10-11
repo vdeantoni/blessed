@@ -22,10 +22,10 @@
     "declarationMap": true,
     "sourceMap": true,
 
-    // Type checking - RELAXED FOR PHASE 3A MIGRATION
-    // Will re-enable strict flags in Phase 3B after all files are converted
+    // Type checking - PHASE 3B: Enabling strict flags incrementally
+    // Now that widget constructors have proper types
     "strict": false,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": false,
     "strictFunctionTypes": false,
     "strictBindCallApply": false,

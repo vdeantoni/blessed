@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { LogOptions } from '../types/options.js';
 import util from 'util';
 import ScrollableText from './scrollabletext.js';
 
@@ -23,7 +24,7 @@ class Log extends ScrollableText {
     scrollOnInput: boolean;
     _userScrolled: boolean = false;
 
-    constructor(options: any = {}) {
+    constructor(options: LogOptions = {}) {
         super(options);
 
         this.scrollback = options.scrollback != null

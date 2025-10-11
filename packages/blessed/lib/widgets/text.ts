@@ -9,6 +9,7 @@
  */
 
 import Element from './element.js';
+import type { TextOptions } from '../types/options.js';
 
 /**
  * Text
@@ -17,7 +18,7 @@ import Element from './element.js';
 class Text extends Element {
   type = 'text';
 
-  constructor(options: any = {}) {
+  constructor(options: TextOptions = {}) {
     options.shrink = true;
     super(options);
   }

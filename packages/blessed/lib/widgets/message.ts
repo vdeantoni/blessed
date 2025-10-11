@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { MessageOptions } from '../types/options.js';
 import Box from './box.js';
 
 /**
@@ -17,7 +18,7 @@ import Box from './box.js';
 class Message extends Box {
   type = 'message';
 
-  constructor(options: any = {}) {
+  constructor(options: MessageOptions = {}) {
     options.tags = true;
     super(options);
   }

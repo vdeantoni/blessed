@@ -1,8 +1,10 @@
 /**
- * scrollable.js - scrollable mixin for blessed elements
+ * scrollable.ts - scrollable mixin for blessed elements
  * Copyright (c) 2013-2015, Christopher Jeffrey and contributors (MIT License).
  * https://github.com/chjj/blessed
  */
+
+import type { ScrollableOptions, ScrollbarConfig, TrackConfig } from '../types/options.js';
 
 /**
  * Scrollable Mixin
@@ -12,8 +14,21 @@
  * these methods with more sophisticated implementations.
  */
 
+export interface ScrollableMethods {
+  _scrollBottom(): number;
+  scrollTo(offset: number, always?: boolean): void;
+  setScroll(offset: number, always?: boolean): void;
+  getScroll(): number;
+  scroll(offset: number, always?: boolean): void | any;
+  _recalculateIndex(): number;
+  resetScroll(): void | any;
+  getScrollHeight(): number;
+  getScrollPerc(s?: boolean): number;
+  setScrollPerc(i: number): void;
+}
+
 // Basic scroll method implementations for elements that aren't ScrollableBox subclasses
-const scrollMethods = {
+const scrollMethods: ScrollableMethods = {
   _scrollBottom() {
     if (!this.scrollable) return 0;
 
@@ -27,7 +42,7 @@ const scrollMethods = {
       return this.lpos._scrollBottom;
     }
 
-    const bottom = this.children.reduce((current, el) => {
+    const bottom: number = this.children.reduce((current: number, el: any) => {
       // el.height alone does not calculate the shrunken height, we need to use
       // getCoords. A shrunken box inside a scrollable element will not grow any
       // larger than the scrollable element's context regardless of how much
@@ -35,7 +50,7 @@ const scrollMethods = {
       // without the scrollable calculation):
       // See: $ node test/widget-shrink-fail-2.js
       if (!el.detached) {
-        const lpos = el._getCoords(false, true);
+        const lpos: any = el._getCoords(false, true);
         if (lpos) {
           return Math.max(current, el.rtop + (lpos.yl - lpos.yi));
         }
@@ -58,8 +73,8 @@ const scrollMethods = {
     return this.scroll(offset - (this.childBase + this.childOffset), always);
   },
 
-  setScroll(...args) {
-    return this.scrollTo(...args);
+  setScroll(offset, always) {
+    return this.scrollTo(offset, always);
   },
 
   getScroll() {
@@ -72,9 +87,9 @@ const scrollMethods = {
     if (this.detached) return;
 
     // Handle scrolling.
-    let visible = this.height - this.iheight;
-    const base = this.childBase;
-    let d, p, t, b, max, emax;
+    let visible: number = this.height - this.iheight;
+    const base: number = this.childBase;
+    let d: number, p: any, t: number, b: number, max: number, emax: number;
 
     if (this.alwaysScroll || always) {
       // Semi-workaround
@@ -153,7 +168,7 @@ const scrollMethods = {
   },
 
   _recalculateIndex() {
-    let max, emax;
+    let max: number, emax: number;
 
     if (this.detached || !this.scrollable) {
       return 0;
@@ -188,12 +203,12 @@ const scrollMethods = {
   },
 
   getScrollPerc(s) {
-    const pos = this.lpos || this._getCoords();
+    const pos: any = this.lpos || this._getCoords();
     if (!pos) return s ? -1 : 0;
 
-    const height = pos.yl - pos.yi - this.iheight;
-    const i = this.getScrollHeight();
-    let p;
+    const height: number = pos.yl - pos.yi - this.iheight;
+    const i: number = this.getScrollHeight();
+    let p: number;
 
     if (height < i) {
       if (this.alwaysScroll) {
@@ -210,7 +225,7 @@ const scrollMethods = {
   setScrollPerc(i) {
     // XXX
     // const m = this.getScrollHeight();
-    const m = Math.max(this._clines.length, this._scrollBottom());
+    const m: number = Math.max(this._clines.length, this._scrollBottom());
     return this.scrollTo(((i / 100) * m) | 0);
   },
 };
@@ -220,7 +235,7 @@ const scrollMethods = {
  * @param {Element} element - The element to make scrollable
  * @param {Object} options - Scrollable options
  */
-export function makeScrollable(element, options = {}) {
+export function makeScrollable(element: any, options: ScrollableOptions = {}): void {
   if (options.scrollable === false) {
     return;
   }
@@ -265,29 +280,29 @@ export function makeScrollable(element, options = {}) {
     }
     // Allow controlling of the scrollbar via the mouse:
     if (options.mouse) {
-      element.on('mousedown', data => {
+      element.on('mousedown', (data: { x: number; y: number }) => {
         if (element._scrollingBar) {
           // Do not allow dragging on the scrollbar:
           delete element.screen._dragging;
           delete element._drag;
           return;
         }
-        const x = data.x - element.aleft;
-        const y = data.y - element.atop;
+        const x: number = data.x - element.aleft;
+        const y: number = data.y - element.atop;
         if (x === element.width - element.iright - 1) {
           // Do not allow dragging on the scrollbar:
           delete element.screen._dragging;
           delete element._drag;
-          const perc = (y - element.itop) / (element.height - element.iheight);
+          const perc: number = (y - element.itop) / (element.height - element.iheight);
           element.setScrollPerc((perc * 100) | 0);
           element.screen.render();
-          let smd, smu;
+          let smd: (data: { x: number; y: number }) => void, smu: () => void;
           element._scrollingBar = true;
           element.onScreenEvent(
             'mousedown',
-            (smd = data => {
-              const y = data.y - element.atop;
-              const perc = y / element.height;
+            (smd = (data: { x: number; y: number }) => {
+              const y: number = data.y - element.atop;
+              const perc: number = y / element.height;
               element.setScrollPerc((perc * 100) | 0);
               element.screen.render();
             })
@@ -320,7 +335,7 @@ export function makeScrollable(element, options = {}) {
   }
 
   if (options.keys && !options.ignoreKeys) {
-    element.on('keypress', (ch, key) => {
+    element.on('keypress', (ch: string, key: { name: string; ctrl?: boolean; shift?: boolean }) => {
       if (key.name === 'up' || (options.vi && key.name === 'k')) {
         element.scroll(-1);
         element.screen.render();
@@ -372,14 +387,14 @@ export function makeScrollable(element, options = {}) {
 
   // Mix in scroll methods if not already present (ScrollableBox provides its own)
   // Add to prototype if element has a constructor, otherwise to instance
-  const target =
+  const target: any =
     element.constructor && element.constructor.prototype
       ? element.constructor.prototype
       : element;
 
-  Object.keys(scrollMethods).forEach(method => {
+  Object.keys(scrollMethods).forEach((method: string) => {
     if (!target[method]) {
-      target[method] = scrollMethods[method];
+      target[method] = scrollMethods[method as keyof ScrollableMethods];
     }
   });
 

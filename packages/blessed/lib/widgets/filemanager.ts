@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { FileManagerOptions } from '../types/options.js';
 import path from 'path';
 import fs from 'fs';
 import helpers from '../helpers.js';
@@ -23,7 +24,7 @@ class FileManager extends List {
   file: string;
   value: string;
 
-  constructor(options: any = {}) {
+  constructor(options: FileManagerOptions = {}) {
     options.parseTags = true;
     // options.label = ' {blue-fg}%path{/blue-fg} ';
 

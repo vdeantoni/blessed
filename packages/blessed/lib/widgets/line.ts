@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { LineOptions } from '../types/options.js';
 import Box from './box.js';
 
 /**
@@ -19,7 +20,7 @@ class Line extends Box {
   ch: string;
   border: any;
 
-  constructor(options: any = {}) {
+  constructor(options: LineOptions = {}) {
     const orientation = options.orientation || 'vertical';
     delete options.orientation;
 

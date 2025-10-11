@@ -330,7 +330,7 @@ describe('ListTable', () => {
 
       listtable.select(1);
 
-      expect(listtable.scrollTo).toHaveBeenCalledWith(4);
+      expect(listtable.scrollTo).toHaveBeenCalledWith(4, undefined);
     });
   });
 

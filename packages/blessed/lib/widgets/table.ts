@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { TableOptions } from '../types/options.js';
 import Box from './box.js';
 
 /**
@@ -20,7 +21,7 @@ class Table extends Box {
   rows: any[][];
   _maxes: number[];
 
-  constructor(options: any = {}) {
+  constructor(options: TableOptions = {}) {
     options.shrink = true;
     options.style = options.style || {};
     options.style.border = options.style.border || {};

@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { LoadingOptions } from '../types/options.js';
 import Box from './box.js';
 import Text from './text.js';
 
@@ -18,7 +19,7 @@ import Text from './text.js';
 class Loading extends Box {
   type = 'loading';
 
-  constructor(options: any = {}) {
+  constructor(options: LoadingOptions = {}) {
     super(options);
 
     this._.icon = new Text({

@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { LayoutOptions } from '../types/options.js';
 import Node from './node.js';
 import Element from './element.js';
 
@@ -18,7 +19,7 @@ import Element from './element.js';
 class Layout extends Element {
   type = 'layout';
 
-  constructor(options: any = {}) {
+  constructor(options: LayoutOptions = {}) {
     if ((options.width == null
         && (options.left == null && options.right == null))
         || (options.height == null

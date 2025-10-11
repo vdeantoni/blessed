@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { QuestionOptions } from '../types/options.js';
 import Box from './box.js';
 import Button from './button.js';
 
@@ -18,7 +19,7 @@ import Button from './button.js';
 class Question extends Box {
   type = 'question';
 
-  constructor(options: any = {}) {
+  constructor(options: QuestionOptions = {}) {
     options.hidden = true;
 
     super(options);

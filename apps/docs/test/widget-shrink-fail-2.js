@@ -1,4 +1,5 @@
 import blessed from "@vdeantoni/blessed";
+import util from "util";
 
 var screen = blessed.screen({
   autoPadding: true,
@@ -35,7 +36,7 @@ tab._.data = blessed.text({
   tags: true
 });
 
-tab._.data.setContent(require('util').inspect(process, null, 6));
+tab._.data.setContent(util.inspect(process, null, 6));
 
 screen.key('q', function() {
   screen.destroy();

@@ -5208,6 +5208,9 @@ describe('Program - Phase 18: High-Value Integration', () => {
     });
 
     it('should return false on non-iTerm2 terminals', () => {
+      const originalTermProgram = process.env.TERM_PROGRAM;
+      delete process.env.TERM_PROGRAM;
+
       program = new Program({ input, output, terminal: 'xterm' });
 
       clearWriteHistory(output);
@@ -5218,6 +5221,11 @@ describe('Program - Phase 18: High-Value Integration', () => {
 
       const written = getWrittenOutput(output);
       expect(written).toBe('');
+
+      // Restore
+      if (originalTermProgram !== undefined) {
+        process.env.TERM_PROGRAM = originalTermProgram;
+      }
     });
   });
 

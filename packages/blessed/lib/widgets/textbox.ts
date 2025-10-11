@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { TextboxOptions } from '../types/options.js';
 import Textarea from './textarea.js';
 
 /**
@@ -20,7 +21,7 @@ class Textbox extends Textarea {
   censor: boolean;
   __olistener: any;
 
-  constructor(options: any = {}) {
+  constructor(options: TextboxOptions = {}) {
     options.scrollable = false;
 
     super(options);

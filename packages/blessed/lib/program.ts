@@ -27,39 +27,67 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
  */
 
 class Program extends EventEmitter {
-  options: any;
-  input: any;
-  output: any;
-  _logger: any;
-  zero: any;
-  useBuffer: any;
-  x: any;
-  y: any;
-  savedX: any;
-  savedY: any;
-  cols: any;
-  rows: any;
-  scrollTop: any;
-  scrollBottom: any;
-  _terminal: any;
-  isOSXTerm: any;
-  isiTerm2: any;
-  isXFCE: any;
-  isTerminator: any;
-  isLXDE: any;
-  isVTE: any;
+  options: Record<string, any>;
+  input: NodeJS.ReadStream & { _blessedInput?: number; _keypressHandler?: any; _dataHandler?: any };
+  output: NodeJS.WriteStream & { _blessedOutput?: number; _resizeHandler?: any };
+  _logger?: fs.WriteStream;
+  zero: boolean;
+  useBuffer: boolean;
+  x: number;
+  y: number;
+  savedX: number;
+  savedY: number;
+  cols: number;
+  rows: number;
+  scrollTop: number;
+  scrollBottom: number;
+  _terminal: string;
+  isOSXTerm: boolean;
+  isiTerm2: boolean;
+  isXFCE: boolean;
+  isTerminator: boolean;
+  isLXDE: boolean;
+  isVTE: boolean;
+  isRxvt: boolean;
+  isXterm: boolean;
+  tmux: boolean;
+  tmuxVersion: number;
+  _buf: string;
+  _flush: () => void;
+  tput?: any;
+  put?: any;
+  _tputSetup?: boolean;
+  _newHandler?: any;
+  _boundMouse?: boolean;
+  _lastButton?: string;
+  _currentMouse?: any;
+  mouseEnabled?: boolean;
+  _boundResponse?: boolean;
+  _rx?: number;
+  _ry?: number;
+  cursorHidden?: boolean;
+  _saved?: Record<string, any>;
+  isAlt?: boolean;
+  _title?: string;
+  _exiting?: boolean;
+  destroyed?: boolean;
+  ret?: boolean;
+  _resume?: () => void;
+  gpm?: any;
+  _resizeTimer?: NodeJS.Timeout;
+  _programIndex?: number;
   [key: string]: any;
 
-    constructor(options: any = {}) {
+    constructor(options?: any, legacyOutput?: any) {
+        super();
+
         // Handle legacy arguments format (input, output)
         if (!options || options.__proto__ !== Object.prototype) {
             options = {
-                input: arguments[0],
-                output: arguments[1]
+                input: options,
+                output: legacyOutput
             };
         }
-
-        super();
 
         Program.bind(this);
 
@@ -135,20 +163,20 @@ class Program extends EventEmitter {
 
         this.listen();
     }
-    static global = null;
+    static global: Program | null = null;
     static total = 0;
-    static instances = [];
+    static instances: Program[] = [];
     static _bound = false;
-    static _exitHandler = null;
+    static _exitHandler: (() => void) | null = null;
 
-    static bind(program) {
+    static bind(program: Program) {
       if (!Program.global) {
         Program.global = program;
       }
 
       if (!~Program.instances.indexOf(program)) {
         Program.instances.push(program);
-        program.index = Program.total;
+        (program as any).index = Program.total;
         Program.total++;
       }
 
@@ -173,16 +201,16 @@ class Program extends EventEmitter {
 
     type = 'program';
 
-    log() {
-        return this._log('LOG',  util.format.apply(util, arguments));
+    log(...args: any[]) {
+        return this._log('LOG',  util.format(...args));
     };
 
-    debug() {
+    debug(...args: any[]) {
         if (!this.options.debug) return;
-        return this._log('DEBUG',  util.format.apply(util, arguments));
+        return this._log('DEBUG',  util.format(...args));
     };
 
-    _log(pre, msg) {
+    _log(pre: string, msg: string) {
         if (!this._logger) return;
         return this._logger.write(pre + ': ' + msg + '\n-\n');
     };
@@ -191,12 +219,13 @@ class Program extends EventEmitter {
         const write = this.output.write;
         const decoder = new StringDecoder('utf8');
 
-        function stringify(data) {
-            return caret(data
+        function stringify(data: Buffer | string) {
+            const str = Buffer.isBuffer(data) ? data.toString('utf8') : data;
+            return caret(str
                 .replace(/\r/g, '\\r')
                 .replace(/\n/g, '\\n')
                 .replace(/\t/g, '\\t'))
-                .replace(/[^ -~]/g, (ch) => {
+                .replace(/[^ -~]/g, (ch: string) => {
                     if (ch.charCodeAt(0) > 0xff) return ch;
                     ch = ch.charCodeAt(0).toString(16);
                     if (ch.length > 2) {
@@ -208,8 +237,8 @@ class Program extends EventEmitter {
                 });
         }
 
-        function caret(data) {
-            return data.replace(/[\0\x80\x1b-\x1f\x7f\x01-\x1a]/g, (ch) => {
+        function caret(data: string) {
+            return data.replace(/[\0\x80\x1b-\x1f\x7f\x01-\x1a]/g, (ch: string) => {
                 switch (ch) {
                     case '\0':
                     case '\x80':
@@ -234,12 +263,12 @@ class Program extends EventEmitter {
                         ch = '?';
                         break;
                     default:
-                        ch = ch.charCodeAt(0);
+                        let code = ch.charCodeAt(0);
                         // From ('A' - 64) to ('Z' - 64).
-                        if (ch >= 1 && ch <= 26) {
-                            ch = String.fromCharCode(ch + 64);
+                        if (code >= 1 && code <= 26) {
+                            ch = String.fromCharCode(code + 64);
                         } else {
-                            return String.fromCharCode(ch);
+                            return String.fromCharCode(code);
                         }
                         break;
                 }
@@ -247,11 +276,11 @@ class Program extends EventEmitter {
             });
         }
 
-        this.input.on('data', (data) => {
+        this.input.on('data', (data: Buffer) => {
             this._log('IN', stringify(decoder.write(data)));
         });
 
-        this.output.write = (...args) => {
+        this.output.write = (...args: any[]) => {
             this._log('OUT', stringify(args[0]));
             return write.apply(this.output, args);
         };
@@ -285,7 +314,7 @@ class Program extends EventEmitter {
             });
         }
 
-        this.put = (...args) => {
+        this.put = (...args: any[]) => {
             const cap = args.shift();
 
             if (tput[cap]) {
@@ -304,11 +333,11 @@ class Program extends EventEmitter {
             }
 
             if (tput.padding) {
-                this.put[key] = (...args) => {
+                this.put[key] = (...args: any[]) => {
                     return tput._print(tput[key](...args), write);
                 };
             } else {
-                this.put[key] = (...args) => {
+                this.put[key] = (...args: any[]) => {
                     return this._write(tput[key](...args));
                 };
             }
@@ -319,24 +348,24 @@ class Program extends EventEmitter {
         return this._terminal;
     }
 
-    set terminal(newTerminal) {
+    set terminal(newTerminal: string) {
         this.setTerminal(newTerminal);
     }
 
 
-    setTerminal(terminal) {
+    setTerminal(terminal: string) {
         this._terminal = terminal.toLowerCase();
         delete this._tputSetup;
         this.setupTput();
     };
 
-    has(name) {
+    has(name: string) {
         return this.tput
             ? this.tput.has(name)
             : false;
     };
 
-    term(is) {
+    term(is: string) {
         return this.terminal.indexOf(is) === 0;
     };
 
@@ -358,7 +387,7 @@ class Program extends EventEmitter {
             this.input._blessedInput++;
         }
 
-        this.on('newListener', this._newHandler = (type) => {
+        this.on('newListener', this._newHandler = (type: string) => {
             if (type === 'keypress' || type === 'mouse') {
                 this.removeListener('newListener', this._newHandler);
                 if (this.input.setRawMode && !this.input.isRaw) {
@@ -386,7 +415,7 @@ class Program extends EventEmitter {
 
     _listenInput() {
         // Input
-        this.input.on('keypress', this.input._keypressHandler = (ch, key) => {
+        this.input.on('keypress', this.input._keypressHandler = (ch: string, key: any) => {
             key = key || { ch: ch };
 
             if (key.name === 'undefined'
@@ -422,7 +451,7 @@ class Program extends EventEmitter {
             });
         });
 
-        this.input.on('data', this.input._dataHandler = (data) => {
+        this.input.on('data', this.input._dataHandler = (data: Buffer) => {
             Program.instances.forEach((program) => {
                 if (program.input !== this.input) return;
                 program.emit('data', data);
@@ -469,7 +498,7 @@ class Program extends EventEmitter {
 
 
     destroy() {
-        var index = Program.instances.indexOf(this);
+        const index = Program.instances.indexOf(this);
 
         if (~index) {
             Program.instances.splice(index, 1);
@@ -521,23 +550,23 @@ class Program extends EventEmitter {
         }
     };
 
-    key(key, listener) {
+    key(key: string | string[], listener: (...args: any[]) => void) {
         if (typeof key === 'string') key = key.split(/\s*,\s*/);
         key.forEach((key) => {
             return this.on('key ' + key, listener);
         });
     };
 
-    onceKey(key, listener) {
+    onceKey(key: string | string[], listener: (...args: any[]) => void) {
         if (typeof key === 'string') key = key.split(/\s*,\s*/);
-        key.forEach((key) => {
+        key.forEach((key: string) => {
             return this.once('key ' + key, listener);
         });
     };
 
-    removeKey(key, listener) {
+    removeKey(key: string | string[], listener: (...args: any[]) => void) {
         if (typeof key === 'string') key = key.split(/\s*,\s*/);
-        key.forEach((key) => {
+        key.forEach((key: string) => {
             return this.removeListener('key ' + key, listener);
         });
     };
@@ -574,8 +603,8 @@ class Program extends EventEmitter {
         });
     };
 
-    _bindMouse(s, buf) {
-        let key;
+    _bindMouse(s: string | Buffer, buf: Buffer) {
+        let key: any;
         let parts;
         let b;
         let x;
@@ -590,7 +619,14 @@ class Program extends EventEmitter {
             name: undefined,
             ctrl: false,
             meta: false,
-            shift: false
+            shift: false,
+            type: undefined,
+            raw: undefined,
+            buf: undefined,
+            x: undefined,
+            y: undefined,
+            action: undefined,
+            button: undefined
         };
 
         if (Buffer.isBuffer(s)) {
@@ -924,7 +960,7 @@ class Program extends EventEmitter {
 
         this.gpm = new gpmclient();
 
-        this.gpm.on('btndown', (btn, modifier, x, y) => {
+        this.gpm.on('btndown', (btn: number, modifier: number, x: number, y: number) => {
             x--, y--;
 
             const key = {
@@ -943,7 +979,7 @@ class Program extends EventEmitter {
             this.emit('mouse', key);
         });
 
-        this.gpm.on('btnup', (btn, modifier, x, y) => {
+        this.gpm.on('btnup', (btn: number, modifier: number, x: number, y: number) => {
             x--, y--;
 
             const key = {
@@ -962,7 +998,7 @@ class Program extends EventEmitter {
             this.emit('mouse', key);
         });
 
-        this.gpm.on('move', (btn, modifier, x, y) => {
+        this.gpm.on('move', (btn: number, modifier: number, x: number, y: number) => {
             x--, y--;
 
             const key = {
@@ -981,7 +1017,7 @@ class Program extends EventEmitter {
             this.emit('mouse', key);
         });
 
-        this.gpm.on('drag', (btn, modifier, x, y) => {
+        this.gpm.on('drag', (btn: number, modifier: number, x: number, y: number) => {
             x--, y--;
 
             const key = {
@@ -1000,7 +1036,7 @@ class Program extends EventEmitter {
             this.emit('mouse', key);
         });
 
-        this.gpm.on('mousewheel', (btn, modifier, x, y, dx, dy) => {
+        this.gpm.on('mousewheel', (btn: number, modifier: number, x: number, y: number, dx: number, dy: number) => {
             const key = {
                 name: 'mouse',
                 type: 'GPM',
@@ -1039,7 +1075,7 @@ class Program extends EventEmitter {
         });
     };
 
-    _bindResponse(s) {
+    _bindResponse(s: string | Buffer) {
         let out: any = {};
         let parts;
 
@@ -1057,6 +1093,7 @@ class Program extends EventEmitter {
         // CSI > P s c
         // Send Device Attributes (Secondary DA).
         if (parts = /^\x1b\[(\?|>)(\d*(?:;\d*)*)c/.exec(s)) {
+            const prefix = parts[1]; // Save '?' or '>' before overwriting parts
             parts = parts[2].split(';').map(function(ch) {
                 return +ch || 0;
             });
@@ -1064,7 +1101,7 @@ class Program extends EventEmitter {
             out.event = 'device-attributes';
             out.code = 'DA';
 
-            if (parts[1] === '?') {
+            if (prefix === '?') {
                 out.type = 'primary-attribute';
                 // VT100-style params:
                 if (parts[0] === 1 && parts[2] === 2) {
@@ -1592,8 +1629,11 @@ class Program extends EventEmitter {
         }
     };
 
+    response(name?: string, text?: string, callback?: (err: any, data?: any) => void, noBypass?: boolean): any;
+    response(text: string, callback: (err: any, data?: any) => void): any;
     response(name?: any, text?: any, callback?: any, noBypass?: any) {
-        if (arguments.length === 2) {
+        // Handle overload: response(text, callback)
+        if (typeof name === 'string' && typeof text === 'function' && callback === undefined) {
             callback = text;
             text = name;
             name = null;
@@ -1611,7 +1651,7 @@ class Program extends EventEmitter {
 
         let onresponse;
 
-        this.once(name, onresponse = (event) => {
+        this.once(name, onresponse = (event: any) => {
             if (timeout) clearTimeout(timeout);
             if (event.type === 'error') {
                 return callback(new Error(event.event + ': ' + event.text));
@@ -1629,17 +1669,17 @@ class Program extends EventEmitter {
             : this._twrite(text);
     };
 
-    write(text) {
+    write(text: string) {
         if (!this.output.writable) return;
         return this.output.write(text);
     };
 
-    _owrite(text) {
+    _owrite(text: string) {
         return this.write(text);
     }
 
 
-    _buffer(text) {
+    _buffer(text: string) {
         if (this._exiting) {
             this.flush();
             this._owrite(text);
@@ -1664,7 +1704,7 @@ class Program extends EventEmitter {
         this._buf = '';
     };
 
-    _write(text, attr?) {
+    _write(text: string, attr?: any) {
         if (this.ret) return text;
         if (this.useBuffer) {
             return this._buffer(text);
@@ -1674,9 +1714,9 @@ class Program extends EventEmitter {
 
     // Example: `DCS tmux; ESC Pt ST`
     // Real: `DCS tmux; ESC Pt ESC \`
-    _twrite(data) {
+    _twrite(data: string) {
         let iterations = 0;
-        let timer;
+        let timer: NodeJS.Timeout | undefined;
 
         if (this.tmux) {
             // Replace all STs with BELs so they can be nested within the DCS code.
@@ -1690,7 +1730,7 @@ class Program extends EventEmitter {
             if (this.output.bytesWritten === 0) {
                 timer = setInterval(() => {
                     if (this.output.bytesWritten > 0 || ++iterations === 50) {
-                        clearInterval(timer);
+                        clearInterval(timer!);
                         this.flush();
                         this._owrite(data);
                     }
@@ -1709,7 +1749,7 @@ class Program extends EventEmitter {
         return this._write(data);
     };
 
-    print(text, attr) {
+    print(text: string, attr?: any) {
         return attr
             ? this._write(this.text(text, attr))
             : this._write(text);
@@ -1722,21 +1762,21 @@ class Program extends EventEmitter {
         else if (this.y >= this.rows) this.y = this.rows - 1;
     };
 
-    setx(x) {
+    setx(x: number) {
         return this.cursorCharAbsolute(x);
         // return this.charPosAbsolute(x);
     };
 
-    sety(y) {
+    sety(y: number) {
         return this.linePosAbsolute(y);
     };
 
-    move(x, y) {
+    move(x: number, y: number) {
         return this.cursorPos(y, x);
     };
 
     // TODO: Fix cud and cuu calls.
-    omove(x, y) {
+    omove(x: number, y: number) {
         if (!this.zero) {
             x = (x || 1) - 1;
             y = (y || 1) - 1;
@@ -1765,7 +1805,7 @@ class Program extends EventEmitter {
         }
     };
 
-    rsetx(x) {
+    rsetx(x: number) {
         // return this.HPositionRelative(x);
         if (!x) return;
         return x > 0
@@ -1773,7 +1813,7 @@ class Program extends EventEmitter {
             : this.back(-x);
     };
 
-    rsety(y) {
+    rsety(y: number) {
         // return this.VPositionRelative(y);
         if (!y) return;
         return y > 0
@@ -1781,16 +1821,16 @@ class Program extends EventEmitter {
             : this.down(-y);
     };
 
-    rmove(x, y) {
+    rmove(x: number, y: number) {
         this.rsetx(x);
         this.rsety(y);
     };
 
-    simpleInsert(ch, i?, attr?) {
+    simpleInsert(ch: string, i?: number, attr?: any) {
         return this._write(this.repeat(ch, i), attr);
     };
 
-    repeat(ch, i) {
+    repeat(ch: string, i: number) {
         if (!i || i < 0) i = 0;
         return Array(i + 1).join(ch);
     };
@@ -1799,7 +1839,7 @@ class Program extends EventEmitter {
         return this._title;
     }
 
-    set title(newTitle) {
+    set title(newTitle: string) {
         this.setTitle(newTitle);
     }
 
@@ -1808,7 +1848,7 @@ class Program extends EventEmitter {
     //  if (!screen.copyToClipboard(text)) {
     //    execClipboardProgram(text);
     //  }
-    copyToClipboard(text) {
+    copyToClipboard(text: string) {
         if (this.isiTerm2) {
             this._twrite('\x1b]50;CopyToCliboard=' + text + '\x07');
             return true;
@@ -1817,7 +1857,7 @@ class Program extends EventEmitter {
     };
 
     // Only XTerm and iTerm2. If you know of any others, post them.
-    cursorShape(shape, blink) {
+    cursorShape(shape: string, blink?: boolean) {
         if (this.isiTerm2) {
             switch (shape) {
                 case 'block':
@@ -1872,7 +1912,7 @@ class Program extends EventEmitter {
         return false;
     };
 
-    cursorColor(color) {
+    cursorColor(color: string) {
         if (this.term('xterm') || this.term('rxvt') || this.term('screen')) {
             this._twrite('\x1b]12;' + color + '\x07');
             return true;
@@ -1893,14 +1933,14 @@ class Program extends EventEmitter {
         return false;
     };
 
-    getTextParams(param?, callback?) {
+    getTextParams(param?: string | number, callback?: (err: any, data?: any) => void) {
         return this.response('text-params', '\x1b]' + param + ';?\x07', (err, data) => {
             if (err) return callback?.(err);
             return callback?.(null, data.pt);
         });
     };
 
-    getCursorColor(callback?) {
+    getCursorColor(callback?: (err: any, data?: any) => void) {
         return this.getTextParams(12, callback);
     };
 
@@ -2017,7 +2057,7 @@ class Program extends EventEmitter {
     };
 
     // ESC 7 Save Cursor (DECSC).
-    saveCursor(key) {
+    saveCursor(key?: string) {
         if (key) return this.lsaveCursor(key);
         this.savedX = this.x || 0;
         this.savedY = this.y || 0;
@@ -2026,7 +2066,7 @@ class Program extends EventEmitter {
     };
 
     // ESC 8 Restore Cursor (DECRC).
-    restoreCursor(key, hide) {
+    restoreCursor(key?: string, hide?: boolean) {
         if (key) return this.lrestoreCursor(key, hide);
         this.x = this.savedX || 0;
         this.y = this.savedY || 0;
@@ -2035,7 +2075,7 @@ class Program extends EventEmitter {
     };
 
     // Save Cursor Locally
-    lsaveCursor(key) {
+    lsaveCursor(key?: string) {
         key = key || 'local';
         this._saved = this._saved || {};
         this._saved[key] = this._saved[key] || {};
@@ -2045,7 +2085,7 @@ class Program extends EventEmitter {
     };
 
     // Restore Cursor Locally
-    lrestoreCursor(key, hide) {
+    lrestoreCursor(key?: string, hide?: boolean) {
         var pos;
         key = key || 'local';
         if (!this._saved || !this._saved[key]) return;
@@ -2068,7 +2108,7 @@ class Program extends EventEmitter {
 
 
     // ESC (,),*,+,-,. Designate G0-G2 Character Set.
-    charset(val, level?) {
+    charset(val?: string | number, level?: number) {
         level = level || 0;
 
         // See also:
@@ -2080,16 +2120,16 @@ class Program extends EventEmitter {
 
         switch (level) {
             case 0:
-                level = '(';
+                level = '(' as any;
                 break;
             case 1:
-                level = ')';
+                level = ')' as any;
                 break;
             case 2:
-                level = '*';
+                level = '*' as any;
                 break;
             case 3:
-                level = '+';
+                level = '+' as any;
                 break;
         }
 
@@ -2194,7 +2234,7 @@ class Program extends EventEmitter {
     // Invoke the G2 Character Set as GR (LS2R).
     // ESC ~
     // Invoke the G1 Character Set as GR (LS1R).
-    setG(val) {
+    setG(val?: number | string) {
         // if (this.tput) return this.put.S2();
         // if (this.tput) return this.put.S3();
         switch (val) {
@@ -2222,7 +2262,7 @@ class Program extends EventEmitter {
     // OSC Ps ; Pt ST
     // OSC Ps ; Pt BEL
     //   Set Text Parameters.
-    setTitle(title) {
+    setTitle(title: string) {
         this._title = title;
 
         // if (this.term('screen')) {
@@ -2239,7 +2279,7 @@ class Program extends EventEmitter {
     // OSC Ps ; Pt ST
     // OSC Ps ; Pt BEL
     //   Reset colors
-    resetColors(param) {
+    resetColors(param?: string | number) {
         if (this.has('Cr')) {
             return this.put.Cr(param);
         }
@@ -2250,7 +2290,7 @@ class Program extends EventEmitter {
     // OSC Ps ; Pt ST
     // OSC Ps ; Pt BEL
     //   Change dynamic colors
-    dynamicColors(param) {
+    dynamicColors(param: string) {
         if (this.has('Cs')) {
             return this.put.Cs(param);
         }
@@ -2260,7 +2300,7 @@ class Program extends EventEmitter {
     // OSC Ps ; Pt ST
     // OSC Ps ; Pt BEL
     //   Sel data
-    selData(a, b) {
+    selData(a: string, b: string) {
         if (this.has('Ms')) {
             return this.put.Ms(a, b);
         }
@@ -2273,7 +2313,7 @@ class Program extends EventEmitter {
 
     // CSI Ps A
     // Cursor Up Ps Times (default = 1) (CUU).
-    cursorUp(param) {
+    cursorUp(param?: number) {
         this.y -= param || 1;
         this._ncoords();
         if (this.tput) {
@@ -2287,7 +2327,7 @@ class Program extends EventEmitter {
 
     // CSI Ps B
     // Cursor Down Ps Times (default = 1) (CUD).
-    cursorDown(param) {
+    cursorDown(param?: number) {
         this.y += param || 1;
         this._ncoords();
         if (this.tput) {
@@ -2301,7 +2341,7 @@ class Program extends EventEmitter {
 
     // CSI Ps C
     // Cursor Forward Ps Times (default = 1) (CUF).
-    cursorForward(param) {
+    cursorForward(param?: number) {
         this.x += param || 1;
         this._ncoords();
         if (this.tput) {
@@ -2315,7 +2355,7 @@ class Program extends EventEmitter {
 
     // CSI Ps D
     // Cursor Backward Ps Times (default = 1) (CUB).
-    cursorBackward(param) {
+    cursorBackward(param?: number) {
         this.x -= param || 1;
         this._ncoords();
         if (this.tput) {
@@ -2329,7 +2369,7 @@ class Program extends EventEmitter {
 
     // CSI Ps ; Ps H
     // Cursor Position [row;column] (default = [1,1]) (CUP).
-    cursorPos(row, col) {
+    cursorPos(row?: number, col?: number) {
         if (!this.zero) {
             row = (row || 1) - 1;
             col = (col || 1) - 1;
@@ -2354,7 +2394,7 @@ class Program extends EventEmitter {
     //     Ps = 0  -> Selective Erase Below (default).
     //     Ps = 1  -> Selective Erase Above.
     //     Ps = 2  -> Selective Erase All.
-    eraseInDisplay(param) {
+    eraseInDisplay(param?: string | number) {
         if (this.tput) {
             switch (param) {
                 case 'above':
@@ -2403,7 +2443,7 @@ class Program extends EventEmitter {
     //     Ps = 0  -> Selective Erase to Right (default).
     //     Ps = 1  -> Selective Erase to Left.
     //     Ps = 2  -> Selective Erase All.
-    eraseInLine(param) {
+    eraseInLine(param?: string | number) {
         if (this.tput) {
             //if (this.tput.back_color_erase) ...
             switch (param) {
@@ -2493,19 +2533,19 @@ class Program extends EventEmitter {
     //     Ps.
     //     Ps = 4 8  ; 5  ; Ps -> Set background color to the second
     //     Ps.
-    charAttributes(param, val) {
+    charAttributes(param: string | string[], val?: boolean) {
         return this._write(this._attr(param, val));
     };
 
-    text(text, attr) {
+    text(text: string, attr: string | string[]) {
         return this._attr(attr, true) + text + this._attr(attr, false);
     };
 
     // NOTE: sun-color may not allow multiple params for SGR.
-    _attr(param, val?) {
-        let parts;
-        let color;
-        let m;
+    _attr(param: string | string[], val?: boolean): string | null {
+        let parts: string[];
+        let color: number;
+        let m: RegExpExecArray | null;
 
         if (Array.isArray(param)) {
             parts = param;
@@ -2517,7 +2557,7 @@ class Program extends EventEmitter {
 
         if (parts.length > 1) {
             const used: any = {};
-            const out = [];
+            const out: string[] = [];
 
             parts.forEach((part) => {
                 part = this._attr(part, val).slice(2, -1);
@@ -2796,12 +2836,12 @@ class Program extends EventEmitter {
         }
     };
 
-    setForeground(color, val) {
+    setForeground(color: string, val?: boolean) {
         color = color.split(/\s*[,;]\s*/).join(' fg, ') + ' fg';
         return this.attr(color, val);
     };
 
-    setBackground(color, val) {
+    setBackground(color: string, val?: boolean) {
         color = color.split(/\s*[,;]\s*/).join(' bg, ') + ' bg';
         return this.attr(color, val);
     };
@@ -2827,7 +2867,7 @@ class Program extends EventEmitter {
     //     Ps = 5 3  -> Report Locator status as
     //   CSI ? 5 3  n  Locator available, if compiled-in, or
     //   CSI ? 5 0  n  No Locator, if not.
-    deviceStatus(param?, callback?, dec?, noBypass?) {
+    deviceStatus(param?: number | string, callback?: (err: any, data?: any) => void, dec?: boolean, noBypass?: boolean) {
         if (dec) {
             return this.response('device-status',
                 '\x1b[?' + (param || '0') + 'n', callback, noBypass);
@@ -2836,11 +2876,11 @@ class Program extends EventEmitter {
             '\x1b[' + (param || '0') + 'n', callback, noBypass);
     };
 
-    getCursor(callback?) {
+    getCursor(callback?: (err: any, data?: any) => void) {
         return this.deviceStatus(6, callback, false, true);
     };
 
-    saveReportedCursor(callback?) {
+    saveReportedCursor(callback?: (err: any) => void) {
         if (this.tput.strings.user7 === '\x1b[6n' || this.term('screen')) {
             return this.getCursor((err, data) => {
                 if (data) {
@@ -2852,7 +2892,7 @@ class Program extends EventEmitter {
             });
         }
         if (!callback) return;
-        return callback();
+        return callback(null);
     };
 
     restoreReportedCursor() {
@@ -2867,7 +2907,7 @@ class Program extends EventEmitter {
 
     // CSI Ps @
     // Insert Ps (Blank) Character(s) (default = 1) (ICH).
-    insertChars(param) {
+    insertChars(param?: number) {
         this.x += param || 1;
         this._ncoords();
         if (this.tput) return this.put.ich(param);
@@ -2877,7 +2917,7 @@ class Program extends EventEmitter {
     // CSI Ps E
     // Cursor Next Line Ps Times (default = 1) (CNL).
     // same as CSI Ps B ?
-    cursorNextLine(param) {
+    cursorNextLine(param?: number) {
         this.y += param || 1;
         this._ncoords();
         return this._write('\x1b[' + (param || '') + 'E');
@@ -2886,7 +2926,7 @@ class Program extends EventEmitter {
     // CSI Ps F
     // Cursor Preceding Line Ps Times (default = 1) (CNL).
     // reuse CSI Ps A ?
-    cursorPrecedingLine(param) {
+    cursorPrecedingLine(param?: number) {
         this.y -= param || 1;
         this._ncoords();
         return this._write('\x1b[' + (param || '') + 'F');
@@ -2894,7 +2934,7 @@ class Program extends EventEmitter {
 
     // CSI Ps G
     // Cursor Character Absolute  [column] (default = [row,1]) (CHA).
-    cursorCharAbsolute(param) {
+    cursorCharAbsolute(param?: number) {
         if (!this.zero) {
             param = (param || 1) - 1;
         } else {
@@ -2909,48 +2949,49 @@ class Program extends EventEmitter {
 
     // CSI Ps L
     // Insert Ps Line(s) (default = 1) (IL).
-    insertLines(param) {
+    insertLines(param?: number) {
         if (this.tput) return this.put.il(param);
         return this._write('\x1b[' + (param || '') + 'L');
     };
 
     // CSI Ps M
     // Delete Ps Line(s) (default = 1) (DL).
-    deleteLines(param) {
+    deleteLines(param?: number) {
         if (this.tput) return this.put.dl(param);
         return this._write('\x1b[' + (param || '') + 'M');
     };
 
     // CSI Ps P
     // Delete Ps Character(s) (default = 1) (DCH).
-    deleteChars(param) {
+    deleteChars(param?: number) {
         if (this.tput) return this.put.dch(param);
         return this._write('\x1b[' + (param || '') + 'P');
     };
 
     // CSI Ps X
     // Erase Ps Character(s) (default = 1) (ECH).
-    eraseChars(param) {
+    eraseChars(param?: number) {
         if (this.tput) return this.put.ech(param);
         return this._write('\x1b[' + (param || '') + 'X');
     };
 
     // CSI Pm `  Character Position Absolute
     //   [column] (default = [row,1]) (HPA).
-    charPosAbsolute(param) {
+    charPosAbsolute(...args: number[]) {
+        const param = args[0];
         this.x = param || 0;
         this._ncoords();
         if (this.tput) {
-            return this.put.hpa.apply(this.put, arguments);
+            return this.put.hpa(...args);
         }
-        param = slice.call(arguments).join(';');
-        return this._write('\x1b[' + (param || '') + '`');
+        const paramStr = args.join(';');
+        return this._write('\x1b[' + (paramStr || '') + '`');
     };
 
     // 141 61 a * HPR -
     // Horizontal Position Relative
     // reuse CSI Ps C ?
-    HPositionRelative(param) {
+    HPositionRelative(param?: number) {
         if (this.tput) return this.cuf(param);
         this.x += param || 1;
         this._ncoords();
@@ -2994,7 +3035,7 @@ class Program extends EventEmitter {
     // More information:
     //   xterm/charproc.c - line 2012, for more information.
     //   vim responds with ^[[?0c or ^[[?1c after the terminal's response (?)
-    sendDeviceAttributes(param?, callback?) {
+    sendDeviceAttributes(param?: number | string, callback?: (err: any, data?: any) => void) {
         return this.response('device-attributes',
             '\x1b[' + (param || '') + 'c', callback);
     };
@@ -3002,19 +3043,20 @@ class Program extends EventEmitter {
     // CSI Pm d
     // Line Position Absolute  [row] (default = [1,column]) (VPA).
     // NOTE: Can't find in terminfo, no idea why it has multiple params.
-    linePosAbsolute(param) {
+    linePosAbsolute(...args: number[]) {
+        const param = args[0];
         this.y = param || 1;
         this._ncoords();
         if (this.tput) {
-            return this.put.vpa.apply(this.put, arguments);
+            return this.put.vpa(...args);
         }
-        param = slice.call(arguments).join(';');
-        return this._write('\x1b[' + (param || '') + 'd');
+        const paramStr = args.join(';');
+        return this._write('\x1b[' + (paramStr || '') + 'd');
     };
 
     // 145 65 e * VPR - Vertical Position Relative
     // reuse CSI Ps B ?
-    VPositionRelative(param) {
+    VPositionRelative(param?: number) {
         if (this.tput) return this.cud(param);
         this.y += param || 1;
         this._ncoords();
@@ -3026,7 +3068,7 @@ class Program extends EventEmitter {
     // CSI Ps ; Ps f
     //   Horizontal and Vertical Position [row;column] (default =
     //   [1,1]) (HVP).
-    HVPosition(row, col) {
+    HVPosition(row?: number, col?: number) {
         if (!this.zero) {
             row = (row || 1) - 1;
             col = (col || 1) - 1;
@@ -3383,7 +3425,7 @@ class Program extends EventEmitter {
     };
 
     // Set Mouse
-    setMouse(opt, enable?) {
+    setMouse(opt: any, enable?: boolean) {
         if (opt.normalMouse != null) {
             opt.vt200Mouse = opt.normalMouse;
             opt.allMotion = opt.normalMouse;
@@ -3513,7 +3555,7 @@ class Program extends EventEmitter {
     //   Set Scrolling Region [top;bottom] (default = full size of win-
     //   dow) (DECSTBM).
     // CSI ? Pm r
-    setScrollRegion(top, bottom) {
+    setScrollRegion(top?: number, bottom?: number) {
         if (!this.zero) {
             top = (top || 1) - 1;
             bottom = (bottom || this.rows) - 1;
@@ -3554,7 +3596,7 @@ class Program extends EventEmitter {
 
     // CSI Ps I
     //   Cursor Forward Tabulation Ps tab stops (default = 1) (CHT).
-    cursorForwardTab(param) {
+    cursorForwardTab(param?: number) {
         this.x += 8;
         this._ncoords();
         if (this.tput) return this.put.tab(param);
@@ -3563,7 +3605,7 @@ class Program extends EventEmitter {
 
 
     // CSI Ps S  Scroll up Ps lines (default = 1) (SU).
-    scrollUp(param) {
+    scrollUp(param?: number) {
         this.y -= param || 1;
         this._ncoords();
         if (this.tput) return this.put.parm_index(param);
@@ -3572,7 +3614,7 @@ class Program extends EventEmitter {
 
 
     // CSI Ps T  Scroll down Ps lines (default = 1) (SD).
-    scrollDown(param) {
+    scrollDown(param?: number) {
         this.y += param || 1;
         this._ncoords();
         if (this.tput) return this.put.parm_rindex(param);
@@ -3584,8 +3626,8 @@ class Program extends EventEmitter {
     //   Initiate highlight mouse tracking.  Parameters are
     //   [func;startx;starty;firstrow;lastrow].  See the section Mouse
     //   Tracking.
-    initMouseTracking() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + 'T');
+    initMouseTracking(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + 'T');
     };
 
     // CSI > Ps; Ps T
@@ -3599,12 +3641,12 @@ class Program extends EventEmitter {
     //     Ps = 2  -> Do not set window/icon labels using UTF-8.
     //     Ps = 3  -> Do not query window/icon labels using UTF-8.
     //   (See discussion of "Title Modes").
-    resetTitleModes() {
-        return this._write('\x1b[>' + slice.call(arguments).join(';') + 'T');
+    resetTitleModes(...args: number[]) {
+        return this._write('\x1b[>' + args.join(';') + 'T');
     };
 
     // CSI Ps Z  Cursor Backward Tabulation Ps tab stops (default = 1) (CBT).
-    cursorBackwardTab(param) {
+    cursorBackwardTab(param?: number) {
         this.x -= 8;
         this._ncoords();
         if (this.tput) return this.put.cbt(param);
@@ -3613,7 +3655,7 @@ class Program extends EventEmitter {
 
 
     // CSI Ps b  Repeat the preceding graphic character Ps times (REP).
-    repeatPrecedingCharacter(param) {
+    repeatPrecedingCharacter(param?: number) {
         this.x += param || 1;
         this._ncoords();
         if (this.tput) return this.put.rep(param);
@@ -3626,7 +3668,7 @@ class Program extends EventEmitter {
     // Potentially:
     //   Ps = 2  -> Clear Stops on Line.
     //   http://vt100.net/annarbor/aaa-ug/section6.html
-    tabClear(param) {
+    tabClear(param?: number) {
         if (this.tput) return this.put.tbc(param);
         return this._write('\x1b[' + (param || 0) + 'g');
     };
@@ -3642,8 +3684,8 @@ class Program extends EventEmitter {
     //     Ps = 5  -> Turn on autoprint mode.
     //     Ps = 1  0  -> Print composed display, ignores DECPEX.
     //     Ps = 1  1  -> Print all pages.
-    mediaCopy() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + 'i');
+    mediaCopy(...args: (number | string)[]) {
+        return this._write('\x1b[' + args.join(';') + 'i');
     };
 
     mc0() {
@@ -3694,8 +3736,8 @@ class Program extends EventEmitter {
     //     Ps = 4  -> modifyOtherKeys.
     //   If no parameters are given, all resources are reset to their
     //   initial values.
-    setResources() {
-        return this._write('\x1b[>' + slice.call(arguments).join(';') + 'm');
+    setResources(...args: number[]) {
+        return this._write('\x1b[>' + args.join(';') + 'm');
     };
 
     // CSI > Ps n
@@ -3711,7 +3753,7 @@ class Program extends EventEmitter {
     //   keys to make an extended sequence of functions rather than
     //   adding a parameter to each function key to denote the modi-
     //   fiers.
-    disableModifiers(param) {
+    disableModifiers(param?: number | string) {
         return this._write('\x1b[>' + (param || '') + 'n');
     };
 
@@ -3723,7 +3765,7 @@ class Program extends EventEmitter {
     //     Ps = 1  -> hide if the mouse tracking mode is not enabled.
     //     Ps = 2  -> always hide the pointer.  If no parameter is
     //     given, xterm uses the default, which is 1 .
-    setPointerMode(param) {
+    setPointerMode(param?: number | string) {
         return this._write('\x1b[>' + (param || '') + 'p');
     };
 
@@ -3748,7 +3790,7 @@ class Program extends EventEmitter {
     //     2 - reset
     //     3 - permanently set
     //     4 - permanently reset
-    requestAnsiMode(param) {
+    requestAnsiMode(param?: number | string) {
         return this._write('\x1b[' + (param || '') + '$p');
     };
 
@@ -3757,7 +3799,7 @@ class Program extends EventEmitter {
     //     CSI ? Ps; Pm$ p
     //   where Ps is the mode number as in DECSET, Pm is the mode value
     //   as in the ANSI DECRQM.
-    requestPrivateMode(param) {
+    requestPrivateMode(param?: number | string) {
         return this._write('\x1b[?' + (param || '') + '$p');
     };
 
@@ -3771,8 +3813,8 @@ class Program extends EventEmitter {
     //     Ps = 0  -> 8-bit controls.
     //     Ps = 1  -> 7-bit controls (always set for VT100).
     //     Ps = 2  -> 8-bit controls.
-    setConformanceLevel() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '"p');
+    setConformanceLevel(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '"p');
     };
 
     // CSI Ps q  Load LEDs (DECLL).
@@ -3783,7 +3825,7 @@ class Program extends EventEmitter {
     //     Ps = 2  1  -> Extinguish Num Lock.
     //     Ps = 2  2  -> Extinguish Caps Lock.
     //     Ps = 2  3  -> Extinguish Scroll Lock.
-    loadLEDs(param) {
+    loadLEDs(param?: number | string) {
         return this._write('\x1b[' + (param || '') + 'q');
     };
 
@@ -3794,7 +3836,7 @@ class Program extends EventEmitter {
     //     Ps = 2  -> steady block.
     //     Ps = 3  -> blinking underline.
     //     Ps = 4  -> steady underline.
-    setCursorStyle(param) {
+    setCursorStyle(param?: number | string) {
         switch (param) {
             case 'blinking block':
                 param = 1;
@@ -3833,15 +3875,15 @@ class Program extends EventEmitter {
     //     Ps = 0  -> DECSED and DECSEL can erase (default).
     //     Ps = 1  -> DECSED and DECSEL cannot erase.
     //     Ps = 2  -> DECSED and DECSEL can erase.
-    setCharProtectionAttr(param) {
+    setCharProtectionAttr(param?: number) {
         return this._write('\x1b[' + (param || 0) + '"q');
     };
 
     // CSI ? Pm r
     //   Restore DEC Private Mode Values.  The value of Ps previously
     //   saved is restored.  Ps values are the same as for DECSET.
-    restorePrivateValues() {
-        return this._write('\x1b[?' + slice.call(arguments).join(';') + 'r');
+    restorePrivateValues(...args: number[]) {
+        return this._write('\x1b[?' + args.join(';') + 'r');
     };
 
     // CSI Pt; Pl; Pb; Pr; Ps$ r
@@ -3849,15 +3891,15 @@ class Program extends EventEmitter {
     //     Pt; Pl; Pb; Pr denotes the rectangle.
     //     Ps denotes the SGR attributes to change: 0, 1, 4, 5, 7.
     // NOTE: xterm doesn't enable this code by default.
-    setAttrInRectangle() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '$r');
+    setAttrInRectangle(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '$r');
     };
 
     // CSI ? Pm s
     //   Save DEC Private Mode Values.  Ps values are the same as for
     //   DECSET.
-    savePrivateValues() {
-        return this._write('\x1b[?' + slice.call(arguments).join(';') + 's');
+    savePrivateValues(...args: number[]) {
+        return this._write('\x1b[?' + args.join(';') + 's');
     };
 
     // CSI Ps ; Ps ; Ps t
@@ -3907,15 +3949,15 @@ class Program extends EventEmitter {
     //     Ps = 2 3  ;  2  -> Restore xterm window title from stack.
     //     Ps >= 2 4  -> Resize to Ps lines (DECSLPP).
     manipulateWindow(...args: any[]) {
-        var callback = typeof args[args.length - 1] === 'function'
+        const callback = typeof args[args.length - 1] === 'function'
             ? args.pop()
-            : function() {};
+            : () => {};
 
         return this.response('window-manipulation',
-            '\x1b[' + args.join(';') + 't', callback);
+            '\x1b[' + args.join(';') + 't', callback as (err: any, data?: any) => void);
     };
 
-    getWindowSize(callback?) {
+    getWindowSize(callback?: (err: any, data?: any) => void) {
         return this.manipulateWindow(18, callback);
     };
 
@@ -3925,8 +3967,8 @@ class Program extends EventEmitter {
     //     Pt; Pl; Pb; Pr denotes the rectangle.
     //     Ps denotes the attributes to reverse, i.e.,  1, 4, 5, 7.
     // NOTE: xterm doesn't enable this code by default.
-    reverseAttrInRectangle() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '$t');
+    reverseAttrInRectangle(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '$t');
     };
 
     // CSI > Ps; Ps t
@@ -3938,8 +3980,8 @@ class Program extends EventEmitter {
     //     Ps = 3  -> Query window/icon labels using UTF-8.  (See dis-
     //     cussion of "Title Modes")
     // XXX VTE bizarelly echos this:
-    setTitleModeFeature() {
-        return this._twrite('\x1b[>' + slice.call(arguments).join(';') + 't');
+    setTitleModeFeature(...args: number[]) {
+        return this._twrite('\x1b[>' + args.join(';') + 't');
     };
 
     // CSI Ps SP t
@@ -3947,7 +3989,7 @@ class Program extends EventEmitter {
     //     Ps = 0  or 1  -> off.
     //     Ps = 2 , 3  or 4  -> low.
     //     Ps = 5 , 6 , 7 , or 8  -> high.
-    setWarningBellVolume(param) {
+    setWarningBellVolume(param?: number | string) {
         return this._write('\x1b[' + (param || '') + ' t');
     };
 
@@ -3956,7 +3998,7 @@ class Program extends EventEmitter {
     //     Ps = 1  -> off.
     //     Ps = 2 , 3  or 4  -> low.
     //     Ps = 0 , 5 , 6 , 7 , or 8  -> high.
-    setMarginBellVolume(param) {
+    setMarginBellVolume(param?: number | string) {
         return this._write('\x1b[' + (param || '') + ' u');
     };
 
@@ -3967,8 +4009,8 @@ class Program extends EventEmitter {
     //     Pt; Pl denotes the target location.
     //     Pp denotes the target page.
     // NOTE: xterm doesn't enable this code by default.
-    copyRectangle() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '$v');
+    copyRectangle(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '$v');
     };
 
     // CSI Pt ; Pl ; Pb ; Pr ' w
@@ -3982,8 +4024,8 @@ class Program extends EventEmitter {
     //   to the current locator position.  If all parameters are omit-
     //   ted, any locator motion will be reported.  DECELR always can-
     //   cels any prevous rectangle definition.
-    enableFilterRectangle() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '\'w');
+    enableFilterRectangle(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '\'w');
     };
 
     // CSI Ps x  Request Terminal Parameters (DECREQTPARM).
@@ -3997,7 +4039,7 @@ class Program extends EventEmitter {
     //     Pn = 1  <- 2  8  receive 38.4k baud.
     //     Pn = 1  <- clock multiplier.
     //     Pn = 0  <- STP flags.
-    requestParameters(param) {
+    requestParameters(param?: number) {
         return this._write('\x1b[' + (param || 0) + 'x');
     };
 
@@ -4005,7 +4047,7 @@ class Program extends EventEmitter {
     //     Ps = 0  -> from start to end position, wrapped.
     //     Ps = 1  -> from start to end position, wrapped.
     //     Ps = 2  -> rectangle (exact).
-    selectChangeExtent(param) {
+    selectChangeExtent(param?: number) {
         return this._write('\x1b[' + (param || 0) + 'x');
     };
 
@@ -4014,8 +4056,8 @@ class Program extends EventEmitter {
     //     Pc is the character to use.
     //     Pt; Pl; Pb; Pr denotes the rectangle.
     // NOTE: xterm doesn't enable this code by default.
-    fillRectangle() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '$x');
+    fillRectangle(...args: (number | string)[]) {
+        return this._write('\x1b[' + args.join(';') + '$x');
     };
 
     // CSI Ps ; Pu ' z
@@ -4030,16 +4072,16 @@ class Program extends EventEmitter {
     //     Pu = 0  <- or omitted -> default to character cells.
     //     Pu = 1  <- device physical pixels.
     //     Pu = 2  <- character cells.
-    enableLocatorReporting() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '\'z');
+    enableLocatorReporting(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '\'z');
     };
 
     // CSI Pt; Pl; Pb; Pr$ z
     //   Erase Rectangular Area (DECERA), VT400 and up.
     //     Pt; Pl; Pb; Pr denotes the rectangle.
     // NOTE: xterm doesn't enable this code by default.
-    eraseRectangle() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '$z');
+    eraseRectangle(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '$z');
     };
 
     // CS   I Pm ' {
@@ -4053,15 +4095,15 @@ class Program extends EventEmitter {
     //     Ps = 2  -> do not report button down transitions.
     //     Ps = 3  -> report button up transitions.
     //     Ps = 4  -> do not report button up transitions.
-    setLocatorEvents() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '\'{');
+    setLocatorEvents(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '\'{');
     };
 
     // CSI Pt; Pl; Pb; Pr$ {
     //   Selective Erase Rectangular Area (DECSERA), VT400 and up.
     //     Pt; Pl; Pb; Pr denotes the rectangle.
-    selectiveEraseRectangle() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + '${');
+    selectiveEraseRectangle(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + '${');
     };
 
     // CSI Ps ' |
@@ -4104,13 +4146,13 @@ class Program extends EventEmitter {
     //     mal.
     //   The ``page'' parameter is not used by xterm, and will be omit-
     //   ted.
-    requestLocatorPosition(param?, callback?) {
+    requestLocatorPosition(param?: number | string, callback?: (err: any, data?: any) => void) {
         // See also:
         // get_mouse / getm / Gm
         // mouse_info / minfo / Mi
         // Correct for tput?
         if (this.has('req_mouse_pos')) {
-            var code = this.tput.req_mouse_pos(param);
+            const code = this.tput.req_mouse_pos(param);
             return this.response('locator-position', code, callback);
         }
         return this.response('locator-position',
@@ -4124,28 +4166,27 @@ class Program extends EventEmitter {
     // CSI P m SP }
     // Insert P s Column(s) (default = 1) (DECIC), VT420 and up.
     // NOTE: xterm doesn't enable this code by default.
-    insertColumns() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + ' }');
+    insertColumns(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + ' }');
     };
 
 
     // CSI P m SP ~
     // Delete P s Column(s) (default = 1) (DECDC), VT420 and up
     // NOTE: xterm doesn't enable this code by default.
-    deleteColumns() {
-        return this._write('\x1b[' + slice.call(arguments).join(';') + ' ~');
+    deleteColumns(...args: number[]) {
+        return this._write('\x1b[' + args.join(';') + ' ~');
     };
 
 
-    out(name) {
-        var args = Array.prototype.slice.call(arguments, 1);
+    out(name: string, ...args: any[]) {
         this.ret = true;
-        var out = this[name].apply(this, args);
+        const out = (this as any)[name](...args);
         this.ret = false;
         return out;
     };
 
-    sigtstp(callback?) {
+    sigtstp(callback?: () => void) {
         const resume = this.pause();
 
         process.once('SIGCONT', () => {
@@ -4156,7 +4197,7 @@ class Program extends EventEmitter {
         process.kill(process.pid, 'SIGTSTP');
     };
 
-    pause(callback?) {
+    pause(callback?: () => void) {
         const isAlt = this.isAlt;
         const mouseEnabled = this.mouseEnabled;
 
@@ -4167,7 +4208,7 @@ class Program extends EventEmitter {
         if (mouseEnabled) this.disableMouse();
 
         const write = this.output.write;
-        this.output.write = () => {};
+        this.output.write = () => { return true; };
         if (this.input.setRawMode) {
             this.input.setRawMode(false);
         }
@@ -4311,16 +4352,16 @@ Program.prototype.decdc = Program.prototype.deleteColumns;
 // We could do this easier by just manipulating the _events object, or for
 // older versions of node, manipulating the array returned by listeners(), but
 // neither of these methods are guaranteed to work in future versions of node.
-function unshiftEvent(obj, event, listener) {
+function unshiftEvent(obj: any, event: string, listener: (...args: any[]) => void) {
   var listeners = obj.listeners(event);
   obj.removeAllListeners(event);
   obj.on(event, listener);
-  listeners.forEach(function(listener) {
+  listeners.forEach(function(listener: (...args: any[]) => void) {
     obj.on(event, listener);
   });
 }
 
-function merge(out, ...objs: any[]) {
+function merge(out: any, ...objs: any[]) {
   objs.forEach(function(obj) {
     Object.keys(obj).forEach(function(key) {
       out[key] = obj[key];

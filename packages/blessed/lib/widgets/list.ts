@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { ListOptions } from '../types/options.js';
 import helpers from '../helpers.js';
 import Box from './box.js';
 import ScrollableBox from './scrollablebox.js';
@@ -27,7 +28,7 @@ class List extends ScrollableBox {
   mouse: boolean;
   _listInitialized: boolean;
 
-  constructor(options: any = {}) {
+  constructor(options: ListOptions = {}) {
     options.ignoreKeys = true;
     // Possibly put this here: this.items = [];
     // Note: Don't set scrollable: true here since List extends ScrollableBox

@@ -8,6 +8,7 @@
  * Modules
  */
 
+import type { ANSIImageOptions } from '../types/options.js';
 import cp from 'child_process';
 import colors from '../colors.js';
 import Node from './node.js';
@@ -27,7 +28,7 @@ class ANSIImage extends Box {
   cellmap?: any;
   static curl: (url: string) => any;
 
-  constructor(options: any = {}) {
+  constructor(options: ANSIImageOptions = {}) {
     options.shrink = true;
 
     super(options);

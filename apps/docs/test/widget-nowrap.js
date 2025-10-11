@@ -2,6 +2,7 @@ import blessed from "@vdeantoni/blessed";
 import fs from 'fs';
 
 const __dirname = import.meta.dirname;
+const __filename = import.meta.filename;
 
 // {open}xxxx{close} xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 // xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx {red-bg}xxxx xxxx xxxx{/red-bg}
