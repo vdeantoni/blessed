@@ -49,9 +49,7 @@ export default defineConfig({
   // Copy assets and show success message
   onSuccess: async () => {
     await cp('usr', 'dist/usr', { recursive: true });
-    await cp('vendor', 'dist/vendor', { recursive: true });
     console.log('✅ Copied usr/ to dist/usr/');
-    console.log('✅ Copied vendor/ to dist/vendor/');
     console.log('✅ Build complete');
   }
 });
