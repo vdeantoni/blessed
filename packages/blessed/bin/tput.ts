@@ -11,6 +11,6 @@ const tput = blessed.tput({
   extended: true
 });
 
-if (tput[cmd]) {
+if (cmd && tput[cmd]) {
   process.stdout.write(tput[cmd].apply(tput, argv));
 }

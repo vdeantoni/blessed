@@ -32,7 +32,7 @@ class Button extends Input {
       }
     });
 
-    if (this.options.mouse) {
+    if ((this.options as any).mouse) {
       this.on('click', () => {
         return this.press();
       });

@@ -71,16 +71,16 @@ class List extends ScrollableBox {
       }
     });
 
-    if (this.options.itemHoverBg) {
-      this.options.itemHoverEffects = { bg: this.options.itemHoverBg };
+    if (options.itemHoverBg) {
+      options.itemHoverEffects = { bg: options.itemHoverBg };
     }
 
-    if (this.options.itemHoverEffects) {
-      this.style.item.hover = this.options.itemHoverEffects;
+    if (options.itemHoverEffects) {
+      this.style.item.hover = options.itemHoverEffects;
     }
 
-    if (this.options.itemFocusEffects) {
-      this.style.item.focus = this.options.itemFocusEffects;
+    if (options.itemFocusEffects) {
+      this.style.item.focus = options.itemFocusEffects;
     }
 
     this.interactive = options.interactive !== false;
@@ -148,7 +148,7 @@ class List extends ScrollableBox {
           return;
         }
         if (options.vi && key.name === 'h' && key.shift) {
-          this.move(this.childBase - this.selected);
+          this.move((this.childBase || 0) - this.selected);
           this.screen.render();
           return;
         }
@@ -158,13 +158,13 @@ class List extends ScrollableBox {
           const visible = Math.min(
             this.height - this.iheight,
             this.items.length) / 2 | 0;
-          this.move(this.childBase + visible - this.selected);
+          this.move((this.childBase || 0) + visible - this.selected);
           this.screen.render();
           return;
         }
         if (options.vi && key.name === 'l' && key.shift) {
           // XXX This goes one too far on lists with an odd number of items.
-          this.down(this.childBase
+          this.down((this.childBase || 0)
             + Math.min(this.height - this.iheight, this.items.length)
             - this.selected);
           this.screen.render();
@@ -182,10 +182,10 @@ class List extends ScrollableBox {
         }
 
         if (options.vi && (key.ch === '/' || key.ch === '?')) {
-          if (typeof this.options.search !== 'function') {
+          if (typeof options.search !== 'function') {
             return;
           }
-          return this.options.search((err: any, value: any) => {
+          return options.search((err: any, value: any) => {
             if (typeof err === 'string' || typeof err === 'function'
                 || typeof err === 'number' || (err && err.test)) {
               value = err;
@@ -249,7 +249,7 @@ class List extends ScrollableBox {
 
     // if (this.shrink) {
     // XXX NOTE: Maybe just do this on all shrinkage once autoPadding is default?
-    if (this.shrink && this.options.normalShrink) {
+    if (this.shrink && options.normalShrink) {
       delete options.right;
       options.width = 'shrink';
     }
@@ -512,7 +512,7 @@ class List extends ScrollableBox {
     if (!this.items.length) {
       this.selected = 0;
       this.value = '';
-      this.scrollTo(0);
+      this.scrollTo?.(0);
       return;
     }
 
@@ -532,7 +532,7 @@ class List extends ScrollableBox {
     this.selected = index;
     this.value = helpers.cleanTags(this.ritems[this.selected]);
     if (!this.parent) return;
-    this.scrollTo(this.selected);
+    this.scrollTo?.(this.selected);
 
     // XXX Move `action` and `select` events here.
     this.emit('select item', this.items[this.selected], this.selected);

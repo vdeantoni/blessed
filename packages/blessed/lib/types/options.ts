@@ -30,6 +30,7 @@ export interface ScrollbarConfig {
   underline?: boolean;
   inverse?: boolean;
   invisible?: boolean;
+  ignoreBorder?: boolean;
 }
 
 export interface TrackConfig {
@@ -57,10 +58,15 @@ export interface ScrollableOptions {
 
 export interface ElementOptions extends INodeOptions, ScrollableOptions {
   tags?: boolean;
+  parseTags?: boolean;
   fg?: string;
   bg?: string;
   bold?: string;
   underline?: string;
+  blink?: boolean;
+  inverse?: boolean;
+  invisible?: boolean;
+  transparent?: boolean;
   style?: any;
   border?: Border | "line" | "bg";
   content?: string;
@@ -71,9 +77,14 @@ export interface ElementOptions extends INodeOptions, ScrollableOptions {
   hidden?: boolean;
   label?: string;
   hoverText?: string;
+  hoverBg?: string;
+  hoverEffects?: any;
+  focusEffects?: any;
+  effects?: any;
   align?: "left" | "center" | "right";
   valign?: "top" | "middle" | "bottom";
   shrink?: boolean;
+  wrap?: boolean;
   padding?: number | Padding;
   top?: TTopLeft;
   left?: TTopLeft;
@@ -85,6 +96,10 @@ export interface ElementOptions extends INodeOptions, ScrollableOptions {
   ch?: string;
   draggable?: boolean;
   shadow?: boolean;
+  noOverflow?: boolean;
+  dockBorders?: boolean;
+  fixed?: boolean;
+  type?: string;
 }
 
 export interface ScrollableBoxOptions extends ElementOptions {
@@ -124,6 +139,27 @@ export interface ListOptions<TStyle extends ListElementStyle = ListElementStyle>
   search?(err: any, value?: string): void;
   interactive?: boolean;
   invertSelected?: boolean;
+  normalShrink?: boolean;
+  // Selected item styling
+  selectedBg?: string;
+  selectedFg?: string;
+  selectedBold?: boolean;
+  selectedUnderline?: boolean;
+  selectedBlink?: boolean;
+  selectedInverse?: boolean;
+  selectedInvisible?: boolean;
+  // Item styling
+  itemBg?: string;
+  itemFg?: string;
+  itemBold?: boolean;
+  itemUnderline?: boolean;
+  itemBlink?: boolean;
+  itemInverse?: boolean;
+  itemInvisible?: boolean;
+  // Item hover styling
+  itemHoverBg?: string;
+  itemHoverEffects?: any;
+  itemFocusEffects?: any;
 }
 
 export interface FileManagerOptions extends ListOptions<ListElementStyle> {

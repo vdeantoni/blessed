@@ -32,10 +32,10 @@ class Video extends Box {
 
     if (this.exists('mplayer')) {
       shell = 'mplayer';
-      args = ['-vo', 'caca', '-quiet', options.file];
+      args = ['-vo', 'caca', '-quiet', options.file || ''];
     } else if (this.exists('mpv')) {
       shell = 'mpv';
-      args = ['--vo', 'caca', '--really-quiet', options.file];
+      args = ['--vo', 'caca', '--really-quiet', options.file || ''];
     } else {
       this.parseTags = true;
       this.setContent('{red-fg}{bold}Error:{/bold}'

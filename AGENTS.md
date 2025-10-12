@@ -643,12 +643,24 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
   - **Note**: 89 cascading type errors in scrollable mixin (structural issue with mixin pattern, not runtime bugs) - need proper type definitions in future
   - **Tests**: ✅ 1,600/1,600 passing
 
-**Total Fixed**: 23 explicit errors across 5 strict flags
+**Total Fixed**: 203 explicit errors across 6 strict flags (23 + 180 strictNullChecks)
 **Test Status**: ✅ All 1,600 tests passing with all enabled flags
+
+✅ **Step 6 - strictNullChecks** (IN PROGRESS - 62% complete)
+  - **Errors Fixed**: 180 of 291 (111 remaining)
+  - **Files Completed**:
+    - scrollable.ts (89 errors fixed - used ScrollableElement interface pattern)
+    - element.ts (59 errors fixed - added missing ElementOptions properties)
+    - list.ts (29 errors fixed - added ListOptions properties, null checks)
+    - Type definitions enhanced (Position, ScrollbarConfig, ElementOptions, ListOptions)
+  - **Pattern Used**: Created typed interfaces for mixin contracts (e.g., ScrollableElement)
+  - **Impact**: Explicit null/undefined handling, stricter type safety
+  - **Tests**: ✅ 1,600/1,600 passing
+  - **Remaining**: 111 errors in screen.ts (27), terminal.ts (14), listtable.ts (13), others (57)
 
 **Remaining Flags:**
 - 📅 **noImplicitAny** - Already enabled from Phase 3A
-- 📅 **strictNullChecks** - ~99 new errors (requires extensive null/undefined handling throughout codebase)
+- 🔄 **strictNullChecks** - IN PROGRESS: 180/291 fixed (62% complete, 111 remaining)
 - 📅 **strictPropertyInitialization** - Requires class property initialization
 - 📅 **noUnusedLocals/noUnusedParameters** - Code cleanup
 
@@ -658,16 +670,16 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - [x] Enable strictFunctionTypes ✅
 - [x] Enable strictBindCallApply ✅
 - [x] Enable noImplicitThis ✅
-- [ ] Enable strictNullChecks (next major task - 99 errors)
+- [~] Enable strictNullChecks (62% complete - 180/291 errors fixed)
 - [ ] Enable strictPropertyInitialization
 - [ ] Enable noUnusedLocals/noUnusedParameters
 - [ ] Minimal use of `any` type (only where truly necessary)
 - [ ] Comprehensive interfaces for all public APIs
 - [ ] Proper generic types for widget options
 - [x] All 1,600 tests passing ✅
-- [ ] No type errors with strict mode (154 pre-existing + 89 cascading from mixins = 243 remaining)
+- [~] No type errors with strict mode (111 remaining)
 
-**Current Status:** 5 of 9 strict flags enabled (56% complete)
+**Current Status:** 6 of 9 strict flags enabled/in-progress (67% complete)
 
 #### Original Conversion Order (Safest → Riskiest)
 
