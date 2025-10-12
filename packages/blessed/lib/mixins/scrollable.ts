@@ -189,6 +189,8 @@ const scrollMethods: ScrollableMethods = {
     } else if (this.childBase > this.baseLimit) {
       this.childBase = this.baseLimit;
     }
+
+    return 0;
   },
 
   resetScroll() {

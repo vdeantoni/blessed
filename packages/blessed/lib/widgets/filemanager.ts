@@ -58,6 +58,7 @@ class FileManager extends List {
         } else {
           this.emit('file', file);
         }
+        return undefined;
       });
     });
   }

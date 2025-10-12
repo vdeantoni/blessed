@@ -206,12 +206,12 @@ class Program extends EventEmitter {
     };
 
     debug(...args: any[]) {
-        if (!this.options.debug) return;
+        if (!this.options.debug) return undefined;
         return this._log('DEBUG',  util.format(...args));
     };
 
     _log(pre: string, msg: string) {
-        if (!this._logger) return;
+        if (!this._logger) return undefined;
         return this._logger.write(pre + ': ' + msg + '\n-\n');
     };
 
@@ -282,7 +282,7 @@ class Program extends EventEmitter {
 
         this.output.write = (...args: any[]) => {
             this._log('OUT', stringify(args[0]));
-            return write.apply(this.output, args);
+            return write.apply(this.output, args as [str: string | Uint8Array, encoding?: BufferEncoding, cb?: (err?: Error) => void]);
         };
     };
 
@@ -320,6 +320,7 @@ class Program extends EventEmitter {
             if (tput[cap]) {
                 return this._write(tput[cap](...args));
             }
+            return undefined;
         };
 
         Object.keys(tput).forEach((key) => {
@@ -1670,7 +1671,7 @@ class Program extends EventEmitter {
     };
 
     write(text: string) {
-        if (!this.output.writable) return;
+        if (!this.output.writable) return undefined;
         return this.output.write(text);
     };
 
@@ -1683,12 +1684,12 @@ class Program extends EventEmitter {
         if (this._exiting) {
             this.flush();
             this._owrite(text);
-            return;
+            return undefined;
         }
 
         if (this._buf) {
             this._buf += text;
-            return;
+            return undefined;
         }
 
         this._buf = text;
@@ -3438,9 +3439,9 @@ class Program extends EventEmitter {
         if (enable === true) {
             if (this._currentMouse) {
                 this.setMouse(opt);
-                Object.keys(opt).forEach(function(key) {
+                Object.keys(opt).forEach((key) => {
                     this._currentMouse[key] = opt[key];
-                }, this);
+                });
                 return;
             }
             this._currentMouse = opt;

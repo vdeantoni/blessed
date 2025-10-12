@@ -63,7 +63,7 @@ class Listbar extends Box {
           this.screen.render();
           // Stop propagation if we're in a form.
           if (key.name === 'tab') return false;
-          return;
+          return undefined;
         }
         if (key.name === 'right'
             || (options.vi && key.name === 'l')
@@ -72,7 +72,7 @@ class Listbar extends Box {
           this.screen.render();
           // Stop propagation if we're in a form.
           if (key.name === 'tab') return false;
-          return;
+          return undefined;
         }
         if (key.name === 'enter'
             || (options.vi && key.name === 'k' && !key.shift)) {
@@ -83,13 +83,14 @@ class Listbar extends Box {
             item._.cmd.callback();
           }
           this.screen.render();
-          return;
+          return undefined;
         }
         if (key.name === 'escape' || (options.vi && key.name === 'q')) {
           this.emit('action');
           this.emit('cancel');
-          return;
+          return undefined;
         }
+        return undefined;
       });
     }
 

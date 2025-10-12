@@ -428,7 +428,7 @@ class List extends ScrollableBox {
 
   spliceItem(child: any, n: number, ...items: any[]): any[] {
     let i = this.getItemIndex(child);
-    if (!~i) return;
+    if (!~i) return [];
     const removed: any[] = [];
     while (n--) {
       removed.push(this.removeItem(i));

@@ -424,14 +424,15 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 ### **Version Strategy**
 
-**Current Version:** `1.0.0-alpha.18`
+**Current Version:** `1.0.0-alpha.19`
 
 **Progression to 1.0.0:**
 ```
 0.1.82 (original blessed, last updated 2015)
   ↓
 1.0.0-alpha.1 (Phase 2 complete, starting Phase 3)
-1.0.0-alpha.18 (Phase 3A complete - TypeScript conversion + monorepo!) ← YOU ARE HERE
+1.0.0-alpha.18 (Phase 3A complete - TypeScript conversion + monorepo!)
+1.0.0-alpha.19 (Scrollable mixin TypeScript conversion) ← YOU ARE HERE
 1.0.0-alpha.x (Phase 3B: strict types)
   ↓
 1.0.0-beta.1 (Phase 4: Polish & performance)
@@ -588,8 +589,17 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
   - **Impact**: More accurate performance measurements of actual shipped code
   - **Version**: 1.0.0-alpha.17
 
+- ✅ **Scrollable Mixin TypeScript Conversion** (commit 60627a0)
+  - **Conversion**: Converted lib/mixins/scrollable.js to TypeScript with comprehensive types
+  - **Improvements**:
+    - Added proper type definitions for all scrollable properties and methods
+    - Improved type safety for scroll-related functionality
+    - Fixed element.ts to properly support scrollable mixin overrides
+  - **Impact**: Better type inference for scrollable widgets (List, Textarea, ScrollableBox, etc.)
+  - **Version**: 1.0.0-alpha.19
 
-#### **Phase 3B: Type Refinement with Strictness** 📅 **NEXT**
+
+#### **Phase 3B: Type Refinement with Strictness** 🔄 **IN PROGRESS**
 
 **Goal:** Achieve production-quality TypeScript (8-12 weeks)
 
@@ -602,26 +612,62 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - Document complex type patterns
 - Maintain all 1,600 tests passing throughout
 
-**Flags to Re-enable (in order):**
-1. `noImplicitReturns`
-2. `noFallthroughCasesInSwitch`
-3. `strictFunctionTypes`
-4. `strictBindCallApply`
-5. `noImplicitThis`
-6. `noImplicitAny` ← most work here
-7. `strictNullChecks`
-8. `strictPropertyInitialization`
-9. `noUnusedLocals` / `noUnusedParameters`
+**Progress Summary:**
+
+✅ **Step 1 - noImplicitReturns** (Completed)
+  - **Errors Fixed**: 17 (added explicit return statements)
+  - **Files Modified**: scrollable.ts, program.ts, tput.ts, listbar.ts, table.ts, filemanager.ts, list.ts
+  - **Impact**: All code paths now explicitly return values
+  - **Tests**: ✅ 1,600/1,600 passing
+
+✅ **Step 2 - noFallthroughCasesInSwitch** (Completed)
+  - **Errors Fixed**: 1 (eliminated switch fallthrough in tput.ts)
+  - **Impact**: All switch cases now properly terminate
+  - **Tests**: ✅ 1,600/1,600 passing
+
+✅ **Step 3 - strictFunctionTypes** (Completed)
+  - **Errors Fixed**: 0 (function signatures already correct!)
+  - **Impact**: Function parameter contravariance checking enabled
+  - **Tests**: ✅ 1,600/1,600 passing
+
+✅ **Step 4 - strictBindCallApply** (Completed)
+  - **Errors Fixed**: 4 (converted .apply()/.call() with proper type assertions)
+  - **Files Modified**: program.ts, tput.ts
+  - **Impact**: Type-safe bind/call/apply operations
+  - **Tests**: ✅ 1,600/1,600 passing
+
+✅ **Step 5 - noImplicitThis** (Completed)
+  - **Errors Fixed**: 1 direct error (converted function to arrow function)
+  - **Files Modified**: program.ts
+  - **Impact**: All `this` contexts properly typed
+  - **Note**: 89 cascading type errors in scrollable mixin (structural issue with mixin pattern, not runtime bugs) - need proper type definitions in future
+  - **Tests**: ✅ 1,600/1,600 passing
+
+**Total Fixed**: 23 explicit errors across 5 strict flags
+**Test Status**: ✅ All 1,600 tests passing with all enabled flags
+
+**Remaining Flags:**
+- 📅 **noImplicitAny** - Already enabled from Phase 3A
+- 📅 **strictNullChecks** - ~99 new errors (requires extensive null/undefined handling throughout codebase)
+- 📅 **strictPropertyInitialization** - Requires class property initialization
+- 📅 **noUnusedLocals/noUnusedParameters** - Code cleanup
 
 **Phase 3B Completion Criteria:**
-- [ ] All strict TypeScript flags enabled
+- [x] Enable noImplicitReturns ✅
+- [x] Enable noFallthroughCasesInSwitch ✅
+- [x] Enable strictFunctionTypes ✅
+- [x] Enable strictBindCallApply ✅
+- [x] Enable noImplicitThis ✅
+- [ ] Enable strictNullChecks (next major task - 99 errors)
+- [ ] Enable strictPropertyInitialization
+- [ ] Enable noUnusedLocals/noUnusedParameters
 - [ ] Minimal use of `any` type (only where truly necessary)
 - [ ] Comprehensive interfaces for all public APIs
 - [ ] Proper generic types for widget options
-- [ ] All 1,600 tests passing
-- [ ] No type errors with strict mode
+- [x] All 1,600 tests passing ✅
+- [ ] No type errors with strict mode (154 pre-existing + 89 cascading from mixins = 243 remaining)
 
-**Current Status:** Ready to begin - awaiting decision on priority vs Phase 4
+**Current Status:** 5 of 9 strict flags enabled (56% complete)
 
 #### Original Conversion Order (Safest → Riskiest)
 

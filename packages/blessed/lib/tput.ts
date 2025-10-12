@@ -647,7 +647,7 @@ class Tput {
 
         function read(regex: RegExp, no?: boolean) {
             cap = regex.exec(val);
-            if (!cap) return;
+            if (!cap) return undefined;
             val = val.substring(cap[0].length);
             ch = cap[1];
             if (!no) clear();
@@ -1128,12 +1128,12 @@ class Tput {
 
     // A small helper function if we want
     // to easily output text with setTimeouts.
-    print() {
+    print(...args: any[]) {
         var fake = {
             padding: true,
             bools: { needs_xon_xoff: true, xon_xoff: false }
         };
-        return this._print.apply(fake, arguments);
+        return this._print.apply(fake, args as [code: any, print?: any, done?: any]);
     };
 
     readTermcap(term?: string) {
@@ -1735,7 +1735,11 @@ class Tput {
                                 invalid(); // goto
                                 break;
                             }
-                        // FALLTHRU
+                            // When s[i] === '2', execute the same code as case '2'
+                            getparm(param, 1);
+                            out += '%2d';
+                            pop();
+                            break;
                         case '2':
                             getparm(param, 1);
                             out += '%2d';
@@ -2164,6 +2168,8 @@ class Tput {
             } catch (e) {
                 // ignore
             }
+
+            return undefined;
         };
 
         if (!term) {
@@ -2277,18 +2283,20 @@ function write(data: string) {
   return process.stdout.write(data);
 }
 
-function tryRead(file: any): string {
-  if (Array.isArray(file)) {
-    for (var i = 0; i < file.length; i++) {
-      var data: string = tryRead(file[i]);
+function tryRead(...files: any[]): string {
+  if (files.length > 1 || Array.isArray(files[0])) {
+    const fileList = files.length > 1 ? files : files[0];
+    for (var i = 0; i < fileList.length; i++) {
+      var data: string = tryRead(fileList[i]);
       if (data) return data;
     }
     return '';
   }
+  const file = files[0];
   if (!file) return '';
-  file = path.resolve.apply(path, arguments);
+  const resolvedFile = path.resolve(...files);
   try {
-    return fs.readFileSync(file, 'utf8');
+    return fs.readFileSync(resolvedFile, 'utf8');
   } catch (e) {
     return '';
   }
