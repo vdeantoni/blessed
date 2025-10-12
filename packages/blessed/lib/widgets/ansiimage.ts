@@ -21,6 +21,7 @@ import tng from '../../vendor/tng.js';
 
 class ANSIImage extends Box {
   type = 'ansiimage';
+  options: ANSIImageOptions;
   scale: number;
   _noFill: boolean;
   file?: string;
@@ -54,7 +55,7 @@ class ANSIImage extends Box {
   }
 
     setImage(file: any): void {
-        this.file = typeof file === 'string' ? file : null;
+        this.file = typeof file === 'string' ? file : undefined;
 
         if (/^https?:/.test(file)) {
             file = ANSIImage.curl(file);

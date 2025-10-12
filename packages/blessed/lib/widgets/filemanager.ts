@@ -20,6 +20,7 @@ import List from './list.js';
 
 class FileManager extends List {
   type = 'file-manager';
+  options: FileManagerOptions;
   cwd: string;
   file: string;
   value: string;
@@ -75,7 +76,7 @@ class FileManager extends List {
     return fs.readdir(cwd, (err, list) => {
       if (err && err.code === 'ENOENT') {
         this.cwd = cwd !== process.env.HOME
-          ? process.env.HOME
+          ? (process.env.HOME || '/')
           : '/';
         return this.refresh(callback);
       }

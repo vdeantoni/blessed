@@ -26,6 +26,7 @@ class OverlayImage extends Box {
   static w3mdisplay = '/usr/lib/w3m/w3mimgdisplay';
   static hasW3MDisplay?: boolean;
 
+  options: OverlayImageOptions;
   file?: string;
   _lastFile?: string;
   _needsRatio?: boolean;
@@ -245,6 +246,7 @@ class OverlayImage extends Box {
     renderImage(img: string, ratio: any, callback?: any): any {
         var self = this;
 
+        // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
             callback = callback || function(err: any, result: any) { return result; };
             try {
@@ -312,6 +314,7 @@ class OverlayImage extends Box {
     };
 
     clearImage(callback?: any): any {
+        // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
             callback = callback || function(err: any, result: any) { return result; };
             try {
@@ -374,6 +377,7 @@ class OverlayImage extends Box {
     imageSize(callback?: any): any {
         var img = this.file;
 
+        // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
             callback = callback || function(err: any, result: any) { return result; };
             try {
@@ -433,6 +437,7 @@ class OverlayImage extends Box {
     termSize(callback?: any): any {
         var self = this;
 
+        // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
             callback = callback || function(err: any, result: any) { return result; };
             try {
@@ -492,6 +497,7 @@ class OverlayImage extends Box {
     getPixelRatio(callback?: any): any {
         var self = this;
 
+        // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
             callback = callback || function(err: any, result: any) { return result; };
             try {

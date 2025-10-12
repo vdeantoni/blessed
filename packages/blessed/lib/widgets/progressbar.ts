@@ -26,10 +26,13 @@ class ProgressBar extends Input {
     super(options);
 
     let filled: number | string = options.filled || 0;
+    let filledNum: number;
     if (typeof filled === 'string') {
-      filled = +filled.slice(0, -1);
+      filledNum = +filled.slice(0, -1);
+    } else {
+      filledNum = filled;
     }
-    this.filled = filled;
+    this.filled = filledNum;
     this.value = this.filled;
 
     this.pch = options.pch || ' ';
@@ -53,7 +56,8 @@ class ProgressBar extends Input {
 
     if (options.keys) {
       this.on('keypress', (ch: any, key: any) => {
-        let back: string[], forward: string[];
+        let back: string[] = [];
+        let forward: string[] = [];
         if (this.orientation === 'horizontal') {
           back = ['left', 'h'];
           forward = ['right', 'l'];
@@ -76,7 +80,8 @@ class ProgressBar extends Input {
 
     if (options.mouse) {
       this.on('click', (data: any) => {
-        let x: number, y: number, m: number, p: number;
+        let x: number, y: number, m: number;
+        let p: number = 0;
         if (!this.lpos) return;
         if (this.orientation === 'horizontal') {
           x = data.x - this.lpos.xi;

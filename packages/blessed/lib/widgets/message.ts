@@ -17,6 +17,7 @@ import Box from './box.js';
 
 class Message extends Box {
   type = 'message';
+  options: MessageOptions;
 
   constructor(options: MessageOptions = {}) {
     options.tags = true;
@@ -39,7 +40,7 @@ class Message extends Box {
     if (this.scrollable) {
       this.screen.saveFocus();
       this.focus();
-      this.scrollTo(0);
+      this.scrollTo?.(0);
     }
 
     this.show();
@@ -77,7 +78,7 @@ class Message extends Box {
               return;
             }
           }
-          if (this.options.ignoreKeys && ~this.options.ignoreKeys.indexOf(key.name)) {
+          if (Array.isArray(this.options.ignoreKeys) && ~this.options.ignoreKeys.indexOf(key.name)) {
             return;
           }
           this.removeScreenEvent('keypress', keypressHandler);

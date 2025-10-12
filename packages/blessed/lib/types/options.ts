@@ -53,7 +53,7 @@ export interface ScrollableOptions {
   mouse?: boolean;
   keys?: boolean | string | string[];
   vi?: boolean;
-  ignoreKeys?: boolean;
+  ignoreKeys?: boolean | string[];
 }
 
 export interface ElementOptions extends INodeOptions, ScrollableOptions {
@@ -171,6 +171,7 @@ export interface ListTableOptions extends ListOptions<StyleListTable> {
   data?: string[][];
   pad?: number;
   noCellBorders?: boolean;
+  fillCellBorders?: boolean;
   style?: StyleListTable;
 }
 
@@ -184,6 +185,7 @@ export interface ListbarOptions extends BoxOptions {
 export interface FormOptions extends BoxOptions {
   keys?: any;
   vi?: boolean;
+  autoNext?: boolean;
 }
 
 export interface InputOptions extends BoxOptions {}
@@ -219,14 +221,17 @@ export interface PromptOptions extends BoxOptions {}
 
 export interface QuestionOptions extends BoxOptions {}
 
-export interface MessageOptions extends BoxOptions {}
+export interface MessageOptions extends BoxOptions {
+  // vi and ignoreKeys inherited from ScrollableOptions
+  // mouse inherited from ScrollableOptions
+}
 
 export interface LoadingOptions extends BoxOptions {}
 
 export interface ProgressBarOptions extends BoxOptions {
   orientation?: string;
   pch?: string;
-  filled?: number;
+  filled?: number | string;
   value?: number;
   keys?: boolean;
   mouse?: boolean;
@@ -293,7 +298,7 @@ export interface VideoOptions extends BoxOptions {
 }
 
 export interface LayoutOptions extends ElementOptions {
-  renderer?(): void;
+  renderer?(coords: any): (el: any, i: number) => any;
   layout?: "inline" | "inline-block" | "grid";
 }
 
@@ -337,4 +342,11 @@ export interface IScreenOptions extends INodeOptions {
   hover?: any;
   terminal?: string;
   title?: string;
+  rsety?: boolean;
+  listen?: boolean;
+  term?: string;
+  artificialCursor?: boolean;
+  cursorShape?: string;
+  cursorBlink?: boolean;
+  cursorColor?: string | null;
 }

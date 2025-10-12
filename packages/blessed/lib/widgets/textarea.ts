@@ -20,6 +20,7 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
 
 class Textarea extends Input {
   type = 'textarea';
+  options: TextareaOptions;
   scrollable: boolean;
   __updateCursor: any;
   __listener: any;
@@ -275,8 +276,8 @@ class Textarea extends Input {
   _typeScroll() {
     // XXX Workaround
     const height = this.height - this.iheight;
-    if (this._clines.length - this.childBase > height) {
-      this.scroll(this._clines.length);
+    if (this._clines.length - (this.childBase || 0) > height) {
+      this.scroll?.(this._clines.length);
     }
   }
 
