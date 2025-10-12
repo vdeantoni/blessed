@@ -26,8 +26,8 @@ class Textbox extends Textarea {
 
     super(options);
 
-    this.secret = options.secret;
-    this.censor = options.censor;
+    this.secret = options.secret || false;
+    this.censor = options.censor || false;
 
     // Store the original listener
     this.__olistener = super._listener;

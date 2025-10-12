@@ -38,7 +38,7 @@ class BigText extends Box {
 
     super(options);
 
-    this.fch = options.fch;
+    this.fch = options.fch || ' ';
     this.ratio = {};
     this.font = this.loadFont(options.font);
     this.fontBold = this.loadFont(options.font);

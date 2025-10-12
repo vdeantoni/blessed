@@ -15,10 +15,12 @@ export interface Padding {
 }
 
 export interface Position {
-  left: number | string;
-  right: number | string;
-  top: number | string;
-  bottom: number | string;
+  left?: number | string;
+  right?: number | string;
+  top?: number | string;
+  bottom?: number | string;
+  width?: number | string;
+  height?: number | string;
 }
 
 export interface PositionCoords {

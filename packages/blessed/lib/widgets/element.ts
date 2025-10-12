@@ -135,7 +135,6 @@ class Element extends Node {
     this.valign = options.valign || 'top';
     this.wrap = options.wrap !== false;
     this.shrink = options.shrink;
-    this.fixed = options.fixed;
     this.ch = options.ch || ' ';
 
     if (typeof options.padding === 'number' || !options.padding) {
@@ -251,7 +250,7 @@ class Element extends Node {
       this.screen.setEffects(this, this, over, out, (this.options as any)[pname], temp);
     });
 
-    if (this.options.draggable) {
+    if (options.draggable) {
       this.draggable = true;
     }
 
@@ -466,7 +465,7 @@ class Element extends Node {
     let slash: boolean;
     let param: string;
     let attr: any;
-    let esc: boolean;
+    let esc: boolean = false;
 
     for (;;) {
       if (!esc && (cap = /^{escape}/.exec(text))) {
@@ -1723,10 +1722,10 @@ main:
     let fixed = this.fixed;
     let coords: any;
     let v: number;
-    let noleft: boolean;
-    let noright: boolean;
-    let notop: boolean;
-    let nobot: boolean;
+    let noleft: boolean = false;
+    let noright: boolean = false;
+    let notop: boolean = false;
+    let nobot: boolean = false;
     let ppos: any;
     let b: number;
 
@@ -1906,14 +1905,14 @@ main:
     let y: number;
     let cell: any;
     let attr: number;
-    let ch: string;
+    let ch: string = '';
     const content = this._pcontent;
     let ci = (this._clines.ci && this._clines.ci[coords.base]) || 0;
     let battr: number;
     let dattr: number;
     let c: any;
     let visible: number;
-    let i: number;
+    let i: number = 0;
     const bch = this.ch;
 
     // Clip content if it's off the edge of the screen
@@ -2133,7 +2132,7 @@ main:
     if (this.scrollbar) {
       // XXX
       // i = this.getScrollHeight();
-      i = Math.max(this._clines.length, this._scrollBottom());
+      i = Math.max(this._clines.length, this._scrollBottom?.() || 0);
     }
     if (coords.notop || coords.nobot) i = -Infinity;
     if (this.scrollbar && (yl - yi) < i) {

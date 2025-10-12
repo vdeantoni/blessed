@@ -27,9 +27,46 @@ export interface ScrollableMethods {
   setScrollPerc(i: number): void;
 }
 
+/**
+ * Interface representing the element properties that scrollable methods depend on.
+ * This documents the contract between the mixin and elements that use it.
+ */
+interface ScrollableElement extends ScrollableMethods {
+  scrollable: boolean;
+  childBase: number;
+  childOffset: number;
+  baseLimit: number;
+  alwaysScroll?: boolean;
+  detached: boolean;
+  height: number;
+  iheight: number;
+  itop: number;
+  ibottom: number;
+  iright: number;
+  width: number;
+  aleft: number;
+  atop: number;
+  shrink?: boolean;
+  lpos?: any;
+  _isList?: boolean;
+  items?: any[];
+  children: any[];
+  _clines: any[];
+  rtop: number;
+  _scrollingBar?: boolean;
+  _drag?: any;
+  screen: any;
+  emit(event: string, ...args: any[]): any;
+  _getCoords(skipScroll?: boolean, force?: boolean): any;
+  parseContent(): void;
+  onScreenEvent(event: string, handler: (...args: any[]) => void): void;
+  removeScreenEvent(event: string, handler: (...args: any[]) => void): void;
+  on(event: string, handler: (...args: any[]) => void): void;
+}
+
 // Basic scroll method implementations for elements that aren't ScrollableBox subclasses
-const scrollMethods: ScrollableMethods = {
-  _scrollBottom() {
+const scrollMethods = {
+  _scrollBottom(this: ScrollableElement) {
     if (!this.scrollable) return 0;
 
     // We could just calculate the children, but we can
@@ -66,22 +103,22 @@ const scrollMethods: ScrollableMethods = {
     return bottom;
   },
 
-  scrollTo(offset, always) {
+  scrollTo(this: ScrollableElement, offset: number, always?: boolean) {
     // XXX
     // At first, this appeared to account for the first new calculation of childBase:
     this.scroll(0);
     return this.scroll(offset - (this.childBase + this.childOffset), always);
   },
 
-  setScroll(offset, always) {
+  setScroll(this: ScrollableElement, offset: number, always?: boolean) {
     return this.scrollTo(offset, always);
   },
 
-  getScroll() {
+  getScroll(this: ScrollableElement) {
     return this.childBase + this.childOffset;
   },
 
-  scroll(offset, always) {
+  scroll(this: ScrollableElement, offset: number, always?: boolean) {
     if (!this.scrollable) return;
 
     if (this.detached) return;
@@ -167,7 +204,7 @@ const scrollMethods: ScrollableMethods = {
     return this.emit('scroll');
   },
 
-  _recalculateIndex() {
+  _recalculateIndex(this: ScrollableElement) {
     let max: number, emax: number;
 
     if (this.detached || !this.scrollable) {
@@ -193,18 +230,18 @@ const scrollMethods: ScrollableMethods = {
     return 0;
   },
 
-  resetScroll() {
+  resetScroll(this: ScrollableElement) {
     if (!this.scrollable) return;
     this.childOffset = 0;
     this.childBase = 0;
     return this.emit('scroll');
   },
 
-  getScrollHeight() {
+  getScrollHeight(this: ScrollableElement) {
     return Math.max(this._clines.length, this._scrollBottom());
   },
 
-  getScrollPerc(s) {
+  getScrollPerc(this: ScrollableElement, s?: boolean) {
     const pos: any = this.lpos || this._getCoords();
     if (!pos) return s ? -1 : 0;
 
@@ -224,7 +261,7 @@ const scrollMethods: ScrollableMethods = {
     return s ? -1 : 0;
   },
 
-  setScrollPerc(i) {
+  setScrollPerc(this: ScrollableElement, i: number) {
     // XXX
     // const m = this.getScrollHeight();
     const m: number = Math.max(this._clines.length, this._scrollBottom());
