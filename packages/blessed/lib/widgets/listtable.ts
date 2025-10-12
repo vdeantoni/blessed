@@ -24,6 +24,7 @@ class ListTable extends List {
   pad: number;
   rows: any[];
   _maxes: any;
+  options: ListTableOptions;
 
   constructor(options: ListTableOptions = {}) {
     // options.shrink = true;
@@ -39,7 +40,7 @@ class ListTable extends List {
     options.style.item = options.style.cell;
 
     const border = options.border;
-    if (border
+    if (border && typeof border === 'object'
         && border.top === false
         && border.bottom === false
         && border.left === false
@@ -64,9 +65,9 @@ class ListTable extends List {
 
     this.on('scroll', () => {
       this._header.setFront();
-      this._header.rtop = this.childBase;
+      this._header.rtop = this.childBase || 0;
       if (!this.screen.autoPadding) {
-        this._header.rtop = this.childBase + (this.border ? 1 : 0);
+        this._header.rtop = (this.childBase || 0) + (this.border ? 1 : 0);
       }
     });
 
@@ -183,8 +184,8 @@ class ListTable extends List {
     if (i === 0) {
       i = 1;
     }
-    if (i <= this.childBase) {
-      this.setScroll(this.childBase - 1);
+    if (i <= (this.childBase || 0)) {
+      this.setScroll?.((this.childBase || 0) - 1);
     }
     return this._select(i);
   }

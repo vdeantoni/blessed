@@ -21,7 +21,7 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
 
 class Terminal extends Box {
   type = 'terminal';
-  handler: (data: any) => void;
+  handler?: (data: any) => void;
   shell: string;
   args: string[];
   cursor: any;
@@ -33,6 +33,7 @@ class Terminal extends Box {
   _onData: (data: any) => void;
   dattr: any;
   title?: string;
+  options: TerminalOptions;
 
   constructor(options: TerminalOptions = {}) {
     options.scrollable = false;
@@ -133,7 +134,7 @@ class Terminal extends Box {
         // NOTE: Cannot pass mouse events - coordinates will be off!
         this.screen.program.input.on('data', this._onData = function(data: any) {
             if (self.screen.focused === self && !self._isMouse(data)) {
-                self.handler(data);
+                self.handler?.(data);
             }
         });
 
@@ -183,7 +184,7 @@ class Terminal extends Box {
                     + String.fromCharCode(y + 32);
             }
 
-            self.handler(s);
+            self.handler?.(s);
         });
 
         this.on('focus', function() {
@@ -351,34 +352,41 @@ class Terminal extends Box {
             || /^\x1b\[(O|I)/.test(s);
     }
 
-        scrollTo(offset: number): void {
-            this.term.ydisp = offset;
-            this.emit('scroll');
-        }
+    // @ts-expect-error - Override Box scrollable property with Terminal-specific method
+    scrollTo(offset: number): void {
+        this.term.ydisp = offset;
+        this.emit('scroll');
+    }
 
+    // @ts-expect-error - Override Box scrollable property with Terminal-specific method
     getScroll(): number {
         return this.term.ydisp;
     }
 
+    // @ts-expect-error - Override Box scrollable property with Terminal-specific method
     scroll(offset: number): void {
         this.term.scrollDisp(offset);
         this.emit('scroll');
     }
 
+    // @ts-expect-error - Override Box scrollable property with Terminal-specific method
     resetScroll(): void {
         this.term.ydisp = 0;
         this.term.ybase = 0;
         this.emit('scroll');
     }
 
+    // @ts-expect-error - Override Box scrollable property with Terminal-specific method
     getScrollHeight(): number {
         return this.term.rows - 1;
     }
 
+    // @ts-expect-error - Override Box scrollable property with Terminal-specific method
     getScrollPerc(): number {
         return (this.term.ydisp / this.term.ybase) * 100;
     }
 
+    // @ts-expect-error - Override Box scrollable property with Terminal-specific method
     setScrollPerc(i: number): any {
         return this.setScroll((i / 100) * this.term.ybase | 0);
     }
@@ -412,6 +420,7 @@ class Terminal extends Box {
         this.term.destroy();
     }
 
+    // @ts-expect-error - Override Box scrollable property with Terminal-specific method
     setScroll(offset: number): void {
         this.scrollTo(offset);
     }

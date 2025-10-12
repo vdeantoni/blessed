@@ -21,7 +21,7 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
 class Log extends ScrollableText {
     type = 'log';
     scrollback: number;
-    scrollOnInput: boolean;
+    scrollOnInput: boolean | undefined;
     _userScrolled: boolean = false;
 
     constructor(options: LogOptions = {}) {
@@ -35,7 +35,7 @@ class Log extends ScrollableText {
         this.on('set content', () => {
             if (!this._userScrolled || this.scrollOnInput) {
                 nextTick(() => {
-                    this.setScrollPerc(100);
+                    this.setScrollPerc?.(100);
                     this._userScrolled = false;
                     this.screen.render();
                 });
@@ -60,19 +60,20 @@ class Log extends ScrollableText {
         return ret;
     }
 
+    // @ts-expect-error - Override ScrollableText scroll property with Log-specific method
     scroll(offset: number, always?: any) {
         if (offset === 0) return this._scroll(offset, always);
         this._userScrolled = true;
         const ret = this._scroll(offset, always);
-        if (this.getScrollPerc() === 100) {
+        if ((this.getScrollPerc?.() || 0) === 100) {
             this._userScrolled = false;
         }
         return ret;
     }
 
-    // Save parent's scroll method as _scroll
+    // Access parent scroll via prototype to avoid property/method conflict
     _scroll(offset: number, always?: any) {
-        return super.scroll(offset, always);
+        return ScrollableText.prototype.scroll?.call(this, offset, always);
     }
 }
 

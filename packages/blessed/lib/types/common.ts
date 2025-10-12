@@ -50,6 +50,10 @@ export interface Border {
   fg?: number;
   bold?: string;
   underline?: string;
+  top?: boolean;
+  bottom?: boolean;
+  left?: boolean;
+  right?: boolean;
 }
 
 export interface LabelOptions {

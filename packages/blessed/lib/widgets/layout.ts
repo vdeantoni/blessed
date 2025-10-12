@@ -18,6 +18,7 @@ import Element from './element.js';
 
 class Layout extends Element {
   type = 'layout';
+  options: LayoutOptions;
 
   constructor(options: LayoutOptions = {}) {
     if ((options.width == null

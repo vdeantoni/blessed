@@ -88,7 +88,7 @@ class Form extends Box {
     }).length;
   }
 
-  next() {
+  next(): any {
     this._refresh();
 
     if (!this._visible()) return;
@@ -111,7 +111,7 @@ class Form extends Box {
     return this._selected;
   }
 
-  previous() {
+  previous(): any {
     this._refresh();
 
     if (!this._visible()) return;

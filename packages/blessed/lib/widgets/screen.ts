@@ -28,6 +28,7 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
  */
 
 class Screen extends Node {
+  options: IScreenOptions;
   program: any;
   tput: any;
   autoPadding: boolean;
@@ -131,7 +132,7 @@ class Screen extends Node {
     this.ignoreLocked = options.ignoreLocked || [];
 
     this._unicode = this.tput.unicode || this.tput.numbers.U8 === 1;
-    this.fullUnicode = this.options.fullUnicode && this._unicode;
+    this.fullUnicode = !!(this.options.fullUnicode && this._unicode);
 
     this.dattr = ((0 << 18) | (0x1ff << 9)) | 0x1ff;
 
@@ -174,18 +175,18 @@ class Screen extends Node {
       this.title = options.title;
     }
 
-    options.cursor = options.cursor || {
-      artificial: options.artificialCursor,
-      shape: options.cursorShape,
-      blink: options.cursorBlink,
-      color: options.cursorColor
+    const cursorConfig = options.cursor || {
+      artificial: options.artificialCursor || false,
+      shape: options.cursorShape || 'block',
+      blink: options.cursorBlink || false,
+      color: options.cursorColor || null
     };
 
     this.cursor = {
-      artificial: options.cursor.artificial || false,
-      shape: options.cursor.shape || 'block',
-      blink: options.cursor.blink || false,
-      color: options.cursor.color || null,
+      artificial: cursorConfig.artificial || false,
+      shape: cursorConfig.shape || 'block',
+      blink: cursorConfig.blink || false,
+      color: cursorConfig.color || null,
       _set: false,
       _state: 1,
       _hidden: true
@@ -295,10 +296,10 @@ class Screen extends Node {
   enter(): void {
     if (this.program.isAlt) return;
     if (!this.cursor._set) {
-      if (this.options.cursor.shape) {
+      if (this.options.cursor?.shape) {
         this.cursorShape(this.cursor.shape, this.cursor.blink);
       }
-      if (this.options.cursor.color) {
+      if (this.options.cursor?.color) {
         this.cursorColor(this.cursor.color);
       }
     }
@@ -1067,7 +1068,7 @@ class Screen extends Node {
     let ly = -1;
     let o: any;
 
-    let acs: boolean;
+    let acs: boolean = false;
 
     if (this._buf) {
       main += this._buf;
@@ -2046,7 +2047,7 @@ class Screen extends Node {
   _cursorAttr(cursor: any, dattr?: number): any {
     let attr = dattr || this.dattr;
     let cattr: any;
-    let ch: string;
+    let ch: string = ' ';
 
     if (cursor.shape === 'line') {
       attr &= ~(0x1ff << 9);
@@ -2198,6 +2199,7 @@ class Screen extends Node {
   static _sigquitHandler: any;
   static _exitHandler: any;
   static _bound: any;
+  static bind: (screen: any) => void;
 }
 
 // Use Node.ScreenRegistry to break circular dependency
