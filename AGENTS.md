@@ -598,6 +598,17 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
   - **Impact**: Better type inference for scrollable widgets (List, Textarea, ScrollableBox, etc.)
   - **Version**: 1.0.0-alpha.19
 
+- ✅ **Image Renderer Refactoring** (commit 344f573)
+  - **Refactoring**: Replaced custom PNG/GIF parser with modern libraries (pngjs, omggif)
+  - **Changes**:
+    - Moved vendor/tng.js → lib/image-renderer.ts (better semantics)
+    - Reduced code from 1760 to 655 lines (63% reduction)
+    - Added comprehensive test coverage (38 new tests, all passing)
+    - Fixed import issues (GifReader, RGBToHex method name)
+  - **Impact**: Simpler, more maintainable image rendering with modern library support
+  - **Verification**: Tested with real animated GIFs, all functionality preserved
+  - **Version**: 1.0.0-alpha.19
+
 
 #### **Phase 3B: Type Refinement with Strictness** 🔄 **IN PROGRESS**
 
