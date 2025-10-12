@@ -56,7 +56,7 @@ class Table extends Box {
   _calculateMaxes(): number[] | undefined {
     const maxes: number[] = [];
 
-    if (this.detached) return;
+    if (this.detached) return undefined;
 
     this.rows = this.rows || [];
 

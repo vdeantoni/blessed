@@ -25,19 +25,19 @@
     // Type checking - PHASE 3B: Enabling strict flags incrementally
     // Now that widget constructors have proper types
     "strict": false,
-    "noImplicitAny": true,
-    "strictNullChecks": false,
-    "strictFunctionTypes": false,
-    "strictBindCallApply": false,
+    "noImplicitAny": true, // ✅ Already enabled from Phase 3A
+    "strictNullChecks": false, // 📅 TODO: Next - requires extensive null checks (99+ errors)
+    "strictFunctionTypes": true, // ✅ PHASE 3B: Step 3
+    "strictBindCallApply": true, // ✅ PHASE 3B: Step 4
     "strictPropertyInitialization": false,
-    "noImplicitThis": false,
+    "noImplicitThis": true, // ✅ PHASE 3B: Step 5
     "alwaysStrict": true,
 
-    // Additional checks - RELAXED FOR PHASE 3A MIGRATION
+    // Additional checks - PHASE 3B: Enabling incrementally
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": false,
+    "noImplicitReturns": true, // ✅ PHASE 3B: Step 1
+    "noFallthroughCasesInSwitch": true, // ✅ PHASE 3B: Step 2
     "noUncheckedIndexedAccess": false,
 
     // Other options
