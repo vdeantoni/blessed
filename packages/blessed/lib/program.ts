@@ -22,6 +22,15 @@ import gpmclient from './gpmclient.js';
 const slice = Array.prototype.slice;
 const nextTick = global.setImmediate || process.nextTick.bind(process);
 
+// Cache process.env variables at module load (performance + strictNullChecks)
+const ENV_TERM = process.env.TERM || '';
+const ENV_TERM_PROGRAM = process.env.TERM_PROGRAM || '';
+const ENV_COLORTERM = process.env.COLORTERM || '';
+const ENV_VTE_VERSION = process.env.VTE_VERSION || '';
+const ENV_TERMINATOR_UUID = process.env.TERMINATOR_UUID || '';
+const ENV_ITERM_SESSION_ID = process.env.ITERM_SESSION_ID || '';
+const ENV_TMUX = process.env.TMUX || '';
+
 /**
  * Program
  */
@@ -123,32 +132,33 @@ class Program extends EventEmitter {
         this._terminal = this._terminal.toLowerCase();
 
         // OSX
-        this.isOSXTerm = process.env.TERM_PROGRAM === 'Apple_Terminal';
-        this.isiTerm2 = process.env.TERM_PROGRAM === 'iTerm.app'
-            || !!process.env.ITERM_SESSION_ID;
+        this.isOSXTerm = (process.env.TERM_PROGRAM || '') === 'Apple_Terminal';
+        this.isiTerm2 = (process.env.TERM_PROGRAM || '') === 'iTerm.app'
+            || !!(process.env.ITERM_SESSION_ID || '');
 
         // VTE
         // NOTE: lxterminal does not provide an env variable to check for.
         // NOTE: gnome-terminal and sakura use a later version of VTE
         // which provides VTE_VERSION as well as supports SGR events.
-        this.isXFCE = /xfce/i.test(process.env.COLORTERM);
-        this.isTerminator = !!process.env.TERMINATOR_UUID;
+        this.isXFCE = /xfce/i.test(process.env.COLORTERM || '');
+        this.isTerminator = !!(process.env.TERMINATOR_UUID || '');
         this.isLXDE = false;
-        this.isVTE = !!process.env.VTE_VERSION
+        this.isVTE = !!(process.env.VTE_VERSION || '')
             || this.isXFCE
             || this.isTerminator
             || this.isLXDE;
 
         // xterm and rxvt - not accurate
-        this.isRxvt = /rxvt/i.test(process.env.COLORTERM);
+        this.isRxvt = /rxvt/i.test(process.env.COLORTERM || '');
         this.isXterm = false;
 
-        this.tmux = !!process.env.TMUX;
+        this.tmux = !!(process.env.TMUX || '');
         this.tmuxVersion = (() => {
             if (!this.tmux) return 2;
             try {
                 const version = cp.execFileSync('tmux', ['-V'], { encoding: 'utf8' });
-                return +/^tmux ([\d.]+)/i.exec(version.trim().split('\n')[0])[1];
+                const match = /^tmux ([\d.]+)/i.exec(version.trim().split('\n')[0]);
+                return match ? +match[1] : 2;
             } catch (e) {
                 return 2;
             }
@@ -282,7 +292,7 @@ class Program extends EventEmitter {
 
         this.output.write = (...args: any[]) => {
             this._log('OUT', stringify(args[0]));
-            return write.apply(this.output, args as [str: string | Uint8Array, encoding?: BufferEncoding, cb?: (err?: Error) => void]);
+            return write.apply(this.output, args as [str: string | Uint8Array, encoding?: BufferEncoding, cb?: (err?: Error | null) => void]);
         };
     };
 
@@ -513,16 +523,22 @@ class Program extends EventEmitter {
             if (Program.total === 0) {
                 Program.global = null;
 
-                process.removeListener('exit', Program._exitHandler);
-                delete Program._exitHandler;
+                if (Program._exitHandler) {
+                    process.removeListener('exit', Program._exitHandler);
+                }
+                Program._exitHandler = null as any;
 
-                delete Program._bound;
+                Program._bound = false;
             }
 
-            this.input._blessedInput--;
-            this.output._blessedOutput--;
+            if (this.input) {
+                this.input._blessedInput = (this.input._blessedInput || 0) - 1;
+            }
+            if (this.output) {
+                this.output._blessedOutput = (this.output._blessedOutput || 0) - 1;
+            }
 
-            if (this.input._blessedInput === 0) {
+            if (this.input && this.input._blessedInput === 0) {
                 this.input.removeListener('keypress', this.input._keypressHandler);
                 this.input.removeListener('data', this.input._dataHandler);
                 delete this.input._keypressHandler;
@@ -538,7 +554,7 @@ class Program extends EventEmitter {
                 }
             }
 
-            if (this.output._blessedOutput === 0) {
+            if (this.output && this.output._blessedOutput === 0) {
                 this.output.removeListener('resize', this.output._resizeHandler);
                 delete this.output._resizeHandler;
             }
@@ -1828,7 +1844,7 @@ class Program extends EventEmitter {
     };
 
     simpleInsert(ch: string, i?: number, attr?: any) {
-        return this._write(this.repeat(ch, i), attr);
+        return this._write(this.repeat(ch, i || 0), attr);
     };
 
     repeat(ch: string, i: number) {
@@ -1836,8 +1852,8 @@ class Program extends EventEmitter {
         return Array(i + 1).join(ch);
     };
 
-    get title() {
-        return this._title;
+    get title(): string {
+        return this._title || '';
     }
 
     set title(newTitle: string) {
@@ -2319,7 +2335,7 @@ class Program extends EventEmitter {
         this._ncoords();
         if (this.tput) {
             if (!this.tput.strings.parm_up_cursor) {
-                return this._write(this.repeat(this.tput.cuu1(), param));
+                return this._write(this.repeat(this.tput.cuu1(), param || 1));
             }
             return this.put.cuu(param);
         }
@@ -2333,7 +2349,7 @@ class Program extends EventEmitter {
         this._ncoords();
         if (this.tput) {
             if (!this.tput.strings.parm_down_cursor) {
-                return this._write(this.repeat(this.tput.cud1(), param));
+                return this._write(this.repeat(this.tput.cud1(), param || 1));
             }
             return this.put.cud(param);
         }
@@ -2347,7 +2363,7 @@ class Program extends EventEmitter {
         this._ncoords();
         if (this.tput) {
             if (!this.tput.strings.parm_right_cursor) {
-                return this._write(this.repeat(this.tput.cuf1(), param));
+                return this._write(this.repeat(this.tput.cuf1(), param || 1));
             }
             return this.put.cuf(param);
         }
@@ -2361,7 +2377,7 @@ class Program extends EventEmitter {
         this._ncoords();
         if (this.tput) {
             if (!this.tput.strings.parm_left_cursor) {
-                return this._write(this.repeat(this.tput.cub1(), param));
+                return this._write(this.repeat(this.tput.cub1(), param || 1));
             }
             return this.put.cub(param);
         }
@@ -2535,7 +2551,7 @@ class Program extends EventEmitter {
     //     Ps = 4 8  ; 5  ; Ps -> Set background color to the second
     //     Ps.
     charAttributes(param: string | string[], val?: boolean) {
-        return this._write(this._attr(param, val));
+        return this._write(this._attr(param, val) || '');
     };
 
     text(text: string, attr: string | string[]) {
@@ -2561,7 +2577,9 @@ class Program extends EventEmitter {
             const out: string[] = [];
 
             parts.forEach((part) => {
-                part = this._attr(part, val).slice(2, -1);
+                const result = this._attr(part, val);
+                if (!result) return;
+                part = result.slice(2, -1);
                 if (part === '') return;
                 if (used[part]) return;
                 used[part] = true;

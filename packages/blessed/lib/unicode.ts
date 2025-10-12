@@ -113,8 +113,9 @@ const floor = Math.floor;
 const unicode: any = {};
 
 // Cache env var check at module load time (not in hot path)
-const CJK_WIDTH_ENABLED = !!process.env.NCURSES_CJK_WIDTH;
-const CJK_WIDTH_VALUE = CJK_WIDTH_ENABLED ? (+process.env.NCURSES_CJK_WIDTH || 1) : 1;
+const NCURSES_CJK_WIDTH = process.env.NCURSES_CJK_WIDTH || '';
+const CJK_WIDTH_ENABLED = !!NCURSES_CJK_WIDTH;
+const CJK_WIDTH_VALUE = CJK_WIDTH_ENABLED ? (+NCURSES_CJK_WIDTH || 1) : 1;
 
 unicode.charWidth = function(str: any, i?: number): number {
     const point = typeof str !== 'number'
@@ -412,7 +413,7 @@ unicode.checkCJKAmbiguous = function(point: number): number {
         || (0xE0100 <= point && point <= 0xE01EF)
         || (0xF0000 <= point && point <= 0xFFFFD)
         || (0x100000 <= point && point <= 0x10FFFD)) {
-        return +process.env.NCURSES_CJK_WIDTH || 1;
+        return CJK_WIDTH_VALUE;
     }
     return 1;
 };

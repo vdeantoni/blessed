@@ -39,7 +39,7 @@ class Table extends Box {
       ? options.pad
       : 2;
 
-    this.setData(options.rows || options.data);
+    this.setData(options.rows || options.data || []);
 
     this.on('attach', () => {
       this.setContent('');
@@ -151,9 +151,11 @@ class Table extends Box {
       }
     });
 
-    delete this.align;
+    // Temporarily remove align to let setContent handle default alignment
+    const savedAlign: any = this.align;
+    (this as any).align = undefined;
     this.setContent(text);
-    this.align = align;
+    this.align = savedAlign;
   }
 
   get setRows(): (rows: any[][]) => void {
@@ -197,7 +199,7 @@ class Table extends Box {
       }
     }
 
-    if (!this.border || this.options.noCellBorders) return coords;
+    if (!this.border || (this.options as any).noCellBorders) return coords;
 
     // Draw border with correct angles.
     ry = 0;
@@ -275,7 +277,7 @@ class Table extends Box {
           }
         } else {
           // middle
-          if (this.options.fillCellBorders) {
+          if ((this.options as any).fillCellBorders) {
             const lbg = (ry <= 2 ? hattr : cattr) & 0x1ff;
             rx++;
             lines[yi + ry][xi + rx][0] = (battr & ~0x1ff) | lbg;
@@ -299,7 +301,7 @@ class Table extends Box {
         rx += max;
         if (!lines[yi + ry][xi + rx + 1]) return;
         if (ry % 2 !== 0) {
-          if (this.options.fillCellBorders) {
+          if ((this.options as any).fillCellBorders) {
             const lbg = (ry <= 2 ? hattr : cattr) & 0x1ff;
             rx++;
             lines[yi + ry][xi + rx][0] = (battr & ~0x1ff) | lbg;
@@ -319,7 +321,7 @@ class Table extends Box {
           if (ry % 2 === 0) {
             if (!lines[yi + ry]) break;
             if (!lines[yi + ry][xi + rx + 1]) break;
-            if (this.options.fillCellBorders) {
+            if ((this.options as any).fillCellBorders) {
               const lbg = (ry <= 2 ? hattr : cattr) & 0x1ff;
               lines[yi + ry][xi + rx][0] = (battr & ~0x1ff) | lbg;
             } else {

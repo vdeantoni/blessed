@@ -30,6 +30,10 @@ import alias from './alias.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// Cache process.env variables at module load (performance + strictNullChecks)
+const ENV_NCURSES_NO_WINDOWS_UNICODE = process.env.NCURSES_NO_WINDOWS_UNICODE || '';
+const ENV_TERM = process.env.TERM || '';
+
 /**
  * Tput
  */
@@ -127,21 +131,21 @@ class Tput {
     };
 
     _useXtermCap() {
-        return this.injectTermcap(__dirname + '/usr/xterm.termcap');
+        return this.injectTermcap(__dirname + '/../usr/xterm.termcap');
     };
 
     _useXtermInfo() {
-        return this.injectTerminfo(__dirname + '/usr/xterm');
+        return this.injectTerminfo(__dirname + '/../usr/xterm');
     };
 
     _useInternalInfo(name: string) {
         name = path.basename(name);
-        return this.injectTerminfo(__dirname + '/usr/' + name);
+        return this.injectTerminfo(__dirname + '/../usr/' + name);
     };
 
     _useInternalCap(name: string) {
         name = path.basename(name);
-        return this.injectTermcap(__dirname + '/usr/' + name + '.termcap');
+        return this.injectTermcap(__dirname + '/../usr/' + name + '.termcap');
     };
 
     readTerminfo(term: string) {
@@ -201,14 +205,14 @@ class Tput {
         var names = data.toString('ascii', i, i + h.namesSize - 1)
             , parts = names.split('|')
             , name = parts[0]
-            , desc = parts.pop();
+            , desc = parts.pop() || '';
 
         info.name = name;
         info.names = parts;
         info.desc = desc;
 
-        info.dir = path.resolve(file, '..', '..');
-        info.file = file;
+        info.dir = path.resolve(file || '', '..', '..');
+        info.file = file || '';
 
         i += h.namesSize - 1;
 
@@ -693,7 +697,7 @@ class Tput {
 
             // '^A' -> ^A
             if (read(/^\^(.)/i, true)) {
-                if (!(ch >= ' ' && ch <= '~')) {
+                if (!ch || !(ch >= ' ' && ch <= '~')) {
                     this._debug('%s: bad caret char.', tkey);
                     // NOTE: ncurses appears to simply
                     // continue in this situation, but
@@ -714,7 +718,7 @@ class Tput {
 
             // 3 octal digits -> character
             if (read(/^\\([0-7]{3})/, true)) {
-                print(String.fromCharCode(parseInt(ch, 8)));
+                print(String.fromCharCode(parseInt(ch!, 8)));
                 continue;
             }
 
@@ -817,14 +821,14 @@ class Tput {
             // %p[1-9]
             //   push i'th parameter
             if (read(/^%p([1-9])/)) {
-                expr('(stack.push(v = params[' + (+ch - 1) + ']), v)');
+                expr('(stack.push(v = params[' + (+ch! - 1) + ']), v)');
                 continue;
             }
 
             // %P[a-z]
             //   set dynamic variable [a-z] to pop()
             if (read(/^%P([a-z])/)) {
-                expr('dyn.' + ch + ' = stack.pop()');
+                expr('dyn.' + ch! + ' = stack.pop()');
                 continue;
             }
 
@@ -858,7 +862,7 @@ class Tput {
             // NOTE: These are stored as c chars, exemplified by:
             // cursor_address: "\u001b=%p1%' '%+%c%p2%' '%+%c"
             if (read(/^%'(.)'/)) {
-                expr('(stack.push(v = ' + ch.charCodeAt(0) + '), v)');
+                expr('(stack.push(v = ' + ch!.charCodeAt(0) + '), v)');
                 continue;
             }
 
@@ -1147,10 +1151,10 @@ class Tput {
 
         // Termcap has a bunch of terminals usually stored in one file/string,
         // so we need to find the one containing our desired terminal.
-        if (~term.indexOf(path.sep) && (terms = this._tryCap(path.resolve(term)))) {
-            term_ = path.basename(term).split('.')[0];
-            if (terms[process.env.TERM]) {
-                term = process.env.TERM;
+        if (~term!.indexOf(path.sep) && (terms = this._tryCap(path.resolve(term!)))) {
+            term_ = path.basename(term!).split('.')[0];
+            if (terms[ENV_TERM]) {
+                term = ENV_TERM;
             } else if (terms[term_]) {
                 term = term_;
             } else {
@@ -1172,7 +1176,7 @@ class Tput {
             throw new Error('Cannot find termcap for: ' + term);
         }
 
-        root = terms[term];
+        root = terms[term!];
 
         if (this.debug) {
             this._termcap = terms;
@@ -1294,9 +1298,9 @@ class Tput {
                         name: names[0],
                         names: names,
                         desc: names.pop(),
-                        file: ~file.indexOf(path.sep)
-                            ? path.resolve(file)
-                            : file,
+                        file: ~(file || '').indexOf(path.sep)
+                            ? path.resolve(file || '')
+                            : (file || ''),
                         termcap: true,
                         bools: {},
                         numbers: {},
@@ -1579,7 +1583,7 @@ class Tput {
             out += '%';
             i--;
             warn?.('unknown %% code %s (%#x) in %s',
-                JSON.stringify(s[i]), s[i].charCodeAt(0), cap);
+                JSON.stringify(s![i]), s![i].charCodeAt(0), cap);
         }
 
         // skip the initial padding (if we haven't been told not to)
@@ -1896,7 +1900,7 @@ class Tput {
             if (start && name !== start) {
                 return;
             } else {
-                start = null;
+                start = undefined;
             }
             all[name] = self.compileTerminfo(name);
         });
@@ -2055,7 +2059,7 @@ class Tput {
         }
 
         // Allow unicode on all windows consoles for now:
-        if (+process.env.NCURSES_NO_WINDOWS_UNICODE !== 1) {
+        if (+ENV_NCURSES_NO_WINDOWS_UNICODE !== 1) {
             return 65001;
         }
 
@@ -2077,7 +2081,7 @@ class Tput {
             ;
         }
 
-        ccp = /\d+/.exec(ccp);
+        ccp = /\d+/.exec(ccp || '');
 
         if (!ccp) {
             return -1;
