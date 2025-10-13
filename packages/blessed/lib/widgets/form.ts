@@ -40,6 +40,10 @@ class Form extends Box {
             }
             el.emit('keypress', '\x1b', { name: 'escape' });
           }
+          // Set _selected to the element that triggered navigation if not set
+          if (!this._selected) {
+            this._selected = el;
+          }
           this.focusNext();
           return;
         }
@@ -50,6 +54,10 @@ class Form extends Box {
           if (el.type === 'textbox' || el.type === 'textarea') {
             if (key.name === 'k') return;
             el.emit('keypress', '\x1b', { name: 'escape' });
+          }
+          // Set _selected to the element that triggered navigation if not set
+          if (!this._selected) {
+            this._selected = el;
           }
           this.focusPrevious();
           return;
@@ -64,28 +72,21 @@ class Form extends Box {
   }
 
   _refresh() {
-    // XXX Possibly remove this if statement and refresh on every focus.
-    // Also potentially only include *visible* focusable elements.
-    // This would remove the need to check for _selected.visible in previous()
-    // and next().
-    if (!this._children) {
-      const out: any[] = [];
+    // Always rebuild the children list to pick up any changes in keyable state or visibility
+    const out: any[] = [];
 
-      this.children.forEach((el: any) => {
-        if (el.keyable) out.push(el);
-        el.children.forEach((child: any) => {
-          if (child.keyable) out.push(child);
-        });
+    this.children.forEach((el: any) => {
+      if (el.keyable && el.visible) out.push(el);
+      el.children.forEach((child: any) => {
+        if (child.keyable && child.visible) out.push(child);
       });
+    });
 
-      this._children = out;
-    }
+    this._children = out;
   }
 
   _visible() {
-    return !!this._children.filter((el: any) => {
-      return el.visible;
-    }).length;
+    return !!this._children.length;
   }
 
   next(): any {
@@ -95,19 +96,18 @@ class Form extends Box {
 
     if (!this._selected) {
       this._selected = this._children[0];
-      if (!this._selected.visible) return this.next();
-      if (this.screen.focused !== this._selected) return this._selected;
+      if (this.screen.focused !== this._selected) {
+        return this._selected;
+      }
     }
 
     const i = this._children.indexOf(this._selected);
     if (!~i || !this._children[i + 1]) {
       this._selected = this._children[0];
-      if (!this._selected.visible) return this.next();
       return this._selected;
     }
 
     this._selected = this._children[i + 1];
-    if (!this._selected.visible) return this.next();
     return this._selected;
   }
 
@@ -118,19 +118,16 @@ class Form extends Box {
 
     if (!this._selected) {
       this._selected = this._children[this._children.length - 1];
-      if (!this._selected.visible) return this.previous();
       if (this.screen.focused !== this._selected) return this._selected;
     }
 
     const i = this._children.indexOf(this._selected);
     if (!~i || !this._children[i - 1]) {
       this._selected = this._children[this._children.length - 1];
-      if (!this._selected.visible) return this.previous();
       return this._selected;
     }
 
     this._selected = this._children[i - 1];
-    if (!this._selected.visible) return this.previous();
     return this._selected;
   }
 

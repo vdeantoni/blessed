@@ -55,6 +55,14 @@
     "build": "tsup",
     "build:watch": "tsup --watch",
     "dev": "vite example",
+    "test": "pnpm run test:unit && pnpm run test:e2e",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:unit:ui": "vitest --ui",
+    "test:unit:coverage": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:debug": "playwright test --debug",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "format": "prettier --write .",
@@ -72,11 +80,16 @@
     "xterm": "^5.3.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.49.1",
     "@types/node": "24.6.2",
     "@vdeantoni/blessed": "workspace:*",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "jsdom": "^25.0.1",
     "tsup": "8.5.0",
     "typescript": "5.9.3",
-    "vite": "^6.0.7"
+    "vite": "^6.0.7",
+    "vitest": "^3.2.4"
   },
   "peerDependencies": {
     "@vdeantoni/blessed": "workspace:*",

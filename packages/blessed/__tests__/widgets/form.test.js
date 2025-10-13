@@ -104,7 +104,7 @@ describe('Form', () => {
       expect(form._children).toContain(checkbox);
     });
 
-    it('should only refresh once', () => {
+    it('should rebuild children list on each refresh', () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -117,7 +117,10 @@ describe('Form', () => {
       form._refresh();
       const secondChildren = form._children;
 
-      expect(firstChildren).toBe(secondChildren);
+      // Should create a new array each time (not the same reference)
+      expect(firstChildren).not.toBe(secondChildren);
+      // But the content should be the same
+      expect(firstChildren).toStrictEqual(secondChildren);
     });
   });
 

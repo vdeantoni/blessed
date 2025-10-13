@@ -13,7 +13,9 @@
       "types": "./dist/blessed.d.ts",
       "import": "./dist/blessed.js",
       "require": "./dist/blessed.cjs"
-    }
+    },
+    "./usr/terminfo/*.json": "./usr/terminfo/*.json",
+    "./usr/fonts/*.json": "./usr/fonts/*.json"
   },
   "bin": {
     "blessed": "dist/tput.js"

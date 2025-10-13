@@ -1,23 +1,35 @@
 /**
  * fs polyfill for browser
  * Stubs out filesystem operations with no-ops or throws
- * Returns inlined terminfo data for terminal database files
+ * Returns imported terminfo and font data for blessed widgets
  */
 
-import { TERMINFO_DATA } from '../data/termdata.js';
 import { Buffer } from 'buffer';
+import xtermData from '@vdeantoni/blessed/usr/terminfo/xterm-256color.json' assert { type: 'json' };
+import terU14n from '@vdeantoni/blessed/usr/fonts/ter-u14n.json' assert { type: 'json' };
+import terU14b from '@vdeantoni/blessed/usr/fonts/ter-u14b.json' assert { type: 'json' };
 
 export const readFileSync = (path: string): Buffer => {
   // Handle terminfo files - check if path contains xterm
   if (typeof path === 'string' && path.includes('xterm')) {
-    // Return the inlined xterm-256color terminfo data
-    const base64Data = TERMINFO_DATA;
+    // Return the imported xterm-256color terminfo data
+    const base64Data = xtermData.data;
     const binaryString = atob(base64Data);
     const bytes = new Uint8Array(binaryString.length);
     for (let i = 0; i < binaryString.length; i++) {
       bytes[i] = binaryString.charCodeAt(i);
     }
     return Buffer.from(bytes);
+  }
+
+  // Handle font files - match by filename regardless of path
+  if (typeof path === 'string') {
+    if (path.endsWith('ter-u14n.json') || path.includes('ter-u14n.json')) {
+      return Buffer.from(JSON.stringify(terU14n), 'utf8');
+    }
+    if (path.endsWith('ter-u14b.json') || path.includes('ter-u14b.json')) {
+      return Buffer.from(JSON.stringify(terU14b), 'utf8');
+    }
   }
 
   // For other files, throw error
@@ -37,6 +49,10 @@ export const existsSync = (path: string): boolean => {
   if (typeof path === 'string' && (path.includes('xterm') || path.includes('terminfo'))) {
     return true;
   }
+  // Return true for font files - match by filename
+  if (typeof path === 'string' && (path.endsWith('.json') && (path.includes('ter-u14n') || path.includes('ter-u14b')))) {
+    return true;
+  }
   return false;
 };
 
@@ -44,6 +60,4 @@ export default {
   readFileSync,
   readdirSync,
   existsSync,
-  open,
-  close,
 };
