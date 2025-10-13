@@ -5,5 +5,8 @@ dist/
 .vitest/
 .turbo/
 
-# Benchmark results
+# Benchmark/test results
 tools/benchmarks/results/*.json
+playwright-report/
+test-results/
+

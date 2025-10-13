@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E2E Test: ProgressBar Widget</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css" />
+  <style>body { margin: 0; padding: 20px; background: #000; } #terminal { width: 800px; height: 600px; }</style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <script src="../../../dist/blessed-browser.global.js"></script>
+  <script type="module">
+    import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
+    const { createXTermScreen, blessed } = window.BlessedBrowser;
+    const term = new Terminal({ rows: 24, cols: 80 });
+    term.open(document.getElementById('terminal'));
+    const screen = createXTermScreen({ terminal: term });
+
+    const progressbar = blessed.progressbar({
+      parent: screen,
+      top: 'center',
+      left: 'center',
+      width: '50%',
+      height: 3,
+      border: 'line',
+      style: { border: { fg: 'cyan' }, bar: { bg: 'cyan' } },
+      filled: 25
+    });
+
+    screen.render();
+
+    window.testProgressBar = progressbar;
+    window.testScreen = screen;
+    window.testReady = true;
+  </script>
+</body>
+</html>
