@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>blessed-browser - No Bundler Example</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #1e1e1e;
+      color: #d4d4d4;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    header {
+      background: #2d2d30;
+      border-bottom: 1px solid #3e3e42;
+      padding: 16px 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 24px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      font-size: 14px;
+      color: #cccccc;
+    }
+
+    header .badge {
+      display: inline-block;
+      background: #007acc;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #terminal-container {
+      width: 100%;
+      max-width: 1200px;
+      height: 100%;
+      max-height: 800px;
+      background: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    #terminal {
+      width: 100%;
+      height: 100%;
+      padding: 16px;
+    }
+
+    footer {
+      background: #007acc;
+      color: #fff;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    footer a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .loading.hidden {
+      display: none;
+    }
+
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid #3e3e42;
+      border-top-color: #007acc;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      color: #cccccc;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Loading blessed-browser...</div>
+  </div>
+
+  <header>
+    <h1>🎨 blessed-browser</h1>
+    <p>Running blessed TUI in the browser with zero bundler setup</p>
+    <span class="badge">No Build Tools Required</span>
+  </header>
+
+  <main>
+    <div id="terminal-container">
+      <div id="terminal"></div>
+    </div>
+  </main>
+
+  <footer>
+    <strong>blessed-browser</strong> - Zero configuration. Just import and use.
+    <a href="https://github.com/vdeantoni/blessed" target="_blank">View on GitHub</a>
+  </footer>
+
+  <!-- Load blessed-browser IIFE bundle (makes BlessedBrowser global) -->
+  <!-- Local dev: symlinked from ../dist/blessed-browser.global.js -->
+  <!-- Production: Load from CDN like unpkg.com/@vdeantoni/blessed-browser/dist/blessed-browser.global.js -->
+  <script src="./blessed-browser.global.js"></script>
+
+  <script type="module">
+    // Import from CDN - no build tools needed!
+    import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
+    import { FitAddon } from 'https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/+esm';
+
+    // Wait for blessed-browser IIFE bundle to load (loaded via script tag below)
+    const { createXTermScreen, blessed } = window.BlessedBrowser;
+
+    // Hide loading screen
+    document.getElementById('loading').classList.add('hidden');
+
+    // Create xterm terminal
+    const term = new Terminal({
+      cursorBlink: true,
+      fontSize: 14,
+      fontFamily: 'Menlo, Monaco, "Courier New", monospace',
+      theme: {
+        background: '#1e1e1e',
+        foreground: '#d4d4d4',
+        cursor: '#ffffff',
+        black: '#000000',
+        red: '#cd3131',
+        green: '#0dbc79',
+        yellow: '#e5e510',
+        blue: '#2472c8',
+        magenta: '#bc3fbc',
+        cyan: '#11a8cd',
+        white: '#e5e5e5',
+        brightBlack: '#666666',
+        brightRed: '#f14c4c',
+        brightGreen: '#23d18b',
+        brightYellow: '#f5f543',
+        brightBlue: '#3b8eea',
+        brightMagenta: '#d670d6',
+        brightCyan: '#29b8db',
+        brightWhite: '#ffffff'
+      }
+    });
+
+    // Add fit addon
+    const fitAddon = new FitAddon();
+    term.loadAddon(fitAddon);
+
+    // Open terminal
+    term.open(document.getElementById('terminal'));
+    fitAddon.fit();
+
+    // Handle window resize
+    window.addEventListener('resize', () => {
+      fitAddon.fit();
+    });
+
+    // Create blessed screen - zero configuration!
+    const screen = createXTermScreen({ terminal: term });
+
+    // Create a beautiful dashboard layout
+    const container = blessed.box({
+      parent: screen,
+      width: '100%',
+      height: '100%'
+    });
+
+    // Header
+    const header = blessed.box({
+      parent: container,
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: 3,
+      content: '{center}{bold}{cyan-fg}blessed-browser Demo{/cyan-fg}{/bold}{/center}\n{center}No bundler, no config, just works!{/center}',
+      tags: true,
+      style: {
+        fg: 'white',
+        bg: 'blue'
+      }
+    });
+
+    // Main content box
+    const mainBox = blessed.box({
+      parent: container,
+      top: 3,
+      left: 'center',
+      width: '80%',
+      height: '50%',
+      border: {
+        type: 'line'
+      },
+      style: {
+        border: { fg: 'cyan' }
+      },
+      label: ' {bold}{cyan-fg}Welcome{/cyan-fg}{/bold} ',
+      tags: true,
+      content: '\n{center}{bold}{green-fg}✓{/green-fg} Successfully running blessed in the browser!{/bold}{/center}\n\n' +
+               '{center}This demo uses:{/center}\n' +
+               '{center}• xterm.js for terminal emulation{/center}\n' +
+               '{center}• blessed-browser for TUI widgets{/center}\n' +
+               '{center}• Zero build tools or bundlers{/center}\n\n' +
+               '{center}{yellow-fg}Press q or Esc to see the quit message{/yellow-fg}{/center}',
+      scrollable: true,
+      mouse: true,
+      keys: true
+    });
+
+    // Interactive list
+    const list = blessed.list({
+      parent: container,
+      top: '53%',
+      left: 'center',
+      width: '80%',
+      height: '40%',
+      label: ' {bold}{cyan-fg}Interactive Features{/cyan-fg}{/bold} ',
+      tags: true,
+      keys: true,
+      vi: true,
+      mouse: true,
+      border: {
+        type: 'line'
+      },
+      style: {
+        border: { fg: 'cyan' },
+        selected: {
+          bg: 'cyan',
+          fg: 'black'
+        }
+      },
+      items: [
+        '✓ Auto-initialized polyfills',
+        '✓ Mouse support enabled',
+        '✓ Keyboard navigation works',
+        '✓ All blessed widgets available',
+        '✓ TypeScript definitions included',
+        '✓ Works with any bundler (or none!)'
+      ]
+    });
+
+    // Status text
+    const status = blessed.text({
+      parent: container,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      height: 1,
+      content: '{center}Select items with arrow keys or mouse | Press q/Esc to quit{/center}',
+      tags: true,
+      style: {
+        fg: 'yellow',
+        bg: 'black'
+      }
+    });
+
+    // Handle list selection
+    list.on('select', (item, index) => {
+      status.setContent(`{center}{bold}Selected:{/bold} ${item.getText()} (index: ${index}){/center}`);
+      screen.render();
+    });
+
+    // Handle quit keys
+    screen.key(['escape', 'q', 'C-c'], () => {
+      mainBox.setContent(
+        '\n\n{center}{bold}{red-fg}Goodbye!{/red-fg}{/bold}{/center}\n\n' +
+        '{center}Thanks for trying blessed-browser{/center}\n' +
+        '{center}Refresh to restart{/center}'
+      );
+      screen.render();
+    });
+
+    // Focus list for keyboard navigation
+    list.focus();
+
+    // Initial render
+    screen.render();
+
+    // Add some animation
+    let dots = 0;
+    setInterval(() => {
+      dots = (dots + 1) % 4;
+      header.setContent(
+        '{center}{bold}{cyan-fg}blessed-browser Demo{/cyan-fg}{/bold}{/center}\n' +
+        `{center}Running${'.'.repeat(dots)}{/center}`
+      );
+      screen.render();
+    }, 500);
+  </script>
+</body>
+</html>
