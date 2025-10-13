@@ -26,7 +26,7 @@ class List extends ScrollableBox {
   _isList: boolean;
   interactive: boolean;
   mouse: boolean;
-  _listInitialized: boolean;
+  _listInitialized: boolean = false; // Initialize to false
 
   constructor(options: ListOptions = {}) {
     options.ignoreKeys = true;

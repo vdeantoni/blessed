@@ -26,7 +26,7 @@ class BigText extends Box {
   ratio: any;
   font: any;
   fontBold: any;
-  text: string;
+  text: string = ''; // Initialize to empty string
   _shrinkWidth?: boolean;
   _shrinkHeight?: boolean;
 

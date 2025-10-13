@@ -26,7 +26,7 @@ class OverlayImage extends Box {
   static w3mdisplay = '/usr/lib/w3m/w3mimgdisplay';
   static hasW3MDisplay?: boolean;
 
-  options: OverlayImageOptions;
+  options!: OverlayImageOptions; // Set by parent Node constructor
   file?: string;
   _lastFile?: string;
   _needsRatio?: boolean;

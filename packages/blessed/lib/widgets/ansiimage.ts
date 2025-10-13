@@ -21,7 +21,7 @@ import tng from '../image-renderer.js';
 
 class ANSIImage extends Box {
   type = 'ansiimage';
-  options: ANSIImageOptions;
+  options!: ANSIImageOptions; // Set by parent Node constructor
   scale: number;
   _noFill: boolean;
   file?: string;

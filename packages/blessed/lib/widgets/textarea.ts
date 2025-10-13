@@ -20,7 +20,7 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
 
 class Textarea extends Input {
   type = 'textarea';
-  options: TextareaOptions;
+  options!: TextareaOptions; // Set by parent Node constructor
   scrollable: boolean;
   __updateCursor: any;
   __listener: any;

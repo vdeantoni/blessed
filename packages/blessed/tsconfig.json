@@ -26,10 +26,10 @@
     // Now that widget constructors have proper types
     "strict": false,
     "noImplicitAny": true, // ✅ Already enabled from Phase 3A
-    "strictNullChecks": true, // ✅ PHASE 3B: Step 6 - IN PROGRESS
+    "strictNullChecks": true, // ✅ PHASE 3B: Step 6 - COMPLETE
     "strictFunctionTypes": true, // ✅ PHASE 3B: Step 3
     "strictBindCallApply": true, // ✅ PHASE 3B: Step 4
-    "strictPropertyInitialization": false,
+    "strictPropertyInitialization": true, // 🔄 PHASE 3B: Step 7 - IN PROGRESS
     "noImplicitThis": true, // ✅ PHASE 3B: Step 5
     "alwaysStrict": true,
 

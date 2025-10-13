@@ -41,7 +41,7 @@ class Element extends Node {
   padding: any;
   border?: any;
   parseTags?: boolean;
-  content: string;
+  content: string = ''; // Initialize to empty string
   lpos?: any;
   _clines?: any;
   _pcontent?: string;
