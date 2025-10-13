@@ -474,7 +474,7 @@ class ImageRenderer {
   /**
    * Animation methods
    */
-  play(callback?: (bmp: Bitmap, cellmap?: Cellmap) => void): void {
+  play(callback?: (bmp?: Bitmap, cellmap?: Cellmap) => void): void {
     if (!this._control || callback) {
       this.stop();
       this._animate(callback);

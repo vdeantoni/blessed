@@ -277,7 +277,7 @@ export interface ANSIImageOptions extends BoxOptions {
   scale?: number;
   width?: number | string;
   height?: number | string;
-  ascii?: string;
+  ascii?: boolean;
   animate?: boolean;
   speed?: number;
   optimization?: "mem" | "cpu";

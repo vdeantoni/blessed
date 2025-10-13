@@ -88,6 +88,8 @@
     "vitest": "^3.2.4"
   },
   "dependencies": {
+    "@types/omggif": "^1.0.5",
+    "@types/pngjs": "^6.0.5",
     "omggif": "^1.0.10",
     "pngjs": "^7.0.0"
   }

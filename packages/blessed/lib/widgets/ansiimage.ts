@@ -13,7 +13,7 @@ import cp from 'child_process';
 import colors from '../colors.js';
 import Node from './node.js';
 import Box from './box.js';
-import tng from '../image-renderer.ts';
+import tng from '../image-renderer.js';
 
 /**
  * ANSIImage
