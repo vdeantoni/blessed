@@ -654,26 +654,31 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
   - **Note**: 89 cascading type errors in scrollable mixin (structural issue with mixin pattern, not runtime bugs) - need proper type definitions in future
   - **Tests**: ✅ 1,600/1,600 passing
 
-**Total Fixed**: 203 explicit errors across 6 strict flags (23 + 180 strictNullChecks)
-**Test Status**: ✅ All 1,600 tests passing with all enabled flags
+**Total Fixed**: 208 explicit errors across 6 strict flags (23 + 185 strictNullChecks)
+**Test Status**: ✅ All 1,638 tests passing with all enabled flags
+**TypeScript Status**: ✅ Zero compilation errors
 
-✅ **Step 6 - strictNullChecks** (IN PROGRESS - 62% complete)
-  - **Errors Fixed**: 180 of 291 (111 remaining)
+✅ **Step 6 - strictNullChecks** (Completed - 100%)
+  - **Errors Fixed**: 185 of 185 (all resolved!)
   - **Files Completed**:
     - scrollable.ts (89 errors fixed - used ScrollableElement interface pattern)
     - element.ts (59 errors fixed - added missing ElementOptions properties)
     - list.ts (29 errors fixed - added ListOptions properties, null checks)
-    - Type definitions enhanced (Position, ScrollbarConfig, ElementOptions, ListOptions)
+    - image-renderer.ts (1 error fixed - callback type signature)
+    - ansiimage.ts (1 error fixed - import path .ts → .js)
+    - options.ts (1 error fixed - ascii type: string → boolean)
+    - Added @types/pngjs and @types/omggif for proper type support
+    - Type definitions enhanced (Position, ScrollbarConfig, ElementOptions, ListOptions, ANSIImageOptions)
   - **Pattern Used**: Created typed interfaces for mixin contracts (e.g., ScrollableElement)
   - **Impact**: Explicit null/undefined handling, stricter type safety
-  - **Tests**: ✅ 1,600/1,600 passing
-  - **Remaining**: 111 errors in screen.ts (27), terminal.ts (14), listtable.ts (13), others (57)
+  - **Tests**: ✅ 1,638/1,638 passing
+  - **TypeScript**: ✅ Zero compilation errors!
 
 **Remaining Flags:**
-- 📅 **noImplicitAny** - Already enabled from Phase 3A
-- 🔄 **strictNullChecks** - IN PROGRESS: 180/291 fixed (62% complete, 111 remaining)
-- 📅 **strictPropertyInitialization** - Requires class property initialization
-- 📅 **noUnusedLocals/noUnusedParameters** - Code cleanup
+- ✅ **noImplicitAny** - Already enabled from Phase 3A
+- ✅ **strictNullChecks** - COMPLETE: All compilation errors fixed!
+- 📅 **strictPropertyInitialization** - Next: Requires class property initialization
+- 📅 **noUnusedLocals/noUnusedParameters** - Next: Code cleanup
 
 **Phase 3B Completion Criteria:**
 - [x] Enable noImplicitReturns ✅
@@ -681,16 +686,17 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 - [x] Enable strictFunctionTypes ✅
 - [x] Enable strictBindCallApply ✅
 - [x] Enable noImplicitThis ✅
-- [~] Enable strictNullChecks (62% complete - 180/291 errors fixed)
+- [x] Enable strictNullChecks ✅
 - [ ] Enable strictPropertyInitialization
 - [ ] Enable noUnusedLocals/noUnusedParameters
 - [ ] Minimal use of `any` type (only where truly necessary)
 - [ ] Comprehensive interfaces for all public APIs
 - [ ] Proper generic types for widget options
-- [x] All 1,600 tests passing ✅
-- [~] No type errors with strict mode (111 remaining)
+- [x] All 1,638 tests passing ✅
+- [x] No type errors with strictNullChecks enabled ✅
 
-**Current Status:** 6 of 9 strict flags enabled/in-progress (67% complete)
+**Current Status:** 6 of 8 strict flags complete (75% complete)
+**Next Steps:** Enable strictPropertyInitialization, then noUnusedLocals/noUnusedParameters
 
 #### Original Conversion Order (Safest → Riskiest)
 
@@ -794,7 +800,237 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 ---
 
-### **Phase 6: Future - blessed-contrib Integration**
+### **Phase 6: @tux Architecture - Platform-Agnostic Core**
+
+- **Goal:** Refactor into platform-agnostic architecture with runtime dependency injection
+- **Complexity:** High
+- **Duration:** 6-8 weeks
+- **Priority:** High - Required for browser support and future platforms
+- **Status:** 📋 Planned (execute after Phase 3B completion)
+- **Prerequisites:** Phase 3B complete (full TypeScript strict mode)
+
+#### Background & Motivation
+
+**Current Architecture:**
+- Single package: `@vdeantoni/blessed`
+- Direct Node.js dependencies (fs, process, tty, child_process)
+- Separate `@vdeantoni/blessed-browser` with duplicated polyfills
+- Difficult to support new platforms (Deno, Bun)
+
+**Target Architecture (@tux):**
+```
+@tux/core          → Platform-agnostic blessed logic (Runtime interface)
+@tux/node          → Node.js runtime + modern API
+@tux/browser       → Browser runtime + modern API
+@tux/blessed       → Compatibility layer (old blessed API)
+```
+
+#### Package Structure
+
+**@tux/core** - Platform-agnostic core
+- All widget logic, rendering, events, layout
+- Runtime interface (dependency injection pattern)
+- Zero Node.js/browser dependencies
+- Pure TypeScript, fully typed
+- Used as foundation by all runtime packages
+
+**@tux/node** - Node.js runtime adapter
+- NodeRuntime implementation (fs, process, tty, child_process, etc.)
+- Modern, clean API (not backward compatible)
+- TypeScript-first with tree-shakeable exports
+- Example: `import { createScreen, Box } from '@tux/node'`
+
+**@tux/browser** - Browser runtime adapter
+- BrowserRuntime implementation (reuses existing polyfills)
+- XTerm.js integration
+- Same modern API as @tux/node
+- Zero Node.js dependencies
+
+**@tux/blessed** - Compatibility layer
+- Thin wrapper over @tux/node
+- 100% backward compatible with blessed
+- Drop-in replacement: `require('blessed')` → `require('@tux/blessed')`
+- For gradual migration from blessed
+
+#### Runtime Interface Design
+
+**Core Interface:**
+```typescript
+// @tux/core/src/runtime.ts
+export interface Runtime {
+  fs: FileSystem;
+  path: PathAPI;
+  process: ProcessAPI;
+  childProcess: ChildProcessAPI;
+  tty: TtyAPI;
+  url: UrlAPI;
+}
+
+interface FileSystem {
+  readFileSync(path: string): Buffer;
+  readdirSync(path: string): string[];
+  existsSync(path: string): boolean;
+}
+
+interface ProcessAPI {
+  stdin: ReadableStream;
+  stdout: WritableStream;
+  stderr: WritableStream;
+  platform: string;
+  env: Record<string, string>;
+  cwd(): string;
+}
+// ... more interfaces
+```
+
+**Usage Pattern:**
+```typescript
+// Before (direct Node.js dependency)
+import fs from 'fs';
+const data = fs.readFileSync(path);
+
+// After (runtime injection)
+export function createTput(runtime: Runtime, options) {
+  const data = runtime.fs.readFileSync(path);
+}
+```
+
+#### Migration Tasks
+
+**6.1: Define Runtime Interface (Week 1)**
+- Create @tux/core package
+- Define complete Runtime interface
+- Document all required APIs
+- TypeScript definitions
+
+**6.2: Extract Pure Logic to Core (Week 2-3)**
+- Move pure modules (no Node.js deps):
+  - helpers.ts, colors.ts, unicode.ts, keys.ts, events.ts
+  - All 34 widgets (inject runtime where needed)
+  - widget.ts (factory)
+
+**6.3: Refactor Node.js Dependencies (Week 3-4)**
+- Abstract 12 files using Node.js APIs:
+  - **High Priority:** program.ts, tput.ts, screen.ts, bigtext.ts, image-renderer.ts
+  - **Medium Priority:** filemanager.ts, gpmclient.ts, terminal.ts, video.ts
+  - **Lower Priority:** ansiimage.ts, overlayimage.ts, helpers.ts (path)
+- Accept Runtime parameter
+- Replace direct imports with runtime.* calls
+
+**6.4: Create @tux/node Package (Week 5)**
+- Implement NodeRuntime class
+- Wrap Node.js APIs (fs, process, tty, child_process, etc.)
+- Create modern API (createScreen, Box, List, etc.)
+- Tree-shakeable exports
+- TypeScript-first
+
+**6.5: Create @tux/browser Package (Week 5)**
+- Implement BrowserRuntime class
+- Reuse existing polyfills from blessed-browser
+- XTerm integration
+- Same modern API as @tux/node
+
+**6.6: Create @tux/blessed Compatibility Layer (Week 6)**
+- Thin wrapper over @tux/node
+- Map old blessed API → modern @tux/node API
+- 100% backward compatible
+- Drop-in replacement
+
+**6.7: Testing & Migration (Week 7-8)**
+- All 1,600+ tests pass with new architecture
+- E2E tests for @tux/node and @tux/browser
+- Update documentation
+- Migration guide for users
+- Publish alpha versions
+
+#### Files Requiring Runtime Abstraction
+
+**High Priority (heavy Node.js usage):**
+1. lib/program.ts - stdin/stdout/tty operations
+2. lib/tput.ts - fs.readFileSync for terminfo
+3. lib/widgets/screen.ts - process/tty
+4. lib/widgets/bigtext.ts - fs.readFileSync for fonts
+5. lib/image-renderer.ts - fs.readFileSync for images
+6. lib/widgets/filemanager.ts - fs operations
+7. lib/gpmclient.ts - child_process for GPM
+
+**Medium Priority:**
+8. lib/helpers.ts - path operations
+9. lib/widgets/terminal.ts - child_process
+10. lib/widgets/video.ts - child_process
+11. lib/widgets/ansiimage.ts - child_process
+12. lib/widgets/overlayimage.ts - child_process/fs
+
+#### Benefits
+
+**For Users:**
+- ✅ Choose runtime: Node.js or browser
+- ✅ Modern API without legacy baggage (@tux/node, @tux/browser)
+- ✅ Backward compatible migration path (@tux/blessed)
+- ✅ Better TypeScript support
+- ✅ Tree-shakeable imports
+
+**For Library:**
+- ✅ Platform-agnostic core (Deno, Bun in future)
+- ✅ Testable with mock runtimes
+- ✅ Single codebase, multiple targets
+- ✅ Cleaner architecture
+- ✅ No code duplication between Node/browser
+
+**For Ecosystem:**
+- ✅ Easy to add @tux/deno, @tux/bun later
+- ✅ Community can build runtime adapters
+- ✅ Plugins can target @tux/core
+
+#### Example Usage
+
+**@tux/node (modern API):**
+```typescript
+import { createScreen, Box, List } from '@tux/node';
+
+const screen = createScreen({ smartCSR: true });
+const box = Box({
+  top: 'center',
+  left: 'center',
+  width: '50%',
+  height: '50%',
+  content: 'Hello world!'
+});
+```
+
+**@tux/browser (same modern API):**
+```typescript
+import { createXTermScreen, Box } from '@tux/browser';
+import { Terminal } from 'xterm';
+
+const term = new Terminal();
+const screen = createXTermScreen({ terminal: term });
+const box = Box({ /* same options */ });
+```
+
+**@tux/blessed (backward compatible):**
+```javascript
+// Drop-in replacement - no changes needed!
+const blessed = require('@tux/blessed');
+const screen = blessed.screen();
+const box = blessed.box({ /* old API */ });
+```
+
+#### Completion Criteria
+
+- [ ] @tux/core has zero Node.js imports
+- [ ] Runtime interface fully defined and documented
+- [ ] @tux/node and @tux/browser share same core
+- [ ] All 1,600+ tests pass with new architecture
+- [ ] @tux/blessed is 100% backward compatible
+- [ ] E2E tests pass for both Node and browser
+- [ ] Documentation updated
+- [ ] Migration guide created
+- [ ] Published as alpha: @tux/node@alpha, @tux/browser@alpha, @tux/blessed@alpha
+
+---
+
+### **Phase 7: Future - blessed-contrib Integration**
 
 - **Goal:** (Separate effort after core stabilizes) Port and integrate blessed-contrib widgets.
 - **Complexity:** High
@@ -803,18 +1039,18 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 | Task | Description | Complexity |
 |------|-------------|------------|
-| **6.1: Analyze blessed-contrib** | Review codebase, identify most valuable widgets (charts, gauges, maps). | Medium |
-| **6.2: Prioritize Widgets** | Survey community, prioritize based on popularity and utility. | Low |
-| **6.3: Port High-Priority Widgets** | Port selected widgets to TypeScript, following new architecture. | High |
-| **6.4: Integration & Testing** | Integrate widgets, write comprehensive tests. | High |
-| **6.5: Examples & Documentation** | Create examples showcasing integrated widgets. | Medium |
-| **6.6: Release as v2.1 or v3.0** | Publish expanded library with contrib widgets. | Low |
+| **7.1: Analyze blessed-contrib** | Review codebase, identify most valuable widgets (charts, gauges, maps). | Medium |
+| **7.2: Prioritize Widgets** | Survey community, prioritize based on popularity and utility. | Low |
+| **7.3: Port High-Priority Widgets** | Port selected widgets to TypeScript, following new architecture. | High |
+| **7.4: Integration & Testing** | Integrate widgets, write comprehensive tests. | High |
+| **7.5: Examples & Documentation** | Create examples showcasing integrated widgets. | Medium |
+| **7.6: Release as v2.1 or v3.0** | Publish expanded library with contrib widgets. | Low |
 
 **Recommendation:** Consider keeping blessed-contrib as a separate package that depends on modernized blessed.
 
 ---
 
-### **Phase 7: Future Considerations - Declarative UI APIs**
+### **Phase 8: Future Considerations - Declarative UI APIs**
 
 - **Goal:** (Post-v1.0.0) Explore and implement declarative alternatives to the imperative OOP API
 - **Complexity:** Medium-High
@@ -1097,11 +1333,11 @@ render(<App />, screen);
 
 | Phase | Deliverable | Complexity | Duration |
 |-------|-------------|------------|----------|
-| **7A.1** | Core hyperscript `h()` function | Medium | 1 week |
-| **7A.2** | TypeScript definitions | Medium | 1 week |
-| **7A.3** | Tagged template parser | High | 2 weeks |
-| **7A.4** | Builder pattern wrappers | Low | 1 week |
-| **7A.5** | Documentation & examples | Low | 1 week |
+| **8A.1** | Core hyperscript `h()` function | Medium | 1 week |
+| **8A.2** | TypeScript definitions | Medium | 1 week |
+| **8A.3** | Tagged template parser | High | 2 weeks |
+| **8A.4** | Builder pattern wrappers | Low | 1 week |
+| **8A.5** | Documentation & examples | Low | 1 week |
 
 **File Structure:**
 ```

@@ -50,8 +50,6 @@
     "ncurses"
   ],
   "scripts": {
-    "generate-termdata": "node scripts/generate-termdata.js",
-    "prebuild": "pnpm run generate-termdata",
     "build": "tsup",
     "build:watch": "tsup --watch",
     "dev": "vite example",
