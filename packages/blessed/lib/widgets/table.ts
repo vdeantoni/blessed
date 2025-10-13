@@ -18,8 +18,8 @@ import Box from './box.js';
 class Table extends Box {
   type = 'table';
   pad: number;
-  rows: any[][];
-  _maxes: number[];
+  rows: any[][] = []; // Initialize to empty array
+  _maxes!: number[]; // Set by _calculateMaxes() method
 
   constructor(options: TableOptions = {}) {
     options.shrink = true;

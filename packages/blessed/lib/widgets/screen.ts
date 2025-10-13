@@ -28,7 +28,7 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
  */
 
 class Screen extends Node {
-  options: IScreenOptions;
+  options!: IScreenOptions; // Set by parent Node constructor
   program: any;
   tput: any;
   autoPadding: boolean;
@@ -72,8 +72,8 @@ class Screen extends Node {
   _listenedKeys?: boolean;
   _needsClickableSort?: boolean;
   mouseDown?: any;
-  lines: any[];
-  olines: any[];
+  lines: any[] = []; // Initialize to empty array
+  olines: any[] = []; // Initialize to empty array
   _borderStops?: any;
   debugLog?: any;
   _hoverText?: any;

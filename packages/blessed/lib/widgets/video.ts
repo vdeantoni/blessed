@@ -20,9 +20,9 @@ import Terminal from './terminal.js';
 
 class Video extends Box {
   type = 'video';
-  tty: Terminal;
-  now: number;
-  start: number;
+  tty!: Terminal; // Set conditionally in constructor if mplayer/mpv exists
+  now!: number; // Set conditionally in constructor
+  start!: number; // Set conditionally in constructor
 
   constructor(options: VideoOptions = {}) {
     super(options);

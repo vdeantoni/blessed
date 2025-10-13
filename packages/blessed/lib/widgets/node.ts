@@ -40,7 +40,7 @@ class Node extends EventEmitter {
   _: any;
   data: any;
   uid: number;
-  index: number;
+  index: number = -1; // Initialize to -1, may be updated when appended to parent
   detached?: boolean;
   destroyed?: boolean;
 
@@ -83,7 +83,7 @@ class Node extends EventEmitter {
     this.children = [];
     this.$ = this._ = this.data = {};
     this.uid = Node.uid++;
-    this.index = this.index != null ? this.index : -1;
+    // index is initialized to -1 in declaration, will be updated when appended
 
     // Don't mark screen as detached (check options._isScreen since child class
     // field 'type' is not set until after super() returns in ES6)

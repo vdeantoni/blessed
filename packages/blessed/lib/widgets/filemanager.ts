@@ -20,7 +20,7 @@ import List from './list.js';
 
 class FileManager extends List {
   type = 'file-manager';
-  options: FileManagerOptions;
+  options!: FileManagerOptions; // Set by parent Node constructor
   cwd: string;
   file: string;
   value: string;

@@ -22,9 +22,9 @@ class ListTable extends List {
   __align: string;
   _header: any;
   pad: number;
-  rows: any[];
+  rows: any[] = []; // Initialize to empty array
   _maxes: any;
-  options: ListTableOptions;
+  options!: ListTableOptions; // Set by parent Node constructor
 
   constructor(options: ListTableOptions = {}) {
     // options.shrink = true;

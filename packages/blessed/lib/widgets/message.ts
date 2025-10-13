@@ -17,7 +17,7 @@ import Box from './box.js';
 
 class Message extends Box {
   type = 'message';
-  options: MessageOptions;
+  options!: MessageOptions; // Set by parent Node constructor
 
   constructor(options: MessageOptions = {}) {
     options.tags = true;

@@ -30,10 +30,10 @@ class Terminal extends Box {
   termName: string;
   term: any;
   pty: any;
-  _onData: (data: any) => void;
+  _onData!: (data: any) => void; // Set in bootstrap method
   dattr: any;
   title?: string;
-  options: TerminalOptions;
+  options!: TerminalOptions; // Set by parent Node constructor
 
   constructor(options: TerminalOptions = {}) {
     options.scrollable = false;
