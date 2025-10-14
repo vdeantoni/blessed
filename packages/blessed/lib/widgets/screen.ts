@@ -9,6 +9,8 @@
  */
 
 import type { IScreenOptions } from '../types/options.js';
+import type { RenderCoords } from '../types/common.js';
+import type { KeyEvent, MouseEvent } from '../types/events.js';
 import path from 'path';
 import fs from 'fs';
 import cp from 'child_process';
@@ -487,7 +489,7 @@ class Screen extends Node {
       this._needsClickableSort = true;
     });
 
-    this.program.on('mouse', (data: any) => {
+    this.program.on('mouse', (data: MouseEvent) => {
       if (this.lockKeys) return;
 
       if (this._needsClickableSort) {
@@ -498,7 +500,7 @@ class Screen extends Node {
       let i = 0;
       let el: any;
       let set: any;
-      let pos: any;
+      let pos: RenderCoords | undefined;
 
       for (; i < this.clickable.length; i++) {
         el = this.clickable[i];
@@ -592,7 +594,7 @@ class Screen extends Node {
     // After the first keypress emitted, the handler
     // checks to make sure grabKeys, lockKeys, and focused
     // weren't changed, and handles those situations appropriately.
-    this.program.on('keypress', (ch: any, key: any) => {
+    this.program.on('keypress', (ch: any, key: KeyEvent) => {
       if (this.lockKeys && !~this.ignoreLocked.indexOf(key.full)) {
         return;
       }
@@ -648,14 +650,14 @@ class Screen extends Node {
       }
     });
 
-    this.on('mousemove', (data: any) => {
+    this.on('mousemove', (data: MouseEvent) => {
       if (this._hoverText.detached) return;
       this._hoverText.rleft = data.x + 1;
       this._hoverText.rtop = data.y;
       this.render();
     });
 
-    this.on('element mouseover', (el: any, data: any) => {
+    this.on('element mouseover', (el: any, data: MouseEvent) => {
       if (!el._hoverOptions) return;
       this._hoverText.parseTags = el.parseTags;
       this._hoverText.setContent(el._hoverOptions.text);
@@ -1907,7 +1909,7 @@ class Screen extends Node {
 
     fel.on(over, () => {
       const element = el();
-      Object.keys(effects).forEach((key: any) => {
+      Object.keys(effects).forEach((key: string) => {
         const val = effects[key];
         if (val !== null && typeof val === 'object') {
           tmp[key] = tmp[key] || {};
@@ -1927,7 +1929,7 @@ class Screen extends Node {
 
     fel.on(out, () => {
       const element = el();
-      Object.keys(effects).forEach((key: any) => {
+      Object.keys(effects).forEach((key: string) => {
         const val = effects[key];
         if (val !== null && typeof val === 'object') {
           tmp[key] = tmp[key] || {};

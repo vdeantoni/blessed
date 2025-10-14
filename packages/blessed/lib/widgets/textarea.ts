@@ -9,6 +9,7 @@
  */
 
 import type { TextareaOptions } from '../types/options.js';
+import type { KeyEvent, MouseEvent } from '../types/events.js';
 import unicode from '../unicode.js';
 import Input from './input.js';
 
@@ -64,7 +65,7 @@ class Textarea extends Input {
     }
 
     if (!options.inputOnFocus && options.keys) {
-      this.on('keypress', (_ch: any, key: any) => {
+      this.on('keypress', (_ch: any, key: KeyEvent) => {
         if (this._reading) return;
         if (key.name === 'enter' || (options.vi && key.name === 'i')) {
           return this.readInput();
@@ -76,7 +77,7 @@ class Textarea extends Input {
     }
 
     if (options.mouse) {
-      this.on('click', (data: any) => {
+      this.on('click', (data: MouseEvent) => {
         if (this._reading) return;
         if (data.button !== 'right') return;
         this.readEditor();
@@ -226,7 +227,7 @@ class Textarea extends Input {
     return this.readInput;
   }
 
-  _listener(ch: any, key: any) {
+  _listener(ch: any, key: KeyEvent) {
     const done = this._done;
     const value = this.value;
 

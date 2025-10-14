@@ -9,6 +9,7 @@
  */
 
 import type { MessageOptions } from '../types/options.js';
+import type { KeyEvent, MouseEvent } from '../types/events.js';
 import Box from './box.js';
 
 /**
@@ -64,7 +65,7 @@ class Message extends Box {
       };
 
       setTimeout(() => {
-        const keypressHandler = (_ch: any, key: any) => {
+        const keypressHandler = (_ch: any, key: KeyEvent) => {
           if (key.name === 'mouse') return;
           if (this.scrollable) {
             if ((key.name === 'up' || (this.options.vi && key.name === 'k'))
@@ -88,7 +89,7 @@ class Message extends Box {
 
         // XXX May be affected by new element.options.mouse option.
         if (!this.options.mouse) return;
-        const mouseHandler = (data: any) => {
+        const mouseHandler = (data: MouseEvent) => {
           if (data.action === 'mousemove') return;
           this.removeScreenEvent('mouse', mouseHandler);
           end();

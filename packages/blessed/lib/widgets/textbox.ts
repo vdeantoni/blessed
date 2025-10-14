@@ -9,6 +9,7 @@
  */
 
 import type { TextboxOptions } from '../types/options.js';
+import type { KeyEvent } from '../types/events.js';
 import Textarea from './textarea.js';
 
 /**
@@ -33,7 +34,7 @@ class Textbox extends Textarea {
     this.__olistener = super._listener;
   }
 
-  _listener(ch: any, key: any) {
+  _listener(ch: any, key: KeyEvent) {
     if (key.name === 'enter') {
       this._done(null, this.value);
       return;

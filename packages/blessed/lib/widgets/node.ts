@@ -33,12 +33,47 @@ class Node extends EventEmitter {
 
   type = 'node';
   options: INodeOptions;
+  /**
+   * Reference to the parent Screen instance.
+   * Type: Screen (subclass of Node)
+   *
+   * Kept as any due to circular dependency between Node and Screen,
+   * and to preserve access to Screen-specific methods like clearRegion(),
+   * render(), and the program property without complex generic typing.
+   */
   screen: any;
+  /**
+   * Reference to the parent element in the widget tree.
+   * Type: Node (can be any Element/Box/List/etc subclass)
+   *
+   * Kept as any to avoid complex generic typing and preserve access
+   * to subclass-specific methods. Attempting to type as Node loses
+   * methods from subclasses like Box, List, Form, etc.
+   */
   parent: any;
+  /**
+   * Array of child elements.
+   * Type: Node[] (can contain any Node subclasses)
+   *
+   * Kept as any[] to preserve flexibility with mixed widget types.
+   */
   children: any[];
-  $: any;
-  _: any;
-  data: any;
+
+  /**
+   * An object for any miscellaneous user data.
+   */
+  $: Record<string, unknown>;
+
+  /**
+   * An object for any miscellaneous user data.
+   */
+  _: Record<string, unknown>;
+
+  /**
+   * An object for any miscellaneous user data.
+   */
+  data: Record<string, unknown>;
+
   uid: number;
   index: number = -1; // Initialize to -1, may be updated when appended to parent
   detached?: boolean;

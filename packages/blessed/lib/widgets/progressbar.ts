@@ -9,6 +9,7 @@
  */
 
 import type { ProgressBarOptions } from '../types/options.js';
+import type { KeyEvent, MouseEvent } from '../types/events.js';
 import Input from './input.js';
 
 /**
@@ -55,7 +56,7 @@ class ProgressBar extends Input {
     this.orientation = options.orientation || 'horizontal';
 
     if (options.keys) {
-      this.on('keypress', (_ch: any, key: any) => {
+      this.on('keypress', (_ch: any, key: KeyEvent) => {
         let back: string[] = [];
         let forward: string[] = [];
         if (this.orientation === 'horizontal') {
@@ -79,7 +80,7 @@ class ProgressBar extends Input {
     }
 
     if (options.mouse) {
-      this.on('click', (data: any) => {
+      this.on('click', (data: MouseEvent) => {
         let x: number, y: number, m: number;
         let p: number = 0;
         if (!this.lpos) return;

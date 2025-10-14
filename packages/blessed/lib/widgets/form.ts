@@ -9,6 +9,7 @@
  */
 
 import type { FormOptions } from '../types/options.js';
+import type { KeyEvent } from '../types/events.js';
 import Box from './box.js';
 
 /**
@@ -27,7 +28,7 @@ class Form extends Box {
 
     if (options.keys) {
       this.screen._listenKeys(this);
-      this.on('element keypress', (el: any, _ch: any, key: any) => {
+      this.on('element keypress', (el: any, _ch: any, key: KeyEvent) => {
         if ((key.name === 'tab' && !key.shift)
             || (el.type === 'textbox' && options.autoNext && key.name === 'enter')
             || key.name === 'down'
