@@ -10,6 +10,7 @@
 
 import type { ListbarOptions } from '../types/options.js';
 import type { KeyEvent } from '../types/events.js';
+import type { ListElementStyle } from '../types/style.js';
 import helpers from '../helpers.js';
 import Box from './box.js';
 
@@ -19,6 +20,7 @@ import Box from './box.js';
 
 class Listbar extends Box {
   type = 'listbar';
+  declare style: ListElementStyle;
   items: any[] = [];
   ritems: any[] = [];
   commands: any[] = [];

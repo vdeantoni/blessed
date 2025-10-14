@@ -10,6 +10,7 @@
 
 import type { ListOptions } from '../types/options.js';
 import type { KeyEvent } from '../types/events.js';
+import type { ListElementStyle } from '../types/style.js';
 import helpers from '../helpers.js';
 import Box from './box.js';
 import ScrollableBox from './scrollablebox.js';
@@ -24,6 +25,7 @@ import ScrollableBox from './scrollablebox.js';
 
 class List extends ScrollableBox {
   type = 'list';
+  declare style: ListElementStyle;
   value: string;
   items: any[];
   ritems: any[];
@@ -69,10 +71,12 @@ class List extends ScrollableBox {
     }
 
     // Legacy: for apps written before the addition of item attributes.
-    ['bg', 'fg', 'bold', 'underline',
-     'blink', 'inverse', 'invisible'].forEach((name) => {
-      if (this.style[name] != null && this.style.item[name] == null) {
-        this.style.item[name] = this.style[name];
+    (['bg', 'fg', 'bold', 'underline',
+     'blink', 'inverse', 'invisible'] as const).forEach((name) => {
+      const styleValue = (this.style as any)[name];
+      const itemValue = (this.style.item as any)[name];
+      if (styleValue != null && itemValue == null) {
+        (this.style.item as any)[name] = styleValue;
       }
     });
 

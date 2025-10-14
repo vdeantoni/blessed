@@ -22,6 +22,8 @@ export interface MouseEvent {
   ctrl?: boolean;
   /** Whether the Meta/Alt modifier key was held (optional) */
   meta?: boolean;
+  /** The mouse button that was pressed (optional) */
+  button?: "left" | "middle" | "right";
 }
 
 /**
@@ -41,6 +43,8 @@ export interface KeyEvent {
   meta: boolean;
   /** Raw escape sequence received from the terminal */
   sequence: string;
+  /** The character pressed (if applicable) */
+  ch?: string;
 }
 
 /**

@@ -233,7 +233,12 @@ class ListTable extends List {
 
     let border = this.border;
     if (!this.border && this.options.border) {
-      border = this.options.border;
+      const optBorder = this.options.border;
+      if (typeof optBorder === 'string') {
+        border = { type: optBorder as "line" | "bg" };
+      } else {
+        border = optBorder;
+      }
     }
 
     if (!border || this.options.noCellBorders) return coords;

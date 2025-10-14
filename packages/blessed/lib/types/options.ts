@@ -232,7 +232,7 @@ export interface ElementOptions extends NodeOptions, ScrollableOptions {
    * Amount of padding on the inside of the element. Can be a number or an object containing
    * the properties: left, right, top, and bottom.
    */
-  padding?: number | Padding;
+  padding?: number | Partial<Padding>;
 
   /**
    * Offsets of the element relative to its parent. Can be a number, percentage (0-100%), or

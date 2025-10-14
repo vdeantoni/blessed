@@ -13,11 +13,21 @@ import Box from './box.js';
 import Text from './text.js';
 
 /**
+ * Private data for Loading widget
+ */
+interface LoadingData {
+  icon: Text;
+  timer?: ReturnType<typeof setInterval>;
+  [key: string]: unknown;
+}
+
+/**
  * Loading
  */
 
 class Loading extends Box {
   type = 'loading';
+  declare _: LoadingData;
 
   constructor(options: LoadingOptions = {}) {
     super(options);

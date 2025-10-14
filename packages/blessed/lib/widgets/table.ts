@@ -9,6 +9,7 @@
  */
 
 import type { TableOptions } from '../types/options.js';
+import type { StyleListTable } from '../types/style.js';
 import Box from './box.js';
 
 /**
@@ -17,6 +18,7 @@ import Box from './box.js';
 
 class Table extends Box {
   type = 'table';
+  declare style: StyleListTable;
   pad: number;
   rows: any[][] = []; // Initialize to empty array
   _maxes!: number[]; // Set by _calculateMaxes() method
@@ -225,6 +227,7 @@ class Table extends Box {
     if (!this.border || (this.options as any).noCellBorders) return coords;
 
     // Draw border with correct angles.
+    const border = this.border; // Type narrowing: border is now definitely defined
     ry = 0;
     for (i = 0; i < this.rows.length + 1; i++) {
       if (!lines[yi + ry]) break;
@@ -247,7 +250,7 @@ class Table extends Box {
             lines[yi + ry][xi + 0][0] = battr;
             lines[yi + ry][xi + 0][1] = '\u251c'; // '├'
             // XXX If we alter iwidth and ileft for no borders - nothing should be written here
-            if (!this.border.left) {
+            if (!border.left) {
               lines[yi + ry][xi + 0][1] = '\u2500'; // '─'
             }
           }
@@ -271,7 +274,7 @@ class Table extends Box {
             lines[yi + ry][xi + rx][0] = battr;
             lines[yi + ry][xi + rx][1] = '\u2524'; // '┤'
             // XXX If we alter iwidth and iright for no borders - nothing should be written here
-            if (!this.border.right) {
+            if (!border.right) {
               lines[yi + ry][xi + rx][1] = '\u2500'; // '─'
             }
           }
@@ -286,7 +289,7 @@ class Table extends Box {
           lines[yi + ry][xi + rx][0] = battr;
           lines[yi + ry][xi + rx][1] = '\u252c'; // '┬'
           // XXX If we alter iheight and itop for no borders - nothing should be written here
-          if (!this.border.top) {
+          if (!border.top) {
             lines[yi + ry][xi + rx][1] = '\u2502'; // '│'
           }
         } else if (ry / 2 === this.rows.length) {
@@ -295,7 +298,7 @@ class Table extends Box {
           lines[yi + ry][xi + rx][0] = battr;
           lines[yi + ry][xi + rx][1] = '\u2534'; // '┴'
           // XXX If we alter iheight and ibottom for no borders - nothing should be written here
-          if (!this.border.bottom) {
+          if (!border.bottom) {
             lines[yi + ry][xi + rx][1] = '\u2502'; // '│'
           }
         } else {
