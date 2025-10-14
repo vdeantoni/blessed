@@ -1926,7 +1926,9 @@ class Program extends EventEmitter {
         return false;
     };
 
-    // Only XTerm and iTerm2. If you know of any others, post them.
+    /**
+     * Attempt to change cursor shape. Will not work in all terminals. Returns true if successful.
+     */
     cursorShape(shape: string, blink?: boolean) {
         if (this.isiTerm2) {
             switch (shape) {
@@ -1982,6 +1984,9 @@ class Program extends EventEmitter {
         return false;
     };
 
+    /**
+     * Attempt to change cursor color. Returns true if successful.
+     */
     cursorColor(color: string) {
         if (this.term('xterm') || this.term('rxvt') || this.term('screen')) {
             this._twrite('\x1b]12;' + color + '\x07');
@@ -1990,6 +1995,9 @@ class Program extends EventEmitter {
         return false;
     };
 
+    /**
+     * Attempt to reset cursor. Returns true if successful.
+     */
     resetCursor() {
         if (this.term('xterm') || this.term('rxvt') || this.term('screen')) {
             // XXX

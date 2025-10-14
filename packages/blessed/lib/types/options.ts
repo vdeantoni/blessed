@@ -818,42 +818,57 @@ export interface ImageOptions extends BoxOptions {
 
 export interface ANSIImageOptions extends BoxOptions {
   /**
-   * Path to image file to display.
+   * URL or path to PNG/GIF file. Can also be a buffer.
    */
   file?: string;
 
   /**
-   * Scale factor for the image.
+   * Scale cellmap down (0-1.0) from its original pixel width/height (Default: 1.0).
    */
   scale?: number;
 
   /**
-   * Width of the image. Can be a number or percentage string.
+   * This differs from other element's width or height in that only one
+   * of them is needed: blessed will maintain the aspect ratio of the image
+   * as it scales down to the proper number of cells. NOTE: PNG/GIF's are
+   * always automatically shrunken to size (based on scale) if a width or
+   * height is not given.
    */
   width?: number | string;
 
   /**
-   * Height of the image. Can be a number or percentage string.
+   * This differs from other element's width or height in that only one
+   * of them is needed: blessed will maintain the aspect ratio of the image
+   * as it scales down to the proper number of cells. NOTE: PNG/GIF's are
+   * always automatically shrunken to size (based on scale) if a width or
+   * height is not given.
    */
   height?: number | string;
 
   /**
-   * Use ASCII characters instead of ANSI colors for rendering.
+   * Add various "density" ASCII characters over the rendering to give the
+   * image more detail, similar to libcaca/libcucul (the library mplayer uses
+   * to display videos in the terminal).
    */
   ascii?: boolean;
 
   /**
-   * Animate the image if it's an animated format (e.g., GIF).
+   * Whether to animate if the image is an APNG/animating GIF. If false, only
+   * display the first frame or IDAT (Default: true).
    */
   animate?: boolean;
 
   /**
-   * Animation speed (frames per second or delay in milliseconds).
+   * Set the speed of animation. Slower: 0.0-1.0. Faster: 1-1000. It cannot go
+   * faster than 1 frame per millisecond, so 1000 is the fastest. (Default: 1.0)
    */
   speed?: number;
 
   /**
-   * Optimization mode: "mem" for memory optimization or "cpu" for CPU optimization.
+   * mem or cpu. If optimizing for memory, animation frames will be rendered to
+   * bitmaps as the animation plays, using less memory. Optimizing for cpu will
+   * precompile all bitmaps beforehand, which may be faster, but might also OOM
+   * the process on large images. (Default: mem).
    */
   optimization?: "mem" | "cpu";
 }
