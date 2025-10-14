@@ -1867,7 +1867,7 @@ This section catalogs known issues, limitations, and quirks in blessed. These gu
 - **V1.x Action:** Establish terminal compatibility matrix (see Section 8)
 - **V1.x Action:** Automated testing (Phase 1)
 
-**Full issue catalog:** See `docs/` for detailed Known Issues documentation from Phase 0.
+**Note:** The 28 known issues listed above represent the complete catalog from Phase 0 analysis.
 
 ---
 
