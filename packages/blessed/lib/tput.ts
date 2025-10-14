@@ -1664,7 +1664,9 @@ class Tput {
                                     }
                                     l++;
                                 } else {
-                                    i += 2, l += cvtchar(s), i -= 2;
+                                    i += 2;
+                                    l += cvtchar(s);
+                                    i -= 2;
                                 }
                                 switch (s[i]) {
                                     case '+':

@@ -122,7 +122,7 @@ class Layout extends Element {
                 el.position.top = 0;
             } else {
                 // Otherwise, figure out where to place this child. We'll start by
-                // setting it's `left`/`x` coordinate to right after the previous
+                // setting its `left`/`x` coordinate to right after the previous
                 // rendered element. This child will end up directly to the right of it.
                 el.position.left = last.lpos.xl - xi;
 
@@ -155,7 +155,7 @@ class Layout extends Element {
                 }
             }
 
-            // Make sure the elements on lower rows graviatate up as much as possible
+            // Make sure the elements on lower rows gravitate up as much as possible
             if (this.options.layout === 'inline') {
                 let above: any = null;
                 let abovea = Infinity;
@@ -204,18 +204,32 @@ class Layout extends Element {
 
         this.lpos = coords;
 
-        if (this.border) coords.xi++, coords.xl--, coords.yi++, coords.yl--;
+        if (this.border) {
+          coords.xi++;
+          coords.xl--;
+          coords.yi++;
+          coords.yl--;
+        }
         if (this.tpadding) {
-            coords.xi += this.padding.left, coords.xl -= this.padding.right;
-            coords.yi += this.padding.top, coords.yl -= this.padding.bottom;
+            coords.xi += this.padding.left;
+            coords.xl -= this.padding.right;
+            coords.yi += this.padding.top;
+            coords.yl -= this.padding.bottom;
         }
 
         const iterator = this.renderer(coords);
 
-        if (this.border) coords.xi--, coords.xl++, coords.yi--, coords.yl++;
+        if (this.border) {
+          coords.xi--;
+          coords.xl++;
+          coords.yi--;
+          coords.yl++;
+        }
         if (this.tpadding) {
-            coords.xi -= this.padding.left, coords.xl += this.padding.right;
-            coords.yi -= this.padding.top, coords.yl += this.padding.bottom;
+            coords.xi -= this.padding.left;
+            coords.xl += this.padding.right;
+            coords.yi -= this.padding.top;
+            coords.yl += this.padding.bottom;
         }
 
         this.children.forEach((el: any, i: number) => {
