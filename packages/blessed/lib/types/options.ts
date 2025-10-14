@@ -904,13 +904,15 @@ export interface VideoOptions extends BoxOptions {
 
 export interface LayoutOptions extends ElementOptions {
   /**
-   * Custom renderer function for positioning child elements.
-   * Receives coords and returns a function that takes element and index.
+   * A callback which is called right before the children are iterated over to be rendered. Should return an
+   * iterator callback which is called on each child element: iterator(el, i).
    */
   renderer?(coords: any): (el: any, i: number) => any;
 
   /**
-   * Layout mode: inline, inline-block, or grid.
+   * Using the default renderer, it provides two layouts: inline, and grid. inline is the default and will render
+   * akin to inline-block. grid will create an automatic grid based on element dimensions. The grid cells'
+   * width and height are always determined by the largest children in the layout.
    */
   layout?: "inline" | "inline-block" | "grid";
 }

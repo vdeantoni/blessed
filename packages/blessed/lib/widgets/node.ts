@@ -31,6 +31,10 @@ class Node extends EventEmitter {
   static uid = 0;
   static ScreenRegistry = ScreenRegistry; // Expose for Screen to use
 
+  /**
+   * Type of the node (e.g. box, list, form, etc.).
+   * Used to identify the widget type at runtime.
+   */
   type = 'node';
   options: NodeOptions;
   /**
@@ -75,6 +79,11 @@ class Node extends EventEmitter {
   data: Record<string, unknown>;
 
   uid: number;
+  /**
+   * Render index (document order index) of the last render call.
+   * Indicates the order in which this element was rendered relative to others.
+   * Set to -1 initially, updated during rendering.
+   */
   index: number = -1; // Initialize to -1, may be updated when appended to parent
   detached?: boolean;
   destroyed?: boolean;
