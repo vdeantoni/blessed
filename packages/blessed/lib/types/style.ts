@@ -32,11 +32,29 @@ export interface Style {
 }
 
 export interface ListElementStyle extends Style {
+  /**
+   * Style for selected list item.
+   * Kept as any to support truly dynamic styling properties.
+   * Community @types/blessed also uses any for this property.
+   */
   selected?: any;
+  /**
+   * Style for regular (unselected) list items.
+   * Kept as any to support truly dynamic styling properties.
+   * Community @types/blessed also uses any for this property.
+   */
   item?: any;
 }
 
 export interface StyleListTable extends ListElementStyle {
+  /**
+   * Style for table header row.
+   * Kept as any to support dynamic styling configurations.
+   */
   header?: any;
+  /**
+   * Style for table cells.
+   * Kept as any to support dynamic styling configurations.
+   */
   cell?: any;
 }

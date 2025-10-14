@@ -5,6 +5,7 @@
  */
 
 import type { ScrollableOptions } from '../types/options.js';
+import type { RenderCoords } from '../types/common.js';
 
 /**
  * Scrollable Mixin
@@ -87,7 +88,7 @@ const scrollMethods = {
       // without the scrollable calculation):
       // See: $ node test/widget-shrink-fail-2.js
       if (!el.detached) {
-        const lpos: any = el._getCoords(false, true);
+        const lpos: RenderCoords | undefined = el._getCoords(false, true);
         if (lpos) {
           return Math.max(current, el.rtop + (lpos.yl - lpos.yi));
         }
@@ -242,7 +243,7 @@ const scrollMethods = {
   },
 
   getScrollPerc(this: ScrollableElement, s?: boolean) {
-    const pos: any = this.lpos || this._getCoords();
+    const pos: RenderCoords | undefined = this.lpos || this._getCoords();
     if (!pos) return s ? -1 : 0;
 
     const height: number = pos.yl - pos.yi - this.iheight;

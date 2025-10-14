@@ -9,6 +9,7 @@
  */
 
 import type { ButtonOptions } from '../types/options.js';
+import type { KeyEvent } from '../types/events.js';
 import Input from './input.js';
 
 /**
@@ -26,7 +27,7 @@ class Button extends Input {
 
     super(options);
 
-    this.on('keypress', (_ch: string, key: any) => {
+    this.on('keypress', (_ch: string, key: KeyEvent) => {
       if (key.name === 'enter' || key.name === 'space') {
         return this.press();
       }

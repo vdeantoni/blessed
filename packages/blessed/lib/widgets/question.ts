@@ -9,6 +9,7 @@
  */
 
 import type { QuestionOptions } from '../types/options.js';
+import type { KeyEvent } from '../types/events.js';
 import Box from './box.js';
 import Button from './button.js';
 
@@ -67,7 +68,7 @@ class Question extends Box {
     this.show();
     this.setContent(' ' + text);
 
-    this.onScreenEvent('keypress', press = (_ch: any, key: any) => {
+    this.onScreenEvent('keypress', press = (_ch: any, key: KeyEvent) => {
       if (key.name === 'mouse') return;
       if (key.name !== 'enter'
           && key.name !== 'escape'

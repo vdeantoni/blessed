@@ -15,6 +15,9 @@ import helpers from '../helpers.js';
 import Node from './node.js';
 import { makeScrollable, type ScrollableMethods } from '../mixins/scrollable.js';
 import type { ElementOptions, ScrollbarConfig, TrackConfig } from '../types/options.js';
+import type { RenderCoords, Position, Padding, Border } from '../types/common.js';
+import type { MouseEvent } from '../types/events.js';
+import type { Style } from '../types/style.js';
 
 const nextTick = global.setImmediate || process.nextTick.bind(process);
 
@@ -26,11 +29,16 @@ class Element extends Node {
   type = 'element';
 
   name?: string;
+  /**
+   * Position specification. Can be relative coordinates or keywords.
+   * Kept as any due to complex internal position calculation system.
+   */
   position: any;
   noOverflow?: boolean;
   dockBorders?: boolean;
   shadow?: boolean;
-  style: any;
+  /** Element style configuration (colors, attributes, hover/focus effects) */
+  style: Style;
   hidden: boolean;
   fixed: boolean;
   align: string;
@@ -38,11 +46,14 @@ class Element extends Node {
   wrap: boolean;
   shrink?: boolean;
   ch: string;
-  padding: any;
-  border?: any;
+  /** Padding: number for uniform padding, or Padding object for per-side values */
+  padding: Padding | number;
+  /** Border configuration */
+  border?: Border;
   parseTags?: boolean;
   content: string = ''; // Initialize to empty string
-  lpos?: any;
+  /** Last rendered position coordinates */
+  lpos?: RenderCoords;
   _clines?: any;
   _pcontent?: string;
   _slisteners?: any[];
@@ -51,8 +62,8 @@ class Element extends Node {
   _labelResize?: () => void;
   _hoverOptions?: any;
   _draggable?: boolean;
-  _dragMD?: (data: any) => void;
-  _dragM?: (data: any) => void;
+  _dragMD?: (data: MouseEvent) => void;
+  _dragM?: (data: MouseEvent) => void;
   _drag?: any;
   _noFill?: boolean;
   _isLabel?: boolean;
@@ -834,7 +845,7 @@ main:
 
     this.enableMouse();
 
-    this.on('mousedown', this._dragMD = (data: any) => {
+    this.on('mousedown', this._dragMD = (data: MouseEvent) => {
       if (this.screen._dragging) return;
       if (!verify(data)) return;
       this.screen._dragging = this;
@@ -845,7 +856,7 @@ main:
       this.setFront();
     });
 
-    this.onScreenEvent('mouse', this._dragM = (data: any) => {
+    this.onScreenEvent('mouse', this._dragM = (data: MouseEvent) => {
       if (this.screen._dragging !== this) return;
 
       if (data.action !== 'mousedown' && data.action !== 'mousemove') {
@@ -1525,7 +1536,7 @@ main:
     // order to figure out how the children will render, they need to know
     // exactly how their parent renders, so, we can give them what we have so
     // far.
-    let _lpos: any;
+    let _lpos: RenderCoords | undefined;
     if (get) {
       _lpos = this.lpos;
       this.lpos = { xi: xi, xl: xl, yi: yi, yl: yl };
@@ -1706,7 +1717,7 @@ main:
     return { xi: xi, xl: xl, yi: yi, yl: yl };
   }
 
-  _getCoords(get?: boolean, noscroll?: boolean): any {
+  _getCoords(get?: boolean, noscroll?: boolean): RenderCoords | undefined {
     if (this.hidden) return;
 
     // if (this.parent._rendering) {
@@ -1726,7 +1737,7 @@ main:
     let noright: boolean = false;
     let notop: boolean = false;
     let nobot: boolean = false;
-    let ppos: any;
+    let ppos: RenderCoords | undefined;
     let b: number;
 
     // Attempt to shrink the element base on the

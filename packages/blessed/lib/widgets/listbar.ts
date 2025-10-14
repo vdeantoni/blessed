@@ -9,6 +9,7 @@
  */
 
 import type { ListbarOptions } from '../types/options.js';
+import type { KeyEvent } from '../types/events.js';
 import helpers from '../helpers.js';
 import Box from './box.js';
 
@@ -55,7 +56,7 @@ class Listbar extends Box {
     }
 
     if (options.keys) {
-      this.on('keypress', (_ch: any, key: any) => {
+      this.on('keypress', (_ch: any, key: KeyEvent) => {
         if (key.name === 'left'
             || (options.vi && key.name === 'h')
             || (key.shift && key.name === 'tab')) {

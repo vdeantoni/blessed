@@ -9,6 +9,7 @@
  */
 
 import type { ListOptions } from '../types/options.js';
+import type { KeyEvent } from '../types/events.js';
 import helpers from '../helpers.js';
 import Box from './box.js';
 import ScrollableBox from './scrollablebox.js';
@@ -107,7 +108,7 @@ class List extends ScrollableBox {
     }
 
     if (options.keys) {
-      this.on('keypress', (_ch: any, key: any) => {
+      this.on('keypress', (_ch: any, key: KeyEvent) => {
         if (key.name === 'up' || (options.vi && key.name === 'k')) {
           this.up();
           this.screen.render();
