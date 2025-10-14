@@ -1,7 +1,5 @@
 /**
  * unicode.ts - east asian width and surrogate pairs
- * Copyright (c) 2013-2015, Christopher Jeffrey and contributors (MIT License).
- * https://github.com/chjj/blessed
  * Borrowed from vangie/east-asian-width, komagata/eastasianwidth,
  * and mathiasbynens/String.prototype.codePointAt. Licenses below.
  */

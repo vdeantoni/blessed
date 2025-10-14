@@ -1,6 +1,5 @@
 /**
  * alias.ts - terminfo/cap aliases for blessed.
- * https://github.com/chjj/blessed
  * Taken from terminfo(5) man page.
  */
 
