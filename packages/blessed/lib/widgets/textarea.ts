@@ -64,7 +64,7 @@ class Textarea extends Input {
     }
 
     if (!options.inputOnFocus && options.keys) {
-      this.on('keypress', (ch: any, key: any) => {
+      this.on('keypress', (_ch: any, key: any) => {
         if (this._reading) return;
         if (key.name === 'enter' || (options.vi && key.name === 'i')) {
           return this.readInput();

@@ -247,7 +247,7 @@ class OverlayImage extends Box {
 
         // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
-            callback = callback || function(err: any, result: any) { return result; };
+            callback = callback || function(_err: any, result: any) { return result; };
             try {
                 return callback(null, this.renderImageSync(img, ratio));
             } catch (e) {
@@ -315,7 +315,7 @@ class OverlayImage extends Box {
     clearImage(callback?: any): any {
         // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
-            callback = callback || function(err: any, result: any) { return result; };
+            callback = callback || function(_err: any, result: any) { return result; };
             try {
                 return callback(null, this.clearImageSync());
             } catch (e) {
@@ -378,7 +378,7 @@ class OverlayImage extends Box {
 
         // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
-            callback = callback || function(err: any, result: any) { return result; };
+            callback = callback || function(_err: any, result: any) { return result; };
             try {
                 return callback(null, this.imageSizeSync());
             } catch (e) {
@@ -438,7 +438,7 @@ class OverlayImage extends Box {
 
         // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
-            callback = callback || function(err: any, result: any) { return result; };
+            callback = callback || function(_err: any, result: any) { return result; };
             try {
                 return callback(null, this.termSizeSync());
             } catch (e) {
@@ -498,7 +498,7 @@ class OverlayImage extends Box {
 
         // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
-            callback = callback || function(err: any, result: any) { return result; };
+            callback = callback || function(_err: any, result: any) { return result; };
             try {
                 return callback(null, this.getPixelRatioSync());
             } catch (e) {

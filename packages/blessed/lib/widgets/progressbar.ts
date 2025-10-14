@@ -55,7 +55,7 @@ class ProgressBar extends Input {
     this.orientation = options.orientation || 'horizontal';
 
     if (options.keys) {
-      this.on('keypress', (ch: any, key: any) => {
+      this.on('keypress', (_ch: any, key: any) => {
         let back: string[] = [];
         let forward: string[] = [];
         if (this.orientation === 'horizontal') {

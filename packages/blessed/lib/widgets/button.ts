@@ -26,7 +26,7 @@ class Button extends Input {
 
     super(options);
 
-    this.on('keypress', (ch: string, key: any) => {
+    this.on('keypress', (_ch: string, key: any) => {
       if (key.name === 'enter' || key.name === 'space') {
         return this.press();
       }

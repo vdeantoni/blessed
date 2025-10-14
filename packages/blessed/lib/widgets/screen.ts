@@ -459,14 +459,14 @@ class Screen extends Node {
   }
 
   log(...args: any[]): any {
-    return this.program.log.apply(this.program, arguments);
+    return this.program.log.apply(this.program, args);
   }
 
   debug(...args: any[]): any {
     if (this.debugLog) {
-      this.debugLog.log.apply(this.debugLog, arguments);
+      this.debugLog.log.apply(this.debugLog, args);
     }
-    return this.program.debug.apply(this.program, arguments);
+    return this.program.debug.apply(this.program, args);
   }
 
   _listenMouse(el?: any): void {
@@ -854,7 +854,7 @@ class Screen extends Node {
     return this.insertLine(1, top, top, bottom);
   }
 
-  deleteBottom(top: number, bottom: number): void {
+  deleteBottom(_top: number, bottom: number): void {
     return this.clearRegion(0, this.width, bottom, bottom);
   }
 
@@ -1711,19 +1711,19 @@ class Screen extends Node {
   }
 
   key(...args: any[]): any {
-    return this.program.key.apply(this, arguments);
+    return this.program.key.apply(this, args);
   }
 
   onceKey(...args: any[]): any {
-    return this.program.onceKey.apply(this, arguments);
+    return this.program.onceKey.apply(this, args);
   }
 
   unkey(...args: any[]): any {
-    return this.program.unkey.apply(this, arguments);
+    return this.program.unkey.apply(this, args);
   }
 
   removeKey(...args: any[]): any {
-    return this.program.removeKey.apply(this, arguments);
+    return this.program.removeKey.apply(this, args);
   }
 
   spawn(file: string, args?: any, options?: any): any {

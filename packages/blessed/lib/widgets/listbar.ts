@@ -55,7 +55,7 @@ class Listbar extends Box {
     }
 
     if (options.keys) {
-      this.on('keypress', (ch: any, key: any) => {
+      this.on('keypress', (_ch: any, key: any) => {
         if (key.name === 'left'
             || (options.vi && key.name === 'h')
             || (key.shift && key.name === 'tab')) {

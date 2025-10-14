@@ -27,7 +27,7 @@ class Checkbox extends Input {
     this.text = options.content || options.text || '';
     this.checked = this.value = options.checked || false;
 
-    this.on('keypress', (ch: string, key: any) => {
+    this.on('keypress', (_ch: string, key: any) => {
       if (key.name === 'enter' || key.name === 'space') {
         this.toggle();
         this.screen.render();

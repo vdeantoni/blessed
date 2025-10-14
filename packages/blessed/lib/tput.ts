@@ -565,8 +565,7 @@ class Tput {
                 self[key] = methods[key];
                 return;
             }
-            self[key] = function() {
-                var args = Array.prototype.slice.call(arguments);
+            self[key] = function(...args: any[]) {
                 return methods[key].call(self, args);
             };
         });
