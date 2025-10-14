@@ -8,9 +8,7 @@
  * Modules
  */
 
-import type { ListbarOptions } from '../types/options.js';
-import type { KeyEvent } from '../types/events.js';
-import type { ListElementStyle } from '../types/style.js';
+import type { KeyEvent, ListbarOptions, ListElementStyle } from '../types';
 import helpers from '../helpers.js';
 import Box from './box.js';
 

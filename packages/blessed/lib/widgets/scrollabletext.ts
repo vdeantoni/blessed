@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { ScrollableTextOptions } from '../types/options.js';
+import type { ScrollableTextOptions } from '../types';
 import ScrollableBox from './scrollablebox.js';
 
 /**

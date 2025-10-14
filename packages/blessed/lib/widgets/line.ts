@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { LineOptions } from '../types/options.js';
+import type { LineOptions } from '../types';
 import Box from './box.js';
 
 /**

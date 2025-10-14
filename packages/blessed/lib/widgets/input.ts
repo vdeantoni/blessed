@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { InputOptions } from '../types/options.js';
+import type { InputOptions } from '../types';
 import Box from './box.js';
 
 /**

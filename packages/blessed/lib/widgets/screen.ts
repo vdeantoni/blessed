@@ -8,9 +8,12 @@
  * Modules
  */
 
-import type { ScreenOptions } from '../types/options.js';
-import type { RenderCoords } from '../types/common.js';
-import type { KeyEvent, MouseEvent } from '../types/events.js';
+import type {
+  KeyEvent,
+  MouseEvent,
+  RenderCoords,
+  ScreenOptions,
+} from '../types';
 import path from 'path';
 import fs from 'fs';
 import cp from 'child_process';

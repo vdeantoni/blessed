@@ -9,7 +9,7 @@
  */
 
 import Element from './element.js';
-import type { TextOptions } from '../types/options.js';
+import type { TextOptions } from '../types';
 
 /**
  * Text

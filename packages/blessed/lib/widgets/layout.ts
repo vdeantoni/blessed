@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { LayoutOptions } from '../types/options.js';
+import type { LayoutOptions } from '../types';
 import Element from './element.js';
 
 /**

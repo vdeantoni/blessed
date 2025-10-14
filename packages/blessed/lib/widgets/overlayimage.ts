@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { OverlayImageOptions } from '../types/options.js';
+import type { OverlayImageOptions } from '../types';
 import fs from 'fs';
 import cp from 'child_process';
 import helpers from '../helpers.js';

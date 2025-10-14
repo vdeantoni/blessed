@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { ImageOptions } from '../types/options.js';
+import type { ImageOptions } from '../types';
 import Box from './box.js';
 import ANSIImage from './ansiimage.js';
 import OverlayImage from './overlayimage.js';

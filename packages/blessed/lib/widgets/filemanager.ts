@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { FileManagerOptions } from '../types/options.js';
+import type { FileManagerOptions } from '../types';
 import path from 'path';
 import fs from 'fs';
 import helpers from '../helpers.js';

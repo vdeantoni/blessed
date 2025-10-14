@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { LoadingOptions } from '../types/options.js';
+import type { LoadingOptions } from '../types';
 import Box from './box.js';
 import Text from './text.js';
 

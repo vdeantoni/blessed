@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { ANSIImageOptions } from '../types/options.js';
+import type { ANSIImageOptions } from '../types';
 import cp from 'child_process';
 import colors from '../colors.js';
 import Box from './box.js';

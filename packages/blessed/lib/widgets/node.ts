@@ -9,7 +9,7 @@
  */
 
 import { EventEmitter } from '../events.js';
-import type { NodeOptions } from '../types/options.js';
+import type { NodeOptions } from '../types';
 
 /**
  * Screen Registry - breaks circular dependency

@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { ListTableOptions } from '../types/options.js';
+import type { ListTableOptions } from '../types';
 import Box from './box.js';
 import List from './list.js';
 import Table from './table.js';

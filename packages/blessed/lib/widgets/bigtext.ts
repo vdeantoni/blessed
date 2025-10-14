@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { BigTextOptions } from '../types/options.js';
+import type { BigTextOptions } from '../types';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

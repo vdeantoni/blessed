@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { PromptOptions } from '../types/options.js';
+import type { PromptOptions } from '../types';
 import Box from './box.js';
 import Button from './button.js';
 import Textbox from './textbox.js';

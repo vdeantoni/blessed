@@ -8,8 +8,7 @@
  * Modules
  */
 
-import type { QuestionOptions } from '../types/options.js';
-import type { KeyEvent } from '../types/events.js';
+import type { KeyEvent, QuestionOptions } from '../types';
 import Box from './box.js';
 import Button from './button.js';
 

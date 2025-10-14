@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { LogOptions } from '../types/options.js';
+import type { LogOptions } from '../types';
 import util from 'util';
 import ScrollableText from './scrollabletext.js';
 

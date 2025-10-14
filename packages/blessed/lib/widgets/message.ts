@@ -8,8 +8,7 @@
  * Modules
  */
 
-import type { MessageOptions } from '../types/options.js';
-import type { KeyEvent, MouseEvent } from '../types/events.js';
+import type { KeyEvent, MessageOptions, MouseEvent } from '../types';
 import Box from './box.js';
 
 /**
