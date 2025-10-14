@@ -114,7 +114,7 @@ class EventEmitter {
     return ret !== false;
   }
 
-  emit(type: string, ...rest: any[]): boolean {
+  emit(type: string, ..._rest: any[]): boolean {
     const args = slice.call(arguments, 1);
     const params = slice.call(arguments);
     let el: any = this;

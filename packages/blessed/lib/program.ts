@@ -19,11 +19,9 @@ import colors from './colors.js';
 import { emitKeypressEvents } from './keys.js';
 import gpmclient from './gpmclient.js';
 
-const slice = Array.prototype.slice;
 const nextTick = global.setImmediate || process.nextTick.bind(process);
 
 // Cache process.env variables at module load (performance + strictNullChecks)
-const ENV_TERM = process.env.TERM || '';
 const ENV_TERM_PROGRAM = process.env.TERM_PROGRAM || '';
 const ENV_COLORTERM = process.env.COLORTERM || '';
 const ENV_VTE_VERSION = process.env.VTE_VERSION || '';
@@ -1721,7 +1719,7 @@ class Program extends EventEmitter {
         this._buf = '';
     };
 
-    _write(text: string, attr?: any) {
+    _write(text: string, _attr?: any) {
         if (this.ret) return text;
         if (this.useBuffer) {
             return this._buffer(text);

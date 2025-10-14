@@ -457,7 +457,7 @@ class ImageRenderer {
   /**
    * Get ASCII art character based on luminance (from libcaca)
    */
-  getOutch(x: number, y: number, line: Pixel[], pixel: Pixel): string {
+  getOutch(_x: number, _y: number, _line: Pixel[], pixel: Pixel): string {
     const dchars = '????8@8@#8@8##8#MKXWwz$&%x><\\/xo;+=|^-:i\'.`,  `.        ';
 
     const a = pixel.a / 255;
@@ -633,14 +633,6 @@ class ImageRenderer {
     }
 
     return this._curBmp;
-  }
-
-  /**
-   * Debug logging
-   */
-  private _debug(...args: any[]): void {
-    if (!this.options.log) return;
-    this.options.log(...args);
   }
 }
 

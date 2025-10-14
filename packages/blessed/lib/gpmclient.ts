@@ -101,7 +101,7 @@ function parseEvent(raw: Buffer): any {
 class GpmClient extends EventEmitter {
   gpm?: any;
 
-  constructor(options: any = {}) {
+  constructor(_options: any = {}) {
     super();
 
     const pid = process.pid;

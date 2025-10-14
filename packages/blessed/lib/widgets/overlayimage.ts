@@ -12,7 +12,6 @@ import type { OverlayImageOptions } from '../types/options.js';
 import fs from 'fs';
 import cp from 'child_process';
 import helpers from '../helpers.js';
-import Node from './node.js';
 import Box from './box.js';
 
 /**
