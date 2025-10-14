@@ -25,6 +25,17 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
  * Element
  */
 
+/**
+ * Wrapped content array with metadata
+ */
+interface WrappedContent extends Array<string> {
+  rtof: number[];
+  ftor: number[][];
+  fake: string[];
+  real: string[];
+  mwidth: number;
+}
+
 class Element extends Node {
   type = 'element';
 
@@ -174,8 +185,10 @@ class Element extends Node {
         border = options.border;
       }
       border.type = border.type || 'bg';
+      // 'ascii' is a legacy alias for 'line'
       if (border.type === 'ascii' as any) border.type = 'line';
       border.ch = border.ch || ' ';
+      // Backward compat: old Border objects may have had a 'style' property
       this.style.border = this.style.border || (border as any).style;
       if (!this.style.border) {
         this.style.border = {};
@@ -681,14 +694,14 @@ class Element extends Node {
     return line;
   }
 
-  _wrapContent(content: string, width: number): any {
+  _wrapContent(content: string, width: number): WrappedContent {
     const tags = this.parseTags;
     let state = this.align;
     const wrap = this.wrap;
     let margin = 0;
     const rtof: any[] = [];
     const ftor: any[] = [];
-    const out: any[] = [];
+    const out: string[] = [];
     let no = 0;
     let line: string;
     let align: any;
@@ -704,12 +717,13 @@ class Element extends Node {
 
     if (!content) {
       out.push(content);
-      (out as any).rtof = [0];
-      (out as any).ftor = [[0]];
-      (out as any).fake = lines;
-      (out as any).real = out;
-      (out as any).mwidth = 0;
-      return out;
+      const wrappedOut = out as WrappedContent;
+      wrappedOut.rtof = [0];
+      wrappedOut.ftor = [[0]];
+      wrappedOut.fake = lines;
+      wrappedOut.real = out;
+      wrappedOut.mwidth = 0;
+      return wrappedOut;
     }
 
     if (this.scrollbar) margin++;
@@ -829,19 +843,20 @@ main:
       rtof.push(no);
     }
 
-    (out as any).rtof = rtof;
-    (out as any).ftor = ftor;
-    (out as any).fake = lines;
-    (out as any).real = out;
+    const wrappedOut = out as WrappedContent;
+    wrappedOut.rtof = rtof;
+    wrappedOut.ftor = ftor;
+    wrappedOut.fake = lines;
+    wrappedOut.real = out;
 
-    (out as any).mwidth = out.reduce((current: number, line: string) => {
+    wrappedOut.mwidth = out.reduce((current: number, line: string) => {
       line = line.replace(/\x1b\[[\d;]*m/g, '');
       return line.length > current
         ? line.length
         : current;
     }, 0);
 
-    return out;
+    return wrappedOut;
   }
 
   get visible(): boolean {
