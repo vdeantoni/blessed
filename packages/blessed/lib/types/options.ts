@@ -134,7 +134,12 @@ export interface ElementOptions extends NodeOptions, ScrollableOptions {
   invisible?: boolean;
 
   /**
-   * Transparent background (uses parent's background).
+   * Lower element opacity to 50% using naive color blending.
+   * Displays dimmed content with parent's background visible behind it.
+   * Works best with 256-color terminals.
+   *
+   * @example
+   * const box = blessed.box({ transparent: true });
    */
   transparent?: boolean;
 
@@ -289,6 +294,10 @@ export interface ElementOptions extends NodeOptions, ScrollableOptions {
 
   /**
    * Draw a translucent offset shadow behind the element.
+   * Automatically darkens the background behind the shadow.
+   *
+   * @example
+   * const box = blessed.box({ shadow: true });
    */
   shadow?: boolean;
 
@@ -298,7 +307,12 @@ export interface ElementOptions extends NodeOptions, ScrollableOptions {
   noOverflow?: boolean;
 
   /**
-   * Automatically "dock" borders with other elements instead of overlapping.
+   * Automatically "dock" borders with adjacent elements.
+   * Instead of overlapping, borders connect seamlessly to neighboring elements.
+   *
+   * @example
+   * const box1 = blessed.box({ dockBorders: true, top: 0, left: 0, width: 10, height: 5 });
+   * const box2 = blessed.box({ dockBorders: true, top: 0, left: 10, width: 10, height: 5 });
    */
   dockBorders?: boolean;
 
