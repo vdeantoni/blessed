@@ -258,8 +258,8 @@ class Node extends EventEmitter {
   }
 
   /**
-   * Same as the detach() method, except this will automatically call free() and
-   * unbind any screen events to prevent memory leaks.
+   * Same as the detach() method, except this will automatically call free() and unbind any screen
+   * events to prevent memory leaks. For use with onScreenEvent(), removeScreenEvent(), and free().
    */
   destroy(): void {
     this.detach();
