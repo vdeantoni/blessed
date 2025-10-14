@@ -25,6 +25,9 @@ jobs:
     - name: Install dependencies
       run: pnpm install --frozen-lockfile
 
+    - name: Install Playwright Browsers
+      run: pnpm --filter blessed-browser exec playwright install --with-deps chromium
+
     - name: Setup Turbo cache
       uses: actions/cache@v4
       with:
