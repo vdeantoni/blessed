@@ -9,7 +9,7 @@
  */
 
 import { EventEmitter } from '../events.js';
-import type { INodeOptions } from '../types/options.js';
+import type { NodeOptions } from '../types/options.js';
 
 /**
  * Screen Registry - breaks circular dependency
@@ -32,7 +32,7 @@ class Node extends EventEmitter {
   static ScreenRegistry = ScreenRegistry; // Expose for Screen to use
 
   type = 'node';
-  options: INodeOptions;
+  options: NodeOptions;
   /**
    * Reference to the parent Screen instance.
    * Type: Screen (subclass of Node)
@@ -79,7 +79,7 @@ class Node extends EventEmitter {
   detached?: boolean;
   destroyed?: boolean;
 
-  constructor(options: INodeOptions = {}) {
+  constructor(options: NodeOptions = {}) {
     super();
 
     this.options = options;

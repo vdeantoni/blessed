@@ -11,7 +11,7 @@ export type Screen = any;
 export type Node = any;
 export type BlessedElement = any;
 
-export interface INodeOptions {
+export interface NodeOptions {
   name?: string;
   screen?: Screen;
   parent?: Node;
@@ -56,7 +56,7 @@ export interface ScrollableOptions {
   ignoreKeys?: boolean | string[];
 }
 
-export interface ElementOptions extends INodeOptions, ScrollableOptions {
+export interface ElementOptions extends NodeOptions, ScrollableOptions {
   tags?: boolean;
   parseTags?: boolean;
   fg?: string;
@@ -302,7 +302,7 @@ export interface LayoutOptions extends ElementOptions {
   layout?: "inline" | "inline-block" | "grid";
 }
 
-export interface IScreenOptions extends INodeOptions {
+export interface ScreenOptions extends NodeOptions {
   program?: any;
   smartCSR?: boolean;
   fastCSR?: boolean;

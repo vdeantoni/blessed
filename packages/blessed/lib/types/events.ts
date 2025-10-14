@@ -9,7 +9,7 @@ import type { TMouseAction } from './common.js';
  * Mouse event argument passed to mouse event handlers.
  * Contains information about the mouse action and position.
  */
-export interface IMouseEventArg {
+export interface MouseEvent {
   /** X coordinate of the mouse event (column) */
   x: number;
   /** Y coordinate of the mouse event (row) */
@@ -28,7 +28,7 @@ export interface IMouseEventArg {
  * Key event argument passed to keypress event handlers.
  * Contains information about the key that was pressed including modifiers.
  */
-export interface IKeyEventArg {
+export interface KeyEvent {
   /** Full key sequence (e.g., "C-c", "escape", "a") */
   full: string;
   /** Name of the key (e.g., "c", "escape", "return") */
@@ -42,16 +42,6 @@ export interface IKeyEventArg {
   /** Raw escape sequence received from the terminal */
   sequence: string;
 }
-
-/**
- * Type alias for mouse event. Same as IMouseEventArg.
- */
-export type MouseEvent = IMouseEventArg;
-
-/**
- * Type alias for key event. Same as IKeyEventArg.
- */
-export type KeyEvent = IKeyEventArg;
 
 /**
  * Node event types that can be emitted by Node elements.
