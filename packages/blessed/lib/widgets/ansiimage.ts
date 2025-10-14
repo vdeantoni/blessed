@@ -1,7 +1,5 @@
 /**
  * ansiimage.ts - render PNGS/GIFS as ANSI
- * Copyright (c) 2013-2015, Christopher Jeffrey and contributors (MIT License).
- * https://github.com/chjj/blessed
  */
 
 /**

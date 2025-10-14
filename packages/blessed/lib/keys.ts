@@ -1,7 +1,6 @@
 /**
  * keys.ts - emit key presses
  * Copyright (c) 2010-2015, Joyent, Inc. and other contributors (MIT License)
- * https://github.com/chjj/blessed
  */
 
 // Originally taken from the node.js tree:
