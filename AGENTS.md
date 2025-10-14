@@ -432,8 +432,8 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
   ↓
 1.0.0-alpha.1 (Phase 2 complete, starting Phase 3)
 1.0.0-alpha.18 (Phase 3A complete - TypeScript conversion + monorepo!)
-1.0.0-alpha.19 (Scrollable mixin TypeScript conversion) ← YOU ARE HERE
-1.0.0-alpha.x (Phase 3B: strict types)
+1.0.0-alpha.19 (Phase 3B complete + Phase 3C.1 complete - JSDoc & type refinement) ← YOU ARE HERE
+1.0.0-alpha.x (Phase 3C.2: advanced typing - optional)
   ↓
 1.0.0-beta.1 (Phase 4: Polish & performance)
 1.0.0-beta.x (stabilization, docs, testing)
@@ -733,10 +733,10 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 
 ### **Phase 3C: Type Refinement** ✅ **PHASE 3C.1 COMPLETE**
 
-- **Goal:** Replace `any` types with proper TypeScript interfaces where feasible
-- **Strategy:** Incremental approach focusing on low-risk, high-value type improvements
-- **Duration:** 2-3 weeks (Phase 3C.1 complete)
-- **Status:** ✅ Phase 3C.1 complete (100+ any types replaced)
+- **Goal:** Replace `any` types with proper TypeScript interfaces + add comprehensive JSDoc
+- **Strategy:** Incremental approach focusing on low-risk, high-value improvements
+- **Duration:** 5 weeks (Phase 3C.1 complete)
+- **Status:** ✅ Phase 3C.1 complete (110+ any types replaced, 600+ JSDoc comments added)
 
 #### **Phase 3C.1: Low-Hanging Fruit** ✅ **COMPLETE**
 
@@ -771,32 +771,58 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
   - `border?: any` → `Border`
 - ✅ Added JSDoc to strategic `any` types (node.ts, style.ts)
 
+**Week 4: Comprehensive JSDoc from @types/blessed** ✅ **(600+ comments)**
+- ✅ Added complete JSDoc from community @types/blessed appendix:
+  - Node.ts: 30 method/property comments (destroy, traversal, insertion)
+  - Program.ts: 33 comments including cursor methods (cursorShape, cursorColor, resetCursor)
+  - Scrollable mixin: 9 method comments (scroll, scrollTo, getScrollHeight)
+  - Element.ts: Enhanced JSDoc for render, positioning, content methods
+  - Widget files: Complete JSDoc for all public APIs (35+ files)
+  - Options types: Detailed property descriptions (LayoutOptions, ANSIImageOptions, OverlayImageOptions)
+  - Event descriptions: @fires tags for all widget events
+- ✅ Enhanced ANSIImageOptions with 8 detailed property descriptions
+- ✅ Fixed OverlayImageOptions w3m property (search behavior documented)
+- ✅ Strategic documentation for intentional `any` types
+
+**Week 5: Additional Type Improvements** ✅ **(~10 replacements)**
+- ✅ Improved Style interface types:
+  - `bar?: any` → `bar?: Partial<Style>` (ProgressBar fill style)
+  - `prefix?: any` → `prefix?: Partial<Style>` (Listbar prefix style)
+- ✅ Created WrappedContent interface for _wrapContent return type
+- ✅ Improved List style copying with typed StyleKey
+- ✅ Replaced 5 instances of `(out as any).property` → typed interface access
+- ✅ Added JSDoc explanations for remaining strategic `any` types
+
 **Strategic `any` Usage (Documented with JSDoc):**
 Following community @types/blessed patterns, kept as `any` with explanations:
 - Widget hierarchy (screen, parent, children) - circular dependencies
 - Position system - complex internal calculations
 - Dynamic style properties (selected, item, header, cell) - intentional flexibility
+- Legacy compatibility (border.style, border.type checks)
 
 **Results:**
 - ✅ 100+ `any` types replaced (~15% reduction)
+- ✅ 600+ JSDoc comments added from @types/blessed appendix
 - ✅ Zero TypeScript compilation errors
-- ✅ All 1,588 blessed tests passing
-- ✅ All 189 blessed-browser e2e tests passing
-- ✅ Better developer experience (autocomplete, type safety)
+- ✅ All 1,638 blessed tests passing
+- ✅ Better developer experience (autocomplete, inline documentation, type safety)
 - ✅ Strategic documentation for remaining `any` types
+- ✅ Comprehensive API documentation matching community standards
 
-**Files Modified (20 files):**
-- Types: common.ts, events.ts, style.ts
-- Widgets: 14 widget files (button, checkbox, form, list, etc.)
-- Mixins: scrollable.ts
+**Files Modified (45+ files):**
+- Types: common.ts, events.ts, style.ts, options.ts
+- Core: node.ts, program.ts, screen.ts, element.ts, widget.ts
+- Widgets: 35+ widget files with complete JSDoc
+- Mixins: scrollable.ts (complete type definitions + JSDoc)
 - Documentation: PHASE_3C_STRATEGY.md
 
 **Completion Criteria:**
-- [x] 100-150 `any` → proper types ✅ (100+ achieved)
+- [x] 100-150 `any` → proper types ✅ (110+ achieved)
 - [x] All non-hierarchical `any` replaced ✅
+- [x] Comprehensive JSDoc from @types/blessed ✅ (600+ comments)
 - [x] Better developer experience ✅
 - [x] Zero new bugs/regressions ✅
-- [x] All 1,588 tests passing ✅
+- [x] All 1,638 tests passing ✅
 - [x] Strategic `any` documented with JSDoc ✅
 
 **Next Steps:** Phase 3C.2 (Optional - Advanced Typing)
@@ -852,11 +878,14 @@ Following community @types/blessed patterns, kept as `any` with explanations:
 - [x] All tests passing throughout conversion ✅ (1,600/1,600)
 - [x] API surface unchanged ✅ (100% backward compatible)
 - [x] Test coverage maintained ✅ (50.78%)
-- [ ] No use of `any` type except where absolutely necessary ⏳ (Phase 3B)
+- [x] No use of `any` type except where absolutely necessary ✅ (Phase 3C - 110+ types improved, strategic any documented)
 
 **Phase 3 Overall Status:**
 - ✅ **Phase 3A COMPLETE** - TypeScript conversion done
-- 📅 **Phase 3B NEXT** - Strict type refinement
+- ✅ **Phase 3B COMPLETE** - All 8 strict flags enabled (290 errors fixed)
+- ✅ **Phase 3C.1 COMPLETE** - Type refinement + comprehensive JSDoc (600+ comments)
+- 📅 **Phase 3C.2 OPTIONAL** - Advanced typing (only if user demand)
+- 📅 **Phase 4 NEXT** - Performance optimization
 
 ---
 
