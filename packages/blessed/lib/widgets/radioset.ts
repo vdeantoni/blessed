@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { RadioSetOptions } from '../types/options.js';
+import type { RadioSetOptions } from '../types';
 import Box from './box.js';
 
 /**

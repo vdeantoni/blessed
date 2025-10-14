@@ -13,11 +13,20 @@ import colors from '../colors.js';
 import unicode from '../unicode.js';
 import helpers from '../helpers.js';
 import Node from './node.js';
-import { makeScrollable, type ScrollableMethods } from '../mixins/scrollable.js';
-import type { ElementOptions, ScrollbarConfig, TrackConfig } from '../types/options.js';
-import type { RenderCoords, Padding, Border } from '../types/common.js';
-import type { MouseEvent } from '../types/events.js';
-import type { Style } from '../types/style.js';
+import {
+  makeScrollable,
+  type ScrollableMethods,
+} from '../mixins/scrollable.js';
+import type {
+  Border,
+  ElementOptions,
+  MouseEvent,
+  Padding,
+  RenderCoords,
+  ScrollbarConfig,
+  Style,
+  TrackConfig,
+} from '../types';
 
 const nextTick = global.setImmediate || process.nextTick.bind(process);
 

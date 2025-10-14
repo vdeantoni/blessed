@@ -7,7 +7,7 @@ vi.mock('@vdeantoni/blessed', () => ({
 }));
 
 // Now import XTermAdapter
-import { XTermAdapter } from '../../../src/adapters/xterm-adapter';
+import { XTermAdapter } from '../../../src';
 
 // Mock xterm.js Terminal
 class MockTerminal extends EventEmitter {

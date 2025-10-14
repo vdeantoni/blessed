@@ -4,8 +4,8 @@
  * https://github.com/chjj/blessed
  */
 
-import type { ScrollableOptions } from '../types/options.js';
-import type { RenderCoords } from '../types/common.js';
+import type { ScrollableOptions } from '../types';
+import type { RenderCoords } from '../types';
 
 /**
  * Scrollable Mixin

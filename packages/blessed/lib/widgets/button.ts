@@ -8,8 +8,7 @@
  * Modules
  */
 
-import type { ButtonOptions } from '../types/options.js';
-import type { KeyEvent } from '../types/events.js';
+import type { ButtonOptions, KeyEvent } from '../types';
 import Input from './input.js';
 
 /**

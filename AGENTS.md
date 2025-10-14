@@ -432,11 +432,12 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
   ↓
 1.0.0-alpha.1 (Phase 2 complete, starting Phase 3)
 1.0.0-alpha.18 (Phase 3A complete - TypeScript conversion + monorepo!)
-1.0.0-alpha.19 (Phase 3B complete + Phase 3C.1 complete - JSDoc & type refinement) ← YOU ARE HERE
-1.0.0-alpha.x (Phase 3C.2: advanced typing - optional)
+1.0.0-alpha.19 (Phase 3B + 3C.1 complete - strict types + JSDoc) ← YOU ARE HERE
   ↓
-1.0.0-beta.1 (Phase 4: Polish & performance)
-1.0.0-beta.x (stabilization, docs, testing)
+1.0.0-alpha.x (Phase 6: @tux architecture - @tux/core, @tux/node, @tux/browser, @tux/blessed)
+  ↓
+1.0.0-beta.1 (Phase 6 complete, starting stabilization)
+1.0.0-beta.x (Phase 4: Performance optimization + Phase 5: Polish)
   ↓
 1.0.0 (Production release! 🚀)
 ```
@@ -444,9 +445,10 @@ Averaged across 4 benchmark runs on macOS arm64, Node.js v24.9.0:
 **Rationale:**
 - Original blessed never reached 1.0.0 despite being production-ready
 - This modernization effort IS the 1.0 release blessed deserves
-- Alpha signals "TypeScript conversion complete, adding strict types"
+- @tux architecture included in 1.0.0 (new packages, modern structure)
+- Alpha signals "major architectural work in progress"
 - Beta signals "feature complete, stabilizing for production"
-- Saves 2.0.0 for future major architectural changes
+- Saves 2.0.0 for future major breaking changes
 
 **Publishing:**
 - Alpha releases: `pnpm publish --tag alpha`
@@ -830,6 +832,9 @@ Following community @types/blessed patterns, kept as `any` with explanations:
 - Discriminated unions for type safety
 - Only pursue if user demand exists
 
+**Cleanup:**
+- ✅ PHASE_3C_STRATEGY.md can be removed (strategy complete, outcomes documented)
+
 ---
 
 #### Original Conversion Order (Safest → Riskiest)
@@ -885,15 +890,18 @@ Following community @types/blessed patterns, kept as `any` with explanations:
 - ✅ **Phase 3B COMPLETE** - All 8 strict flags enabled (290 errors fixed)
 - ✅ **Phase 3C.1 COMPLETE** - Type refinement + comprehensive JSDoc (600+ comments)
 - 📅 **Phase 3C.2 OPTIONAL** - Advanced typing (only if user demand)
-- 📅 **Phase 4 NEXT** - Performance optimization
+- 📍 **Phase 6 NEXT** - @tux Architecture (platform-agnostic core)
+- ⏸️ **Phase 4 DEFERRED** - Performance optimization (after @tux)
 
 ---
 
-### **Phase 4: Performance Optimization**
+### **Phase 4: Performance Optimization** ⏸️ **DEFERRED**
 
 - **Goal:** Use established benchmarks to identify and fix performance issues.
 - **Complexity:** Medium-High
 - **Duration:** 2-3 weeks
+- **Status:** ⏸️ Deferred - Will execute after Phase 6 (@tux architecture)
+- **Rationale:** @tux architecture is higher priority for browser support and platform flexibility
 
 | Task | Description | Complexity |
 |------|-------------|------------|
@@ -912,11 +920,12 @@ Following community @types/blessed patterns, kept as `any` with explanations:
 
 ---
 
-### **Phase 5: Polish & Release Preparation**
+### **Phase 5: Polish & Release Preparation** ⏸️ **DEFERRED**
 
 - **Goal:** Finalize the modernized library for release.
 - **Complexity:** Medium
 - **Duration:** 2 weeks
+- **Status:** ⏸️ Deferred - Will execute after Phase 6 and Phase 4
 
 | Task | Description | Complexity |
 |------|-------------|------------|
@@ -937,14 +946,14 @@ Following community @types/blessed patterns, kept as `any` with explanations:
 
 ---
 
-### **Phase 6: @tux Architecture - Platform-Agnostic Core**
+### **Phase 6: @tux Architecture - Platform-Agnostic Core** 📍 **NEXT**
 
 - **Goal:** Refactor into platform-agnostic architecture with runtime dependency injection
 - **Complexity:** High
 - **Duration:** 6-8 weeks
 - **Priority:** High - Required for browser support and future platforms
-- **Status:** 📋 Planned (execute after Phase 3B completion)
-- **Prerequisites:** Phase 3B complete (full TypeScript strict mode)
+- **Status:** 📍 **READY TO START** - All prerequisites met (Phase 3B complete ✅)
+- **Prerequisites:** ✅ Phase 3B complete (full TypeScript strict mode)
 
 #### Background & Motivation
 
@@ -1939,13 +1948,14 @@ For full blessed functionality:
 ## 9. Questions & Answers
 
 ### How long will this take?
-- Phase 0: 1 week
-- Phase 1: 3-4 weeks (most critical)
-- Phase 2: 1-2 weeks
-- Phase 3: 6-8 weeks
-- Phase 4: 2-3 weeks
-- Phase 5: 2 weeks
-- **Total: ~4-5 months** for core modernization
+- Phase 0: ✅ 1 week (DONE)
+- Phase 1: ✅ 3-4 weeks (DONE - most critical)
+- Phase 2: ✅ 1-2 weeks (DONE)
+- Phase 3: ✅ 14-20 weeks (DONE - 3A, 3B, 3C.1)
+- **Phase 6: 6-8 weeks (IN PROGRESS - @tux architecture)**
+- Phase 4: 2-3 weeks (DEFERRED - performance)
+- Phase 5: 2 weeks (DEFERRED - polish)
+- **Total: ~7-9 months** for core modernization + @tux architecture
 
 ### Can we skip testing and go straight to TypeScript?
 **No.** This is the most critical mistake to avoid. Without tests:

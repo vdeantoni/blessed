@@ -8,9 +8,10 @@
  * Modules
  */
 
-import type { TerminalOptions } from '../types/options.js';
+import type { TerminalOptions } from '../types';
 import Box from './box.js';
 import { createRequire } from 'module';
+
 const require = createRequire(import.meta.url);
 
 const nextTick = global.setImmediate || process.nextTick.bind(process);

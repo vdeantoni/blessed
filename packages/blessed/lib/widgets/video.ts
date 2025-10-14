@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { VideoOptions } from '../types/options.js';
+import type { VideoOptions } from '../types';
 import cp from 'child_process';
 import Box from './box.js';
 import Terminal from './terminal.js';

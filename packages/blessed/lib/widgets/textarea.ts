@@ -8,8 +8,7 @@
  * Modules
  */
 
-import type { TextareaOptions } from '../types/options.js';
-import type { KeyEvent, MouseEvent } from '../types/events.js';
+import type { KeyEvent, MouseEvent, TextareaOptions } from '../types';
 import unicode from '../unicode.js';
 import Input from './input.js';
 

@@ -9,7 +9,7 @@
  */
 
 import Element from './element.js';
-import type { BoxOptions } from '../types/options.js';
+import type { BoxOptions } from '../types';
 
 /**
  * Box

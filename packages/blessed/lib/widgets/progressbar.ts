@@ -8,9 +8,7 @@
  * Modules
  */
 
-import type { ProgressBarOptions } from '../types/options.js';
-import type { KeyEvent, MouseEvent } from '../types/events.js';
-import type { ProgressBarStyle } from '../types/style.js';
+import type { KeyEvent, MouseEvent, ProgressBarOptions, ProgressBarStyle } from '../types';
 import Input from './input.js';
 
 /**

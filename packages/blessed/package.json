@@ -68,11 +68,6 @@
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
-  "browserify": {
-    "transform": [
-      "./browser/transform.js"
-    ]
-  },
   "devDependencies": {
     "@eslint/js": "^9.37.0",
     "@types/node": "24.6.2",

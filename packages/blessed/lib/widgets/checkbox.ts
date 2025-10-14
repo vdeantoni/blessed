@@ -8,8 +8,7 @@
  * Modules
  */
 
-import type { CheckboxOptions } from '../types/options.js';
-import type { KeyEvent } from '../types/events.js';
+import type { CheckboxOptions, KeyEvent } from '../types';
 import Input from './input.js';
 
 /**

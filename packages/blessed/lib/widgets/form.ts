@@ -8,8 +8,7 @@
  * Modules
  */
 
-import type { FormOptions } from '../types/options.js';
-import type { KeyEvent } from '../types/events.js';
+import type { FormOptions, KeyEvent } from '../types';
 import Box from './box.js';
 
 /**

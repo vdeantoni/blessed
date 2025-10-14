@@ -8,8 +8,7 @@
  * Modules
  */
 
-import type { TableOptions } from '../types/options.js';
-import type { StyleListTable } from '../types/style.js';
+import type { StyleListTable, TableOptions } from '../types';
 import Box from './box.js';
 
 /**

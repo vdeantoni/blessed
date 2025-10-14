@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { RadioButtonOptions } from '../types/options.js';
+import type { RadioButtonOptions } from '../types';
 import Checkbox from './checkbox.js';
 
 /**
