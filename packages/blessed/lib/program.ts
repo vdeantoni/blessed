@@ -201,10 +201,16 @@ class Program extends EventEmitter {
 
     type = 'program';
 
+    /**
+     * Write to the log file if one was created.
+     */
     log(...args: any[]) {
         return this._log('LOG',  util.format(...args));
     };
 
+    /**
+     * Same as the log method, but only gets called if the debug option was set.
+     */
     debug(...args: any[]) {
         if (!this.options.debug) return undefined;
         return this._log('DEBUG',  util.format(...args));
@@ -215,6 +221,9 @@ class Program extends EventEmitter {
         return this._logger.write(pre + ': ' + msg + '\n-\n');
     };
 
+    /**
+     * Set up dump logging. Dumps all input and output to the log file.
+     */
     setupDump() {
         const write = this.output.write;
         const decoder = new StringDecoder('utf8');
@@ -286,6 +295,9 @@ class Program extends EventEmitter {
         };
     };
 
+    /**
+     * Set up the terminfo database. Creates the tput object for terminal capability queries.
+     */
     setupTput() {
         if (this._tputSetup) return;
         this._tputSetup = true;
@@ -354,22 +366,34 @@ class Program extends EventEmitter {
     }
 
 
+    /**
+     * Set the terminal type. Reloads terminfo.
+     */
     setTerminal(terminal: string) {
         this._terminal = terminal.toLowerCase();
         delete this._tputSetup;
         this.setupTput();
     };
 
+    /**
+     * Check if the terminal has a specific capability.
+     */
     has(name: string) {
         return this.tput
             ? this.tput.has(name)
             : false;
     };
 
+    /**
+     * Check if the current terminal is of a specific type.
+     */
     term(is: string) {
         return this.terminal.indexOf(is) === 0;
     };
 
+    /**
+     * Initialize the program. Sets up input and output listeners.
+     */
     listen() {
         // Potentially reset window title on exit:
         // if (!this.isRxvt) {
@@ -1676,6 +1700,9 @@ class Program extends EventEmitter {
             : this._twrite(text);
     };
 
+    /**
+     * Write text to the output stream.
+     */
     write(text: string) {
         if (!this.output.writable) return undefined;
         return this.output.write(text);
@@ -1705,6 +1732,9 @@ class Program extends EventEmitter {
         return true;
     };
 
+    /**
+     * Flush the output buffer.
+     */
     flush() {
         if (!this._buf) return;
         this._owrite(this._buf);
@@ -1756,6 +1786,9 @@ class Program extends EventEmitter {
         return this._write(data);
     };
 
+    /**
+     * Print text with optional attributes. Alias for write().
+     */
     print(text: string, attr?: any) {
         return attr
             ? this._write(this.text(text, attr))
@@ -1769,19 +1802,31 @@ class Program extends EventEmitter {
         else if (this.y >= this.rows) this.y = this.rows - 1;
     };
 
+    /**
+     * Set the absolute x position of the cursor.
+     */
     setx(x: number) {
         return this.cursorCharAbsolute(x);
         // return this.charPosAbsolute(x);
     };
 
+    /**
+     * Set the absolute y position of the cursor.
+     */
     sety(y: number) {
         return this.linePosAbsolute(y);
     };
 
+    /**
+     * Move the cursor to the given absolute position.
+     */
     move(x: number, y: number) {
         return this.cursorPos(y, x);
     };
 
+    /**
+     * Move the cursor to the given absolute position (optimized).
+     */
     // TODO: Fix cud and cuu calls.
     omove(x: number, y: number) {
         if (!this.zero) {
@@ -1812,6 +1857,9 @@ class Program extends EventEmitter {
         }
     };
 
+    /**
+     * Move cursor relatively on the x axis.
+     */
     rsetx(x: number) {
         // return this.HPositionRelative(x);
         if (!x) return;
@@ -1820,6 +1868,9 @@ class Program extends EventEmitter {
             : this.back(-x);
     };
 
+    /**
+     * Move cursor relatively on the y axis.
+     */
     rsety(y: number) {
         // return this.VPositionRelative(y);
         if (!y) return;
@@ -1828,15 +1879,24 @@ class Program extends EventEmitter {
             : this.down(-y);
     };
 
+    /**
+     * Move cursor relatively by x and y.
+     */
     rmove(x: number, y: number) {
         this.rsetx(x);
         this.rsety(y);
     };
 
+    /**
+     * Insert a character at the current position.
+     */
     simpleInsert(ch: string, i?: number, attr?: any) {
         return this._write(this.repeat(ch, i || 0), attr);
     };
 
+    /**
+     * Repeat a character i times.
+     */
     repeat(ch: string, i: number) {
         if (!i || i < 0) i = 0;
         return Array(i + 1).join(ch);
@@ -1855,6 +1915,9 @@ class Program extends EventEmitter {
     //  if (!screen.copyToClipboard(text)) {
     //    execClipboardProgram(text);
     //  }
+    /**
+     * Copy text to clipboard (iTerm2 only). Returns true if successful.
+     */
     copyToClipboard(text: string) {
         if (this.isiTerm2) {
             this._twrite('\x1b]50;CopyToCliboard=' + text + '\x07');
@@ -2544,6 +2607,11 @@ class Program extends EventEmitter {
         return this._write(this._attr(param, val) || '');
     };
 
+    /**
+     * Wrap the given text in terminal formatting codes corresponding to the given attribute
+     * name. The `attr` string can be of the form `red fg` or `52 bg` where `52` is a 0-255
+     * integer color number.
+     */
     text(text: string, attr: string | string[]) {
         return this._attr(attr, true) + text + this._attr(attr, false);
     };

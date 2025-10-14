@@ -93,10 +93,34 @@ class ListTable extends List {
     return Table.prototype._calculateMaxes.call(this);
   }
 
+  /**
+   * Set the rows in the table (alias for setData).
+   *
+   * @param rows - Array of row arrays (first row is header, rest are data rows)
+   * @example
+   * listTable.setRows([
+   *   ['Name', 'Age', 'City'],
+   *   ['Alice', '30', 'NYC'],
+   *   ['Bob', '25', 'SF']
+   * ]);
+   */
   setRows(rows: any) {
     return this.setData(rows);
   }
 
+  /**
+   * Set the rows in the table.
+   * First row becomes the header, remaining rows become selectable list items.
+   * Cells are automatically aligned and padded based on the align option.
+   *
+   * @param rows - Array of row arrays (first row is header, rest are data rows)
+   * @example
+   * listTable.setData([
+   *   ['Name', 'Age', 'City'],    // Header row
+   *   ['Alice', '30', 'NYC'],      // Data row 1
+   *   ['Bob', '25', 'SF']          // Data row 2
+   * ]);
+   */
   setData(rows: any) {
     const align = this.__align;
     const selected = this.selected;

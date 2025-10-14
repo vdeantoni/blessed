@@ -98,6 +98,19 @@ class Table extends Box {
     }
   }
 
+  /**
+   * Set the rows in the table.
+   * Replaces all existing rows with the provided data.
+   * Each row is an array of cell strings.
+   *
+   * @param rows - Array of row arrays (each row is an array of cell strings)
+   * @example
+   * table.setData([
+   *   ['Name', 'Age', 'City'],
+   *   ['Alice', '30', 'NYC'],
+   *   ['Bob', '25', 'SF']
+   * ]);
+   */
   setData(rows: any[][]): void {
     let text = '';
     const align = this.align;
@@ -158,6 +171,16 @@ class Table extends Box {
     this.align = savedAlign;
   }
 
+  /**
+   * Set the rows in the table (alias for setData).
+   * Replaces all existing rows with the provided data.
+   *
+   * @example
+   * table.setRows([
+   *   ['Header 1', 'Header 2'],
+   *   ['Cell 1', 'Cell 2']
+   * ]);
+   */
   get setRows(): (rows: any[][]) => void {
     return this.setData;
   }

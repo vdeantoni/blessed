@@ -57,6 +57,19 @@ class Question extends Box {
     });
   }
 
+  /**
+   * Ask a question and wait for yes/no response.
+   * Displays Okay and Cancel buttons. Returns true for yes, false for no.
+   * Accepts y, n, enter, escape, q keys for responses.
+   *
+   * @param text - Question text to display
+   * @param callback - Callback function receiving (err, result) where result is boolean
+   * @example
+   * question.ask('Are you sure?', (err, result) => {
+   *   if (err) return console.error(err);
+   *   if (result) console.log('User confirmed');
+   * });
+   */
   ask(text: string, callback: (err: any, data: boolean) => void): void {
     let press: any, okay: any, cancel: any;
 

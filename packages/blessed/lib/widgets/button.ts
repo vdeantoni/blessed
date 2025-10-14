@@ -40,6 +40,18 @@ class Button extends Input {
     }
   }
 
+  /**
+   * Press the button.
+   * Focuses the button, sets value to true, emits 'press' event, then deletes value.
+   * Triggered by Enter, Space, or mouse click.
+   *
+   * @returns Result of emitting the 'press' event
+   * @example
+   * button.on('press', () => {
+   *   console.log('Button pressed!');
+   * });
+   * button.press();
+   */
   press(): any {
     this.focus();
     this.value = true;

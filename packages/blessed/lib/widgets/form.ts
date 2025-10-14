@@ -20,6 +20,15 @@ class Form extends Box {
   type = 'form';
   _children: any;
   _selected: any;
+  /**
+   * The last data submitted by the form.
+   * Contains values from all form elements (textboxes, checkboxes, etc.).
+   *
+   * @example
+   * form.on('submit', () => {
+   *   console.log(form.submission);
+   * });
+   */
   submission: any;
 
   constructor(options: FormOptions = {}) {
@@ -132,11 +141,25 @@ class Form extends Box {
     return this._selected;
   }
 
+  /**
+   * Focus the next form element.
+   * Cycles through all visible and keyable child elements.
+   *
+   * @example
+   * form.focusNext();
+   */
   focusNext() {
     const next = this.next();
     if (next) next.focus();
   }
 
+  /**
+   * Focus the previous form element.
+   * Cycles through all visible and keyable child elements.
+   *
+   * @example
+   * form.focusPrevious();
+   */
   focusPrevious() {
     const previous = this.previous();
     if (previous) previous.focus();
@@ -156,6 +179,18 @@ class Form extends Box {
     this.focusPrevious();
   }
 
+  /**
+   * Submit the form.
+   * Collects values from all child elements and emits a 'submit' event.
+   * Also sets the submission property with the collected data.
+   *
+   * @returns The collected form data object
+   * @example
+   * form.on('submit', (data) => {
+   *   console.log('Form data:', data);
+   * });
+   * form.submit();
+   */
   submit() {
     const out: any = {};
 
@@ -189,10 +224,28 @@ class Form extends Box {
     return this.submission = out;
   }
 
+  /**
+   * Discard the form and emit a 'cancel' event.
+   *
+   * @example
+   * form.cancel();
+   */
   cancel() {
     this.emit('cancel');
   }
 
+  /**
+   * Clear the form.
+   * Resets all child elements to their default state.
+   * - Lists: select index 0
+   * - Textboxes/Textareas: clear input
+   * - Checkboxes/Radio buttons: uncheck
+   * - Progress bars: set to 0
+   * - File managers: refresh to original cwd
+   *
+   * @example
+   * form.reset();
+   */
   reset() {
     this.children.forEach((el: any) => {
       switch (el.type) {

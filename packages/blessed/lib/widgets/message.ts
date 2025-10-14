@@ -25,6 +25,24 @@ class Message extends Box {
     super(options);
   }
 
+  /**
+   * Display a message for a time period.
+   * Can be dismissed by pressing a key or clicking (if mouse enabled).
+   * Time=0, -1, or Infinity requires key/click to dismiss.
+   *
+   * @param text - Message text to display
+   * @param time - Time in seconds to display (or callback if omitted). Default: 3 seconds
+   * @param callback - Optional callback function called when message is dismissed
+   * @example
+   * // Show for 3 seconds (default)
+   * message.display('Hello World');
+   * // Show for 5 seconds
+   * message.display('Processing...', 5);
+   * // Show until dismissed
+   * message.display('Press any key', 0, () => {
+   *   console.log('Dismissed');
+   * });
+   */
   display(text: string, time?: number | ((err?: any, data?: any) => void), callback?: (err?: any, data?: any) => void): void {
     if (typeof time === 'function') {
       callback = time;
@@ -107,10 +125,25 @@ class Message extends Box {
     }, (time as number) * 1000);
   }
 
+  /**
+   * Alias for display. Display a message for a time period.
+   *
+   * @example
+   * message.log('Status: OK', 5);
+   */
   get log(): (text: string, time?: number | ((err?: any, data?: any) => void), callback?: (err?: any, data?: any) => void) => void {
     return this.display;
   }
 
+  /**
+   * Display an error message (prefixed with red "Error:").
+   *
+   * @param text - Error message text
+   * @param time - Time in seconds to display (or callback if omitted). Default: 3 seconds
+   * @param callback - Optional callback function called when message is dismissed
+   * @example
+   * message.error('Failed to connect', 5);
+   */
   error(text: string, time?: number | ((err?: any, data?: any) => void), callback?: (err?: any, data?: any) => void): void {
     return this.display('{red-fg}Error: ' + text + '{/red-fg}', time, callback);
   }

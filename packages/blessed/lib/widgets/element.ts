@@ -310,12 +310,23 @@ class Element extends Node {
       | colors.convert(bg);
   }
 
+  /**
+   * Same as el.on('screen', ...) except this will automatically keep track of which listeners
+   * are bound to the screen object. For use with removeScreenEvent(), free(), and destroy().
+   * @param type - Event type
+   * @param handler - Event handler function
+   */
   onScreenEvent(type: string, handler: (...args: any[]) => void): void {
     const listeners = this._slisteners = this._slisteners || [];
     listeners.push({ type: type, handler: handler });
     this.screen.on(type, handler);
   }
 
+  /**
+   * Same as onScreenEvent() but fires only once.
+   * @param type - Event type
+   * @param handler - Event handler function
+   */
   onceScreenEvent(type: string, handler: (...args: any[]) => void): void {
     const listeners = this._slisteners = this._slisteners || [];
     const entry = { type: type, handler: handler };
@@ -327,6 +338,12 @@ class Element extends Node {
     });
   }
 
+  /**
+   * Same as el.removeListener('screen', ...) except this will automatically keep track of which
+   * listeners are bound to the screen object. For use with onScreenEvent(), free(), and destroy().
+   * @param type - Event type
+   * @param handler - Event handler function
+   */
   removeScreenEvent(type: string, handler: (...args: any[]) => void): void {
     const listeners = this._slisteners = this._slisteners || [];
     for (let i = 0; i < listeners.length; i++) {
@@ -342,6 +359,11 @@ class Element extends Node {
     this.screen.removeListener(type, handler);
   }
 
+  /**
+   * Free up the element. Automatically unbind all events that may have been bound to the screen
+   * object. This prevents memory leaks. For use with onScreenEvent(), removeScreenEvent(),
+   * and destroy().
+   */
   free(): void {
     const listeners = this._slisteners = this._slisteners || [];
     for (let i = 0; i < listeners.length; i++) {
@@ -351,6 +373,9 @@ class Element extends Node {
     delete this._slisteners;
   }
 
+  /**
+   * Hide element.
+   */
   hide(): void {
     if (this.hidden) return;
     this.clearPos();
@@ -361,20 +386,34 @@ class Element extends Node {
     }
   }
 
+  /**
+   * Show element.
+   */
   show(): void {
     if (!this.hidden) return;
     this.hidden = false;
     this.emit('show');
   }
 
+  /**
+   * Toggle hidden/shown.
+   */
   toggle(): void {
     return this.hidden ? this.show() : this.hide();
   }
 
+  /**
+   * Focus element.
+   */
   focus(): any {
     return this.screen.focused = this;
   }
 
+  /**
+   * Set the content. Note: When text is input, it will be stripped of all non-SGR
+   * escape codes, tabs will be replaced with 8 spaces, and tags will be replaced
+   * with SGR codes (if enabled).
+   */
   setContent(content: string, noClear?: boolean, noTags?: boolean): void {
     if (!noClear) this.clearPos();
     this.content = content || '';
@@ -382,17 +421,26 @@ class Element extends Node {
     this.emit('set content');
   }
 
+  /**
+   * Return content, slightly different from el.content. Assume the above formatting.
+   */
   getContent(): string {
     if (!this._clines) return '';
     return this._clines.fake.join('\n');
   }
 
+  /**
+   * Similar to setContent, but ignore tags and remove escape codes.
+   */
   setText(content: string, noClear?: boolean): void {
     content = content || '';
     content = content.replace(/\x1b\[[\d;]*m/g, '');
     return this.setContent(content, noClear, true);
   }
 
+  /**
+   * Similar to getContent, but return content with tags and escape codes removed.
+   */
   getText(): string {
     return this.getContent().replace(/\x1b\[[\d;]*m/g, '');
   }
@@ -811,14 +859,25 @@ main:
     return false;
   }
 
+  /**
+   * Enable mouse events for the element (automatically called when a form of on('mouse') is bound).
+   * Registers the element as clickable with the screen.
+   */
   enableMouse(): void {
     this.screen._listenMouse(this);
   }
 
+  /**
+   * Enable keypress events for the element (automatically called when a form of on('keypress') is bound).
+   * Registers the element as keyable with the screen.
+   */
   enableKeys(): void {
     this.screen._listenKeys(this);
   }
 
+  /**
+   * Enable key and mouse events. Calls both enableMouse() and enableKeys().
+   */
   enableInput(): void {
     this.screen._listenMouse(this);
     this.screen._listenKeys(this);
@@ -836,6 +895,12 @@ main:
     }
   }
 
+  /**
+   * Enable dragging of the element.
+   * Allows the element to be dragged with the mouse. Automatically calls enableMouse().
+   * @param verify - Optional callback function to verify if dragging should start (receives mouse data)
+   * @returns True if dragging was enabled
+   */
   enableDrag(verify?: any): boolean {
     if (this._draggable) return true;
 
@@ -899,6 +964,11 @@ main:
     return this._draggable = true;
   }
 
+  /**
+   * Disable dragging of the element.
+   * Removes drag event handlers and resets dragging state.
+   * @returns True if dragging was disabled
+   */
   disableDrag(): boolean {
     if (!this._draggable) return false;
     delete this.screen._dragging;
@@ -908,22 +978,48 @@ main:
     return this._draggable = false;
   }
 
+  /**
+   * Bind a key event handler.
+   * @param args - Arguments to pass to program.key()
+   * @returns The bound key handler
+   */
   key(...args: any[]): any {
     return this.screen.program.key.apply(this, args);
   }
 
+  /**
+   * Bind a key event handler that fires only once.
+   * @param args - Arguments to pass to program.onceKey()
+   * @returns The bound key handler
+   */
   onceKey(...args: any[]): any {
     return this.screen.program.onceKey.apply(this, args);
   }
 
+  /**
+   * Unbind a key event handler.
+   * @param args - Arguments to pass to program.unkey()
+   * @returns Result of unbinding
+   */
   unkey(...args: any[]): any {
     return this.screen.program.unkey.apply(this, args);
   }
 
+  /**
+   * Remove a key event handler.
+   * Alias for unkey().
+   * @param args - Arguments to pass to program.unkey()
+   * @returns Result of removing
+   */
   removeKey(...args: any[]): any {
     return this.screen.program.unkey.apply(this, args);
   }
 
+  /**
+   * Set the z-index of the element (changes rendering order).
+   * Higher indices are rendered later (on top). Negative indices count from the end.
+   * @param index - New z-index value
+   */
   setIndex(index: number): void {
     if (!this.parent) return;
 
@@ -941,14 +1037,28 @@ main:
     this.parent.children.splice(index, 0, item);
   }
 
+  /**
+   * Put the element in front of its siblings.
+   * Sets the element's z-index to the highest value (renders last/on top).
+   */
   setFront(): void {
     return this.setIndex(-1);
   }
 
+  /**
+   * Put the element in back of its siblings.
+   * Sets the element's z-index to the lowest value (renders first/at bottom).
+   */
   setBack(): void {
     return this.setIndex(0);
   }
 
+  /**
+   * Clear the element's position in the screen buffer.
+   * Fills the region with spaces, used when moving or hiding elements.
+   * @param get - Whether to use _getCoords (default: false)
+   * @param override - If true, always clear even if cell hasn't changed
+   */
   clearPos(get?: boolean, override?: any): void {
     if (this.detached) return;
     const lpos = this._getCoords(get);
@@ -959,6 +1069,14 @@ main:
       override);
   }
 
+  /**
+   * Set the label text for the top-left (or top-right) corner.
+   * Creates or updates a label that appears on the top border of the element.
+   * @param options - Label text (string) or options object with text and side properties
+   * @example
+   * element.setLabel('My Label');
+   * element.setLabel({ text: 'My Label', side: 'right' });
+   */
   setLabel(options: any): void {
     if (typeof options === 'string') {
       options = { text: options };
@@ -1028,6 +1146,10 @@ main:
     });
   }
 
+  /**
+   * Remove the label completely.
+   * Detaches the label element and removes associated event listeners.
+   */
   removeLabel(): void {
     if (!this._label) return;
     this.removeListener('scroll', this._labelScroll!);
@@ -1038,6 +1160,13 @@ main:
     delete this._label;
   }
 
+  /**
+   * Set a hover text box to follow the cursor. Similar to the "title" DOM attribute in the browser.
+   * @param options - Hover text (string) or options object with text property
+   * @example
+   * element.setHover('Hover text here');
+   * element.setHover({ text: 'Hover text here' });
+   */
   setHover(options: any): void {
     if (typeof options === 'string') {
       options = { text: options };
@@ -1048,6 +1177,10 @@ main:
     this.screen._initHover();
   }
 
+  /**
+   * Remove the hover label completely.
+   * Detaches the hover text box if it's currently displayed.
+   */
   removeHover(): void {
     delete this._hoverOptions;
     if (!this.screen._hoverText || this.screen._hoverText.detached) return;
@@ -1882,6 +2015,12 @@ main:
     };
   }
 
+  /**
+   * Write content and children to the screen buffer.
+   * This is the main rendering method that draws the element, its border, scrollbar,
+   * and all child elements to the screen buffer. Returns the rendered coordinates.
+   * @returns Rendered coordinates object, or undefined if hidden/invalid
+   */
   render(): any {
     this._emit('prerender', []);
 
@@ -2395,6 +2534,10 @@ main:
     return coords;
   }
 
+  /**
+   * Internal alias for render().
+   * @returns Rendered coordinates object
+   */
   _render(): any {
     return this.render();
   }
@@ -2403,6 +2546,12 @@ main:
    * Content Methods
    */
 
+  /**
+   * Insert a line into the box's content.
+   * Handles wrapped content by inserting at the specified fake line index.
+   * @param i - Line index to insert at (fake line number)
+   * @param line - Line or array of lines to insert
+   */
   insertLine(i: number, line: string | string[]): void {
     if (typeof line === 'string') line = line.split('\n');
 
@@ -2456,6 +2605,12 @@ main:
     }
   }
 
+  /**
+   * Delete a line from the box's content.
+   * Handles wrapped content by deleting at the specified fake line index.
+   * @param i - Line index to delete (fake line number)
+   * @param n - Number of lines to delete (default: 1)
+   */
   deleteLine(i: number, n?: number): void {
     n = n || 1;
 
@@ -2505,11 +2660,21 @@ main:
     }
   }
 
+  /**
+   * Insert a line at the top of the box.
+   * Inserts at the first visible line based on childBase.
+   * @param line - Line or array of lines to insert
+   */
   insertTop(line: string | string[]): void {
     const fake = this._clines.rtof[this.childBase || 0];
     return this.insertLine(fake, line);
   }
 
+  /**
+   * Insert a line at the bottom of the box.
+   * Inserts after the last visible line based on height and childBase.
+   * @param line - Line or array of lines to insert
+   */
   insertBottom(line: string | string[]): void {
     const h = (this.childBase || 0) + this.height - this.iheight;
     const i = Math.min(h, this._clines.length);
@@ -2518,11 +2683,21 @@ main:
     return this.insertLine(fake, line);
   }
 
+  /**
+   * Delete a line at the top of the box.
+   * Deletes from the first visible line based on childBase.
+   * @param n - Number of lines to delete (default: 1)
+   */
   deleteTop(n?: number): void {
     const fake = this._clines.rtof[this.childBase || 0];
     return this.deleteLine(fake, n);
   }
 
+  /**
+   * Delete a line at the bottom of the box.
+   * Deletes from the last visible line based on height and childBase.
+   * @param n - Number of lines to delete (default: 1)
+   */
   deleteBottom(n?: number): void {
     const h = (this.childBase || 0) + this.height - 1 - this.iheight;
     const i = Math.min(h, this._clines.length - 1);
@@ -2533,6 +2708,11 @@ main:
     return this.deleteLine(fake - (n - 1), n);
   }
 
+  /**
+   * Set a line in the box's content.
+   * @param i - Line index to set (fake line number)
+   * @param line - Line content to set
+   */
   setLine(i: number, line: string): void {
     i = Math.max(i, 0);
     while (this._clines.fake.length < i) {
@@ -2542,57 +2722,111 @@ main:
     return this.setContent(this._clines.fake.join('\n'), true);
   }
 
+  /**
+   * Set a line in the box's content from the visible top.
+   * @param i - Line offset from visible top
+   * @param line - Line content to set
+   */
   setBaseLine(i: number, line: string): void {
     const fake = this._clines.rtof[this.childBase || 0];
     return this.setLine(fake + i, line);
   }
 
+  /**
+   * Get a line from the box's content.
+   * @param i - Line index to get (fake line number)
+   * @returns Line content
+   */
   getLine(i: number): string {
     i = Math.max(i, 0);
     i = Math.min(i, this._clines.fake.length - 1);
     return this._clines.fake[i];
   }
 
+  /**
+   * Get a line from the box's content from the visible top.
+   * @param i - Line offset from visible top
+   * @returns Line content
+   */
   getBaseLine(i: number): string {
     const fake = this._clines.rtof[this.childBase || 0];
     return this.getLine(fake + i);
   }
 
+  /**
+   * Clear a line from the box's content.
+   * @param i - Line index to clear (fake line number)
+   */
   clearLine(i: number): void {
     i = Math.min(i, this._clines.fake.length - 1);
     return this.setLine(i, '');
   }
 
+  /**
+   * Clear a line from the box's content from the visible top.
+   * @param i - Line offset from visible top
+   */
   clearBaseLine(i: number): void {
     const fake = this._clines.rtof[this.childBase || 0];
     return this.clearLine(fake + i);
   }
 
+  /**
+   * Unshift a line onto the top of the content.
+   * @param line - Line or array of lines to insert
+   */
   unshiftLine(line: string | string[]): void {
     return this.insertLine(0, line);
   }
 
+  /**
+   * Shift a line off the top of the content.
+   * @param i - Line index to remove (default: 0)
+   * @param n - Number of lines to remove (default: 1)
+   */
   shiftLine(i?: number, n?: number): void {
     return this.deleteLine(i ?? 0, n);
   }
 
+  /**
+   * Push a line onto the bottom of the content.
+   * @param line - Line or array of lines to insert
+   */
   pushLine(line: string | string[]): void {
     if (!this.content) return this.setLine(0, line as string);
     return this.insertLine(this._clines.fake.length, line);
   }
 
+  /**
+   * Pop a line off the bottom of the content.
+   * @param n - Number of lines to remove (default: 1)
+   */
   popLine(n?: number): void {
     return this.deleteLine(this._clines.fake.length - 1, n);
   }
 
+  /**
+   * An array containing the content lines.
+   * @returns Array of fake (unwrapped) lines
+   */
   getLines(): string[] {
     return this._clines.fake.slice();
   }
 
+  /**
+   * An array containing the lines as they are displayed on the screen.
+   * @returns Array of real (wrapped) lines
+   */
   getScreenLines(): string[] {
     return this._clines.slice();
   }
 
+  /**
+   * Get a string's displayed width, taking into account double-width, surrogate pairs,
+   * combining characters, tags, and SGR escape codes.
+   * @param text - Text to measure
+   * @returns Displayed width in cells
+   */
   strWidth(text: string): number {
     text = this.parseTags
       ? helpers.stripTags(text)
@@ -2602,6 +2836,15 @@ main:
       : helpers.dropUnicode(text).length;
   }
 
+  /**
+   * Take an SGR screenshot of the element within the region. Returns a string containing only
+   * characters and SGR codes. Can be displayed by simply echoing it in a terminal.
+   * @param xi - Left X offset from element's inner left (default: 0)
+   * @param xl - Right X offset from element's inner left (default: element width)
+   * @param yi - Top Y offset from element's inner top (default: 0)
+   * @param yl - Bottom Y offset from element's inner top (default: element height)
+   * @returns SGR-encoded screenshot string
+   */
   screenshot(xi?: number, xl?: number, yi?: number, yl?: number): string {
     xi = this.lpos.xi + this.ileft + (xi || 0);
     if (xl != null) {

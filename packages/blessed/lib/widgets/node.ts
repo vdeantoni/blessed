@@ -133,6 +133,9 @@ class Node extends EventEmitter {
     (options.children || []).forEach(this.append.bind(this));
   }
 
+  /**
+   * Insert a node to this node's children at index i.
+   */
   insert(element: any, i: number): void {
     if (element.screen && element.screen !== this.screen) {
       throw new Error('Cannot switch a node\'s screen.');
@@ -166,24 +169,39 @@ class Node extends EventEmitter {
     }
   }
 
+  /**
+   * Prepend a node to this node's children.
+   */
   prepend(element: any): void {
     this.insert(element, 0);
   }
 
+  /**
+   * Append a node to this node's children.
+   */
   append(element: any): void {
     this.insert(element, this.children.length);
   }
 
+  /**
+   * Insert a node to this node's children before the reference node.
+   */
   insertBefore(element: any, other: any): void {
     const i = this.children.indexOf(other);
     if (~i) this.insert(element, i);
   }
 
+  /**
+   * Insert a node from node after the reference node.
+   */
   insertAfter(element: any, other: any): void {
     const i = this.children.indexOf(other);
     if (~i) this.insert(element, i + 1);
   }
 
+  /**
+   * Remove child node from node.
+   */
   remove(element: any): void {
     if (element.parent !== this) return;
 
@@ -215,14 +233,25 @@ class Node extends EventEmitter {
     }
   }
 
+  /**
+   * Remove node from its parent.
+   */
   detach(): void {
     if (this.parent) this.parent.remove(this);
   }
 
+  /**
+   * Free up the element. Automatically unbind all events that may have been bound
+   * to the screen object. This prevents memory leaks.
+   */
   free(): void {
     return;
   }
 
+  /**
+   * Same as the detach() method, except this will automatically call free() and
+   * unbind any screen events to prevent memory leaks.
+   */
   destroy(): void {
     this.detach();
     this.forDescendants((el: any) => {
@@ -232,6 +261,9 @@ class Node extends EventEmitter {
     }, this);
   }
 
+  /**
+   * Iterate over all descendants, calling iter(el) for each.
+   */
   forDescendants(iter: (el: any) => void, s?: any): void {
     if (s) iter(this);
     this.children.forEach((el: any) => {
@@ -240,6 +272,9 @@ class Node extends EventEmitter {
     });
   }
 
+  /**
+   * Iterate over all ancestors, calling iter(el) for each.
+   */
   forAncestors(iter: (el: any) => void, s?: any): void {
     let el: any = this;
     if (s) iter(this);
@@ -248,6 +283,9 @@ class Node extends EventEmitter {
     }
   }
 
+  /**
+   * Collect all descendants into an array.
+   */
   collectDescendants(s?: any): any[] {
     const out: any[] = [];
     this.forDescendants((el: any) => {
@@ -256,6 +294,9 @@ class Node extends EventEmitter {
     return out;
   }
 
+  /**
+   * Collect all ancestors into an array.
+   */
   collectAncestors(s?: any): any[] {
     const out: any[] = [];
     this.forAncestors((el: any) => {
@@ -264,6 +305,9 @@ class Node extends EventEmitter {
     return out;
   }
 
+  /**
+   * Emit event for element, and recursively emit same event for all descendants.
+   */
   emitDescendants(...args: any[]): void {
     let iter: ((el: any) => void) | undefined;
 
@@ -277,6 +321,9 @@ class Node extends EventEmitter {
     }, true);
   }
 
+  /**
+   * Emit event for element, and recursively emit same event for all ancestors.
+   */
   emitAncestors(...args: any[]): void {
     let iter: ((el: any) => void) | undefined;
 
@@ -290,6 +337,9 @@ class Node extends EventEmitter {
     }, true);
   }
 
+  /**
+   * Check if target is a descendant of this node.
+   */
   hasDescendant(target: any): boolean {
     const find = (el: any): boolean => {
       for (let i = 0; i < el.children.length; i++) {
@@ -305,6 +355,9 @@ class Node extends EventEmitter {
     return find(this);
   }
 
+  /**
+   * Check if target is an ancestor of this node.
+   */
   hasAncestor(target: any): boolean {
     let el: any = this;
     while (el = el.parent) {
@@ -313,6 +366,9 @@ class Node extends EventEmitter {
     return false;
   }
 
+  /**
+   * Get user property with a potential default value.
+   */
   get(name: string, value?: any): any {
     if (this.data.hasOwnProperty(name)) {
       return this.data[name];
@@ -320,6 +376,9 @@ class Node extends EventEmitter {
     return value;
   }
 
+  /**
+   * Set user property to value.
+   */
   set(name: string, value: any): any {
     return this.data[name] = value;
   }

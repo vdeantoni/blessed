@@ -31,6 +31,13 @@ class Textarea extends Input {
   _done: any;
   _value: any;
 
+  /**
+   * The input text value (read-only).
+   * Use setValue() to modify the value.
+   *
+   * @example
+   * console.log(textarea.value);
+   */
   get value(): any {
     return this._value;
   }
@@ -142,6 +149,18 @@ class Textarea extends Input {
     }
   }
 
+  /**
+   * Grab key events and read text from the textarea.
+   * Shows cursor and allows user to type into the textarea.
+   * Emits 'submit' on escape, 'cancel' on no value.
+   *
+   * @param callback - Function called with (err, value) when input completes
+   * @example
+   * textarea.readInput((err, value) => {
+   *   if (err) return console.error(err);
+   *   console.log('Input:', value);
+   * });
+   */
   readInput(callback?: any) {
     const focused = this.screen.focused === this;
 
@@ -219,10 +238,26 @@ class Textarea extends Input {
     this.on('blur', this.__done);
   }
 
+  /**
+   * Alias for readInput. Grab key events and read text.
+   *
+   * @example
+   * textarea.input((err, value) => {
+   *   console.log('Input:', value);
+   * });
+   */
   get input() {
     return this.readInput;
   }
 
+  /**
+   * Alias for readInput. Grab key events and read text.
+   *
+   * @example
+   * textarea.setInput((err, value) => {
+   *   console.log('Input:', value);
+   * });
+   */
   get setInput() {
     return this.readInput;
   }
@@ -282,10 +317,26 @@ class Textarea extends Input {
     }
   }
 
+  /**
+   * Get the current textarea value.
+   * Same as accessing the value property.
+   *
+   * @returns The current textarea value
+   * @example
+   * const text = textarea.getValue();
+   */
   getValue() {
     return this.value;
   }
 
+  /**
+   * Set the textarea value.
+   * Updates display and cursor position.
+   *
+   * @param value - New value to set (defaults to current value if omitted)
+   * @example
+   * textarea.setValue('New text content');
+   */
   setValue(value?: any) {
     if (value == null) {
       value = this.value;
@@ -299,19 +350,46 @@ class Textarea extends Input {
     this._updateCursor();
   }
 
+  /**
+   * Clear the textarea value (set to empty string).
+   *
+   * @returns Result of setValue('')
+   * @example
+   * textarea.clearValue();
+   */
   clearValue() {
     return this.setValue('');
   }
 
+  /**
+   * Alias for clearValue. Clear the textarea value.
+   *
+   * @example
+   * textarea.clearInput();
+   */
   get clearInput() {
     return this.clearValue;
   }
 
+  /**
+   * Submit the textarea (emits 'submit' event).
+   * Only works if readInput is currently active.
+   *
+   * @example
+   * textarea.submit();
+   */
   submit() {
     if (!this.__listener) return;
     return this.__listener('\x1b', { name: 'escape' });
   }
 
+  /**
+   * Cancel the textarea (emits 'cancel' event).
+   * Only works if readInput is currently active.
+   *
+   * @example
+   * textarea.cancel();
+   */
   cancel() {
     if (!this.__listener) return;
     return this.__listener('\x1b', { name: 'escape' });
@@ -322,6 +400,18 @@ class Textarea extends Input {
     return super.render();
   }
 
+  /**
+   * Open $EDITOR to edit the textarea value.
+   * Saves value to temp file, opens editor, then reads result back.
+   * After editor closes, returns to readInput mode.
+   *
+   * @param callback - Function called with (err, value) when editing completes
+   * @example
+   * textarea.readEditor((err, value) => {
+   *   if (err) return console.error(err);
+   *   console.log('Edited value:', value);
+   * });
+   */
   readEditor(callback?: any) {
     if (this._reading) {
       const _cb = this._callback;
@@ -355,10 +445,26 @@ class Textarea extends Input {
     });
   }
 
+  /**
+   * Alias for readEditor. Open $EDITOR to edit the textarea value.
+   *
+   * @example
+   * textarea.editor((err, value) => {
+   *   console.log('Edited:', value);
+   * });
+   */
   get editor() {
     return this.readEditor;
   }
 
+  /**
+   * Alias for readEditor. Open $EDITOR to edit the textarea value.
+   *
+   * @example
+   * textarea.setEditor((err, value) => {
+   *   console.log('Edited:', value);
+   * });
+   */
   get setEditor() {
     return this.readEditor;
   }

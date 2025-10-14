@@ -45,60 +45,271 @@ export interface TrackConfig {
 }
 
 export interface ScrollableOptions {
+  /**
+   * Whether the element is scrollable or not.
+   */
   scrollable?: boolean;
+
+  /**
+   * A limit to the childBase. Default is Infinity.
+   */
   baseLimit?: number;
+
+  /**
+   * A option which causes the ignoring of childOffset. This in turn causes the
+   * childBase to change every time the element is scrolled.
+   */
   alwaysScroll?: boolean;
+
+  /**
+   * Object enabling a scrollbar.
+   * Style of the scrollbar track if present (takes regular style options).
+   */
   scrollbar?: ScrollbarConfig;
+
   track?: TrackConfig;
+
+  /**
+   * Whether to enable automatic mouse support for this element.
+   */
   mouse?: boolean;
+
+  /**
+   * Use pre-defined keys (i or enter for insert, e for editor, C-e for editor while inserting).
+   */
   keys?: boolean | string | string[];
+
+  /**
+   * Use vi keys with the keys option.
+   */
   vi?: boolean;
+
   ignoreKeys?: boolean | string[];
 }
 
 export interface ElementOptions extends NodeOptions, ScrollableOptions {
+  /**
+   * Parse tags in content (e.g. {bold}text{/bold}).
+   */
   tags?: boolean;
+
+  /**
+   * Parse tags in content (alias for tags).
+   */
   parseTags?: boolean;
+
+  /**
+   * Foreground color.
+   */
   fg?: string;
+
+  /**
+   * Background color.
+   */
   bg?: string;
+
+  /**
+   * Bold text attribute.
+   */
   bold?: string;
+
+  /**
+   * Underline text attribute.
+   */
   underline?: string;
+
+  /**
+   * Blinking text attribute.
+   */
   blink?: boolean;
+
+  /**
+   * Inverse/reverse video attribute (swap foreground and background).
+   */
   inverse?: boolean;
+
+  /**
+   * Invisible text attribute.
+   */
   invisible?: boolean;
+
+  /**
+   * Transparent background (uses parent's background).
+   */
   transparent?: boolean;
+
+  /**
+   * Style object containing colors and attributes.
+   */
   style?: any;
+
+  /**
+   * Border object, see below.
+   */
   border?: Border | "line" | "bg";
+
+  /**
+   * Element's text content.
+   */
   content?: string;
+
+  /**
+   * Element is clickable.
+   */
   clickable?: boolean;
+
+  /**
+   * Element is focusable and can receive key input.
+   */
   input?: boolean;
+
+  /**
+   * Element is focusable and can receive key input (alias for input).
+   */
   keyable?: boolean;
+
+  /**
+   * Element is focused.
+   */
   focused?: BlessedElement;
+
+  /**
+   * Whether the element is hidden.
+   */
   hidden?: boolean;
+
+  /**
+   * A simple text label for the element.
+   */
   label?: string;
+
+  /**
+   * A floating text label for the element which appears on mouseover.
+   */
   hoverText?: string;
+
+  /**
+   * Background color when element is hovered.
+   */
   hoverBg?: string;
+
+  /**
+   * Effects to apply when element is hovered.
+   */
   hoverEffects?: any;
+
+  /**
+   * Effects to apply when element is focused.
+   */
   focusEffects?: any;
+
+  /**
+   * General effects to apply to the element.
+   */
   effects?: any;
+
+  /**
+   * Text alignment: left, center, or right.
+   */
   align?: "left" | "center" | "right";
+
+  /**
+   * Vertical text alignment: top, middle, or bottom.
+   */
   valign?: "top" | "middle" | "bottom";
+
+  /**
+   * Shrink/flex/grow to content and child elements. Width/height during render.
+   */
   shrink?: boolean;
+
+  /**
+   * Wrap text if it exceeds width.
+   */
   wrap?: boolean;
+
+  /**
+   * Amount of padding on the inside of the element. Can be a number or an object containing
+   * the properties: left, right, top, and bottom.
+   */
   padding?: number | Padding;
+
+  /**
+   * Offsets of the element relative to its parent. Can be a number, percentage (0-100%), or
+   * keyword (center). right and bottom do not accept keywords. Percentages can also have
+   * offsets (50%+1, 50%-1).
+   */
   top?: TTopLeft;
+
+  /**
+   * Offsets of the element relative to its parent. Can be a number, percentage (0-100%), or
+   * keyword (center). right and bottom do not accept keywords. Percentages can also have
+   * offsets (50%+1, 50%-1).
+   */
   left?: TTopLeft;
+
+  /**
+   * Right offset of the element relative to its parent. Can be a number or percentage (0-100%).
+   * Percentages can also have offsets (50%+1, 50%-1).
+   */
   right?: TPosition;
+
+  /**
+   * Bottom offset of the element relative to its parent. Can be a number or percentage (0-100%).
+   * Percentages can also have offsets (50%+1, 50%-1).
+   */
   bottom?: TPosition;
+
+  /**
+   * Width/height of the element, can be a number, percentage (0-100%), or keyword (half or shrink).
+   * Percentages can also have offsets (50%+1, 50%-1).
+   */
   width?: number | string;
+
+  /**
+   * Width/height of the element, can be a number, percentage (0-100%), or keyword (half or shrink).
+   * Percentages can also have offsets (50%+1, 50%-1).
+   */
   height?: number | string;
+
+  /**
+   * Can contain the above options.
+   */
   position?: Position;
+
+  /**
+   * Background character (default is whitespace ).
+   */
   ch?: string;
+
+  /**
+   * Allow the element to be dragged with the mouse.
+   */
   draggable?: boolean;
+
+  /**
+   * Draw a translucent offset shadow behind the element.
+   */
   shadow?: boolean;
+
+  /**
+   * Prevent content from overflowing the element boundaries.
+   */
   noOverflow?: boolean;
+
+  /**
+   * Automatically "dock" borders with other elements instead of overlapping.
+   */
   dockBorders?: boolean;
+
+  /**
+   * Fixed position (does not scroll with parent).
+   */
   fixed?: boolean;
+
+  /**
+   * Type identifier for the element.
+   */
   type?: string;
 }
 
@@ -115,101 +326,322 @@ export interface BoxOptions extends ScrollableTextOptions {
 }
 
 export interface TextOptions extends ElementOptions {
+  /**
+   * Fill the entire line with chosen bg until parent bg ends, even if there
+   * is not enough text to fill the entire width.
+   */
   fill?: boolean;
+
+  /**
+   * Text alignment: left, center, or right.
+   */
   align?: TAlign;
 }
 
 export interface LineOptions extends BoxOptions {
+  /**
+   * Line orientation. Can be vertical or horizontal.
+   */
   orientation?: "vertical" | "horizontal";
+
+  /**
+   * Type of line. Treated the same as a border object (attributes can be contained in style).
+   */
   type?: string;
+
+  /**
+   * Background color for the line.
+   */
   bg?: string;
+
+  /**
+   * Foreground color for the line.
+   */
   fg?: string;
+
+  /**
+   * Character to use for drawing the line.
+   */
   ch?: string;
 }
 
 export interface BigTextOptions extends BoxOptions {
+  /**
+   * Path to bdf->json font file to use (see ttystudio for instructions on compiling BDFs to JSON).
+   */
   font?: string;
+
+  /**
+   * Path to bdf->json bold font file to use (see ttystudio for instructions on compiling BDFs to JSON).
+   */
   fontBold?: string;
+
+  /**
+   * Foreground character to use for rendering (default is space ' ').
+   */
   fch?: string;
 }
 
 export interface ListOptions<TStyle extends ListElementStyle = ListElementStyle> extends BoxOptions {
+  /**
+   * Style for a selected item and an unselected item.
+   */
   style?: TStyle;
+
+  /**
+   * An array of strings which become the list's items.
+   */
   items?: string[];
+
+  /**
+   * A function that is called when vi mode is enabled and the key / is pressed. This function accepts a
+   * callback function which should be called with the search string. The search string is then used to
+   * jump to an item that is found in items.
+   */
   search?(err: any, value?: string): void;
+
+  /**
+   * Whether the list is interactive and can have items selected (Default: true).
+   */
   interactive?: boolean;
+
+  /**
+   * Whether to automatically override tags and invert fg of item when selected (Default: true).
+   */
   invertSelected?: boolean;
+
+  /**
+   * Normal shrink behavior for list items.
+   */
   normalShrink?: boolean;
-  // Selected item styling
+
+  /**
+   * Background color for selected items.
+   */
   selectedBg?: string;
+
+  /**
+   * Foreground color for selected items.
+   */
   selectedFg?: string;
+
+  /**
+   * Bold attribute for selected items.
+   */
   selectedBold?: boolean;
+
+  /**
+   * Underline attribute for selected items.
+   */
   selectedUnderline?: boolean;
+
+  /**
+   * Blink attribute for selected items.
+   */
   selectedBlink?: boolean;
+
+  /**
+   * Inverse attribute for selected items.
+   */
   selectedInverse?: boolean;
+
+  /**
+   * Invisible attribute for selected items.
+   */
   selectedInvisible?: boolean;
-  // Item styling
+
+  /**
+   * Background color for unselected items.
+   */
   itemBg?: string;
+
+  /**
+   * Foreground color for unselected items.
+   */
   itemFg?: string;
+
+  /**
+   * Bold attribute for unselected items.
+   */
   itemBold?: boolean;
+
+  /**
+   * Underline attribute for unselected items.
+   */
   itemUnderline?: boolean;
+
+  /**
+   * Blink attribute for unselected items.
+   */
   itemBlink?: boolean;
+
+  /**
+   * Inverse attribute for unselected items.
+   */
   itemInverse?: boolean;
+
+  /**
+   * Invisible attribute for unselected items.
+   */
   itemInvisible?: boolean;
-  // Item hover styling
+
+  /**
+   * Background color when hovering over items.
+   */
   itemHoverBg?: string;
+
+  /**
+   * Effects to apply when hovering over items.
+   */
   itemHoverEffects?: any;
+
+  /**
+   * Effects to apply when items are focused.
+   */
   itemFocusEffects?: any;
 }
 
 export interface FileManagerOptions extends ListOptions<ListElementStyle> {
+  /**
+   * Current working directory.
+   */
   cwd?: string;
 }
 
 export interface ListTableOptions extends ListOptions<StyleListTable> {
+  /**
+   * Array of array of strings representing rows.
+   */
   rows?: string[];
+
+  /**
+   * Array of array of strings representing rows (same as rows).
+   */
   data?: string[][];
+
+  /**
+   * Spaces to attempt to pad on the sides of each cell. 2 by default: one space on each side
+   * (only useful if the width is shrunken).
+   */
   pad?: number;
+
+  /**
+   * Do not draw inner cells.
+   */
   noCellBorders?: boolean;
+
+  /**
+   * Fill cell borders with the adjacent background color.
+   */
   fillCellBorders?: boolean;
+
+  /**
+   * Style configuration for the list table including header and cell styles.
+   */
   style?: StyleListTable;
 }
 
 export interface ListbarOptions extends BoxOptions {
+  /**
+   * Style configuration for the listbar.
+   */
   style?: ListElementStyle;
+
+  /**
+   * Set buttons using an array of command objects containing keys and callbacks.
+   */
   commands?: any[];
+
+  /**
+   * Array of items for the listbar (same as commands).
+   */
   items?: any[];
+
+  /**
+   * Automatically bind list buttons to keys 0-9.
+   */
   autoCommandKeys?: boolean;
 }
 
 export interface FormOptions extends BoxOptions {
+  /**
+   * Allow default keys (tab, vi keys, enter).
+   */
   keys?: any;
+
+  /**
+   * Allow vi keys for navigation.
+   */
   vi?: boolean;
+
+  /**
+   * Automatically focus next element after submission.
+   */
   autoNext?: boolean;
 }
 
 export interface InputOptions extends BoxOptions {}
 
 export interface TextareaOptions extends InputOptions {
+  /**
+   * Call readInput() when the element is focused. Automatically unfocus.
+   */
   inputOnFocus?: boolean;
+
+  /**
+   * Initial value of the textarea.
+   */
   value?: string;
+
+  /**
+   * Enable key support (can be boolean, string, or array of strings).
+   */
   keys?: boolean | string | string[];
+
+  /**
+   * Enable vi key bindings.
+   */
   vi?: boolean;
 }
 
 export interface TextboxOptions extends TextareaOptions {
+  /**
+   * Completely hide text.
+   */
   secret?: boolean;
+
+  /**
+   * Replace text with asterisks (*).
+   */
   censor?: boolean;
 }
 
 export interface ButtonOptions extends BoxOptions {
+  /**
+   * Background color when button is hovered.
+   */
   hoverBg?: string;
+
+  /**
+   * Automatically focus this button when parent is shown.
+   */
   autoFocus?: boolean;
 }
 
 export interface CheckboxOptions extends BoxOptions {
+  /**
+   * Whether the element is checked or not.
+   */
   checked?: boolean;
+
+  /**
+   * Enable mouse support for clicking the checkbox.
+   */
   mouse?: boolean;
+
+  /**
+   * Text to display next to the checkbox.
+   */
   text?: string;
 }
 
@@ -229,124 +661,504 @@ export interface MessageOptions extends BoxOptions {
 export interface LoadingOptions extends BoxOptions {}
 
 export interface ProgressBarOptions extends BoxOptions {
+  /**
+   * Bar orientation. Can be horizontal or vertical.
+   */
   orientation?: string;
+
+  /**
+   * The character to fill the bar with (default is space).
+   */
   pch?: string;
+
+  /**
+   * The amount filled (0 - 100).
+   */
   filled?: number | string;
+
+  /**
+   * Same as filled. The current progress value.
+   */
   value?: number;
+
+  /**
+   * Enable key support for controlling the progress bar.
+   */
   keys?: boolean;
+
+  /**
+   * Enable mouse support for controlling the progress bar.
+   */
   mouse?: boolean;
+
+  /**
+   * Foreground color for the filled portion of the bar.
+   */
   barFg?: string;
+
+  /**
+   * Background color for the filled portion of the bar.
+   */
   barBg?: string;
+
+  /**
+   * Character to use for the filled portion (same as pch).
+   */
   bch?: string;
+
+  /**
+   * Character to use for rendering the bar.
+   */
   ch?: string;
 }
 
 export interface LogOptions extends ScrollableTextOptions {
+  /**
+   * Amount of scrollback allowed. Default: Infinity.
+   */
   scrollback?: number;
+
+  /**
+   * Scroll to bottom on input even if the user has scrolled up. Default: false.
+   */
   scrollOnInput?: boolean;
 }
 
 export interface TableOptions extends BoxOptions {
+  /**
+   * Array of array of strings representing rows (same as data).
+   */
   rows?: string[][];
+
+  /**
+   * Array of array of strings representing rows (same as rows).
+   */
   data?: string[][];
+
+  /**
+   * Spaces to attempt to pad on the sides of each cell. 2 by default: one space on each side
+   * (only useful if the width is shrunken).
+   */
   pad?: number;
+
+  /**
+   * Do not draw inner cells.
+   */
   noCellBorders?: boolean;
+
+  /**
+   * Fill cell borders with the adjacent background color.
+   */
   fillCellBorders?: boolean;
 }
 
 export interface TerminalOptions extends BoxOptions {
+  /**
+   * Handler function for processing user input data.
+   */
   handler?(userInput: Buffer): void;
+
+  /**
+   * Name of shell to use. Defaults to $SHELL environment variable.
+   */
   shell?: string;
+
+  /**
+   * Arguments to pass to the shell.
+   */
   args?: any;
+
+  /**
+   * Cursor style. Can be line, underline, or block.
+   */
   cursor?: "line" | "underline" | "block";
+
+  /**
+   * Terminal type identifier.
+   */
   terminal?: string;
+
+  /**
+   * Alias for terminal property.
+   */
   term?: string;
+
+  /**
+   * Environment variables object for the terminal process.
+   */
   env?: any;
+
+  /**
+   * Whether the cursor should blink.
+   */
   cursorBlink?: boolean;
+
+  /**
+   * Enable screen keys for terminal interaction.
+   */
   screenKeys?: boolean;
 }
 
 export interface ImageOptions extends BoxOptions {
+  /**
+   * Path to image file to display.
+   */
   file?: string;
+
+  /**
+   * Image rendering type: ansi, overlay, or w3m.
+   */
   type?: "ansi" | "overlay" | "w3m";
+
+  /**
+   * Image rendering type (alias for type).
+   */
   itype?: "ansi" | "overlay" | "w3m";
 }
 
 export interface ANSIImageOptions extends BoxOptions {
+  /**
+   * Path to image file to display.
+   */
   file?: string;
+
+  /**
+   * Scale factor for the image.
+   */
   scale?: number;
+
+  /**
+   * Width of the image. Can be a number or percentage string.
+   */
   width?: number | string;
+
+  /**
+   * Height of the image. Can be a number or percentage string.
+   */
   height?: number | string;
+
+  /**
+   * Use ASCII characters instead of ANSI colors for rendering.
+   */
   ascii?: boolean;
+
+  /**
+   * Animate the image if it's an animated format (e.g., GIF).
+   */
   animate?: boolean;
+
+  /**
+   * Animation speed (frames per second or delay in milliseconds).
+   */
   speed?: number;
+
+  /**
+   * Optimization mode: "mem" for memory optimization or "cpu" for CPU optimization.
+   */
   optimization?: "mem" | "cpu";
 }
 
 export interface OverlayImageOptions extends BoxOptions {
+  /**
+   * Path to image file to display.
+   */
   file?: string;
+
+  /**
+   * Use ANSI rendering mode.
+   */
   ansi?: boolean;
+
+  /**
+   * Path to w3m-img executable for image rendering.
+   */
   w3m?: string;
+
+  /**
+   * Enable search functionality for the image.
+   */
   search?: boolean;
+
+  /**
+   * Image data or path (alternative to file property).
+   */
   img?: string;
+
+  /**
+   * Automatically fit the image to the element size.
+   */
   autofit?: boolean;
 }
 
 export interface VideoOptions extends BoxOptions {
+  /**
+   * Path to video file to play.
+   */
   file?: string;
+
+  /**
+   * Start time in seconds for video playback.
+   */
   start?: number;
 }
 
 export interface LayoutOptions extends ElementOptions {
+  /**
+   * Custom renderer function for positioning child elements.
+   * Receives coords and returns a function that takes element and index.
+   */
   renderer?(coords: any): (el: any, i: number) => any;
+
+  /**
+   * Layout mode: inline, inline-block, or grid.
+   */
   layout?: "inline" | "inline-block" | "grid";
 }
 
 export interface ScreenOptions extends NodeOptions {
+  /**
+   * The blessed Program to be associated with. Will be automatically instantiated if none is provided.
+   */
   program?: any;
+
+  /**
+   * Attempt to perform CSR optimization on all possible elements (not just full-width ones, elements with
+   * uniform cells to their sides). This is known to cause flickering with elements that are not full-width,
+   * however, it is more optimal for terminal rendering.
+   */
   smartCSR?: boolean;
+
+  /**
+   * Do CSR on any element within 20 cols of the screen edge on either side. Faster than smartCSR,
+   * but may cause flickering depending on what is on each side of the element.
+   */
   fastCSR?: boolean;
+
+  /**
+   * Attempt to perform back_color_erase optimizations for terminals that support it. It will also work
+   * with terminals that don't support it, but only on lines with the default background color. As it
+   * stands with the current implementation, it's uncertain how much terminal performance this adds at
+   * the cost of overhead within node.
+   */
   useBCE?: boolean;
+
+  /**
+   * Amount of time (in ms) to redraw the screen after the terminal is resized (Default: 300).
+   */
   resizeTimeout?: number;
+
+  /**
+   * The width of tabs within an element's content.
+   */
   tabSize?: number;
+
+  /**
+   * Automatically position child elements with border and padding in mind (NOTE: this is a recommended
+   * option. It may become default in the future).
+   */
   autoPadding?: boolean;
+
   cursor?: Cursor;
+
+  /**
+   * Create a log file. See log method.
+   */
   log?: string;
+
+  /**
+   * Dump all output and input to desired file. Can be used together with log option if set as a boolean.
+   */
   dump?: string | boolean;
+
+  /**
+   * Debug mode. Enables usage of the debug method. Also creates a debug console which will display when
+   * pressing F12. It will display all log and debug messages.
+   */
   debug?: boolean;
+
+  /**
+   * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful
+   * for creating a key that will always exit no matter whether the keys are locked.
+   */
   ignoreLocked?: string[];
+
+  /**
+   * Automatically "dock" borders with other elements instead of overlapping, depending on position
+   * (experimental). For example: These border-overlapped elements:
+   */
   dockBorders?: boolean;
+
+  /**
+   * Normally, dockable borders will not dock if the colors or attributes are different. This option
+   * will allow them to dock regardless. It may produce some odd looking multi-colored borders though.
+   */
   ignoreDockContrast?: boolean;
+
+  /**
+   * Allow for rendering of East Asian double-width characters, utf-16 surrogate pairs, and unicode
+   * combining characters. This allows you to display text above the basic multilingual plane. This
+   * is behind an option because it may affect performance slightly negatively. Without this option
+   * enabled, all double-width, surrogate pair, and combining characters will be replaced by '??',
+   * '?', '' respectively. (NOTE: iTerm2 cannot display combining characters properly. Blessed simply
+   * removes them from an element's content if iTerm2 is detected).
+   */
   fullUnicode?: boolean;
+
+  /**
+   * Send focus events after mouse is enabled.
+   */
   sendFocus?: boolean;
+
+  /**
+   * Display warnings (such as the output not being a TTY, similar to ncurses).
+   */
   warnings?: boolean;
+
+  /**
+   * Force blessed to use unicode even if it is not detected via terminfo, env variables, or windows code page.
+   * If value is true unicode is forced. If value is false non-unicode is forced (default: null).
+   */
   forceUnicode?: boolean;
+
+  /**
+   * Input and output streams. process.stdin/process.stdout by default, however, it could be a
+   * net.Socket if you want to make a program that runs over telnet or something of that nature.
+   */
   input?: Writable;
+
+  /**
+   * Input and output streams. process.stdin/process.stdout by default, however, it could be a
+   * net.Socket if you want to make a program that runs over telnet or something of that nature.
+   */
   output?: Readable;
+
+  /**
+   * The blessed Tput object (only available if you passed tput: true to the Program constructor.)
+   */
   tput?: any;
+
+  /**
+   * Top of the focus history stack.
+   */
   focused?: BlessedElement;
+
+  /**
+   * Width of the screen (same as program.cols).
+   */
   width?: TPosition;
+
+  /**
+   * Height of the screen (same as program.rows).
+   */
   height?: TPosition;
+
+  /**
+   * Same as screen.width.
+   */
   cols?: number;
+
+  /**
+   * Same as screen.height.
+   */
   rows?: number;
+
+  /**
+   * Relative top offset, always zero.
+   */
   top?: TTopLeft;
+
+  /**
+   * Relative left offset, always zero.
+   */
   left?: TTopLeft;
+
+  /**
+   * Relative right offset, always zero.
+   */
   right?: TPosition;
+
+  /**
+   * Relative bottom offset, always zero.
+   */
   bottom?: TPosition;
+
+  /**
+   * Absolute top offset, always zero.
+   */
   atop?: TTopLeft;
+
+  /**
+   * Absolute left offset, always zero.
+   */
   aleft?: TTopLeft;
+
+  /**
+   * Absolute right offset, always zero.
+   */
   aright?: TPosition;
+
+  /**
+   * Absolute bottom offset, always zero.
+   */
   abottom?: TPosition;
+
+  /**
+   * Whether the focused element grabs all keypresses.
+   */
   grabKeys?: boolean;
+
+  /**
+   * Prevent keypresses from being received by any element.
+   */
   lockKeys?: boolean;
+
+  /**
+   * The currently hovered element. Only set if mouse events are bound.
+   */
   hover?: any;
+
+  /**
+   * Set or get terminal name. Set calls screen.setTerminal() internally.
+   */
   terminal?: string;
+
+  /**
+   * Set or get window title.
+   */
   title?: string;
+
+  /**
+   * Reset y position on resize.
+   */
   rsety?: boolean;
+
+  /**
+   * Listen for events on the screen.
+   */
   listen?: boolean;
+
+  /**
+   * Terminal type (alias for terminal property).
+   */
   term?: string;
+
+  /**
+   * Use an artificial cursor instead of the terminal's cursor.
+   */
   artificialCursor?: boolean;
+
+  /**
+   * Shape of the cursor (block, underline, or line).
+   */
   cursorShape?: string;
+
+  /**
+   * Whether the cursor should blink.
+   */
   cursorBlink?: boolean;
+
+  /**
+   * Color of the cursor. Set to null for default color.
+   */
   cursorColor?: string | null;
 }
