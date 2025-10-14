@@ -865,17 +865,19 @@ export interface OverlayImageOptions extends BoxOptions {
   file?: string;
 
   /**
-   * Use ANSI rendering mode.
+   * Render the file as ANSI art instead of using w3m to overlay. Internally uses the
+   * ANSIImage element. See the ANSIImage element for more information/options. (Default: true).
    */
   ansi?: boolean;
 
   /**
-   * Path to w3m-img executable for image rendering.
+   * Path to w3mimgdisplay. If a proper w3mimgdisplay path is not given, blessed will
+   * search the entire disk for the binary.
    */
   w3m?: string;
 
   /**
-   * Enable search functionality for the image.
+   * Whether to search /usr, /bin, and /lib for w3mimgdisplay (Default: true).
    */
   search?: boolean;
 
