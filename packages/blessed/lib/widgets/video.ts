@@ -10,7 +10,6 @@
 
 import type { VideoOptions } from '../types/options.js';
 import cp from 'child_process';
-import Node from './node.js';
 import Box from './box.js';
 import Terminal from './terminal.js';
 

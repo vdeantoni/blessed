@@ -107,7 +107,7 @@ class List extends ScrollableBox {
     }
 
     if (options.keys) {
-      this.on('keypress', (ch: any, key: any) => {
+      this.on('keypress', (_ch: any, key: any) => {
         if (key.name === 'up' || (options.vi && key.name === 'k')) {
           this.up();
           this.screen.render();

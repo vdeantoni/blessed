@@ -4,8 +4,6 @@
  * https://github.com/chjj/blessed
  */
 
-const slice = Array.prototype.slice;
-
 /**
  * EventEmitter
  */
@@ -72,9 +70,9 @@ class EventEmitter {
 
   once(type: string, listener: Function): any {
     const self = this;
-    function on(this: any): any {
+    function on(this: any, ...args: any[]): any {
       self.removeListener(type, on);
-      return listener.apply(this, arguments);
+      return listener.apply(this, args);
     }
     (on as any).listener = listener;
     return this.on(type, on);
@@ -114,9 +112,9 @@ class EventEmitter {
     return ret !== false;
   }
 
-  emit(type: string, ..._rest: any[]): boolean {
-    const args = slice.call(arguments, 1);
-    const params = slice.call(arguments);
+  emit(type: string, ...rest: any[]): boolean {
+    const args = rest;
+    const params = [type, ...rest];
     let el: any = this;
 
     this._emit('event', params);

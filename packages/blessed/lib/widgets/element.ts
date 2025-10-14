@@ -1639,7 +1639,7 @@ main:
     return { xi: xi, xl: xl, yi: yi, yl: yl };
   }
 
-  _getShrinkContent(xi: number, xl: number, yi: number, yl: number, get?: boolean): any {
+  _getShrinkContent(xi: number, xl: number, yi: number, yl: number, _get?: boolean): any {
     const h = this._clines.length;
     const w = this._clines.mwidth || 1;
 

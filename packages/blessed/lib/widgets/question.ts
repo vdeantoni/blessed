@@ -67,7 +67,7 @@ class Question extends Box {
     this.show();
     this.setContent(' ' + text);
 
-    this.onScreenEvent('keypress', press = (ch: any, key: any) => {
+    this.onScreenEvent('keypress', press = (_ch: any, key: any) => {
       if (key.name === 'mouse') return;
       if (key.name !== 'enter'
           && key.name !== 'escape'

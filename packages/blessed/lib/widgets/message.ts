@@ -64,7 +64,7 @@ class Message extends Box {
       };
 
       setTimeout(() => {
-        const keypressHandler = (ch: any, key: any) => {
+        const keypressHandler = (_ch: any, key: any) => {
           if (key.name === 'mouse') return;
           if (this.scrollable) {
             if ((key.name === 'up' || (this.options.vi && key.name === 'k'))

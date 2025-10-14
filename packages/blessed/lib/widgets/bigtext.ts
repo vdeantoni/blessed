@@ -57,7 +57,7 @@ class BigText extends Box {
         this.ratio.width = data.width;
         this.ratio.height = data.height;
 
-        const convertLetter = (ch: string, lines: any[]): any[] => {
+        const convertLetter = (_ch: string, lines: any[]): any[] => {
             let line: any[], i: number;
 
             while (lines.length > this.ratio.height) {

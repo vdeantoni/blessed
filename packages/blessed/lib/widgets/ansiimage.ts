@@ -103,7 +103,7 @@ class ANSIImage extends Box {
 
     play(): any {
         if (!this.img) return;
-        return this.img.play((bmp: any, cellmap: any) => {
+        return this.img.play((_bmp: any, cellmap: any) => {
             this.cellmap = cellmap;
             this.screen.render();
         });
