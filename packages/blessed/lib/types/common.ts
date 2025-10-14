@@ -35,14 +35,14 @@ export type TMouseAction =
  * Amount of padding on the inside of the element.
  */
 export interface Padding {
-  /** Left padding in cells */
-  left?: number;
-  /** Right padding in cells */
-  right?: number;
-  /** Top padding in cells */
-  top?: number;
-  /** Bottom padding in cells */
-  bottom?: number;
+  /** Left padding in cells (defaults to 0) */
+  left: number;
+  /** Right padding in cells (defaults to 0) */
+  right: number;
+  /** Top padding in cells (defaults to 0) */
+  top: number;
+  /** Bottom padding in cells (defaults to 0) */
+  bottom: number;
 }
 
 /**
@@ -131,6 +131,18 @@ export interface RenderCoords {
   nobot: boolean;
   /** Render counter */
   renders: number;
+  /** Absolute left position */
+  aleft?: number;
+  /** Absolute top position */
+  atop?: number;
+  /** Absolute right position */
+  aright?: number;
+  /** Absolute bottom position */
+  abottom?: number;
+  /** Width of the element */
+  width?: number;
+  /** Height of the element */
+  height?: number;
 }
 
 /**

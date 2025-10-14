@@ -14,11 +14,22 @@ import Button from './button.js';
 import Textbox from './textbox.js';
 
 /**
+ * Private data for Prompt widget
+ */
+interface PromptData {
+  input: Textbox;
+  okay: Button;
+  cancel: Button;
+  [key: string]: unknown;
+}
+
+/**
  * Prompt
  */
 
 class Prompt extends Box {
   type = 'prompt';
+  declare _: PromptData;
 
   constructor(options: PromptOptions = {}) {
     options.hidden = true;

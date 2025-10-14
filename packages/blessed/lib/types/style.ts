@@ -29,6 +29,10 @@ export interface Style {
   label?: string;
   track?: { bg?: string; fg?: string };
   scrollbar?: { bg?: string; fg?: string };
+  /** Progress bar style (for ProgressBar widget) */
+  bar?: any;
+  /** Prefix style (for Listbar widget) */
+  prefix?: any;
 }
 
 export interface ListElementStyle extends Style {
@@ -57,4 +61,15 @@ export interface StyleListTable extends ListElementStyle {
    * Kept as any to support dynamic styling configurations.
    */
   cell?: any;
+}
+
+/**
+ * Style for ProgressBar widget
+ */
+export interface ProgressBarStyle extends Style {
+  /**
+   * Style for the progress bar fill.
+   * Kept as any to support dynamic styling configurations.
+   */
+  bar?: any;
 }

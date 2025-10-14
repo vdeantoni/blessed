@@ -15,7 +15,7 @@ import helpers from '../helpers.js';
 import Node from './node.js';
 import { makeScrollable, type ScrollableMethods } from '../mixins/scrollable.js';
 import type { ElementOptions, ScrollbarConfig, TrackConfig } from '../types/options.js';
-import type { RenderCoords, Position, Padding, Border } from '../types/common.js';
+import type { RenderCoords, Padding, Border } from '../types/common.js';
 import type { MouseEvent } from '../types/events.js';
 import type { Style } from '../types/style.js';
 
@@ -46,8 +46,8 @@ class Element extends Node {
   wrap: boolean;
   shrink?: boolean;
   ch: string;
-  /** Padding: number for uniform padding, or Padding object for per-side values */
-  padding: Padding | number;
+  /** Padding configuration for all sides */
+  padding: Padding;
   /** Border configuration */
   border?: Border;
   parseTags?: boolean;
@@ -132,8 +132,8 @@ class Element extends Node {
       this.style = {};
       this.style.fg = options.fg;
       this.style.bg = options.bg;
-      this.style.bold = options.bold;
-      this.style.underline = options.underline;
+      this.style.bold = options.bold ? true : undefined;
+      this.style.underline = options.underline ? true : undefined;
       this.style.blink = options.blink;
       this.style.inverse = options.inverse;
       this.style.invisible = options.invisible;
@@ -149,40 +149,45 @@ class Element extends Node {
     this.ch = options.ch || ' ';
 
     if (typeof options.padding === 'number' || !options.padding) {
+      const paddingValue = options.padding || 0;
       options.padding = {
-        left: options.padding,
-        top: options.padding,
-        right: options.padding,
-        bottom: options.padding
+        left: paddingValue,
+        top: paddingValue,
+        right: paddingValue,
+        bottom: paddingValue
       };
     }
 
     this.padding = {
-      left: options.padding.left || 0,
-      top: options.padding.top || 0,
-      right: options.padding.right || 0,
-      bottom: options.padding.bottom || 0
+      left: options.padding.left ?? 0,
+      top: options.padding.top ?? 0,
+      right: options.padding.right ?? 0,
+      bottom: options.padding.bottom ?? 0
     };
 
-    this.border = options.border;
-    if (this.border) {
-      if (typeof this.border === 'string') {
-        this.border = { type: this.border };
+    // Handle border configuration
+    if (options.border) {
+      let border: Border;
+      if (typeof options.border === 'string') {
+        border = { type: options.border as "line" | "bg" };
+      } else {
+        border = options.border;
       }
-      this.border.type = this.border.type || 'bg';
-      if (this.border.type === 'ascii') this.border.type = 'line';
-      this.border.ch = this.border.ch || ' ';
-      this.style.border = this.style.border || this.border.style;
+      border.type = border.type || 'bg';
+      if (border.type === 'ascii' as any) border.type = 'line';
+      border.ch = border.ch || ' ';
+      this.style.border = this.style.border || (border as any).style;
       if (!this.style.border) {
         this.style.border = {};
-        this.style.border.fg = this.border.fg;
-        this.style.border.bg = this.border.bg;
+        this.style.border.fg = (border.fg != null ? String(border.fg) : undefined);
+        this.style.border.bg = (border.bg != null ? String(border.bg) : undefined);
       }
-      //this.border.style = this.style.border;
-      if (this.border.left == null) this.border.left = true;
-      if (this.border.top == null) this.border.top = true;
-      if (this.border.right == null) this.border.right = true;
-      if (this.border.bottom == null) this.border.bottom = true;
+      //border.style = this.style.border;
+      if (border.left == null) border.left = true;
+      if (border.top == null) border.top = true;
+      if (border.right == null) border.right = true;
+      if (border.bottom == null) border.bottom = true;
+      this.border = border;
     }
 
     // if (options.mouse || options.clickable) {
@@ -1672,7 +1677,18 @@ main:
     let _lpos: RenderCoords | undefined;
     if (get) {
       _lpos = this.lpos;
-      this.lpos = { xi: xi, xl: xl, yi: yi, yl: yl };
+      this.lpos = {
+        xi: xi,
+        xl: xl,
+        yi: yi,
+        yl: yl,
+        base: 0,
+        noleft: false,
+        noright: false,
+        notop: false,
+        nobot: false,
+        renders: 0
+      };
       //this.shrink = false;
     }
 
@@ -2289,25 +2305,25 @@ main:
       x = xl - 1;
       if (this.scrollbar.ignoreBorder && this.border) x++;
       if (this.alwaysScroll) {
-        y = this.childBase! / (i - (yl - yi));
+        y = (this.childBase || 0) / (i - (yl - yi));
       } else {
-        y = (this.childBase! + this.childOffset!) / (i - 1);
+        y = ((this.childBase || 0) + (this.childOffset || 0)) / (i - 1);
       }
       y = yi + ((yl - yi) * y | 0);
       if (y >= yl) y = yl - 1;
-      cell = lines[y] && lines[y][x];
+      cell = lines[y]?.[x];
       if (cell) {
         if (this.track) {
           ch = this.track.ch || ' ';
           attr = this.sattr(this.style.track,
-            this.style.track.fg || this.style.fg,
-            this.style.track.bg || this.style.bg);
+            this.style.track?.fg || this.style.fg,
+            this.style.track?.bg || this.style.bg);
           this.screen.fillRegion(attr, ch, x, x + 1, yi, yl);
         }
         ch = this.scrollbar.ch || ' ';
         attr = this.sattr(this.style.scrollbar,
-          this.style.scrollbar.fg || this.style.fg,
-          this.style.scrollbar.bg || this.style.bg);
+          this.style.scrollbar?.fg || this.style.fg,
+          this.style.scrollbar?.bg || this.style.bg);
         if (attr !== cell[0] || ch !== cell[1]) {
           lines[y][x][0] = attr;
           lines[y][x][1] = ch;
@@ -2319,8 +2335,8 @@ main:
     if (this.border) xi--, xl++, yi--, yl++;
 
     if (this.tpadding) {
-      xi -= this.padding.left, xl += this.padding.right;
-      yi -= this.padding.top, yl += this.padding.bottom;
+      xi -= this.padding.left!, xl += this.padding.right!;
+      yi -= this.padding.top!, yl += this.padding.bottom!;
     }
 
     // Draw the border.
@@ -2365,7 +2381,7 @@ main:
             ch = '\u2500'; // '─'
           }
         } else if (this.border.type === 'bg') {
-          ch = this.border.ch;
+          ch = this.border.ch || ' ';
         }
         if (!this.border.top && x !== xi && x !== xl - 1) {
           ch = ' ';
@@ -2391,7 +2407,7 @@ main:
             if (this.border.type === 'line') {
               ch = '\u2502'; // '│'
             } else if (this.border.type === 'bg') {
-              ch = this.border.ch;
+              ch = this.border.ch || ' ';
             }
             if (!coords.noleft)
             if (battr !== cell[0] || ch !== cell[1]) {
@@ -2414,7 +2430,7 @@ main:
             if (this.border.type === 'line') {
               ch = '\u2502'; // '│'
             } else if (this.border.type === 'bg') {
-              ch = this.border.ch;
+              ch = this.border.ch || ' ';
             }
             if (!coords.noright)
             if (battr !== cell[0] || ch !== cell[1]) {
@@ -2471,7 +2487,7 @@ main:
             ch = '\u2500'; // '─'
           }
         } else if (this.border.type === 'bg') {
-          ch = this.border.ch;
+          ch = this.border.ch || ' ';
         }
         if (!this.border.bottom && x !== xi && x !== xl - 1) {
           ch = ' ';
@@ -2846,6 +2862,9 @@ main:
    * @returns SGR-encoded screenshot string
    */
   screenshot(xi?: number, xl?: number, yi?: number, yl?: number): string {
+    if (!this.lpos) {
+      throw new Error('Cannot take screenshot of element without position');
+    }
     xi = this.lpos.xi + this.ileft + (xi || 0);
     if (xl != null) {
       xl = this.lpos.xi + this.ileft + (xl || 0);

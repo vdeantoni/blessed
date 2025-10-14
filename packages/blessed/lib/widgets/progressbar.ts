@@ -10,6 +10,7 @@
 
 import type { ProgressBarOptions } from '../types/options.js';
 import type { KeyEvent, MouseEvent } from '../types/events.js';
+import type { ProgressBarStyle } from '../types/style.js';
 import Input from './input.js';
 
 /**
@@ -18,6 +19,7 @@ import Input from './input.js';
 
 class ProgressBar extends Input {
   type = 'progress-bar';
+  declare style: ProgressBarStyle;
   filled: number;
   value: number;
   pch: string;

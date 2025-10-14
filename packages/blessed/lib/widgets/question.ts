@@ -14,11 +14,21 @@ import Box from './box.js';
 import Button from './button.js';
 
 /**
+ * Private data for Question widget
+ */
+interface QuestionData {
+  okay: Button;
+  cancel: Button;
+  [key: string]: unknown;
+}
+
+/**
  * Question
  */
 
 class Question extends Box {
   type = 'question';
+  declare _: QuestionData;
 
   constructor(options: QuestionOptions = {}) {
     options.hidden = true;
