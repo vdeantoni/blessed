@@ -33,6 +33,17 @@ class Loading extends Box {
     });
   }
 
+  /**
+   * Display the loading box and lock keys.
+   * Shows animated spinner (|, /, -, \) rotating every 200ms.
+   * Locks all keyboard input while loading.
+   *
+   * @param text - Loading message text to display
+   * @example
+   * loading.load('Processing...');
+   * // Later...
+   * loading.stop();
+   */
   load(text: string): void {
     // XXX Keep above:
     // var parent = this.parent;
@@ -62,6 +73,13 @@ class Loading extends Box {
     }, 200);
   }
 
+  /**
+   * Hide the loading box and unlock keys.
+   * Stops the spinner animation and restores keyboard input.
+   *
+   * @example
+   * loading.stop();
+   */
   stop(): void {
     this.screen.lockKeys = false;
     this.hide();

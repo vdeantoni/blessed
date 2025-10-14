@@ -290,10 +290,28 @@ class List extends ScrollableBox {
     return item;
   }
 
+  /**
+   * Add an item to the list based on a string. Appends the item to the end.
+   * Alias for addItem.
+   *
+   * @param content - String content or element with getContent() method
+   * @returns The created item element
+   * @example
+   * list.add('New Item');
+   */
   add(content: any): any {
     return this.addItem(content);
   }
 
+  /**
+   * Add an item to the list based on a string. Appends the item to the end.
+   * Alias for appendItem.
+   *
+   * @param content - String content or element with getContent() method
+   * @returns The created item element
+   * @example
+   * list.addItem('Another Item');
+   */
   addItem(content: any): any {
     return this.appendItem(content);
   }
@@ -320,6 +338,19 @@ class List extends ScrollableBox {
     return item;
   }
 
+  /**
+   * Remove an item from the list. Can remove by element, index, or string.
+   *
+   * @param child - Element, numeric index, or string to match
+   * @returns The removed child element
+   * @example
+   * // Remove by index
+   * list.removeItem(0);
+   * // Remove by string content
+   * list.removeItem('Item Text');
+   * // Remove by element reference
+   * list.removeItem(itemElement);
+   */
   removeItem(child: any): any {
     let i = this.getItemIndex(child);
     if (~i && this.items[i]) {
@@ -337,6 +368,15 @@ class List extends ScrollableBox {
     return child;
   }
 
+  /**
+   * Insert an item at a specific position in the list.
+   *
+   * @param child - Index or element to insert after
+   * @param content - String content or element with getContent() method
+   * @example
+   * // Insert at index 2
+   * list.insertItem(2, 'New Item');
+   */
   insertItem(child: any, content: any): void {
     content = typeof content === 'string' ? content : content.getContent();
     const i = this.getItemIndex(child);
@@ -356,10 +396,26 @@ class List extends ScrollableBox {
     this.emit('insert item');
   }
 
+  /**
+   * Get an item element from the list.
+   *
+   * @param child - Index, string, or element reference
+   * @returns The item element at the specified position
+   * @example
+   * const item = list.getItem(0);
+   */
   getItem(child: any): any {
     return this.items[this.getItemIndex(child)];
   }
 
+  /**
+   * Set the content of an item at a specific position.
+   *
+   * @param child - Index, string, or element reference
+   * @param content - String content or element with getContent() method
+   * @example
+   * list.setItem(0, 'Updated Content');
+   */
   setItem(child: any, content: any): void {
     content = typeof content === 'string' ? content : content.getContent();
     const i = this.getItemIndex(child);
@@ -368,10 +424,23 @@ class List extends ScrollableBox {
     this.ritems[i] = content;
   }
 
+  /**
+   * Clear all items from the list.
+   *
+   * @example
+   * list.clearItems();
+   */
   clearItems(): void {
     return this.setItems([]);
   }
 
+  /**
+   * Set the list items to multiple strings. Replaces all existing items.
+   *
+   * @param items - Array of string items to set
+   * @example
+   * list.setItems(['Item 1', 'Item 2', 'Item 3']);
+   */
   setItems(items: any[]): void {
     const original = this.items.slice();
     const selected = this.selected;
@@ -409,24 +478,65 @@ class List extends ScrollableBox {
     this.emit('set items');
   }
 
+  /**
+   * Push an item onto the end of the list (array-like operation).
+   *
+   * @param content - String content or element with getContent() method
+   * @returns The new length of the items array
+   * @example
+   * list.pushItem('Last Item');
+   */
   pushItem(content: any): number {
     this.appendItem(content);
     return this.items.length;
   }
 
+  /**
+   * Pop an item off the end of the list (array-like operation).
+   *
+   * @returns The removed item element
+   * @example
+   * const lastItem = list.popItem();
+   */
   popItem(): any {
     return this.removeItem(this.items.length - 1);
   }
 
+  /**
+   * Unshift an item onto the beginning of the list (array-like operation).
+   *
+   * @param content - String content or element with getContent() method
+   * @returns The new length of the items array
+   * @example
+   * list.unshiftItem('First Item');
+   */
   unshiftItem(content: any): number {
     this.insertItem(0, content);
     return this.items.length;
   }
 
+  /**
+   * Shift an item off the beginning of the list (array-like operation).
+   *
+   * @returns The removed item element
+   * @example
+   * const firstItem = list.shiftItem();
+   */
   shiftItem(): any {
     return this.removeItem(0);
   }
 
+  /**
+   * Remove and insert items at a specific position (array-like operation).
+   *
+   * @param child - Index or element to start at
+   * @param n - Number of items to remove
+   * @param items - Items to insert at the position
+   * @returns Array of removed items
+   * @example
+   * // Remove 2 items at index 1 and insert 3 new items
+   * list.spliceItem(1, 2, 'Item A', 'Item B', 'Item C');
+   */
   spliceItem(child: any, n: number, ...items: any[]): any[] {
     let i = this.getItemIndex(child);
     if (!~i) return [];
@@ -440,10 +550,34 @@ class List extends ScrollableBox {
     return removed;
   }
 
+  /**
+   * Find an item in the list by text or regex pattern. Alias for fuzzyFind.
+   *
+   * @param search - String, number, or regex pattern to search for
+   * @param back - Whether to search backwards from current selection
+   * @returns Index of the found item, or current selection if not found
+   * @example
+   * const index = list.find('search term');
+   */
   find(search: any, back?: boolean): number {
     return this.fuzzyFind(search, back);
   }
 
+  /**
+   * Find an item in the list by text or regex pattern.
+   * Searches forward or backward from the current selection with wrapping.
+   *
+   * @param search - String, number, or regex pattern to search for
+   * @param back - Whether to search backwards from current selection (Default: false)
+   * @returns Index of the found item, or current selection if not found
+   * @example
+   * // Find forward
+   * list.fuzzyFind('Item');
+   * // Find backward
+   * list.fuzzyFind('Item', true);
+   * // Use regex
+   * list.fuzzyFind(/^Item \d+$/);
+   */
   fuzzyFind(search: any, back?: boolean): number {
     const start = this.selected + (back ? -1 : 1);
     let i: number;
@@ -488,6 +622,20 @@ class List extends ScrollableBox {
     return this.selected;
   }
 
+  /**
+   * Get the index of an item in the list.
+   * Can resolve from number (passthrough), string (match content), or element reference.
+   *
+   * @param child - Number, string, or element reference
+   * @returns The index of the item, or -1 if not found
+   * @example
+   * // By string
+   * const index = list.getItemIndex('Item Text');
+   * // By element
+   * const index = list.getItemIndex(itemElement);
+   * // By index (passthrough)
+   * const index = list.getItemIndex(5);
+   */
   getItemIndex(child: any): number {
     if (typeof child === 'number') {
       return child;
@@ -505,6 +653,17 @@ class List extends ScrollableBox {
     }
   }
 
+  /**
+   * Select an item based on an index.
+   * Also scrolls to the selected item to keep it visible.
+   *
+   * @param index - Index or element reference to select
+   * @example
+   * // Select by index
+   * list.select(0);
+   * // Select by element
+   * list.select(itemElement);
+   */
   select(index: any): void {
     if (!this.interactive) {
       return;
@@ -539,18 +698,55 @@ class List extends ScrollableBox {
     this.emit('select item', this.items[this.selected], this.selected);
   }
 
+  /**
+   * Select an item based on an offset from the current selection.
+   *
+   * @param offset - Number of items to move (positive or negative)
+   * @example
+   * // Move down 3 items
+   * list.move(3);
+   * // Move up 2 items
+   * list.move(-2);
+   */
   move(offset: number): void {
     this.select(this.selected + offset);
   }
 
+  /**
+   * Select the item above the currently selected item.
+   *
+   * @param offset - Number of items to move up (Default: 1)
+   * @example
+   * list.up();
+   * list.up(5); // Move up 5 items
+   */
   up(offset?: number): void {
     this.move(-(offset || 1));
   }
 
+  /**
+   * Select the item below the currently selected item.
+   *
+   * @param offset - Number of items to move down (Default: 1)
+   * @example
+   * list.down();
+   * list.down(3); // Move down 3 items
+   */
   down(offset?: number): void {
     this.move(offset || 1);
   }
 
+  /**
+   * Show the list, focus it, select the first item, and wait for a selection.
+   * Callback receives the selected item text.
+   *
+   * @param label - Optional label to set while picking (or callback if label omitted)
+   * @param callback - Callback function to receive selected item
+   * @example
+   * list.pick('Select an option:', (err, value) => {
+   *   console.log('Selected:', value);
+   * });
+   */
   pick(label: any, callback?: any): any {
     if (!callback) {
       callback = label;

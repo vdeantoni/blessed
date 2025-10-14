@@ -241,6 +241,9 @@ class Screen extends Node {
     this.postEnter();
   }
 
+  /**
+   * Set or get window title.
+   */
   get title(): string {
     return this.program.title;
   }
@@ -249,6 +252,9 @@ class Screen extends Node {
     this.program.title = title;
   }
 
+  /**
+   * Set or get terminal name. Set calls screen.setTerminal() internally.
+   */
   get terminal(): string {
     return this.program.terminal;
   }
@@ -257,22 +263,37 @@ class Screen extends Node {
     this.setTerminal(terminal);
   }
 
+  /**
+   * Same as screen.width.
+   */
   get cols(): number {
     return this.program.cols;
   }
 
+  /**
+   * Same as screen.height.
+   */
   get rows(): number {
     return this.program.rows;
   }
 
+  /**
+   * Width of the screen (same as program.cols).
+   */
   get width(): number {
     return this.program.cols;
   }
 
+  /**
+   * Height of the screen (same as program.rows).
+   */
   get height(): number {
     return this.program.rows;
   }
 
+  /**
+   * Top of the focus history stack.
+   */
   get focused(): any {
     return this.history[this.history.length - 1];
   }
@@ -281,6 +302,9 @@ class Screen extends Node {
     this.focusPush(el);
   }
 
+  /**
+   * Reset the terminal to term. Reloads terminfo.
+   */
   setTerminal(terminal: string): void {
     const entered = !!this.program.isAlt;
     if (entered) {
@@ -295,6 +319,10 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Enter the alternate screen buffer and initialize the screen.
+   * Automatically called when the screen is created.
+   */
   enter(): void {
     if (this.program.isAlt) return;
     if (!this.cursor._set) {
@@ -324,6 +352,10 @@ class Screen extends Node {
     this.alloc();
   }
 
+  /**
+   * Leave the alternate screen buffer and restore the terminal to its original state.
+   * Automatically called when the screen is destroyed.
+   */
   leave(): void {
     if (!this.program || !this.program.isAlt) return;
     this.program.put.keypad_local();
@@ -350,6 +382,10 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Perform post-enter initialization. Sets up debug log and warnings if enabled.
+   * Automatically called after enter().
+   */
   postEnter(): void {
     if (this.options.debug) {
       this.debugLog = new Log({
@@ -424,6 +460,11 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Destroy the screen object and remove it from the global list. Also remove all global events relevant
+   * to the screen object. If all screen objects are destroyed, the node process is essentially reset
+   * to its initial state.
+   */
   destroy(): void {
     this.leave();
 
@@ -460,10 +501,16 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Write string to the log file if one was created.
+   */
   log(...args: any[]): any {
     return this.program.log.apply(this.program, args);
   }
 
+  /**
+   * Same as the log method, but only gets called if the debug option was set.
+   */
   debug(...args: any[]): any {
     if (this.debugLog) {
       this.debugLog.log.apply(this.debugLog, args);
@@ -471,6 +518,10 @@ class Screen extends Node {
     return this.program.debug.apply(this.program, args);
   }
 
+  /**
+   * Internal method to set up mouse event handling for the screen and optionally an element.
+   * @param el - Element to register as clickable (optional)
+   */
   _listenMouse(el?: any): void {
     if (el && !~this.clickable.indexOf(el)) {
       el.clickable = true;
@@ -574,10 +625,18 @@ class Screen extends Node {
     });
   }
 
+  /**
+   * Enable mouse events for the screen and optionally an element (automatically called when a form of
+   * on('mouse') is bound).
+   */
   enableMouse(el?: any): void {
     this._listenMouse(el);
   }
 
+  /**
+   * Internal method to set up keypress event handling for the screen and optionally an element.
+   * @param el - Element to register as keyable (optional)
+   */
   _listenKeys(el?: any): void {
     if (el && !~this.keyable.indexOf(el)) {
       el.keyable = true;
@@ -619,15 +678,28 @@ class Screen extends Node {
     });
   }
 
+  /**
+   * Enable keypress events for the screen and optionally an element (automatically called when a form of
+   * on('keypress') is bound).
+   * @param el - Element to enable keys for (optional)
+   */
   enableKeys(el?: any): void {
     this._listenKeys(el);
   }
 
+  /**
+   * Enable key and mouse events. Calls both enableMouse() and enableKeys().
+   * @param el - Element to enable input for (optional)
+   */
   enableInput(el?: any): void {
     this._listenMouse(el);
     this._listenKeys(el);
   }
 
+  /**
+   * Internal method to initialize the hover text box used by element.setHover().
+   * Creates a floating box that follows the mouse cursor.
+   */
   _initHover(): void {
     if (this._hoverText) {
       return;
@@ -684,6 +756,9 @@ class Screen extends Node {
     });
   }
 
+  /**
+   * Allocate a new pending screen buffer and a new output screen buffer.
+   */
   alloc(dirty?: boolean): void {
     let x: number, y: number;
 
@@ -707,10 +782,16 @@ class Screen extends Node {
     this.program.clear();
   }
 
+  /**
+   * Reallocate the screen buffers and clear the screen.
+   */
   realloc(): void {
     return this.alloc(true);
   }
 
+  /**
+   * Render all child elements, writing all data to the screen buffer and drawing the screen.
+   */
   render(): void {
     if (this.destroyed) return;
 
@@ -751,6 +832,12 @@ class Screen extends Node {
     this.emit('render');
   }
 
+  /**
+   * Create a blank line array for the screen buffer.
+   * @param ch - Character to fill the line with (default: space)
+   * @param dirty - Whether to mark the line as dirty (requires redraw)
+   * @returns Array representing a blank line in the screen buffer
+   */
   blankLine(ch?: string, dirty?: boolean): any[] {
     const out: any = [];
     for (let x = 0; x < this.cols; x++) {
@@ -760,6 +847,14 @@ class Screen extends Node {
     return out;
   }
 
+  /**
+   * Insert a line into the screen (using CSR: this bypasses the output buffer).
+   * Uses change_scroll_region to optimize scrolling for elements with uniform sides.
+   * @param n - Number of lines to insert
+   * @param y - Y position to insert at
+   * @param top - Top of scroll region
+   * @param bottom - Bottom of scroll region
+   */
   insertLine(n: number, y: number, top: number, bottom: number): void {
     // if (y === top) return this.insertLineNC(n, y, top, bottom);
 
@@ -782,6 +877,14 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Delete a line from the screen (using CSR: this bypasses the output buffer).
+   * Uses change_scroll_region to optimize scrolling for elements with uniform sides.
+   * @param n - Number of lines to delete
+   * @param y - Y position to delete from
+   * @param top - Top of scroll region
+   * @param bottom - Bottom of scroll region
+   */
   deleteLine(n: number, y: number, top: number, bottom: number): void {
     // if (y === top) return this.deleteLineNC(n, y, top, bottom);
 
@@ -804,9 +907,14 @@ class Screen extends Node {
     }
   }
 
-  // This is how ncurses does it.
-  // Scroll down (up cursor-wise).
-  // This will only work for top line deletion as opposed to arbitrary lines.
+  /**
+   * Insert lines using ncurses method (scroll down, up cursor-wise).
+   * This will only work for top line deletion as opposed to arbitrary lines.
+   * @param n - Number of lines to insert
+   * @param y - Y position to insert at
+   * @param top - Top of scroll region
+   * @param bottom - Bottom of scroll region
+   */
   insertLineNC(n: number, y: number, top: number, bottom: number): void {
     if (!this.tput.strings.change_scroll_region
         || !this.tput.strings.delete_line) return;
@@ -826,9 +934,14 @@ class Screen extends Node {
     }
   }
 
-  // This is how ncurses does it.
-  // Scroll up (down cursor-wise).
-  // This will only work for bottom line deletion as opposed to arbitrary lines.
+  /**
+   * Delete lines using ncurses method (scroll up, down cursor-wise).
+   * This will only work for bottom line deletion as opposed to arbitrary lines.
+   * @param n - Number of lines to delete
+   * @param y - Y position to delete from
+   * @param top - Top of scroll region
+   * @param bottom - Bottom of scroll region
+   */
   deleteLineNC(n: number, y: number, top: number, bottom: number): void {
     if (!this.tput.strings.change_scroll_region
         || !this.tput.strings.delete_line) return;
@@ -848,32 +961,51 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Insert a line at the bottom of the screen.
+   * @param top - Top of scroll region
+   * @param bottom - Bottom of scroll region
+   */
   insertBottom(top: number, bottom: number): void {
     return this.deleteLine(1, top, top, bottom);
   }
 
+  /**
+   * Insert a line at the top of the screen.
+   * @param top - Top of scroll region
+   * @param bottom - Bottom of scroll region
+   */
   insertTop(top: number, bottom: number): void {
     return this.insertLine(1, top, top, bottom);
   }
 
+  /**
+   * Delete a line at the bottom of the screen.
+   * @param _top - Top of scroll region (unused)
+   * @param bottom - Bottom of scroll region
+   */
   deleteBottom(_top: number, bottom: number): void {
     return this.clearRegion(0, this.width, bottom, bottom);
   }
 
+  /**
+   * Delete a line at the top of the screen.
+   * @param top - Top of scroll region
+   * @param bottom - Bottom of scroll region
+   */
   deleteTop(top: number, bottom: number): void {
     // Same as: return this.insertBottom(top, bottom);
     return this.deleteLine(1, top, top, bottom);
   }
 
-  // Parse the sides of an element to determine
-  // whether an element has uniform cells on
-  // both sides. If it does, we can use CSR to
-  // optimize scrolling on a scrollable element.
-  // Not exactly sure how worthwile this is.
-  // This will cause a performance/cpu-usage hit,
-  // but will it be less or greater than the
-  // performance hit of slow-rendering scrollable
-  // boxes with clean sides?
+  /**
+   * Parse the sides of an element to determine whether an element has uniform cells on both sides.
+   * If it does, we can use CSR to optimize scrolling on a scrollable element.
+   * Checks if cells to the left and right of the element are all identical, allowing for
+   * optimized scrolling using change_scroll_region (CSR).
+   * @param el - Element to check
+   * @returns True if the element has clean sides (uniform cells on both sides)
+   */
   cleanSides(el: any): boolean {
     const pos = el.lpos;
 
@@ -954,6 +1086,11 @@ class Screen extends Node {
     return pos._cleanSides = true;
   }
 
+  /**
+   * Internal method to dock borders with adjacent elements.
+   * Processes border stops to determine which border characters should connect with adjacent borders,
+   * replacing corner and T-junction characters as appropriate.
+   */
   _dockBorders(): void {
     const lines = this.lines;
     const stops = this._borderStops;
@@ -991,6 +1128,15 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Internal method to determine the correct border angle character for a given position.
+   * Examines adjacent cells to determine which directions have borders, then returns
+   * the appropriate Unicode box-drawing character.
+   * @param lines - Screen buffer lines
+   * @param x - X coordinate
+   * @param y - Y coordinate
+   * @returns Unicode box-drawing character for this position
+   */
   _getAngle(lines: any[], x: number, y: number): string {
     let angle = 0;
     const attr = lines[y][x][0];
@@ -1044,6 +1190,14 @@ class Screen extends Node {
     return angleTable[angle] || ch;
   }
 
+  /**
+   * Draw the screen based on the contents of the screen buffer.
+   * Compares the pending buffer (lines) with the output buffer (olines) and writes only
+   * the changes to minimize terminal output. Handles SGR codes, cursor positioning,
+   * double-width characters, and terminal-specific optimizations.
+   * @param start - Starting line number
+   * @param end - Ending line number
+   */
   draw(start: number, end: number): void {
     // this.emit('predraw');
 
@@ -1390,11 +1544,24 @@ class Screen extends Node {
     // this.emit('draw');
   }
 
+  /**
+   * Internal method to reduce color values to the number of colors supported by the terminal.
+   * @param color - Color value to reduce
+   * @returns Reduced color value
+   */
   _reduceColor(color: number): number {
     return colors.reduce(color, this.tput.colors);
   }
 
-  // Convert an SGR string to our own attribute format.
+  /**
+   * Convert an SGR escape code string to blessed's internal attribute format.
+   * Parses SGR sequences like "\x1b[1;31m" and returns a packed integer containing
+   * flags (bold, underline, etc.), foreground color, and background color.
+   * @param code - SGR escape code string
+   * @param cur - Current attribute value
+   * @param def - Default attribute value
+   * @returns Packed attribute integer
+   */
   attrCode(code: string, cur: number, def: number): number {
     let flags = (cur >> 18) & 0x1ff;
     let fg = (cur >> 9) & 0x1ff;
@@ -1500,7 +1667,13 @@ class Screen extends Node {
     return (flags << 18) | (fg << 9) | bg;
   }
 
-  // Convert our own attribute format to an SGR string.
+  /**
+   * Convert blessed's internal attribute format to an SGR escape code string.
+   * Unpacks the attribute integer and generates the appropriate SGR sequence
+   * for terminal output.
+   * @param code - Packed attribute integer
+   * @returns SGR escape code string
+   */
   codeAttr(code: number): string {
     let flags = (code >> 18) & 0x1ff;
     let fg = (code >> 9) & 0x1ff;
@@ -1567,6 +1740,13 @@ class Screen extends Node {
     return '\x1b[' + out + 'm';
   }
 
+  /**
+   * Focus element by offset of focusable elements.
+   * Moves focus forward or backward through the list of keyable elements,
+   * skipping detached or hidden elements.
+   * @param offset - Number of elements to move (positive for forward, negative for backward)
+   * @returns The newly focused element, or undefined if no element was found
+   */
   focusOffset(offset: number): any {
     const shown = this.keyable.filter((el: any) => {
       return !el.detached && el.visible;
@@ -1595,18 +1775,38 @@ class Screen extends Node {
     return this.keyable[i].focus();
   }
 
+  /**
+   * Focus previous element in the index.
+   * Shorthand for focusOffset(-1).
+   * @returns The newly focused element
+   */
   focusPrev(): any {
     return this.focusOffset(-1);
   }
 
+  /**
+   * Focus previous element in the index.
+   * Alias for focusPrev().
+   * @returns The newly focused element
+   */
   focusPrevious(): any {
     return this.focusOffset(-1);
   }
 
+  /**
+   * Focus next element in the index.
+   * Shorthand for focusOffset(1).
+   * @returns The newly focused element
+   */
   focusNext(): any {
     return this.focusOffset(1);
   }
 
+  /**
+   * Push element on the focus stack (equivalent to screen.focused = el).
+   * Maintains a history of up to 10 focused elements for focus management.
+   * @param el - Element to focus
+   */
   focusPush(el: any): void {
     if (!el) return;
     const old = this.history[this.history.length - 1];
@@ -1617,6 +1817,11 @@ class Screen extends Node {
     this._focus(el, old);
   }
 
+  /**
+   * Pop element off the focus stack.
+   * Removes the current element from focus and returns focus to the previous element.
+   * @returns The element that was popped from the focus stack
+   */
   focusPop(): any {
     const old = this.history.pop();
     if (this.history.length) {
@@ -1625,10 +1830,20 @@ class Screen extends Node {
     return old;
   }
 
+  /**
+   * Save the focused element.
+   * Stores the currently focused element for later restoration via restoreFocus().
+   * @returns The saved focused element
+   */
   saveFocus(): any {
     return this._savedFocus = this.focused;
   }
 
+  /**
+   * Restore the saved focused element.
+   * Returns focus to the element saved by saveFocus().
+   * @returns The newly focused element
+   */
   restoreFocus(): any {
     if (!this._savedFocus) return;
     this._savedFocus.focus();
@@ -1636,6 +1851,12 @@ class Screen extends Node {
     return this.focused;
   }
 
+  /**
+   * "Rewind" focus to the last visible and attached element.
+   * Walks backward through the focus history to find an element that is still
+   * visible and attached to the screen.
+   * @returns The element that received focus, or undefined if none found
+   */
   rewindFocus(): any {
     const old = this.history.pop();
     let el: any;
@@ -1654,6 +1875,13 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Internal method to handle focus changes.
+   * Automatically scrolls scrollable ancestors to bring the focused element into view,
+   * and emits focus/blur events.
+   * @param self - Element receiving focus
+   * @param old - Element losing focus
+   */
   _focus(self: any, old: any): void {
     // Find a scrollable ancestor if we have one.
     let el = self;
@@ -1686,10 +1914,30 @@ class Screen extends Node {
     self.emit('focus', old);
   }
 
+  /**
+   * Clear any region on the screen.
+   * Fills the region with spaces using the default attribute.
+   * @param xi - Left X coordinate
+   * @param xl - Right X coordinate
+   * @param yi - Top Y coordinate
+   * @param yl - Bottom Y coordinate
+   * @param override - If true, always write even if cell hasn't changed
+   */
   clearRegion(xi: number, xl: number, yi: number, yl: number, override?: boolean): void {
     return this.fillRegion(this.dattr, ' ', xi, xl, yi, yl, override);
   }
 
+  /**
+   * Fill any region with a character of a certain attribute.
+   * Used for clearing regions, drawing backgrounds, etc.
+   * @param attr - Attribute to fill with
+   * @param ch - Character to fill with
+   * @param xi - Left X coordinate
+   * @param xl - Right X coordinate
+   * @param yi - Top Y coordinate
+   * @param yl - Bottom Y coordinate
+   * @param override - If true, always write even if cell hasn't changed
+   */
   fillRegion(attr: number, ch: string, xi: number, xl: number, yi: number, yl: number, override?: boolean): void {
     const lines = this.lines;
     let cell: any;
@@ -1712,22 +1960,51 @@ class Screen extends Node {
     }
   }
 
+  /**
+   * Bind a key event handler.
+   * @param args - Arguments to pass to program.key()
+   * @returns The bound key handler
+   */
   key(...args: any[]): any {
     return this.program.key.apply(this, args);
   }
 
+  /**
+   * Bind a key event handler that fires only once.
+   * @param args - Arguments to pass to program.onceKey()
+   * @returns The bound key handler
+   */
   onceKey(...args: any[]): any {
     return this.program.onceKey.apply(this, args);
   }
 
+  /**
+   * Unbind a key event handler.
+   * @param args - Arguments to pass to program.unkey()
+   * @returns Result of unbinding
+   */
   unkey(...args: any[]): any {
     return this.program.unkey.apply(this, args);
   }
 
+  /**
+   * Remove a key event handler.
+   * Alias for unkey().
+   * @param args - Arguments to pass to program.removeKey()
+   * @returns Result of removing
+   */
   removeKey(...args: any[]): any {
     return this.program.removeKey.apply(this, args);
   }
 
+  /**
+   * Spawn a process in the foreground, return to blessed app after exit.
+   * Temporarily leaves the alternate screen buffer and restores it after the process exits.
+   * @param file - Command to execute
+   * @param args - Arguments to pass to the command
+   * @param options - Options to pass to child_process.spawn
+   * @returns ChildProcess instance
+   */
   spawn(file: string, args?: any, options?: any): any {
     if (!Array.isArray(args)) {
       options = args;
@@ -1791,6 +2068,14 @@ class Screen extends Node {
     return ps;
   }
 
+  /**
+   * Spawn a process in the foreground, return to blessed app after exit. Executes callback on error or exit.
+   * @param file - Command to execute
+   * @param args - Arguments to pass to the command
+   * @param options - Options to pass to child_process.spawn
+   * @param callback - Callback function (err, success)
+   * @returns ChildProcess instance
+   */
   exec(file: string, args?: any, options?: any, callback?: any): any {
     const ps = this.spawn(file, args, options);
 
@@ -1807,6 +2092,13 @@ class Screen extends Node {
     return ps;
   }
 
+  /**
+   * Read data from text editor.
+   * Spawns the user's $EDITOR (or vi) to edit a temporary file, then returns the contents.
+   * @param options - Options object or callback function
+   * @param callback - Callback function (err, data)
+   * @returns Result of the editor operation
+   */
   readEditor(options: any, callback?: any): any {
     if (typeof options === 'string') {
       options = { editor: options };
@@ -1856,6 +2148,13 @@ class Screen extends Node {
     });
   }
 
+  /**
+   * Display an image in the terminal using w3m.
+   * Experimental feature that spawns w3m to render images.
+   * @param file - Path to image file
+   * @param callback - Callback function (err, success)
+   * @returns Result of the display operation
+   */
   displayImage(file: string, callback?: any): any {
     if (!file) {
       if (!callback) return;
@@ -1896,6 +2195,17 @@ class Screen extends Node {
     ps.stdin.end();
   }
 
+  /**
+   * Set effects based on two events and attributes.
+   * Used to apply hover and focus effects to elements. When the 'over' event fires,
+   * the effects are applied; when the 'out' event fires, the effects are removed.
+   * @param el - Element to apply effects to (or function returning element)
+   * @param fel - Element to listen for events on
+   * @param over - Event name to trigger effects (e.g., 'mouseover')
+   * @param out - Event name to remove effects (e.g., 'mouseout')
+   * @param effects - Style object with effects to apply
+   * @param temp - Property name to store temporary state in
+   */
   setEffects(el: any, fel: any, over: any, out: any, effects: any, temp?: any): void {
     if (!effects) return;
 
@@ -1949,6 +2259,11 @@ class Screen extends Node {
     });
   }
 
+  /**
+   * Handle SIGTSTP signal (Ctrl+Z).
+   * Sets up a handler to properly restore the screen after the process is resumed.
+   * @param callback - Optional callback to execute after resume
+   */
   sigtstp(callback?: any): void {
     this.program.sigtstp(() => {
       this.alloc();
@@ -1958,10 +2273,23 @@ class Screen extends Node {
     });
   }
 
+  /**
+   * Attempt to copy text to clipboard using iTerm2's proprietary sequence. Returns true if successful.
+   * Only works in iTerm2 with the proper terminal sequences enabled.
+   * @param text - Text to copy to clipboard
+   * @returns True if successful
+   */
   copyToClipboard(text: string): boolean {
     return this.program.copyToClipboard(text);
   }
 
+  /**
+   * Attempt to change cursor shape. Will not work in all terminals (see artificial cursors for a solution
+   * to this). Returns true if successful.
+   * @param shape - Cursor shape ('block', 'underline', 'line', or style object)
+   * @param blink - Whether the cursor should blink
+   * @returns True if successful
+   */
   cursorShape(shape?: string, blink?: boolean): boolean {
     this.cursor.shape = shape || 'block';
     this.cursor.blink = blink || false;
@@ -2002,6 +2330,12 @@ class Screen extends Node {
     return this.program.cursorShape(this.cursor.shape, this.cursor.blink);
   }
 
+  /**
+   * Attempt to change cursor color. Returns true if successful.
+   * Only works in terminals that support the cursor color escape sequence.
+   * @param color - Color name or code
+   * @returns True if successful
+   */
   cursorColor(color: any): boolean {
     this.cursor.color = color != null
       ? colors.convert(color)
@@ -2015,6 +2349,11 @@ class Screen extends Node {
     return this.program.cursorColor(colors.ncolors[this.cursor.color]);
   }
 
+  /**
+   * Attempt to reset cursor. Returns true if successful.
+   * Restores cursor to default shape, color, and blink state.
+   * @returns True if successful
+   */
   cursorReset(): boolean {
     this.cursor.shape = 'block';
     this.cursor.blink = false;
@@ -2041,11 +2380,21 @@ class Screen extends Node {
     return this.program.cursorReset();
   }
 
-  // Alias for backward compatibility
+  /**
+   * Reset cursor (alias for cursorReset() for backward compatibility).
+   * @returns True if successful
+   */
   resetCursor(): boolean {
     return this.cursorReset();
   }
 
+  /**
+   * Internal method to calculate cursor attribute for artificial cursor rendering.
+   * Determines the correct attribute and character for rendering the cursor at a given position.
+   * @param cursor - Cursor configuration object
+   * @param dattr - Default attribute (optional)
+   * @returns Object with 'ch' (character) and 'attr' (attribute) properties
+   */
   _cursorAttr(cursor: any, dattr?: number): any {
     let attr = dattr || this.dattr;
     let cattr: any;
@@ -2099,6 +2448,16 @@ class Screen extends Node {
     };
   }
 
+  /**
+   * Take an SGR screenshot of the screen within the region. Returns a string containing only
+   * characters and SGR codes. Can be displayed by simply echoing it in a terminal.
+   * @param xi - Left X coordinate (default: 0)
+   * @param xl - Right X coordinate (default: screen width)
+   * @param yi - Top Y coordinate (default: 0)
+   * @param yl - Bottom Y coordinate (default: screen height)
+   * @param term - Terminal object to screenshot from (default: this screen)
+   * @returns SGR-encoded screenshot string
+   */
   screenshot(xi?: number, xl?: number, yi?: number, yl?: number, term?: any): string {
     if (xi == null) xi = 0;
     if (xl == null) xl = this.cols;
@@ -2190,6 +2549,11 @@ class Screen extends Node {
    * Positioning
    */
 
+  /**
+   * Internal method to get position coordinates.
+   * For Screen, this always returns itself since Screen is the root container.
+   * @returns This screen instance
+   */
   _getPos(): any {
     return this;
   }

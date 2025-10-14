@@ -64,6 +64,19 @@ class Prompt extends Box {
     });
   }
 
+  /**
+   * Show the prompt and wait for user input.
+   * Displays Okay and Cancel buttons. Returns input value or null if cancelled.
+   *
+   * @param text - Prompt text to display
+   * @param value - Initial value for input (or callback if omitted)
+   * @param callback - Callback function receiving (err, inputValue)
+   * @example
+   * prompt.readInput('Enter your name:', 'John', (err, value) => {
+   *   if (err) return console.error(err);
+   *   console.log('Name:', value);
+   * });
+   */
   readInput(text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void): void {
     let okay: any, cancel: any;
 
@@ -103,10 +116,26 @@ class Prompt extends Box {
     this.screen.render();
   }
 
+  /**
+   * Alias for readInput. Show prompt and wait for input.
+   *
+   * @example
+   * prompt.input('Enter value:', (err, value) => {
+   *   console.log(value);
+   * });
+   */
   get input(): (text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void) => void {
     return this.readInput;
   }
 
+  /**
+   * Alias for readInput. Show prompt and wait for input.
+   *
+   * @example
+   * prompt.setInput('Enter value:', (err, value) => {
+   *   console.log(value);
+   * });
+   */
   get setInput(): (text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void) => void {
     return this.readInput;
   }

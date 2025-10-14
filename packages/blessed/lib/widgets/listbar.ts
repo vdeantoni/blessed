@@ -110,6 +110,23 @@ class Listbar extends Box {
     });
   }
 
+    /**
+     * Set the commands/buttons on the bar.
+     * Can accept array of commands or object with command names as keys.
+     *
+     * @param commands - Array or object of commands
+     * @example
+     * // Array format
+     * listbar.setItems([
+     *   { text: 'File', callback: () => {} },
+     *   { text: 'Edit', callback: () => {} }
+     * ]);
+     * // Object format
+     * listbar.setItems({
+     *   File: () => {},
+     *   Edit: () => {}
+     * });
+     */
     setItems(commands: any) {
         if (!Array.isArray(commands)) {
             commands = Object.keys(commands).reduce((obj: any[], key: string, i: number) => {
@@ -292,6 +309,14 @@ class Listbar extends Box {
         return super.render();
     };
 
+    /**
+     * Select an item on the bar based on offset.
+     *
+     * @param offset - Index or element to select
+     * @example
+     * listbar.select(0); // Select first item
+     * listbar.select(itemElement); // Select by element
+     */
     select(offset: any) {
         if (typeof offset !== 'number') {
             offset = this.items.indexOf(offset);
@@ -354,6 +379,14 @@ class Listbar extends Box {
         this.emit('select item', el, offset);
     };
 
+    /**
+     * Remove an item from the bar.
+     *
+     * @param child - Index or element to remove
+     * @example
+     * listbar.removeItem(0);
+     * listbar.removeItem(itemElement);
+     */
     removeItem(child: any) {
         const i = typeof child !== 'number'
             ? this.items.indexOf(child)
@@ -372,18 +405,49 @@ class Listbar extends Box {
         this.emit('remove item');
     };
 
+    /**
+     * Move relatively across the bar (select by offset).
+     *
+     * @param offset - Number of items to move (positive or negative)
+     * @example
+     * listbar.move(1); // Move right one item
+     * listbar.move(-1); // Move left one item
+     */
     move(offset: number) {
         this.select(this.selected + offset);
     };
 
+    /**
+     * Move left on the bar.
+     *
+     * @param offset - Number of items to move left (Default: 1)
+     * @example
+     * listbar.moveLeft();
+     * listbar.moveLeft(2);
+     */
     moveLeft(offset?: number) {
         this.move(-(offset || 1));
     };
 
+    /**
+     * Move right on the bar.
+     *
+     * @param offset - Number of items to move right (Default: 1)
+     * @example
+     * listbar.moveRight();
+     * listbar.moveRight(2);
+     */
     moveRight(offset?: number) {
         this.move(offset || 1);
     };
 
+    /**
+     * Select a button and execute its callback.
+     *
+     * @param index - Index of the tab to select
+     * @example
+     * listbar.selectTab(0); // Select and activate first item
+     */
     selectTab(index: number) {
         const item = this.items[index];
         if (item) {
@@ -396,10 +460,31 @@ class Listbar extends Box {
         this.emit('select tab', item, index);
     };
 
+    /**
+     * Add/append an item to the bar.
+     *
+     * @param item - Command object, string, or function
+     * @param callback - Optional callback for string/function items
+     * @example
+     * // Add object
+     * listbar.add({ text: 'Help', callback: () => {} });
+     * // Add string with callback
+     * listbar.add('Help', () => {});
+     * // Add function (uses function name as text)
+     * listbar.add(function help() {});
+     */
     add(item: any, callback?: any) {
         return this.appendItem(item, callback);
     }
 
+    /**
+     * Add an item to the bar (alias for appendItem).
+     *
+     * @param item - Command object, string, or function
+     * @param callback - Optional callback for string/function items
+     * @example
+     * listbar.addItem('File', () => {});
+     */
     addItem(item: any, callback?: any) {
         return this.appendItem(item, callback);
     }

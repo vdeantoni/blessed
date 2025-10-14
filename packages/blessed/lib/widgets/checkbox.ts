@@ -18,8 +18,29 @@ import Input from './input.js';
 
 class Checkbox extends Input {
   type = 'checkbox';
+  /**
+   * The text displayed next to the checkbox.
+   *
+   * @example
+   * checkbox.text = 'Accept terms';
+   */
   text: string;
+  /**
+   * Whether the checkbox is currently checked.
+   *
+   * @example
+   * if (checkbox.checked) {
+   *   console.log('Checkbox is checked');
+   * }
+   */
   checked: boolean;
+  /**
+   * The checkbox value (same as checked property).
+   * Useful for form submission.
+   *
+   * @example
+   * console.log(checkbox.value); // true or false
+   */
   value: boolean;
 
   constructor(options: CheckboxOptions = {}) {
@@ -61,18 +82,41 @@ class Checkbox extends Input {
     return super.render();
   }
 
+  /**
+   * Check the checkbox.
+   * Sets checked and value to true, emits 'check' event.
+   * Only acts if not already checked.
+   *
+   * @example
+   * checkbox.check();
+   */
   check(): void {
     if (this.checked) return;
     this.checked = this.value = true;
     this.emit('check');
   }
 
+  /**
+   * Uncheck the checkbox.
+   * Sets checked and value to false, emits 'uncheck' event.
+   * Only acts if currently checked.
+   *
+   * @example
+   * checkbox.uncheck();
+   */
   uncheck(): void {
     if (!this.checked) return;
     this.checked = this.value = false;
     this.emit('uncheck');
   }
 
+  /**
+   * Toggle the checked state.
+   * Calls check() if unchecked, or uncheck() if checked.
+   *
+   * @example
+   * checkbox.toggle();
+   */
   toggle(): void {
     return this.checked
       ? this.uncheck()

@@ -20,7 +20,22 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
 
 class Log extends ScrollableText {
     type = 'log';
+    /**
+     * Amount of scrollback lines allowed.
+     * When exceeded, oldest lines are removed.
+     *
+     * @default Infinity
+     * @example
+     * const log = blessed.log({ scrollback: 1000 });
+     */
     scrollback: number;
+    /**
+     * Whether to automatically scroll to bottom on new input.
+     *
+     * @default false
+     * @example
+     * const log = blessed.log({ scrollOnInput: true });
+     */
     scrollOnInput: boolean | undefined;
     _userScrolled: boolean = false;
 
@@ -43,10 +58,30 @@ class Log extends ScrollableText {
         });
     }
 
+    /**
+     * Add a log line to the log element.
+     * Alias for add().
+     * Automatically scrolls to bottom unless user has scrolled manually.
+     *
+     * @param args - Content to log (can be multiple arguments, formatted like util.format)
+     * @example
+     * log.log('Server started');
+     * log.log('User %s connected', username);
+     */
     log(...args: any[]) {
         return this.add(...args);
     }
 
+    /**
+     * Add a log line to the log element.
+     * Automatically scrolls to bottom unless user has scrolled manually.
+     * Supports formatting like util.format.
+     *
+     * @param args - Content to add (can be multiple arguments, formatted like util.format)
+     * @example
+     * log.add('Status: OK');
+     * log.add('Processing %d items', count);
+     */
     add(...args: any[]) {
         if (typeof args[0] === 'object') {
             args[0] = util.inspect(args[0], true, 20, true);

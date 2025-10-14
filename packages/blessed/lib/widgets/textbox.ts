@@ -18,7 +18,21 @@ import Textarea from './textarea.js';
 
 class Textbox extends Textarea {
   type = 'textbox';
+  /**
+   * Completely hide all text (no characters displayed).
+   * Useful for password fields.
+   *
+   * @example
+   * const passwordBox = blessed.textbox({ secret: true });
+   */
   secret: boolean;
+  /**
+   * Replace all characters with asterisks.
+   * Useful for password fields with visual feedback.
+   *
+   * @example
+   * const passwordBox = blessed.textbox({ censor: true });
+   */
   censor: boolean;
   __olistener: any;
 

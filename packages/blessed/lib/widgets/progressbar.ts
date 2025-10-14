@@ -131,6 +131,17 @@ class ProgressBar extends Input {
     return ret;
   }
 
+  /**
+   * Progress the bar by a fill amount.
+   * Increments the filled amount and emits 'complete' event if filled reaches 100.
+   *
+   * @param filled - Amount to increment (positive or negative)
+   * @example
+   * // Increase by 10%
+   * progressBar.progress(10);
+   * // Decrease by 5%
+   * progressBar.progress(-5);
+   */
   progress(filled: number): void {
     this.filled += filled;
     if (this.filled < 0) this.filled = 0;
@@ -141,11 +152,26 @@ class ProgressBar extends Input {
     this.value = this.filled;
   }
 
+  /**
+   * Set progress to a specific amount.
+   * Resets to 0 then progresses to the specified amount.
+   *
+   * @param filled - Amount to set (0-100)
+   * @example
+   * progressBar.setProgress(50);
+   */
   setProgress(filled: number): void {
     this.filled = 0;
     this.progress(filled);
   }
 
+  /**
+   * Reset the bar to 0.
+   * Emits 'reset' event and sets filled and value to 0.
+   *
+   * @example
+   * progressBar.reset();
+   */
   reset(): void {
     this.emit('reset');
     this.filled = 0;

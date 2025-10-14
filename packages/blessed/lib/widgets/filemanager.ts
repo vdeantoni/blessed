@@ -21,6 +21,13 @@ import List from './list.js';
 class FileManager extends List {
   type = 'file-manager';
   options!: FileManagerOptions; // Set by parent Node constructor
+  /**
+   * The current working directory.
+   *
+   * @example
+   * console.log(fileManager.cwd);
+   * fileManager.cwd = '/home/user/documents';
+   */
   cwd: string;
   file: string;
   value: string;
@@ -64,6 +71,19 @@ class FileManager extends List {
     });
   }
 
+  /**
+   * Refresh the file list.
+   * Reads the directory (cwd) and updates the list of files.
+   * Emits 'refresh' event when complete.
+   *
+   * @param cwd - Optional directory to read (defaults to current cwd)
+   * @param callback - Optional callback function called when refresh completes
+   * @example
+   * fileManager.refresh((err) => {
+   *   if (err) return console.error(err);
+   *   console.log('Refreshed');
+   * });
+   */
   refresh(cwd?: any, callback?: any) {
     if (!callback) {
       callback = cwd;
@@ -139,6 +159,19 @@ class FileManager extends List {
     });
   }
 
+  /**
+   * Pick a single file and return the path.
+   * Shows the file manager, waits for selection, then hides and returns result.
+   * Emits 'file' event when file is selected, 'cancel' event when cancelled.
+   *
+   * @param cwd - Optional directory to start in (or callback if omitted)
+   * @param callback - Callback function receiving (err, filePath)
+   * @example
+   * fileManager.pick((err, filePath) => {
+   *   if (err) return console.error(err);
+   *   if (filePath) console.log('Selected:', filePath);
+   * });
+   */
   pick(cwd?: any, callback?: any) {
     if (!callback) {
       callback = cwd;
@@ -187,6 +220,18 @@ class FileManager extends List {
     });
   }
 
+  /**
+   * Reset the file manager to its original cwd.
+   * Refreshes the file list for the reset directory.
+   *
+   * @param cwd - Optional directory to reset to (or callback if omitted)
+   * @param callback - Optional callback function called when reset completes
+   * @example
+   * fileManager.reset((err) => {
+   *   if (err) return console.error(err);
+   *   console.log('Reset to original directory');
+   * });
+   */
   reset(cwd?: any, callback?: any) {
     if (!callback) {
       callback = cwd;
