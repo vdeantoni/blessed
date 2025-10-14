@@ -34,8 +34,8 @@
     "alwaysStrict": true,
 
     // Additional checks - PHASE 3B: Enabling incrementally
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
+    "noUnusedLocals": true, // 🔄 PHASE 3B: Step 8 - IN PROGRESS
+    "noUnusedParameters": true, // 🔄 PHASE 3B: Step 8 - IN PROGRESS
     "noImplicitReturns": true, // ✅ PHASE 3B: Step 1
     "noFallthroughCasesInSwitch": true, // ✅ PHASE 3B: Step 2
     "noUncheckedIndexedAccess": false,

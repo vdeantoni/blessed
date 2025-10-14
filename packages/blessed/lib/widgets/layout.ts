@@ -9,7 +9,6 @@
  */
 
 import type { LayoutOptions } from '../types/options.js';
-import Node from './node.js';
 import Element from './element.js';
 
 /**

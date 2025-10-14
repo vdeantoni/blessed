@@ -4,7 +4,7 @@
 
 import type { Readable, Writable } from 'stream';
 import type { TTopLeft, TPosition, TAlign, Border, Padding, Position, Cursor } from './common.js';
-import type { Style, ListElementStyle, StyleListTable } from './style.js';
+import type { ListElementStyle, StyleListTable } from './style.js';
 
 // Forward declarations for circular dependencies
 export type Screen = any;

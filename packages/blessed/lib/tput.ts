@@ -1927,7 +1927,7 @@ class Tput {
         return info.features;
     };
 
-    detectUnicode(info?: any) {
+    detectUnicode(_info?: any) {
         if (process.env.NCURSES_FORCE_UNICODE != null) {
             return !!+process.env.NCURSES_FORCE_UNICODE;
         }
@@ -2009,15 +2009,15 @@ class Tput {
         return false;
     };
 
-    detectMagicCookie(info?: any) {
+    detectMagicCookie(_info?: any) {
         return process.env.NCURSES_NO_MAGIC_COOKIE == null;
     };
 
-    detectPadding(info?: any) {
+    detectPadding(_info?: any) {
         return process.env.NCURSES_NO_PADDING == null;
     };
 
-    detectSetbuf(info?: any) {
+    detectSetbuf(_info?: any) {
         return process.env.NCURSES_NO_SETBUF == null;
     };
 

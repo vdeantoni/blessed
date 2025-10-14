@@ -4,7 +4,7 @@
  * https://github.com/chjj/blessed
  */
 
-import type { ScrollableOptions, ScrollbarConfig, TrackConfig } from '../types/options.js';
+import type { ScrollableOptions } from '../types/options.js';
 
 /**
  * Scrollable Mixin
@@ -374,7 +374,7 @@ export function makeScrollable(element: any, options: ScrollableOptions = {}): v
   }
 
   if (options.keys && !options.ignoreKeys) {
-    element.on('keypress', (ch: string, key: { name: string; ctrl?: boolean; shift?: boolean }) => {
+    element.on('keypress', (_ch: string, key: { name: string; ctrl?: boolean; shift?: boolean }) => {
       if (key.name === 'up' || (options.vi && key.name === 'k')) {
         element.scroll(-1);
         element.screen.render();

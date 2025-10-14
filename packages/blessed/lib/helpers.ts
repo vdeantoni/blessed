@@ -145,7 +145,7 @@ helpers.dropUnicode = (text: string): string => {
   if (!text) return '';
   return text
     .split('')
-    .map((char: string, i: number, arr: string[]) => {
+    .map((char: string, _i: number, _arr: string[]) => {
       // Use unicode.replaceWideChars logic inline for better performance with chaining
       const width = unicode.charWidth(char, 0);
       if (width === 2) {
