@@ -13,18 +13,55 @@ import type { RenderCoords } from '../types/common.js';
  *
  * Note: This provides basic scrollable functionality. ScrollableBox may override
  * these methods with more sophisticated implementations.
+ *
+ * @fires scroll - Received when the element is scrolled.
  */
 
 export interface ScrollableMethods {
   _scrollBottom(): number;
+  /**
+   * Scroll the content to an absolute index.
+   * @param offset - The absolute scroll position (line/item index)
+   * @param always - Force the scroll operation even if position hasn't changed
+   */
   scrollTo(offset: number, always?: boolean): void;
+  /**
+   * Scroll the content to an absolute index (alias for scrollTo).
+   * @param offset - The absolute scroll position (line/item index)
+   * @param always - Force the scroll operation even if position hasn't changed
+   */
   setScroll(offset: number, always?: boolean): void;
+  /**
+   * Get the current scroll index in lines.
+   * @returns The current absolute scroll position
+   */
   getScroll(): number;
+  /**
+   * Scroll the content by a relative offset.
+   * @param offset - The number of lines/items to scroll (positive = down, negative = up)
+   * @param always - Force the scroll operation even if position hasn't changed
+   */
   scroll(offset: number, always?: boolean): void | any;
   _recalculateIndex(): number;
+  /**
+   * Reset the scroll index to its initial state (top).
+   */
   resetScroll(): void | any;
+  /**
+   * Get the actual height of the scrolling area (total content height).
+   * @returns The total scrollable content height in lines
+   */
   getScrollHeight(): number;
+  /**
+   * Get the current scroll index in percentage (0-100).
+   * @param s - Internal flag for special return values
+   * @returns The scroll position as a percentage (0-100), or -1 if not scrollable
+   */
   getScrollPerc(s?: boolean): number;
+  /**
+   * Set the current scroll index in percentage (0-100).
+   * @param i - The target scroll percentage (0-100)
+   */
   setScrollPerc(i: number): void;
 }
 
@@ -34,7 +71,15 @@ export interface ScrollableMethods {
  */
 interface ScrollableElement extends ScrollableMethods {
   scrollable: boolean;
+  /**
+   * The offset of the top of the scroll content.
+   * Represents which line/item is at the top of the visible area.
+   */
   childBase: number;
+  /**
+   * The offset of the chosen item/line within the visible area.
+   * Represents the relative position within the viewport.
+   */
   childOffset: number;
   baseLimit: number;
   alwaysScroll?: boolean;

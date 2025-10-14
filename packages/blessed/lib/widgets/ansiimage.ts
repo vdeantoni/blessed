@@ -24,6 +24,10 @@ class ANSIImage extends Box {
   scale: number;
   _noFill: boolean;
   file?: string;
+  /**
+   * Image object from the PNG reader.
+   * Contains the parsed image data and animation frames if applicable.
+   */
   img?: any;
   cellmap?: any;
   static curl: (url: string) => any;
@@ -53,6 +57,11 @@ class ANSIImage extends Box {
     });
   }
 
+    /**
+   * Set the image in the box to a new path.
+   * Supports local file paths and HTTP(S) URLs.
+   * @param file - Path to the image file or URL
+   */
     setImage(file: any): void {
         this.file = typeof file === 'string' ? file : undefined;
 
@@ -101,6 +110,11 @@ class ANSIImage extends Box {
         }
     };
 
+    /**
+   * Play animation if it has been paused or stopped.
+   * Only works for animated GIFs.
+   * @returns Animation handle
+   */
     play(): any {
         if (!this.img) return;
         return this.img.play((_bmp: any, cellmap: any) => {
@@ -109,16 +123,30 @@ class ANSIImage extends Box {
         });
     };
 
+    /**
+   * Pause animation.
+   * Only works for animated GIFs that are currently playing.
+   * @returns Pause operation result
+   */
     pause(): any {
         if (!this.img) return;
         return this.img.pause();
     };
 
+    /**
+   * Stop animation.
+   * Only works for animated GIFs. Resets to the first frame.
+   * @returns Stop operation result
+   */
     stop(): any {
         if (!this.img) return;
         return this.img.stop();
     };
 
+    /**
+   * Clear the current image.
+   * Removes the image from the box and stops any animation.
+   */
     clearImage(): void {
         this.stop();
         this.setContent('');

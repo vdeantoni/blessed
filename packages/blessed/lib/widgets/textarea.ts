@@ -17,6 +17,10 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
 
 /**
  * Textarea
+ *
+ * @fires submit - Value is submitted (enter).
+ * @fires cancel - Input is canceled (escape).
+ * @fires action - Received when the textarea is submitted or canceled.
  */
 
 class Textarea extends Input {

@@ -19,6 +19,10 @@ import Terminal from './terminal.js';
 
 class Video extends Box {
   type = 'video';
+  /**
+   * The terminal element running mplayer or mpv.
+   * Provides access to the underlying terminal that executes the video player.
+   */
   tty!: Terminal; // Set conditionally in constructor if mplayer/mpv exists
   now!: number; // Set conditionally in constructor
   start!: number; // Set conditionally in constructor

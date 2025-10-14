@@ -14,6 +14,10 @@ import Box from './box.js';
 
 /**
  * Form
+ *
+ * @fires submit - Form is submitted. Receives a data object containing all form values.
+ * @fires cancel - Form is canceled.
+ * @fires reset - Form is reset to its initial state.
  */
 
 class Form extends Box {

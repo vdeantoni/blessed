@@ -144,6 +144,13 @@ class OverlayImage extends Box {
         return ps;
     };
 
+    /**
+   * Set the image in the box to a new path.
+   * Supports local file paths and HTTP(S) URLs.
+   * @param img - Path to the image file or URL
+   * @param callback - Optional callback function called with (err, success)
+   * @returns Operation result
+   */
     setImage(img: any, callback?: any): any {
         var self = this;
 
@@ -312,6 +319,12 @@ class OverlayImage extends Box {
         });
     };
 
+    /**
+   * Clear the current image.
+   * Removes the image from the screen.
+   * @param callback - Optional callback function called with (err, success)
+   * @returns Operation result
+   */
     clearImage(callback?: any): any {
         // @ts-expect-error - execSync is always available in Node.js 22+
         if (cp.execSync) {
@@ -373,6 +386,11 @@ class OverlayImage extends Box {
         ps.stdin.end();
     };
 
+    /**
+   * Get the size of an image file in pixels.
+   * @param callback - Optional callback function called with (err, {raw, width, height})
+   * @returns Operation result with image dimensions
+   */
     imageSize(callback?: any): any {
         var img = this.file;
 
@@ -433,6 +451,11 @@ class OverlayImage extends Box {
         ps.stdin.end();
     };
 
+    /**
+   * Get the size of the terminal in pixels.
+   * @param callback - Optional callback function called with (err, {raw, width, height})
+   * @returns Operation result with terminal dimensions in pixels
+   */
     termSize(callback?: any): any {
         var self = this;
 
@@ -493,6 +516,12 @@ class OverlayImage extends Box {
         ps.stdin.end();
     };
 
+    /**
+   * Get the pixel to cell ratio for the terminal.
+   * Calculates how many pixels correspond to each character cell.
+   * @param callback - Optional callback function called with (err, {tw, th})
+   * @returns Operation result with pixel ratios (tw = pixels per cell width, th = pixels per cell height)
+   */
     getPixelRatio(callback?: any): any {
         var self = this;
 

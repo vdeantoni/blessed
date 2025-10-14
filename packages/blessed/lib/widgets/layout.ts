@@ -36,12 +36,23 @@ class Layout extends Element {
     }
   }
 
+    /**
+   * Check to see if a previous child element has been rendered and is visible on screen.
+   * @param el - The element to check
+   * @returns True if the element is rendered and has positive dimensions
+   */
     isRendered(el: any): boolean {
         if (!el.lpos) return false;
         return (el.lpos.xl - el.lpos.xi) > 0
             && (el.lpos.yl - el.lpos.yi) > 0;
     }
 
+    /**
+   * Get the last rendered and visible child element based on an index.
+   * Searches backwards through children to find the last rendered element before the given index.
+   * @param i - The index to search from
+   * @returns The last rendered child element, or undefined if none found
+   */
     getLast(i: number): any {
         while (this.children[--i]) {
             const el = this.children[i];
@@ -49,6 +60,12 @@ class Layout extends Element {
         }
     }
 
+    /**
+   * Get the last rendered and visible child element coords based on an index.
+   * Returns the lpos (last position) of the last rendered element before the given index.
+   * @param i - The index to search from
+   * @returns The lpos coordinates of the last rendered child, or undefined if none found
+   */
     getLastCoords(i: number): any {
         const last = this.getLast(i);
         if (last) return last.lpos;
@@ -63,6 +80,13 @@ class Layout extends Element {
         return coords;
     }
 
+    /**
+   * Renderer function that calculates child element positions based on layout type.
+   * Returns a function that processes each child element and sets its position.
+   * Supports 'inline' and 'grid' layout types.
+   * @param coords - The coordinates of the layout element
+   * @returns A function that positions each child element
+   */
     renderer(coords: any): (el: any, i: number) => any {
         // The coordinates of the layout element
         const width = coords.xl - coords.xi;

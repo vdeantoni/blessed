@@ -28,7 +28,15 @@ class Terminal extends Box {
   cursorBlink: any;
   screenKeys: any;
   termName: string;
+  /**
+   * Reference to the headless term.js terminal.
+   * Provides access to the underlying terminal emulator instance.
+   */
   term: any;
+  /**
+   * Reference to the pty.js pseudo terminal.
+   * Provides access to the underlying PTY (pseudo-teletype) instance.
+   */
   pty: any;
   _onData!: (data: any) => void; // Set in bootstrap method
   dattr: any;
@@ -263,6 +271,12 @@ class Terminal extends Box {
         this.screen._listenKeys(this);
     }
 
+    /**
+   * Write data to the terminal.
+   * Sends data directly to the terminal emulator for display.
+   * @param data - The data to write to the terminal
+   * @returns The result of the write operation
+   */
     write(data: any): any {
         return this.term.write(data);
     }
@@ -391,7 +405,18 @@ class Terminal extends Box {
         return this.setScroll((i / 100) * this.term.ybase | 0);
     }
 
-    screenshot(xi?: number, xl?: number, yi?: number, yl?: number): any {
+    /**
+   * Take a screenshot of the terminal.
+   * Nearly identical to element.screenshot, however, the specified region
+   * includes the terminal's entire scrollback, rather than just what is
+   * visible on the screen.
+   * @param xi - Starting x coordinate (default: 0)
+   * @param xl - Ending x coordinate (default: line length)
+   * @param yi - Starting y coordinate (default: 0)
+   * @param yl - Ending y coordinate (default: scrollback length)
+   * @returns Screenshot data
+   */
+  screenshot(xi?: number, xl?: number, yi?: number, yl?: number): any {
         xi = 0 + (xi || 0);
         if (xl != null) {
             xl = 0 + (xl || 0);

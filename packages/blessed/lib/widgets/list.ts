@@ -16,6 +16,10 @@ import ScrollableBox from './scrollablebox.js';
 
 /**
  * List
+ *
+ * @fires select - Received when an item is selected. Receives the selected item and index.
+ * @fires cancel - List was canceled (when esc is pressed with the keys option).
+ * @fires action - Received when an item is selected or canceled.
  */
 
 class List extends ScrollableBox {
