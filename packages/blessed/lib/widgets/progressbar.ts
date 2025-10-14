@@ -106,7 +106,12 @@ class ProgressBar extends Input {
     let yl = ret.yl;
     let dattr: number;
 
-    if (this.border) xi++, yi++, xl--, yl--;
+    if (this.border) {
+      xi++;
+      yi++;
+      xl--;
+      yl--;
+    }
 
     if (this.orientation === 'horizontal') {
       xl = xi + ((xl - xi) * (this.filled / 100)) | 0;

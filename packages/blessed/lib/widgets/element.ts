@@ -797,7 +797,10 @@ main:
                 if (unicode.isSurrogate(line, i)) i--;
                 let s = 0, n = 0;
                 for (; n < i; n++) {
-                  if (unicode.isSurrogate(line, n)) s++, n++;
+                  if (unicode.isSurrogate(line, n)) {
+                    s++;
+                    n++;
+                  }
                 }
                 i += s;
                 // </XXX>
@@ -1915,8 +1918,10 @@ main:
     // size of the content and child elements.
     if (this.shrink) {
       coords = this._getShrink(xi, xl, yi, yl, get);
-      xi = coords.xi, xl = coords.xl;
-      yi = coords.yi, yl = coords.yl;
+      xi = coords.xi;
+      xl = coords.xl;
+      yi = coords.yi;
+      yl = coords.yl;
     }
 
     // Find a scrollable ancestor if we have one.
@@ -2159,7 +2164,12 @@ main:
       attr = this._clines.attr[Math.min(coords.base, this._clines.length - 1)];
     }
 
-    if (this.border) xi++, xl--, yi++, yl--;
+    if (this.border) {
+      xi++;
+      xl--;
+      yi++;
+      yl--;
+    }
 
     // If we have padding/valign, that means the
     // content-drawing loop will skip a few cells/lines.
@@ -2182,8 +2192,10 @@ main:
     }
 
     if (this.tpadding) {
-      xi += this.padding.left, xl -= this.padding.right;
-      yi += this.padding.top, yl -= this.padding.bottom;
+      xi += this.padding.left;
+      xl -= this.padding.right;
+      yi += this.padding.top;
+      yl -= this.padding.bottom;
     }
 
     // Determine where to place the text if it's vertically aligned.
@@ -2354,11 +2366,18 @@ main:
       }
     }
 
-    if (this.border) xi--, xl++, yi--, yl++;
+    if (this.border) {
+      xi--;
+      xl++;
+      yi--;
+      yl++;
+    }
 
     if (this.tpadding) {
-      xi -= this.padding.left!, xl += this.padding.right!;
-      yi -= this.padding.top!, yl += this.padding.bottom!;
+      xi -= this.padding.left!;
+      xl += this.padding.right!;
+      yi -= this.padding.top!;
+      yl += this.padding.bottom!;
     }
 
     // Draw the border.

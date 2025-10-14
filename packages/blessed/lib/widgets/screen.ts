@@ -169,7 +169,7 @@ class Screen extends Node {
     this.keyable = [];
     this.grabKeys = false;
     this.lockKeys = false;
-    this.focused;
+    this.focused = false;
     this._buf = '';
 
     this._ci = -1;
@@ -1281,7 +1281,8 @@ class Screen extends Node {
           }
 
           if (clr && neq) {
-            lx = -1, ly = -1;
+            lx = -1;
+            ly = -1;
             if (data !== attr) {
               out += this.codeAttr(data);
               attr = data;
@@ -1357,7 +1358,8 @@ class Screen extends Node {
           } else {
             out += this.tput.cup(y, x);
           }
-          lx = -1, ly = -1;
+          lx = -1;
+          ly = -1;
         }
         o[x][0] = data;
         o[x][1] = ch;

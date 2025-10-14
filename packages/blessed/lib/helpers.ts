@@ -156,25 +156,4 @@ helpers.dropUnicode = (text: string): string => {
     .replace(unicode.chars.surrogate, '?');
 };
 
-let _screen: any;
-let _element: any;
-
-Object.defineProperty(helpers, 'Screen', {
-  get() {
-    if (!_screen) {
-      _screen = require('./widgets/screen');
-    }
-    return _screen;
-  }
-});
-
-Object.defineProperty(helpers, 'Element', {
-  get() {
-    if (!_element) {
-      _element = require('./widgets/element');
-    }
-    return _element;
-  }
-});
-
 export default helpers;

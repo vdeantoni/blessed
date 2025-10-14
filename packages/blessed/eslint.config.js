@@ -16,37 +16,36 @@ export default [
     ]
   },
 
-  // Base JavaScript config
+  // JavaScript files (config files and tests only)
   {
     files: ['**/*.js', '**/*.mjs', '**/*.cjs'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
-        console: 'readonly',
-        process: 'readonly',
+        // Node.js globals
         Buffer: 'readonly',
+        process: 'readonly',
+        console: 'readonly',
         __dirname: 'readonly',
-        __filename: 'readonly',
-        module: 'readonly',
-        require: 'readonly',
-        exports: 'readonly'
+        __filename: 'readonly'
       }
     },
     rules: {
-      ...js.configs.recommended.rules
+      ...js.configs.recommended.rules,
+      // Terminal libraries use control characters (escape sequences)
+      'no-control-regex': 'off'
     }
   },
 
-  // TypeScript config
+  // TypeScript files
   {
     files: ['**/*.ts'],
     languageOptions: {
       parser: tsparser,
       parserOptions: {
         ecmaVersion: 'latest',
-        sourceType: 'module',
-        project: './tsconfig.json'
+        sourceType: 'module'
       }
     },
     plugins: {
@@ -54,24 +53,57 @@ export default [
     },
     rules: {
       ...tseslint.configs.recommended.rules,
+      // Allow 'any' when needed
       '@typescript-eslint/no-explicit-any': 'off',
+      // Warn on unused vars (TypeScript compiler handles this better)
       '@typescript-eslint/no-unused-vars': ['warn', {
         argsIgnorePattern: '^_',
-        varsIgnorePattern: '^_'
+        varsIgnorePattern: '^_',
+        caughtErrorsIgnorePattern: '^_|^e$'
       }],
-      '@typescript-eslint/ban-ts-comment': 'off'
+      // Allow @ts-ignore and similar comments when needed
+      '@typescript-eslint/ban-ts-comment': 'off',
+      // Legacy pattern: 'const self = this' - common in older codebases
+      '@typescript-eslint/no-this-alias': 'off',
+      // Allow Function type (used extensively in callbacks)
+      '@typescript-eslint/ban-types': 'off',
+      '@typescript-eslint/no-unsafe-function-type': 'off',
+      // Allow require() imports in some cases
+      '@typescript-eslint/no-require-imports': 'off',
+      // Allow empty interfaces (used for extension)
+      '@typescript-eslint/no-empty-object-type': 'off'
     }
   },
 
-  // Test files - more lenient rules
+  // Test files - more lenient
   {
     files: ['__tests__/**/*.js', '__tests__/**/*.ts'],
+    languageOptions: {
+      globals: {
+        // Vitest globals
+        describe: 'readonly',
+        it: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+        beforeAll: 'readonly',
+        afterAll: 'readonly',
+        vi: 'readonly',
+        // Node.js test utilities
+        setTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearTimeout: 'readonly',
+        clearInterval: 'readonly'
+      }
+    },
     rules: {
       '@typescript-eslint/no-unused-vars': 'off',
+      'no-undef': 'off',
       'no-unused-vars': 'off'
     }
   },
 
-  // Prettier integration (must be last)
+  // Prettier (must be last to override formatting rules)
   prettier
 ];

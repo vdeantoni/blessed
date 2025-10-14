@@ -723,7 +723,10 @@ class Program extends EventEmitter {
             key.x = x - 32;
             key.y = y - 32;
 
-            if (this.zero) key.x--, key.y--;
+            if (this.zero) {
+              key.x--;
+              key.y--;
+            }
 
             if (x === 0) key.x = 255;
             if (y === 0) key.y = 255;
@@ -791,7 +794,10 @@ class Program extends EventEmitter {
             key.x = x;
             key.y = y;
 
-            if (this.zero) key.x--, key.y--;
+            if (this.zero) {
+              key.x--;
+              key.y--;
+            }
 
             mod = b >> 2;
             key.shift = !!(mod & 1);
@@ -865,7 +871,10 @@ class Program extends EventEmitter {
             key.x = x;
             key.y = y;
 
-            if (this.zero) key.x--, key.y--;
+            if (this.zero) {
+              key.x--;
+              key.y--;
+            }
 
             mod = b >> 2;
             key.shift = !!(mod & 1);
@@ -926,7 +935,10 @@ class Program extends EventEmitter {
             key.y = y;
             key.page = page;
 
-            if (this.zero) key.x--, key.y--;
+            if (this.zero) {
+              key.x--;
+              key.y--;
+            }
 
             key.action = b === 3
                 ? 'mouseup'
@@ -957,7 +969,10 @@ class Program extends EventEmitter {
             key.x = x;
             key.y = y;
 
-            if (this.zero) key.x--, key.y--;
+            if (this.zero) {
+              key.x--;
+              key.y--;
+            }
 
             key.action = 'mousedown';
             key.button =
@@ -990,7 +1005,8 @@ class Program extends EventEmitter {
         this.gpm = new gpmclient();
 
         this.gpm.on('btndown', (btn: number, modifier: number, x: number, y: number) => {
-            x--, y--;
+            x--;
+            y--;
 
             const key = {
                 name: 'mouse',
@@ -1009,7 +1025,8 @@ class Program extends EventEmitter {
         });
 
         this.gpm.on('btnup', (btn: number, modifier: number, x: number, y: number) => {
-            x--, y--;
+            x--;
+            y--;
 
             const key = {
                 name: 'mouse',
@@ -1028,7 +1045,8 @@ class Program extends EventEmitter {
         });
 
         this.gpm.on('move', (btn: number, modifier: number, x: number, y: number) => {
-            x--, y--;
+            x--;
+            y--;
 
             const key = {
                 name: 'mouse',
@@ -1047,7 +1065,8 @@ class Program extends EventEmitter {
         });
 
         this.gpm.on('drag', (btn: number, modifier: number, x: number, y: number) => {
-            x--, y--;
+            x--;
+            y--;
 
             const key = {
                 name: 'mouse',
@@ -1850,7 +1869,10 @@ class Program extends EventEmitter {
                 this.cuu(this.y - y);
             }
         } else {
-            if (!this.zero) x++, y++;
+            if (!this.zero) {
+              x++;
+              y++;
+            }
             this.cup(y, x);
         }
     };
