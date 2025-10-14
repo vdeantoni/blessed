@@ -8,7 +8,7 @@
  * Modules
  */
 
-import type { IScreenOptions } from '../types/options.js';
+import type { ScreenOptions } from '../types/options.js';
 import type { RenderCoords } from '../types/common.js';
 import type { KeyEvent, MouseEvent } from '../types/events.js';
 import path from 'path';
@@ -30,7 +30,7 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
  */
 
 class Screen extends Node {
-  options!: IScreenOptions; // Set by parent Node constructor
+  options!: ScreenOptions; // Set by parent Node constructor
   program: any;
   tput: any;
   autoPadding: boolean;
@@ -84,7 +84,7 @@ class Screen extends Node {
   destroyed?: boolean;
   type = 'screen';
 
-  constructor(options: IScreenOptions = {}) {
+  constructor(options: ScreenOptions = {}) {
     if (options.rsety && options.listen) {
       options = { program: options };
     }
