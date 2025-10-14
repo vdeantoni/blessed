@@ -71,11 +71,13 @@ class List extends ScrollableBox {
     }
 
     // Legacy: for apps written before the addition of item attributes.
+    // Copy base style properties to item style if not already set
+    type StyleKey = 'bg' | 'fg' | 'bold' | 'underline' | 'blink' | 'inverse' | 'invisible';
     (['bg', 'fg', 'bold', 'underline',
-     'blink', 'inverse', 'invisible'] as const).forEach((name) => {
-      const styleValue = (this.style as any)[name];
-      const itemValue = (this.style.item as any)[name];
-      if (styleValue != null && itemValue == null) {
+     'blink', 'inverse', 'invisible'] as const).forEach((name: StyleKey) => {
+      const styleValue = this.style[name];
+      const itemValue = this.style.item?.[name];
+      if (styleValue != null && itemValue == null && this.style.item) {
         (this.style.item as any)[name] = styleValue;
       }
     });
