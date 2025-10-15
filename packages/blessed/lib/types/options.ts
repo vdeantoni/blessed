@@ -111,12 +111,12 @@ export interface ElementOptions extends NodeOptions, ScrollableOptions {
   /**
    * Bold text attribute.
    */
-  bold?: string;
+  bold?: boolean;
 
   /**
    * Underline text attribute.
    */
-  underline?: string;
+  underline?: boolean;
 
   /**
    * Blinking text attribute.

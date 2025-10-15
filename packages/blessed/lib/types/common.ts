@@ -159,9 +159,9 @@ export interface Border {
   /** Border foreground color. Must be a number (-1 for default). */
   fg?: number;
   /** Bold attribute for border */
-  bold?: string;
+  bold?: boolean;
   /** Underline attribute for border */
-  underline?: string;
+  underline?: boolean;
   /** Whether to draw top border */
   top?: boolean;
   /** Whether to draw bottom border */
