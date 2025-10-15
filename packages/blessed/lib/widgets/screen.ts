@@ -31,7 +31,7 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
  */
 
 class Screen extends Node {
-  options!: ScreenOptions; // Set by parent Node constructor
+  declare options: ScreenOptions; // Type refinement - initialized by parent
   program: any;
   tput: any;
   autoPadding: boolean;
@@ -82,8 +82,7 @@ class Screen extends Node {
   _hoverText?: any;
   _savedFocus?: any;
   _cursorBlink?: any;
-  destroyed?: boolean;
-  type = 'screen';
+  override type = 'screen';
 
   constructor(options: ScreenOptions = {}) {
     if (options.rsety && options.listen) {
@@ -104,7 +103,7 @@ class Screen extends Node {
         forceUnicode: options.forceUnicode,
         tput: true,
         buffer: true,
-        zero: true
+        zero: true,
       });
     } else {
       options.program = program_instance;
@@ -137,16 +136,20 @@ class Screen extends Node {
     this._unicode = this.tput.unicode || this.tput.numbers.U8 === 1;
     this.fullUnicode = !!(this.options.fullUnicode && this._unicode);
 
-    this.dattr = ((0 << 18) | (0x1ff << 9)) | 0x1ff;
+    this.dattr = (0 << 18) | (0x1ff << 9) | 0x1ff;
 
     this.renders = 0;
     this.position = {
-      left: this.left = this.aleft = this.rleft = 0,
-      right: this.right = this.aright = this.rright = 0,
-      top: this.top = this.atop = this.rtop = 0,
-      bottom: this.bottom = this.abottom = this.rbottom = 0,
-      get height() { return this.height; },
-      get width() { return this.width; }
+      left: (this.left = this.aleft = this.rleft = 0),
+      right: (this.right = this.aright = this.rright = 0),
+      top: (this.top = this.atop = this.rtop = 0),
+      bottom: (this.bottom = this.abottom = this.rbottom = 0),
+      get height() {
+        return this.height;
+      },
+      get width() {
+        return this.width;
+      },
     };
 
     this.ileft = 0;
@@ -160,7 +163,7 @@ class Screen extends Node {
       left: 0,
       top: 0,
       right: 0,
-      bottom: 0
+      bottom: 0,
     };
 
     this.hover = null;
@@ -182,7 +185,7 @@ class Screen extends Node {
       artificial: options.artificialCursor || false,
       shape: options.cursorShape || 'block',
       blink: options.cursorBlink || false,
-      color: options.cursorColor || null
+      color: options.cursorColor || null,
     };
 
     this.cursor = {
@@ -192,7 +195,7 @@ class Screen extends Node {
       color: cursorConfig.color || null,
       _set: false,
       _state: 1,
-      _hidden: true
+      _hidden: true,
     };
 
     this.program.on('resize', () => {
@@ -217,20 +220,27 @@ class Screen extends Node {
     });
 
     this.on('newListener', (type: any) => {
-      if (type === 'keypress' || type.indexOf('key ') === 0 || type === 'mouse') {
-        if (type === 'keypress' || type.indexOf('key ') === 0) this._listenKeys();
+      if (
+        type === 'keypress' ||
+        type.indexOf('key ') === 0 ||
+        type === 'mouse'
+      ) {
+        if (type === 'keypress' || type.indexOf('key ') === 0)
+          this._listenKeys();
         if (type === 'mouse') this._listenMouse();
       }
-      if (type === 'mouse'
-        || type === 'click'
-        || type === 'mouseover'
-        || type === 'mouseout'
-        || type === 'mousedown'
-        || type === 'mouseup'
-        || type === 'mousewheel'
-        || type === 'wheeldown'
-        || type === 'wheelup'
-        || type === 'mousemove') {
+      if (
+        type === 'mouse' ||
+        type === 'click' ||
+        type === 'mouseover' ||
+        type === 'mouseout' ||
+        type === 'mousedown' ||
+        type === 'mouseup' ||
+        type === 'mousewheel' ||
+        type === 'wheeldown' ||
+        type === 'wheelup' ||
+        type === 'mousemove'
+      ) {
         this._listenMouse();
       }
     });
@@ -337,9 +347,7 @@ class Screen extends Node {
     if (process.platform === 'win32') {
       try {
         cp.execSync('cls', { stdio: 'ignore', timeout: 1000 });
-      } catch (e) {
-        ;
-      }
+      } catch (e) {}
     }
     this.program.alternateBuffer();
     this.program.put.keypad_xmit();
@@ -360,8 +368,10 @@ class Screen extends Node {
   leave(): void {
     if (!this.program || !this.program.isAlt) return;
     this.program.put.keypad_local();
-    if (this.program.scrollTop !== 0
-        || this.program.scrollBottom !== this.rows - 1) {
+    if (
+      this.program.scrollTop !== 0 ||
+      this.program.scrollBottom !== this.rows - 1
+    ) {
       this.program.csr(0, this.height - 1);
     }
     // XXX For some reason if alloc/clear() is before this
@@ -377,9 +387,7 @@ class Screen extends Node {
     if (process.platform === 'win32') {
       try {
         cp.execSync('cls', { stdio: 'ignore', timeout: 1000 });
-      } catch (e) {
-        ;
-      }
+      } catch (e) {}
     }
   }
 
@@ -407,12 +415,12 @@ class Screen extends Node {
         scrollbar: {
           ch: ' ',
           track: {
-            bg: 'yellow'
+            bg: 'yellow',
           },
           style: {
-            inverse: true
-          }
-        }
+            inverse: true,
+          },
+        },
       });
 
       this.debugLog.toggle = () => {
@@ -447,7 +455,7 @@ class Screen extends Node {
           border: 'line',
           label: ' {red-fg}{bold}WARNING{/} ',
           content: '{bold}' + text + '{/bold}',
-          tags: true
+          tags: true,
         });
         this.render();
         const timeout = setTimeout(() => {
@@ -466,7 +474,7 @@ class Screen extends Node {
    * to the screen object. If all screen objects are destroyed, the node process is essentially reset
    * to its initial state.
    */
-  destroy(): void {
+  override destroy(): void {
     this.leave();
 
     const index = registry.instances.indexOf(this);
@@ -567,8 +575,12 @@ class Screen extends Node {
         pos = el.lpos;
         if (!pos) continue;
 
-        if (data.x >= pos.xi && data.x < pos.xl
-            && data.y >= pos.yi && data.y < pos.yl) {
+        if (
+          data.x >= pos.xi &&
+          data.x < pos.xl &&
+          data.y >= pos.yi &&
+          data.y < pos.yl
+        ) {
           el.emit('mouse', data);
           if (data.action === 'mousedown') {
             this.mouseDown = el;
@@ -594,11 +606,13 @@ class Screen extends Node {
       }
 
       // Just mouseover?
-      if ((data.action === 'mousemove'
-          || data.action === 'mousedown'
-          || data.action === 'mouseup')
-          && this.hover
-          && !set) {
+      if (
+        (data.action === 'mousemove' ||
+          data.action === 'mousedown' ||
+          data.action === 'mouseup') &&
+        this.hover &&
+        !set
+      ) {
         this.hover.emit('mouseout', data);
         this.hover = null;
       }
@@ -716,11 +730,11 @@ class Screen extends Node {
       border: 'line',
       style: {
         border: {
-          fg: 'default'
+          fg: 'default',
         },
         bg: 'default',
-        fg: 'default'
-      }
+        fg: 'default',
+      },
     });
 
     this.on('mousemove', (data: MouseEvent) => {
@@ -859,9 +873,12 @@ class Screen extends Node {
   insertLine(n: number, y: number, top: number, bottom: number): void {
     // if (y === top) return this.insertLineNC(n, y, top, bottom);
 
-    if (!this.tput.strings.change_scroll_region
-        || !this.tput.strings.delete_line
-        || !this.tput.strings.insert_line) return;
+    if (
+      !this.tput.strings.change_scroll_region ||
+      !this.tput.strings.delete_line ||
+      !this.tput.strings.insert_line
+    )
+      return;
 
     this._buf += this.tput.csr(top, bottom);
     this._buf += this.tput.cup(y, 0);
@@ -889,9 +906,12 @@ class Screen extends Node {
   deleteLine(n: number, y: number, top: number, bottom: number): void {
     // if (y === top) return this.deleteLineNC(n, y, top, bottom);
 
-    if (!this.tput.strings.change_scroll_region
-        || !this.tput.strings.delete_line
-        || !this.tput.strings.insert_line) return;
+    if (
+      !this.tput.strings.change_scroll_region ||
+      !this.tput.strings.delete_line ||
+      !this.tput.strings.insert_line
+    )
+      return;
 
     this._buf += this.tput.csr(top, bottom);
     this._buf += this.tput.cup(y, 0);
@@ -917,8 +937,11 @@ class Screen extends Node {
    * @param bottom - Bottom of scroll region
    */
   insertLineNC(n: number, y: number, top: number, bottom: number): void {
-    if (!this.tput.strings.change_scroll_region
-        || !this.tput.strings.delete_line) return;
+    if (
+      !this.tput.strings.change_scroll_region ||
+      !this.tput.strings.delete_line
+    )
+      return;
 
     this._buf += this.tput.csr(top, bottom);
     this._buf += this.tput.cup(top, 0);
@@ -944,8 +967,11 @@ class Screen extends Node {
    * @param bottom - Bottom of scroll region
    */
   deleteLineNC(n: number, y: number, top: number, bottom: number): void {
-    if (!this.tput.strings.change_scroll_region
-        || !this.tput.strings.delete_line) return;
+    if (
+      !this.tput.strings.change_scroll_region ||
+      !this.tput.strings.delete_line
+    )
+      return;
 
     this._buf += this.tput.csr(top, bottom);
     this._buf += this.tput.cup(bottom, 0);
@@ -1019,17 +1045,17 @@ class Screen extends Node {
     }
 
     if (pos.xi <= 0 && pos.xl >= this.width) {
-      return pos._cleanSides = true;
+      return (pos._cleanSides = true);
     }
 
     if (this.options.fastCSR) {
       // Maybe just do this instead of parsing.
-      if (pos.yi < 0) return pos._cleanSides = false;
-      if (pos.yl > this.height) return pos._cleanSides = false;
+      if (pos.yi < 0) return (pos._cleanSides = false);
+      if (pos.yl > this.height) return (pos._cleanSides = false);
       if (this.width - (pos.xl - pos.xi) < 40) {
-        return pos._cleanSides = true;
+        return (pos._cleanSides = true);
       }
-      return pos._cleanSides = false;
+      return (pos._cleanSides = false);
     }
 
     if (!this.options.smartCSR) {
@@ -1055,10 +1081,10 @@ class Screen extends Node {
     let x: number;
     let y: number;
 
-    if (pos.yi < 0) return pos._cleanSides = false;
-    if (pos.yl > this.height) return pos._cleanSides = false;
-    if (pos.xi - 1 < 0) return pos._cleanSides = true;
-    if (pos.xl > this.width) return pos._cleanSides = true;
+    if (pos.yi < 0) return (pos._cleanSides = false);
+    if (pos.yl > this.height) return (pos._cleanSides = false);
+    if (pos.xi - 1 < 0) return (pos._cleanSides = true);
+    if (pos.xl > this.width) return (pos._cleanSides = true);
 
     for (x = pos.xi - 1; x >= 0; x--) {
       if (!this.olines[yi]) break;
@@ -1067,7 +1093,7 @@ class Screen extends Node {
         if (!this.olines[y] || !this.olines[y][x]) break;
         ch = this.olines[y][x];
         if (ch[0] !== first[0] || ch[1] !== first[1]) {
-          return pos._cleanSides = false;
+          return (pos._cleanSides = false);
         }
       }
     }
@@ -1079,12 +1105,12 @@ class Screen extends Node {
         if (!this.olines[y] || !this.olines[y][x]) break;
         ch = this.olines[y][x];
         if (ch[0] !== first[0] || ch[1] !== first[1]) {
-          return pos._cleanSides = false;
+          return (pos._cleanSides = false);
         }
       }
     }
 
-    return pos._cleanSides = true;
+    return (pos._cleanSides = true);
   }
 
   /**
@@ -1113,7 +1139,7 @@ class Screen extends Node {
     //   for (x = stop.xi; x < stop.xl; x++) {
 
     const stopKeys = Object.keys(stops)
-      .map((k) => +k)
+      .map(k => +k)
       .sort((a, b) => a - b);
 
     for (i = 0; i < stopKeys.length; i++) {
@@ -1249,11 +1275,13 @@ class Screen extends Node {
         ch = line[x][1];
 
         // Render the artificial cursor.
-        if (this.cursor.artificial
-            && !this.cursor._hidden
-            && this.cursor._state
-            && x === this.program.x
-            && y === this.program.y) {
+        if (
+          this.cursor.artificial &&
+          !this.cursor._hidden &&
+          this.cursor._state &&
+          x === this.program.x &&
+          y === this.program.y
+        ) {
           const cattr = this._cursorAttr(this.cursor, data);
           if (cattr.ch) ch = cattr.ch;
           data = cattr.attr;
@@ -1262,11 +1290,13 @@ class Screen extends Node {
         // Take advantage of xterm's back_color_erase feature by using a
         // lookahead. Stop spitting out so many damn spaces. NOTE: Is checking
         // the bg for non BCE terminals worth the overhead?
-        if (this.options.useBCE
-            && ch === ' '
-            && (this.tput.bools.back_color_erase
-            || (data & 0x1ff) === (this.dattr & 0x1ff))
-            && ((data >> 18) & 8) === ((this.dattr >> 18) & 8)) {
+        if (
+          this.options.useBCE &&
+          ch === ' ' &&
+          (this.tput.bools.back_color_erase ||
+            (data & 0x1ff) === (this.dattr & 0x1ff)) &&
+          ((data >> 18) & 8) === ((this.dattr >> 18) & 8)
+        ) {
           clr = true;
           neq = false;
 
@@ -1352,9 +1382,7 @@ class Screen extends Node {
           continue;
         } else if (lx !== -1) {
           if (this.tput.strings.parm_right_cursor) {
-            out += y === ly
-              ? this.tput.cuf(x - lx)
-              : this.tput.cup(y, x);
+            out += y === ly ? this.tput.cuf(x - lx) : this.tput.cup(y, x);
           } else {
             out += this.tput.cup(y, x);
           }
@@ -1476,8 +1504,11 @@ class Screen extends Node {
         // supports UTF8, but I imagine it's unlikely.
         // Maybe remove !this.tput.unicode check, however,
         // this seems to be the way ncurses does it.
-        if (this.tput.strings.enter_alt_charset_mode
-            && !this.tput.brokenACS && (this.tput.acscr[ch] || acs)) {
+        if (
+          this.tput.strings.enter_alt_charset_mode &&
+          !this.tput.brokenACS &&
+          (this.tput.acscr[ch] || acs)
+        ) {
           // Fun fact: even if this.tput.brokenACS wasn't checked here,
           // the linux console would still work fine because the acs
           // table would fail the check of: this.tput.acscr[ch]
@@ -1485,8 +1516,7 @@ class Screen extends Node {
             if (acs) {
               ch = this.tput.acscr[ch];
             } else {
-              ch = this.tput.smacs()
-                + this.tput.acscr[ch];
+              ch = this.tput.smacs() + this.tput.acscr[ch];
               acs = true;
             }
           } else if (acs) {
@@ -1624,23 +1654,31 @@ class Screen extends Node {
           bg = def & 0x1ff;
           break;
         default: // color
-          if (c === 48 && +codeArray[i+1] === 5) {
+          if (c === 48 && +codeArray[i + 1] === 5) {
             i += 2;
             bg = +codeArray[i];
             break;
-          } else if (c === 48 && +codeArray[i+1] === 2) {
+          } else if (c === 48 && +codeArray[i + 1] === 2) {
             i += 2;
-            bg = colors.match(+codeArray[i], +codeArray[i+1], +codeArray[i+2]);
+            bg = colors.match(
+              +codeArray[i],
+              +codeArray[i + 1],
+              +codeArray[i + 2]
+            );
             if (bg === -1) bg = def & 0x1ff;
             i += 2;
             break;
-          } else if (c === 38 && +codeArray[i+1] === 5) {
+          } else if (c === 38 && +codeArray[i + 1] === 5) {
             i += 2;
             fg = +codeArray[i];
             break;
-          } else if (c === 38 && +codeArray[i+1] === 2) {
+          } else if (c === 38 && +codeArray[i + 1] === 2) {
             i += 2;
-            fg = colors.match(+codeArray[i], +codeArray[i+1], +codeArray[i+2]);
+            fg = colors.match(
+              +codeArray[i],
+              +codeArray[i + 1],
+              +codeArray[i + 2]
+            );
             if (fg === -1) fg = (def >> 9) & 0x1ff;
             i += 2;
             break;
@@ -1839,7 +1877,7 @@ class Screen extends Node {
    * @returns The saved focused element
    */
   saveFocus(): any {
-    return this._savedFocus = this.focused;
+    return (this._savedFocus = this.focused);
   }
 
   /**
@@ -1888,7 +1926,7 @@ class Screen extends Node {
   _focus(self: any, old: any): void {
     // Find a scrollable ancestor if we have one.
     let el = self;
-    while (el = el.parent) {
+    while ((el = el.parent)) {
       if (el.scrollable) break;
     }
 
@@ -1898,11 +1936,15 @@ class Screen extends Node {
       // NOTE: This is different from the other "visible" values - it needs the
       // visible height of the scrolling element itself, not the element within
       // it.
-      const visible = self.screen.height - el.atop - el.itop - el.abottom - el.ibottom;
+      const visible =
+        self.screen.height - el.atop - el.itop - el.abottom - el.ibottom;
       if (self.rtop < el.childBase) {
         el.scrollTo(self.rtop);
         self.screen.render();
-      } else if (self.rtop + self.height - self.ibottom > el.childBase + visible) {
+      } else if (
+        self.rtop + self.height - self.ibottom >
+        el.childBase + visible
+      ) {
         // Explanation for el.itop here: takes into account scrollable elements
         // with borders otherwise the element gets covered by the bottom border:
         el.scrollTo(self.rtop - (el.height - self.height) + el.itop, true);
@@ -1926,7 +1968,13 @@ class Screen extends Node {
    * @param yl - Bottom Y coordinate
    * @param override - If true, always write even if cell hasn't changed
    */
-  clearRegion(xi: number, xl: number, yi: number, yl: number, override?: boolean): void {
+  clearRegion(
+    xi: number,
+    xl: number,
+    yi: number,
+    yl: number,
+    override?: boolean
+  ): void {
     return this.fillRegion(this.dattr, ' ', xi, xl, yi, yl, override);
   }
 
@@ -1941,7 +1989,15 @@ class Screen extends Node {
    * @param yl - Bottom Y coordinate
    * @param override - If true, always write even if cell hasn't changed
    */
-  fillRegion(attr: number, ch: string, xi: number, xl: number, yi: number, yl: number, override?: boolean): void {
+  fillRegion(
+    attr: number,
+    ch: string,
+    xi: number,
+    xl: number,
+    yi: number,
+    yl: number,
+    override?: boolean
+  ): void {
     const lines = this.lines;
     let cell: any;
     let xx: number;
@@ -2031,13 +2087,13 @@ class Screen extends Node {
     if (mouse) program.disableMouse();
 
     const write = program.output.write;
-    program.output.write = function() {};
+    program.output.write = function () {};
     program.input.pause();
     if (program.input.setRawMode) {
       program.input.setRawMode(false);
     }
 
-    const resume = function() {
+    const resume = function () {
       if ((resume as any).done) return;
       (resume as any).done = true;
 
@@ -2113,7 +2169,7 @@ class Screen extends Node {
     }
 
     if (!callback) {
-      callback = function() {};
+      callback = function () {};
     }
 
     options = options || {};
@@ -2128,7 +2184,7 @@ class Screen extends Node {
     opt = {
       stdio: 'inherit',
       env: process.env,
-      cwd: process.env.HOME
+      cwd: process.env.HOME,
     };
 
     function writeFile(callback: any) {
@@ -2172,13 +2228,16 @@ class Screen extends Node {
 
     const args = ['w3m', '-T', 'text/html'];
 
-    const input = '<title>press q to exit</title>'
-      + '<img align="center" src="' + file + '">';
+    const input =
+      '<title>press q to exit</title>' +
+      '<img align="center" src="' +
+      file +
+      '">';
 
     const opt = {
       stdio: ['pipe', 1, 2],
       env: process.env,
-      cwd: process.env.HOME
+      cwd: process.env.HOME,
     };
 
     const ps = this.spawn(args[0], args.slice(1), opt);
@@ -2209,7 +2268,14 @@ class Screen extends Node {
    * @param effects - Style object with effects to apply
    * @param temp - Property name to store temporary state in
    */
-  setEffects(el: any, fel: any, over: any, out: any, effects: any, temp?: any): void {
+  setEffects(
+    el: any,
+    fel: any,
+    over: any,
+    out: any,
+    effects: any,
+    temp?: any
+  ): void {
     if (!effects) return;
 
     const tmp: any = {};
@@ -2217,7 +2283,9 @@ class Screen extends Node {
 
     if (typeof el !== 'function') {
       const _el = el;
-      el = function() { return _el; };
+      el = function () {
+        return _el;
+      };
     }
 
     fel.on(over, () => {
@@ -2340,9 +2408,7 @@ class Screen extends Node {
    * @returns True if successful
    */
   cursorColor(color: any): boolean {
-    this.cursor.color = color != null
-      ? colors.convert(color)
-      : null;
+    this.cursor.color = color != null ? colors.convert(color) : null;
     this.cursor._set = true;
 
     if (this.cursor.artificial) {
@@ -2418,9 +2484,13 @@ class Screen extends Node {
     } else if (typeof cursor.shape === 'object' && cursor.shape) {
       cattr = Element.prototype.sattr.call(cursor, cursor.shape);
 
-      if (cursor.shape.bold || cursor.shape.underline
-          || cursor.shape.blink || cursor.shape.inverse
-          || cursor.shape.invisible) {
+      if (
+        cursor.shape.bold ||
+        cursor.shape.underline ||
+        cursor.shape.blink ||
+        cursor.shape.inverse ||
+        cursor.shape.invisible
+      ) {
         attr &= ~(0x1ff << 18);
         attr |= ((cattr >> 18) & 0x1ff) << 18;
       }
@@ -2447,7 +2517,7 @@ class Screen extends Node {
 
     return {
       ch: ch,
-      attr: attr
+      attr: attr,
     };
   }
 
@@ -2461,7 +2531,13 @@ class Screen extends Node {
    * @param term - Terminal object to screenshot from (default: this screen)
    * @returns SGR-encoded screenshot string
    */
-  screenshot(xi?: number, xl?: number, yi?: number, yl?: number, term?: any): string {
+  screenshot(
+    xi?: number,
+    xl?: number,
+    yi?: number,
+    yl?: number,
+    term?: any
+  ): string {
     if (xi == null) xi = 0;
     if (xl == null) xl = this.cols;
     if (yi == null) yi = 0;
@@ -2487,9 +2563,7 @@ class Screen extends Node {
     let main = '';
 
     for (y = yi; y < yl; y++) {
-      line = term
-        ? term.lines[y]
-        : this.lines[y];
+      line = term ? term.lines[y] : this.lines[y];
 
       if (!line) break;
 
@@ -2568,7 +2642,7 @@ class Screen extends Node {
   static _sigquitHandler: any;
   static _exitHandler: any;
   static _bound: any;
-  static bind: (screen: any) => void;
+  static override bind: (screen: any) => void;
 }
 
 // Use Node.ScreenRegistry to break circular dependency

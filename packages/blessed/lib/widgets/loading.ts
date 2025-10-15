@@ -24,7 +24,7 @@ interface LoadingData {
  */
 
 class Loading extends Box {
-  type = 'loading';
+  override type = 'loading';
   declare _: LoadingData;
 
   constructor(options: LoadingOptions = {}) {
@@ -37,7 +37,7 @@ class Loading extends Box {
       left: 1,
       right: 1,
       height: 1,
-      content: '|'
+      content: '|',
     });
   }
 

@@ -14,7 +14,7 @@ import Box from './box.js';
  */
 
 class Input extends Box {
-  type = 'input';
+  override type = 'input';
 
   constructor(options: InputOptions = {}) {
     super(options);

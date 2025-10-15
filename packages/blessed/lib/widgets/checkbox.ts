@@ -14,7 +14,7 @@ import Input from './input.js';
  */
 
 class Checkbox extends Input {
-  type = 'checkbox';
+  override type = 'checkbox';
   /**
    * The text displayed next to the checkbox.
    *
@@ -73,7 +73,7 @@ class Checkbox extends Input {
     });
   }
 
-  render(): any {
+  override render(): any {
     this.clearPos(true);
     this.setContent('[' + (this.checked ? 'x' : ' ') + '] ' + this.text, true);
     return super.render();
@@ -114,7 +114,7 @@ class Checkbox extends Input {
    * @example
    * checkbox.toggle();
    */
-  toggle(): void {
+  override toggle(): void {
     return this.checked
       ? this.uncheck()
       : this.check();

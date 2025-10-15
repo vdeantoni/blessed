@@ -15,7 +15,7 @@ import { makeScrollable } from '../mixins/scrollable.js';
  */
 
 class ScrollableBox extends Box {
-  type = 'scrollable-box';
+  override type = 'scrollable-box';
 
   constructor(options: ScrollableBoxOptions = {}) {
     super(options);

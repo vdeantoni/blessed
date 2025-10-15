@@ -14,7 +14,7 @@ import Input from './input.js';
  */
 
 class ProgressBar extends Input {
-  type = 'progress-bar';
+  override type = 'progress-bar';
   declare style: ProgressBarStyle;
   filled: number;
   value: number;
@@ -69,7 +69,10 @@ class ProgressBar extends Input {
           this.screen.render();
           return;
         }
-        if (key.name === forward[0] || (options.vi && key.name === forward[1])) {
+        if (
+          key.name === forward[0] ||
+          (options.vi && key.name === forward[1])
+        ) {
           this.progress(5);
           this.screen.render();
           return;
@@ -84,19 +87,19 @@ class ProgressBar extends Input {
         if (!this.lpos) return;
         if (this.orientation === 'horizontal') {
           x = data.x - this.lpos.xi;
-          m = (this.lpos.xl - this.lpos.xi) - this.iwidth;
-          p = x / m * 100 | 0;
+          m = this.lpos.xl - this.lpos.xi - this.iwidth;
+          p = ((x / m) * 100) | 0;
         } else if (this.orientation === 'vertical') {
           y = data.y - this.lpos.yi;
-          m = (this.lpos.yl - this.lpos.yi) - this.iheight;
-          p = y / m * 100 | 0;
+          m = this.lpos.yl - this.lpos.yi - this.iheight;
+          p = ((y / m) * 100) | 0;
         }
         this.setProgress(p);
       });
     }
   }
 
-  render(): any {
+  override render(): any {
     const ret = super.render();
     if (!ret) return;
 
@@ -114,9 +117,9 @@ class ProgressBar extends Input {
     }
 
     if (this.orientation === 'horizontal') {
-      xl = xi + ((xl - xi) * (this.filled / 100)) | 0;
+      xl = (xi + (xl - xi) * (this.filled / 100)) | 0;
     } else if (this.orientation === 'vertical') {
-      yi = yi + ((yl - yi) - (((yl - yi) * (this.filled / 100)) | 0));
+      yi = yi + (yl - yi - (((yl - yi) * (this.filled / 100)) | 0));
     }
 
     dattr = this.sattr(this.style.bar);

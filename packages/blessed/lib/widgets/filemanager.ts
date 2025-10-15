@@ -17,8 +17,8 @@ import List from './list.js';
  */
 
 class FileManager extends List {
-  type = 'file-manager';
-  options!: FileManagerOptions; // Set by parent Node constructor
+  override type = 'file-manager';
+  declare options: FileManagerOptions; // Type refinement - initialized by parent
   /**
    * The current working directory.
    *
@@ -28,7 +28,7 @@ class FileManager extends List {
    */
   cwd: string;
   file: string;
-  value: string;
+  override value: string;
 
   constructor(options: FileManagerOptions = {}) {
     options.parseTags = true;
@@ -93,9 +93,7 @@ class FileManager extends List {
 
     return fs.readdir(cwd, (err, list) => {
       if (err && err.code === 'ENOENT') {
-        this.cwd = cwd !== process.env.HOME
-          ? (process.env.HOME || '/')
-          : '/';
+        this.cwd = cwd !== process.env.HOME ? process.env.HOME || '/' : '/';
         return this.refresh(callback);
       }
 
@@ -109,33 +107,31 @@ class FileManager extends List {
 
       list.unshift('..');
 
-      list.forEach((name) => {
+      list.forEach(name => {
         const f = path.resolve(cwd, name);
         let stat: any;
 
         try {
           stat = fs.lstatSync(f);
-        } catch (e) {
-          ;
-        }
+        } catch (e) {}
 
         if ((stat && stat.isDirectory()) || name === '..') {
           dirs.push({
             name: name,
             text: '{light-blue-fg}' + name + '{/light-blue-fg}/',
-            dir: true
+            dir: true,
           });
         } else if (stat && stat.isSymbolicLink()) {
           files.push({
             name: name,
             text: '{light-cyan-fg}' + name + '{/light-cyan-fg}@',
-            dir: false
+            dir: false,
           });
         } else {
           files.push({
             name: name,
             text: name,
-            dir: false
+            dir: false,
           });
         }
       });
@@ -143,7 +139,7 @@ class FileManager extends List {
       dirs = helpers.asort(dirs);
       files = helpers.asort(files);
 
-      list = dirs.concat(files).map((data) => {
+      list = dirs.concat(files).map(data => {
         return data.text;
       });
 
@@ -170,7 +166,7 @@ class FileManager extends List {
    *   if (filePath) console.log('Selected:', filePath);
    * });
    */
-  pick(cwd?: any, callback?: any) {
+  override pick(cwd?: any, callback?: any) {
     if (!callback) {
       callback = cwd;
       cwd = null;
@@ -192,15 +188,21 @@ class FileManager extends List {
       this.screen.render();
     };
 
-    this.on('file', onfile = (file: any) => {
-      resume();
-      return callback(null, file);
-    });
+    this.on(
+      'file',
+      (onfile = (file: any) => {
+        resume();
+        return callback(null, file);
+      })
+    );
 
-    this.on('cancel', oncancel = () => {
-      resume();
-      return callback();
-    });
+    this.on(
+      'cancel',
+      (oncancel = () => {
+        resume();
+        return callback();
+      })
+    );
 
     this.refresh(cwd, (err: any) => {
       if (err) return callback(err);

@@ -33,7 +33,7 @@ class Node extends EventEmitter {
    * Type of the node (e.g. box, list, form, etc.).
    * Used to identify the widget type at runtime.
    */
-  type = 'node';
+  override type = 'node';
   options: NodeOptions;
   /**
    * Reference to the parent Screen instance.
@@ -52,7 +52,7 @@ class Node extends EventEmitter {
    * to subclass-specific methods. Attempting to type as Node loses
    * methods from subclasses like Box, List, Form, etc.
    */
-  parent: any;
+  override parent: any;
   /**
    * Array of child elements.
    * Type: Node[] (can contain any Node subclasses)
@@ -105,15 +105,18 @@ class Node extends EventEmitter {
       } else if (ScreenRegistry.total) {
         // This _should_ work in most cases as long as the element is appended
         // synchronously after the screen's creation. Throw error if not.
-        this.screen = ScreenRegistry.instances[ScreenRegistry.instances.length - 1];
+        this.screen =
+          ScreenRegistry.instances[ScreenRegistry.instances.length - 1];
         process.nextTick(() => {
           if (!this.parent) {
-            throw new Error(`Element (${this.type})` +
-              ' was not appended synchronously after the' +
-              ' screen\'s creation. Please set a `parent`' +
-              ' or `screen` option in the element\'s constructor' +
-              ' if you are going to use multiple screens and' +
-              ' append the element later.');
+            throw new Error(
+              `Element (${this.type})` +
+                ' was not appended synchronously after the' +
+                " screen's creation. Please set a `parent`" +
+                " or `screen` option in the element's constructor" +
+                ' if you are going to use multiple screens and' +
+                ' append the element later.'
+            );
           }
         });
       } else {
@@ -145,7 +148,7 @@ class Node extends EventEmitter {
    */
   insert(element: any, i: number): void {
     if (element.screen && element.screen !== this.screen) {
-      throw new Error('Cannot switch a node\'s screen.');
+      throw new Error("Cannot switch a node's screen.");
     }
 
     element.detach();
@@ -285,7 +288,7 @@ class Node extends EventEmitter {
   forAncestors(iter: (el: any) => void, s?: any): void {
     let el: any = this;
     if (s) iter(this);
-    while (el = el.parent) {
+    while ((el = el.parent)) {
       iter(el);
     }
   }
@@ -367,7 +370,7 @@ class Node extends EventEmitter {
    */
   hasAncestor(target: any): boolean {
     let el: any = this;
-    while (el = el.parent) {
+    while ((el = el.parent)) {
       if (el === target) return true;
     }
     return false;
@@ -387,7 +390,7 @@ class Node extends EventEmitter {
    * Set user property to value.
    */
   set(name: string, value: any): any {
-    return this.data[name] = value;
+    return (this.data[name] = value);
   }
 }
 

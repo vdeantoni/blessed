@@ -1049,7 +1049,9 @@ class Tput {
             console.error(JSON.stringify(str));
             console.error('');
             console.error(code.replace(/(,|;)/g, '$1\n'));
-            e.stack = e.stack.replace(/\x1b/g, '\\x1b');
+            if (e instanceof Error && e.stack) {
+                e.stack = e.stack.replace(/\x1b/g, '\\x1b');
+            }
             throw e;
         }
     };

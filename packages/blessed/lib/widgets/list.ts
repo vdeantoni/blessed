@@ -20,13 +20,13 @@ import ScrollableBox from './scrollablebox.js';
  */
 
 class List extends ScrollableBox {
-  type = 'list';
+  override type = 'list';
   declare style: ListElementStyle;
   value: string;
-  items: any[];
+  override items: any[];
   ritems: any[];
   selected: number;
-  _isList: boolean;
+  override _isList: boolean;
   interactive: boolean;
   mouse: boolean;
   _listInitialized: boolean = false; // Initialize to false
@@ -68,9 +68,25 @@ class List extends ScrollableBox {
 
     // Legacy: for apps written before the addition of item attributes.
     // Copy base style properties to item style if not already set
-    type StyleKey = 'bg' | 'fg' | 'bold' | 'underline' | 'blink' | 'inverse' | 'invisible';
-    (['bg', 'fg', 'bold', 'underline',
-     'blink', 'inverse', 'invisible'] as const).forEach((name: StyleKey) => {
+    type StyleKey =
+      | 'bg'
+      | 'fg'
+      | 'bold'
+      | 'underline'
+      | 'blink'
+      | 'inverse'
+      | 'invisible';
+    (
+      [
+        'bg',
+        'fg',
+        'bold',
+        'underline',
+        'blink',
+        'inverse',
+        'invisible',
+      ] as const
+    ).forEach((name: StyleKey) => {
       const styleValue = this.style[name];
       const itemValue = this.style.item?.[name];
       if (styleValue != null && itemValue == null && this.style.item) {
@@ -125,8 +141,10 @@ class List extends ScrollableBox {
           this.screen.render();
           return;
         }
-        if (key.name === 'enter'
-            || (options.vi && key.name === 'l' && !key.shift)) {
+        if (
+          key.name === 'enter' ||
+          (options.vi && key.name === 'l' && !key.shift)
+        ) {
           this.enterSelected();
           return;
         }
@@ -140,7 +158,7 @@ class List extends ScrollableBox {
           return;
         }
         if (options.vi && key.name === 'd' && key.ctrl) {
-          this.move((this.height - this.iheight) / 2 | 0);
+          this.move(((this.height - this.iheight) / 2) | 0);
           this.screen.render();
           return;
         }
@@ -162,18 +180,19 @@ class List extends ScrollableBox {
         if (options.vi && key.name === 'm' && key.shift) {
           // TODO: Maybe use Math.min(this.items.length,
           // ... for calculating visible items elsewhere.
-          const visible = Math.min(
-            this.height - this.iheight,
-            this.items.length) / 2 | 0;
+          const visible =
+            (Math.min(this.height - this.iheight, this.items.length) / 2) | 0;
           this.move((this.childBase || 0) + visible - this.selected);
           this.screen.render();
           return;
         }
         if (options.vi && key.name === 'l' && key.shift) {
           // XXX This goes one too far on lists with an odd number of items.
-          this.down((this.childBase || 0)
-            + Math.min(this.height - this.iheight, this.items.length)
-            - this.selected);
+          this.down(
+            (this.childBase || 0) +
+              Math.min(this.height - this.iheight, this.items.length) -
+              this.selected
+          );
           this.screen.render();
           return;
         }
@@ -193,8 +212,12 @@ class List extends ScrollableBox {
             return;
           }
           return options.search((err: any, value: any) => {
-            if (typeof err === 'string' || typeof err === 'function'
-                || typeof err === 'number' || (err && err.test)) {
+            if (
+              typeof err === 'string' ||
+              typeof err === 'function' ||
+              typeof err === 'number' ||
+              (err && err.test)
+            ) {
               value = err;
               err = null;
             }
@@ -240,12 +263,12 @@ class List extends ScrollableBox {
       align: this.align || 'left',
       top: 0,
       left: 0,
-      right: (this.scrollbar ? 1 : 0),
+      right: this.scrollbar ? 1 : 0,
       tags: this.parseTags,
       height: 1,
       hoverEffects: this.mouse ? this.style.item.hover : null,
       focusEffects: this.mouse ? this.style.item.focus : null,
-      autoFocus: false
+      autoFocus: false,
     };
 
     if (!this.screen.autoPadding) {
@@ -261,16 +284,18 @@ class List extends ScrollableBox {
       options.width = 'shrink';
     }
 
-    ['bg', 'fg', 'bold', 'underline',
-     'blink', 'inverse', 'invisible'].forEach((name) => {
-      options[name] = () => {
-        let attr = this.items[this.selected] === item && this.interactive
-          ? this.style.selected[name]
-          : this.style.item[name];
-        if (typeof attr === 'function') attr = attr(item);
-        return attr;
-      };
-    });
+    ['bg', 'fg', 'bold', 'underline', 'blink', 'inverse', 'invisible'].forEach(
+      name => {
+        options[name] = () => {
+          let attr =
+            this.items[this.selected] === item && this.interactive
+              ? this.style.selected[name]
+              : this.style.item[name];
+          if (typeof attr === 'function') attr = attr(item);
+          return attr;
+        };
+      }
+    );
 
     if (this.style.transparent) {
       options.transparent = true;
@@ -550,7 +575,7 @@ class List extends ScrollableBox {
     while (n--) {
       removed.push(this.removeItem(i));
     }
-    items.forEach((item) => {
+    items.forEach(item => {
       this.insertItem(i++, item);
     });
     return removed;
@@ -593,14 +618,15 @@ class List extends ScrollableBox {
     if (search && search[0] === '/' && search[search.length - 1] === '/') {
       try {
         search = new RegExp(search.slice(1, -1));
-      } catch (e) {
-        ;
-      }
+      } catch (e) {}
     }
 
-    const test = typeof search === 'string'
-      ? (item: string) => !!~item.indexOf(search)
-      : (search.test ? search.test.bind(search) : search);
+    const test =
+      typeof search === 'string'
+        ? (item: string) => !!~item.indexOf(search)
+        : search.test
+          ? search.test.bind(search)
+          : search;
 
     if (typeof test !== 'function') {
       if (this.screen.options.debug) {

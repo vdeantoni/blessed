@@ -19,7 +19,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
  */
 
 class BigText extends Box {
-  type = 'bigtext';
+  override type = 'bigtext';
   fch: string;
   ratio: any;
   font: any;
@@ -96,12 +96,12 @@ class BigText extends Box {
         return font;
     }
 
-    setContent(content: string): void {
+    override setContent(content: string): void {
         this.content = '';
         this.text = content || '';
     };
 
-    render(): any {
+    override render(): any {
         if (this.position.width == null || this._shrinkWidth) {
             // if (this.width - this.iwidth < this.ratio.width * this.text.length + 1) {
             this.position.width = this.ratio.width * this.text.length + 1;

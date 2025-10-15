@@ -14,7 +14,7 @@ import Textarea from './textarea.js';
  */
 
 class Textbox extends Textarea {
-  type = 'textbox';
+  override type = 'textbox';
   /**
    * Completely hide all text (no characters displayed).
    * Useful for password fields.
@@ -45,7 +45,7 @@ class Textbox extends Textarea {
     this.__olistener = super._listener;
   }
 
-  _listener(ch: any, key: KeyEvent) {
+  override _listener(ch: any, key: KeyEvent) {
     if (key.name === 'enter') {
       this._done(null, this.value);
       return;
@@ -53,7 +53,7 @@ class Textbox extends Textarea {
     return this.__olistener.call(this, ch, key);
   }
 
-  setValue(value?: any) {
+  override setValue(value?: any) {
     let visible: number;
     let val: string;
     if (value == null) {
@@ -76,7 +76,7 @@ class Textbox extends Textarea {
     this._updateCursor();
   }
 
-  submit() {
+  override submit() {
     if (!this.__listener) return;
     return this.__listener('\r', { name: 'enter' });
   }

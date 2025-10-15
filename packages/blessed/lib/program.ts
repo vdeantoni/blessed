@@ -167,7 +167,7 @@ class Program extends EventEmitter {
     static _bound = false;
     static _exitHandler: (() => void) | null = null;
 
-    static bind(program: Program) {
+    static override bind(program: Program) {
       if (!Program.global) {
         Program.global = program;
       }
