@@ -8,6 +8,7 @@
 import type { Terminal } from 'xterm';
 import { EventEmitter } from 'events';
 import blessed from '@vdeantoni/blessed';
+import type { Widgets } from '@vdeantoni/blessed';
 
 // Re-export blessed for convenience
 export { blessed };
@@ -242,7 +243,7 @@ export class XTermAdapter extends EventEmitter {
  * @param options - XTermAdapter options
  * @returns A blessed Screen instance configured for xterm.js
  */
-export function createXTermScreen(options: XTermAdapterOptions) {
+export function createXTermScreen(options: XTermAdapterOptions): Widgets.Screen {
   // Enable mouse by default
   const adapterOptions = {
     mouse: true,

@@ -1,50 +1,34 @@
 {
   "compilerOptions": {
-    // Enable JavaScript files
     "allowJs": true,
     "checkJs": false,
 
-    // Target and module
     "target": "ES2020",
     "module": "ES2022",
     "lib": ["ES2020"],
 
-    // Module resolution
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
 
-    // Output
     "outDir": "./dist",
     "rootDir": "./",
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
 
-    // Type checking - PHASE 3B: Enabling strict flags incrementally
-    // Now that widget constructors have proper types
-    "strict": false,
-    "noImplicitAny": true, // ✅ Already enabled from Phase 3A
-    "strictNullChecks": true, // ✅ PHASE 3B: Step 6 - COMPLETE
-    "strictFunctionTypes": true, // ✅ PHASE 3B: Step 3
-    "strictBindCallApply": true, // ✅ PHASE 3B: Step 4
-    "strictPropertyInitialization": true, // 🔄 PHASE 3B: Step 7 - IN PROGRESS
-    "noImplicitThis": true, // ✅ PHASE 3B: Step 5
-    "alwaysStrict": true,
-    "useUnknownInCatchVariables": true, // ✅ Catch variables are unknown (safer than any)
+    // Type checking
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "allowUnusedLabels": false,
+    "allowUnreachableCode": false,
+    "noUncheckedIndexedAccess": false,
 
-    // Additional checks - PHASE 3B: Enabling incrementally
-    "noUnusedLocals": true, // 🔄 PHASE 3B: Step 8 - IN PROGRESS
-    "noUnusedParameters": true, // 🔄 PHASE 3B: Step 8 - IN PROGRESS
-    "noImplicitReturns": true, // ✅ PHASE 3B: Step 1
-    "noFallthroughCasesInSwitch": true, // ✅ PHASE 3B: Step 2
-    "noUncheckedIndexedAccess": false, // Phase 4: Requires 181 fixes
-    "noImplicitOverride": true, // ✅ Explicit override keyword (26 fixes needed)
-    "allowUnusedLabels": false, // ✅ Disallow unused labels
-    "allowUnreachableCode": false, // ✅ Disallow unreachable code
-
-    // Other options
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
@@ -55,10 +39,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    "test",
-    "__tests__",
-    "benchmarks",
-    "example",
-    "coverage"
+    "__tests__"
   ]
 }
