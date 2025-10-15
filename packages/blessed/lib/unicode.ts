@@ -115,7 +115,7 @@ const NCURSES_CJK_WIDTH = process.env.NCURSES_CJK_WIDTH || '';
 const CJK_WIDTH_ENABLED = !!NCURSES_CJK_WIDTH;
 const CJK_WIDTH_VALUE = CJK_WIDTH_ENABLED ? (+NCURSES_CJK_WIDTH || 1) : 1;
 
-unicode.charWidth = function(str: any, i?: number): number {
+unicode.charWidth = function(str: any, i?: number, tabSize: number = 8): number {
     const point = typeof str !== 'number'
         ? unicode.codePointAt(str, i || 0)
         : str;
@@ -125,13 +125,7 @@ unicode.charWidth = function(str: any, i?: number): number {
 
     // tab
     if (point === 0x09) {
-        if (!unicode.blessed) {
-            // Lazy load to avoid circular dependency
-            unicode.blessed = require('./blessed.ts');
-        }
-        return unicode.blessed.screen.global
-            ? unicode.blessed.screen.global.tabc.length
-            : 8;
+        return tabSize;
     }
 
     // 8-bit control characters (2-width according to unicode??)
@@ -416,10 +410,10 @@ unicode.checkCJKAmbiguous = function(point: number): number {
     return 1;
 };
 
-unicode.strWidth = function(str: string): number {
+unicode.strWidth = function(str: string, tabSize: number = 8): number {
     let width = 0;
     for (let i = 0; i < str.length; i++) {
-        width += unicode.charWidth(str, i);
+        width += unicode.charWidth(str, i, tabSize);
         if (unicode.isSurrogate(str, i)) i++;
     }
     return width;
@@ -827,7 +821,7 @@ unicode.chars.combining = new RegExp(
  * Used in fullUnicode mode to prevent wide chars from eating the next character.
  * Only adds padding after characters that have width === 2.
  */
-unicode.padWideChars = function(str: string): string {
+unicode.padWideChars = function(str: string, tabSize: number = 8): string {
     let result = '';
     for (let i = 0; i < str.length; i++) {
         const startPos = i;
@@ -842,7 +836,7 @@ unicode.padWideChars = function(str: string): string {
         }
 
         // Now check width of the complete character and add padding if needed
-        if (unicode.charWidth(str, startPos) === 2) {
+        if (unicode.charWidth(str, startPos, tabSize) === 2) {
             result += '\x03';
         }
     }
@@ -854,7 +848,7 @@ unicode.padWideChars = function(str: string): string {
  * Used in non-fullUnicode mode for terminals that don't support wide chars.
  * Only replaces characters that have width === 2.
  */
-unicode.replaceWideChars = function(str: string): string {
+unicode.replaceWideChars = function(str: string, tabSize: number = 8): string {
     let result = '';
     for (let i = 0; i < str.length; i++) {
         const startPos = i;
@@ -869,7 +863,7 @@ unicode.replaceWideChars = function(str: string): string {
         }
 
         // Now check width and replace if needed
-        if (unicode.charWidth(str, startPos) === 2) {
+        if (unicode.charWidth(str, startPos, tabSize) === 2) {
             result += '??';
         } else {
             result += char;

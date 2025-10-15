@@ -68,8 +68,6 @@ export default [
       // Allow Function type (used extensively in callbacks)
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/no-unsafe-function-type': 'off',
-      // Allow require() imports in some cases
-      '@typescript-eslint/no-require-imports': 'off',
       // Allow empty interfaces (used for extension)
       '@typescript-eslint/no-empty-object-type': 'off'
     }
