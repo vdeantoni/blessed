@@ -18,7 +18,7 @@ import Box from './box.js';
  */
 
 class Form extends Box {
-  type = 'form';
+  override type = 'form';
   _children: any;
   _selected: any;
   /**
@@ -39,10 +39,12 @@ class Form extends Box {
     if (options.keys) {
       this.screen._listenKeys(this);
       this.on('element keypress', (el: any, _ch: any, key: KeyEvent) => {
-        if ((key.name === 'tab' && !key.shift)
-            || (el.type === 'textbox' && options.autoNext && key.name === 'enter')
-            || key.name === 'down'
-            || (options.vi && key.name === 'j')) {
+        if (
+          (key.name === 'tab' && !key.shift) ||
+          (el.type === 'textbox' && options.autoNext && key.name === 'enter') ||
+          key.name === 'down' ||
+          (options.vi && key.name === 'j')
+        ) {
           if (el.type === 'textbox' || el.type === 'textarea') {
             if (key.name === 'j') return;
             if (key.name === 'tab') {
@@ -59,9 +61,11 @@ class Form extends Box {
           return;
         }
 
-        if ((key.name === 'tab' && key.shift)
-            || key.name === 'up'
-            || (options.vi && key.name === 'k')) {
+        if (
+          (key.name === 'tab' && key.shift) ||
+          key.name === 'up' ||
+          (options.vi && key.name === 'k')
+        ) {
           if (el.type === 'textbox' || el.type === 'textarea') {
             if (key.name === 'k') return;
             el.emit('keypress', '\x1b', { name: 'escape' });
@@ -222,7 +226,7 @@ class Form extends Box {
 
     this.emit('submit', out);
 
-    return this.submission = out;
+    return (this.submission = out);
   }
 
   /**

@@ -14,9 +14,9 @@ import Box from './box.js';
  */
 
 class Line extends Box {
-  type = 'line';
-  ch: string;
-  border: any;
+  override type = 'line';
+  override ch: string;
+  override border: any;
 
   constructor(options: LineOptions = {}) {
     const orientation = options.orientation || 'vertical';
@@ -30,12 +30,20 @@ class Line extends Box {
 
     super(options);
 
-    this.ch = !options.type || options.type === 'line'
-      ? orientation === 'horizontal' ? '─' : '│'
-      : options.ch || ' ';
+    this.ch =
+      !options.type || options.type === 'line'
+        ? orientation === 'horizontal'
+          ? '─'
+          : '│'
+        : options.ch || ' ';
 
     this.border = Object.create(this, {
-      type: { value: 'bg', writable: true, enumerable: true, configurable: true }
+      type: {
+        value: 'bg',
+        writable: true,
+        enumerable: true,
+        configurable: true,
+      },
     });
 
     this.style.border = this.style;

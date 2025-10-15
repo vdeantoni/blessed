@@ -14,16 +14,15 @@ import Checkbox from './checkbox.js';
  */
 
 class RadioButton extends Checkbox {
-  type = 'radio-button';
+  override type = 'radio-button';
 
   constructor(options: RadioButtonOptions = {}) {
     super(options);
 
     this.on('check', () => {
       let el: any = this;
-      while (el = el.parent) {
-        if (el.type === 'radio-set'
-            || el.type === 'form') break;
+      while ((el = el.parent)) {
+        if (el.type === 'radio-set' || el.type === 'form') break;
       }
       el = el || this.parent;
       el.forDescendants((el: any) => {
@@ -35,7 +34,7 @@ class RadioButton extends Checkbox {
     });
   }
 
-  render(): any {
+  override render(): any {
     this.clearPos(true);
     this.setContent('(' + (this.checked ? '*' : ' ') + ') ' + this.text, true);
     return super.render();

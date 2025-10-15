@@ -14,7 +14,7 @@ import ScrollableBox from './scrollablebox.js';
  */
 
 class ScrollableText extends ScrollableBox {
-  type = 'scrollable-text';
+  override type = 'scrollable-text';
 
   constructor(options: ScrollableTextOptions = {}) {
     options.alwaysScroll = true;

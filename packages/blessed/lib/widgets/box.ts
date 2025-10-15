@@ -14,7 +14,7 @@ import type { BoxOptions } from '../types';
  */
 
 class Box extends Element {
-  type = 'box';
+  override type = 'box';
 
   constructor(options: BoxOptions = {}) {
     super(options);

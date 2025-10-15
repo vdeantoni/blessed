@@ -16,7 +16,7 @@ import OverlayImage from './overlayimage.js';
  */
 
 class Image extends Box {
-  type = 'image';
+  override type = 'image';
 
   constructor(options: ImageOptions = {}) {
     const imageType = options.itype || options.type || 'ansi';

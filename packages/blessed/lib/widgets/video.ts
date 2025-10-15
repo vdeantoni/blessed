@@ -16,7 +16,7 @@ import Terminal from './terminal.js';
  */
 
 class Video extends Box {
-  type = 'video';
+  override type = 'video';
   /**
    * The terminal element running mplayer or mpv.
    * Provides access to the underlying terminal that executes the video player.
@@ -39,8 +39,10 @@ class Video extends Box {
       args = ['--vo', 'caca', '--really-quiet', options.file || ''];
     } else {
       this.parseTags = true;
-      this.setContent('{red-fg}{bold}Error:{/bold}'
-        + ' mplayer or mpv not installed.{/red-fg}');
+      this.setContent(
+        '{red-fg}{bold}Error:{/bold}' +
+          ' mplayer or mpv not installed.{/red-fg}'
+      );
       return this;
     }
 
@@ -51,10 +53,10 @@ class Video extends Box {
       width: this.width - this.iwidth,
       height: this.height - this.iheight,
       shell: shell,
-      args: args.slice()
+      args: args.slice(),
     };
 
-    this.now = Date.now() / 1000 | 0;
+    this.now = (Date.now() / 1000) | 0;
     this.start = opts.start || 0;
     if (this.start) {
       if (shell === 'mplayer') {
@@ -85,11 +87,11 @@ class Video extends Box {
         width: this.width - this.iwidth,
         height: this.height - this.iheight,
         shell: shell,
-        args: args.slice()
+        args: args.slice(),
       };
 
-      const watched = (Date.now() / 1000 | 0) - this.now;
-      this.now = Date.now() / 1000 | 0;
+      const watched = ((Date.now() / 1000) | 0) - this.now;
+      this.now = (Date.now() / 1000) | 0;
       this.start += watched;
       if (shell === 'mplayer') {
         opts.args.unshift('-ss', this.start + '');
@@ -105,15 +107,18 @@ class Video extends Box {
     });
   }
 
-    exists(program: string): boolean {
-        try {
-            return !!+cp.execSync('type '
-                + program + ' > /dev/null 2> /dev/null'
-                + ' && echo 1', { encoding: 'utf8' }).trim();
-        } catch (e) {
-            return false;
-        }
+  exists(program: string): boolean {
+    try {
+      return !!+cp
+        .execSync(
+          'type ' + program + ' > /dev/null 2> /dev/null' + ' && echo 1',
+          { encoding: 'utf8' }
+        )
+        .trim();
+    } catch (e) {
+      return false;
     }
+  }
 }
 
 /**

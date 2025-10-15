@@ -14,7 +14,7 @@ import Box from './box.js';
  */
 
 class Table extends Box {
-  type = 'table';
+  override type = 'table';
   declare style: StyleListTable;
   pad: number;
   rows: any[][] = []; // Initialize to empty array
@@ -34,9 +34,7 @@ class Table extends Box {
 
     super(options);
 
-    this.pad = options.pad != null
-      ? options.pad
-      : 2;
+    this.pad = options.pad != null ? options.pad : 2;
 
     this.setData(options.rows || options.data || []);
 
@@ -59,7 +57,7 @@ class Table extends Box {
 
     this.rows = this.rows || [];
 
-    this.rows.forEach((row) => {
+    this.rows.forEach(row => {
       row.forEach((cell, i) => {
         const clen = this.strWidth(cell);
         if (!maxes[i] || maxes[i] < clen) {
@@ -82,18 +80,18 @@ class Table extends Box {
 
     if (this.position.width != null) {
       const missing = this.width - total;
-      const w = missing / maxes.length | 0;
+      const w = (missing / maxes.length) | 0;
       const wr = missing % maxes.length;
-      return this._maxes = maxes.map((max, i) => {
+      return (this._maxes = maxes.map((max, i) => {
         if (i === maxes.length - 1) {
           return max + w + wr;
         }
         return max + w;
-      });
+      }));
     } else {
-      return this._maxes = maxes.map((max) => {
+      return (this._maxes = maxes.map(max => {
         return max + this.pad;
-      });
+      }));
     }
   }
 
@@ -184,7 +182,7 @@ class Table extends Box {
     return this.setData;
   }
 
-  render(): any {
+  override render(): any {
     const coords = super.render();
     if (!coords) return;
 
@@ -320,7 +318,7 @@ class Table extends Box {
     for (ry = 1; ry < this.rows.length * 2; ry++) {
       if (!lines[yi + ry]) break;
       rx = 0;
-      this._maxes.slice(0, -1).forEach((max) => {
+      this._maxes.slice(0, -1).forEach(max => {
         rx += max;
         if (!lines[yi + ry][xi + rx + 1]) return;
         if (ry % 2 !== 0) {
@@ -339,7 +337,7 @@ class Table extends Box {
         }
       });
       rx = 1;
-      this._maxes.forEach((max) => {
+      this._maxes.forEach(max => {
         while (max--) {
           if (ry % 2 === 0) {
             if (!lines[yi + ry]) break;

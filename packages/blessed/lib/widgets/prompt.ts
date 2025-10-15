@@ -26,7 +26,7 @@ interface PromptData {
  */
 
 class Prompt extends Box {
-  type = 'prompt';
+  override type = 'prompt';
   declare _: PromptData;
 
   constructor(options: PromptOptions = {}) {
@@ -40,7 +40,7 @@ class Prompt extends Box {
       height: 1,
       left: 2,
       right: 2,
-      bg: 'black'
+      bg: 'black',
     });
 
     this._.okay = new Button({
@@ -54,7 +54,7 @@ class Prompt extends Box {
       bg: 'black',
       hoverBg: 'blue',
       autoFocus: false,
-      mouse: true
+      mouse: true,
     });
 
     this._.cancel = new Button({
@@ -69,7 +69,7 @@ class Prompt extends Box {
       bg: 'black',
       hoverBg: 'blue',
       autoFocus: false,
-      mouse: true
+      mouse: true,
     });
   }
 
@@ -86,11 +86,15 @@ class Prompt extends Box {
    *   console.log('Name:', value);
    * });
    */
-  readInput(text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void): void {
+  readInput(
+    text: string,
+    value?: string | ((err: any, data: any) => void),
+    callback?: (err: any, data: any) => void
+  ): void {
     let okay: any, cancel: any;
 
     if (!callback) {
-      callback = value as ((err: any, data: any) => void);
+      callback = value as (err: any, data: any) => void;
       value = '';
     }
 
@@ -106,13 +110,19 @@ class Prompt extends Box {
 
     this.screen.saveFocus();
 
-    this._.okay.on('press', okay = () => {
-      this._.input.submit();
-    });
+    this._.okay.on(
+      'press',
+      (okay = () => {
+        this._.input.submit();
+      })
+    );
 
-    this._.cancel.on('press', cancel = () => {
-      this._.input.cancel();
-    });
+    this._.cancel.on(
+      'press',
+      (cancel = () => {
+        this._.input.cancel();
+      })
+    );
 
     this._.input.readInput((err: any, data: any) => {
       this.hide();
@@ -133,7 +143,11 @@ class Prompt extends Box {
    *   console.log(value);
    * });
    */
-  get input(): (text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void) => void {
+  get input(): (
+    text: string,
+    value?: string | ((err: any, data: any) => void),
+    callback?: (err: any, data: any) => void
+  ) => void {
     return this.readInput;
   }
 
@@ -145,7 +159,11 @@ class Prompt extends Box {
    *   console.log(value);
    * });
    */
-  get setInput(): (text: string, value?: string | ((err: any, data: any) => void), callback?: (err: any, data: any) => void) => void {
+  get setInput(): (
+    text: string,
+    value?: string | ((err: any, data: any) => void),
+    callback?: (err: any, data: any) => void
+  ) => void {
     return this.readInput;
   }
 }

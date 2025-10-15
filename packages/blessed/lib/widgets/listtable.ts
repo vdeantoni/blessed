@@ -16,13 +16,13 @@ import Table from './table.js';
  */
 
 class ListTable extends List {
-  type = 'list-table';
+  override type = 'list-table';
   __align: string;
   _header: any;
   pad: number;
   rows: any[] = []; // Initialize to empty array
   _maxes: any;
-  options!: ListTableOptions; // Set by parent Node constructor
+  declare options: ListTableOptions; // Type refinement - initialized by parent
 
   constructor(options: ListTableOptions = {}) {
     // options.shrink = true;
@@ -38,11 +38,14 @@ class ListTable extends List {
     options.style.item = options.style.cell;
 
     const border = options.border;
-    if (border && typeof border === 'object'
-        && border.top === false
-        && border.bottom === false
-        && border.left === false
-        && border.right === false) {
+    if (
+      border &&
+      typeof border === 'object' &&
+      border.top === false &&
+      border.bottom === false &&
+      border.left === false &&
+      border.right === false
+    ) {
       delete options.border;
     }
 
@@ -58,7 +61,7 @@ class ListTable extends List {
       width: 'shrink',
       height: 1,
       style: options.style.header,
-      tags: options.parseTags || options.tags
+      tags: options.parseTags || options.tags,
     });
 
     this.on('scroll', () => {
@@ -69,9 +72,7 @@ class ListTable extends List {
       }
     });
 
-    this.pad = options.pad != null
-      ? options.pad
-      : 2;
+    this.pad = options.pad != null ? options.pad : 2;
 
     this.setData(options.rows || options.data);
 
@@ -202,7 +203,7 @@ class ListTable extends List {
     return super.select(i);
   }
 
-  select(i: number) {
+  override select(i: number) {
     if (i === 0) {
       i = 1;
     }
@@ -212,7 +213,7 @@ class ListTable extends List {
     return this._select(i);
   }
 
-  render() {
+  override render() {
     const coords = super.render();
     if (!coords) return;
 
@@ -233,7 +234,7 @@ class ListTable extends List {
     if (!this.border && this.options.border) {
       const optBorder = this.options.border;
       if (typeof optBorder === 'string') {
-        border = { type: optBorder as "line" | "bg" };
+        border = { type: optBorder as 'line' | 'bg' };
       } else {
         border = optBorder;
       }

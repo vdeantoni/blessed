@@ -21,9 +21,9 @@ const nextTick = global.setImmediate || process.nextTick.bind(process);
  */
 
 class Textarea extends Input {
-  type = 'textarea';
-  options!: TextareaOptions; // Set by parent Node constructor
-  scrollable: boolean;
+  override type = 'textarea';
+  declare options: TextareaOptions; // Type refinement - initialized by parent
+  override scrollable: boolean;
   __updateCursor: any;
   __listener: any;
   __done: any;
@@ -61,7 +61,7 @@ class Textarea extends Input {
       value: options.value || '',
       writable: true,
       configurable: true,
-      enumerable: true
+      enumerable: true,
     });
 
     this.__updateCursor = this._updateCursor.bind(this);
@@ -117,7 +117,8 @@ class Textarea extends Input {
 
     line = Math.min(
       this._clines.length - 1 - (this.childBase || 0),
-      (lpos.yl - lpos.yi) - this.iheight - 1);
+      lpos.yl - lpos.yi - this.iheight - 1
+    );
 
     // When calling clearValue() on a full textarea with a border, the first
     // argument in the above Math.min call ends up being -2. Make sure we stay
@@ -223,9 +224,7 @@ class Textarea extends Input {
 
       if (!callback) return;
 
-      return err
-        ? callback(err)
-        : callback(null, value);
+      return err ? callback(err) : callback(null, value);
     };
 
     // Put this in a nextTick so the current
@@ -273,9 +272,12 @@ class Textarea extends Input {
     }
 
     // TODO: Handle directional keys.
-    if (key.name === 'left' || key.name === 'right'
-        || key.name === 'up' || key.name === 'down') {
-      ;
+    if (
+      key.name === 'left' ||
+      key.name === 'right' ||
+      key.name === 'up' ||
+      key.name === 'down'
+    ) {
     }
 
     if (this.options.keys && key.ctrl && key.name === 'e') {
@@ -290,7 +292,7 @@ class Textarea extends Input {
       if (this.value.length) {
         if (this.screen.fullUnicode) {
           if (unicode.isSurrogate(this.value, this.value.length - 2)) {
-          // || unicode.isCombining(this.value, this.value.length - 1)) {
+            // || unicode.isCombining(this.value, this.value.length - 1)) {
             this.value = this.value.slice(0, -2);
           } else {
             this.value = this.value.slice(0, -1);
@@ -396,7 +398,7 @@ class Textarea extends Input {
     return this.__listener('\x1b', { name: 'escape' });
   }
 
-  render() {
+  override render() {
     this.setValue();
     return super.render();
   }
@@ -430,20 +432,23 @@ class Textarea extends Input {
       callback = () => {};
     }
 
-    return this.screen.readEditor({ value: this.value }, (err: any, value: any) => {
-      if (err) {
-        if (err.message === 'Unsuccessful.') {
+    return this.screen.readEditor(
+      { value: this.value },
+      (err: any, value: any) => {
+        if (err) {
+          if (err.message === 'Unsuccessful.') {
+            this.screen.render();
+            return this.readInput(callback);
+          }
           this.screen.render();
-          return this.readInput(callback);
+          this.readInput(callback);
+          return callback(err);
         }
+        this.setValue(value);
         this.screen.render();
-        this.readInput(callback);
-        return callback(err);
+        return this.readInput(callback);
       }
-      this.setValue(value);
-      this.screen.render();
-      return this.readInput(callback);
-    });
+    );
   }
 
   /**

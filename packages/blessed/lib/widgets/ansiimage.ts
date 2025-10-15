@@ -17,10 +17,10 @@ import tng from '../image-renderer.js';
  */
 
 class ANSIImage extends Box {
-  type = 'ansiimage';
-  options!: ANSIImageOptions; // Set by parent Node constructor
+  override type = 'ansiimage';
+  declare options: ANSIImageOptions; // Type refinement - initialized by parent
   scale: number;
-  _noFill: boolean;
+  override _noFill: boolean;
   file?: string;
   /**
    * Image object from the PNG reader.
@@ -152,7 +152,7 @@ class ANSIImage extends Box {
         this.cellmap = null;
     };
 
-    render(): any {
+    override render(): any {
         const coords = super.render();
         if (!coords) return;
 

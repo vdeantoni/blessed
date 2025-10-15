@@ -44,7 +44,7 @@ interface WrappedContent extends Array<string> {
 }
 
 class Element extends Node {
-  type = 'element';
+  override type = 'element';
 
   name?: string;
   /**
@@ -389,7 +389,7 @@ class Element extends Node {
    * object. This prevents memory leaks. For use with onScreenEvent(), removeScreenEvent(),
    * and destroy().
    */
-  free(): void {
+  override free(): void {
     const listeners = this._slisteners = this._slisteners || [];
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i];

@@ -24,7 +24,7 @@ interface QuestionData {
  */
 
 class Question extends Box {
-  type = 'question';
+  override type = 'question';
   declare _: QuestionData;
 
   constructor(options: QuestionOptions = {}) {
@@ -44,7 +44,7 @@ class Question extends Box {
       bg: 'black',
       hoverBg: 'blue',
       autoFocus: false,
-      mouse: true
+      mouse: true,
     });
 
     this._.cancel = new Button({
@@ -60,7 +60,7 @@ class Question extends Box {
       bg: 'black',
       hoverBg: 'blue',
       autoFocus: false,
-      mouse: true
+      mouse: true,
     });
   }
 
@@ -88,25 +88,36 @@ class Question extends Box {
     this.show();
     this.setContent(' ' + text);
 
-    this.onScreenEvent('keypress', press = (_ch: any, key: KeyEvent) => {
-      if (key.name === 'mouse') return;
-      if (key.name !== 'enter'
-          && key.name !== 'escape'
-          && key.name !== 'q'
-          && key.name !== 'y'
-          && key.name !== 'n') {
-        return;
-      }
-      done(null, key.name === 'enter' || key.name === 'y');
-    });
+    this.onScreenEvent(
+      'keypress',
+      (press = (_ch: any, key: KeyEvent) => {
+        if (key.name === 'mouse') return;
+        if (
+          key.name !== 'enter' &&
+          key.name !== 'escape' &&
+          key.name !== 'q' &&
+          key.name !== 'y' &&
+          key.name !== 'n'
+        ) {
+          return;
+        }
+        done(null, key.name === 'enter' || key.name === 'y');
+      })
+    );
 
-    this._.okay.on('press', okay = () => {
-      done(null, true);
-    });
+    this._.okay.on(
+      'press',
+      (okay = () => {
+        done(null, true);
+      })
+    );
 
-    this._.cancel.on('press', cancel = () => {
-      done(null, false);
-    });
+    this._.cancel.on(
+      'press',
+      (cancel = () => {
+        done(null, false);
+      })
+    );
 
     this.screen.saveFocus();
     this.focus();

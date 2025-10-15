@@ -14,7 +14,7 @@ import Input from './input.js';
  */
 
 class Button extends Input {
-  type = 'button';
+  override type = 'button';
   value?: boolean;
 
   constructor(options: ButtonOptions = {}) {

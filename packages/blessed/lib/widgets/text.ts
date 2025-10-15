@@ -14,7 +14,7 @@ import type { TextOptions } from '../types';
  */
 
 class Text extends Element {
-  type = 'text';
+  override type = 'text';
 
   constructor(options: TextOptions = {}) {
     options.shrink = true;
