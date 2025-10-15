@@ -150,8 +150,8 @@ class Element extends Node {
       this.style = {};
       this.style.fg = options.fg;
       this.style.bg = options.bg;
-      this.style.bold = options.bold ? true : undefined;
-      this.style.underline = options.underline ? true : undefined;
+      this.style.bold = options.bold;
+      this.style.underline = options.underline;
       this.style.blink = options.blink;
       this.style.inverse = options.inverse;
       this.style.invisible = options.invisible;
@@ -199,8 +199,8 @@ class Element extends Node {
       this.style.border = this.style.border || (border as any).style;
       if (!this.style.border) {
         this.style.border = {};
-        this.style.border.fg = (border.fg != null ? String(border.fg) : undefined);
-        this.style.border.bg = (border.bg != null ? String(border.bg) : undefined);
+        this.style.border.fg = border.fg;
+        this.style.border.bg = border.bg;
       }
       //border.style = this.style.border;
       if (border.left == null) border.left = true;
