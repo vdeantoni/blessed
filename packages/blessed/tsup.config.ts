@@ -40,12 +40,6 @@ export default defineConfig({
   platform: 'node',
   target: 'node22',
 
-  // Add footer to make CJS work like traditional CommonJS
-  // This allows: const blessed = require('blessed')
-  footer: {
-    js: 'if (typeof module !== "undefined" && module.exports) { module.exports = module.exports.default || module.exports.blessed || module.exports; }'
-  },
-
   // Copy assets and show success message
   onSuccess: async () => {
     await cp('usr', 'dist/usr', { recursive: true });

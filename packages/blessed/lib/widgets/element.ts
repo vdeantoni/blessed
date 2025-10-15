@@ -2889,7 +2889,7 @@ main:
       ? helpers.stripTags(text)
       : text;
     return this.screen.fullUnicode
-      ? unicode.strWidth(text)
+      ? unicode.strWidth(text, this.screen.tabc.length)
       : helpers.dropUnicode(text).length;
   }
 
