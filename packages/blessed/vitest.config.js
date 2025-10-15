@@ -7,10 +7,9 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'node',
-    // Tell vitest to transform all source files through Vite
     server: {
       deps: {
-        inline: true  // Process all dependencies through Vite/esbuild
+        inline: true
       }
     },
     coverage: {
@@ -18,10 +17,9 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       exclude: [
         'node_modules/**',
-        'test/**',
-        'example/**',
-        'browser/**',
-        '**/*.config.js',
+        '__tests__/**',
+        'dist/**',
+        '**/*.config.*',
       ],
       thresholds: {
         lines: 70,
