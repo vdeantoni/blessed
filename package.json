@@ -7,11 +7,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/vdeantoni/blessed.git"
+    "url": "git://github.com/vdeantoni/tuxe.git"
   },
-  "homepage": "https://github.com/vdeantoni/blessed",
+  "homepage": "https://github.com/vdeantoni/tuxe",
   "bugs": {
-    "url": "https://github.com/vdeantoni/blessed/issues"
+    "url": "https://github.com/vdeantoni/tuxe/issues"
   },
   "engines": {
     "node": ">= 22.0.0"
@@ -26,9 +26,19 @@
     "lint": "turbo lint",
     "lint:check": "turbo lint:check",
     "format": "turbo format",
-    "format:check": "turbo format:check"
+    "format:check": "turbo format:check",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^7.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^12.0.0",
+    "glob": "^11.0.3",
+    "husky": "^9.1.7",
+    "semantic-release": "^25.0.0",
     "turbo": "^2.5.8"
   }
 }

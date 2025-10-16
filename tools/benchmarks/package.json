@@ -8,6 +8,5 @@
     "bench": "node --expose-gc run-all.js"
   },
   "dependencies": {
-    "@vdeantoni/blessed": "workspace:*"
   }
 }
