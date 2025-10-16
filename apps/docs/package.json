@@ -5,8 +5,9 @@
   "description": "Documentation and examples for blessed",
   "type": "module",
   "scripts": {
+    "clean": ""
   },
   "dependencies": {
-    "@vdeantoni/blessed": "workspace:*"
+    "@tui/blessed": "workspace:*"
   }
 }

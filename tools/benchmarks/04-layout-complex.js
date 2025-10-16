@@ -5,7 +5,7 @@
  * Tests percentage-based positioning and nested layouts.
  */
 
-import blessed from '@vdeantoni/blessed';
+import blessed from '@tui/blessed';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkComplexLayout() {

@@ -1,0 +1,427 @@
+# @tui/browser
+
+Browser runtime adapter for [@tui/core](../core) - Run terminal UIs in the browser with xterm.js integration.
+
+[![npm version](https://img.shields.io/npm/v/@tui/browser)](https://www.npmjs.com/package/@tui/browser)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
+
+## Overview
+
+`@tui/browser` enables terminal user interface (TUI) applications built with `@tui/core` to run in web browsers. It provides:
+
+- **Browser polyfills** for Node.js APIs (fs, process, path, etc.)
+- **xterm.js integration** for terminal rendering
+- **Runtime adapter** that bridges @tui/core to the browser environment
+- **Full widget support** - all @tui/core widgets work in the browser
+
+## Installation
+
+```bash
+npm install @tui/browser xterm
+# or
+pnpm add @tui/browser xterm
+# or
+yarn add @tui/browser xterm
+```
+
+## Quick Start
+
+### Basic Example
+
+```typescript
+import { Terminal } from 'xterm';
+import { createXTermScreen } from '@tui/browser';
+import 'xterm/css/xterm.css';
+
+// Create xterm.js terminal
+const term = new Terminal({
+  cursorBlink: true,
+  fontSize: 14,
+});
+
+// Mount to DOM
+term.open(document.getElementById('terminal')!);
+
+// Create tui screen with xterm integration
+const screen = createXTermScreen({ terminal: term });
+
+// Build your TUI
+const box = screen.box({
+  top: 'center',
+  left: 'center',
+  width: '50%',
+  height: '50%',
+  content: '{bold}Hello from the browser!{/bold}',
+  tags: true,
+  border: {
+    type: 'line'
+  },
+  style: {
+    fg: 'white',
+    bg: 'blue',
+    border: {
+      fg: '#f0f0f0'
+    }
+  }
+});
+
+// Handle key events
+screen.key(['escape', 'q', 'C-c'], () => {
+  process.exit(0);
+});
+
+// Render
+box.focus();
+screen.render();
+```
+
+### HTML Setup
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tui Browser Example</title>
+  <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+    }
+    #terminal {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
+```
+
+## API Reference
+
+### `createXTermScreen(options)`
+
+Creates a @tui/core Screen with xterm.js integration.
+
+```typescript
+import { createXTermScreen } from '@tui/browser';
+
+const screen = createXTermScreen({
+  terminal: term,           // xterm.js Terminal instance (required)
+  mouse: true,             // Enable mouse support (default: true)
+  term: 'xterm-256color'   // Terminal type (default: 'xterm-256color')
+});
+```
+
+**Parameters:**
+- `terminal` (Terminal) - xterm.js Terminal instance
+- `mouse` (boolean) - Enable mouse events (default: true)
+- `term` (string) - Terminal type string (default: 'xterm-256color')
+
+**Returns:** Screen instance
+
+### `createScreen(options)`
+
+Creates a basic @tui/core Screen (without xterm.js integration).
+
+```typescript
+import { createScreen } from '@tui/browser';
+
+const screen = createScreen({
+  // Screen options
+  smartCSR: true,
+  fastCSR: true,
+  // ... other screen options
+});
+```
+
+### `getBrowserRuntime()`
+
+Gets the browser runtime singleton instance.
+
+```typescript
+import { getBrowserRuntime } from '@tui/browser';
+
+const runtime = getBrowserRuntime();
+// Provides: fs, path, process, Buffer, etc.
+```
+
+### Widget Re-exports
+
+All @tui/core widgets are re-exported for convenience:
+
+```typescript
+import { Box, List, Input, Form, Button } from '@tui/browser';
+
+const box = screen.box({ /* ... */ });
+const list = screen.list({ /* ... */ });
+```
+
+## Features
+
+### ✅ Complete Node.js API Polyfills
+
+- **File System** - Virtual FS with terminfo/font data
+- **Process** - Browser-compatible process object
+- **Path** - Cross-platform path utilities
+- **Buffer** - Full Buffer support
+- **Events** - EventEmitter implementation
+- **Streams** - Readable/Writable streams
+
+### ✅ Full Widget Support
+
+All @tui/core widgets work in the browser:
+- Layout: Box, Layout, Line
+- Input: Input, Textarea, Button, Checkbox, RadioButton, Form
+- Display: Text, Log, List, Table, FileManager
+- Advanced: ProgressBar, Loading, Terminal (limited)
+
+### ✅ Mouse & Keyboard Events
+
+Full support for:
+- Click, hover, drag events
+- Keyboard shortcuts
+- Focus management
+- Mouse wheel scrolling
+
+### ✅ xterm.js Integration
+
+- Terminal rendering via xterm.js
+- Automatic resize handling
+- SGR mouse encoding
+- 256 color support
+
+## Examples
+
+### Interactive Form
+
+```typescript
+const form = screen.form({
+  parent: screen,
+  keys: true,
+  left: 'center',
+  top: 'center',
+  width: 50,
+  height: 12,
+  border: 'line',
+  label: ' Login '
+});
+
+const username = screen.input({
+  parent: form,
+  name: 'username',
+  top: 1,
+  left: 1,
+  height: 1,
+  width: 45,
+  label: ' Username: '
+});
+
+const password = screen.input({
+  parent: form,
+  name: 'password',
+  top: 3,
+  left: 1,
+  height: 1,
+  width: 45,
+  label: ' Password: ',
+  censor: true
+});
+
+const submit = screen.button({
+  parent: form,
+  top: 6,
+  left: 'center',
+  shrink: true,
+  padding: { left: 2, right: 2 },
+  content: 'Submit',
+  style: {
+    bg: 'blue',
+    focus: { bg: 'red' }
+  }
+});
+
+submit.on('press', () => {
+  form.submit();
+});
+
+form.on('submit', (data) => {
+  console.log('Form submitted:', data);
+});
+
+screen.render();
+```
+
+### File Manager
+
+```typescript
+const fm = screen.filemanager({
+  parent: screen,
+  border: 'line',
+  style: {
+    border: { fg: 'cyan' },
+    selected: { bg: 'blue' }
+  },
+  height: 'shrink',
+  width: 'shrink',
+  top: 'center',
+  left: 'center',
+  label: ' {blue-fg}%path{/blue-fg} ',
+  cwd: '/',
+  keys: true,
+  vi: true,
+  scrollbar: {
+    bg: 'white'
+  }
+});
+
+fm.on('file', (file) => {
+  console.log('Selected file:', file);
+});
+
+screen.render();
+```
+
+### Real-time Data Display
+
+```typescript
+const log = screen.log({
+  parent: screen,
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  border: 'line',
+  label: ' Live Logs ',
+  tags: true,
+  scrollable: true,
+  mouse: true,
+  keys: true,
+  vi: true,
+  scrollbar: {
+    ch: ' ',
+    inverse: true
+  }
+});
+
+// Simulate streaming logs
+setInterval(() => {
+  const timestamp = new Date().toISOString();
+  const level = ['INFO', 'WARN', 'ERROR'][Math.floor(Math.random() * 3)];
+  const color = { INFO: 'green', WARN: 'yellow', ERROR: 'red' }[level];
+
+  log.log(`{${color}-fg}[${timestamp}]{/} {bold}${level}{/}: Sample log message`);
+  screen.render();
+}, 1000);
+```
+
+## Build Configuration
+
+### Vite
+
+```typescript
+// vite.config.ts
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  optimizeDeps: {
+    exclude: ['@tui/browser', '@tui/core']
+  },
+  resolve: {
+    alias: {
+      // If needed for older bundlers
+      buffer: 'buffer/',
+      process: 'process/browser'
+    }
+  }
+});
+```
+
+### Webpack
+
+```javascript
+// webpack.config.js
+module.exports = {
+  resolve: {
+    fallback: {
+      buffer: require.resolve('buffer/'),
+      process: require.resolve('process/browser'),
+      path: require.resolve('path-browserify'),
+      stream: require.resolve('stream-browserify')
+    }
+  }
+};
+```
+
+## Architecture
+
+### How It Works
+
+1. **Runtime Abstraction**: @tui/core uses a runtime interface for all platform operations
+2. **Browser Runtime**: This package provides browser-compatible implementations
+3. **Automatic Initialization**: Runtime is set up when you import @tui/browser
+4. **Widget Compatibility**: All widgets use the runtime interface, so they work unchanged
+
+### Polyfills Provided
+
+- `process` - Browser-compatible process object with env, platform, events
+- `Buffer` - Full Buffer API via the buffer package
+- `fs` - Virtual file system with bundled terminfo/font data
+- `path` - Path manipulation via path-browserify
+- `util` - Browser-compatible util.inspect and util.format
+- Event system - Full EventEmitter support
+
+## Browser Support
+
+- Chrome/Edge 90+
+- Firefox 88+
+- Safari 14+
+- Any browser supporting ES2020
+
+## Limitations
+
+- No real file system access (virtual FS only)
+- No child process support (Terminal widget limited)
+- No native TTY detection (always reports TTY)
+- Performance may vary on complex UIs
+
+## Troubleshooting
+
+### Module not found errors
+
+If you see module resolution errors, ensure your bundler is configured to handle Node.js polyfills. See [Build Configuration](#build-configuration).
+
+### Blank terminal
+
+Make sure xterm.css is loaded:
+```html
+<link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
+```
+
+### Mouse events not working
+
+Ensure mouse is enabled:
+```typescript
+createXTermScreen({ terminal: term, mouse: true })
+```
+
+## Contributing
+
+See the main [tui repository](https://github.com/vdeantoni/tui) for contribution guidelines.
+
+## License
+
+MIT © [Vinicius De Antoni](https://github.com/vdeantoni)
+
+## Related
+
+- [@tui/core](../core) - Core TUI library
+- [@tui/node](../node) - Node.js runtime adapter
+- [xterm.js](https://xtermjs.org/) - Terminal emulator for the web

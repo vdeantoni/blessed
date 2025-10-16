@@ -37,13 +37,13 @@ The blessed API itself has gone on to inspire [termui][termui] for Go.
 
 ``` bash
 # Install the alpha release
-$ npm install @vdeantoni/blessed@alpha
+$ npm install @tui/blessed@alpha
 
 # Or install a specific alpha version
-$ npm install @vdeantoni/blessed@1.0.0-alpha.1
+$ npm install @tui/blessed@1.0.0-alpha.1
 ```
 
-> **Note:** This is the modernized fork of blessed. Install `@vdeantoni/blessed@alpha` to get the latest alpha release with TypeScript support, comprehensive tests, and modern tooling.
+> **Note:** This is the modernized fork of blessed. Install `@tui/blessed@alpha` to get the latest alpha release with TypeScript support, comprehensive tests, and modern tooling.
 
 ## Example
 

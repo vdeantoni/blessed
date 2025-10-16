@@ -1,4 +1,4 @@
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tui/blessed";
 
 // Create a screen object.
 var screen = blessed.screen();

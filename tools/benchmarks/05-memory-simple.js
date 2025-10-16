@@ -4,7 +4,7 @@
  * Measures baseline memory footprint of a simple blessed app.
  */
 
-import blessed from '@vdeantoni/blessed';
+import blessed from '@tui/blessed';
 import { formatBytes, sleep } from './utils.js';
 
 async function benchmarkMemorySimple() {

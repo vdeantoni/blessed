@@ -5,7 +5,7 @@
  * Copyright (c) 2013, Christopher Jeffrey (MIT License).
  * https://github.com/chjj/blessed
  */
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tui/blessed";
 
 process.title = 'time.js';
 

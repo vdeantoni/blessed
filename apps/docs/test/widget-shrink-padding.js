@@ -1,4 +1,4 @@
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tui/blessed";
 
 const __dirname = import.meta.dirname;
 

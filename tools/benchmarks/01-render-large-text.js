@@ -5,7 +5,7 @@
  * Tests content handling and scrolling buffer operations.
  */
 
-import blessed from '@vdeantoni/blessed';
+import blessed from '@tui/blessed';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkLargeTextBox() {

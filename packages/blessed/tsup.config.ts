@@ -3,8 +3,8 @@ import { cp } from 'fs/promises';
 
 export default defineConfig({
   entry: {
-    blessed: 'lib/blessed.ts',
-    tput: 'bin/tput.ts'
+    index: 'src/index.ts',
+    tput: 'bin/tput.ts',
   },
 
   format: ['cjs', 'esm'],
@@ -16,23 +16,23 @@ export default defineConfig({
 
   clean: true,
   sourcemap: true,
-  dts: true,
+  dts: {
+    entry: 'src/index.ts',
+  },
   minify: true,
   shims: true,
   cjsInterop: true,
 
   external: [
-    /^node:.*/,
-    'term.js',
-    'pty.js'
+    '@tui/node'
   ],
 
   platform: 'node',
   target: 'node22',
 
   onSuccess: async () => {
-    await cp('usr', 'dist/usr', { recursive: true });
-    console.log('✅ Copied usr/ to dist/usr/');
-    console.log('✅ Build complete');
+    await cp('../core/data', 'dist/usr', { recursive: true });
+    console.log('✅ Copied ../core/data/ to dist/usr/');
+    console.log('✅ @tui/blessed build complete');
   }
 });

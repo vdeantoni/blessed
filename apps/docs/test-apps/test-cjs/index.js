@@ -1,4 +1,4 @@
-const blessed = require('@vdeantoni/blessed');
+const blessed = require('@tui/blessed');
 
 console.log('✅ blessed loaded successfully (CommonJS)');
 console.log('✅ Loaded from: dist/blessed.cjs (built)');

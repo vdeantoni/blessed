@@ -6,6 +6,7 @@
       "inputs": [
         "lib/**/*.ts",
         "bin/**/*.ts",
+        "src/**/*.ts",
         "tsconfig.json",
         "tsup.config.ts",
         "package.json"
@@ -17,6 +18,10 @@
       "dependsOn": ["^build"],
       "cache": false,
       "persistent": true,
+      "outputLogs": "new-only"
+    },
+    "clean": {
+      "cache": false,
       "outputLogs": "new-only"
     },
     "test": {

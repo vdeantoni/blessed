@@ -1,0 +1,88 @@
+{
+  "name": "@tui/core",
+  "description": "Platform-agnostic TUI core library with runtime dependency injection",
+  "version": "1.0.0-alpha.1",
+  "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./runtime": {
+      "types": "./dist/runtime.d.ts",
+      "import": "./dist/runtime.js",
+      "require": "./dist/runtime.cjs"
+    },
+    "./widgets": {
+      "types": "./dist/widgets/index.d.ts",
+      "import": "./dist/widgets/index.js",
+      "require": "./dist/widgets/index.cjs"
+    },
+    "./data/terminfo/*.json": "./data/terminfo/*.json",
+    "./data/fonts/*.json": "./data/fonts/*.json"
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.cjs",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.cts",
+    "dist/**/*.map",
+    "data/**/*",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vdeantoni/tui.git",
+    "directory": "packages/core"
+  },
+  "homepage": "https://github.com/vdeantoni/tui/tree/master/packages/core",
+  "bugs": {
+    "url": "https://github.com/vdeantoni/tui/issues"
+  },
+  "keywords": [
+    "tui",
+    "blessed",
+    "terminal",
+    "tui",
+    "ui",
+    "curses",
+    "platform-agnostic",
+    "runtime-injection"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "clean": "rimraf dist coverage .turbo",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@types/node": "24.6.2",
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4",
+    "omggif": "^1.0.10",
+    "pngjs": "^7.0.0",
+    "tsup": "8.5.0",
+    "typescript": "5.9.3",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">= 18.0.0"
+  }
+}

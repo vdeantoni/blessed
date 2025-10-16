@@ -5,9 +5,10 @@
   "description": "Performance benchmarks for blessed",
   "type": "module",
   "scripts": {
-    "bench": "node --expose-gc run-all.js"
+    "bench": "node --expose-gc run-all.js",
+    "clean": "rimraf results"
   },
   "dependencies": {
-    "@vdeantoni/blessed": "workspace:*"
+    "@tui/blessed": "workspace:*"
   }
 }

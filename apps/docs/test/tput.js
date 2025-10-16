@@ -24,7 +24,7 @@
 // $ node test/tput.js xterm-256color --ifile ~/.terminfo/x/xterm-256color | tee out
 // $ cdiff test/terminfo out
 
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tui/blessed";
 
 const __dirname = import.meta.dirname;
 

@@ -1,18 +1,23 @@
 {
-  "name": "@vdeantoni/blessed",
-  "description": "A high-level terminal interface library for node.js.",
-  "author": "Christopher Jeffrey",
-  "version": "1.0.0-alpha.17",
+  "name": "@tui/blessed",
+  "description": "100% backward compatible blessed API wrapper over @tui/node",
+  "version": "1.0.0-alpha.1",
+  "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  },
   "type": "module",
-  "main": "./dist/blessed.js",
-  "module": "./dist/blessed.js",
-  "types": "./dist/blessed.d.ts",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/blessed.d.ts",
-      "import": "./dist/blessed.js",
-      "require": "./dist/blessed.cjs"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
     },
     "./usr/terminfo/*.json": "./usr/terminfo/*.json",
     "./usr/fonts/*.json": "./usr/fonts/*.json"
@@ -23,13 +28,15 @@
   "preferGlobal": false,
   "repository": {
     "type": "git",
-    "url": "git://github.com/vdeantoni/blessed.git"
+    "url": "git://github.com/vdeantoni/tui.git",
+    "directory": "packages/blessed"
   },
-  "homepage": "https://github.com/vdeantoni/blessed",
+  "homepage": "https://github.com/vdeantoni/tui/tree/master/packages/blessed",
   "bugs": {
-    "url": "https://github.com/vdeantoni/blessed/issues"
+    "url": "https://github.com/vdeantoni/tui/issues"
   },
   "keywords": [
+    "blessed",
     "curses",
     "tui",
     "tput",
@@ -54,13 +61,14 @@
     "dist/**/*.d.ts",
     "dist/**/*.d.cts",
     "dist/**/*.map",
-    "usr/**/*",
+    "dist/usr/**/*",
     "LICENSE",
     "README.md"
   ],
   "scripts": {
     "build": "tsup",
     "build:watch": "tsup --watch",
+    "clean": "rimraf dist coverage .turbo",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint . --fix",
@@ -68,24 +76,19 @@
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
+  "dependencies": {
+    "@tui/node": "workspace:*",
+    "@tui/core": "workspace:*"
+  },
   "devDependencies": {
-    "@eslint/js": "^9.37.0",
     "@types/node": "24.6.2",
-    "@typescript-eslint/eslint-plugin": "8.45.0",
-    "@typescript-eslint/parser": "8.45.0",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
-    "eslint": "9.37.0",
-    "eslint-config-prettier": "10.1.8",
-    "prettier": "3.6.2",
     "tsup": "8.5.0",
     "typescript": "5.9.3",
     "vitest": "^3.2.4"
   },
-  "dependencies": {
-    "@types/omggif": "^1.0.5",
-    "@types/pngjs": "^6.0.5",
-    "omggif": "^1.0.10",
-    "pngjs": "^7.0.0"
+  "peerDependencies": {
+    "@tui/node": "workspace:*"
   }
 }

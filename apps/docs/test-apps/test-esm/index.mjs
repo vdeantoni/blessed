@@ -1,4 +1,4 @@
-import blessed from '@vdeantoni/blessed';
+import blessed from '@tui/blessed';
 
 console.log('✅ blessed loaded successfully (ESM)');
 console.log('✅ Loaded from: dist/blessed.js (built)');

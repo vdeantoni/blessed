@@ -6,7 +6,7 @@
  * Copyright (c) 2013, Christopher Jeffrey (MIT License)
  * Online (ping)pong in your terminal.
  */
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tui/blessed";
 import nssocket from "nssocket";
 
 // Example Usage:

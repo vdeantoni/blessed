@@ -6,7 +6,7 @@
  * Copyright (c) 2013-2015, Christopher Jeffrey (MIT License)
  * A terminal multiplexer created by blessed.
  */
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tui/blessed";
 
 process.title = 'multiplex.js';
 

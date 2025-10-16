@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import blessed from '../lib/blessed.js';
+import blessed from '../src/blessed.js';
 
 const argv = process.argv.slice(2);
 const cmd = argv.shift();
@@ -8,7 +8,7 @@ const cmd = argv.shift();
 const tput = blessed.tput({
   terminal: process.env.TERM,
   termcap: !!process.env.USE_TERMCAP,
-  extended: true
+  extended: true,
 });
 
 if (cmd && tput[cmd]) {

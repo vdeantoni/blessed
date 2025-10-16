@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E2E Test: List Navigation</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css" />
+  <style>
+    body { margin: 0; padding: 20px; background: #000; }
+    #terminal { width: 800px; height: 600px; }
+  </style>
+</head>
+<body>
+  <div id="terminal"></div>
+  <script src="../../../dist/index.global.js"></script>
+  <script type="module">
+    import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
+
+    const { createXTermScreen, blessed } = window.BlessedBrowser;
+
+    const term = new Terminal({ rows: 24, cols: 80 });
+    term.open(document.getElementById('terminal'));
+    const screen = createXTermScreen({ terminal: term });
+
+    const list = blessed.list({
+      parent: screen,
+      top: 'center',
+      left: 'center',
+      width: 40,
+      height: 15,
+      keys: true,
+      vi: true,
+      mouse: true,
+      border: { type: 'line' },
+      style: {
+        border: { fg: 'cyan' },
+        selected: {
+          bg: 'cyan',
+          fg: 'black'
+        }
+      },
+      items: [
+        'Item 1',
+        'Item 2',
+        'Item 3',
+        'Item 4',
+        'Item 5'
+      ]
+    });
+
+    const status = blessed.text({
+      parent: screen,
+      bottom: 0,
+      left: 0,
+      content: 'Selected: none'
+    });
+
+    list.on('select', (item, index) => {
+      status.setContent(`Selected: ${item.getText()} (index: ${index})`);
+      screen.render();
+    });
+
+    list.focus();
+    screen.render();
+
+    // Expose for Playwright
+    window.testList = list;
+    window.testStatus = status;
+    window.testScreen = screen;
+    window.testReady = true;
+  </script>
+</body>
+</html>

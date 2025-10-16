@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tui/blessed";
 import util from "util";
 
 const __dirname = import.meta.dirname;
