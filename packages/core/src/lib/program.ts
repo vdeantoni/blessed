@@ -142,7 +142,7 @@ class Program extends EventEmitter {
         this.tmuxVersion = (() => {
             if (!this.tmux) return 2;
             try {
-                const version = this.runtime.childProcess.execFileSync('tmux', ['-V'], { encoding: 'utf8' }) as string;
+                const version = this.runtime.processes!.childProcess.execFileSync('tmux', ['-V'], { encoding: 'utf8' }) as string;
                 const match = /^tmux ([\d.]+)/i.exec(version.trim().split('\n')[0]);
                 return match ? +match[1] : 2;
             } catch (e) {
@@ -201,7 +201,7 @@ class Program extends EventEmitter {
      * Write to the log file if one was created.
      */
     log(...args: any[]) {
-        return this._log('LOG',  this.runtime.util.format(...args));
+        return this._log('LOG',  this.runtime.utils.util.format(...args));
     };
 
     /**
@@ -209,7 +209,7 @@ class Program extends EventEmitter {
      */
     debug(...args: any[]) {
         if (!this.options.debug) return undefined;
-        return this._log('DEBUG',  this.runtime.util.format(...args));
+        return this._log('DEBUG',  this.runtime.utils.util.format(...args));
     };
 
     _log(pre: string, msg: string) {
@@ -222,7 +222,7 @@ class Program extends EventEmitter {
      */
     setupDump() {
         const write = this.output.write;
-        const decoder = new this.runtime.stringDecoder.StringDecoder('utf8');
+        const decoder = new this.runtime.utils.stringDecoder.StringDecoder('utf8');
         const Buffer = this.runtime.buffer.Buffer;
 
         function stringify(data: BufferType | string) {
@@ -622,7 +622,7 @@ class Program extends EventEmitter {
         if (this._boundMouse) return;
         this._boundMouse = true;
 
-        const decoder = new this.runtime.stringDecoder.StringDecoder('utf8');
+        const decoder = new this.runtime.utils.stringDecoder.StringDecoder('utf8');
 
         this.on('data', (data: BufferType) => {
             const text = decoder.write(data);
@@ -1115,7 +1115,7 @@ class Program extends EventEmitter {
         if (this._boundResponse) return;
         this._boundResponse = true;
 
-        const decoder = new this.runtime.stringDecoder.StringDecoder('utf8');
+        const decoder = new this.runtime.utils.stringDecoder.StringDecoder('utf8');
 
         this.on('data', (data: string | BufferType) => {
             data = decoder.write(data);

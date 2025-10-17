@@ -143,7 +143,7 @@ class GpmClient extends EventEmitter {
           vc: vc
         };
 
-        const gpm = runtime.net.createConnection(GPM_SOCKET);
+        const gpm = runtime.networking!.net.createConnection(GPM_SOCKET);
         this.gpm = gpm;
 
         gpm.on('connect', () => {

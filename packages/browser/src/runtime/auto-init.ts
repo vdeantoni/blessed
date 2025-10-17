@@ -1,13 +1,13 @@
 /**
- * Auto-initialization for blessed-browser
+ * Browser runtime initialization
  *
- * This module automatically sets up the browser environment with:
+ * This module sets up the browser environment with:
  * 1. Node.js polyfills (process, Buffer, etc.)
  * 2. @tui/core Runtime implementation for browser
  * 3. Global references
  */
 
-import { setRuntime } from '@tui/core';
+import { initCore } from '@tui/core';
 import type { Runtime } from '@tui/core';
 import type { PathLike } from 'fs';
 import { Buffer } from 'buffer';
@@ -157,16 +157,14 @@ if (typeof (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ === 'undefined') 
     fs: Runtime['fs'];
     path: Runtime['path'];
     process: Runtime['process'];
-    childProcess: Runtime['childProcess'];
-    tty: Runtime['tty'];
-    url: Runtime['url'];
-    util: Runtime['util'];
-    net: Runtime['net'];
-    stringDecoder: Runtime['stringDecoder'];
-    stream: Runtime['stream'];
     buffer: Runtime['buffer'];
-    png: Runtime['png'];
-    gif: Runtime['gif'];
+    url: Runtime['url'];
+    utils: Runtime['utils'];
+
+    // Optional grouped APIs
+    images?: Runtime['images'];
+    processes?: Runtime['processes'];
+    networking?: Runtime['networking'];
 
     constructor() {
       // @ts-ignore
@@ -288,25 +286,9 @@ if (typeof (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ === 'undefined') 
       // @ts-ignore
       this.process = globalThis.process as Runtime['process'];
 
-      // @ts-ignore
-      this.childProcess = {
-        spawn: (() => {
-          throw new Error('child_process.spawn not supported in browser');
-        }) as any,
-        execSync: (() => {
-          throw new Error('child_process.execSync not supported in browser');
-        }) as any,
-        execFileSync: (() => {
-          throw new Error('child_process.execFileSync not supported in browser');
-        }) as any,
-      };
+      this.buffer = { Buffer };
 
-      // @ts-ignore
-      this.tty = {
-        isatty: (() => true) as any,
-      };
-
-      // @ts-ignore
+      // URL operations (core - needed for module resolution)
       this.url = {
         parse: ((urlString: string) => {
           const u = new URL(urlString);
@@ -338,44 +320,77 @@ if (typeof (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ === 'undefined') 
         }) as any,
       };
 
-      this.util = browserUtil as Runtime['util'];
-
-      // @ts-ignore
-      this.net = {
-        createConnection: (() => {
-          throw new Error('net.createConnection not supported in browser');
-        }) as any,
+      // Utils (core - required for I/O and logging)
+      this.utils = {
+        util: browserUtil as any,
+        stringDecoder: { StringDecoder } as any,
+        stream: {
+          Readable: EventEmitter as any,
+          Writable: EventEmitter as any,
+        },
       };
 
-      this.stringDecoder = { StringDecoder } as Runtime['stringDecoder'];
+      // Group optional APIs
 
-      this.stream = {
-        Readable: EventEmitter as any,
-        Writable: EventEmitter as any,
+      // Processes API group (childProcess only)
+      this.processes = {
+        childProcess: {
+          spawn: (() => {
+            throw new Error('child_process.spawn not supported in browser');
+          }) as any,
+          execSync: (() => {
+            throw new Error('child_process.execSync not supported in browser');
+          }) as any,
+          execFileSync: (() => {
+            throw new Error('child_process.execFileSync not supported in browser');
+          }) as any,
+        },
       };
 
-      this.buffer = { Buffer };
-
-      this.png = {
-        PNG: class {
-          constructor() {
-            throw new Error('PNG not supported in browser');
-          }
-        } as any,
+      // Networking API group (net + tty)
+      this.networking = {
+        tty: {
+          isatty: (() => true) as any,
+        },
+        net: {
+          createConnection: (() => {
+            throw new Error('net.createConnection not supported in browser');
+          }) as any,
+        },
       };
 
-      this.gif = {
-        GifReader: class {
-          constructor() {
-            throw new Error('GIF not supported in browser');
-          }
-        } as any,
+      // Utils API group (util + stream + stringDecoder)
+      this.utils = {
+        util: browserUtil as any,
+        stringDecoder: { StringDecoder } as any,
+        stream: {
+          Readable: EventEmitter as any,
+          Writable: EventEmitter as any,
+        },
+      };
+
+      // Images API group (png + gif) - not supported in browser by default
+      this.images = {
+        png: {
+          PNG: class {
+            constructor() {
+              throw new Error('PNG not supported in browser');
+            }
+          } as any,
+        },
+        gif: {
+          GifReader: class {
+            constructor() {
+              throw new Error('GIF not supported in browser');
+            }
+          } as any,
+        },
       };
     }
   }
 
   const runtime = new BrowserRuntime();
-  setRuntime(runtime);
+  initCore(runtime);
 
   // Mark as initialized
   (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ = true;

@@ -202,9 +202,9 @@ this.fs = {
 
 ### Issue: "Runtime not initialized"
 
-**Cause:** Runtime accessed before `getBrowserRuntime()` is called.
+**Cause:** Runtime accessed before auto-initialization completes.
 
-**Solution:** Ensure `getBrowserRuntime()` is called at module load time in index.ts, BEFORE `export * from '@tui/core'`.
+**Solution:** Runtime auto-initializes when you import from `@tui/browser`. Ensure you import from `@tui/browser` (not `@tui/core` directly) at the entry point of your application.
 
 ### Issue: "process is not defined"
 
@@ -409,12 +409,12 @@ const screen = createXTermScreen({
 ### Inspect Runtime State
 
 ```typescript
-import { getBrowserRuntime } from '@tui/browser';
+import { getRuntime } from '@tui/core';
 
-const runtime = getBrowserRuntime();
+const runtime = getRuntime();
 console.log('Platform:', runtime.process.platform);
 console.log('Env:', runtime.process.env);
-console.log('FS files:', runtime.fs);
+console.log('FS methods:', Object.keys(runtime.fs));
 ```
 
 ### Browser DevTools
@@ -426,7 +426,7 @@ console.log('FS files:', runtime.fs);
 
 ### Common Breakpoints
 
-- `runtime.ts:getBrowserRuntime()` - Runtime initialization
+- `runtime/auto-init.ts` - Runtime initialization
 - `xterm-adapter.ts:write()` - Terminal output
 - `index.ts:createXTermScreen()` - Screen creation
 - Widget render methods - Layout issues
@@ -459,7 +459,7 @@ console.log('FS files:', runtime.fs);
 
 When debugging issues:
 
-1. Check if runtime is initialized (`getBrowserRuntime()` called)
+1. Check if @tui/browser is imported (runtime auto-initializes on import)
 2. Verify global polyfills are set (`process`, `Buffer`)
 3. Look for ESM hoisting issues (imports before polyfills)
 4. Test in a clean browser profile (disable extensions)

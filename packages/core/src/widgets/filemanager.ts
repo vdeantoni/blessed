@@ -9,6 +9,7 @@
 import type { FileManagerOptions } from '../types';
 import helpers from '../lib/helpers.js';
 import List from './list.js';
+import { getEnvVar } from '../lib/runtime-helpers';
 
 /**
  * FileManager
@@ -91,7 +92,7 @@ class FileManager extends List {
 
     return this.runtime.fs.readdir(cwd, (err, list) => {
       if (err && err.code === 'ENOENT') {
-        this.cwd = cwd !== this.runtime.process.env.HOME ? this.runtime.process.env.HOME || '/' : '/';
+        this.cwd = cwd !== getEnvVar("HOME") ? getEnvVar("HOME") || '/' : '/';
         return this.refresh(callback);
       }
 

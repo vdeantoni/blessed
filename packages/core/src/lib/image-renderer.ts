@@ -114,7 +114,16 @@ class ImageRenderer {
    */
   private parsePNG(buf: BufferType): void {
     const runtime = getRuntime();
-    const png = runtime.png.PNG.sync.read(buf);
+
+    if (!runtime.images) {
+      throw new Error(
+        'Image support not available. ' +
+        'PNG rendering requires runtime.images API. ' +
+        'Make sure you are using a runtime that provides image support.'
+      );
+    }
+
+    const png = runtime.images.png.PNG.sync.read(buf);
 
     this.width = png.width;
     this.height = png.height;
@@ -142,7 +151,16 @@ class ImageRenderer {
    */
   private parseGIF(buf: BufferType): void {
     const runtime = getRuntime();
-    const reader = new runtime.gif.GifReader(buf);
+
+    if (!runtime.images) {
+      throw new Error(
+        'Image support not available. ' +
+        'GIF rendering requires runtime.images API. ' +
+        'Make sure you are using a runtime that provides image support.'
+      );
+    }
+
+    const reader = new runtime.images.gif.GifReader(buf);
 
     this.width = reader.width;
     this.height = reader.height;
@@ -215,7 +233,7 @@ class ImageRenderer {
   private convertToPNG(input: BufferType): void {
     const runtime = getRuntime();
     try {
-      const buf = runtime.childProcess.execFileSync('convert', [this.format + ':-', 'png:-'],
+      const buf = runtime.processes!.childProcess.execFileSync('convert', [this.format + ':-', 'png:-'],
         { stdio: ['pipe', 'pipe', 'ignore'], input });
       const img = new ImageRenderer(buf, this.options);
       Object.assign(this, img);

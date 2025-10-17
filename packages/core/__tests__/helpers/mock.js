@@ -13,6 +13,8 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { Readable, Writable } from 'stream';
 import { Buffer } from 'buffer';
+import { PNG } from 'pngjs';
+import { GifReader } from 'omggif';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -22,6 +24,7 @@ const __dirname = dirname(__filename);
  */
 function createMockRuntime() {
   return {
+    // Core APIs (always required)
     fs: {
       readFileSync: fs.readFileSync,
       readdirSync: fs.readdirSync,
@@ -58,71 +61,81 @@ function createMockRuntime() {
         }
       }),
     },
-    childProcess: {
-      spawn: vi.fn(),
-      exec: vi.fn(),
-      execSync: vi.fn(),
-    },
-    tty: {
-      isatty: vi.fn(() => true),
+    buffer: {
+      Buffer,
     },
     url: {
       fileURLToPath: vi.fn((url) => {
-        // Return path to tui-core/src for proper font resolution
+        // Return path to core/src for proper font resolution
         if (typeof url === 'string' && url.includes('runtime-helpers')) {
           return path.join(__dirname, '../../src/lib/runtime-helpers.js');
         }
         return path.join(__dirname, '../..');
       }),
     },
-    util: {
-      inspect: vi.fn((obj) => JSON.stringify(obj)),
-      format: vi.fn((...args) => {
-        // Implement basic util.format behavior
-        if (args.length === 0) return '';
-        let str = String(args[0]);
-        let i = 1;
-        str = str.replace(/%[sdifjoO%]/g, (match) => {
-          if (i >= args.length) return match;
-          if (match === '%%') return '%';
-          const arg = args[i++];
-          switch (match) {
-            case '%s': return String(arg);
-            case '%d': return Number(arg);
-            case '%i': return parseInt(arg);
-            case '%f': return parseFloat(arg);
-            case '%j': return JSON.stringify(arg);
-            case '%o':
-            case '%O': return JSON.stringify(arg);
-            default: return match;
+    utils: {
+      util: {
+        inspect: vi.fn((obj) => JSON.stringify(obj)),
+        format: vi.fn((...args) => {
+          // Implement basic util.format behavior
+          if (args.length === 0) return '';
+          let str = String(args[0]);
+          let i = 1;
+          str = str.replace(/%[sdifjoO%]/g, (match) => {
+            if (i >= args.length) return match;
+            if (match === '%%') return '%';
+            const arg = args[i++];
+            switch (match) {
+              case '%s': return String(arg);
+              case '%d': return Number(arg);
+              case '%i': return parseInt(arg);
+              case '%f': return parseFloat(arg);
+              case '%j': return JSON.stringify(arg);
+              case '%o':
+              case '%O': return JSON.stringify(arg);
+              default: return match;
+            }
+          });
+          // Append remaining arguments
+          while (i < args.length) {
+            str += ' ' + args[i++];
           }
-        });
-        // Append remaining arguments
-        while (i < args.length) {
-          str += ' ' + args[i++];
-        }
-        return str;
-      }),
+          return str;
+        }),
+      },
+      stringDecoder: {
+        StringDecoder,
+      },
+      stream: {
+        Readable,
+        Writable,
+      },
     },
-    net: {
-      Socket: vi.fn(),
-      createConnection: vi.fn(),
+
+    // Optional API groups
+    processes: {
+      childProcess: {
+        spawn: vi.fn(),
+        exec: vi.fn(),
+        execSync: vi.fn(),
+      },
     },
-    stringDecoder: {
-      StringDecoder,
+    networking: {
+      tty: {
+        isatty: vi.fn(() => true),
+      },
+      net: {
+        Socket: vi.fn(),
+        createConnection: vi.fn(),
+      },
     },
-    stream: {
-      Readable,
-      Writable,
-    },
-    buffer: {
-      Buffer,
-    },
-    png: {
-      PNG: vi.fn(),
-    },
-    gif: {
-      GifReader: vi.fn(),
+    images: {
+      png: {
+        PNG,  // Use real PNG library for tests
+      },
+      gif: {
+        GifReader,  // Use real GifReader for tests
+      },
     },
   };
 }

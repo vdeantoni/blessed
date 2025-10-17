@@ -46,7 +46,10 @@ term.open(document.getElementById('terminal')!);
 const screen = createXTermScreen({ terminal: term });
 
 // Build your TUI
-const box = screen.box({
+import { Box } from '@tui/browser';
+
+const box = new Box({
+  parent: screen,
   top: 'center',
   left: 'center',
   width: '50%',
@@ -142,16 +145,19 @@ const screen = createScreen({
 });
 ```
 
-### `getBrowserRuntime()`
+### Runtime Access
 
-Gets the browser runtime singleton instance.
+Access the browser runtime for advanced use cases:
 
 ```typescript
-import { getBrowserRuntime } from '@tui/browser';
+import { getRuntime } from '@tui/core';
 
-const runtime = getBrowserRuntime();
+const runtime = getRuntime();
 // Provides: fs, path, process, Buffer, etc.
+// Runtime is automatically initialized when you import @tui/browser
 ```
+
+> **Note:** The runtime is automatically initialized when you import from `@tui/browser`. You don't need to call any initialization functions.
 
 ### Widget Re-exports
 
@@ -203,18 +209,20 @@ Full support for:
 ### Interactive Form
 
 ```typescript
-const form = screen.form({
+import { Form, Input, Button } from '@tui/browser';
+
+const form = new Form({
   parent: screen,
   keys: true,
   left: 'center',
   top: 'center',
   width: 50,
   height: 12,
-  border: 'line',
+  border: { type: 'line' },
   label: ' Login '
 });
 
-const username = screen.input({
+const username = new Input({
   parent: form,
   name: 'username',
   top: 1,
@@ -224,7 +232,7 @@ const username = screen.input({
   label: ' Username: '
 });
 
-const password = screen.input({
+const password = new Input({
   parent: form,
   name: 'password',
   top: 3,
@@ -235,7 +243,7 @@ const password = screen.input({
   censor: true
 });
 
-const submit = screen.button({
+const submit = new Button({
   parent: form,
   top: 6,
   left: 'center',
@@ -262,9 +270,11 @@ screen.render();
 ### File Manager
 
 ```typescript
-const fm = screen.filemanager({
+import { FileManager } from '@tui/browser';
+
+const fm = new FileManager({
   parent: screen,
-  border: 'line',
+  border: { type: 'line' },
   style: {
     border: { fg: 'cyan' },
     selected: { bg: 'blue' }
@@ -292,13 +302,15 @@ screen.render();
 ### Real-time Data Display
 
 ```typescript
-const log = screen.log({
+import { Log } from '@tui/browser';
+
+const log = new Log({
   parent: screen,
   top: 0,
   left: 0,
   width: '100%',
   height: '100%',
-  border: 'line',
+  border: { type: 'line' },
   label: ' Live Logs ',
   tags: true,
   scrollable: true,

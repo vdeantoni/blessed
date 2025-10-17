@@ -7,7 +7,6 @@
  */
 
 import type { VideoOptions } from '../types';
-import cp from 'child_process';
 import Box from './box.js';
 import Terminal from './terminal.js';
 
@@ -109,7 +108,7 @@ class Video extends Box {
 
   exists(program: string): boolean {
     try {
-      return !!+cp
+      return !!+this.runtime.processes!.childProcess
         .execSync(
           'type ' + program + ' > /dev/null 2> /dev/null' + ' && echo 1',
           { encoding: 'utf8' }

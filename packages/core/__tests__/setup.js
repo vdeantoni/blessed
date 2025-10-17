@@ -4,7 +4,7 @@
  */
 
 import { beforeAll } from 'vitest';
-import { setRuntime } from '../src/runtime-context.js';
+import { initCore } from '../src/runtime-context.js';
 import fs from 'fs';
 import path from 'path';
 import process from 'process';
@@ -21,7 +21,8 @@ import { GifReader } from 'omggif';
 
 // Initialize runtime once before all tests
 beforeAll(() => {
-  setRuntime({
+  initCore({
+    // Core APIs (required)
     fs: {
       readFileSync: fs.readFileSync,
       readdirSync: fs.readdirSync,
@@ -67,41 +68,51 @@ beforeAll(() => {
       nextTick: process.nextTick.bind(process),
       kill: process.kill.bind(process),
     },
-    childProcess: {
-      spawn: child_process.spawn,
-      execSync: child_process.execSync,
-      execFileSync: child_process.execFileSync,
-    },
-    tty: {
-      isatty: tty.isatty,
+    buffer: {
+      Buffer,
     },
     url: {
       parse: url.parse,
       format: url.format,
       fileURLToPath: url.fileURLToPath,
     },
-    util: {
-      inspect: util.inspect,
-      format: util.format,
+    utils: {
+      util: {
+        inspect: util.inspect,
+        format: util.format,
+      },
+      stream: {
+        Readable,
+        Writable,
+      },
+      stringDecoder: {
+        StringDecoder,
+      },
     },
-    net: {
-      createConnection: net.createConnection,
+
+    // Optional APIs
+    processes: {
+      childProcess: {
+        spawn: child_process.spawn,
+        execSync: child_process.execSync,
+        execFileSync: child_process.execFileSync,
+      },
     },
-    stream: {
-      Readable,
-      Writable,
+    networking: {
+      tty: {
+        isatty: tty.isatty,
+      },
+      net: {
+        createConnection: net.createConnection,
+      },
     },
-    buffer: {
-      Buffer,
-    },
-    stringDecoder: {
-      StringDecoder,
-    },
-    png: {
-      PNG,
-    },
-    gif: {
-      GifReader,
+    images: {
+      png: {
+        PNG,
+      },
+      gif: {
+        GifReader,
+      },
     },
   });
 });

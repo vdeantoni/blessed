@@ -41,7 +41,7 @@ function listenerCount(stream: any, event: string): number {
 function emitKeypressEvents(stream: any): void {
   if (stream._keypressDecoder) return;
   const runtime = getRuntime();
-  stream._keypressDecoder = new runtime.stringDecoder.StringDecoder('utf8');
+  stream._keypressDecoder = new runtime.utils.stringDecoder.StringDecoder('utf8');
 
   function onData(b: BufferType): void {
     if (listenerCount(stream, 'keypress') > 0) {

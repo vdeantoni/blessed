@@ -18,38 +18,37 @@ Platform-agnostic TUI (Text User Interface) core library with runtime dependency
 
 ## Installation
 
-```bash
-npm install @tui/core
-```
-
-**Note**: You'll also need a platform adapter:
+**Important**: `@tui/core` is a low-level package. Most users should install a platform adapter instead:
 
 ```bash
-# For Node.js applications
+# For Node.js applications (recommended)
 npm install @tui/node
 
-# For browser applications
+# For browser applications (recommended)
 npm install @tui/browser
+
+# For backward compatibility with blessed
+npm install @tui/blessed
 ```
+
+Only install `@tui/core` directly if you're creating a custom runtime adapter.
 
 ## Quick Start
 
-### Node.js
+### Node.js (Recommended)
+
+Use `@tui/node` which includes the runtime and auto-initializes:
 
 ```typescript
-import { Screen, Box } from '@tui/core';
-import { createNodeRuntime } from '@tui/node';
+import { Screen, Box } from '@tui/node';
 
-// Initialize runtime for Node.js
-createNodeRuntime();
+// No initialization needed - runtime auto-initializes on import!
 
-// Create a screen
 const screen = new Screen({
   smartCSR: true,
   title: 'My App'
 });
 
-// Create a box widget
 const box = new Box({
   parent: screen,
   top: 'center',
@@ -58,42 +57,63 @@ const box = new Box({
   height: '50%',
   content: 'Hello {bold}world{/bold}!',
   tags: true,
-  border: {
-    type: 'line'
-  },
+  border: { type: 'line' },
   style: {
     fg: 'white',
     bg: 'blue',
-    border: {
-      fg: '#f0f0f0'
-    }
+    border: { fg: '#f0f0f0' }
   }
 });
 
-// Handle keyboard input
 screen.key(['escape', 'q', 'C-c'], () => {
   process.exit(0);
 });
 
-// Render the screen
 screen.render();
 ```
 
-### Browser
+### Browser (Recommended)
+
+Use `@tui/browser` with xterm.js:
+
+```typescript
+import { Terminal } from 'xterm';
+import { createXTermScreen, Box } from '@tui/browser';
+
+// Runtime auto-initializes on import
+
+const term = new Terminal();
+term.open(document.getElementById('terminal')!);
+
+const screen = createXTermScreen({ terminal: term });
+
+const box = new Box({
+  parent: screen,
+  content: 'Hello from browser!'
+});
+
+screen.render();
+```
+
+### Using @tui/core Directly (Advanced)
+
+Only needed if you're building a custom runtime adapter:
 
 ```typescript
 import { Screen, Box } from '@tui/core';
-import { createBrowserRuntime } from '@tui/browser';
+import { initCore } from '@tui/core';
 
-// Initialize runtime for browser
-createBrowserRuntime();
+// Provide your custom runtime implementation
+const myRuntime = {
+  fs: { /* your fs implementation */ },
+  process: { /* your process implementation */ },
+  // ... other required APIs
+};
 
-// Create screen attached to a canvas or div
-const screen = new Screen({
-  terminal: document.getElementById('terminal')
-});
+initCore(myRuntime);
 
-// Rest is the same as Node.js...
+// Now you can use widgets
+const screen = new Screen();
 ```
 
 ## Architecture

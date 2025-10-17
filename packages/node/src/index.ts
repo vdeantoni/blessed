@@ -1,12 +1,24 @@
 /**
  * @tui/node - Node.js runtime adapter for @tui/core
  *
- * This package wraps Node.js APIs and provides them to @tui/core through
- * the Runtime interface. It also exposes a modern, tree-shakeable API.
+ * This package provides Node.js-specific implementations and makes it easy
+ * to use @tui/core in Node.js environments.
+ *
+ * ## Usage
+ *
+ * Simply import widgets and use them - runtime auto-initializes:
+ *
+ * ```typescript
+ * import { Screen, Box } from '@tui/node';
+ *
+ * const screen = new Screen({ smartCSR: true });
+ * const box = new Box({ screen, content: 'Hello!' });
+ * screen.render();
+ * ```
  */
 
 import type { Runtime } from '@tui/core';
-import { setRuntime, Screen } from '@tui/core';
+import { initCore } from '@tui/core';
 import fs from 'fs';
 import path from 'path';
 import process from 'process';
@@ -22,54 +34,37 @@ import { PNG } from 'pngjs';
 import { GifReader } from 'omggif';
 
 /**
- * Node.js runtime implementation
- * Wraps Node.js fs, path, process, child_process, tty, etc.
+ * Node.js runtime implementation (internal)
+ * @internal
  */
-export class NodeRuntime implements Runtime {
+class NodeRuntime implements Runtime {
   fs = fs as Runtime['fs'];
   path = path as Runtime['path'];
   process = process as Runtime['process'];
-  childProcess = child_process as Runtime['childProcess'];
-  tty = tty as Runtime['tty'];
-  url = url as Runtime['url'];
-  util = util as Runtime['util'];
-  net = net as Runtime['net'];
-  stream = { Readable, Writable } as Runtime['stream'];
   buffer = { Buffer } as Runtime['buffer'];
-  stringDecoder = { StringDecoder } as Runtime['stringDecoder'];
-  png = { PNG } as Runtime['png'];
-  gif = { GifReader } as Runtime['gif'];
+  url = url as Runtime['url'];
+  utils = {
+    util: util,
+    stream: { Readable, Writable },
+    stringDecoder: { StringDecoder },
+  } as Runtime['utils'];
 
-  constructor() {
-    // Runtime is ready to use
-  }
+  images = {
+    png: { PNG },
+    gif: { GifReader },
+  } as Runtime['images'];
+
+  processes = {
+    childProcess: child_process
+  } as Runtime['processes'];
+
+  networking = {
+    net: net,
+    tty: tty,
+  } as Runtime['networking'];
 }
 
-// Global singleton runtime instance
-let nodeRuntime: NodeRuntime | null = null;
+initCore(new NodeRuntime());
 
-/**
- * Get or create the Node.js runtime instance
- */
-export function getNodeRuntime(): NodeRuntime {
-  if (!nodeRuntime) {
-    nodeRuntime = new NodeRuntime();
-    setRuntime(nodeRuntime);
-  }
-  return nodeRuntime;
-}
-
-/**
- * Create a screen with Node.js runtime
- * Modern API - clean, TypeScript-first
- */
-export function createScreen(options: any = {}): Screen {
-  // Ensure runtime is initialized
-  getNodeRuntime();
-
-  // Create and return screen
-  return new Screen(options);
-}
-
-// Re-export all widgets from @tui/core
+// Re-export all from @tui/core
 export * from '@tui/core';

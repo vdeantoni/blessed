@@ -1,30 +1,14 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { setRuntime, _clearRuntime } from '../../src/runtime-context.js';
-import process from 'process';
-import path from 'path';
-import fs from 'fs';
-import { StringDecoder } from 'string_decoder';
-import { PNG } from 'pngjs';
-import { GifReader } from 'omggif';
 import Screen from '../../src/widgets/screen.js';
 import Box from '../../src/widgets/box.js';
 import Program from '../../src/lib/program.js';
 
-const RUNTIME = {
-  process,
-  path,
-  fs,
-  stringDecoder: { StringDecoder },
-  png: { PNG },
-  gif: { GifReader },
-};
+// Runtime is initialized globally in __tests__/setup.js
 
 describe('Screen', () => {
   let screen;
 
   beforeEach(() => {
-    setRuntime(RUNTIME);
-
     screen = new Screen({
       smartCSR: true,
       dockBorders: true
@@ -36,7 +20,6 @@ describe('Screen', () => {
       screen.destroy();
     }
     vi.restoreAllMocks();
-    _clearRuntime();
   });
 
   describe('constructor', () => {

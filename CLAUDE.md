@@ -61,15 +61,17 @@ const data = getRuntime().fs.readFileSync(path);
 
 **@tui/node** - Node.js runtime
 - NodeRuntime implementation
+- Auto-initializes on import
 - Modern, clean API
 - Tree-shakeable exports
-- Example: `import { createScreen, Box } from '@tui/node'`
+- Example: `import { Screen, Box } from '@tui/node'`
 
 **@tui/browser** - Browser runtime
 - BrowserRuntime with polyfills
+- Auto-initializes on import
 - XTerm.js integration
 - Same API as @tui/node
-- Interactive playground at http://localhost:3000
+- Interactive playground at http://localhost:5173
 
 **@tui/blessed** - Compatibility layer (pending)
 - 100% backward compatible with blessed
@@ -267,6 +269,23 @@ pnpm --filter benchmarks bench
 
 ## Recent Session Summary
 
+**Runtime Initialization Improvements:**
+- ✅ Simplified runtime initialization - now auto-initializes on import
+- ✅ Fixed @tui/blessed to work with auto-init pattern
+- ✅ Updated all examples to use `parent:` property correctly
+- ✅ Fixed @tui/node examples (hello-world, dashboard, interactive)
+- ✅ Updated documentation across all packages
+- ✅ All builds and tests passing (1,588 core tests, 20 browser unit tests, 189 browser e2e tests)
+
+**Key Change:**
+- **Before:** Users had to call `initBrowser()` or similar
+- **After:** Runtime auto-initializes when you import from `@tui/node` or `@tui/browser`
+
+**Example Improvements:**
+- Fixed widget attachment using `parent: screen` instead of `screen`
+- Simplified dashboard sidebar (removed non-functional menu shortcuts)
+- All examples now working and rendering correctly
+
 **@tui/browser - E2E Test Fixes:**
 - ✅ Fixed IIFE build issue with `import.meta.url` being undefined
 - ✅ Added null/undefined handling to `fileURLToPath` polyfill
@@ -274,7 +293,7 @@ pnpm --filter benchmarks bench
 - ✅ All 189 e2e tests passing (100%)
 - ✅ All 9 BigText tests passing across all browsers (chromium, firefox, webkit)
 - ✅ Playground example fully functional with BigText animation
-- ✅ Runtime initialization with BrowserRuntime
+- ✅ Runtime initialization with BrowserRuntime (auto-initializes on import)
 - ✅ Fixed JSON import paths (removed .json.json)
 - ✅ Created blessed namespace with helpers
 - ✅ Upgraded Vite to 7.1.10 (Node 24 compat)
@@ -283,6 +302,7 @@ pnpm --filter benchmarks bench
 
 **@tui/node:**
 - ✅ Added missing Runtime properties (net, stream, buffer)
+- ✅ Runtime auto-initializes on import
 - ✅ Build successful
 
 **@tui/core:**

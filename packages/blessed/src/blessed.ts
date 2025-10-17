@@ -8,9 +8,7 @@
 import * as TuiTypes from '@tui/node';
 export * from '@tui/node';
 
-// Initialize the Node.js runtime immediately when this module loads
-import { getNodeRuntime } from '@tui/node';
-getNodeRuntime(); // This ensures runtime is ready before any blessed API is used
+// Runtime auto-initializes when @tui/node is imported
 
 /**
  * WidgetFactory type - matches old blessed pattern

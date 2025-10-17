@@ -1,19 +1,31 @@
 /**
- * blessed-browser main entry point
+ * @tui/browser main entry point
  *
- * This module adapts the blessed TUI library for browser use by:
- * 1. Auto-initializing Node.js polyfills (no consumer setup needed!)
- * 2. Inlining terminfo/termcap data
- * 3. Excluding non-browser-compatible widgets
- * 4. Providing xterm.js integration
+ * This package adapts @tui/core for browser use with XTerm.js integration.
  *
- * Simply import and use - zero configuration required!
+ * ## Usage
+ *
+ * Simply import widgets and use them - runtime auto-initializes:
+ *
+ * ```typescript
+ * import { createXTermScreen, Box } from '@tui/browser';
+ * import { Terminal } from 'xterm';
+ *
+ * // Create xterm instance
+ * const term = new Terminal();
+ * term.open(document.getElementById('terminal')!);
+ *
+ * // Create blessed screen and widgets
+ * const screen = createXTermScreen({ terminal: term });
+ * const box = new Box({ parent: screen, content: 'Hello!' });
+ * screen.render();
+ * ```
  */
 
-// IMPORTANT: Import auto-init first to set up environment
+// Initialize runtime BEFORE importing @tui/core (critical!)
 import './runtime/auto-init.js';
 
-// Re-export core blessed (with polyfills applied)
+// Re-export core blessed (runtime is now initialized)
 export * from '@tui/core';
 
 // Export xterm adapter
@@ -52,6 +64,15 @@ import {
   ANSIImage,
   OverlayImage,
 } from '@tui/core';
+
+/**
+ * @deprecated Runtime now auto-initializes on import. This function is a no-op.
+ * You can safely remove calls to `initBrowser()` from your code.
+ */
+export function initBrowser(): void {
+  // Runtime auto-initializes when this module loads
+  // This function kept for backward compatibility only
+}
 
 // Create blessed namespace with helper functions
 export const blessed = {
@@ -132,10 +153,3 @@ export const blessed = {
   ANSIImage,
   OverlayImage,
 };
-
-// Note: The following widgets are NOT available in browser build:
-// - filemanager (uses fs extensively)
-// - video (uses child_process)
-// - ansiimage (uses child_process)
-// - overlayimage (uses child_process)
-// - bigtext (uses fs)

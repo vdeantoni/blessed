@@ -24,33 +24,43 @@ import type { Buffer } from 'buffer';
 /**
  * Complete runtime abstraction interface
  * All @tui/core modules accept this interface for platform operations
+ *
+ * Core APIs (always required):
+ * - fs, path, process, buffer, url, utils
+ *
+ * Optional APIs (use feature detection):
+ * - images: PNG/GIF rendering (only needed by Image widgets)
+ * - processes: Child process spawning (Terminal widget, image tools)
+ * - networking: Network and TTY operations (GPM mouse - very rare)
  */
 export interface Runtime {
+  // ============================================================
+  // CORE APIs (Always Required)
+  // ============================================================
+
   /** File system operations */
   fs: FileSystemAPI;
   /** Path manipulation operations */
   path: PathAPI;
   /** Process operations (stdin/stdout/env/etc) */
   process: ProcessAPI;
-  /** Child process spawning */
-  childProcess: ChildProcessAPI;
-  /** TTY operations */
-  tty: TtyAPI;
-  /** URL operations */
-  url: UrlAPI;
-  /** Utility functions (inspect, format, etc) */
-  util: UtilAPI;
-  net: NetAPI;
-  /** String decoder for buffer/string conversion */
-  stringDecoder: StringDecoderAPI;
-  /** Stream operations (Readable, Writable) */
-  stream: StreamAPI;
   /** Buffer operations */
   buffer: BufferAPI;
-  /** PNG image library (pngjs) */
-  png: PngAPI;
-  /** GIF image library (omggif) */
-  gif: GifAPI;
+  /** URL operations (fileURLToPath for module resolution) */
+  url: UrlAPI;
+  /** Utility functions and streams */
+  utils: UtilsAPI;
+
+  // ============================================================
+  // OPTIONAL APIs (Feature Detection)
+  // ============================================================
+
+  /** Image processing (PNG/GIF rendering) - Optional */
+  images?: ImageAPI;
+  /** Process spawning - Optional */
+  processes?: ProcessesAPI;
+  /** Networking and TTY operations - Optional */
+  networking?: NetworkingAPI;
 }
 
 /**
@@ -255,4 +265,84 @@ export interface GifAPI {
  */
 export function createRuntime(options: Runtime): Runtime {
   return options;
+}
+
+// ============================================================
+// Grouped Optional APIs
+// ============================================================
+
+/**
+ * Image processing API group (optional)
+ * Combines PNG and GIF libraries for image rendering
+ */
+export interface ImageAPI {
+  /** PNG image library (pngjs) */
+  png: PngAPI;
+  /** GIF image library (omggif) */
+  gif: GifAPI;
+}
+
+/**
+ * Process spawning API group (optional)
+ * Child process operations for specialized widgets
+ */
+export interface ProcessesAPI {
+  /** Child process spawning */
+  childProcess: ChildProcessAPI;
+}
+
+/**
+ * Networking API group (optional)
+ * Network connections and TTY operations
+ */
+export interface NetworkingAPI {
+  /** Network socket operations */
+  net: NetAPI;
+  /** TTY operations */
+  tty: TtyAPI;
+}
+
+/**
+ * Utilities API group (optional)
+ * Utility functions, streams, and string decoding
+ */
+export interface UtilsAPI {
+  /** Utility functions (inspect, format) */
+  util: UtilAPI;
+  /** Stream operations (Readable, Writable) */
+  stream: StreamAPI;
+  /** String decoder for buffer/string conversion */
+  stringDecoder: StringDecoderAPI;
+}
+
+// ============================================================
+// Backward Compatibility Helpers
+// ============================================================
+
+/**
+ * Check if runtime has image processing support
+ */
+export function hasImageSupport(runtime: Runtime): runtime is Runtime & { images: ImageAPI } {
+  return runtime.images !== undefined;
+}
+
+/**
+ * Check if runtime has process spawning support
+ */
+export function hasProcessSupport(runtime: Runtime): runtime is Runtime & { processes: ProcessesAPI } {
+  return runtime.processes !== undefined;
+}
+
+/**
+ * Check if runtime has networking support
+ */
+export function hasNetworkSupport(runtime: Runtime): runtime is Runtime & { networking: NetworkingAPI } {
+  return runtime.networking !== undefined;
+}
+
+/**
+ * Check if runtime has utility functions
+ */
+export function hasUtilsSupport(runtime: Runtime): runtime is Runtime & { utils: UtilsAPI } {
+  return runtime.utils !== undefined;
 }

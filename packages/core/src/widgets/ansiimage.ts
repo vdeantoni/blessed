@@ -167,14 +167,14 @@ class ANSIImage extends Box {
 ANSIImage.curl = function(url: string): any {
   const runtime = getRuntime();
   try {
-    return runtime.childProcess.execFileSync('curl',
+    return runtime.processes!.childProcess.execFileSync('curl',
       ['-s', '-A', '', url],
       { stdio: ['ignore', 'pipe', 'ignore'] });
   } catch (e) {
     ;
   }
   try {
-    return runtime.childProcess.execFileSync('wget',
+    return runtime.processes!.childProcess.execFileSync('wget',
       ['-U', '', '-O', '-', url],
       { stdio: ['ignore', 'pipe', 'ignore'] });
   } catch (e) {

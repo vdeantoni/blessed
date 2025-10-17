@@ -121,7 +121,7 @@ class OverlayImage extends Box {
   }
 
   spawn(file: string, args: string[], opt?: any, callback?: any): any {
-    const { spawn: spawnProcess } = this.runtime.childProcess;
+    const { spawn: spawnProcess } = this.runtime.processes!.childProcess;
     let ps: any;
 
     opt = opt || {};
@@ -379,7 +379,7 @@ class OverlayImage extends Box {
     };
 
     try {
-      this.runtime.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
+      this.runtime.processes!.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
         env: this.runtime.process.env as Record<string, string>,
         encoding: 'utf8',
         input: input,
@@ -419,7 +419,7 @@ class OverlayImage extends Box {
     delete this._lastSize;
 
     try {
-      this.runtime.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
+      this.runtime.processes!.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
         env: this.runtime.process.env as Record<string, string>,
         encoding: 'utf8',
         input: input,
@@ -445,7 +445,7 @@ class OverlayImage extends Box {
     var input = '5;' + img + '\n';
 
     try {
-      buf = this.runtime.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
+      buf = this.runtime.processes!.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
         env: this.runtime.process.env as Record<string, string>,
         encoding: 'utf8',
         input: input,
@@ -470,7 +470,7 @@ class OverlayImage extends Box {
     var buf = '';
 
     try {
-      buf = this.runtime.childProcess.execFileSync(
+      buf = this.runtime.processes!.childProcess.execFileSync(
         OverlayImage.w3mdisplay,
         ['-test'],
         {
