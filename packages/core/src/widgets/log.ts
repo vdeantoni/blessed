@@ -80,9 +80,9 @@ class Log extends ScrollableText {
    */
   add(...args: any[]): any {
     if (typeof args[0] === 'object') {
-      args[0] = this.runtime.util.inspect(args[0], true, 20, true);
+      args[0] = this.runtime.utils.util.inspect(args[0], true, 20, true);
     }
-    const text = this.runtime.util.format(args[0], ...args.slice(1));
+    const text = this.runtime.utils.util.format(args[0], ...args.slice(1));
     this.emit('log', text);
     const ret = this.pushLine(text);
     if (this._clines.fake.length > this.scrollback) {

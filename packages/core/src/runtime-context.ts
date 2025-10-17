@@ -17,14 +17,27 @@ export * from './runtime.js';
 let runtime: Runtime | null = null;
 
 /**
- * Set the global runtime
- * Should be called once at application startup by platform entry point
- * (@tuxe/node or @tuxe/browser)
+ * Initialize @tuxe/core with a platform runtime
  *
- * In test environments, calling setRuntime() multiple times with the same
- * runtime instance is allowed (idempotent). Different instances will cause an error.
+ * This is the primary API for platform packages to set up the runtime.
+ * End users should call platform-specific init functions instead:
+ * - @tuxe/node: `initNode()`
+ * - @tuxe/browser: `initBrowser()`
+ *
+ * @param rt - Platform runtime implementation (NodeRuntime, BrowserRuntime, etc.)
+ *
+ * @example
+ * ```typescript
+ * // Platform package (internal use)
+ * import { initCore } from '@tuxe/core';
+ * import { NodeRuntime } from './runtime.js';
+ *
+ * export function initNode() {
+ *   initCore(new NodeRuntime());
+ * }
+ * ```
  */
-export function setRuntime(rt: Runtime): void {
+export function initCore(rt: Runtime): void {
   if (runtime && runtime !== rt) {
     // In test environment, allow replacing runtime
     const isTest = typeof process !== 'undefined' && process.env?.NODE_ENV === 'test';
@@ -36,14 +49,33 @@ export function setRuntime(rt: Runtime): void {
 }
 
 /**
+ * Set the global runtime (internal API)
+ *
+ * @deprecated Use initCore() instead. This function is kept for backward compatibility
+ * but will be removed in a future version.
+ *
+ * @internal
+ */
+export function setRuntime(rt: Runtime): void {
+  initCore(rt);
+}
+
+/**
  * Get the global runtime
  * Throws if runtime not initialized
+ *
+ * @internal - Most code should not need to access runtime directly.
+ * Platform packages handle initialization via initCore().
  */
 export function getRuntime(): Runtime {
   if (!runtime) {
     throw new Error(
       'Runtime not initialized. ' +
-      'Platform entry point (@tuxe/node or @tuxe/browser) must call setRuntime() first.'
+      'Call initNode() from @tuxe/node or initBrowser() from @tuxe/browser first.\n\n' +
+      'Example:\n' +
+      '  import { initNode, Screen } from \'@tuxe/node\';\n' +
+      '  initNode();\n' +
+      '  const screen = new Screen();'
     );
   }
   return runtime;

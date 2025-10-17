@@ -20,7 +20,7 @@ import Node from './node.js';
 import Log from './log.js';
 import Element from './element.js';
 import Box from './box.js';
-import { getNextTick } from '../lib/runtime-helpers';
+import { getEnvVar, getNextTick } from '../lib/runtime-helpers';
 import { getRuntime } from '../runtime-context.js';
 
 /**
@@ -343,7 +343,7 @@ class Screen extends Node {
     }
     if (this.runtime.process.platform === 'win32') {
       try {
-        this.runtime.childProcess.execSync('cls', { stdio: 'ignore', timeout: 1000 });
+        this.runtime.processes!.childProcess.execSync('cls', { stdio: 'ignore', timeout: 1000 });
       } catch (e) {}
     }
     this.program.alternateBuffer();
@@ -383,7 +383,7 @@ class Screen extends Node {
     this.program.flush();
     if (this.runtime.process.platform === 'win32') {
       try {
-        this.runtime.childProcess.execSync('cls', { stdio: 'ignore', timeout: 1000 });
+        this.runtime.processes!.childProcess.execSync('cls', { stdio: 'ignore', timeout: 1000 });
       } catch (e) {}
     }
   }
@@ -2069,7 +2069,7 @@ class Screen extends Node {
 
     const screen = this;
     const program = screen.program;
-    const { spawn } = this.runtime.childProcess;
+    const { spawn } = this.runtime.processes!.childProcess;
     const mouse = program.mouseEnabled;
     let ps: any;
 
@@ -2171,7 +2171,7 @@ class Screen extends Node {
 
     options = options || {};
 
-    const editor = options.editor || this.runtime.process.env.EDITOR || 'vi';
+    const editor = options.editor || getEnvVar("EDITOR") || 'vi';
     const name = options.name || this.runtime.process.title || 'blessed';
     const rnd = Math.random().toString(36).split('.').pop();
     const file = '/tmp/' + name + '.' + rnd;
@@ -2181,7 +2181,7 @@ class Screen extends Node {
     opt = {
       stdio: 'inherit',
       env: this.runtime.process.env,
-      cwd: this.runtime.process.env.HOME,
+      cwd: getEnvVar("HOME"),
     };
 
     const writeFile = (callback: any) => {
@@ -2234,7 +2234,7 @@ class Screen extends Node {
     const opt = {
       stdio: ['pipe', 1, 2],
       env: this.runtime.process.env,
-      cwd: this.runtime.process.env.HOME,
+      cwd: getEnvVar("HOME"),
     };
 
     const ps = this.spawn(args[0], args.slice(1), opt);

@@ -7,7 +7,7 @@
  */
 
 export * from './runtime.js';
-export { setRuntime, _clearRuntime } from './runtime-context.js';
+export { initCore } from './runtime-context.js';
 
 // Re-export types
 export * from './types/index.js';
@@ -71,6 +71,3 @@ export { default as Screen } from './widgets/screen.js';
 export * from './widgets/image.js';
 export * from './widgets/ansiimage.js';
 export * from './widgets/overlayimage.js';
-
-// NOTE: Terminal and Video widgets require additional Runtime abstraction
-// They will be migrated in a later phase

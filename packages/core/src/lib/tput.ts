@@ -2060,7 +2060,7 @@ class Tput {
 
         try {
             // Produces something like: 'Active code page: 437\n\n'
-            ccp = this.runtime.childProcess.execFileSync(getEnvVar("WINDIR") + '\\system32\\chcp.com', [], {
+            ccp = this.runtime.processes!.childProcess.execFileSync(getEnvVar("WINDIR") + '\\system32\\chcp.com', [], {
                 stdio: ['ignore', 'pipe', 'ignore'],
                 encoding: 'ascii',
                 timeout: 1500

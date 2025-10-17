@@ -1,14 +1,10 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { PNG } from 'pngjs';
 import { GifWriter } from 'omggif';
-import { initTestRuntime } from '../helpers/mock.js';
 import tng, { ImageRenderer } from '../../src/lib/image-renderer.js';
 import colors from '../../src/lib/colors.js';
 
-// Initialize runtime for tests
-const runtime = initTestRuntime();
-runtime.png = { PNG };
-runtime.gif = { GifWriter };
+// Runtime is initialized globally in __tests__/setup.js
 
 describe('ImageRenderer', () => {
   describe('PNG Support', () => {

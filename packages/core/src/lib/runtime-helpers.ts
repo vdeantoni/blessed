@@ -11,11 +11,18 @@ export * from '../runtime-context.js';
 
 /**
  * Get environment variable from runtime
+ * Cached for performance
  * @param varName - Name of the environment variable
  * @returns Value of the environment variable or empty string if not set
  */
+const envCache = new Map<string, string>();
 export function getEnvVar(varName: string): string {
-  return runtime.getRuntime().process.env[varName] || '';
+  if (envCache.has(varName)) {
+    return envCache.get(varName)!;
+  }
+  const value = runtime.getRuntime().process.env[varName] || '';
+  envCache.set(varName, value);
+  return value;
 }
 
 /**
@@ -37,8 +44,9 @@ export function getNextTick(): (callback: () => void) => void {
 let __dirname: string | null = null;
 export function getDir(): string {
   if (!__dirname) {
-    __dirname = runtime.getRuntime().path.dirname(
-      runtime.getRuntime().url.fileURLToPath(import.meta.url)
+    const rt = runtime.getRuntime();
+    __dirname = rt.path.dirname(
+      rt.url.fileURLToPath(import.meta.url)
     );
   }
   return __dirname;
