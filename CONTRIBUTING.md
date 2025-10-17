@@ -56,8 +56,8 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) for all comm
 
 - `core` - @tuxe/core
 - `node` - @tuxe/node
-- `blessed` - @tuxe/blessed or @vdeantoni/blessed
-- `browser` - @tuxe/browser or @vdeantoni/blessed-browser
+- `blessed` - @tuxe/blessed
+- `browser` - @tuxe/browser
 - `deps` - Dependency updates
 - `ci` - CI/CD
 - `dx` - Developer experience

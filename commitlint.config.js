@@ -30,8 +30,8 @@ export default {
     'scope-enum': [1, 'always', [
       'core',     // @tuxe/core
       'node',     // @tuxe/node
-      'blessed',  // @tuxe/blessed or @vdeantoni/blessed
-      'browser',  // @tuxe/browser or @vdeantoni/blessed-browser
+      'blessed',  // @tuxe/blessed
+      'browser',  // @tuxe/browser
       'deps',     // Dependency updates
       'release',  // Release-related
       'ci',       // CI/CD

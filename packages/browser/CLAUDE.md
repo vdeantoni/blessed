@@ -453,7 +453,7 @@ console.log('FS files:', runtime.fs);
 - [Node.js Process API](https://nodejs.org/api/process.html)
 - [Buffer polyfill](https://github.com/feross/buffer)
 - [path-browserify](https://github.com/browserify/path-browserify)
-- [@tuxe/core CLAUDE.md](../tuxe-core/CLAUDE.md)
+- [@tuxe/core CLAUDE.md](../core/CLAUDE.md)
 
 ## Getting Help
 

@@ -30,10 +30,6 @@ const PUBLISH_ORDER = [
 
   // Compatibility layer - depends on @tuxe/node
   '@tuxe/blessed',
-
-  // Legacy packages - independent
-  '@vdeantoni/blessed',
-  '@vdeantoni/blessed-browser'
 ];
 
 console.log('\n📦 Publishing all packages to npm...\n');

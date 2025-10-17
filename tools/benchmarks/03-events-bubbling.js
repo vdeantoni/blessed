@@ -5,7 +5,7 @@
  * Tests event bubbling and capture phases.
  */
 
-import blessed from '@vdeantoni/blessed';
+import blessed from '@tuxe/blessed';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkEventBubbling() {

@@ -122,7 +122,7 @@ If you don't see this message, the plugin's HTML injection may have failed. Chec
 
 ## Development
 
-The plugin source is in `packages/tuxe-browser/src/vite-plugin/index.ts`.
+The plugin source is in `packages/browser/src/vite-plugin/index.ts`.
 
 Key points:
 - Uses `transformIndexHtml` hook with `order: 'pre'` to inject before other transformations

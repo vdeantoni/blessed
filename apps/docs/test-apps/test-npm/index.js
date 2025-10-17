@@ -3,18 +3,18 @@
 /**
  * Test blessed from npm registry
  *
- * This app installs @vdeantoni/blessed@alpha from npm and tests:
+ * This app installs @tuxe/blessed@alpha from npm and tests:
  * - Package installation works
  * - Basic blessed functionality
  * - Screen rendering
  * - Keyboard input
  */
 
-const blessed = require('@vdeantoni/blessed');
+const blessed = require('@tuxe/blessed');
 const path = require('path');
 
 // Verify we're loading from node_modules
-const blessedPath = require.resolve('@vdeantoni/blessed');
+const blessedPath = require.resolve('@tuxe/blessed');
 console.log('✅ blessed loaded from npm');
 console.log('📦 Location:', blessedPath);
 console.log('');
@@ -55,7 +55,7 @@ const content = [
   '',
   '{green-fg}✅ Package installed successfully!{/green-fg}',
   '',
-  '{cyan-fg}Package:{/cyan-fg} @vdeantoni/blessed@1.0.0-alpha.1',
+  '{cyan-fg}Package:{/cyan-fg} @tuxe/blessed@1.0.0-alpha.1',
   '{cyan-fg}Source:{/cyan-fg} ' + blessedPath,
   '',
   '{yellow-fg}Test Results:{/yellow-fg}',

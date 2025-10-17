@@ -1,6 +1,6 @@
 # @tuxe/browser
 
-Browser runtime adapter for [@tuxe/core](../tuxe-core) - Run terminal UIs in the browser with xterm.js integration.
+Browser runtime adapter for [@tuxe/core](../core) - Run terminal UIs in the browser with xterm.js integration.
 
 [![npm version](https://img.shields.io/npm/v/@tuxe/browser)](https://www.npmjs.com/package/@tuxe/browser)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
@@ -422,6 +422,6 @@ MIT © [Vinicius De Antoni](https://github.com/vdeantoni)
 
 ## Related
 
-- [@tuxe/core](../tuxe-core) - Core TUI library
-- [@tuxe/node](../tuxe-node) - Node.js runtime adapter
+- [@tuxe/core](../core) - Core TUI library
+- [@tuxe/node](../node) - Node.js runtime adapter
 - [xterm.js](https://xtermjs.org/) - Terminal emulator for the web

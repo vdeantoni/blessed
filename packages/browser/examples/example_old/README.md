@@ -5,7 +5,7 @@ Live interactive playground for testing @tuxe/core widgets in the browser!
 ## Running the Demo
 
 ```bash
-cd packages/tuxe-browser/examples/example
+cd packages/browser/examples/example
 npm install
 npm run dev
 ```

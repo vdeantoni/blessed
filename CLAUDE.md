@@ -119,10 +119,10 @@ pnpm --filter @tuxe/browser build
 ```
 tuxe/
 ├── packages/
-│   ├── tuxe-core/      # Platform-agnostic core
-│   ├── tuxe-node/      # Node.js runtime
-│   ├── tuxe-browser/   # Browser runtime
-│   └── tuxe-blessed/   # Compatibility layer (pending)
+│   ├── core/      # Platform-agnostic core
+│   ├── node/      # Node.js runtime
+│   ├── browser/   # Browser runtime
+│   └── blessed/   # Compatibility layer (pending)
 ├── apps/
 │   └── docs/           # Documentation (TBD)
 └── tools/
@@ -249,9 +249,9 @@ pnpm --filter benchmarks bench
 ## Resources
 
 ### Documentation
-- **Core:** `packages/tuxe-core/CLAUDE.md`
-- **Node:** `packages/tuxe-node/README.md`
-- **Browser:** `packages/tuxe-browser/CLAUDE.md`
+- **Core:** `packages/core/CLAUDE.md`
+- **Node:** `packages/node/README.md`
+- **Browser:** `packages/browser/CLAUDE.md`
 - **Playground:** http://localhost:3000 (run `pnpm --filter @tuxe/browser dev`)
 
 ### Build Tools

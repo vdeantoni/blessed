@@ -31,8 +31,8 @@ export default defineConfig({
   target: 'node22',
 
   onSuccess: async () => {
-    await cp('../tuxe-core/data', 'dist/usr', { recursive: true });
-    console.log('✅ Copied ../tuxe-core/data/ to dist/usr/');
+    await cp('../core/data', 'dist/usr', { recursive: true });
+    console.log('✅ Copied ../core/data/ to dist/usr/');
     console.log('✅ @tuxe/blessed build complete');
   }
 });

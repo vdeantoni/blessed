@@ -1,4 +1,4 @@
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tuxe/blessed";
 import util from "util";
 
 var screen = blessed.screen({

@@ -37,7 +37,7 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/vdeantoni/tuxe.git",
-    "directory": "packages/blessed-browser"
+    "directory": "packages/browser"
   },
   "homepage": "https://github.com/vdeantoni/tuxe",
   "bugs": {

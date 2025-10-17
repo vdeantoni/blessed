@@ -505,4 +505,4 @@ Contributions are welcome! Please see the [main repository](https://github.com/v
 ## Support
 
 - GitHub Issues: https://github.com/vdeantoni/tuxe/issues
-- Documentation: https://github.com/vdeantoni/tuxe/tree/master/packages/tuxe-core
+- Documentation: https://github.com/vdeantoni/tuxe/tree/master/packages/core

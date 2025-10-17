@@ -3,9 +3,6 @@
  * Provides browser-compatible URL utilities
  */
 
-// Re-export the url package for most functionality
-export * from 'packages/tuxe-browser/src/polyfills/url';
-
 // Add fileURLToPath stub for browser (not really applicable in browser)
 export function fileURLToPath(url: string | URL): string {
   if (typeof url === 'string') {

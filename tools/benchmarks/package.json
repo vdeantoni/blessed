@@ -8,5 +8,6 @@
     "bench": "node --expose-gc run-all.js"
   },
   "dependencies": {
+    "@tuxe/blessed": "workspace:*"
   }
 }

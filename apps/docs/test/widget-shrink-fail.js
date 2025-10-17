@@ -1,4 +1,4 @@
-import blessed from "@vdeantoni/blessed";
+import blessed from "@tuxe/blessed";
 
 var screen = blessed.screen({
   autoPadding: true,

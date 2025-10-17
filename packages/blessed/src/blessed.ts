@@ -8,6 +8,10 @@
 import * as TuxeTypes from '@tuxe/node';
 export * from '@tuxe/node';
 
+// Initialize the Node.js runtime immediately when this module loads
+import { getNodeRuntime } from '@tuxe/node';
+getNodeRuntime(); // This ensures runtime is ready before any blessed API is used
+
 /**
  * WidgetFactory type - matches old blessed pattern
  * Factory function + class constructor + prototype

@@ -76,7 +76,7 @@ export function getRuntime(): Runtime {
 ## Package Structure
 
 ```
-packages/tuxe-core/
+packages/core/
 ├── src/
 │   ├── index.ts              # Main entry point
 │   ├── runtime.ts            # Runtime interface definitions
