@@ -18,8 +18,8 @@ export { default as Tput, sprintf, tryRead } from './lib/tput.js';
 
 // Re-export helpers
 export * from './lib/helpers.js';
-export * as colors from './lib/colors.js';
-export * as unicode from './lib/unicode.js';
+export { default as colors } from './lib/colors.js';
+export { default as unicode } from './lib/unicode.js';
 export * from './lib/alias.js';
 export * from './lib/events.js';
 export * from './lib/image-renderer.js';

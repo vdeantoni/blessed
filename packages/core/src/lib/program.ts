@@ -90,6 +90,11 @@ class Program extends EventEmitter {
 
         options.log = options.log || options.dump;
         if (options.log) {
+            // Ensure log directory exists
+            const logDir = this.runtime.path.dirname(options.log);
+            if (!this.runtime.fs.existsSync(logDir)) {
+                this.runtime.fs.mkdirSync(logDir, { recursive: true });
+            }
             this._logger = this.runtime.fs.createWriteStream(options.log);
             if (options.dump) this.setupDump();
         }

@@ -4,6 +4,7 @@ dist/
 *.tsbuildinfo
 .vitest/
 .turbo/
+*.log
 
 # Benchmark/test results
 tools/benchmarks/results/*.json

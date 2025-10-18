@@ -553,10 +553,8 @@ describe('Integration Tests - Real Blessed Patterns', () => {
   describe('Utilities', () => {
     it('should expose colors utility', () => {
       expect(colors).toBeDefined();
-      // colors is exported as a module, check default export or direct properties
-      const colorsObj = (colors as any).default || colors;
-      expect(colorsObj).toHaveProperty('match');
-      expect(colorsObj).toHaveProperty('convert');
+      expect(colors).toHaveProperty('match');
+      expect(colors).toHaveProperty('convert');
     });
 
     it('should expose unicode utility', () => {
