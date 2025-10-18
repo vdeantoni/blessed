@@ -73,10 +73,11 @@ const data = getRuntime().fs.readFileSync(path);
 - Same API as @tuxe/node
 - Interactive playground at http://localhost:5173
 
-**@tuxe/blessed** - Compatibility layer (pending)
+**@tuxe/blessed** - Compatibility layer
 - 100% backward compatible with blessed
 - Thin wrapper over @tuxe/node
 - Drop-in replacement: `require('@tuxe/blessed')`
+- 56 type compatibility tests (100% passing)
 
 ## Development
 
@@ -151,14 +152,14 @@ tuxe/
 ### In Progress
 
 **Phase 6 Remaining:**
-- [ ] @tuxe/blessed compatibility layer
+- [x] @tuxe/blessed compatibility layer (type tests complete)
 - [ ] End-to-end integration tests
 - [ ] Migration guide
 - [ ] Alpha release to npm
 
 **Known Issues:**
 - 23 terminfo parsing tests failing (not runtime critical)
-- @tuxe/blessed wrapper not implemented yet
+- @tuxe/blessed needs integration tests with real blessed examples
 
 ### Deferred Phases
 

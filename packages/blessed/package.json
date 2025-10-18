@@ -76,10 +76,11 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@tuxe/node": "workspace:*",
-    "@tuxe/core": "workspace:*"
+    "@tuxe/core": "workspace:*",
+    "@tuxe/node": "workspace:*"
   },
   "devDependencies": {
+    "@types/blessed": "^0.1.25",
     "@types/node": "24.6.2",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
