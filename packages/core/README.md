@@ -78,14 +78,14 @@ Use `@tui/browser` with xterm.js:
 
 ```typescript
 import { Terminal } from 'xterm';
-import { createXTermScreen, Box } from '@tui/browser';
+import { Screen, Box } from '@tui/browser';
 
 // Runtime auto-initializes on import
 
 const term = new Terminal();
 term.open(document.getElementById('terminal')!);
 
-const screen = createXTermScreen({ terminal: term });
+const screen = new Screen({ terminal: term });
 
 const box = new Box({
   parent: screen,

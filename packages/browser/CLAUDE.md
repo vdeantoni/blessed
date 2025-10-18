@@ -47,7 +47,7 @@ This document provides architectural context and development guidelines for the 
 **Index** (`src/index.ts`)
 - Entry point with runtime initialization
 - Re-exports all @tui/core widgets
-- Exports browser-specific adapters (XTermAdapter, createXTermScreen)
+- Exports browser-specific Screen and XTermAdapter
 
 **Vite Plugin** (`src/vite-plugin/index.ts`)
 - Optional optimization plugin for Vite users
@@ -435,7 +435,7 @@ Reusable test utilities:
 ### Enable Debug Logging
 
 ```typescript
-const screen = createXTermScreen({
+const screen = new Screen({
   terminal: term,
   debug: true,
   log: 'console'  // Or file path (won't work in browser)
@@ -464,7 +464,7 @@ console.log('FS methods:', Object.keys(runtime.fs));
 
 - `runtime/auto-init.ts` - Runtime initialization
 - `xterm-adapter.ts:write()` - Terminal output
-- `index.ts:createXTermScreen()` - Screen creation
+- `screen.ts` - Browser Screen creation
 - Widget render methods - Layout issues
 
 ## Migration from Blessed

@@ -422,9 +422,9 @@ Make sure xterm.css is loaded:
 
 ### Mouse events not working
 
-Ensure mouse is enabled:
+Ensure mouse is enabled (it's enabled by default):
 ```typescript
-createXTermScreen({ terminal: term, mouse: true })
+new Screen({ terminal: term, mouse: true })
 ```
 
 ## Contributing
