@@ -73,10 +73,11 @@ const data = getRuntime().fs.readFileSync(path);
 - Same API as @tui/node
 - Interactive playground at http://localhost:5173
 
-**@tui/blessed** - Compatibility layer (pending)
+**@tui/blessed** - Compatibility layer
 - 100% backward compatible with blessed
 - Thin wrapper over @tui/node
 - Drop-in replacement: `require('@tui/blessed')`
+- 56 type compatibility tests (100% passing)
 
 ## Development
 
@@ -151,14 +152,15 @@ tui/
 ### In Progress
 
 **Phase 6 Remaining:**
-- [ ] @tui/blessed compatibility layer
+- [x] @tui/blessed compatibility layer (type tests complete)
 - [ ] End-to-end integration tests
 - [ ] Migration guide
 - [ ] Alpha release to npm
 
 **Known Issues:**
 - 23 terminfo parsing tests failing (not runtime critical)
-- @tui/blessed wrapper not implemented yet
+- @tui/blessed needs integration tests with real blessed examples
+
 
 ### Deferred Phases
 
