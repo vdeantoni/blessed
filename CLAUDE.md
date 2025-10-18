@@ -256,7 +256,7 @@ pnpm --filter benchmarks bench
 - **Core:** `packages/core/CLAUDE.md`
 - **Node:** `packages/node/README.md`
 - **Browser:** `packages/browser/CLAUDE.md`
-- **Playground:** http://localhost:3000 (run `pnpm --filter @tui/browser dev`)
+- **Playground:** http://localhost:5173 (run `pnpm --filter @tui/browser dev`)
 
 ### Build Tools
 - [tsup](https://tsup.egoist.dev/) - Library bundler
@@ -339,6 +339,33 @@ pnpm --filter benchmarks bench
 - ✅ Allow runtime replacement in tests
 - ✅ Fixed runtime-helpers.ts to handle undefined import.meta.url
 - ✅ 98.5% tests passing (1,588/1,588)
+
+**@tui/browser - API Simplification & Playground:**
+- ✅ **Removed IIFE output format** - Now outputs ESM/CJS only
+- ✅ **Removed createXTermScreen() helper** - Replaced with smarter Screen class
+- ✅ **Created browser-specific Screen class** - Auto-detects xterm.js Terminal instances
+- ✅ Screen automatically creates XTermAdapter when terminal option provided
+- ✅ Sets sensible defaults: smartCSR, fastCSR, fullUnicode
+- ✅ **Playground enhancements:**
+  - Auto-run on code changes (300ms debounce, configurable)
+  - Runs immediately when example selected
+  - Removed Run button (auto-run replaces it)
+  - Updated BigText example with shrinking animation
+  - Reorganized examples/ directory structure
+- ✅ **Test updates:** Updated all 30 HTML test fixtures to use new Screen API
+- ✅ **Documentation:** Updated README, CLAUDE.md, VITE_PLUGIN.md
+- ✅ All 174 e2e tests passing
+
+**Breaking Change:**
+```typescript
+// Before:
+import { createXTermScreen } from '@tui/browser';
+const screen = createXTermScreen({ terminal: term });
+
+// After:
+import { Screen } from '@tui/browser';
+const screen = new Screen({ terminal: term });
+```
 
 ## Next Steps
 
