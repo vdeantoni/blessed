@@ -46,14 +46,13 @@ This document provides architectural context and development guidelines for the 
 
 **Index** (`src/index.ts`)
 - Entry point with runtime initialization
-- Exports all @tui/core widgets
-- Deprecated `blessed` namespace (removed in v2.0.0)
-- Deprecated `initBrowser()` function (no-op)
+- Re-exports all @tui/core widgets
+- Exports browser-specific adapters (XTermAdapter, createXTermScreen)
 
 **Vite Plugin** (`src/vite-plugin/index.ts`)
 - Optional optimization plugin for Vite users
 - Configures module resolution and dependency optimization
-- No longer injects HTML polyfills (auto-init handles it)
+- Handles Node.js polyfills in browser environment
 
 ## Recent Improvements
 
@@ -349,7 +348,7 @@ export default defineConfig({
     index: 'src/index.ts',
     runtime: 'src/runtime.ts'
   },
-  format: ['esm', 'cjs', 'iife'],  // ESM for modern, CJS for compat, IIFE for UMD
+  format: ['esm', 'cjs'],  // ESM for modern, CJS for compat
   dts: true,
   sourcemap: true,
   external: ['xterm'],  // xterm is a peer dependency
@@ -364,7 +363,6 @@ export default defineConfig({
 
 ### Key Points
 
-- **IIFE format** for standalone browser usage
 - **ESM** for modern bundlers (Vite, Rollup)
 - **CJS** for older tools (webpack 4)
 - Bundle all polyfills except xterm
@@ -412,7 +410,6 @@ Reusable test utilities:
 
 - Core + Browser runtime: ~1.2MB minified
 - With all widgets: ~1.5MB minified
-- IIFE build includes all deps except xterm
 
 ## Future Enhancements
 

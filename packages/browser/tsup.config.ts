@@ -9,7 +9,7 @@ export default defineConfig([
     },
 
     // Output formats - browser-friendly
-    format: ['esm', 'cjs', 'iife'],
+    format: ['esm', 'cjs'],
 
     // Output directory
     outDir: 'dist',
@@ -40,9 +40,6 @@ export default defineConfig([
     // This allows the consuming bundler (like Vite) to handle it properly
     external: [],
     noExternal: [/@tui\/browser/],
-
-    // Global name for IIFE format
-    globalName: 'BlessedBrowser',
 
     // No Node.js shims (we're targeting browser)
     shims: false,

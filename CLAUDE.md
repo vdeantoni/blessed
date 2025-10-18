@@ -178,7 +178,7 @@ tui/
 ### Module Format
 - **Source:** ESM (import/export)
 - **Output:** Dual CJS + ESM with TypeScript definitions
-- **Browser:** Additional IIFE bundle for standalone use
+- **Browser:** ESM and CJS builds for bundlers
 
 ### Terminal Compatibility
 
@@ -316,9 +316,9 @@ pnpm --filter benchmarks bench
 - All examples now working and rendering correctly
 
 **@tui/browser - E2E Test Fixes:**
-- ✅ Fixed IIFE build issue with `import.meta.url` being undefined
+- ✅ Fixed browser runtime initialization
 - ✅ Added null/undefined handling to `fileURLToPath` polyfill
-- ✅ BigText widget now loads fonts correctly in IIFE bundle
+- ✅ BigText widget now loads fonts correctly in browser
 - ✅ All 189 e2e tests passing (100%)
 - ✅ All 9 BigText tests passing across all browsers (chromium, firefox, webkit)
 - ✅ Playground example fully functional with BigText animation

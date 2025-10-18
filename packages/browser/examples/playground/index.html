@@ -218,15 +218,15 @@
     <div class="header-controls">
       <select id="example-selector">
         <option value="">Select an example...</option>
-        <option value="Full Demo">🎨 Full Interactive Demo</option>
         <option value="Simple Box">Simple Box</option>
         <option value="Interactive List">Interactive List</option>
         <option value="Form Input">Form Input</option>
         <option value="Table">Table</option>
         <option value="Layout">Layout</option>
         <option value="Animation">Animation</option>
+        <option value="BigText">BigText</option>
+        <option value="Full Demo">Full Demo</option>
       </select>
-      <button id="run-btn">▶ Run</button>
       <button id="clear-btn" class="secondary">Clear</button>
     </div>
   </header>
@@ -248,8 +248,8 @@
       <strong>blessed-browser</strong> - blessed TUI library running in the browser with xterm.js
     </div>
     <div class="status">
-      <span>Press <strong>q</strong> or <strong>Esc</strong> to clear</span>
-      <a href="https://github.com/vdeantoni/tui" target="_blank">GitHub</a>
+      <span>Press <strong>q</strong> or <strong>Esc</strong> to clear | Auto-runs on code change</span>
+      <a href="https://github.com/tui/blessed" target="_blank">GitHub</a>
     </div>
   </footer>
 
@@ -259,36 +259,39 @@
     import { BlessedPlayground } from './playground.js';
     import examples from './examples.js';
 
-    // Initialize playground
-    const playground = new BlessedPlayground(document.getElementById('terminal'));
+    // Initialize playground with 300ms debounce
+    const playground = new BlessedPlayground(document.getElementById('terminal'), {
+      debounceDelay: 300
+    });
     playground.init();
 
     // Get DOM elements
     const codeEditor = document.getElementById('code-editor');
-    const runBtn = document.getElementById('run-btn');
     const clearBtn = document.getElementById('clear-btn');
     const exampleSelector = document.getElementById('example-selector');
 
     // Load default example
     codeEditor.value = examples['Simple Box'];
 
+    // Auto-run on code changes (debounced)
+    codeEditor.addEventListener('input', () => {
+      const code = codeEditor.value;
+      if (code.trim()) {
+        playground.debounceRun(code);
+      }
+    });
+
     // Handle example selection
     exampleSelector.addEventListener('change', (e) => {
       const exampleName = e.target.value;
       if (exampleName && examples[exampleName]) {
         codeEditor.value = examples[exampleName];
+        // Run immediately when example is selected
+        playground.run(codeEditor.value);
         // Reset selector to placeholder
         setTimeout(() => {
           exampleSelector.value = '';
         }, 100);
-      }
-    });
-
-    // Handle Run button
-    runBtn.addEventListener('click', () => {
-      const code = codeEditor.value;
-      if (code.trim()) {
-        playground.run(code);
       }
     });
 
@@ -299,12 +302,6 @@
 
     // Handle keyboard shortcuts
     codeEditor.addEventListener('keydown', (e) => {
-      // Cmd/Ctrl + Enter to run
-      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
-        e.preventDefault();
-        runBtn.click();
-      }
-
       // Tab key inserts 2 spaces
       if (e.key === 'Tab') {
         e.preventDefault();
@@ -317,7 +314,10 @@
 
     // Auto-run on load
     setTimeout(() => {
-      runBtn.click();
+      const code = codeEditor.value;
+      if (code.trim()) {
+        playground.run(code);
+      }
     }, 100);
   </script>
 </body>

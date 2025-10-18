@@ -24,7 +24,7 @@ export default defineConfig({
 ### 2. Use @tui/browser in your app:
 
 ```typescript
-import { createXTermScreen, blessed } from '@tui/browser';
+import { Screen, Box } from '@tui/browser';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 
@@ -32,18 +32,18 @@ import 'xterm/css/xterm.css';
 const term = new Terminal();
 term.open(document.getElementById('terminal')!);
 
-// Create tui screen (runtime is already initialized by the plugin!)
-const screen = createXTermScreen({ terminal: term });
+// Create screen (automatically sets up xterm adapter)
+const screen = new Screen({ terminal: term });
 
 // Use widgets
-const box = blessed.box({
+const box = new Box({
   parent: screen,
   top: 'center',
   left: 'center',
   width: '50%',
   height: '50%',
   content: 'Hello from tui in the browser!',
-  border: 'line'
+  border: { type: 'line' }
 });
 
 screen.render();
@@ -89,7 +89,7 @@ If you're not using Vite or want to initialize manually, you can do it in your H
     // Initialize runtime
     const runtime = new BrowserRuntime();
     setRuntime(runtime);
-    globalThis.__TUI_BROWSER_INITIALIZED__ = true;
+    globalThis.__TUXE_BROWSER_INITIALIZED__ = true;
   </script>
 </head>
 <body>
@@ -127,4 +127,4 @@ The plugin source is in `packages/browser/src/vite-plugin/index.ts`.
 Key points:
 - Uses `transformIndexHtml` hook with `order: 'pre'` to inject before other transformations
 - Injects runtime initialization as a module script (not inline script)
-- Guards against double-initialization with `__TUI_BROWSER_INITIALIZED__` flag
+- Guards against double-initialization with `__TUXE_BROWSER_INITIALIZED__` flag

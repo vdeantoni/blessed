@@ -1,20 +1,22 @@
 /**
- * Blessed Playground
- * Interactive code execution environment for blessed-browser
+ * Tui Playground
+ * Interactive code execution environment for @tui/browser
  */
 
 import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
 import { FitAddon } from 'https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/+esm';
-import { createXTermScreen, blessed } from '../../dist/index.js';
+import * as tui from '../../dist/index.js';
 
 export class BlessedPlayground {
-  constructor(terminalElement) {
+  constructor(terminalElement, options = {}) {
     this.terminalElement = terminalElement;
     this.terminal = null;
     this.screen = null;
     this.fitAddon = null;
     this.intervals = [];
     this.timeouts = [];
+    this.debounceDelay = options.debounceDelay ?? 300;
+    this.debounceTimer = null;
   }
 
   /**
@@ -115,6 +117,22 @@ export class BlessedPlayground {
   }
 
   /**
+   * Run user code with debouncing
+   */
+  debounceRun(code) {
+    // Clear existing debounce timer
+    if (this.debounceTimer) {
+      clearTimeout(this.debounceTimer);
+    }
+
+    // Set new debounce timer
+    this.debounceTimer = setTimeout(() => {
+      this.run(code);
+      this.debounceTimer = null;
+    }, this.debounceDelay);
+  }
+
+  /**
    * Run user code
    */
   async run(code) {
@@ -137,8 +155,8 @@ export class BlessedPlayground {
       // Clear terminal
       this.terminal.clear();
 
-      // Create new blessed screen
-      this.screen = createXTermScreen({
+      // Create new screen
+      this.screen = new tui.Screen({
         terminal: this.terminal
       });
 
@@ -160,9 +178,9 @@ export class BlessedPlayground {
         return id;
       };
 
-      // Create sandboxed function with blessed and screen in scope
+      // Create sandboxed function with tui and screen in scope
       const userFunction = new Function(
-        'blessed',
+        'tui',
         'screen',
         'setInterval',
         'setTimeout',
@@ -173,7 +191,7 @@ export class BlessedPlayground {
 
       // Execute user code
       await userFunction(
-        blessed,
+        tui,
         this.screen,
         wrappedSetInterval,
         wrappedSetTimeout,
@@ -215,6 +233,12 @@ export class BlessedPlayground {
    * Cleanup resources
    */
   destroy() {
+    // Clear debounce timer
+    if (this.debounceTimer) {
+      clearTimeout(this.debounceTimer);
+      this.debounceTimer = null;
+    }
+
     this.intervals.forEach(id => clearInterval(id));
     this.timeouts.forEach(id => clearTimeout(id));
 

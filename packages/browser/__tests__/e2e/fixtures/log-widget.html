@@ -8,15 +8,15 @@
 </head>
 <body>
   <div id="terminal"></div>
-  <script src="../../../dist/index.global.js"></script>
+  
   <script type="module">
     import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
-    const { createXTermScreen, blessed } = window.BlessedBrowser;
+    import { Screen, Log } from '../../../dist/index.js';
     const term = new Terminal({ rows: 24, cols: 80 });
     term.open(document.getElementById('terminal'));
-    const screen = createXTermScreen({ terminal: term });
+    const screen = new Screen({ terminal: term });
 
-    const log = blessed.log({
+    const log = new Log({
       parent: screen,
       top: 'center',
       left: 'center',

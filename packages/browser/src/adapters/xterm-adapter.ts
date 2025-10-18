@@ -1,16 +1,12 @@
 /**
- * xterm.js adapter for blessed
+ * xterm.js adapter for @tui/core
  *
- * This adapter allows blessed applications to run in the browser
- * by mapping blessed's Program interface to xterm.js Terminal.
+ * This adapter bridges @tui/core's Program interface to xterm.js Terminal,
+ * enabling terminal UI applications to run in the browser.
  */
 
 import type { Terminal } from 'xterm';
 import { EventEmitter } from 'events';
-import * as blessed from '@tui/core'; // Re-export blessed for convenience
-
-// Re-export blessed for convenience
-export { blessed };
 
 export interface XTermAdapterOptions {
   terminal: Terminal;
@@ -25,18 +21,18 @@ export interface XTermAdapterOptions {
 }
 
 /**
- * XTermAdapter bridges blessed's Program API to xterm.js
+ * XTermAdapter bridges @tui/core's Program API to xterm.js
  *
  * Usage:
  * ```ts
  * import { Terminal } from 'xterm';
- * import { XTermAdapter, createXTermScreen } from '@tui/core-browser';
+ * import { XTermAdapter } from '@tui/browser';
  *
  * const term = new Terminal();
  * term.open(document.getElementById('terminal'));
  *
- * const screen = createXTermScreen({ terminal: term });
- * // ... use blessed API as normal
+ * const adapter = new XTermAdapter({ terminal: term });
+ * // Use adapter as input/output for Screen
  * ```
  */
 export class XTermAdapter extends EventEmitter {
@@ -239,41 +235,4 @@ export class XTermAdapter extends EventEmitter {
   reset(): void {
     this.terminal.reset();
   }
-}
-
-/**
- * Helper function to create a blessed screen with xterm.js adapter
- *
- * @param options - XTermAdapter options
- * @returns A blessed Screen instance configured for xterm.js
- */
-export function createXTermScreen(options: XTermAdapterOptions): blessed.Screen {
-  // Enable mouse by default
-  const adapterOptions = {
-    mouse: true,
-    ...options,
-  };
-
-  const adapter = new XTermAdapter(adapterOptions);
-
-  // Create screen with xterm adapter as input/output
-  const screen = new blessed.Screen({
-    input: adapter as any,
-    output: adapter as any,
-    terminal: options.term || 'xterm-256color',
-    fullUnicode: true,
-    dockBorders: false,
-    smartCSR: true,
-    fastCSR: true,
-    sendFocus: true,
-    warnings: false,
-  });
-
-  // Forward adapter events to screen
-  adapter.on('resize', () => {
-    screen.emit('resize');
-    screen.render();
-  });
-
-  return screen;
 }

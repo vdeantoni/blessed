@@ -1,4 +1,4 @@
-Tuxe Runtime Architecture - Complete Explanation
+Tui Runtime Architecture - Complete Explanation
 
 🎯 The Core Problem
 

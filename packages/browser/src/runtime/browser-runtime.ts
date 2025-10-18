@@ -23,7 +23,7 @@ import terU14b from '@tui/core/data/fonts/ter-u14b.json';
  *
  * We use a custom implementation instead of the 'util' npm package because:
  * - The 'util' package checks process.env.NODE_DEBUG at module load time
- * - This causes "process is not defined" errors in IIFE bundles
+ * - This causes "process is not defined" errors in browser environments
  * - Our custom implementation is simple, has no dependencies, and works reliably
  */
 export const browserUtil = {

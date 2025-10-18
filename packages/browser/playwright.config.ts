@@ -35,7 +35,7 @@ export default defineConfig({
 
   // Run local dev server before tests
   webServer: {
-    command: 'npx http-server -p 8080 --silent',
+    command: 'pnpm vite --config vite.config.ts',
     port: 8080,
     reuseExistingServer: !process.env.CI,
     cwd: '.',

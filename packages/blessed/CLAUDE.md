@@ -225,11 +225,11 @@ We use type-only imports from `@types/blessed` to verify compile-time type compa
 
 ```typescript
 import type * as BlessedOriginal from 'blessed';
-import * as BlessedTuxe from '@tui/blessed';
+import * as BlessedTui from '@tui/blessed';
 
 // Verify types are compatible
-expectTypeOf(BlessedTuxe.box()).toMatchTypeOf<ReturnType<typeof BlessedOriginal.box>>();
-expectTypeOf(BlessedTuxe.screen()).toMatchTypeOf<BlessedOriginal.Widgets.Screen>();
+expectTypeOf(BlessedTui.box()).toMatchTypeOf<ReturnType<typeof BlessedOriginal.box>>();
+expectTypeOf(BlessedTui.screen()).toMatchTypeOf<BlessedOriginal.Widgets.Screen>();
 ```
 
 This ensures that any code written for `@types/blessed` will work with `@tui/blessed` without TypeScript errors.
@@ -269,7 +269,7 @@ Runtime auto-initializes when you import the package (via @tui/node). This is tr
 
 **Original blessed allowed both patterns:**
 ```javascript
-// Pattern 1 (deprecated in tuxe)
+// Pattern 1 (deprecated in tui)
 const box = blessed.box({ screen: screen, ... });
 
 // Pattern 2 (recommended, works in both)

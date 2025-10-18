@@ -1,16 +1,16 @@
 /**
- * Blessed playground examples
+ * Tui playground examples
  */
 
 export const examples = {
   'Simple Box': `// Simple centered box
-const box = blessed.box({
+const box = new tui.Box({
   parent: screen,
   top: 'center',
   left: 'center',
   width: '50%',
   height: '50%',
-  content: '{bold}{cyan-fg}Hello blessed-browser!{/cyan-fg}{/bold}\\n\\n' +
+  content: '{bold}{cyan-fg}Hello Tui!{/cyan-fg}{/bold}\\n\\n' +
            'This is blessed running in your browser.\\n\\n' +
            'Try the other examples!',
   tags: true,
@@ -29,7 +29,7 @@ const box = blessed.box({
 screen.render();`,
 
   'Interactive List': `// Interactive list with selection
-const list = blessed.list({
+const list = new tui.List({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -60,7 +60,7 @@ const list = blessed.list({
   ]
 });
 
-const box = blessed.box({
+const box = new tui.Box({
   parent: screen,
   top: 3,
   left: 'center',
@@ -82,7 +82,7 @@ list.focus();
 screen.render();`,
 
   'Form Input': `// Form with text input
-const form = blessed.form({
+const form = new tui.Form({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -100,14 +100,14 @@ const form = blessed.form({
   tags: true,
 });
 
-blessed.text({
+new tui.Text({
   parent: form,
   top: 1,
   left: 2,
   content: 'Name:'
 });
 
-const nameInput = blessed.textbox({
+const nameInput = new tui.Textbox({
   parent: form,
   name: 'name',
   top: 1,
@@ -126,14 +126,14 @@ const nameInput = blessed.textbox({
   }
 });
 
-blessed.text({
+new tui.Text({
   parent: form,
   top: 3,
   left: 2,
   content: 'Email:'
 });
 
-const emailInput = blessed.textbox({
+const emailInput = new tui.Textbox({
   parent: form,
   name: 'email',
   top: 3,
@@ -152,7 +152,7 @@ const emailInput = blessed.textbox({
   }
 });
 
-const submitBtn = blessed.button({
+const submitBtn = new tui.Button({
   parent: form,
   mouse: true,
   keys: true,
@@ -173,7 +173,7 @@ const submitBtn = blessed.button({
   }
 });
 
-const output = blessed.box({
+const output = new tui.Box({
   parent: form,
   top: 7,
   left: 2,
@@ -199,7 +199,7 @@ nameInput.focus();
 screen.render();`,
 
   'Table': `// Data table
-const table = blessed.table({
+const table = new tui.Table({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -237,20 +237,20 @@ table.focus();
 screen.render();`,
 
   'Layout': `// Multi-pane layout
-const container = blessed.box({
+const container = new tui.Box({
   parent: screen,
   width: '100%',
   height: '100%'
 });
 
 // Header
-const header = blessed.box({
+const header = new tui.Box({
   parent: container,
   top: 0,
   left: 0,
   width: '100%',
   height: 3,
-  content: '{center}{bold}{cyan-fg}Blessed Browser Layout Demo{/cyan-fg}{/bold}{/center}',
+  content: '{center}{bold}{cyan-fg}Tui Browser Layout Demo{/cyan-fg}{/bold}{/center}',
   tags: true,
   style: {
     fg: 'white',
@@ -259,7 +259,7 @@ const header = blessed.box({
 });
 
 // Sidebar
-const sidebar = blessed.list({
+const sidebar = new tui.List({
   parent: container,
   top: 3,
   left: 0,
@@ -283,7 +283,7 @@ const sidebar = blessed.list({
 });
 
 // Main content area
-const content = blessed.box({
+const content = new tui.Box({
   parent: container,
   top: 3,
   left: '30%',
@@ -304,7 +304,7 @@ const content = blessed.box({
 });
 
 // Footer
-const footer = blessed.box({
+const footer = new tui.Box({
   parent: container,
   bottom: 0,
   left: 0,
@@ -328,7 +328,7 @@ sidebar.focus();
 screen.render();`,
 
   'Animation': `// Animated progress bar
-const box = blessed.box({
+const box = new tui.Box({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -344,7 +344,7 @@ const box = blessed.box({
   tags: true
 });
 
-const progressBar = blessed.progressbar({
+const progressBar = new tui.ProgressBar({
   parent: box,
   top: 1,
   left: 2,
@@ -362,7 +362,7 @@ const progressBar = blessed.progressbar({
   }
 });
 
-const statusText = blessed.text({
+const statusText = new tui.Text({
   parent: box,
   top: 5,
   left: 'center',
@@ -394,16 +394,69 @@ const interval = setInterval(() => {
 
 screen.render();`,
 
-  'Full Demo': `// @tui/core Interactive Demo - All Features!
+  'BigText': `// Large ASCII art text with shrinking animation
+const content = 'HELLO WORLD';
+const length = content.length;
 
-// Header
-const header = blessed.box({
+const bigtext = new tui.BigText({
+  parent: screen,
+  top: 'center',
+  left: 'center',
+  width: '90%',
+  height: 'shrink',
+  style: {
+    fg: 'cyan',
+    bg: 'black'
+  }
+});
+
+let shrinkCount = 0;
+
+// Initial display
+bigtext.setContent(content);
+
+// Shrink from the left, then reset
+const interval = setInterval(() => {
+  if (shrinkCount >= length) {
+    shrinkCount = 0;
+  }
+  const text = content.slice(shrinkCount, length);
+  bigtext.setContent(text || ' '); // Show space when fully shrunk
+  shrinkCount++;
+  screen.render();
+}, 500);
+
+// Cleanup on screen destroy
+screen.on('destroy', () => {
+  clearInterval(interval);
+});
+
+// Instructions box
+const instructions = new tui.Box({
+  parent: screen,
+  bottom: 2,
+  left: 'center',
+  width: 'shrink',
+  height: 'shrink',
+  content: 'Press q or ESC to quit',
+  style: {
+    fg: 'gray'
+  }
+});
+
+screen.render();`,
+
+  'Full Demo': `// Complete interactive demo with multiple widgets
+// Based on @tui/core demo.js
+
+// Header bar
+const header = new tui.Box({
   parent: screen,
   top: 0,
   left: 0,
   width: '100%',
   height: 3,
-  content: '{center}{bold}🎨 @tui Interactive Demo 🎨{/bold}{/center}',
+  content: '{center}{bold}🎨 Interactive Demo 🎨{/bold}{/center}',
   tags: true,
   style: {
     fg: 'white',
@@ -412,14 +465,14 @@ const header = blessed.box({
   }
 });
 
-// Footer
-const footer = blessed.box({
+// Footer with instructions
+const footer = new tui.Box({
   parent: screen,
   bottom: 0,
   left: 0,
   width: '100%',
   height: 3,
-  content: '{center}Arrow Keys: Navigate | Enter: Select | Tab: Next Widget | q: Quit{/center}',
+  content: '{center}Arrow Keys: Navigate | Enter: Select | Tab: Next Widget | ESC/q: Quit{/center}',
   tags: true,
   style: {
     fg: 'white',
@@ -427,8 +480,8 @@ const footer = blessed.box({
   }
 });
 
-// Left panel - Widget Gallery
-const leftPanel = blessed.box({
+// Left panel - Interactive list
+const leftPanel = new tui.Box({
   parent: screen,
   top: 3,
   left: 0,
@@ -439,7 +492,7 @@ const leftPanel = blessed.box({
   label: ' 📋 Widget Gallery '
 });
 
-const widgetList = blessed.list({
+const widgetList = new tui.List({
   parent: leftPanel,
   top: 0,
   left: 0,
@@ -449,12 +502,12 @@ const widgetList = blessed.list({
   mouse: true,
   vi: true,
   items: [
-    '🎨 Rainbow Box',
+    '🎨 Colorful Box',
     '📊 Progress Bar',
     '🔘 Buttons',
     '📋 Table View',
-    '🌈 Colors',
-    '⚡ Spinner'
+    '🌈 Color Palette',
+    '⚡ Animated Spinner'
   ],
   style: {
     selected: { bg: 'blue', fg: 'white', bold: true },
@@ -464,7 +517,8 @@ const widgetList = blessed.list({
   label: ' Select Demo '
 });
 
-const statusBox = blessed.box({
+// Status box
+const statusBox = new tui.Box({
   parent: leftPanel,
   top: '50%',
   left: 0,
@@ -472,12 +526,12 @@ const statusBox = blessed.box({
   height: '50%-1',
   border: { type: 'line' },
   label: ' 📊 Stats ',
-  content: 'Selected: None\\nClicks: 0',
+  content: 'Selected: None\\nUpdates: 0',
   tags: true
 });
 
 // Middle panel - Demo area
-const middlePanel = blessed.box({
+const middlePanel = new tui.Box({
   parent: screen,
   top: 3,
   left: '33%',
@@ -488,8 +542,8 @@ const middlePanel = blessed.box({
   label: ' 🎪 Demo Area '
 });
 
-// Right panel - Activity log
-const rightPanel = blessed.box({
+// Right panel - Log viewer
+const rightPanel = new tui.Box({
   parent: screen,
   top: 3,
   left: '67%',
@@ -500,7 +554,7 @@ const rightPanel = blessed.box({
   label: ' 📜 Activity Log '
 });
 
-const logBox = blessed.log({
+const logBox = new tui.Log({
   parent: rightPanel,
   top: 0,
   left: 0,
@@ -515,53 +569,44 @@ const logBox = blessed.log({
   }
 });
 
-// Demo content holders
 let currentDemo = null;
-let demoInterval = null;
+let updateCount = 0;
 
-function clearDemo() {
-  if (demoInterval) {
-    clearInterval(demoInterval);
-    demoInterval = null;
-  }
-  if (currentDemo) {
-    currentDemo.destroy();
-    currentDemo = null;
-  }
-}
+// Demo 1: Colorful Box
+function showColorfulBox() {
+  if (currentDemo) currentDemo.destroy();
 
-// Demo 1: Rainbow Box
-function showRainbowBox() {
-  clearDemo();
   const colors = ['red', 'yellow', 'green', 'cyan', 'blue', 'magenta'];
-  let colorIdx = 0;
+  let colorIndex = 0;
 
-  currentDemo = blessed.box({
+  currentDemo = new tui.Box({
     parent: middlePanel,
     top: 'center',
     left: 'center',
     width: '80%',
     height: '80%',
-    content: '{center}{bold}🌈 Rainbow Box 🌈{/bold}\\n\\nWatch the colors cycle!{/center}',
+    content: '{center}{bold}🌈 Rainbow Box 🌈{/bold}\\n\\nColors cycle every second!{/center}',
     tags: true,
     border: { type: 'line' },
     style: { border: { fg: colors[0] }, bg: 'black' }
   });
 
-  demoInterval = setInterval(() => {
-    colorIdx = (colorIdx + 1) % colors.length;
-    currentDemo.style.border.fg = colors[colorIdx];
+  const interval = setInterval(() => {
+    colorIndex = (colorIndex + 1) % colors.length;
+    currentDemo.style.border.fg = colors[colorIndex];
     screen.render();
-  }, 800);
+  }, 1000);
 
-  logBox.log('{yellow-fg}Rainbow box started{/yellow-fg}');
+  currentDemo.on('destroy', () => clearInterval(interval));
+  logBox.add('{yellow-fg}Colorful Box demo started{/yellow-fg}');
   screen.render();
 }
 
 // Demo 2: Progress Bar
 function showProgressBar() {
-  clearDemo();
-  const container = blessed.box({
+  if (currentDemo) currentDemo.destroy();
+
+  const container = new tui.Box({
     parent: middlePanel,
     top: 'center',
     left: 'center',
@@ -569,29 +614,26 @@ function showProgressBar() {
     height: '80%'
   });
 
-  const title = blessed.text({
+  new tui.Text({
     parent: container,
     top: 2,
     left: 'center',
-    content: '{bold}⚡ Loading ⚡{/bold}',
+    content: '{bold}⚡ Loading Progress ⚡{/bold}',
     tags: true
   });
 
-  const progressBar = blessed.progressbar({
+  const progressBar = new tui.ProgressBar({
     parent: container,
     top: 5,
     left: 2,
     width: '100%-4',
     height: 3,
     border: { type: 'line' },
-    style: {
-      bar: { bg: 'green' },
-      border: { fg: 'blue' }
-    },
+    style: { bar: { bg: 'green' }, border: { fg: 'blue' } },
     filled: 0
   });
 
-  const percentText = blessed.text({
+  const percentText = new tui.Text({
     parent: container,
     top: 9,
     left: 'center',
@@ -600,23 +642,26 @@ function showProgressBar() {
   });
 
   let progress = 0;
-  demoInterval = setInterval(() => {
+  const interval = setInterval(() => {
     progress += 2;
     if (progress > 100) progress = 0;
+
     progressBar.setProgress(progress);
     percentText.setContent(\`{bold}\${progress}%{/bold}\`);
     screen.render();
   }, 100);
 
   currentDemo = container;
-  logBox.log('{green-fg}Progress bar started{/green-fg}');
+  container.on('destroy', () => clearInterval(interval));
+  logBox.add('{green-fg}Progress bar demo started{/green-fg}');
   screen.render();
 }
 
 // Demo 3: Buttons
 function showButtons() {
-  clearDemo();
-  const container = blessed.box({
+  if (currentDemo) currentDemo.destroy();
+
+  const container = new tui.Box({
     parent: middlePanel,
     top: 'center',
     left: 'center',
@@ -625,7 +670,8 @@ function showButtons() {
   });
 
   let counter = 0;
-  const counterDisplay = blessed.box({
+
+  const counterDisplay = new tui.Box({
     parent: container,
     top: 2,
     left: 'center',
@@ -637,62 +683,57 @@ function showButtons() {
     style: { border: { fg: 'cyan' } }
   });
 
-  const incrementBtn = blessed.button({
+  const incrementBtn = new tui.Button({
     parent: container,
     top: 9,
     left: 5,
-    width: 12,
+    width: 15,
     height: 3,
     content: '{center}➕ Add{/center}',
     tags: true,
     border: { type: 'line' },
-    style: {
-      focus: { bg: 'green', fg: 'black' },
-      hover: { bg: 'green' }
-    },
+    style: { focus: { bg: 'green', fg: 'black' } },
     mouse: true
   });
 
-  const decrementBtn = blessed.button({
+  const decrementBtn = new tui.Button({
     parent: container,
     top: 9,
-    right: 5,
-    width: 12,
+    left: 22,
+    width: 15,
     height: 3,
     content: '{center}➖ Sub{/center}',
     tags: true,
     border: { type: 'line' },
-    style: {
-      focus: { bg: 'red', fg: 'black' },
-      hover: { bg: 'red' }
-    },
+    style: { focus: { bg: 'red', fg: 'black' } },
     mouse: true
   });
 
   incrementBtn.on('press', () => {
     counter++;
     counterDisplay.setContent(\`{center}{bold}Counter: \${counter}{/bold}{/center}\`);
-    logBox.log(\`{green-fg}Increased to \${counter}{/green-fg}\`);
+    logBox.add(\`{green-fg}Counter increased to \${counter}{/green-fg}\`);
     screen.render();
   });
 
   decrementBtn.on('press', () => {
     counter--;
     counterDisplay.setContent(\`{center}{bold}Counter: \${counter}{/bold}{/center}\`);
-    logBox.log(\`{red-fg}Decreased to \${counter}{/red-fg}\`);
+    logBox.add(\`{red-fg}Counter decreased to \${counter}{/red-fg}\`);
     screen.render();
   });
 
   incrementBtn.focus();
   currentDemo = container;
-  logBox.log('{magenta-fg}Button demo started{/magenta-fg}');
+  logBox.add('{magenta-fg}Button demo started{/magenta-fg}');
   screen.render();
 }
 
 // Demo 4: Table
 function showTable() {
-  clearDemo();
-  const table = blessed.table({
+  if (currentDemo) currentDemo.destroy();
+
+  currentDemo = new tui.Table({
     parent: middlePanel,
     top: 1,
     left: 1,
@@ -704,7 +745,7 @@ function showTable() {
       cell: { fg: 'white' }
     },
     data: [
-      ['Task', 'Status', 'Progress'],
+      ['Name', 'Status', 'Progress'],
       ['Task 1', '✅ Done', '100%'],
       ['Task 2', '⚠️  Pending', '45%'],
       ['Task 3', '🔄 Running', '78%'],
@@ -713,15 +754,15 @@ function showTable() {
     ]
   });
 
-  currentDemo = table;
-  logBox.log('{cyan-fg}Table view started{/cyan-fg}');
+  logBox.add('{cyan-fg}Table view demo started{/cyan-fg}');
   screen.render();
 }
 
 // Demo 5: Color Palette
-function showColors() {
-  clearDemo();
-  const container = blessed.box({
+function showColorPalette() {
+  if (currentDemo) currentDemo.destroy();
+
+  const container = new tui.Box({
     parent: middlePanel,
     top: 0,
     left: 0,
@@ -729,7 +770,7 @@ function showColors() {
     height: '100%'
   });
 
-  const title = blessed.text({
+  new tui.Text({
     parent: container,
     top: 1,
     left: 'center',
@@ -738,46 +779,46 @@ function showColors() {
   });
 
   const colors = [
-    'black', 'red', 'green', 'yellow',
-    'blue', 'magenta', 'cyan', 'white',
+    'black', 'red', 'green', 'yellow', 'blue', 'magenta', 'cyan', 'white',
     'gray', 'light-red', 'light-green', 'light-yellow'
   ];
 
   let y = 3;
   colors.forEach((color, i) => {
-    blessed.box({
+    new tui.Box({
       parent: container,
-      top: y + Math.floor(i / 3) * 2,
-      left: 2 + (i % 3) * 15,
-      width: 13,
+      top: y + Math.floor(i / 2) * 2,
+      left: 2 + (i % 2) * 24,
+      width: 22,
       height: 1,
-      content: \`{\${color}-bg}  \${color}  {/}\`,
+      content: \`{\${color}-bg}     \${color}     {/}\`,
       tags: true
     });
   });
 
   currentDemo = container;
-  logBox.log('{yellow-fg}Color palette shown{/yellow-fg}');
+  logBox.add('{yellow-fg}Color palette demo started{/yellow-fg}');
   screen.render();
 }
 
 // Demo 6: Spinner
 function showSpinner() {
-  clearDemo();
-  const spinners = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
-  let spinnerIdx = 0;
+  if (currentDemo) currentDemo.destroy();
 
-  const container = blessed.box({
+  const spinners = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+  let spinnerIndex = 0;
+
+  const container = new tui.Box({
     parent: middlePanel,
     top: 'center',
     left: 'center',
-    width: 35,
-    height: 8,
+    width: 40,
+    height: 10,
     border: { type: 'line' },
     style: { border: { fg: 'cyan' } }
   });
 
-  const spinnerBox = blessed.text({
+  const spinnerBox = new tui.Text({
     parent: container,
     top: 2,
     left: 'center',
@@ -785,7 +826,7 @@ function showSpinner() {
     style: { fg: 'green', bold: true }
   });
 
-  const statusText = blessed.text({
+  new tui.Text({
     parent: container,
     top: 4,
     left: 'center',
@@ -793,39 +834,56 @@ function showSpinner() {
     tags: true
   });
 
-  demoInterval = setInterval(() => {
-    spinnerIdx = (spinnerIdx + 1) % spinners.length;
-    spinnerBox.setContent(spinners[spinnerIdx]);
+  const interval = setInterval(() => {
+    spinnerIndex = (spinnerIndex + 1) % spinners.length;
+    spinnerBox.setContent(spinners[spinnerIndex]);
     screen.render();
   }, 80);
 
   currentDemo = container;
-  logBox.log('{green-fg}Spinner started{/green-fg}');
+  container.on('destroy', () => clearInterval(interval));
+  logBox.add('{green-fg}Spinner demo started{/green-fg}');
   screen.render();
 }
 
-// Wire up list selection
-const demos = [showRainbowBox, showProgressBar, showButtons, showTable, showColors, showSpinner];
-let clicks = 0;
+// Set up list selection
+const demos = [
+  showColorfulBox,
+  showProgressBar,
+  showButtons,
+  showTable,
+  showColorPalette,
+  showSpinner
+];
 
 widgetList.on('select', (item, index) => {
   if (demos[index]) {
     demos[index]();
-    clicks++;
-    const selected = widgetList.items[index].content;
-    statusBox.setContent(\`{bold}Selected:{/bold} \${selected}\\n{bold}Clicks:{/bold} \${clicks}\`);
+    const selectedItem = widgetList.items[index].content;
+    statusBox.setContent(\`{bold}Selected:{/bold} \${selectedItem}\\n{bold}Updates:{/bold} \${updateCount}\`);
     screen.render();
   }
 });
 
-// Initialize
-logBox.log('{green-fg}━━━━━━━━━━━━━━━━━━━━━{/green-fg}');
-logBox.log('{bold}Demo Started!{/bold}');
-logBox.log('{green-fg}━━━━━━━━━━━━━━━━━━━━━{/green-fg}');
-logBox.log('Select a demo from the list');
+// Track mouse
+screen.on('mouse', () => {
+  updateCount++;
+  const selected = widgetList.selected;
+  const selectedItem = widgetList.items[selected]?.content || 'None';
+  statusBox.setContent(\`{bold}Selected:{/bold} \${selectedItem}\\n{bold}Updates:{/bold} \${updateCount}\`);
+  screen.render();
+});
 
+// Initial log messages
+logBox.add('{green-fg}━━━━━━━━━━━━━━━━━━━━━━━━━{/green-fg}');
+logBox.add('{bold}Interactive Demo Started!{/bold}');
+logBox.add('{green-fg}━━━━━━━━━━━━━━━━━━━━━━━━━{/green-fg}');
+logBox.add('');
+logBox.add('Select a demo from the list');
+
+// Focus and show first demo
 widgetList.focus();
-showRainbowBox();
+showColorfulBox();
 screen.render();`
 };
 

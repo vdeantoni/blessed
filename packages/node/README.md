@@ -36,7 +36,7 @@ import { Screen, Box } from '@tui/node';
 
 const screen = new Screen({
   smartCSR: true,
-  title: 'Hello Tuxe'
+  title: 'Hello Tui'
 });
 
 const box = new Box({
@@ -380,7 +380,7 @@ Tips for best performance:
 
 ## Contributing
 
-See the main [tuxe repository](https://github.com/vdeantoni/tuxe) for contribution guidelines.
+See the main [tui repository](https://github.com/vdeantoni/tui) for contribution guidelines.
 
 ## License
 

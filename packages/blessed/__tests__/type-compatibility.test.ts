@@ -11,366 +11,473 @@
 
 import { describe, it, expect, expectTypeOf } from 'vitest';
 import type * as BlessedOriginal from 'blessed';
-import * as BlessedTuxe from '../src/blessed.js';
+import * as BlessedTui from '../src/blessed.js';
 
 describe('Type Compatibility with @types/blessed', () => {
   describe('Default Export', () => {
     it('should have compatible blessed function', () => {
       // Both should be callable functions
-      expectTypeOf(BlessedTuxe.default).toBeCallableWith();
+      expectTypeOf(BlessedTui.default).toBeCallableWith();
       expectTypeOf<typeof BlessedOriginal>().toBeCallableWith();
 
       // Should return Program
-      const progTuxe = BlessedTuxe.default();
-      expectTypeOf(progTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal>>();
+      const progTui = BlessedTui.default();
+      expectTypeOf(progTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal>>();
     });
 
     it('should have compatible program() method', () => {
-      expectTypeOf(BlessedTuxe.default.program).toBeCallableWith();
+      expectTypeOf(BlessedTui.default.program).toBeCallableWith();
       expectTypeOf<typeof BlessedOriginal.program>().toBeCallableWith();
     });
 
     it('should have compatible tput() method', () => {
-      expectTypeOf(BlessedTuxe.default.tput).toBeCallableWith();
+      expectTypeOf(BlessedTui.default.tput).toBeCallableWith();
       expectTypeOf<typeof BlessedOriginal.tput>().toBeCallableWith();
     });
   });
 
   describe('Widget Factories - Callable Functions', () => {
     it('screen factory should be compatible', () => {
-      const screenTuxe = BlessedTuxe.default.screen();
-      expectTypeOf(screenTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.screen>>();
+      const screenTui = BlessedTui.default.screen();
+      expectTypeOf(screenTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.screen>>();
     });
 
     it('box factory should be compatible', () => {
-      const boxTuxe = BlessedTuxe.default.box();
-      expectTypeOf(boxTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.box>>();
+      const boxTui = BlessedTui.default.box();
+      expectTypeOf(boxTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.box>>();
     });
 
     it('text factory should be compatible', () => {
-      const textTuxe = BlessedTuxe.default.text();
-      expectTypeOf(textTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.text>>();
+      const textTui = BlessedTui.default.text();
+      expectTypeOf(textTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.text>>();
     });
 
     it('list factory should be compatible', () => {
-      const listTuxe = BlessedTuxe.default.list();
-      expectTypeOf(listTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.list>>();
+      const listTui = BlessedTui.default.list();
+      expectTypeOf(listTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.list>>();
     });
 
     it('form factory should be compatible', () => {
-      const formTuxe = BlessedTuxe.default.form();
-      expectTypeOf(formTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.form>>();
+      const formTui = BlessedTui.default.form();
+      expectTypeOf(formTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.form>>();
     });
 
     it('input factory should be compatible', () => {
-      const inputTuxe = BlessedTuxe.default.input();
-      expectTypeOf(inputTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.input>>();
+      const inputTui = BlessedTui.default.input();
+      expectTypeOf(inputTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.input>>();
     });
 
     it('button factory should be compatible', () => {
-      const buttonTuxe = BlessedTuxe.default.button();
-      expectTypeOf(buttonTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.button>>();
+      const buttonTui = BlessedTui.default.button();
+      expectTypeOf(buttonTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.button>>();
     });
 
     it('progressbar factory should be compatible', () => {
-      const progressbarTuxe = BlessedTuxe.default.progressbar();
-      expectTypeOf(progressbarTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.progressbar>>();
+      const progressbarTui = BlessedTui.default.progressbar();
+      expectTypeOf(progressbarTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.progressbar>>();
     });
 
     it('table factory should be compatible', () => {
-      const tableTuxe = BlessedTuxe.default.table();
-      expectTypeOf(tableTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.table>>();
+      const tableTui = BlessedTui.default.table();
+      expectTypeOf(tableTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.table>>();
+    });
+
+    it('textarea factory should be compatible', () => {
+      const textareaTui = BlessedTui.default.textarea();
+      expectTypeOf(textareaTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.textarea>>();
+    });
+
+    it('textbox factory should be compatible', () => {
+      const textboxTui = BlessedTui.default.textbox();
+      expectTypeOf(textboxTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.textbox>>();
+    });
+
+    it('checkbox factory should be compatible', () => {
+      const checkboxTui = BlessedTui.default.checkbox();
+      expectTypeOf(checkboxTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.checkbox>>();
+    });
+
+    it('radioset factory should be compatible', () => {
+      const radiosetTui = BlessedTui.default.radioset();
+      expectTypeOf(radiosetTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.radioset>>();
+    });
+
+    it('radiobutton factory should be compatible', () => {
+      const radiobuttonTui = BlessedTui.default.radiobutton();
+      expectTypeOf(radiobuttonTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.radiobutton>>();
+    });
+
+    it('filemanager factory should be compatible', () => {
+      const filemanagerTui = BlessedTui.default.filemanager();
+      expectTypeOf(filemanagerTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.filemanager>>();
+    });
+
+    it('listbar factory should be compatible', () => {
+      const listbarTui = BlessedTui.default.listbar();
+      expectTypeOf(listbarTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.listbar>>();
+    });
+
+    it('listtable factory should be compatible', () => {
+      const listtableTui = BlessedTui.default.listtable();
+      expectTypeOf(listtableTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.listtable>>();
+    });
+
+    it('log factory should be compatible', () => {
+      const logTui = BlessedTui.default.log();
+      expectTypeOf(logTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.log>>();
+    });
+
+    it('loading factory should be compatible', () => {
+      const loadingTui = BlessedTui.default.loading();
+      expectTypeOf(loadingTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.loading>>();
+    });
+
+    it('message factory should be compatible', () => {
+      const messageTui = BlessedTui.default.message();
+      expectTypeOf(messageTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.message>>();
+    });
+
+    it('question factory should be compatible', () => {
+      const questionTui = BlessedTui.default.question();
+      expectTypeOf(questionTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.question>>();
+    });
+
+    it('prompt factory should be compatible', () => {
+      const promptTui = BlessedTui.default.prompt();
+      expectTypeOf(promptTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.prompt>>();
+    });
+
+    it('bigtext factory should be compatible', () => {
+      // BigText loads fonts on construction, so we just verify the factory is callable
+      expectTypeOf(BlessedTui.default.bigtext).toBeCallableWith();
+      expectTypeOf<typeof BlessedTui.default.bigtext>().toMatchTypeOf<typeof BlessedOriginal.bigtext>();
+    });
+
+    it('line factory should be compatible', () => {
+      const lineTui = BlessedTui.default.line();
+      expectTypeOf(lineTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.line>>();
+    });
+
+    it('scrollablebox factory should be compatible', () => {
+      const scrollableboxTui = BlessedTui.default.scrollablebox();
+      expectTypeOf(scrollableboxTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.scrollablebox>>();
+    });
+
+    it('scrollabletext factory should be compatible', () => {
+      const scrollabletextTui = BlessedTui.default.scrollabletext();
+      expectTypeOf(scrollabletextTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.scrollabletext>>();
+    });
+
+    it('layout factory should be compatible', () => {
+      // Layout requires width and height
+      const layoutTui = BlessedTui.default.layout({ width: 10, height: 10 });
+      expectTypeOf(layoutTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.layout>>();
+    });
+
+    it('image factory should be compatible', () => {
+      const imageTui = BlessedTui.default.image();
+      expectTypeOf(imageTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.image>>();
+    });
+
+    it('ansiimage factory should be compatible', () => {
+      const ansiimageTui = BlessedTui.default.ansiimage();
+      expectTypeOf(ansiimageTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.ansiimage>>();
+    });
+
+    it('overlayimage factory should be compatible', () => {
+      const overlayimageTui = BlessedTui.default.overlayimage();
+      expectTypeOf(overlayimageTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.overlayimage>>();
     });
   });
 
   describe('Widget Factory Classes', () => {
     it('box.class should be compatible', () => {
       // Verify the class property exists and is a constructor
-      expectTypeOf(BlessedTuxe.default.box.class).toBeConstructibleWith();
-      expectTypeOf(BlessedTuxe.default.box.class).toMatchTypeOf<typeof BlessedOriginal.box.class>();
+      expectTypeOf(BlessedTui.default.box.class).toBeConstructibleWith();
+      expectTypeOf(BlessedTui.default.box.class).toMatchTypeOf<typeof BlessedOriginal.box.class>();
     });
 
     it('screen.class should be compatible', () => {
-      expectTypeOf(BlessedTuxe.default.screen.class).toBeConstructibleWith();
-      expectTypeOf(BlessedTuxe.default.screen.class).toMatchTypeOf<typeof BlessedOriginal.screen.class>();
+      expectTypeOf(BlessedTui.default.screen.class).toBeConstructibleWith();
+      expectTypeOf(BlessedTui.default.screen.class).toMatchTypeOf<typeof BlessedOriginal.screen.class>();
     });
 
     it('list.class should be compatible', () => {
-      expectTypeOf(BlessedTuxe.default.list.class).toBeConstructibleWith();
-      expectTypeOf(BlessedTuxe.default.list.class).toMatchTypeOf<typeof BlessedOriginal.list.class>();
+      expectTypeOf(BlessedTui.default.list.class).toBeConstructibleWith();
+      expectTypeOf(BlessedTui.default.list.class).toMatchTypeOf<typeof BlessedOriginal.list.class>();
     });
 
     it('input.class should be compatible', () => {
-      expectTypeOf(BlessedTuxe.default.input.class).toBeConstructibleWith();
-      expectTypeOf(BlessedTuxe.default.input.class).toMatchTypeOf<typeof BlessedOriginal.input.class>();
+      expectTypeOf(BlessedTui.default.input.class).toBeConstructibleWith();
+      expectTypeOf(BlessedTui.default.input.class).toMatchTypeOf<typeof BlessedOriginal.input.class>();
     });
   });
 
   describe('Named Exports - PascalCase', () => {
     it('Screen export should be compatible', () => {
-      expectTypeOf(BlessedTuxe.Screen).toBeCallableWith();
-      const screenTuxe = BlessedTuxe.Screen();
+      expectTypeOf(BlessedTui.Screen).toBeCallableWith();
+      const screenTui = BlessedTui.Screen();
 
       // @types/blessed exports these as named exports too
-      expectTypeOf(screenTuxe).toHaveProperty('render');
-      expectTypeOf(screenTuxe).toHaveProperty('key');
+      expectTypeOf(screenTui).toHaveProperty('render');
+      expectTypeOf(screenTui).toHaveProperty('key');
     });
 
     it('Box export should be compatible', () => {
-      expectTypeOf(BlessedTuxe.Box).toBeCallableWith();
-      const boxTuxe = BlessedTuxe.Box();
+      expectTypeOf(BlessedTui.Box).toBeCallableWith();
+      const boxTui = BlessedTui.Box();
 
-      expectTypeOf(boxTuxe).toHaveProperty('setContent');
+      expectTypeOf(boxTui).toHaveProperty('setContent');
     });
 
     it('List export should be compatible', () => {
-      expectTypeOf(BlessedTuxe.List).toBeCallableWith();
-      const listTuxe = BlessedTuxe.List();
+      expectTypeOf(BlessedTui.List).toBeCallableWith();
+      const listTui = BlessedTui.List();
 
-      expectTypeOf(listTuxe).toHaveProperty('add');
-      expectTypeOf(listTuxe).toHaveProperty('select');
+      expectTypeOf(listTui).toHaveProperty('add');
+      expectTypeOf(listTui).toHaveProperty('select');
     });
 
     it('Form export should be compatible', () => {
-      expectTypeOf(BlessedTuxe.Form).toBeCallableWith();
-      const formTuxe = BlessedTuxe.Form();
+      expectTypeOf(BlessedTui.Form).toBeCallableWith();
+      const formTui = BlessedTui.Form();
 
-      expectTypeOf(formTuxe).toHaveProperty('submit');
+      expectTypeOf(formTui).toHaveProperty('submit');
     });
   });
 
   describe('Named Exports - lowercase', () => {
     it('screen export should be compatible', () => {
-      expectTypeOf(BlessedTuxe.screen).toBeCallableWith();
-      const screenTuxe = BlessedTuxe.screen();
+      expectTypeOf(BlessedTui.screen).toBeCallableWith();
+      const screenTui = BlessedTui.screen();
 
-      expectTypeOf(screenTuxe).toHaveProperty('render');
+      expectTypeOf(screenTui).toHaveProperty('render');
     });
 
     it('box export should be compatible', () => {
-      expectTypeOf(BlessedTuxe.box).toBeCallableWith();
-      const boxTuxe = BlessedTuxe.box();
+      expectTypeOf(BlessedTui.box).toBeCallableWith();
+      const boxTui = BlessedTui.box();
 
-      expectTypeOf(boxTuxe).toHaveProperty('setContent');
+      expectTypeOf(boxTui).toHaveProperty('setContent');
     });
 
     it('list export should be compatible', () => {
-      expectTypeOf(BlessedTuxe.list).toBeCallableWith();
-      const listTuxe = BlessedTuxe.list();
+      expectTypeOf(BlessedTui.list).toBeCallableWith();
+      const listTui = BlessedTui.list();
 
-      expectTypeOf(listTuxe).toHaveProperty('select');
+      expectTypeOf(listTui).toHaveProperty('select');
     });
   });
 
   describe('Widgets Namespace Types', () => {
     it('Widgets.BoxElement should be compatible', () => {
-      type TuxeBoxElement = BlessedTuxe.Widgets.BoxElement;
+      type TuiBoxElement = BlessedTui.Widgets.BoxElement;
       type OriginalBoxElement = BlessedOriginal.Widgets.BoxElement;
 
       // Verify key properties exist
-      expectTypeOf<TuxeBoxElement>().toHaveProperty('setContent');
-      expectTypeOf<TuxeBoxElement>().toHaveProperty('parent');
-      expectTypeOf<TuxeBoxElement>().toHaveProperty('screen');
+      expectTypeOf<TuiBoxElement>().toHaveProperty('setContent');
+      expectTypeOf<TuiBoxElement>().toHaveProperty('parent');
+      expectTypeOf<TuiBoxElement>().toHaveProperty('screen');
     });
 
     it('Widgets.Screen should be compatible', () => {
-      type TuxeScreen = BlessedTuxe.Widgets.Screen;
+      type TuiScreen = BlessedTui.Widgets.Screen;
       type OriginalScreen = BlessedOriginal.Widgets.Screen;
 
       // Verify key properties exist
-      expectTypeOf<TuxeScreen>().toHaveProperty('render');
-      expectTypeOf<TuxeScreen>().toHaveProperty('key');
+      expectTypeOf<TuiScreen>().toHaveProperty('render');
+      expectTypeOf<TuiScreen>().toHaveProperty('key');
     });
 
     it('Widgets.ListElement should be compatible', () => {
-      type TuxeListElement = BlessedTuxe.Widgets.ListElement;
+      type TuiListElement = BlessedTui.Widgets.ListElement;
       type OriginalListElement = BlessedOriginal.Widgets.ListElement;
 
-      expectTypeOf<TuxeListElement>().toHaveProperty('add');
-      expectTypeOf<TuxeListElement>().toHaveProperty('select');
+      expectTypeOf<TuiListElement>().toHaveProperty('add');
+      expectTypeOf<TuiListElement>().toHaveProperty('select');
     });
 
     it('Widgets.FormElement should be compatible', () => {
-      type TuxeFormElement = BlessedTuxe.Widgets.FormElement;
+      type TuiFormElement = BlessedTui.Widgets.FormElement;
       type OriginalFormElement = BlessedOriginal.Widgets.FormElement;
 
-      expectTypeOf<TuxeFormElement>().toHaveProperty('submit');
+      expectTypeOf<TuiFormElement>().toHaveProperty('submit');
     });
 
     it('Widgets.InputElement should be compatible', () => {
-      type TuxeInputElement = BlessedTuxe.Widgets.InputElement;
+      type TuiInputElement = BlessedTui.Widgets.InputElement;
       type OriginalInputElement = BlessedOriginal.Widgets.InputElement;
 
-      expectTypeOf<TuxeInputElement>().toHaveProperty('setValue');
-      expectTypeOf<TuxeInputElement>().toHaveProperty('getValue');
+      expectTypeOf<TuiInputElement>().toHaveProperty('setValue');
+      expectTypeOf<TuiInputElement>().toHaveProperty('getValue');
     });
 
     it('Widgets.ButtonElement should be compatible', () => {
-      type TuxeButtonElement = BlessedTuxe.Widgets.ButtonElement;
+      type TuiButtonElement = BlessedTui.Widgets.ButtonElement;
       type OriginalButtonElement = BlessedOriginal.Widgets.ButtonElement;
 
-      expectTypeOf<TuxeButtonElement>().toHaveProperty('press');
+      expectTypeOf<TuiButtonElement>().toHaveProperty('press');
     });
 
     it('Widgets.ProgressBarElement should be compatible', () => {
-      type TuxeProgressBarElement = BlessedTuxe.Widgets.ProgressBarElement;
+      type TuiProgressBarElement = BlessedTui.Widgets.ProgressBarElement;
       type OriginalProgressBarElement = BlessedOriginal.Widgets.ProgressBarElement;
 
-      expectTypeOf<TuxeProgressBarElement>().toHaveProperty('setProgress');
+      expectTypeOf<TuiProgressBarElement>().toHaveProperty('setProgress');
     });
 
     it('Widgets.TableElement should be compatible', () => {
-      type TuxeTableElement = BlessedTuxe.Widgets.TableElement;
+      type TuiTableElement = BlessedTui.Widgets.TableElement;
       type OriginalTableElement = BlessedOriginal.Widgets.TableElement;
 
-      expectTypeOf<TuxeTableElement>().toHaveProperty('setData');
+      expectTypeOf<TuiTableElement>().toHaveProperty('setData');
     });
   });
 
   describe('Options Types', () => {
     it('BoxOptions should be compatible', () => {
-      type TuxeBoxOptions = BlessedTuxe.Widgets.BoxOptions;
+      type TuiBoxOptions = BlessedTui.Widgets.BoxOptions;
       type OriginalBoxOptions = BlessedOriginal.Widgets.BoxOptions;
 
       // Should have common properties
-      expectTypeOf<TuxeBoxOptions>().toHaveProperty('top');
-      expectTypeOf<TuxeBoxOptions>().toHaveProperty('left');
-      expectTypeOf<TuxeBoxOptions>().toHaveProperty('width');
-      expectTypeOf<TuxeBoxOptions>().toHaveProperty('height');
-      expectTypeOf<TuxeBoxOptions>().toHaveProperty('content');
+      expectTypeOf<TuiBoxOptions>().toHaveProperty('top');
+      expectTypeOf<TuiBoxOptions>().toHaveProperty('left');
+      expectTypeOf<TuiBoxOptions>().toHaveProperty('width');
+      expectTypeOf<TuiBoxOptions>().toHaveProperty('height');
+      expectTypeOf<TuiBoxOptions>().toHaveProperty('content');
     });
 
     it('ListOptions should be compatible', () => {
-      type TuxeListOptions = BlessedTuxe.Widgets.ListOptions;
+      type TuiListOptions = BlessedTui.Widgets.ListOptions;
       type OriginalListOptions = BlessedOriginal.Widgets.ListOptions;
 
-      expectTypeOf<TuxeListOptions>().toHaveProperty('items');
-      expectTypeOf<TuxeListOptions>().toHaveProperty('selected');
+      expectTypeOf<TuiListOptions>().toHaveProperty('items');
+      expectTypeOf<TuiListOptions>().toHaveProperty('selected');
     });
 
     it('ScreenOptions should be compatible', () => {
-      type TuxeScreenOptions = BlessedTuxe.Widgets.IScreenOptions;
+      type TuiScreenOptions = BlessedTui.Widgets.IScreenOptions;
       type OriginalScreenOptions = BlessedOriginal.Widgets.IScreenOptions;
 
-      expectTypeOf<TuxeScreenOptions>().toHaveProperty('smartCSR');
-      expectTypeOf<TuxeScreenOptions>().toHaveProperty('fastCSR');
+      expectTypeOf<TuiScreenOptions>().toHaveProperty('smartCSR');
+      expectTypeOf<TuiScreenOptions>().toHaveProperty('fastCSR');
     });
 
     it('InputOptions should be compatible', () => {
-      type TuxeInputOptions = BlessedTuxe.Widgets.InputOptions;
+      type TuiInputOptions = BlessedTui.Widgets.InputOptions;
       type OriginalInputOptions = BlessedOriginal.Widgets.InputOptions;
 
-      expectTypeOf<TuxeInputOptions>().toHaveProperty('value');
+      expectTypeOf<TuiInputOptions>().toHaveProperty('value');
     });
 
     it('ButtonOptions should be compatible', () => {
-      type TuxeButtonOptions = BlessedTuxe.Widgets.ButtonOptions;
+      type TuiButtonOptions = BlessedTui.Widgets.ButtonOptions;
       type OriginalButtonOptions = BlessedOriginal.Widgets.ButtonOptions;
 
-      expectTypeOf<TuxeButtonOptions>().toHaveProperty('content');
+      expectTypeOf<TuiButtonOptions>().toHaveProperty('content');
     });
 
     it('ProgressBarOptions should be compatible', () => {
-      type TuxeProgressBarOptions = BlessedTuxe.Widgets.ProgressBarOptions;
+      type TuiProgressBarOptions = BlessedTui.Widgets.ProgressBarOptions;
       type OriginalProgressBarOptions = BlessedOriginal.Widgets.ProgressBarOptions;
 
-      expectTypeOf<TuxeProgressBarOptions>().toHaveProperty('filled');
+      expectTypeOf<TuiProgressBarOptions>().toHaveProperty('filled');
     });
   });
 
   describe('Style Types', () => {
     it('Style type should be compatible', () => {
-      type TuxeStyle = BlessedTuxe.Widgets.Style;
+      type TuiStyle = BlessedTui.Widgets.Style;
       type OriginalStyle = BlessedOriginal.Widgets.Style;
 
       // Should have common properties
-      expectTypeOf<TuxeStyle>().toHaveProperty('fg');
-      expectTypeOf<TuxeStyle>().toHaveProperty('bg');
-      expectTypeOf<TuxeStyle>().toHaveProperty('bold');
+      expectTypeOf<TuiStyle>().toHaveProperty('fg');
+      expectTypeOf<TuiStyle>().toHaveProperty('bg');
+      expectTypeOf<TuiStyle>().toHaveProperty('bold');
     });
 
     it('Border type should be compatible', () => {
-      type TuxeBorder = BlessedTuxe.Widgets.Border;
+      type TuiBorder = BlessedTui.Widgets.Border;
       type OriginalBorder = BlessedOriginal.Widgets.Border;
 
-      expectTypeOf<TuxeBorder>().toHaveProperty('type');
+      expectTypeOf<TuiBorder>().toHaveProperty('type');
     });
   });
 
   describe('Event Types', () => {
     it('IMouseEventArg should be compatible', () => {
-      type TuxeMouseEvent = BlessedTuxe.Widgets.Events.IMouseEventArg;
+      type TuiMouseEvent = BlessedTui.Widgets.Events.IMouseEventArg;
       type OriginalMouseEvent = BlessedOriginal.Widgets.Events.IMouseEventArg;
 
-      expectTypeOf<TuxeMouseEvent>().toHaveProperty('x');
-      expectTypeOf<TuxeMouseEvent>().toHaveProperty('y');
-      expectTypeOf<TuxeMouseEvent>().toHaveProperty('action');
+      expectTypeOf<TuiMouseEvent>().toHaveProperty('x');
+      expectTypeOf<TuiMouseEvent>().toHaveProperty('y');
+      expectTypeOf<TuiMouseEvent>().toHaveProperty('action');
     });
 
     it('IKeyEventArg should be compatible', () => {
-      type TuxeKeyEvent = BlessedTuxe.Widgets.Events.IKeyEventArg;
+      type TuiKeyEvent = BlessedTui.Widgets.Events.IKeyEventArg;
       type OriginalKeyEvent = BlessedOriginal.Widgets.Events.IKeyEventArg;
 
-      expectTypeOf<TuxeKeyEvent>().toHaveProperty('full');
-      expectTypeOf<TuxeKeyEvent>().toHaveProperty('name');
+      expectTypeOf<TuiKeyEvent>().toHaveProperty('full');
+      expectTypeOf<TuiKeyEvent>().toHaveProperty('name');
     });
   });
 
   describe('Helper Functions', () => {
     it('escape should be exported', () => {
-      expectTypeOf(BlessedTuxe.escape).toBeFunction();
+      expectTypeOf(BlessedTui.escape).toBeFunction();
     });
 
     it('stripTags should be exported', () => {
-      expectTypeOf(BlessedTuxe.stripTags).toBeFunction();
+      expectTypeOf(BlessedTui.stripTags).toBeFunction();
     });
 
     it('cleanTags should be exported', () => {
-      expectTypeOf(BlessedTuxe.cleanTags).toBeFunction();
+      expectTypeOf(BlessedTui.cleanTags).toBeFunction();
     });
 
     it('generateTags should be exported', () => {
-      expectTypeOf(BlessedTuxe.generateTags).toBeFunction();
+      expectTypeOf(BlessedTui.generateTags).toBeFunction();
     });
   });
 
   describe('Utilities', () => {
     it('colors should be exported', () => {
-      expect(BlessedTuxe.colors).toBeDefined();
-      expectTypeOf(BlessedTuxe.colors).toHaveProperty('match');
+      expect(BlessedTui.colors).toBeDefined();
+      expectTypeOf(BlessedTui.colors).toHaveProperty('match');
     });
 
     it('unicode should be exported', () => {
-      expect(BlessedTuxe.unicode).toBeDefined();
+      expect(BlessedTui.unicode).toBeDefined();
     });
 
     it('helpers should be exported', () => {
-      expect(BlessedTuxe.helpers).toBeDefined();
-      expectTypeOf(BlessedTuxe.helpers).toHaveProperty('sprintf');
-      expectTypeOf(BlessedTuxe.helpers).toHaveProperty('tryRead');
+      expect(BlessedTui.helpers).toBeDefined();
+      expectTypeOf(BlessedTui.helpers).toHaveProperty('sprintf');
+      expectTypeOf(BlessedTui.helpers).toHaveProperty('tryRead');
     });
   });
 
   describe('Runtime Compatibility Tests', () => {
     it('should create screen', () => {
-      const screenTuxe = BlessedTuxe.screen();
+      const screenTui = BlessedTui.screen();
 
-      expect(screenTuxe).toBeDefined();
-      expect(typeof screenTuxe.render).toBe('function');
-      expect(typeof screenTuxe.key).toBe('function');
-      expectTypeOf(screenTuxe).toMatchTypeOf<BlessedOriginal.Widgets.Screen>();
+      expect(screenTui).toBeDefined();
+      expect(typeof screenTui.render).toBe('function');
+      expect(typeof screenTui.key).toBe('function');
+      expectTypeOf(screenTui).toMatchTypeOf<BlessedOriginal.Widgets.Screen>();
     });
 
     it('should create box', () => {
-      const boxTuxe = BlessedTuxe.box({ content: 'test' });
+      const boxTui = BlessedTui.box({ content: 'test' });
 
-      expect(boxTuxe).toBeDefined();
-      expect(typeof boxTuxe.setContent).toBe('function');
-      expectTypeOf(boxTuxe).toMatchTypeOf<BlessedOriginal.Widgets.BoxElement>();
+      expect(boxTui).toBeDefined();
+      expect(typeof boxTui.setContent).toBe('function');
+      expectTypeOf(boxTui).toMatchTypeOf<BlessedOriginal.Widgets.BoxElement>();
     });
 
     it('should support widget options', () => {
-      const options: BlessedTuxe.Widgets.BoxOptions = {
+      const options: BlessedTui.Widgets.BoxOptions = {
         top: 0,
         left: 0,
         width: 10,
@@ -384,13 +491,13 @@ describe('Type Compatibility with @types/blessed', () => {
         }
       };
 
-      const box = BlessedTuxe.box(options);
+      const box = BlessedTui.box(options);
       expect(box).toBeDefined();
     });
 
     it('should support TypeScript type annotations', () => {
-      const screen: BlessedTuxe.Widgets.Screen = BlessedTuxe.screen();
-      const box: BlessedTuxe.Widgets.BoxElement = BlessedTuxe.box({
+      const screen: BlessedTui.Widgets.Screen = BlessedTui.screen();
+      const box: BlessedTui.Widgets.BoxElement = BlessedTui.box({
         parent: screen,
         content: 'test'
       });
@@ -403,9 +510,9 @@ describe('Type Compatibility with @types/blessed', () => {
 
   describe('Real-World Usage Patterns', () => {
     it('should work with typical blessed hello-world example', () => {
-      const screen = BlessedTuxe.screen({ smartCSR: true });
+      const screen = BlessedTui.screen({ smartCSR: true });
 
-      const box = BlessedTuxe.box({
+      const box = BlessedTui.box({
         parent: screen,
         top: 'center',
         left: 'center',
@@ -427,9 +534,9 @@ describe('Type Compatibility with @types/blessed', () => {
     });
 
     it('should work with list example', () => {
-      const screen = BlessedTuxe.screen();
+      const screen = BlessedTui.screen();
 
-      const list = BlessedTuxe.list({
+      const list = BlessedTui.list({
         parent: screen,
         items: ['Item 1', 'Item 2', 'Item 3'],
         keys: true,
@@ -444,14 +551,14 @@ describe('Type Compatibility with @types/blessed', () => {
     });
 
     it('should work with form example', () => {
-      const screen = BlessedTuxe.screen();
+      const screen = BlessedTui.screen();
 
-      const form = BlessedTuxe.form({
+      const form = BlessedTui.form({
         parent: screen,
         keys: true
       });
 
-      const input = BlessedTuxe.input({
+      const input = BlessedTui.input({
         parent: form,
         name: 'username',
         top: 0,
