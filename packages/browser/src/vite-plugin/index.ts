@@ -1,21 +1,21 @@
 /**
- * Vite plugin for @tui/core-browser
+ * Vite plugin for @tui/browser
  *
- * Optional plugin that optimizes blessed-browser integration in Vite projects.
- * Provides better dev mode experience with HMR and optimized builds.
+ * Optional plugin that provides optimized build configuration for @tui/browser in Vite projects.
+ * Configures dependency optimization and module resolution for better dev/build performance.
+ *
+ * Note: This plugin is OPTIONAL. @tui/browser works without it, but the plugin
+ * provides optimizations for Vite users.
  *
  * Usage:
  * ```ts
  * // vite.config.ts
- * import blessedBrowser from '@tui/core-browser/vite-plugin';
+ * import blessedBrowser from '@tui/browser/vite-plugin';
  *
  * export default defineConfig({
  *   plugins: [blessedBrowser()]
  * });
  * ```
- *
- * Note: This plugin is OPTIONAL. blessed-browser works without it,
- * but the plugin provides optimizations for Vite users.
  */
 
 import type { Plugin, UserConfig } from 'vite';
@@ -44,37 +44,8 @@ export default function blessedBrowserPlugin(
   return {
     name: 'vite-plugin-tui-browser',
 
-    // Inject polyfills early via HTML transform
-    transformIndexHtml: {
-      order: 'pre',
-      handler(html) {
-        return html.replace(
-          '<head>',
-          `<head>
-    <script type="module">
-      // blessed-browser polyfill injection - runs before any modules
-      import process from 'process/browser.js';
-      import { Buffer } from 'buffer';
-
-      globalThis.process = process;
-      globalThis.Buffer = Buffer;
-      globalThis.global = globalThis;
-
-      if (!globalThis.process.env) globalThis.process.env = {};
-      globalThis.process.env.TERM = 'xterm-256color';
-      globalThis.process.env.NODE_ENV = 'development';
-      globalThis.process.cwd = () => '/';
-      globalThis.process.exit = (code) => console.log('Process exit:', code);
-      globalThis.process.nextTick = (fn, ...args) => setTimeout(() => fn(...args), 0);
-    </script>`
-        );
-      },
-    },
-
     config(): UserConfig {
       // Get absolute path to polyfills directory
-      // In development (from source): src/vite-plugin -> src/polyfills
-      // In production (from dist): dist/vite-plugin -> src/polyfills
       const __filename = fileURLToPath(import.meta.url);
       const __dirname = dirname(__filename);
 
@@ -104,8 +75,8 @@ export default function blessedBrowserPlugin(
 
       const optimizeDepsConfig = optimizeDeps
         ? {
-            // Don't pre-bundle blessed-browser - it's already bundled
-            exclude: ['@tui/core-browser'],
+            // Don't pre-bundle @tui/browser - it's already bundled
+            exclude: ['@tui/browser'],
             include: ['@tui/core'],
             esbuildOptions: {
               define: {

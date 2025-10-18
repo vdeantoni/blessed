@@ -269,6 +269,33 @@ pnpm --filter benchmarks bench
 
 ## Recent Session Summary
 
+**@tui/browser Package Improvements:**
+- ✅ **Extracted BrowserRuntime** to separate file (`browser-runtime.ts`) - better code organization
+- ✅ **Simplified auto-init.ts** from ~390 lines to ~90 lines
+- ✅ **Fixed duplicate utils assignment** bug in runtime constructor
+- ✅ **Simplified Vite plugin** - removed redundant HTML transform (auto-init handles polyfills)
+- ✅ **Added deprecation warnings** to `blessed` namespace
+- ✅ **Replaced custom polyfills with npm packages**:
+  - Custom `browserUtil` → `util` package (inspect, format)
+  - EventEmitter stream stubs → `stream-browserify` (Readable, Writable)
+- ✅ **All tests passing**: 20 unit tests (100%)
+- ✅ **Code reduction**: ~360 lines removed/reorganized (32% smaller codebase)
+
+**Key Architectural Changes:**
+- Runtime class now in its own file for better maintainability
+- Using battle-tested npm polyfills instead of reinventing the wheel
+- Single source of truth for polyfill setup
+- Cleaner separation of concerns (initialization vs runtime implementation)
+- Vite plugin focused only on build optimization (no runtime concerns)
+- Only custom code where truly necessary (fs with bundled data, process with event management)
+
+**Documentation Updates:**
+- ✅ Updated browser package CLAUDE.md with new architecture
+- ✅ Documented code improvements and simplifications
+- ✅ Updated all package READMEs with auto-initialization examples
+- ✅ Fixed @tui/node examples to use `parent:` property
+- ✅ Created comprehensive READMEs for @tui/node and @tui/blessed
+
 **Runtime Initialization Improvements:**
 - ✅ Simplified runtime initialization - now auto-initializes on import
 - ✅ Fixed @tui/blessed to work with auto-init pattern

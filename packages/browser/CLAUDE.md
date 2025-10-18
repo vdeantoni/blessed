@@ -26,11 +26,18 @@ This document provides architectural context and development guidelines for the 
 
 ### Key Components
 
-**BrowserRuntime** (`src/runtime/auto-init.ts`)
+**BrowserRuntime** (`src/runtime/browser-runtime.ts`)
 - Implements Runtime interface with browser polyfills
-- Sets up global process, Buffer, util
 - Virtual filesystem with bundled terminfo/font data
-- Automatically initialized at module load
+- Uses npm packages for standard APIs (`util`, `stream-browserify`, `path-browserify`)
+- Only custom code for filesystem (bundled data) and process (event management)
+- ~257 lines (simplified from original ~319 lines)
+
+**Auto-initialization** (`src/runtime/auto-init.ts`)
+- Sets up global polyfills (process, Buffer, global)
+- Creates and registers BrowserRuntime
+- Runs automatically when package is imported
+- ~90 lines (simplified from original ~390 lines)
 
 **XTermAdapter** (`src/adapters/xterm-adapter.ts`)
 - Bridges Program API to xterm.js Terminal
@@ -40,7 +47,39 @@ This document provides architectural context and development guidelines for the 
 **Index** (`src/index.ts`)
 - Entry point with runtime initialization
 - Exports all @tui/core widgets
-- Provides `blessed` namespace with helper functions
+- Deprecated `blessed` namespace (removed in v2.0.0)
+- Deprecated `initBrowser()` function (no-op)
+
+**Vite Plugin** (`src/vite-plugin/index.ts`)
+- Optional optimization plugin for Vite users
+- Configures module resolution and dependency optimization
+- No longer injects HTML polyfills (auto-init handles it)
+
+## Recent Improvements
+
+**Code Organization (October 2025)**:
+- ✅ Extracted BrowserRuntime to separate file (`browser-runtime.ts`)
+- ✅ Simplified auto-init.ts from ~390 lines to ~90 lines
+- ✅ Fixed duplicate utils assignment bug
+- ✅ Removed HTML transform from Vite plugin (redundant with auto-init)
+- ✅ Added deprecation warnings to `blessed` namespace
+- ✅ **Replaced custom polyfills with npm packages** (62 lines saved)
+  - Custom `browserUtil` → `util` package (inspect, format)
+  - EventEmitter stream stubs → `stream-browserify` (Readable, Writable)
+- ✅ All 20 unit tests passing
+
+**Code Reduction Summary**:
+- Initial: ~1,118 total lines
+- After extraction: ~820 lines (~300 lines saved)
+- After polyfill replacement: ~758 lines (~62 more lines saved)
+- **Total reduction: ~360 lines (32% smaller)**
+
+**Architecture Improvements**:
+- Better separation of concerns (runtime vs initialization)
+- Using battle-tested npm polyfills instead of custom code
+- Single source of truth for polyfills
+- Only custom code that's truly necessary (fs with bundled data)
+- Cleaner, more maintainable codebase
 
 ## Runtime Initialization
 

@@ -74,7 +74,22 @@ export function initBrowser(): void {
   // This function kept for backward compatibility only
 }
 
-// Create blessed namespace with helper functions
+/**
+ * @deprecated The `blessed` namespace with factory functions is deprecated.
+ * Import widgets directly instead:
+ *
+ * ```typescript
+ * // ❌ Deprecated
+ * import { blessed } from '@tui/browser';
+ * const box = blessed.box({ parent: screen });
+ *
+ * // ✅ Recommended
+ * import { Box } from '@tui/browser';
+ * const box = new Box({ parent: screen });
+ * ```
+ *
+ * This namespace will be removed in v2.0.0.
+ */
 export const blessed = {
   // Core widgets
   box: (options?: any) => new Box(options),
