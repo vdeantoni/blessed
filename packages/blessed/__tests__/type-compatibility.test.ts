@@ -81,6 +81,113 @@ describe('Type Compatibility with @types/blessed', () => {
       const tableTuxe = BlessedTuxe.default.table();
       expectTypeOf(tableTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.table>>();
     });
+
+    it('textarea factory should be compatible', () => {
+      const textareaTuxe = BlessedTuxe.default.textarea();
+      expectTypeOf(textareaTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.textarea>>();
+    });
+
+    it('textbox factory should be compatible', () => {
+      const textboxTuxe = BlessedTuxe.default.textbox();
+      expectTypeOf(textboxTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.textbox>>();
+    });
+
+    it('checkbox factory should be compatible', () => {
+      const checkboxTuxe = BlessedTuxe.default.checkbox();
+      expectTypeOf(checkboxTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.checkbox>>();
+    });
+
+    it('radioset factory should be compatible', () => {
+      const radiosetTuxe = BlessedTuxe.default.radioset();
+      expectTypeOf(radiosetTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.radioset>>();
+    });
+
+    it('radiobutton factory should be compatible', () => {
+      const radiobuttonTuxe = BlessedTuxe.default.radiobutton();
+      expectTypeOf(radiobuttonTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.radiobutton>>();
+    });
+
+    it('filemanager factory should be compatible', () => {
+      const filemanagerTuxe = BlessedTuxe.default.filemanager();
+      expectTypeOf(filemanagerTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.filemanager>>();
+    });
+
+    it('listbar factory should be compatible', () => {
+      const listbarTuxe = BlessedTuxe.default.listbar();
+      expectTypeOf(listbarTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.listbar>>();
+    });
+
+    it('listtable factory should be compatible', () => {
+      const listtableTuxe = BlessedTuxe.default.listtable();
+      expectTypeOf(listtableTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.listtable>>();
+    });
+
+    it('log factory should be compatible', () => {
+      const logTuxe = BlessedTuxe.default.log();
+      expectTypeOf(logTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.log>>();
+    });
+
+    it('loading factory should be compatible', () => {
+      const loadingTuxe = BlessedTuxe.default.loading();
+      expectTypeOf(loadingTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.loading>>();
+    });
+
+    it('message factory should be compatible', () => {
+      const messageTuxe = BlessedTuxe.default.message();
+      expectTypeOf(messageTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.message>>();
+    });
+
+    it('question factory should be compatible', () => {
+      const questionTuxe = BlessedTuxe.default.question();
+      expectTypeOf(questionTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.question>>();
+    });
+
+    it('prompt factory should be compatible', () => {
+      const promptTuxe = BlessedTuxe.default.prompt();
+      expectTypeOf(promptTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.prompt>>();
+    });
+
+    it('bigtext factory should be compatible', () => {
+      // BigText loads fonts on construction, so we just verify the factory is callable
+      expectTypeOf(BlessedTuxe.default.bigtext).toBeCallableWith();
+      expectTypeOf<typeof BlessedTuxe.default.bigtext>().toMatchTypeOf<typeof BlessedOriginal.bigtext>();
+    });
+
+    it('line factory should be compatible', () => {
+      const lineTuxe = BlessedTuxe.default.line();
+      expectTypeOf(lineTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.line>>();
+    });
+
+    it('scrollablebox factory should be compatible', () => {
+      const scrollableboxTuxe = BlessedTuxe.default.scrollablebox();
+      expectTypeOf(scrollableboxTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.scrollablebox>>();
+    });
+
+    it('scrollabletext factory should be compatible', () => {
+      const scrollabletextTuxe = BlessedTuxe.default.scrollabletext();
+      expectTypeOf(scrollabletextTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.scrollabletext>>();
+    });
+
+    it('layout factory should be compatible', () => {
+      // Layout requires width and height
+      const layoutTuxe = BlessedTuxe.default.layout({ width: 10, height: 10 });
+      expectTypeOf(layoutTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.layout>>();
+    });
+
+    it('image factory should be compatible', () => {
+      const imageTuxe = BlessedTuxe.default.image();
+      expectTypeOf(imageTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.image>>();
+    });
+
+    it('ansiimage factory should be compatible', () => {
+      const ansiimageTuxe = BlessedTuxe.default.ansiimage();
+      expectTypeOf(ansiimageTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.ansiimage>>();
+    });
+
+    it('overlayimage factory should be compatible', () => {
+      const overlayimageTuxe = BlessedTuxe.default.overlayimage();
+      expectTypeOf(overlayimageTuxe).toMatchTypeOf<ReturnType<typeof BlessedOriginal.overlayimage>>();
+    });
   });
 
   describe('Widget Factory Classes', () => {

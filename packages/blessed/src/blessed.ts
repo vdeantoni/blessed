@@ -129,17 +129,18 @@ export interface BlessedFunction {
  * Provides compatibility with @types/blessed
  */
 export namespace Widgets {
-  // Type aliases
+  // Type aliases for backward compatibility
   export namespace Types {
-    export type TTopLeft = TuxeTypes.TTopLeft;
-    export type TPosition = TuxeTypes.TPosition;
-    export type TAlign = TuxeTypes.TAlign;
-    export type TMouseAction = TuxeTypes.TMouseAction;
+    export type TTopLeft = TuxeTypes.PositionValue;
+    export type TPosition = TuxeTypes.PositionValue;
+    export type TAlign = TuxeTypes.Alignment;
+    export type TMouseAction = TuxeTypes.MouseAction;
     export type TBorder = TuxeTypes.Border;
     export type TStyleBorder = TuxeTypes.StyleBorder;
     export type TCursor = TuxeTypes.Cursor;
     export type Effects = TuxeTypes.Effects;
     export type TStyle = TuxeTypes.Style;
+    export type TImage = TuxeTypes.ImageData;
   }
 
   export namespace Events {
@@ -265,39 +266,57 @@ export namespace Widgets {
   export type LabelOptions = TuxeTypes.LabelOptions;
 }
 
-// Create WidgetFactory instances
-const nodeFactory = createWidgetFactory(TuxeTypes.Node);
-const screenFactory = createWidgetFactory(TuxeTypes.Screen);
-const elementFactory = createWidgetFactory(TuxeTypes.Element);
-const boxFactory = createWidgetFactory(TuxeTypes.Box);
-const textFactory = createWidgetFactory(TuxeTypes.Text);
-const lineFactory = createWidgetFactory(TuxeTypes.Line);
-const scrollableboxFactory = createWidgetFactory(TuxeTypes.ScrollableBox);
-const scrollabletextFactory = createWidgetFactory(TuxeTypes.ScrollableText);
-const bigtextFactory = createWidgetFactory(TuxeTypes.BigText);
-const listFactory = createWidgetFactory(TuxeTypes.List);
-const formFactory = createWidgetFactory(TuxeTypes.Form);
-const inputFactory = createWidgetFactory(TuxeTypes.Input);
-const textareaFactory = createWidgetFactory(TuxeTypes.Textarea);
-const textboxFactory = createWidgetFactory(TuxeTypes.Textbox);
-const buttonFactory = createWidgetFactory(TuxeTypes.Button);
-const progressbarFactory = createWidgetFactory(TuxeTypes.ProgressBar);
-const filemanagerFactory = createWidgetFactory(TuxeTypes.FileManager);
-const checkboxFactory = createWidgetFactory(TuxeTypes.Checkbox);
-const radiosetFactory = createWidgetFactory(TuxeTypes.RadioSet);
-const radiobuttonFactory = createWidgetFactory(TuxeTypes.RadioButton);
-const promptFactory = createWidgetFactory(TuxeTypes.Prompt);
-const questionFactory = createWidgetFactory(TuxeTypes.Question);
-const messageFactory = createWidgetFactory(TuxeTypes.Message);
-const loadingFactory = createWidgetFactory(TuxeTypes.Loading);
-const listbarFactory = createWidgetFactory(TuxeTypes.Listbar);
-const logFactory = createWidgetFactory(TuxeTypes.Log);
-const tableFactory = createWidgetFactory(TuxeTypes.Table);
-const listtableFactory = createWidgetFactory(TuxeTypes.ListTable);
-const imageFactory = createWidgetFactory(TuxeTypes.Image);
-const ansiimageFactory = createWidgetFactory(TuxeTypes.ANSIImage);
-const overlayimageFactory = createWidgetFactory(TuxeTypes.OverlayImage);
-const layoutFactory = createWidgetFactory(TuxeTypes.Layout);
+// Widget class to factory mapping
+const WIDGET_CLASSES = {
+  Node: TuxeTypes.Node,
+  Screen: TuxeTypes.Screen,
+  Element: TuxeTypes.Element,
+  Box: TuxeTypes.Box,
+  Text: TuxeTypes.Text,
+  Line: TuxeTypes.Line,
+  ScrollableBox: TuxeTypes.ScrollableBox,
+  ScrollableText: TuxeTypes.ScrollableText,
+  BigText: TuxeTypes.BigText,
+  List: TuxeTypes.List,
+  Form: TuxeTypes.Form,
+  Input: TuxeTypes.Input,
+  Textarea: TuxeTypes.Textarea,
+  Textbox: TuxeTypes.Textbox,
+  Button: TuxeTypes.Button,
+  ProgressBar: TuxeTypes.ProgressBar,
+  FileManager: TuxeTypes.FileManager,
+  Checkbox: TuxeTypes.Checkbox,
+  RadioSet: TuxeTypes.RadioSet,
+  RadioButton: TuxeTypes.RadioButton,
+  Prompt: TuxeTypes.Prompt,
+  Question: TuxeTypes.Question,
+  Message: TuxeTypes.Message,
+  Loading: TuxeTypes.Loading,
+  Listbar: TuxeTypes.Listbar,
+  Log: TuxeTypes.Log,
+  Table: TuxeTypes.Table,
+  ListTable: TuxeTypes.ListTable,
+  Image: TuxeTypes.Image,
+  ANSIImage: TuxeTypes.ANSIImage,
+  OverlayImage: TuxeTypes.OverlayImage,
+  Layout: TuxeTypes.Layout,
+} as const;
+
+// Create all widget factories
+const factories = Object.fromEntries(
+  Object.entries(WIDGET_CLASSES).map(([name, WidgetClass]) => [
+    name,
+    createWidgetFactory(WidgetClass),
+  ])
+) as Record<keyof typeof WIDGET_CLASSES, WidgetFactory<any>>;
+
+// Create lowercase variant names (PascalCase → lowercase)
+const lowercaseFactories = Object.fromEntries(
+  Object.entries(factories).map(([name, factory]) => [
+    name.toLowerCase(), // Convert entire name to lowercase
+    factory,
+  ])
+);
 
 /**
  * Create the blessed function (callable + properties)
@@ -327,72 +346,10 @@ function createBlessedFunction(): BlessedFunction {
     }),
 
     // Widget factories (PascalCase)
-    Node: nodeFactory,
-    Screen: screenFactory,
-    Element: elementFactory,
-    Box: boxFactory,
-    Text: textFactory,
-    Line: lineFactory,
-    ScrollableBox: scrollableboxFactory,
-    ScrollableText: scrollabletextFactory,
-    BigText: bigtextFactory,
-    List: listFactory,
-    Form: formFactory,
-    Input: inputFactory,
-    Textarea: textareaFactory,
-    Textbox: textboxFactory,
-    Button: buttonFactory,
-    ProgressBar: progressbarFactory,
-    FileManager: filemanagerFactory,
-    Checkbox: checkboxFactory,
-    RadioSet: radiosetFactory,
-    RadioButton: radiobuttonFactory,
-    Prompt: promptFactory,
-    Question: questionFactory,
-    Message: messageFactory,
-    Loading: loadingFactory,
-    Listbar: listbarFactory,
-    Log: logFactory,
-    Table: tableFactory,
-    ListTable: listtableFactory,
-    Image: imageFactory,
-    ANSIImage: ansiimageFactory,
-    OverlayImage: overlayimageFactory,
-    Layout: layoutFactory,
+    ...factories,
 
     // Widget factories (lowercase)
-    node: nodeFactory,
-    screen: screenFactory,
-    element: elementFactory,
-    box: boxFactory,
-    text: textFactory,
-    line: lineFactory,
-    scrollablebox: scrollableboxFactory,
-    scrollabletext: scrollabletextFactory,
-    bigtext: bigtextFactory,
-    list: listFactory,
-    form: formFactory,
-    input: inputFactory,
-    textarea: textareaFactory,
-    textbox: textboxFactory,
-    button: buttonFactory,
-    progressbar: progressbarFactory,
-    filemanager: filemanagerFactory,
-    checkbox: checkboxFactory,
-    radioset: radiosetFactory,
-    radiobutton: radiobuttonFactory,
-    prompt: promptFactory,
-    question: questionFactory,
-    message: messageFactory,
-    loading: loadingFactory,
-    listbar: listbarFactory,
-    log: logFactory,
-    table: tableFactory,
-    listtable: listtableFactory,
-    image: imageFactory,
-    ansiimage: ansiimageFactory,
-    overlayimage: overlayimageFactory,
-    layout: layoutFactory,
+    ...lowercaseFactories,
   });
 
   return blessedFn as BlessedFunction;
@@ -408,76 +365,83 @@ export default blessed;
 export const program = blessed.program;
 export const tput = blessed.tput;
 
-// Widget factories (PascalCase)
-export const Node = blessed.Node;
-export const Screen = blessed.Screen;
-export const Element = blessed.Element;
-export const Box = blessed.Box;
-export const Text = blessed.Text;
-export const Line = blessed.Line;
-export const ScrollableBox = blessed.ScrollableBox;
-export const ScrollableText = blessed.ScrollableText;
-export const BigText = blessed.BigText;
-export const List = blessed.List;
-export const Form = blessed.Form;
-export const Input = blessed.Input;
-export const Textarea = blessed.Textarea;
-export const Textbox = blessed.Textbox;
-export const Button = blessed.Button;
-export const ProgressBar = blessed.ProgressBar;
-export const FileManager = blessed.FileManager;
-export const Checkbox = blessed.Checkbox;
-export const RadioSet = blessed.RadioSet;
-export const RadioButton = blessed.RadioButton;
-export const Prompt = blessed.Prompt;
-export const Question = blessed.Question;
-export const Message = blessed.Message;
-export const Loading = blessed.Loading;
-export const Listbar = blessed.Listbar;
-export const Log = blessed.Log;
-export const Table = blessed.Table;
-export const ListTable = blessed.ListTable;
-export const Image = blessed.Image;
-export const ANSIImage = blessed.ANSIImage;
-export const OverlayImage = blessed.OverlayImage;
-export const Layout = blessed.Layout;
-
-// Widget factories (lowercase)
-export const node = blessed.node;
-export const screen = blessed.screen;
-export const element = blessed.element;
-export const box = blessed.box;
-export const text = blessed.text;
-export const line = blessed.line;
-export const scrollablebox = blessed.scrollablebox;
-export const scrollabletext = blessed.scrollabletext;
-export const bigtext = blessed.bigtext;
-export const list = blessed.list;
-export const form = blessed.form;
-export const input = blessed.input;
-export const textarea = blessed.textarea;
-export const textbox = blessed.textbox;
-export const button = blessed.button;
-export const progressbar = blessed.progressbar;
-export const filemanager = blessed.filemanager;
-export const checkbox = blessed.checkbox;
-export const radioset = blessed.radioset;
-export const radiobutton = blessed.radiobutton;
-export const prompt = blessed.prompt;
-export const question = blessed.question;
-export const message = blessed.message;
-export const loading = blessed.loading;
-export const listbar = blessed.listbar;
-export const log = blessed.log;
-export const table = blessed.table;
-export const listtable = blessed.listtable;
-export const image = blessed.image;
-export const ansiimage = blessed.ansiimage;
-export const overlayimage = blessed.overlayimage;
-export const layout = blessed.layout;
+// Widget factories - dynamically export both PascalCase and lowercase
+export const {
+  Node,
+  Screen,
+  Element,
+  Box,
+  Text,
+  Line,
+  ScrollableBox,
+  ScrollableText,
+  BigText,
+  List,
+  Form,
+  Input,
+  Textarea,
+  Textbox,
+  Button,
+  ProgressBar,
+  FileManager,
+  Checkbox,
+  RadioSet,
+  RadioButton,
+  Prompt,
+  Question,
+  Message,
+  Loading,
+  Listbar,
+  Log,
+  Table,
+  ListTable,
+  Image,
+  ANSIImage,
+  OverlayImage,
+  Layout,
+  node,
+  screen,
+  element,
+  box,
+  text,
+  line,
+  scrollablebox,
+  scrollabletext,
+  bigtext,
+  list,
+  form,
+  input,
+  textarea,
+  textbox,
+  button,
+  progressbar,
+  filemanager,
+  checkbox,
+  radioset,
+  radiobutton,
+  prompt,
+  question,
+  message,
+  loading,
+  listbar,
+  log,
+  table,
+  listtable,
+  image,
+  ansiimage,
+  overlayimage,
+  layout,
+} = blessed;
 
 // Helper functions
 export const { escape, stripTags, cleanTags, generateTags } = TuxeTypes;
 export const colors = blessed.colors;
 export const unicode = blessed.unicode;
 export const helpers = blessed.helpers;
+
+// Legacy type aliases for backward compatibility
+export type TTopLeft = TuxeTypes.PositionValue;
+export type TPosition = TuxeTypes.PositionValue;
+export type TAlign = TuxeTypes.Alignment;
+export type TMouseAction = TuxeTypes.MouseAction;
+export type TImage = TuxeTypes.ImageData;

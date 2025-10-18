@@ -11,15 +11,15 @@
 </head>
 <body>
   <div id="terminal"></div>
-  <script src="../../../dist/index.global.js"></script>
+  
   <script type="module">
     import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
-    const { createXTermScreen, blessed } = window.BlessedBrowser;
+    import { Screen, RadioButton, RadioSet } from '../../../dist/index.js';
     const term = new Terminal({ rows: 24, cols: 80 });
     term.open(document.getElementById('terminal'));
-    const screen = createXTermScreen({ terminal: term });
+    const screen = new Screen({ terminal: term });
 
-    const radioSet = blessed.radioset({
+    const radioSet = new RadioSet({
       parent: screen,
       top: 'center',
       left: 'center',
@@ -32,7 +32,7 @@
     });
 
     // Add radio buttons to the set
-    blessed.radiobutton({
+    new RadioButton({
       parent: radioSet,
       top: 1,
       left: 2,
@@ -41,7 +41,7 @@
       checked: true
     });
 
-    blessed.radiobutton({
+    new RadioButton({
       parent: radioSet,
       top: 3,
       left: 2,
@@ -49,7 +49,7 @@
       content: 'Option 2'
     });
 
-    blessed.radiobutton({
+    new RadioButton({
       parent: radioSet,
       top: 5,
       left: 2,

@@ -11,16 +11,16 @@
 </head>
 <body>
   <div id="terminal"></div>
-  <script src="../../../dist/index.global.js"></script>
+  
   <script type="module">
     import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
-    const { createXTermScreen, blessed } = window.BlessedBrowser;
+    import { Screen, Button, Form, Text, Textbox } from '../../../dist/index.js';
     const term = new Terminal({ rows: 24, cols: 80 });
     term.open(document.getElementById('terminal'));
-    const screen = createXTermScreen({ terminal: term });
+    const screen = new Screen({ terminal: term });
     window.formData = null;
 
-    const form = blessed.form({
+    const form = new Form({
       parent: screen,
       keys: true,
       left: 'center',
@@ -31,13 +31,13 @@
       style: { border: { fg: 'cyan' } }
     });
 
-    const nameLabel = blessed.text({ parent: form, top: 1, left: 2, content: 'Name:' });
-    const nameInput = blessed.textbox({ parent: form, top: 2, left: 2, height: 3, width: 40, border: 'line', keys: true, name: 'name' });
+    const nameLabel = new Text({ parent: form, top: 1, left: 2, content: 'Name:' });
+    const nameInput = new Textbox({ parent: form, top: 2, left: 2, height: 3, width: 40, border: 'line', keys: true, name: 'name' });
 
-    const emailLabel = blessed.text({ parent: form, top: 5, left: 2, content: 'Email:' });
-    const emailInput = blessed.textbox({ parent: form, top: 6, left: 2, height: 3, width: 40, border: 'line', keys: true, name: 'email' });
+    const emailLabel = new Text({ parent: form, top: 5, left: 2, content: 'Email:' });
+    const emailInput = new Textbox({ parent: form, top: 6, left: 2, height: 3, width: 40, border: 'line', keys: true, name: 'email' });
 
-    const submit = blessed.button({ parent: form, top: 10, left: 2, content: 'Submit', border: 'line', padding: { left: 1, right: 1 }, keys: true });
+    const submit = new Button({ parent: form, top: 10, left: 2, content: 'Submit', border: 'line', padding: { left: 1, right: 1 }, keys: true });
 
     nameInput.on('focus', function() {
       nameInput.readInput();

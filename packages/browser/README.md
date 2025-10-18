@@ -30,7 +30,7 @@ yarn add @tuxe/browser xterm
 
 ```typescript
 import { Terminal } from 'xterm';
-import { createXTermScreen } from '@tuxe/browser';
+import { Screen, Box } from '@tuxe/browser';
 import 'xterm/css/xterm.css';
 
 // Create xterm.js terminal
@@ -42,12 +42,10 @@ const term = new Terminal({
 // Mount to DOM
 term.open(document.getElementById('terminal')!);
 
-// Create tuxe screen with xterm integration
-const screen = createXTermScreen({ terminal: term });
+// Create screen - automatically sets up xterm adapter
+const screen = new Screen({ terminal: term });
 
 // Build your TUI
-import { Box } from '@tuxe/browser';
-
 const box = new Box({
   parent: screen,
   top: 'center',
@@ -109,40 +107,45 @@ screen.render();
 
 ## API Reference
 
-### `createXTermScreen(options)`
+### `Screen`
 
-Creates a @tuxe/core Screen with xterm.js integration.
+Browser-specific Screen class that automatically handles xterm.js integration.
 
 ```typescript
-import { createXTermScreen } from '@tuxe/browser';
+import { Screen } from '@tuxe/browser';
+import { Terminal } from 'xterm';
 
-const screen = createXTermScreen({
+const term = new Terminal();
+term.open(document.getElementById('terminal')!);
+
+const screen = new Screen({
   terminal: term,           // xterm.js Terminal instance (required)
   mouse: true,             // Enable mouse support (default: true)
   term: 'xterm-256color'   // Terminal type (default: 'xterm-256color')
 });
 ```
 
-**Parameters:**
-- `terminal` (Terminal) - xterm.js Terminal instance
+**Options:**
+- `terminal` (Terminal) - xterm.js Terminal instance - automatically creates XTermAdapter
 - `mouse` (boolean) - Enable mouse events (default: true)
 - `term` (string) - Terminal type string (default: 'xterm-256color')
+- All standard ScreenOptions from @tuxe/core
 
-**Returns:** Screen instance
+**Returns:** Screen instance with xterm.js integration
 
-### `createScreen(options)`
+### `XTermAdapter`
 
-Creates a basic @tuxe/core Screen (without xterm.js integration).
+Low-level adapter for manual setup (rarely needed).
 
 ```typescript
-import { createScreen } from '@tuxe/browser';
+import { XTermAdapter } from '@tuxe/browser';
 
-const screen = createScreen({
-  // Screen options
-  smartCSR: true,
-  fastCSR: true,
-  // ... other screen options
+const adapter = new XTermAdapter({
+  terminal: term,
+  mouse: true
 });
+
+// Use as input/output for custom Screen setup
 ```
 
 ### Runtime Access
@@ -166,8 +169,8 @@ All @tuxe/core widgets are re-exported for convenience:
 ```typescript
 import { Box, List, Input, Form, Button } from '@tuxe/browser';
 
-const box = screen.box({ /* ... */ });
-const list = screen.list({ /* ... */ });
+const box = new Box({ parent: screen, /* ... */ });
+const list = new List({ parent: screen, /* ... */ });
 ```
 
 ## Features

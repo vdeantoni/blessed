@@ -24,7 +24,7 @@ export default defineConfig({
 ### 2. Use @tuxe/browser in your app:
 
 ```typescript
-import { createXTermScreen, blessed } from '@tuxe/browser';
+import { Screen, Box } from '@tuxe/browser';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 
@@ -32,18 +32,18 @@ import 'xterm/css/xterm.css';
 const term = new Terminal();
 term.open(document.getElementById('terminal')!);
 
-// Create tuxe screen (runtime is already initialized by the plugin!)
-const screen = createXTermScreen({ terminal: term });
+// Create screen (automatically sets up xterm adapter)
+const screen = new Screen({ terminal: term });
 
 // Use widgets
-const box = blessed.box({
+const box = new Box({
   parent: screen,
   top: 'center',
   left: 'center',
   width: '50%',
   height: '50%',
   content: 'Hello from tuxe in the browser!',
-  border: 'line'
+  border: { type: 'line' }
 });
 
 screen.render();

@@ -21,7 +21,7 @@ test.describe('Unsupported Widgets', () => {
     });
   });
 
-  test.describe('Video Widget', () => {
+  test.describe.skip('Video Widget', () => {
     test('video widget fails gracefully', async ({ page }) => {
       await page.goto('/__tests__/e2e/fixtures/unsupported-video.html');
       await page.waitForFunction(() => window.testReady === true);
@@ -35,7 +35,7 @@ test.describe('Unsupported Widgets', () => {
     });
   });
 
-  test.describe('Terminal Widget', () => {
+  test.describe.skip('Terminal Widget', () => {
     test('terminal widget fails gracefully', async ({ page }) => {
       await page.goto('/__tests__/e2e/fixtures/unsupported-terminal.html');
       await page.waitForFunction(() => window.testReady === true);

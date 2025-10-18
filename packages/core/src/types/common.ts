@@ -3,26 +3,36 @@
  */
 
 /**
- * Type for positioning relative to top or left edge.
- * Can be a pixel value, percentage string, or "center" keyword.
+ * Position value for element layout.
+ *
+ * Supports flexible positioning with multiple formats:
+ * - **Absolute cells**: `10`, `20` - Fixed position in terminal cells
+ * - **Percentage**: `"50%"`, `"100%"` - Relative to parent size
+ * - **Offset percentage**: `"50%+2"`, `"50%-5"` - Percentage with cell offset
+ * - **Center**: `"center"` - Center alignment (for top/left)
+ * - **Size keywords**: `"half"`, `"shrink"` - Special sizing (for width/height)
+ *
+ * @example
+ * ```typescript
+ * const box = new Box({
+ *   top: 10,                // 10 cells from top
+ *   left: "50%",            // Middle of parent
+ *   width: "half",          // Half of parent width
+ *   height: "50%-5"         // Middle minus 5 cells
+ * });
+ * ```
  */
-export type TTopLeft = string | number | "center";
-
-/**
- * Type for positioning values.
- * Can be a pixel value or percentage string.
- */
-export type TPosition = string | number;
+export type PositionValue = number | string;
 
 /**
  * Text alignment options.
  */
-export type TAlign = "left" | "center" | "right";
+export type Alignment = "left" | "center" | "right";
 
 /**
  * Mouse action types supported by blessed.
  */
-export type TMouseAction =
+export type MouseAction =
   | "mousedown"
   | "mouseup"
   | "mousemove"
@@ -47,22 +57,36 @@ export interface Padding {
 
 /**
  * Position specification for elements.
- * Offsets can be numbers (cells), percentages (e.g., "50%"), or keywords like "center".
- * Percentages can also have offsets (e.g., "50%+1", "50%-1").
+ *
+ * All position and size properties accept flexible values:
+ * - **Numbers**: Absolute cell positions/sizes
+ * - **Percentages**: Relative to parent (`"50%"`)
+ * - **Offset percentages**: Relative with adjustment (`"50%+2"`)
+ * - **Keywords**: Special values like `"center"`, `"half"`, `"shrink"`
+ *
+ * @example
+ * ```typescript
+ * const box = new Box({
+ *   top: "center",          // Vertically centered
+ *   left: "50%-10",         // Horizontally centered, shifted left 10 cells
+ *   width: "half",          // 50% of parent width
+ *   height: 20              // Fixed 20 cells high
+ * });
+ * ```
  */
 export interface Position {
   /** Left offset. Can be number, percentage, or "center" */
-  left?: number | string;
+  left?: PositionValue;
   /** Right offset. Can be number or percentage */
-  right?: number | string;
+  right?: PositionValue;
   /** Top offset. Can be number, percentage, or "center" */
-  top?: number | string;
+  top?: PositionValue;
   /** Bottom offset. Can be number or percentage */
-  bottom?: number | string;
+  bottom?: PositionValue;
   /** Width of element. Can be number, percentage, or keywords like "half" or "shrink" */
-  width?: number | string;
+  width?: PositionValue;
   /** Height of element. Can be number, percentage, or keywords like "half" or "shrink" */
-  height?: number | string;
+  height?: PositionValue;
 }
 
 /**
@@ -97,13 +121,13 @@ export interface Coords {
   /** Content end position */
   _contentEnd: { x: number; y: number };
   /** Top offset without border/padding */
-  notop: TTopLeft;
+  notop: PositionValue;
   /** Left offset without border/padding */
-  noleft: TTopLeft;
+  noleft: PositionValue;
   /** Right offset without border/padding */
-  noright: TPosition;
+  noright: PositionValue;
   /** Bottom offset without border/padding */
-  nobot: TPosition;
+  nobot: PositionValue;
 }
 
 /**
@@ -179,7 +203,7 @@ export interface LabelOptions {
   /** Label text content */
   text: string;
   /** Side to place label on */
-  side: TAlign;
+  side: Alignment;
 }
 
 /**
@@ -200,7 +224,7 @@ export interface Cursor {
 /**
  * Image data structure for ANSIImage and OverlayImage widgets.
  */
-export interface TImage {
+export interface ImageData {
   /** Pixel width of the image */
   width: number;
   /** Pixel height of the image */

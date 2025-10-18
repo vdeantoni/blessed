@@ -3,7 +3,7 @@
  * Based on patterns from @types/blessed community types.
  */
 
-import type { TMouseAction } from './common.js';
+import type { MouseAction } from './common.js';
 
 /**
  * Mouse event argument passed to mouse event handlers.
@@ -15,7 +15,7 @@ export interface MouseEvent {
   /** Y coordinate of the mouse event (row) */
   y: number;
   /** Type of mouse action that occurred */
-  action: TMouseAction;
+  action: MouseAction;
   /** Whether the Shift modifier key was held (optional) */
   shift?: boolean;
   /** Whether the Control modifier key was held (optional) */

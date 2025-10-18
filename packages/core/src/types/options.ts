@@ -2,7 +2,7 @@
  * Options type definitions for blessed widgets
  */
 
-import type { TTopLeft, TPosition, TAlign, Border, Padding, Position, Cursor } from './common.js';
+import type { PositionValue, Alignment, Border, Padding, Position, Cursor } from './common.js';
 import type { ListElementStyle, StyleListTable } from './style.js';
 import type { Node } from '../widgets/node.js';
 import type { ReadableType, WritableType, BufferType } from '../runtime.js';
@@ -244,26 +244,26 @@ export interface ElementOptions extends NodeOptions, ScrollableOptions {
    * keyword (center). right and bottom do not accept keywords. Percentages can also have
    * offsets (50%+1, 50%-1).
    */
-  top?: TTopLeft;
+  top?: PositionValue;
 
   /**
    * Offsets of the element relative to its parent. Can be a number, percentage (0-100%), or
    * keyword (center). right and bottom do not accept keywords. Percentages can also have
    * offsets (50%+1, 50%-1).
    */
-  left?: TTopLeft;
+  left?: PositionValue;
 
   /**
    * Right offset of the element relative to its parent. Can be a number or percentage (0-100%).
    * Percentages can also have offsets (50%+1, 50%-1).
    */
-  right?: TPosition;
+  right?: PositionValue;
 
   /**
    * Bottom offset of the element relative to its parent. Can be a number or percentage (0-100%).
    * Percentages can also have offsets (50%+1, 50%-1).
    */
-  bottom?: TPosition;
+  bottom?: PositionValue;
 
   /**
    * Width/height of the element, can be a number, percentage (0-100%), or keyword (half or shrink).
@@ -349,7 +349,7 @@ export interface TextOptions extends ElementOptions {
   /**
    * Text alignment: left, center, or right.
    */
-  align?: TAlign;
+  align?: Alignment;
 }
 
 export interface LineOptions extends BoxOptions {
@@ -1078,12 +1078,12 @@ export interface ScreenOptions extends NodeOptions {
   /**
    * Width of the screen (same as program.cols).
    */
-  width?: TPosition;
+  width?: PositionValue;
 
   /**
    * Height of the screen (same as program.rows).
    */
-  height?: TPosition;
+  height?: PositionValue;
 
   /**
    * Same as screen.width.
@@ -1098,42 +1098,42 @@ export interface ScreenOptions extends NodeOptions {
   /**
    * Relative top offset, always zero.
    */
-  top?: TTopLeft;
+  top?: PositionValue;
 
   /**
    * Relative left offset, always zero.
    */
-  left?: TTopLeft;
+  left?: PositionValue;
 
   /**
    * Relative right offset, always zero.
    */
-  right?: TPosition;
+  right?: PositionValue;
 
   /**
    * Relative bottom offset, always zero.
    */
-  bottom?: TPosition;
+  bottom?: PositionValue;
 
   /**
    * Absolute top offset, always zero.
    */
-  atop?: TTopLeft;
+  atop?: PositionValue;
 
   /**
    * Absolute left offset, always zero.
    */
-  aleft?: TTopLeft;
+  aleft?: PositionValue;
 
   /**
    * Absolute right offset, always zero.
    */
-  aright?: TPosition;
+  aright?: PositionValue;
 
   /**
    * Absolute bottom offset, always zero.
    */
-  abottom?: TPosition;
+  abottom?: PositionValue;
 
   /**
    * Whether the focused element grabs all keypresses.

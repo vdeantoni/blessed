@@ -8,15 +8,15 @@
 </head>
 <body>
   <div id="terminal"></div>
-  <script src="../../../dist/index.global.js"></script>
+  
   <script type="module">
     import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
-    const { createXTermScreen, blessed } = window.BlessedBrowser;
+    import { Screen, Form, RadioButton } from '../../../dist/index.js';
     const term = new Terminal({ rows: 24, cols: 80 });
     term.open(document.getElementById('terminal'));
-    const screen = createXTermScreen({ terminal: term });
+    const screen = new Screen({ terminal: term });
 
-    const form = blessed.form({
+    const form = new Form({
         parent: screen,
         mouse: true,
         keys: true,
@@ -29,8 +29,8 @@
         },
     });
 
-    const radio1 = blessed.radiobutton({ parent: form, top: 5, left: 5, content: 'Option 1',   shrink: true,keys: true });
-    const radio2 = blessed.radiobutton({ parent: form, top: 7, left: 5, content: 'Option 2',   shrink: true,keys: true });
+    const radio1 = new RadioButton({ parent: form, top: 5, left: 5, content: 'Option 1',   shrink: true,keys: true });
+    const radio2 = new RadioButton({ parent: form, top: 7, left: 5, content: 'Option 2',   shrink: true,keys: true });
 
     screen.render();
 
