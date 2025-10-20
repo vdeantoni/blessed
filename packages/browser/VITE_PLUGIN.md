@@ -89,7 +89,7 @@ If you're not using Vite or want to initialize manually, you can do it in your H
     // Initialize runtime
     const runtime = new BrowserRuntime();
     setRuntime(runtime);
-    globalThis.__TUXE_BROWSER_INITIALIZED__ = true;
+    globalThis.__TUI_BROWSER_INITIALIZED__ = true;
   </script>
 </head>
 <body>
@@ -127,4 +127,4 @@ The plugin source is in `packages/browser/src/vite-plugin/index.ts`.
 Key points:
 - Uses `transformIndexHtml` hook with `order: 'pre'` to inject before other transformations
 - Injects runtime initialization as a module script (not inline script)
-- Guards against double-initialization with `__TUXE_BROWSER_INITIALIZED__` flag
+- Guards against double-initialization with `__TUI_BROWSER_INITIALIZED__` flag

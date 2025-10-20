@@ -89,6 +89,22 @@ const box = blessed.box({
 screen.render();
 ```
 
+## Complete Documentation
+
+For comprehensive blessed documentation including all widgets, examples, and FAQ:
+
+- **[Blessed Guide](./BLESSED_GUIDE.md)** - Complete blessed API reference with detailed examples, widget catalog, and FAQs
+- **[API Reference](../../API_REFERENCE.md)** - Structured API compatibility baseline for all blessed v0.1.82 features
+
+The Blessed Guide includes:
+- Detailed widget documentation (27+ widgets)
+- Tag system and content formatting
+- Style and color system
+- Event handling and bubbling
+- Positioning and rendering
+- Terminal compatibility notes
+- Comprehensive FAQ
+
 ## API Compatibility
 
 `@tui/blessed` maintains 100% API compatibility with blessed:
