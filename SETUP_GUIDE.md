@@ -29,7 +29,7 @@ tui/
 ## Phase 1: Repository URL Updates
 
 ### Files to Update
-Update `github.com/vdeantoni/blessed` → `github.com/vdeantoni/tui` in:
+Update `github.com/vdeantoni/blessed` → `github.com/vdeantoni/unblessed` in:
 
 - [x] Root `package.json`
 - [x] `packages/blessed/package.json`
@@ -568,9 +568,9 @@ Add badges at top:
 ```md
 # tui
 
-[![Build](https://github.com/vdeantoni/tui/workflows/Tests/badge.svg)](https://github.com/vdeantoni/tui/actions)
-[![Coverage](https://codecov.io/gh/vdeantoni/tui/branch/main/graph/badge.svg)](https://codecov.io/gh/vdeantoni/tui)
-[![npm version](https://badge.fury.io/js/@tui%2Fcore.svg)](https://www.npmjs.com/package/@tui/core)
+[![Build](https://github.com/vdeantoni/unblessed/workflows/Tests/badge.svg)](https://github.com/vdeantoni/unblessed/actions)
+[![Coverage](https://codecov.io/gh/vdeantoni/unblessed/branch/main/graph/badge.svg)](https://codecov.io/gh/vdeantoni/unblessed)
+[![npm version](https://badge.fury.io/js/@unblessed%2Fcore.svg)](https://www.npmjs.com/package/@unblessed/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > Terminal UI library with runtime dependency injection

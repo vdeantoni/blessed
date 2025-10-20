@@ -24,7 +24,7 @@ export default defineConfig({
   cjsInterop: true,
 
   external: [
-    '@tui/node'
+    '@unblessed/node'
   ],
 
   platform: 'node',
@@ -33,6 +33,6 @@ export default defineConfig({
   onSuccess: async () => {
     await cp('../core/data', 'dist/usr', { recursive: true });
     console.log('✅ Copied ../core/data/ to dist/usr/');
-    console.log('✅ @tui/blessed build complete');
+    console.log('✅ @unblessed/blessed build complete');
   }
 });

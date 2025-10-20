@@ -447,7 +447,7 @@ const instructions = new tui.Box({
 screen.render();`,
 
   'Full Demo': `// Complete interactive demo with multiple widgets
-// Based on @tui/core demo.js
+// Based on @unblessed/core demo.js
 
 // Header bar
 const header = new tui.Box({

@@ -1,13 +1,13 @@
-# @tui/blessed
+# @unblessed/blessed
 
-100% backward-compatible blessed API wrapper for [@tui/node](../node).
+100% backward-compatible blessed API wrapper for [@unblessed/node](../node).
 
-[![npm version](https://img.shields.io/npm/v/@tui/blessed)](https://www.npmjs.com/package/@tui/blessed)
+[![npm version](https://img.shields.io/npm/v/@unblessed/blessed)](https://www.npmjs.com/package/@unblessed/blessed)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 
 ## Overview
 
-`@tui/blessed` provides a 100% backward-compatible API with the original [blessed](https://github.com/chjj/blessed) library. It's a thin wrapper over `@tui/node` that maintains the exact same API surface, making migration seamless.
+`@unblessed/blessed` provides a 100% backward-compatible API with the original [blessed](https://github.com/chjj/blessed) library. It's a thin wrapper over `@unblessed/node` that maintains the exact same API surface, making migration seamless.
 
 **Use this package if:**
 - ✅ You have existing blessed code
@@ -15,7 +15,7 @@
 - ✅ You need to maintain API compatibility
 - ✅ You're migrating gradually from blessed
 
-**Use [@tui/node](../node) instead if:**
+**Use [@unblessed/node](../node) instead if:**
 - 🚀 You're starting a new project
 - 🎯 You want a modern, typed API
 - 📦 You prefer ES modules over CommonJS
@@ -23,11 +23,11 @@
 ## Installation
 
 ```bash
-npm install @tui/blessed
+npm install @unblessed/blessed
 # or
-pnpm add @tui/blessed
+pnpm add @unblessed/blessed
 # or
-yarn add @tui/blessed
+yarn add @unblessed/blessed
 ```
 
 ## Quick Start
@@ -35,7 +35,7 @@ yarn add @tui/blessed
 ### CommonJS (Original blessed style)
 
 ```javascript
-const blessed = require('@tui/blessed');
+const blessed = require('@unblessed/blessed');
 
 const screen = blessed.screen({
   smartCSR: true,
@@ -48,7 +48,7 @@ const box = blessed.box({
   left: 'center',
   width: '50%',
   height: '50%',
-  content: '{bold}Hello from @tui/blessed!{/bold}',
+  content: '{bold}Hello from @unblessed/blessed!{/bold}',
   tags: true,
   border: {
     type: 'line'
@@ -73,9 +73,9 @@ screen.render();
 ### ES Modules
 
 ```typescript
-import blessed from '@tui/blessed';
+import blessed from '@unblessed/blessed';
 // or
-import * as blessed from '@tui/blessed';
+import * as blessed from '@unblessed/blessed';
 
 const screen = blessed.screen({
   smartCSR: true
@@ -107,7 +107,7 @@ The Blessed Guide includes:
 
 ## API Compatibility
 
-`@tui/blessed` maintains 100% API compatibility with blessed:
+`@unblessed/blessed` maintains 100% API compatibility with blessed:
 
 ### Widget Factory Functions
 
@@ -159,36 +159,36 @@ blessed.helpers       // Helper functions
 
 ### Drop-in Replacement
 
-Simply replace `blessed` with `@tui/blessed`:
+Simply replace `blessed` with `@unblessed/blessed`:
 
 ```diff
 - const blessed = require('blessed');
-+ const blessed = require('@tui/blessed');
++ const blessed = require('@unblessed/blessed');
 ```
 
 That's it! Your code should work without any other changes.
 
 ### Gradual Migration
 
-You can migrate to `@tui/node` gradually:
+You can migrate to `@unblessed/node` gradually:
 
-1. **Step 1**: Replace `blessed` with `@tui/blessed` (no code changes)
+1. **Step 1**: Replace `blessed` with `@unblessed/blessed` (no code changes)
 2. **Step 2**: Test thoroughly
-3. **Step 3**: Optionally migrate to `@tui/node` for modern API
+3. **Step 3**: Optionally migrate to `@unblessed/node` for modern API
 
 ```javascript
-// @tui/blessed (backward compatible)
-const blessed = require('@tui/blessed');
+// @unblessed/blessed (backward compatible)
+const blessed = require('@unblessed/blessed');
 const screen = blessed.screen();
 
-// @tui/node (modern API)
-import { Screen } from '@tui/node';
+// @unblessed/node (modern API)
+import { Screen } from '@unblessed/node';
 const screen = new Screen();
 ```
 
 ## Differences from Original blessed
 
-While `@tui/blessed` maintains API compatibility, there are some under-the-hood improvements:
+While `@unblessed/blessed` maintains API compatibility, there are some under-the-hood improvements:
 
 **Improvements:**
 - ✅ Full TypeScript support with types
@@ -208,11 +208,11 @@ While `@tui/blessed` maintains API compatibility, there are some under-the-hood 
 
 ## TypeScript Support
 
-`@tui/blessed` includes complete TypeScript definitions:
+`@unblessed/blessed` includes complete TypeScript definitions:
 
 ```typescript
-import blessed from '@tui/blessed';
-import type { Widgets } from '@tui/blessed';
+import blessed from '@unblessed/blessed';
+import type { Widgets } from '@unblessed/blessed';
 
 const screen = blessed.screen({
   smartCSR: true
@@ -237,10 +237,10 @@ const box: Widgets.BoxElement = blessed.box({
 
 **Cons:**
 - ❌ Uses older factory function API
-- ❌ Less modern than `@tui/node`
+- ❌ Less modern than `@unblessed/node`
 - ❌ Slightly larger bundle (includes compatibility layer)
 
-For new projects, we recommend [@tui/node](../node) for a cleaner, more modern API.
+For new projects, we recommend [@unblessed/node](../node) for a cleaner, more modern API.
 
 ## Examples
 
@@ -249,7 +249,7 @@ All original blessed examples should work. Here are a few:
 ### List Widget
 
 ```javascript
-const blessed = require('@tui/blessed');
+const blessed = require('@unblessed/blessed');
 
 const screen = blessed.screen();
 
@@ -283,7 +283,7 @@ screen.render();
 ### Form Widget
 
 ```javascript
-const blessed = require('@tui/blessed');
+const blessed = require('@unblessed/blessed');
 
 const screen = blessed.screen();
 
@@ -337,16 +337,16 @@ screen.render();
 
 Make sure you have the latest version:
 ```bash
-npm update @tui/blessed
+npm update @unblessed/blessed
 ```
 
 **TypeScript errors?**
 
-Include `@tui/blessed` types:
+Include `@unblessed/blessed` types:
 ```json
 {
   "compilerOptions": {
-    "types": ["@tui/blessed"]
+    "types": ["@unblessed/blessed"]
   }
 }
 ```
@@ -361,8 +361,8 @@ node --version
 ## Resources
 
 - [blessed Documentation](https://github.com/chjj/blessed) - Original blessed docs
-- [@tui/node](../node) - Modern alternative
-- [@tui/core](../core) - Core library
+- [@unblessed/node](../node) - Modern alternative
+- [@unblessed/core](../core) - Core library
 - [Examples](../node/examples) - Working examples
 
 ## License
@@ -371,7 +371,7 @@ MIT © [Vinicius De Antoni](https://github.com/vdeantoni)
 
 ## Related
 
-- [@tui/node](../node) - Node.js runtime adapter (modern API)
-- [@tui/core](../core) - Core TUI library
-- [@tui/browser](../browser) - Browser runtime adapter
+- [@unblessed/node](../node) - Node.js runtime adapter (modern API)
+- [@unblessed/core](../core) - Core TUI library
+- [@unblessed/browser](../browser) - Browser runtime adapter
 - [blessed](https://github.com/chjj/blessed) - Original library

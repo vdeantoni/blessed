@@ -1,8 +1,8 @@
 /**
- * @tui/core - Platform-agnostic TUI library
+ * @unblessed/core - Platform-agnostic TUI library
  *
  * This package contains all the core TUI logic without any platform-specific dependencies.
- * Platform adapters (@tui/node, @tui/browser) inject runtime implementations to provide
+ * Platform adapters (@unblessed/node, @unblessed/browser) inject runtime implementations to provide
  * platform-specific functionality.
  */
 

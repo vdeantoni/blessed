@@ -44,16 +44,16 @@ importers:
 
   apps/docs:
     dependencies:
-      '@tui/blessed':
+      '@unblessed/blessed':
         specifier: workspace:*
         version: link:../../packages/blessed
 
   packages/blessed:
     dependencies:
-      '@tui/core':
+      '@unblessed/core':
         specifier: workspace:*
         version: link:../core
-      '@tui/node':
+      '@unblessed/node':
         specifier: workspace:*
         version: link:../node
     devDependencies:
@@ -112,12 +112,12 @@ importers:
       '@playwright/test':
         specifier: ^1.49.1
         version: 1.56.0
-      '@tui/core':
-        specifier: workspace:*
-        version: link:../core
       '@types/node':
         specifier: 24.6.2
         version: 24.6.2
+      '@unblessed/core':
+        specifier: workspace:*
+        version: link:../core
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
@@ -169,7 +169,7 @@ importers:
 
   packages/node:
     dependencies:
-      '@tui/core':
+      '@unblessed/core':
         specifier: workspace:*
         version: link:../core
       omggif:
@@ -209,7 +209,7 @@ importers:
 
   tools/benchmarks:
     dependencies:
-      '@tui/blessed':
+      '@unblessed/blessed':
         specifier: workspace:*
         version: link:../../packages/blessed
 
@@ -2259,7 +2259,6 @@ packages:
     resolution: {integrity: sha512-9dkvaxAsk/xNXSJzMgFqqMCuFgt2+KsOFek3TMLfo8NCPfWpBmqwyNn5Y+NX56QUYfCtsyhF3ayiboEoUmJk/A==}
     engines: {node: 20 || >=22}
     hasBin: true
-
 
   rollup@4.52.3:
     resolution: {integrity: sha512-RIDh866U8agLgiIcdpB+COKnlCreHJLfIhWC3LVflku5YHfpnsIKigRZeFfMfCc4dVcqNVfQQ5gO/afOck064A==}
@@ -4814,7 +4813,6 @@ snapshots:
     dependencies:
       glob: 11.0.3
       package-json-from-dist: 1.0.1
-
 
   rollup@4.52.3:
     dependencies:

@@ -1,15 +1,15 @@
 /**
- * @tui/node - Node.js runtime adapter for @tui/core
+ * @unblessed/node - Node.js runtime adapter for @unblessed/core
  *
  * This package provides Node.js-specific implementations and makes it easy
- * to use @tui/core in Node.js environments.
+ * to use @unblessed/core in Node.js environments.
  *
  * ## Usage
  *
  * Simply import widgets and use them - runtime auto-initializes:
  *
  * ```typescript
- * import { Screen, Box } from '@tui/node';
+ * import { Screen, Box } from '@unblessed/node';
  *
  * const screen = new Screen({ smartCSR: true });
  * const box = new Box({ screen, content: 'Hello!' });
@@ -17,8 +17,8 @@
  * ```
  */
 
-import type { Runtime } from '@tui/core';
-import { initCore } from '@tui/core';
+import type { Runtime } from '@unblessed/core';
+import { initCore } from '@unblessed/core';
 import fs from 'fs';
 import path from 'path';
 import process from 'process';
@@ -68,5 +68,5 @@ class NodeRuntime implements Runtime {
 
 initCore(new NodeRuntime());
 
-// Re-export all from @tui/core
-export * from '@tui/core';
+// Re-export all from @unblessed/core
+export * from '@unblessed/core';

@@ -97,14 +97,14 @@ When ANY package changes:
 Example:
 ```
 # Before release
-@tui/core@1.0.0
-@tui/node@1.0.0
-@tui/browser@1.0.0
+@unblessed/core@1.0.0
+@unblessed/node@1.0.0
+@unblessed/browser@1.0.0
 
 # After: feat(browser) commit
-@tui/core@1.1.0        ← Bumped even though unchanged
-@tui/node@1.1.0        ← Bumped even though unchanged
-@tui/browser@1.1.0     ← Actually changed
+@unblessed/core@1.1.0        ← Bumped even though unchanged
+@unblessed/node@1.1.0        ← Bumped even though unchanged
+@unblessed/browser@1.1.0     ← Actually changed
 
 # All stay in sync!
 ```
@@ -150,7 +150,7 @@ git commit -m "chore: update docs [skip release]"
 
 View all releases:
 - 📦 [npm packages](https://www.npmjs.com/search?q=%40tui)
-- 🏷️ [GitHub releases](https://github.com/vdeantoni/tui/releases)
+- 🏷️ [GitHub releases](https://github.com/vdeantoni/unblessed/releases)
 - 📝 [CHANGELOG.md](./CHANGELOG.md)
 
 ## Debugging Releases
@@ -158,7 +158,7 @@ View all releases:
 If automation fails:
 
 1. **Check GitHub Actions**
-   - View [release workflow](https://github.com/vdeantoni/tui/actions/workflows/release.yml)
+   - View [release workflow](https://github.com/vdeantoni/unblessed/actions/workflows/release.yml)
    - Look for errors in semantic-release step
 
 2. **Common Issues**
@@ -182,5 +182,5 @@ If automation fails:
 ## Questions?
 
 - 📚 [Semantic Release Docs](https://semantic-release.gitbook.io/)
-- 💬 [GitHub Discussions](https://github.com/vdeantoni/tui/discussions)
-- 🐛 [Report Issues](https://github.com/vdeantoni/tui/issues)
+- 💬 [GitHub Discussions](https://github.com/vdeantoni/unblessed/discussions)
+- 🐛 [Report Issues](https://github.com/vdeantoni/unblessed/issues)

@@ -1,14 +1,14 @@
 /**
- * @tui/blessed - 100% backward compatible blessed API
+ * @unblessed/blessed - 100% backward compatible blessed API
  *
- * This package wraps @tui/node to provide the exact same API as the original
+ * This package wraps @unblessed/node to provide the exact same API as the original
  * blessed library. It's a drop-in replacement for users migrating from blessed.
  */
 
-import * as TuiTypes from '@tui/node';
-export * from '@tui/node';
+import * as TuiTypes from '@unblessed/node';
+export * from '@unblessed/node';
 
-// Runtime auto-initializes when @tui/node is imported
+// Runtime auto-initializes when @unblessed/node is imported
 
 /**
  * WidgetFactory type - matches old blessed pattern
@@ -358,7 +358,7 @@ function createBlessedFunction(): BlessedFunction {
 // Create and export the blessed function
 const blessed = createBlessedFunction();
 
-// Default export (CommonJS: const blessed = require('@tui/blessed'))
+// Default export (CommonJS: const blessed = require('@unblessed/blessed'))
 export default blessed;
 
 // Named exports matching old blessed

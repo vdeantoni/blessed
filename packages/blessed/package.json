@@ -1,6 +1,6 @@
 {
-  "name": "@tui/blessed",
-  "description": "100% backward compatible blessed API wrapper over @tui/node",
+  "name": "@unblessed/blessed",
+  "description": "100% backward compatible blessed API wrapper over @unblessed/node",
   "version": "1.0.0-alpha.1",
   "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
   "license": "MIT",
@@ -28,12 +28,12 @@
   "preferGlobal": false,
   "repository": {
     "type": "git",
-    "url": "git://github.com/vdeantoni/tui.git",
+    "url": "git://github.com/vdeantoni/unblessed.git",
     "directory": "packages/blessed"
   },
-  "homepage": "https://github.com/vdeantoni/tui/tree/master/packages/blessed",
+  "homepage": "https://github.com/vdeantoni/unblessed/tree/master/packages/blessed",
   "bugs": {
-    "url": "https://github.com/vdeantoni/tui/issues"
+    "url": "https://github.com/vdeantoni/unblessed/issues"
   },
   "keywords": [
     "blessed",
@@ -77,8 +77,8 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@tui/core": "workspace:*",
-    "@tui/node": "workspace:*"
+    "@unblessed/core": "workspace:*",
+    "@unblessed/node": "workspace:*"
   },
   "devDependencies": {
     "@types/blessed": "^0.1.25",
@@ -90,6 +90,6 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@tui/node": "workspace:*"
+    "@unblessed/node": "workspace:*"
   }
 }

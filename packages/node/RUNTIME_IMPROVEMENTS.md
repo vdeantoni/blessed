@@ -2,7 +2,7 @@
 
 ## Summary
 
-I've improved the runtime initialization experience for @tui/node to make it as easy as possible for users. The runtime is now **automatically initialized** when you import from the package - no setup required!
+I've improved the runtime initialization experience for @unblessed/node to make it as easy as possible for users. The runtime is now **automatically initialized** when you import from the package - no setup required!
 
 ## Key Changes
 
@@ -22,7 +22,7 @@ This means users can start coding immediately:
 
 ```typescript
 // ✅ Just import and use - runtime auto-initializes
-import { Screen, Box } from '@tui/node';
+import { Screen, Box } from '@unblessed/node';
 
 const screen = new Screen();
 const box = new Box({ screen, content: 'Hello!' });
@@ -67,15 +67,15 @@ Users can now use whichever pattern feels most natural:
 
 ```typescript
 // Pattern 1: Direct widget creation (simplest)
-import { Screen, Box } from '@tui/node';
+import { Screen, Box } from '@unblessed/node';
 const screen = new Screen();
 
 // Pattern 2: Using createScreen() helper (recommended)
-import { createScreen } from '@tui/node';
+import { createScreen } from '@unblessed/node';
 const screen = createScreen();
 
 // Pattern 3: Manual runtime (for advanced users)
-import { getNodeRuntime, Screen } from '@tui/node';
+import { getNodeRuntime, Screen } from '@unblessed/node';
 const runtime = getNodeRuntime();
 const screen = new Screen();
 ```
@@ -150,7 +150,7 @@ pnpm example:dashboard
 
 **Before:**
 ```typescript
-import { setRuntime, NodeRuntime, Screen } from '@tui/node';
+import { setRuntime, NodeRuntime, Screen } from '@unblessed/node';
 
 const runtime = new NodeRuntime();
 setRuntime(runtime);
@@ -160,7 +160,7 @@ const screen = new Screen();
 
 **After:**
 ```typescript
-import { Screen } from '@tui/node';
+import { Screen } from '@unblessed/node';
 
 const screen = new Screen(); // Runtime auto-initialized!
 ```
@@ -170,7 +170,7 @@ const screen = new Screen(); // Runtime auto-initialized!
 No changes needed - `createScreen()` still works and is still recommended:
 
 ```typescript
-import { createScreen } from '@tui/node';
+import { createScreen } from '@unblessed/node';
 
 const screen = createScreen(); // Still works!
 ```
@@ -189,7 +189,7 @@ Tests are unaffected because:
 setRuntime(createMockRuntime()); // Sets runtime first
 
 // In test file
-import { Screen } from '@tui/node'; // getNodeRuntime() sees existing runtime
+import { Screen } from '@unblessed/node'; // getNodeRuntime() sees existing runtime
 const screen = new Screen();        // Uses test runtime
 ```
 
@@ -211,6 +211,6 @@ Potential improvements:
 
 ## Conclusion
 
-The runtime initialization is now **invisible** to users - they can focus on building their TUI apps without worrying about setup. The examples demonstrate that @tui/node is as simple to use as any other UI library while maintaining the flexibility of the runtime abstraction pattern.
+The runtime initialization is now **invisible** to users - they can focus on building their TUI apps without worrying about setup. The examples demonstrate that @unblessed/node is as simple to use as any other UI library while maintaining the flexibility of the runtime abstraction pattern.
 
 This achieves the goal of making the library **as easy as possible** for users while keeping the powerful architecture intact.

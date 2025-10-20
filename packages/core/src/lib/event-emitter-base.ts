@@ -4,10 +4,10 @@
  * Provides EventEmitter functionality without Node.js dependencies
  * by delegating to runtime-provided EventEmitter implementation.
  *
- * This allows @tuxe/core to remain platform-agnostic while providing
+ * This allows @unblessed/core to remain platform-agnostic while providing
  * full EventEmitter functionality. The actual EventEmitter comes from:
- * - @tuxe/node: Node.js events.EventEmitter
- * - @tuxe/browser: EventEmitter polyfill (e.g., eventemitter3)
+ * - @unblessed/node: Node.js events.EventEmitter
+ * - @unblessed/browser: EventEmitter polyfill (e.g., eventemitter3)
  */
 
 import { getRuntime, type EventEmitterType } from './runtime-helpers.js';

@@ -1,8 +1,8 @@
 /**
  * Type Compatibility Test
  *
- * This test verifies that @tui/blessed is 100% type-compatible with @types/blessed.
- * It ensures that code written for the original blessed library will work with @tui/blessed
+ * This test verifies that @unblessed/blessed is 100% type-compatible with @types/blessed.
+ * It ensures that code written for the original blessed library will work with @unblessed/blessed
  * without any TypeScript errors.
  *
  * Note: We use type-only imports from 'blessed' since we only have @types/blessed installed,

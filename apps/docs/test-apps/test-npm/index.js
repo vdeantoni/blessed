@@ -3,18 +3,18 @@
 /**
  * Test blessed from npm registry
  *
- * This app installs @tui/blessed@alpha from npm and tests:
+ * This app installs @unblessed/blessed@alpha from npm and tests:
  * - Package installation works
  * - Basic blessed functionality
  * - Screen rendering
  * - Keyboard input
  */
 
-const blessed = require('@tui/blessed');
+const blessed = require('@unblessed/blessed');
 const path = require('path');
 
 // Verify we're loading from node_modules
-const blessedPath = require.resolve('@tui/blessed');
+const blessedPath = require.resolve('@unblessed/blessed');
 console.log('✅ blessed loaded from npm');
 console.log('📦 Location:', blessedPath);
 console.log('');
@@ -55,7 +55,7 @@ const content = [
   '',
   '{green-fg}✅ Package installed successfully!{/green-fg}',
   '',
-  '{cyan-fg}Package:{/cyan-fg} @tui/blessed@1.0.0-alpha.1',
+  '{cyan-fg}Package:{/cyan-fg} @unblessed/blessed@1.0.0-alpha.1',
   '{cyan-fg}Source:{/cyan-fg} ' + blessedPath,
   '',
   '{yellow-fg}Test Results:{/yellow-fg}',

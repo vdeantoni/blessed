@@ -1,10 +1,10 @@
-# Claude Context for @tui/core
+# Claude Context for @unblessed/core
 
-This document provides architectural context and development guidelines for working on the `@tui/core` package.
+This document provides architectural context and development guidelines for working on the `@unblessed/core` package.
 
 ## Overview
 
-`@tui/core` is the **platform-agnostic core** of the Tui terminal UI library. It contains all widget logic, rendering code, and terminal control primitives while having **zero dependencies** on any specific platform (Node.js, browser, etc.).
+`@unblessed/core` is the **platform-agnostic core** of the Tui terminal UI library. It contains all widget logic, rendering code, and terminal control primitives while having **zero dependencies** on any specific platform (Node.js, browser, etc.).
 
 **Key Principles:**
 - Platform-agnostic design via runtime dependency injection
@@ -69,7 +69,7 @@ export function getRuntime(): Runtime {
 ```
 
 **Initialization:**
-- Platform packages (@tui/node, @tui/browser) call `setRuntime()` at startup
+- Platform packages (@unblessed/node, @unblessed/browser) call `setRuntime()` at startup
 - Core code accesses runtime via `getRuntime()`
 - One runtime per process (Node.js) or browser tab
 
@@ -310,7 +310,7 @@ if (!condition) {
 
 **Problem**: Different platforms have different requirements and dependencies.
 
-**Solution**: Core package has zero dependencies, adapter packages (`@tui/node`, `@tui/browser`) provide implementations.
+**Solution**: Core package has zero dependencies, adapter packages (`@unblessed/node`, `@unblessed/browser`) provide implementations.
 
 **Benefits**:
 - Users only install what they need
@@ -559,12 +559,12 @@ If migrating from blessed:
 
 1. **Install runtime adapter**:
    ```bash
-   npm install @tui/node
+   npm install @unblessed/node
    ```
 
 2. **Initialize runtime**:
    ```typescript
-   import { createNodeRuntime } from '@tui/node';
+   import { createNodeRuntime } from '@unblessed/node';
    createNodeRuntime();
    ```
 
@@ -574,7 +574,7 @@ If migrating from blessed:
    import blessed from 'blessed';
 
    // After
-   import { Screen, Box, List } from '@tui/core';
+   import { Screen, Box, List } from '@unblessed/core';
    ```
 
 4. **API is mostly compatible** - Most blessed code should work with minimal changes
@@ -605,4 +605,4 @@ Potential areas for improvement:
 - Check the test suite for usage examples
 - Review widget implementations for patterns
 - Read the original blessed documentation (most concepts apply)
-- Look at platform adapter implementations (`@tui/node`, `@tui/browser`)
+- Look at platform adapter implementations (`@unblessed/node`, `@unblessed/browser`)

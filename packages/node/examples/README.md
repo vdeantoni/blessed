@@ -1,6 +1,6 @@
-# @tui/node Examples
+# @unblessed/node Examples
 
-Simple examples demonstrating how to use @tui/node.
+Simple examples demonstrating how to use @unblessed/node.
 
 ## Prerequisites
 
@@ -8,7 +8,7 @@ Simple examples demonstrating how to use @tui/node.
 # Install dependencies from the monorepo root
 pnpm install
 
-# Build @tui/core and @tui/node
+# Build @unblessed/core and @unblessed/node
 pnpm build
 ```
 
@@ -67,7 +67,7 @@ A more complex example showing a dashboard layout with multiple widgets.
 All examples follow this pattern:
 
 ```typescript
-import { Screen, Box } from '@tui/node';
+import { Screen, Box } from '@unblessed/node';
 
 // 1. Create screen (runtime auto-initializes on import)
 const screen = new Screen({
@@ -94,10 +94,10 @@ screen.render();
 
 ### Automatic Runtime Initialization
 
-The runtime initializes automatically when you import from `@tui/node`. Just import and use:
+The runtime initializes automatically when you import from `@unblessed/node`. Just import and use:
 
 ```typescript
-import { Screen, Box } from '@tui/node';
+import { Screen, Box } from '@unblessed/node';
 
 // That's it! Runtime is ready. Just use the widgets:
 const screen = new Screen();
@@ -173,5 +173,5 @@ button.key('enter', () => {
 ## Next Steps
 
 - Check the [API documentation](../README.md) for all available widgets
-- Explore widget options in [@tui/core types](../../core/src/types/options.ts)
+- Explore widget options in [@unblessed/core types](../../core/src/types/options.ts)
 - Look at the test suite for more usage examples

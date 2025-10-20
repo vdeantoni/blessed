@@ -3,11 +3,11 @@
  *
  * This module sets up the browser environment with:
  * 1. Node.js polyfills (process, Buffer, etc.)
- * 2. @tui/core Runtime implementation for browser
+ * 2. @unblessed/core Runtime implementation for browser
  * 3. Global references
  */
 
-import { initCore } from '@tui/core';
+import { initCore } from '@unblessed/core';
 import { Buffer } from 'buffer';
 import { BrowserRuntime } from './browser-runtime.js';
 

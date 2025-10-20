@@ -15,14 +15,14 @@ This makes them impossible to run in browsers or other JavaScript environments.
 We abstract ALL platform operations behind interfaces that can be implemented differently for each platform:
 
 ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
-│  @tui/core  │────▶│   Runtime    │◀────│   Platform   │
+│  @unblessed/core  │────▶│   Runtime    │◀────│   Platform   │
 │  (widgets)   │     │  (interface) │     │ (Node/Browser)│
 └──────────────┘     └──────────────┘     └──────────────┘
 
   ---
 📦 The Three Layers
 
-Layer 1: Runtime Interface (@tui/core/src/runtime.ts)
+Layer 1: Runtime Interface (@unblessed/core/src/runtime.ts)
 
 Defines what a runtime MUST provide:
 
@@ -53,7 +53,7 @@ Why grouped?
 - Optional: Used by SPECIFIC widgets (images, terminal, GPM)
 
   ---
-Layer 2: Runtime Context (@tui/core/src/runtime-context.ts)
+Layer 2: Runtime Context (@unblessed/core/src/runtime-context.ts)
 
 A global singleton that holds the current runtime:
 
@@ -85,7 +85,7 @@ Key behaviors:
   ---
 Layer 3: Platform Implementations
 
-A. @tui/node - Node.js Runtime
+A. @unblessed/node - Node.js Runtime
 
 Simply wraps real Node.js modules:
 
@@ -129,7 +129,7 @@ Key points:
 - Singleton pattern
 
   ---
-B. @tui/browser - Browser Runtime
+B. @unblessed/browser - Browser Runtime
 
 Provides polyfills and stubs:
 
@@ -229,18 +229,18 @@ Why:
 Initialization Flow
 
 Node.js App:
-1. import { getNodeRuntime } from '@tui/node'
+1. import { getNodeRuntime } from '@unblessed/node'
 2. getNodeRuntime()  // Creates NodeRuntime, calls setRuntime()
-3. import { Screen, Box } from '@tui/core'
+3. import { Screen, Box } from '@unblessed/core'
 4. new Screen()  // Internally calls getRuntime() → gets NodeRuntime
 5. ✅ Works with real fs, process, etc.
 
 Browser App:
-1. import '@tui/browser'  // Auto-runs at module load!
+1. import '@unblessed/browser'  // Auto-runs at module load!
    a. Sets up global polyfills (process, Buffer)
    b. Creates BrowserRuntime
    c. Calls setRuntime()
-2. import { Screen, Box } from '@tui/core'
+2. import { Screen, Box } from '@unblessed/core'
 3. new Screen()  // Internally calls getRuntime() → gets BrowserRuntime
 4. ✅ Works with polyfills/stubs
 
@@ -371,11 +371,11 @@ Trade-offs:
 
 The runtime system is a dependency injection pattern where:
 
-1. @tui/core/src/runtime.ts defines interfaces (what platforms must provide)
-2. @tui/core/src/runtime-context.ts holds global singleton (getRuntime/setRuntime)
+1. @unblessed/core/src/runtime.ts defines interfaces (what platforms must provide)
+2. @unblessed/core/src/runtime-context.ts holds global singleton (getRuntime/setRuntime)
 3. Platform packages implement Runtime interface:
-   - @tui/node → Real Node.js APIs
-   - @tui/browser → Polyfills + stubs
+   - @unblessed/node → Real Node.js APIs
+   - @unblessed/browser → Polyfills + stubs
    - tests → Real Node.js for testing
 4. Core code uses getRuntime() everywhere (never direct imports)
 5. Optional features use type-safe detection

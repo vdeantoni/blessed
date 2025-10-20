@@ -28,10 +28,10 @@ export default {
 
     // Valid scopes (optional but recommended)
     'scope-enum': [1, 'always', [
-      'core',     // @tui/core
-      'node',     // @tui/node
-      'blessed',  // @tui/blessed
-      'browser',  // @tui/browser
+      'core',     // @unblessed/core
+      'node',     // @unblessed/node
+      'blessed',  // @unblessed/blessed
+      'browser',  // @unblessed/browser
       'deps',     // Dependency updates
       'release',  // Release-related
       'ci',       // CI/CD

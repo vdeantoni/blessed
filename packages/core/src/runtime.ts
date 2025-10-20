@@ -1,12 +1,12 @@
 /**
- * Runtime abstraction layer for @tui/core
+ * Runtime abstraction layer for @unblessed/core
  *
  * This module defines the Runtime interface that all platform adapters must implement.
- * It abstracts Node.js-specific APIs so that @tui/core remains platform-agnostic.
+ * It abstracts Node.js-specific APIs so that @unblessed/core remains platform-agnostic.
  *
  * Platform adapters:
- * - @tui/node: Wraps Node.js fs, path, process, child_process, tty, etc.
- * - @tui/browser: Provides browser polyfills for these APIs
+ * - @unblessed/node: Wraps Node.js fs, path, process, child_process, tty, etc.
+ * - @unblessed/browser: Provides browser polyfills for these APIs
  */
 
 // Type-only imports from @types/node
@@ -24,7 +24,7 @@ import type EventEmitter from 'events';
 
 /**
  * Complete runtime abstraction interface
- * All @tui/core modules accept this interface for platform operations
+ * All @unblessed/core modules accept this interface for platform operations
  *
  * Core APIs (always required):
  * - fs, path, process, buffer, url, utils

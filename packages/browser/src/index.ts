@@ -1,12 +1,12 @@
 /**
- * @tui/browser - Browser runtime for Tui
+ * @unblessed/browser - Browser runtime for Tui
  *
- * Provides browser-compatible runtime for @tui/core with XTerm.js integration.
+ * Provides browser-compatible runtime for @unblessed/core with XTerm.js integration.
  *
  * ## Usage
  *
  * ```typescript
- * import { Screen, Box } from '@tui/browser';
+ * import { Screen, Box } from '@unblessed/browser';
  * import { Terminal } from 'xterm';
  *
  * const term = new Terminal();
@@ -19,11 +19,11 @@
  * ```
  */
 
-// Initialize runtime BEFORE importing @tui/core (critical!)
+// Initialize runtime BEFORE importing @unblessed/core (critical!)
 import './runtime/auto-init.js';
 
 // Re-export everything from core EXCEPT Screen
-export * from '@tui/core';
+export * from '@unblessed/core';
 
 // Export browser-specific Screen (overrides core Screen)
 export { Screen } from './screen.js';

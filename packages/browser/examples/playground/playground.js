@@ -1,6 +1,6 @@
 /**
  * Tui Playground
- * Interactive code execution environment for @tui/browser
+ * Interactive code execution environment for @unblessed/browser
  */
 
 import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';

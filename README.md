@@ -22,29 +22,29 @@
 
 The tui project is organized as a monorepo with four main packages:
 
-### [@tui/core](packages/core)
+### [@unblessed/core](packages/core)
 
 Platform-agnostic core library with all widget logic, rendering, and events.
 
 ```bash
-npm install @tui/core
+npm install @unblessed/core
 ```
 
 **Use when:** Building custom runtime adapters or need platform-agnostic code.
 
-### [@tui/node](packages/node)
+### [@unblessed/node](packages/node)
 
 Modern Node.js runtime with clean, class-based API.
 
 ```bash
-npm install @tui/node
+npm install @unblessed/node
 ```
 
 **Use when:** Building new Node.js terminal applications (recommended).
 
 **Example:**
 ```typescript
-import { Screen, Box } from '@tui/node';
+import { Screen, Box } from '@unblessed/node';
 
 const screen = new Screen({ smartCSR: true });
 
@@ -67,12 +67,12 @@ screen.key(['escape', 'q'], () => process.exit(0));
 screen.render();
 ```
 
-### [@tui/browser](packages/browser)
+### [@unblessed/browser](packages/browser)
 
 Browser runtime with XTerm.js integration for web-based terminals.
 
 ```bash
-npm install @tui/browser xterm
+npm install @unblessed/browser xterm
 ```
 
 **Use when:** Building terminal UIs in the browser.
@@ -80,7 +80,7 @@ npm install @tui/browser xterm
 **Example:**
 ```typescript
 import { Terminal } from 'xterm';
-import { Screen, Box } from '@tui/browser';
+import { Screen, Box } from '@unblessed/browser';
 
 const term = new Terminal();
 term.open(document.getElementById('terminal'));
@@ -98,19 +98,19 @@ screen.render();
 
 [Try the interactive playground →](packages/browser)
 
-### [@tui/blessed](packages/blessed)
+### [@unblessed/blessed](packages/blessed)
 
 100% backward-compatible blessed API for seamless migration.
 
 ```bash
-npm install @tui/blessed
+npm install @unblessed/blessed
 ```
 
 **Use when:** Migrating from blessed or need exact API compatibility.
 
 **Example:**
 ```javascript
-const blessed = require('@tui/blessed');
+const blessed = require('@unblessed/blessed');
 
 const screen = blessed.screen({ smartCSR: true });
 const box = blessed.box({
@@ -125,14 +125,14 @@ screen.render();
 
 ### For New Projects
 
-Start with **@tui/node** for the best experience:
+Start with **@unblessed/node** for the best experience:
 
 ```bash
-npm install @tui/node
+npm install @unblessed/node
 ```
 
 ```typescript
-import { Screen, Box, List } from '@tui/node';
+import { Screen, Box, List } from '@unblessed/node';
 
 const screen = new Screen({
   smartCSR: true,
@@ -161,15 +161,15 @@ screen.render();
 
 ### For Existing Blessed Projects
 
-Migrate seamlessly with **@tui/blessed**:
+Migrate seamlessly with **@unblessed/blessed**:
 
 ```bash
-npm install @tui/blessed
+npm install @unblessed/blessed
 ```
 
 ```diff
 - const blessed = require('blessed');
-+ const blessed = require('@tui/blessed');
++ const blessed = require('@unblessed/blessed');
 ```
 
 That's it! Your code should work without any other changes.
@@ -180,7 +180,7 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 ```
 ┌─────────────────────────────────────────┐
-│           @tui/core (Platform Agnostic)  │
+│           @unblessed/core (Platform Agnostic)  │
 │  • All widget logic                      │
 │  • Rendering engine                      │
 │  • Event handling                        │
@@ -189,7 +189,7 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
          ┌────────┴────────┐
          ▼                 ▼
 ┌─────────────────┐ ┌─────────────────┐
-│   @tui/node     │ │  @tui/browser   │
+│   @unblessed/node     │ │  @unblessed/browser   │
 │ • NodeRuntime   │ │ • BrowserRuntime│
 │ • Native fs/tty │ │ • XTerm.js      │
 │ • Process APIs  │ │ • Polyfills     │
@@ -198,7 +198,7 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
          └────────┬────────┘
                   ▼
          ┌─────────────────┐
-         │  @tui/blessed   │
+         │  @unblessed/blessed   │
          │  (Compatibility)│
          └─────────────────┘
 ```
@@ -212,11 +212,11 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 ### Package Documentation
 
-- [@tui/core](packages/core/README.md) - Core library documentation
-- [@tui/node](packages/node/README.md) - Node.js runtime documentation
-- [@tui/browser](packages/browser/README.md) - Browser runtime documentation
-- [@tui/blessed](packages/blessed/README.md) - Blessed compatibility guide
-- [@tui/blessed Guide](packages/blessed/BLESSED_GUIDE.md) - Complete blessed API reference
+- [@unblessed/core](packages/core/README.md) - Core library documentation
+- [@unblessed/node](packages/node/README.md) - Node.js runtime documentation
+- [@unblessed/browser](packages/browser/README.md) - Browser runtime documentation
+- [@unblessed/blessed](packages/blessed/README.md) - Blessed compatibility guide
+- [@unblessed/blessed Guide](packages/blessed/BLESSED_GUIDE.md) - Complete blessed API reference
 
 ## 🎯 Project Status
 
@@ -234,7 +234,7 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 ### 🚧 In Progress
 
-- @tui/blessed integration tests
+- @unblessed/blessed integration tests
 - Migration guide and examples
 - Alpha release to npm
 
@@ -280,7 +280,7 @@ tui includes 27+ widgets for building rich terminal UIs:
 
 ```bash
 # Clone the repository
-git clone https://github.com/vdeantoni/tui.git
+git clone https://github.com/vdeantoni/unblessed.git
 cd tui
 
 # Install dependencies
@@ -293,9 +293,9 @@ pnpm build
 pnpm test
 
 # Run specific package tests
-pnpm --filter @tui/core test
-pnpm --filter @tui/node test
-pnpm --filter @tui/browser test
+pnpm --filter @unblessed/core test
+pnpm --filter @unblessed/node test
+pnpm --filter @unblessed/browser test
 ```
 
 ### Monorepo Commands
@@ -339,10 +339,10 @@ Based on the original [blessed](https://github.com/chjj/blessed) library by Chri
 
 ## 🔗 Links
 
-- [GitHub Repository](https://github.com/vdeantoni/tui)
-- [npm: @tui/node](https://www.npmjs.com/package/@tui/node)
-- [npm: @tui/browser](https://www.npmjs.com/package/@tui/browser)
-- [npm: @tui/blessed](https://www.npmjs.com/package/@tui/blessed)
+- [GitHub Repository](https://github.com/vdeantoni/unblessed)
+- [npm: @unblessed/node](https://www.npmjs.com/package/@unblessed/node)
+- [npm: @unblessed/browser](https://www.npmjs.com/package/@unblessed/browser)
+- [npm: @unblessed/blessed](https://www.npmjs.com/package/@unblessed/blessed)
 - [Original blessed](https://github.com/chjj/blessed)
 
 ---

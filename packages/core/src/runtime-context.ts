@@ -1,5 +1,5 @@
 /**
- * runtime-context.ts - Global runtime context for @tui/core
+ * runtime-context.ts - Global runtime context for @unblessed/core
  *
  * Provides global access to the platform Runtime.
  * Runtime is stateless (just platform APIs), so safe to share globally.
@@ -17,19 +17,19 @@ export * from './runtime.js';
 let runtime: Runtime | null = null;
 
 /**
- * Initialize @tui/core with a platform runtime
+ * Initialize @unblessed/core with a platform runtime
  *
  * This is the primary API for platform packages to set up the runtime.
  * End users should call platform-specific init functions instead:
- * - @tui/node: `initNode()`
- * - @tui/browser: `initBrowser()`
+ * - @unblessed/node: `initNode()`
+ * - @unblessed/browser: `initBrowser()`
  *
  * @param rt - Platform runtime implementation (NodeRuntime, BrowserRuntime, etc.)
  *
  * @example
  * ```typescript
  * // Platform package (internal use)
- * import { initCore } from '@tui/core';
+ * import { initCore } from '@unblessed/core';
  * import { NodeRuntime } from './runtime.js';
  *
  * export function initNode() {
@@ -71,9 +71,9 @@ export function getRuntime(): Runtime {
   if (!runtime) {
     throw new Error(
       'Runtime not initialized. ' +
-      'Call initNode() from @tui/node or initBrowser() from @tui/browser first.\n\n' +
+      'Call initNode() from @unblessed/node or initBrowser() from @unblessed/browser first.\n\n' +
       'Example:\n' +
-      '  import { initNode, Screen } from \'@tui/node\';\n' +
+      '  import { initNode, Screen } from \'@unblessed/node\';\n' +
       '  initNode();\n' +
       '  const screen = new Screen();'
     );

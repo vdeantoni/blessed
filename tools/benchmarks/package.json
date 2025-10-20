@@ -9,6 +9,6 @@
     "clean": "rimraf results"
   },
   "dependencies": {
-    "@tui/blessed": "workspace:*"
+    "@unblessed/blessed": "workspace:*"
   }
 }

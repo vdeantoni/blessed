@@ -1,15 +1,15 @@
-# Claude Context for @tui/browser
+# Claude Context for @unblessed/browser
 
-This document provides architectural context and development guidelines for the `@tui/browser` package.
+This document provides architectural context and development guidelines for the `@unblessed/browser` package.
 
 ## Overview
 
-`@tui/browser` is a **browser runtime adapter** that enables @tui/core TUI applications to run in web browsers. It provides:
+`@unblessed/browser` is a **browser runtime adapter** that enables @unblessed/core TUI applications to run in web browsers. It provides:
 
 - Browser-compatible implementations of Node.js APIs
 - XTerm.js integration for terminal rendering
 - Automatic polyfill setup (process, Buffer, fs, path, etc.)
-- Full widget support - all @tui/core widgets work unchanged
+- Full widget support - all @unblessed/core widgets work unchanged
 
 **Status:** ✅ **Fully functional** - All tests passing, dev server running
 
@@ -17,7 +17,7 @@ This document provides architectural context and development guidelines for the 
 
 ### Core Principle: Browser Compatibility Layer
 
-`@tui/browser` bridges `@tui/core` (platform-agnostic) to the browser environment by:
+`@unblessed/browser` bridges `@unblessed/core` (platform-agnostic) to the browser environment by:
 
 1. **Providing BrowserRuntime** - Implements the Runtime interface with browser polyfills
 2. **XTermAdapter** - Bridges Program API to xterm.js Terminal
@@ -46,7 +46,7 @@ This document provides architectural context and development guidelines for the 
 
 **Index** (`src/index.ts`)
 - Entry point with runtime initialization
-- Re-exports all @tui/core widgets
+- Re-exports all @unblessed/core widgets
 - Exports browser-specific Screen and XTermAdapter
 
 **Vite Plugin** (`src/vite-plugin/index.ts`)
@@ -84,11 +84,11 @@ This document provides architectural context and development guidelines for the 
 
 ### Critical: Auto Initialization
 
-The runtime MUST be initialized **before** any @tui/core modules load:
+The runtime MUST be initialized **before** any @unblessed/core modules load:
 
 ```typescript
 // src/runtime/auto-init.ts
-import { setRuntime } from '@tui/core';
+import { setRuntime } from '@unblessed/core';
 
 // Create BrowserRuntime with polyfills
 const runtime = new BrowserRuntime();
@@ -97,7 +97,7 @@ setRuntime(runtime);  // Register globally
 console.log('[tui-browser] Runtime initialized');
 ```
 
-**Why?** When `export * from '@tui/core'` executes in index.ts, widget modules load and some access `getRuntime()` during initialization. Without prior setup, you get "Runtime not initialized" errors.
+**Why?** When `export * from '@unblessed/core'` executes in index.ts, widget modules load and some access `getRuntime()` during initialization. Without prior setup, you get "Runtime not initialized" errors.
 
 ## Global Polyfills
 
@@ -159,7 +159,7 @@ this.util = browserUtil as Runtime['util'];
 
 ### XTermAdapter
 
-Implements a minimal Program-like interface for @tui/core:
+Implements a minimal Program-like interface for @unblessed/core:
 
 ```typescript
 export class XTermAdapter extends EventEmitter {
@@ -203,9 +203,9 @@ function encodeMouseEvent(e: MouseEvent, action: string): string {
 The browser can't access real files, so we bundle necessary data:
 
 ```typescript
-import xtermData from '@tui/core/data/terminfo/xterm-256color.json';
-import terU14n from '@tui/core/data/fonts/ter-u14n.json';
-import terU14b from '@tui/core/data/fonts/ter-u14b.json';
+import xtermData from '@unblessed/core/data/terminfo/xterm-256color.json';
+import terU14n from '@unblessed/core/data/fonts/ter-u14n.json';
+import terU14b from '@unblessed/core/data/fonts/ter-u14b.json';
 
 // In BrowserRuntime
 this.fs = {
@@ -242,7 +242,7 @@ this.fs = {
 
 **Cause:** Runtime accessed before auto-initialization completes.
 
-**Solution:** Runtime auto-initializes when you import from `@tui/browser`. Ensure you import from `@tui/browser` (not `@tui/core` directly) at the entry point of your application.
+**Solution:** Runtime auto-initializes when you import from `@unblessed/browser`. Ensure you import from `@unblessed/browser` (not `@unblessed/core` directly) at the entry point of your application.
 
 ### Issue: "process is not defined"
 
@@ -282,9 +282,9 @@ globalThis.Buffer = Buffer;      // Executes SECOND
 
 ### Adding New Runtime APIs
 
-If @tui/core needs a new Node.js API:
+If @unblessed/core needs a new Node.js API:
 
-1. **Add to Runtime interface** in @tui/core:
+1. **Add to Runtime interface** in @unblessed/core:
 ```typescript
 export interface Runtime {
   // ... existing
@@ -425,7 +425,7 @@ Reusable test utilities:
 
 ### Architecture Considerations
 
-- Keep runtime adapter thin - complex logic in @tui/core
+- Keep runtime adapter thin - complex logic in @unblessed/core
 - Minimize browser-specific code
 - Test in multiple browsers (not just Chrome)
 - Consider bundle size impact of new features
@@ -445,7 +445,7 @@ const screen = new Screen({
 ### Inspect Runtime State
 
 ```typescript
-import { getRuntime } from '@tui/core';
+import { getRuntime } from '@unblessed/core';
 
 const runtime = getRuntime();
 console.log('Platform:', runtime.process.platform);
@@ -489,13 +489,13 @@ console.log('FS methods:', Object.keys(runtime.fs));
 - [Node.js Process API](https://nodejs.org/api/process.html)
 - [Buffer polyfill](https://github.com/feross/buffer)
 - [path-browserify](https://github.com/browserify/path-browserify)
-- [@tui/core CLAUDE.md](../core/CLAUDE.md)
+- [@unblessed/core CLAUDE.md](../core/CLAUDE.md)
 
 ## Getting Help
 
 When debugging issues:
 
-1. Check if @tui/browser is imported (runtime auto-initializes on import)
+1. Check if @unblessed/browser is imported (runtime auto-initializes on import)
 2. Verify global polyfills are set (`process`, `Buffer`)
 3. Look for ESM hoisting issues (imports before polyfills)
 4. Test in a clean browser profile (disable extensions)
@@ -503,12 +503,12 @@ When debugging issues:
 
 ## Summary
 
-The key to @tui/browser is understanding the **initialization order**:
+The key to @unblessed/browser is understanding the **initialization order**:
 
 1. Global polyfills set up (process, Buffer)
 2. Runtime created and registered
-3. @tui/core modules loaded
+3. @unblessed/core modules loaded
 4. XTerm adapter bridges to browser
 5. Widgets work unchanged!
 
-Always remember: **Runtime MUST be ready BEFORE any @tui/core module tries to use it.**
+Always remember: **Runtime MUST be ready BEFORE any @unblessed/core module tries to use it.**

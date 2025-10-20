@@ -1,6 +1,6 @@
-# @tui/blessed - Backward Compatible Blessed API
+# @unblessed/blessed - Backward Compatible Blessed API
 
-This package provides 100% backward compatibility with the original [blessed](https://github.com/chjj/blessed) library. It's a thin wrapper over `@tui/node` that matches the exact API structure of blessed, making it a true drop-in replacement.
+This package provides 100% backward compatibility with the original [blessed](https://github.com/chjj/blessed) library. It's a thin wrapper over `@unblessed/node` that matches the exact API structure of blessed, making it a true drop-in replacement.
 
 ## Purpose
 
@@ -11,23 +11,23 @@ const blessed = require('blessed');
 const screen = blessed.screen();
 const box = blessed.box({ parent: screen, content: 'Hello' });
 
-// After: @tui/blessed (exact same code works!)
-const blessed = require('@tui/blessed');
+// After: @unblessed/blessed (exact same code works!)
+const blessed = require('@unblessed/blessed');
 const screen = blessed.screen();
 const box = blessed.box({ parent: screen, content: 'Hello' });
 ```
 
 **For new projects:**
-We recommend using `@tui/node` directly with its modern class-based API instead of this compatibility layer.
+We recommend using `@unblessed/node` directly with its modern class-based API instead of this compatibility layer.
 
 ## Architecture
 
 ```
-@tui/blessed
+@unblessed/blessed
     ↓ (thin wrapper)
-@tui/node
+@unblessed/node
     ↓ (platform adapter)
-@tui/core
+@unblessed/core
 ```
 
 ### Wrapper Strategy
@@ -84,7 +84,7 @@ const box: blessed.Widgets.BoxElement = blessed.box({ ... });
 const options: blessed.Widgets.BoxOptions = { ... };
 ```
 
-Our `Widgets` namespace provides type aliases that map to @tui/core types, ensuring TypeScript compatibility.
+Our `Widgets` namespace provides type aliases that map to @unblessed/core types, ensuring TypeScript compatibility.
 
 ## API Coverage
 
@@ -128,7 +128,7 @@ All 27 widget types from original blessed:
 Each widget is available in multiple ways for compatibility:
 
 ```javascript
-const blessed = require('@tui/blessed');
+const blessed = require('@unblessed/blessed');
 
 // 1. Via blessed object (lowercase)
 const box1 = blessed.box({ ... });
@@ -137,11 +137,11 @@ const box1 = blessed.box({ ... });
 const box2 = blessed.Box({ ... });
 
 // 3. Via named import (lowercase)
-const { box } = require('@tui/blessed');
+const { box } = require('@unblessed/blessed');
 const box3 = box({ ... });
 
 // 4. Via named import (PascalCase)
-const { Box } = require('@tui/blessed');
+const { Box } = require('@unblessed/blessed');
 const box4 = Box({ ... });
 
 // 5. Via class constructor
@@ -161,7 +161,7 @@ export default defineConfig({
     tput: 'bin/tput.ts',      // CLI tool
   },
   format: ['cjs', 'esm'],
-  external: ['@tui/node'],   // Don't bundle, use as peer dep
+  external: ['@unblessed/node'],   // Don't bundle, use as peer dep
   onSuccess: async () => {
     // Copy terminfo/font data for CLI tool
     await cp('../core/data', 'dist/usr', { recursive: true });
@@ -183,7 +183,7 @@ export default defineConfig({
 
 ```json
 {
-  "name": "@tui/blessed",
+  "name": "@unblessed/blessed",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -225,14 +225,14 @@ We use type-only imports from `@types/blessed` to verify compile-time type compa
 
 ```typescript
 import type * as BlessedOriginal from 'blessed';
-import * as BlessedTui from '@tui/blessed';
+import * as BlessedTui from '@unblessed/blessed';
 
 // Verify types are compatible
 expectTypeOf(BlessedTui.box()).toMatchTypeOf<ReturnType<typeof BlessedOriginal.box>>();
 expectTypeOf(BlessedTui.screen()).toMatchTypeOf<BlessedOriginal.Widgets.Screen>();
 ```
 
-This ensures that any code written for `@types/blessed` will work with `@tui/blessed` without TypeScript errors.
+This ensures that any code written for `@types/blessed` will work with `@unblessed/blessed` without TypeScript errors.
 
 ## What's Complete
 
@@ -249,11 +249,11 @@ This ensures that any code written for `@types/blessed` will work with `@tui/ble
 ## What's Pending
 
 - ⚠️ **Integration tests** - Test with real blessed examples from the wild
-- ⚠️ **Examples** - Migration examples showing blessed → @tui/blessed
+- ⚠️ **Examples** - Migration examples showing blessed → @unblessed/blessed
 - ⚠️ **CLI tests** - Test the tput binary
 - 📝 **Migration guide** - Document any subtle differences
 - 📝 **Changelog** - Track any breaking changes vs original blessed
-- 📝 **Publishing** - Publish to npm as @tui/blessed
+- 📝 **Publishing** - Publish to npm as @unblessed/blessed
 
 ## Known Differences
 
@@ -262,8 +262,8 @@ This ensures that any code written for `@types/blessed` will work with `@tui/ble
 **Original blessed:**
 No explicit initialization, runtime is set up via direct Node.js imports.
 
-**@tui/blessed:**
-Runtime auto-initializes when you import the package (via @tui/node). This is transparent to users but worth noting.
+**@unblessed/blessed:**
+Runtime auto-initializes when you import the package (via @unblessed/node). This is transparent to users but worth noting.
 
 ### Widget Attachment
 
@@ -276,7 +276,7 @@ const box = blessed.box({ screen: screen, ... });
 const box = blessed.box({ parent: screen, ... });
 ```
 
-**@tui/blessed:**
+**@unblessed/blessed:**
 Only `parent:` property works. The `screen` property is ignored. This matches blessed's recommended pattern and simplifies the API.
 
 ## Development
@@ -303,7 +303,7 @@ pnpm test:watch
 ### CommonJS (Classic Blessed Style)
 
 ```javascript
-const blessed = require('@tui/blessed');
+const blessed = require('@unblessed/blessed');
 
 const screen = blessed.screen({
   smartCSR: true
@@ -332,7 +332,7 @@ screen.render();
 ### ESM (Modern Style)
 
 ```javascript
-import blessed from '@tui/blessed';
+import blessed from '@unblessed/blessed';
 
 const screen = blessed.screen({ smartCSR: true });
 const box = blessed.box({
@@ -347,8 +347,8 @@ screen.render();
 ### TypeScript
 
 ```typescript
-import blessed from '@tui/blessed';
-import type { Widgets } from '@tui/blessed';
+import blessed from '@unblessed/blessed';
+import type { Widgets } from '@unblessed/blessed';
 
 const screen: Widgets.Screen = blessed.screen({
   smartCSR: true
@@ -372,10 +372,10 @@ screen.render();
 
 ### For New Projects
 
-**Don't use @tui/blessed.** Use `@tui/node` instead:
+**Don't use @unblessed/blessed.** Use `@unblessed/node` instead:
 
 ```typescript
-import { Screen, Box } from '@tui/node';
+import { Screen, Box } from '@unblessed/node';
 
 const screen = new Screen({ smartCSR: true });
 const box = new Box({
@@ -395,22 +395,22 @@ screen.render();
 
 ### For Migrating from Blessed
 
-**Use @tui/blessed** for a smooth transition:
+**Use @unblessed/blessed** for a smooth transition:
 
-1. Replace `require('blessed')` with `require('@tui/blessed')`
+1. Replace `require('blessed')` with `require('@unblessed/blessed')`
 2. Test your application
-3. Gradually migrate to `@tui/node` class-based API when ready
+3. Gradually migrate to `@unblessed/node` class-based API when ready
 
 ## Related Packages
 
-- **@tui/core** - Platform-agnostic core (internal)
-- **@tui/node** - Modern Node.js API (recommended for new code)
-- **@tui/browser** - Browser runtime with XTerm.js
+- **@unblessed/core** - Platform-agnostic core (internal)
+- **@unblessed/node** - Modern Node.js API (recommended for new code)
+- **@unblessed/browser** - Browser runtime with XTerm.js
 - **blessed** - Original library (now deprecated)
 
 ## Contributing
 
-When making changes to @tui/blessed:
+When making changes to @unblessed/blessed:
 
 1. **Maintain 100% API compatibility** with original blessed
 2. **Add tests** for any new behavior

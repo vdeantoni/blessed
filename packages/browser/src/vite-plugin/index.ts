@@ -1,16 +1,16 @@
 /**
- * Vite plugin for @tui/browser
+ * Vite plugin for @unblessed/browser
  *
- * Optional plugin that provides optimized build configuration for @tui/browser in Vite projects.
+ * Optional plugin that provides optimized build configuration for @unblessed/browser in Vite projects.
  * Configures dependency optimization and module resolution for better dev/build performance.
  *
- * Note: This plugin is OPTIONAL. @tui/browser works without it, but the plugin
+ * Note: This plugin is OPTIONAL. @unblessed/browser works without it, but the plugin
  * provides optimizations for Vite users.
  *
  * Usage:
  * ```ts
  * // vite.config.ts
- * import blessedBrowser from '@tui/browser/vite-plugin';
+ * import blessedBrowser from '@unblessed/browser/vite-plugin';
  *
  * export default defineConfig({
  *   plugins: [blessedBrowser()]
@@ -75,9 +75,9 @@ export default function blessedBrowserPlugin(
 
       const optimizeDepsConfig = optimizeDeps
         ? {
-            // Don't pre-bundle @tui/browser - it's already bundled
-            exclude: ['@tui/browser'],
-            include: ['@tui/core'],
+            // Don't pre-bundle @unblessed/browser - it's already bundled
+            exclude: ['@unblessed/browser'],
+            include: ['@unblessed/core'],
             esbuildOptions: {
               define: {
                 global: 'globalThis',

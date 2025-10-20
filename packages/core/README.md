@@ -1,10 +1,10 @@
-# @tui/core
+# @unblessed/core
 
 Platform-agnostic TUI (Text User Interface) core library with runtime dependency injection.
 
 ## Overview
 
-`@tui/core` is a modern, TypeScript-based terminal UI library that provides a complete set of widgets and terminal control primitives. Unlike traditional terminal libraries, it's designed to be truly platform-agnostic through runtime dependency injection, allowing it to run in Node.js, browsers, and other JavaScript environments.
+`@unblessed/core` is a modern, TypeScript-based terminal UI library that provides a complete set of widgets and terminal control primitives. Unlike traditional terminal libraries, it's designed to be truly platform-agnostic through runtime dependency injection, allowing it to run in Node.js, browsers, and other JavaScript environments.
 
 ## Features
 
@@ -18,29 +18,29 @@ Platform-agnostic TUI (Text User Interface) core library with runtime dependency
 
 ## Installation
 
-**Important**: `@tui/core` is a low-level package. Most users should install a platform adapter instead:
+**Important**: `@unblessed/core` is a low-level package. Most users should install a platform adapter instead:
 
 ```bash
 # For Node.js applications (recommended)
-npm install @tui/node
+npm install @unblessed/node
 
 # For browser applications (recommended)
-npm install @tui/browser
+npm install @unblessed/browser
 
 # For backward compatibility with blessed
-npm install @tui/blessed
+npm install @unblessed/blessed
 ```
 
-Only install `@tui/core` directly if you're creating a custom runtime adapter.
+Only install `@unblessed/core` directly if you're creating a custom runtime adapter.
 
 ## Quick Start
 
 ### Node.js (Recommended)
 
-Use `@tui/node` which includes the runtime and auto-initializes:
+Use `@unblessed/node` which includes the runtime and auto-initializes:
 
 ```typescript
-import { Screen, Box } from '@tui/node';
+import { Screen, Box } from '@unblessed/node';
 
 // No initialization needed - runtime auto-initializes on import!
 
@@ -74,11 +74,11 @@ screen.render();
 
 ### Browser (Recommended)
 
-Use `@tui/browser` with xterm.js:
+Use `@unblessed/browser` with xterm.js:
 
 ```typescript
 import { Terminal } from 'xterm';
-import { Screen, Box } from '@tui/browser';
+import { Screen, Box } from '@unblessed/browser';
 
 // Runtime auto-initializes on import
 
@@ -95,13 +95,13 @@ const box = new Box({
 screen.render();
 ```
 
-### Using @tui/core Directly (Advanced)
+### Using @unblessed/core Directly (Advanced)
 
 Only needed if you're building a custom runtime adapter:
 
 ```typescript
-import { Screen, Box } from '@tui/core';
-import { initCore } from '@tui/core';
+import { Screen, Box } from '@unblessed/core';
+import { initCore } from '@unblessed/core';
 
 // Provide your custom runtime implementation
 const myRuntime = {
@@ -120,7 +120,7 @@ const screen = new Screen();
 
 ### Runtime Dependency Injection
 
-`@tui/core` uses a runtime abstraction layer that defines interfaces for all platform-specific operations:
+`@unblessed/core` uses a runtime abstraction layer that defines interfaces for all platform-specific operations:
 
 ```typescript
 interface Runtime {
@@ -135,15 +135,15 @@ interface Runtime {
 }
 ```
 
-Platform adapters (`@tui/node`, `@tui/browser`) provide concrete implementations:
+Platform adapters (`@unblessed/node`, `@unblessed/browser`) provide concrete implementations:
 
 ```typescript
-// @tui/node provides Node.js implementations
-import { createNodeRuntime } from '@tui/node';
+// @unblessed/node provides Node.js implementations
+import { createNodeRuntime } from '@unblessed/node';
 createNodeRuntime();
 
-// @tui/browser provides browser polyfills
-import { createBrowserRuntime } from '@tui/browser';
+// @unblessed/browser provides browser polyfills
+import { createBrowserRuntime } from '@unblessed/browser';
 createBrowserRuntime();
 ```
 
@@ -189,7 +189,7 @@ createBrowserRuntime();
 Low-level terminal control:
 
 ```typescript
-import { Program } from '@tui/core';
+import { Program } from '@unblessed/core';
 
 const program = new Program({
   input: process.stdin,
@@ -207,7 +207,7 @@ program.clear();
 Terminal capability database:
 
 ```typescript
-import { Tput } from '@tui/core';
+import { Tput } from '@unblessed/core';
 
 const tput = new Tput({
   terminal: 'xterm-256color',
@@ -224,7 +224,7 @@ tput.setaf(4);     // Set foreground color to blue
 Color conversion and manipulation:
 
 ```typescript
-import { colors } from '@tui/core';
+import { colors } from '@unblessed/core';
 
 // Convert hex to terminal color
 const color = colors.convert('#ff0000');  // Returns closest terminal color
@@ -340,7 +340,7 @@ screen.key('M-x', () => {
 ### Image Rendering
 
 ```typescript
-import { ANSIImage } from '@tui/core';
+import { ANSIImage } from '@unblessed/core';
 
 const image = new ANSIImage({
   parent: screen,
@@ -354,7 +354,7 @@ const image = new ANSIImage({
 ### Forms and Input Validation
 
 ```typescript
-import { Form, Textbox, Button } from '@tui/core';
+import { Form, Textbox, Button } from '@unblessed/core';
 
 const form = new Form({
   parent: screen,
@@ -394,7 +394,7 @@ form.on('submit', (data) => {
 ### Scrollable Content
 
 ```typescript
-import { ScrollableBox } from '@tui/core';
+import { ScrollableBox } from '@unblessed/core';
 
 const box = new ScrollableBox({
   parent: screen,
@@ -420,7 +420,7 @@ box.setScrollPerc(50); // Scroll to 50%
 ### Terminal Emulation
 
 ```typescript
-import { Terminal } from '@tui/core';
+import { Terminal } from '@unblessed/core';
 
 const terminal = new Terminal({
   parent: screen,
@@ -444,7 +444,7 @@ For complete API documentation, see the TypeScript definitions included with the
 ## Package Structure
 
 ```
-@tui/core/
+@unblessed/core/
 ├── dist/
 │   ├── index.js          # Main entry point
 │   ├── runtime.js        # Runtime interfaces
@@ -499,7 +499,7 @@ pnpm test
 
 ## Browser Support
 
-When using `@tui/browser`, the library provides browser-compatible implementations using:
+When using `@unblessed/browser`, the library provides browser-compatible implementations using:
 - Canvas rendering for terminal output
 - WebSocket connections for PTY
 - IndexedDB for file system operations
@@ -507,8 +507,8 @@ When using `@tui/browser`, the library provides browser-compatible implementatio
 
 ## Related Packages
 
-- [`@tui/node`](../tui-node) - Node.js runtime adapter
-- [`@tui/browser`](../tui-browser) - Browser runtime adapter with xterm.js integration
+- [`@unblessed/node`](../tui-node) - Node.js runtime adapter
+- [`@unblessed/browser`](../tui-browser) - Browser runtime adapter with xterm.js integration
 
 ## Acknowledgments
 
@@ -520,9 +520,9 @@ MIT
 
 ## Contributing
 
-Contributions are welcome! Please see the [main repository](https://github.com/vdeantoni/tui) for contribution guidelines.
+Contributions are welcome! Please see the [main repository](https://github.com/vdeantoni/unblessed) for contribution guidelines.
 
 ## Support
 
-- GitHub Issues: https://github.com/vdeantoni/tui/issues
-- Documentation: https://github.com/vdeantoni/tui/tree/master/packages/core
+- GitHub Issues: https://github.com/vdeantoni/unblessed/issues
+- Documentation: https://github.com/vdeantoni/unblessed/tree/master/packages/core

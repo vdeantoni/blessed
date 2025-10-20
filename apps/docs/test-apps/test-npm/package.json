@@ -8,6 +8,6 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "@tui/blessed": "latest"
+    "@unblessed/blessed": "latest"
   }
 }

@@ -4,13 +4,13 @@ Welcome! This document provides context and guidelines for working on **tui** - 
 
 ## Project Overview
 
-**tui** (@tui) is a complete modernization of the blessed TUI library with a platform-agnostic architecture:
+**tui** (@unblessed) is a complete modernization of the blessed TUI library with a platform-agnostic architecture:
 
 ```
-@tui/core      → Platform-agnostic blessed logic (Runtime interface)
-@tui/node      → Node.js runtime implementation
-@tui/browser   → Browser runtime (XTerm.js integration)
-@tui/blessed   → Backward-compatible wrapper (pending)
+@unblessed/core      → Platform-agnostic blessed logic (Runtime interface)
+@unblessed/node      → Node.js runtime implementation
+@unblessed/browser   → Browser runtime (XTerm.js integration)
+@unblessed/blessed   → Backward-compatible wrapper (pending)
 ```
 
 **Current Version:** `1.0.0-alpha.19`
@@ -30,7 +30,7 @@ Welcome! This document provides context and guidelines for working on **tui** - 
 tui uses a **global runtime context** pattern for platform abstraction:
 
 ```typescript
-// @tui/core defines interface
+// @unblessed/core defines interface
 export interface Runtime {
   fs: FileSystemAPI;
   process: ProcessAPI;
@@ -38,7 +38,7 @@ export interface Runtime {
 }
 
 // Platform packages implement runtime
-import { setRuntime } from '@tui/core';
+import { setRuntime } from '@unblessed/core';
 setRuntime(new NodeRuntime());  // or BrowserRuntime
 
 // Core code uses runtime
@@ -53,30 +53,30 @@ const data = getRuntime().fs.readFileSync(path);
 
 ### Package Structure
 
-**@tui/core** - Platform-agnostic core
+**@unblessed/core** - Platform-agnostic core
 - All widget logic, rendering, events
 - Zero platform dependencies
 - Strict TypeScript, fully typed
 - Used as foundation by all runtimes
 
-**@tui/node** - Node.js runtime
+**@unblessed/node** - Node.js runtime
 - NodeRuntime implementation
 - Auto-initializes on import
 - Modern, clean API
 - Tree-shakeable exports
-- Example: `import { Screen, Box } from '@tui/node'`
+- Example: `import { Screen, Box } from '@unblessed/node'`
 
-**@tui/browser** - Browser runtime
+**@unblessed/browser** - Browser runtime
 - BrowserRuntime with polyfills
 - Auto-initializes on import
 - XTerm.js integration
-- Same API as @tui/node
+- Same API as @unblessed/node
 - Interactive playground at http://localhost:5173
 
-**@tui/blessed** - Compatibility layer
+**@unblessed/blessed** - Compatibility layer
 - 100% backward compatible with blessed
-- Thin wrapper over @tui/node
-- Drop-in replacement: `require('@tui/blessed')`
+- Thin wrapper over @unblessed/node
+- Drop-in replacement: `require('@unblessed/blessed')`
 - 56 type compatibility tests (100% passing)
 
 ## Development
@@ -100,8 +100,8 @@ pnpm build
 pnpm test
 
 # Run specific package
-pnpm --filter @tui/core test
-pnpm --filter @tui/browser build
+pnpm --filter @unblessed/core test
+pnpm --filter @unblessed/browser build
 ```
 
 ### Testing Strategy
@@ -147,18 +147,18 @@ tui/
 - ✅ **Phase 3A:** TypeScript Conversion
 - ✅ **Phase 3B:** Strict TypeScript (all 8 flags enabled)
 - ✅ **Phase 3C.1:** Type Refinement + JSDoc
-- ✅ **Phase 6:** @tui Architecture (95% complete)
+- ✅ **Phase 6:** @unblessed Architecture (95% complete)
 
 ### In Progress
 
 **Phase 6 Remaining:**
-- [x] @tui/blessed compatibility layer (type tests complete)
+- [x] @unblessed/blessed compatibility layer (type tests complete)
 - [ ] End-to-end integration tests
 - [ ] Migration guide
 - [ ] Alpha release to npm
 
 **Known Issues:**
-- @tui/blessed needs integration tests with real blessed examples
+- @unblessed/blessed needs integration tests with real blessed examples
 
 ### Deferred Phases
 
@@ -205,16 +205,16 @@ tui/
 
 **Adding Runtime API:**
 ```typescript
-// 1. Add to Runtime interface (@tui/core/src/runtime.ts)
+// 1. Add to Runtime interface (@unblessed/core/src/runtime.ts)
 export interface Runtime {
   newAPI: NewAPIType;
 }
 
 // 2. Implement in platform packages
-// @tui/node
+// @unblessed/node
 this.newAPI = require('new-api');
 
-// @tui/browser
+// @unblessed/browser
 this.newAPI = { /* browser polyfill */ };
 
 // 3. Use in core code
@@ -223,7 +223,7 @@ const api = getRuntime().newAPI;
 
 **Testing with Runtime:**
 ```typescript
-import { setRuntime } from '@tui/core';
+import { setRuntime } from '@unblessed/core';
 
 beforeAll(() => {
   setRuntime(createMockRuntime());
@@ -254,7 +254,7 @@ pnpm --filter benchmarks bench
 - **Core:** `packages/core/CLAUDE.md`
 - **Node:** `packages/node/README.md`
 - **Browser:** `packages/browser/CLAUDE.md`
-- **Playground:** http://localhost:5173 (run `pnpm --filter @tui/browser dev`)
+- **Playground:** http://localhost:5173 (run `pnpm --filter @unblessed/browser dev`)
 
 ### Build Tools
 - [tsup](https://tsup.egoist.dev/) - Library bundler
@@ -269,7 +269,7 @@ pnpm --filter benchmarks bench
 
 ## Recent Session Summary
 
-**@tui/browser Package Improvements:**
+**@unblessed/browser Package Improvements:**
 - ✅ **Extracted BrowserRuntime** to separate file (`browser-runtime.ts`) - better code organization
 - ✅ **Simplified auto-init.ts** from ~390 lines to ~90 lines
 - ✅ **Fixed duplicate utils assignment** bug in runtime constructor
@@ -293,27 +293,27 @@ pnpm --filter benchmarks bench
 - ✅ Updated browser package CLAUDE.md with new architecture
 - ✅ Documented code improvements and simplifications
 - ✅ Updated all package READMEs with auto-initialization examples
-- ✅ Fixed @tui/node examples to use `parent:` property
-- ✅ Created comprehensive READMEs for @tui/node and @tui/blessed
+- ✅ Fixed @unblessed/node examples to use `parent:` property
+- ✅ Created comprehensive READMEs for @unblessed/node and @unblessed/blessed
 
 **Runtime Initialization Improvements:**
 - ✅ Simplified runtime initialization - now auto-initializes on import
-- ✅ Fixed @tui/blessed to work with auto-init pattern
+- ✅ Fixed @unblessed/blessed to work with auto-init pattern
 - ✅ Updated all examples to use `parent:` property correctly
-- ✅ Fixed @tui/node examples (hello-world, dashboard, interactive)
+- ✅ Fixed @unblessed/node examples (hello-world, dashboard, interactive)
 - ✅ Updated documentation across all packages
 - ✅ All builds and tests passing (1,588 core tests, 20 browser unit tests, 189 browser e2e tests)
 
 **Key Change:**
 - **Before:** Users had to call `initBrowser()` or similar
-- **After:** Runtime auto-initializes when you import from `@tui/node` or `@tui/browser`
+- **After:** Runtime auto-initializes when you import from `@unblessed/node` or `@unblessed/browser`
 
 **Example Improvements:**
 - Fixed widget attachment using `parent: screen` instead of `screen`
 - Simplified dashboard sidebar (removed non-functional menu shortcuts)
 - All examples now working and rendering correctly
 
-**@tui/browser - E2E Test Fixes:**
+**@unblessed/browser - E2E Test Fixes:**
 - ✅ Fixed browser runtime initialization
 - ✅ Added null/undefined handling to `fileURLToPath` polyfill
 - ✅ BigText widget now loads fonts correctly in browser
@@ -327,18 +327,18 @@ pnpm --filter benchmarks bench
 - ✅ Added Full Demo example
 - ✅ Dev server running at http://localhost:5173
 
-**@tui/node:**
+**@unblessed/node:**
 - ✅ Added missing Runtime properties (net, stream, buffer)
 - ✅ Runtime auto-initializes on import
 - ✅ Build successful
 
-**@tui/core:**
+**@unblessed/core:**
 - ✅ Test infrastructure with runtime setup
 - ✅ Allow runtime replacement in tests
 - ✅ Fixed runtime-helpers.ts to handle undefined import.meta.url
 - ✅ 98.5% tests passing (1,588/1,588)
 
-**@tui/browser - API Simplification & Playground:**
+**@unblessed/browser - API Simplification & Playground:**
 - ✅ **Removed IIFE output format** - Now outputs ESM/CJS only
 - ✅ **Removed createXTermScreen() helper** - Replaced with smarter Screen class
 - ✅ **Created browser-specific Screen class** - Auto-detects xterm.js Terminal instances
@@ -357,21 +357,21 @@ pnpm --filter benchmarks bench
 **Breaking Change:**
 ```typescript
 // Before:
-import { createXTermScreen } from '@tui/browser';
+import { createXTermScreen } from '@unblessed/browser';
 const screen = createXTermScreen({ terminal: term });
 
 // After:
-import { Screen } from '@tui/browser';
+import { Screen } from '@unblessed/browser';
 const screen = new Screen({ terminal: term });
 ```
 
 ## Next Steps
 
-1. **Implement @tui/blessed** - Compatibility wrapper
+1. **Implement @unblessed/blessed** - Compatibility wrapper
 2. **E2E Integration Tests** - Node + Browser
-3. **Migration Guide** - blessed → @tui
+3. **Migration Guide** - blessed → @unblessed
 4. **Alpha Release** - Publish to npm with `@alpha` tag
-5. **Performance Optimization** - Phase 4 after @tui complete
+5. **Performance Optimization** - Phase 4 after @unblessed complete
 6. **Beta → v1.0.0** - Stabilization and launch
 
 ---

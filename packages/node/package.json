@@ -1,6 +1,6 @@
 {
-  "name": "@tui/node",
-  "description": "Node.js runtime adapter for @tui/core TUI library",
+  "name": "@unblessed/node",
+  "description": "Node.js runtime adapter for @unblessed/core terminal UI library",
   "version": "1.0.0-alpha.1",
   "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
   "license": "MIT",
@@ -37,18 +37,18 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/vdeantoni/tui.git",
+    "url": "git://github.com/vdeantoni/unblessed.git",
     "directory": "packages/node"
   },
-  "homepage": "https://github.com/vdeantoni/tui/tree/master/packages/node",
+  "homepage": "https://github.com/vdeantoni/unblessed/tree/master/packages/node",
   "bugs": {
-    "url": "https://github.com/vdeantoni/tui/issues"
+    "url": "https://github.com/vdeantoni/unblessed/issues"
   },
   "keywords": [
+    "unblessed",
     "tui",
     "blessed",
     "terminal",
-    "tui",
     "ui",
     "curses",
     "nodejs",
@@ -69,7 +69,7 @@
     "example:dashboard": "tsx examples/dashboard.ts"
   },
   "dependencies": {
-    "@tui/core": "workspace:*",
+    "@unblessed/core": "workspace:*",
     "omggif": "^1.0.10",
     "pngjs": "^7.0.0"
   },
@@ -85,7 +85,7 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@tui/core": "workspace:*"
+    "@unblessed/core": "workspace:*"
   },
   "engines": {
     "node": ">= 22.0.0"

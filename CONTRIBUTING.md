@@ -6,7 +6,7 @@ Thank you for your interest in contributing to tui! This document provides guide
 
 ```bash
 # Clone the repository
-git clone https://github.com/vdeantoni/tui.git
+git clone https://github.com/vdeantoni/unblessed.git
 cd tui
 
 # Install dependencies
@@ -54,10 +54,10 @@ We use [Conventional Commits](https://www.conventionalcommits.org/) for all comm
 
 ### Scopes
 
-- `core` - @tui/core
-- `node` - @tui/node
-- `blessed` - @tui/blessed
-- `browser` - @tui/browser
+- `core` - @unblessed/core
+- `node` - @unblessed/node
+- `blessed` - @unblessed/blessed
+- `browser` - @unblessed/browser
 - `deps` - Dependency updates
 - `ci` - CI/CD
 - `dx` - Developer experience
@@ -149,7 +149,7 @@ pnpm test:coverage
 ### E2E Tests (Browser)
 ```bash
 # Run Playwright tests
-pnpm --filter @tui/browser test:e2e
+pnpm --filter @unblessed/browser test:e2e
 ```
 
 ## 🎯 Development Workflow
@@ -158,20 +158,20 @@ pnpm --filter @tui/browser test:e2e
 
 ```bash
 # Build specific package
-pnpm --filter @tui/core build
+pnpm --filter @unblessed/core build
 
 # Watch mode
-pnpm --filter @tui/core build:watch
+pnpm --filter @unblessed/core build:watch
 
 # Test specific package
-pnpm --filter @tui/core test
+pnpm --filter @unblessed/core test
 ```
 
 ### Adding Dependencies
 
 ```bash
 # Add to specific package
-pnpm --filter @tui/core add some-package
+pnpm --filter @unblessed/core add some-package
 
 # Add dev dependency to workspace root
 pnpm add -Dw some-dev-tool
@@ -209,8 +209,8 @@ See [RELEASE.md](./RELEASE.md) for details.
 
 ## ❓ Questions?
 
-- 💬 [GitHub Discussions](https://github.com/vdeantoni/tui/discussions)
-- 🐛 [Report Issues](https://github.com/vdeantoni/tui/issues)
+- 💬 [GitHub Discussions](https://github.com/vdeantoni/unblessed/discussions)
+- 🐛 [Report Issues](https://github.com/vdeantoni/unblessed/issues)
 - 📧 Email: vdeantoni@gmail.com
 
 ## 📜 License

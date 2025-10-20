@@ -1,27 +1,27 @@
-# @tui/browser
+# @unblessed/browser
 
-Browser runtime adapter for [@tui/core](../core) - Run terminal UIs in the browser with xterm.js integration.
+Browser runtime adapter for [@unblessed/core](../core) - Run terminal UIs in the browser with xterm.js integration.
 
-[![npm version](https://img.shields.io/npm/v/@tui/browser)](https://www.npmjs.com/package/@tui/browser)
+[![npm version](https://img.shields.io/npm/v/@unblessed/browser)](https://www.npmjs.com/package/@unblessed/browser)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 
 ## Overview
 
-`@tui/browser` enables terminal user interface (TUI) applications built with `@tui/core` to run in web browsers. It provides:
+`@unblessed/browser` enables terminal user interface (TUI) applications built with `@unblessed/core` to run in web browsers. It provides:
 
 - **Browser polyfills** for Node.js APIs (fs, process, path, etc.)
 - **xterm.js integration** for terminal rendering
-- **Runtime adapter** that bridges @tui/core to the browser environment
-- **Full widget support** - all @tui/core widgets work in the browser
+- **Runtime adapter** that bridges @unblessed/core to the browser environment
+- **Full widget support** - all @unblessed/core widgets work in the browser
 
 ## Installation
 
 ```bash
-npm install @tui/browser xterm
+npm install @unblessed/browser xterm
 # or
-pnpm add @tui/browser xterm
+pnpm add @unblessed/browser xterm
 # or
-yarn add @tui/browser xterm
+yarn add @unblessed/browser xterm
 ```
 
 ## Quick Start
@@ -30,7 +30,7 @@ yarn add @tui/browser xterm
 
 ```typescript
 import { Terminal } from 'xterm';
-import { Screen, Box } from '@tui/browser';
+import { Screen, Box } from '@unblessed/browser';
 import 'xterm/css/xterm.css';
 
 // Create xterm.js terminal
@@ -112,7 +112,7 @@ screen.render();
 Browser-specific Screen class that automatically handles xterm.js integration.
 
 ```typescript
-import { Screen } from '@tui/browser';
+import { Screen } from '@unblessed/browser';
 import { Terminal } from 'xterm';
 
 const term = new Terminal();
@@ -129,7 +129,7 @@ const screen = new Screen({
 - `terminal` (Terminal) - xterm.js Terminal instance - automatically creates XTermAdapter
 - `mouse` (boolean) - Enable mouse events (default: true)
 - `term` (string) - Terminal type string (default: 'xterm-256color')
-- All standard ScreenOptions from @tui/core
+- All standard ScreenOptions from @unblessed/core
 
 **Returns:** Screen instance with xterm.js integration
 
@@ -138,7 +138,7 @@ const screen = new Screen({
 Low-level adapter for manual setup (rarely needed).
 
 ```typescript
-import { XTermAdapter } from '@tui/browser';
+import { XTermAdapter } from '@unblessed/browser';
 
 const adapter = new XTermAdapter({
   terminal: term,
@@ -153,21 +153,21 @@ const adapter = new XTermAdapter({
 Access the browser runtime for advanced use cases:
 
 ```typescript
-import { getRuntime } from '@tui/core';
+import { getRuntime } from '@unblessed/core';
 
 const runtime = getRuntime();
 // Provides: fs, path, process, Buffer, etc.
-// Runtime is automatically initialized when you import @tui/browser
+// Runtime is automatically initialized when you import @unblessed/browser
 ```
 
-> **Note:** The runtime is automatically initialized when you import from `@tui/browser`. You don't need to call any initialization functions.
+> **Note:** The runtime is automatically initialized when you import from `@unblessed/browser`. You don't need to call any initialization functions.
 
 ### Widget Re-exports
 
-All @tui/core widgets are re-exported for convenience:
+All @unblessed/core widgets are re-exported for convenience:
 
 ```typescript
-import { Box, List, Input, Form, Button } from '@tui/browser';
+import { Box, List, Input, Form, Button } from '@unblessed/browser';
 
 const box = new Box({ parent: screen, /* ... */ });
 const list = new List({ parent: screen, /* ... */ });
@@ -186,7 +186,7 @@ const list = new List({ parent: screen, /* ... */ });
 
 ### ✅ Full Widget Support
 
-All @tui/core widgets work in the browser:
+All @unblessed/core widgets work in the browser:
 - Layout: Box, Layout, Line
 - Input: Input, Textarea, Button, Checkbox, RadioButton, Form
 - Display: Text, Log, List, Table, FileManager
@@ -212,7 +212,7 @@ Full support for:
 ### Interactive Form
 
 ```typescript
-import { Form, Input, Button } from '@tui/browser';
+import { Form, Input, Button } from '@unblessed/browser';
 
 const form = new Form({
   parent: screen,
@@ -273,7 +273,7 @@ screen.render();
 ### File Manager
 
 ```typescript
-import { FileManager } from '@tui/browser';
+import { FileManager } from '@unblessed/browser';
 
 const fm = new FileManager({
   parent: screen,
@@ -305,7 +305,7 @@ screen.render();
 ### Real-time Data Display
 
 ```typescript
-import { Log } from '@tui/browser';
+import { Log } from '@unblessed/browser';
 
 const log = new Log({
   parent: screen,
@@ -347,7 +347,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   optimizeDeps: {
-    exclude: ['@tui/browser', '@tui/core']
+    exclude: ['@unblessed/browser', '@unblessed/core']
   },
   resolve: {
     alias: {
@@ -379,9 +379,9 @@ module.exports = {
 
 ### How It Works
 
-1. **Runtime Abstraction**: @tui/core uses a runtime interface for all platform operations
+1. **Runtime Abstraction**: @unblessed/core uses a runtime interface for all platform operations
 2. **Browser Runtime**: This package provides browser-compatible implementations
-3. **Automatic Initialization**: Runtime is set up when you import @tui/browser
+3. **Automatic Initialization**: Runtime is set up when you import @unblessed/browser
 4. **Widget Compatibility**: All widgets use the runtime interface, so they work unchanged
 
 ### Polyfills Provided
@@ -429,7 +429,7 @@ new Screen({ terminal: term, mouse: true })
 
 ## Contributing
 
-See the main [tui repository](https://github.com/vdeantoni/tui) for contribution guidelines.
+See the main [tui repository](https://github.com/vdeantoni/unblessed) for contribution guidelines.
 
 ## License
 
@@ -437,6 +437,6 @@ MIT © [Vinicius De Antoni](https://github.com/vdeantoni)
 
 ## Related
 
-- [@tui/core](../core) - Core TUI library
-- [@tui/node](../node) - Node.js runtime adapter
+- [@unblessed/core](../core) - Core TUI library
+- [@unblessed/node](../node) - Node.js runtime adapter
 - [xterm.js](https://xtermjs.org/) - Terminal emulator for the web

@@ -1,5 +1,5 @@
 {
-  "name": "@tui/root",
+  "name": "@unblessed/root",
   "version": "0.0.0",
   "private": true,
   "description": "TUI library monorepo",
@@ -22,11 +22,11 @@
   "preferGlobal": false,
   "repository": {
     "type": "git",
-    "url": "git://github.com/vdeantoni/tui.git"
+    "url": "git://github.com/vdeantoni/unblessed.git"
   },
-  "homepage": "https://github.com/vdeantoni/tui",
+  "homepage": "https://github.com/vdeantoni/unblessed",
   "bugs": {
-    "url": "https://github.com/vdeantoni/tui/issues"
+    "url": "https://github.com/vdeantoni/unblessed/issues"
   },
   "keywords": [
     "curses",

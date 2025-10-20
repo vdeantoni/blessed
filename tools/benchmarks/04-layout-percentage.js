@@ -5,7 +5,7 @@
  * Tests layout invalidation and reflow.
  */
 
-import blessed from '@tui/blessed';
+import blessed from '@unblessed/blessed';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkPercentageRecalc() {

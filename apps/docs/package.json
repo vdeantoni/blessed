@@ -8,6 +8,6 @@
     "clean": ""
   },
   "dependencies": {
-    "@tui/blessed": "workspace:*"
+    "@unblessed/blessed": "workspace:*"
   }
 }

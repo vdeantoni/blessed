@@ -5,7 +5,7 @@
  * Tests table rendering and cell formatting.
  */
 
-import blessed from '@tui/blessed';
+import blessed from '@unblessed/blessed';
 import { measure, formatResult, createMockProgram } from './utils.js';
 
 async function benchmarkLargeTable() {

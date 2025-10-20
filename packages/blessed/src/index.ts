@@ -1,5 +1,5 @@
 /**
- * @tui/blessed - 100% backward compatible blessed API wrapper over @tui/node
+ * @unblessed/blessed - 100% backward compatible blessed API wrapper over @unblessed/node
  */
 
 export * from './blessed.js';

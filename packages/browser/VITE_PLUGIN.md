@@ -1,8 +1,8 @@
-# @tui/browser Vite Plugin
+# @unblessed/browser Vite Plugin
 
 ## The Problem
 
-The browser runtime must be initialized **before** any `@tui/core` code executes. However, ESM import hoisting means imports are always executed before module-level code, making it impossible to guarantee initialization order with normal bundling.
+The browser runtime must be initialized **before** any `@unblessed/core` code executes. However, ESM import hoisting means imports are always executed before module-level code, making it impossible to guarantee initialization order with normal bundling.
 
 ## The Solution: Vite Plugin
 
@@ -14,17 +14,17 @@ The vite plugin injects runtime initialization code directly into the HTML `<hea
 
 ```typescript
 import { defineConfig } from 'vite';
-import tuiBrowser from '@tui/browser/vite-plugin';
+import tuiBrowser from '@unblessed/browser/vite-plugin';
 
 export default defineConfig({
   plugins: [tuiBrowser()],
 });
 ```
 
-### 2. Use @tui/browser in your app:
+### 2. Use @unblessed/browser in your app:
 
 ```typescript
-import { Screen, Box } from '@tui/browser';
+import { Screen, Box } from '@unblessed/browser';
 import { Terminal } from 'xterm';
 import 'xterm/css/xterm.css';
 
@@ -56,7 +56,7 @@ screen.render();
    - Imports `BrowserRuntime` and `setRuntime`
    - Sets up global polyfills (`Buffer`, `process`)
    - Creates and registers the runtime via `setRuntime()`
-3. **Main app loads** - Your bundled app loads and can safely use `@tui/core` widgets
+3. **Main app loads** - Your bundled app loads and can safely use `@unblessed/core` widgets
 
 ## Plugin Options
 
@@ -80,8 +80,8 @@ If you're not using Vite or want to initialize manually, you can do it in your H
 <head>
   <script type="module">
     import { Buffer } from 'buffer';
-    import { setRuntime } from '@tui/core';
-    import { BrowserRuntime } from '@tui/browser';
+    import { setRuntime } from '@unblessed/core';
+    import { BrowserRuntime } from '@unblessed/browser';
 
     // Set up polyfills
     globalThis.Buffer = Buffer;
@@ -103,7 +103,7 @@ If you're not using Vite or want to initialize manually, you can do it in your H
 
 ### "Runtime not initialized" error
 
-This means the runtime wasn't set up before `@tui/core` tried to use it. Make sure:
+This means the runtime wasn't set up before `@unblessed/core` tried to use it. Make sure:
 
 1. The vite plugin is installed and configured in vite.config.ts
 2. The plugin is listed **before** other plugins that might bundle code

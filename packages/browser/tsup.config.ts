@@ -39,7 +39,7 @@ export default defineConfig([
     // Don't bundle browser - let it be an external dependency
     // This allows the consuming bundler (like Vite) to handle it properly
     external: [],
-    noExternal: [/@tui\/browser/],
+    noExternal: [/@unblessed\/browser/],
 
     // No Node.js shims (we're targeting browser)
     shims: false,
@@ -72,7 +72,7 @@ export default defineConfig([
     },
 
     onSuccess: async () => {
-      console.log('✅ @tui/browser build complete');
+      console.log('✅ @unblessed/browser build complete');
       console.log('📦 Output: dist/index.js (ESM)');
       console.log('📦 Output: dist/index.cjs (CJS)');
     },
@@ -100,7 +100,7 @@ export default defineConfig([
     external: ['vite', 'path', 'url'],
 
     onSuccess: async () => {
-      console.log('✅ @tui/browser build complete');
+      console.log('✅ @unblessed/browser build complete');
       console.log('📦 Output: dist/index.js (ESM)');
       console.log('📦 Output: dist/index.cjs (CJS)');
       console.log('📦 Output: dist/index.cjs (CJS)');

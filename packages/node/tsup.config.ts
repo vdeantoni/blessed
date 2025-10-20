@@ -21,13 +21,13 @@ export default defineConfig({
 
   external: [
     /^node:.*/,
-    '@tui/core'
+    '@unblessed/core'
   ],
 
   platform: 'node',
   target: 'node22',
 
   onSuccess: async () => {
-    console.log('✅ @tui/node build complete');
+    console.log('✅ @unblessed/node build complete');
   }
 });

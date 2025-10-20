@@ -2,10 +2,10 @@
  * Browser Runtime Implementation
  *
  * Provides browser-compatible implementations of Node.js APIs
- * for @tui/core to run in the browser.
+ * for @unblessed/core to run in the browser.
  */
 
-import type { Runtime } from '@tui/core';
+import type { Runtime } from '@unblessed/core';
 import type { PathLike } from 'fs';
 import { Buffer } from 'buffer';
 import { EventEmitter } from 'events';
@@ -14,9 +14,9 @@ import path from 'path-browserify';
 import { StringDecoder } from 'string_decoder';
 
 // Import terminfo and font data
-import xtermData from '@tui/core/data/terminfo/xterm-256color.json';
-import terU14n from '@tui/core/data/fonts/ter-u14n.json';
-import terU14b from '@tui/core/data/fonts/ter-u14b.json';
+import xtermData from '@unblessed/core/data/terminfo/xterm-256color.json';
+import terU14n from '@unblessed/core/data/fonts/ter-u14n.json';
+import terU14b from '@unblessed/core/data/fonts/ter-u14b.json';
 
 /**
  * Browser-compatible util implementation

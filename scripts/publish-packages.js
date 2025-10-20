@@ -22,14 +22,14 @@ import { readFileSync } from 'fs';
  */
 const PUBLISH_ORDER = [
   // Core package - no dependencies
-  '@tui/core',
+  '@unblessed/core',
 
-  // Runtime adapters - depend on @tui/core
-  '@tui/node',
-  '@tui/browser',
+  // Runtime adapters - depend on @unblessed/core
+  '@unblessed/node',
+  '@unblessed/browser',
 
-  // Compatibility layer - depends on @tui/node
-  '@tui/blessed'
+  // Compatibility layer - depends on @unblessed/node
+  '@unblessed/blessed'
 ];
 
 console.log('\n📦 Publishing all packages to npm...\n');

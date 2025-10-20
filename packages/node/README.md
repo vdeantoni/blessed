@@ -1,13 +1,13 @@
-# @tui/node
+# @unblessed/node
 
-Node.js runtime adapter for [@tui/core](../core) - Build beautiful terminal UIs with ease.
+Node.js runtime adapter for [@unblessed/core](../core) - Build beautiful terminal UIs with ease.
 
-[![npm version](https://img.shields.io/npm/v/@tui/node)](https://www.npmjs.com/package/@tui/node)
+[![npm version](https://img.shields.io/npm/v/@unblessed/node)](https://www.npmjs.com/package/@unblessed/node)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 
 ## Overview
 
-`@tui/node` brings the power of `@tui/core` terminal UI widgets to Node.js applications. It provides a Node.js runtime adapter that handles all platform-specific operations automatically.
+`@unblessed/node` brings the power of `@unblessed/core` terminal UI widgets to Node.js applications. It provides a Node.js runtime adapter that handles all platform-specific operations automatically.
 
 **Features:**
 - 🚀 **Auto-initialization** - Runtime sets up automatically on import
@@ -20,17 +20,17 @@ Node.js runtime adapter for [@tui/core](../core) - Build beautiful terminal UIs 
 ## Installation
 
 ```bash
-npm install @tui/node
+npm install @unblessed/node
 # or
-pnpm add @tui/node
+pnpm add @unblessed/node
 # or
-yarn add @tui/node
+yarn add @unblessed/node
 ```
 
 ## Quick Start
 
 ```typescript
-import { Screen, Box } from '@tui/node';
+import { Screen, Box } from '@unblessed/node';
 
 // Runtime auto-initializes - no setup needed!
 
@@ -252,19 +252,19 @@ const box = new Box({
 });
 ```
 
-For complete widget options, see [@tui/core types](../core/src/types/options.ts).
+For complete widget options, see [@unblessed/core types](../core/src/types/options.ts).
 
 ## Architecture
 
-`@tui/node` is a thin wrapper over `@tui/core` that:
+`@unblessed/node` is a thin wrapper over `@unblessed/core` that:
 
 1. **Provides NodeRuntime** - Implements the Runtime interface with Node.js APIs
 2. **Auto-initializes** - Sets up the runtime when you import the package
-3. **Re-exports widgets** - All `@tui/core` widgets available directly
+3. **Re-exports widgets** - All `@unblessed/core` widgets available directly
 
 ```typescript
 // Internal structure (simplified)
-import { initCore } from '@tui/core';
+import { initCore } from '@unblessed/core';
 import fs from 'fs';
 import process from 'process';
 // ... other Node.js modules
@@ -275,11 +275,11 @@ const runtime = {
   // ... other Node.js APIs
 };
 
-// Initialize @tui/core with Node.js runtime
+// Initialize @unblessed/core with Node.js runtime
 initCore(runtime);
 
 // Re-export all widgets
-export * from '@tui/core';
+export * from '@unblessed/core';
 ```
 
 This means you get:
@@ -345,27 +345,27 @@ node your-app.js
 
 ## Migration from blessed
 
-`@tui/node` is designed to be compatible with blessed:
+`@unblessed/node` is designed to be compatible with blessed:
 
 ```typescript
 // Old blessed code
 const blessed = require('blessed');
 const screen = blessed.screen();
 
-// New @tui/node code
-import { Screen } from '@tui/node';
+// New @unblessed/node code
+import { Screen } from '@unblessed/node';
 const screen = new Screen();
 ```
 
-Or use `@tui/blessed` for 100% backward compatibility:
+Or use `@unblessed/blessed` for 100% backward compatibility:
 
 ```bash
-npm install @tui/blessed
+npm install @unblessed/blessed
 ```
 
 ## Performance
 
-`@tui/node` is optimized for terminal rendering:
+`@unblessed/node` is optimized for terminal rendering:
 
 - **Smart CSR** - Only updates changed regions
 - **Efficient diffing** - Minimal escape sequences
@@ -380,7 +380,7 @@ Tips for best performance:
 
 ## Contributing
 
-See the main [tui repository](https://github.com/vdeantoni/tui) for contribution guidelines.
+See the main [tui repository](https://github.com/vdeantoni/unblessed) for contribution guidelines.
 
 ## License
 
@@ -388,7 +388,7 @@ MIT © [Vinicius De Antoni](https://github.com/vdeantoni)
 
 ## Related
 
-- [@tui/core](../core) - Core TUI library
-- [@tui/browser](../browser) - Browser runtime adapter
-- [@tui/blessed](../blessed) - Backward-compatible blessed API
+- [@unblessed/core](../core) - Core TUI library
+- [@unblessed/browser](../browser) - Browser runtime adapter
+- [@unblessed/blessed](../blessed) - Backward-compatible blessed API
 - [blessed](https://github.com/chjj/blessed) - Original library
