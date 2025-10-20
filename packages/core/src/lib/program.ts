@@ -10,14 +10,14 @@ import Tput from './tput.js';
 import colors from './colors.js';
 import { emitKeypressEvents } from './keys.js';
 import gpmclient from './gpmclient.js';
-import EventEmitter from 'events';
 import { getNextTick, getEnvVar, type Runtime, type BufferType, getRuntime  } from './runtime-helpers.js';
+import { EventEmitterBase } from './event-emitter-base.js';
 
 /**
  * Program
  */
 
-class Program extends EventEmitter {
+class Program extends EventEmitterBase {
   runtime: Runtime;
   options: Record<string, any>;
   input: NodeJS.ReadStream & { _blessedInput?: number; _keypressHandler?: any; _dataHandler?: any };
@@ -71,6 +71,7 @@ class Program extends EventEmitter {
   [key: string]: any;
 
     constructor(options?: any, legacyOutput?: any) {
+        // Initialize EventEmitter from runtime
         super();
 
         // Handle legacy arguments format (input, output)

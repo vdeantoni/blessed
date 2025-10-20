@@ -9,6 +9,11 @@ import { clearEnvCache } from '../../src/lib/runtime-helpers.js';
 import fs from 'fs';
 import path from 'path';
 import process from 'process';
+import * as child_process from 'child_process';
+import tty from 'tty';
+import * as url from 'url';
+import * as util from 'util';
+import net from 'net';
 import { StringDecoder } from 'string_decoder';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -43,7 +48,112 @@ function createMockEnv() {
 }
 
 /**
+ * Create a production-like runtime for tests (no mocks, uses real Node.js APIs)
+ * This is used by default in setup.js for global test initialization
+ */
+export function createNodeRuntimeForTests() {
+  return {
+    // Core APIs (required)
+    fs: {
+      readFileSync: fs.readFileSync,
+      readdirSync: fs.readdirSync,
+      existsSync: fs.existsSync,
+      statSync: fs.statSync,
+      lstatSync: fs.lstatSync,
+      readlinkSync: fs.readlinkSync,
+      mkdirSync: fs.mkdirSync,
+      createWriteStream: fs.createWriteStream,
+      readFile: fs.readFile,
+      readdir: fs.readdir,
+      unlink: fs.unlink,
+      writeFile: fs.writeFile,
+      stat: fs.stat,
+    },
+    path: {
+      join: path.join,
+      resolve: path.resolve,
+      dirname: path.dirname,
+      basename: path.basename,
+      normalize: path.normalize,
+      extname: path.extname,
+      sep: path.sep,
+      delimiter: path.delimiter,
+    },
+    process: {
+      stdin: process.stdin,
+      stdout: process.stdout,
+      stderr: process.stderr,
+      platform: process.platform,
+      arch: process.arch,
+      env: process.env,
+      cwd: process.cwd.bind(process),
+      exit: process.exit.bind(process),
+      pid: process.pid,
+      title: process.title,
+      version: process.version,
+      on: process.on.bind(process),
+      once: process.once.bind(process),
+      removeListener: process.removeListener.bind(process),
+      removeAllListeners: process.removeAllListeners?.bind(process),
+      listeners: process.listeners.bind(process),
+      nextTick: process.nextTick.bind(process),
+      kill: process.kill.bind(process),
+    },
+    buffer: {
+      Buffer,
+    },
+    url: {
+      parse: url.parse,
+      format: url.format,
+      fileURLToPath: url.fileURLToPath,
+    },
+    utils: {
+      util: {
+        inspect: util.inspect,
+        format: util.format,
+      },
+      stream: {
+        Readable,
+        Writable,
+      },
+      stringDecoder: {
+        StringDecoder,
+      },
+      events: {
+        EventEmitter,
+      },
+    },
+
+    // Optional APIs
+    processes: {
+      childProcess: {
+        spawn: child_process.spawn,
+        execSync: child_process.execSync,
+        execFileSync: child_process.execFileSync,
+      },
+    },
+    networking: {
+      tty: {
+        isatty: tty.isatty,
+      },
+      net: {
+        createConnection: net.createConnection,
+      },
+    },
+    images: {
+      png: {
+        PNG,
+      },
+      gif: {
+        GifReader,
+      },
+    },
+  };
+}
+
+/**
  * Create a mock runtime for testing
+ * Has the same structure as createNodeRuntimeForTests but with vi.fn() mocks
  */
 function createMockRuntime(options = {}) {
   const mockEnv = options.env || createMockEnv();
@@ -56,10 +166,14 @@ function createMockRuntime(options = {}) {
       existsSync: fs.existsSync,
       statSync: fs.statSync,
       lstatSync: fs.lstatSync,
+      readlinkSync: fs.readlinkSync,
       mkdirSync: fs.mkdirSync,
       createWriteStream: fs.createWriteStream,
       readFile: fs.readFile,
       readdir: fs.readdir,
+      unlink: fs.unlink,
+      writeFile: fs.writeFile,
+      stat: fs.stat,
     },
     path: {
       join: path.join,
@@ -69,15 +183,25 @@ function createMockRuntime(options = {}) {
       extname: path.extname,
       normalize: path.normalize,
       sep: path.sep,
+      delimiter: path.delimiter,
     },
     process: {
-      platform: process.platform,
-      env: mockEnv,  // Use mock environment
-      cwd: vi.fn(() => path.resolve(__dirname, '../..')),
-      exit: vi.fn(),
       stdin: process.stdin,
       stdout: process.stdout,
       stderr: process.stderr,
+      platform: process.platform,
+      arch: process.arch,
+      env: mockEnv,  // Use mock environment
+      cwd: vi.fn(() => path.resolve(__dirname, '../..')),
+      exit: vi.fn(),
+      pid: process.pid,
+      title: process.title,
+      version: process.version,
+      on: vi.fn(),
+      once: vi.fn(),
+      removeListener: vi.fn(),
+      removeAllListeners: vi.fn(),
+      listeners: vi.fn(() => []),
       nextTick: vi.fn((callback) => {
         // Use setImmediate for mock nextTick
         if (typeof setImmediate !== 'undefined') {
@@ -86,11 +210,14 @@ function createMockRuntime(options = {}) {
           setTimeout(callback, 0);
         }
       }),
+      kill: vi.fn(),
     },
     buffer: {
       Buffer,
     },
     url: {
+      parse: url.parse,
+      format: url.format,
       fileURLToPath: vi.fn((url) => {
         // Return path to core/src for proper font resolution
         if (typeof url === 'string' && url.includes('runtime-helpers')) {
@@ -136,14 +263,17 @@ function createMockRuntime(options = {}) {
         Readable,
         Writable,
       },
+      events: {
+        EventEmitter,
+      },
     },
 
     // Optional API groups
     processes: {
       childProcess: {
         spawn: vi.fn(),
-        exec: vi.fn(),
         execSync: vi.fn(),
+        execFileSync: vi.fn(),
       },
     },
     networking: {
@@ -151,7 +281,6 @@ function createMockRuntime(options = {}) {
         isatty: vi.fn(() => true),
       },
       net: {
-        Socket: vi.fn(),
         createConnection: vi.fn(),
       },
     },
@@ -168,12 +297,23 @@ function createMockRuntime(options = {}) {
 
 /**
  * Initialize runtime for tests
- * Call this before creating any widgets
+ *
+ * By default, uses production-like Node.js APIs (no mocks).
+ * Pass options to customize the runtime or use createMockRuntime() instead.
+ *
+ * @param {object} options - Optional runtime customization
+ * @param {boolean} options.useMocks - Use vi.fn() mocks instead of real APIs
+ * @param {object} options.env - Custom environment variables
  */
 export function initTestRuntime(options = {}) {
   _clearRuntime();
   clearEnvCache(); // Clear env cache to allow tests to set env vars
-  const runtime = createMockRuntime(options);
+
+  // Use mocks only if explicitly requested or if custom options provided
+  const runtime = options.useMocks || options.env
+    ? createMockRuntime(options)
+    : createNodeRuntimeForTests();
+
   setRuntime(runtime);
   return runtime;
 }

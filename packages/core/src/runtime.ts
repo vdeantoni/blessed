@@ -20,6 +20,7 @@ import type * as net from 'net';
 import type { StringDecoder } from 'string_decoder';
 import type { Readable, Writable } from 'stream';
 import type { Buffer } from 'buffer';
+import type EventEmitter from 'events';
 
 /**
  * Complete runtime abstraction interface
@@ -190,6 +191,16 @@ export type ReadableType = InstanceType<StreamAPI['Readable']>;
  */
 export type WritableType = InstanceType<StreamAPI['Writable']>;
 
+
+export interface EventsAPI {
+  EventEmitter: typeof EventEmitter;
+}
+
+/**
+ * EventEmitter type alias for use throughout the codebase
+ */
+export interface EventEmitterType extends InstanceType<EventsAPI['EventEmitter']> {}
+
 /**
  * Buffer operations interface
  * Subset of Node.js buffer module
@@ -313,6 +324,8 @@ export interface UtilsAPI {
   stream: StreamAPI;
   /** String decoder for buffer/string conversion */
   stringDecoder: StringDecoderAPI;
+  /** Event emitter for event-driven programming */
+  events: EventsAPI;
 }
 
 // ============================================================

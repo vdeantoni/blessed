@@ -30,6 +30,7 @@ import net from 'net';
 import { Readable, Writable } from 'stream';
 import { Buffer } from 'buffer';
 import { StringDecoder } from 'string_decoder';
+import { EventEmitter } from 'events';
 import { PNG } from 'pngjs';
 import { GifReader } from 'omggif';
 
@@ -47,6 +48,7 @@ class NodeRuntime implements Runtime {
     util: util,
     stream: { Readable, Writable },
     stringDecoder: { StringDecoder },
+    events: { EventEmitter },
   } as Runtime['utils'];
 
   images = {

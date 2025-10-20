@@ -273,6 +273,9 @@ export class BrowserRuntime implements Runtime {
         Readable: EventEmitter as any,
         Writable: EventEmitter as any,
       },
+      events: {
+        EventEmitter,
+      },
     };
 
     // Optional API groups

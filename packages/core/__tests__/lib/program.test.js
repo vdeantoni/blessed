@@ -127,7 +127,11 @@ describe('Program - Core Infrastructure', () => {
       });
 
       expect(program).toBeInstanceOf(Program);
-      expect(program).toBeInstanceOf(EventEmitter);
+      // Program extends EventEmitterBase (not EventEmitter directly)
+      // Verify it has EventEmitter-like methods
+      expect(typeof program.on).toBe('function');
+      expect(typeof program.emit).toBe('function');
+      expect(typeof program.once).toBe('function');
       expect(program.input).toBe(input);
       expect(program.output).toBe(output);
     });

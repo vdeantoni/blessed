@@ -25,7 +25,7 @@ export default defineConfig({
 
   external: [],
 
-  platform: 'node',
+  platform: 'neutral',
   target: 'es2020',
 
   onSuccess: async () => {
