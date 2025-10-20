@@ -9,7 +9,7 @@ This document provides architectural context and development guidelines for work
 **Key Principles:**
 - Platform-agnostic design via runtime dependency injection
 - Strict TypeScript with full type safety
-- Comprehensive test coverage (98.5%)
+- Comprehensive test coverage (100% - all 1,987 tests passing)
 - Zero runtime dependencies
 
 ## Architecture
@@ -195,6 +195,23 @@ describe('MyModule', () => {
 });
 ```
 
+**Testing with environment variables:**
+```javascript
+import { setTestEnv, getTestEnv } from '../helpers/mock.js';
+
+// Set environment variable in mock runtime
+setTestEnv('TERM_PROGRAM', 'iTerm.app');
+
+// Clear environment variable
+setTestEnv('TERM_PROGRAM', undefined);
+
+// ❌ Don't use process.env directly - it won't affect the mock runtime
+process.env.TERM_PROGRAM = 'iTerm.app'; // Wrong!
+
+// ✅ Always use setTestEnv() to modify environment in tests
+setTestEnv('TERM_PROGRAM', 'iTerm.app'); // Correct!
+```
+
 ### Build System
 
 The package uses `tsup` for building:
@@ -343,6 +360,34 @@ Terminal capabilities come from terminfo/termcap databases:
 2. **Capability methods**: `src/lib/program.ts` provides high-level methods
 3. **Raw control**: Use `program._write()` for raw escape sequences
 
+**Bundled Terminfo Files:**
+
+The core package includes fallback terminfo/termcap files in `data/`:
+- `xterm.terminfo` - Binary terminfo database
+- `xterm.termcap` - Text termcap database
+
+**Accessing Bundled Data:**
+
+Use the `getDataPath()` helper to resolve paths to bundled data files:
+
+```typescript
+import { getDataPath, getRuntime } from './runtime-helpers.js';
+
+// Get path to data directory
+const dataDir = getDataPath();
+
+// Load bundled terminfo file
+const terminfo = runtime.fs.readFileSync(
+  runtime.path.join(getDataPath(), 'xterm.terminfo')
+);
+```
+
+**Terminfo Loading Order** (`tput.ts`):
+1. System terminfo files (e.g., `/usr/share/terminfo/`)
+2. User terminfo files (`~/.terminfo/`)
+3. Bundled fallback files in `data/` directory
+4. Compiled-in definitions
+
 ### Working with Colors
 
 The `colors` module (`src/lib/colors.ts`) handles color conversion:
@@ -397,6 +442,36 @@ error TS2339: Property 'listenerCount' does not exist on type 'typeof EventEmitt
 **Impact**: Minimal - the code works at runtime in Node.js environments.
 
 **Solution**: This is a minor compatibility issue that should be addressed by updating to use instance method or using a polyfill in the runtime.
+
+### Property Name Collisions with Terminfo
+
+The `Program` class copies all terminfo capabilities to itself via `setupTput()`. This can cause collisions with Program properties if they share names with terminfo capabilities.
+
+**Example Collision:**
+- Terminfo has an `index` capability (ESC D - Index)
+- Program had a property to track its instance index
+
+**Solution**: Use namespaced property names for Program internals:
+```typescript
+// ❌ Bad - collides with terminfo 'index' capability
+get index(): number {
+  return this._programIndex;
+}
+
+// ✅ Good - namespaced to avoid collision
+get programIndex(): number {
+  return this._programIndex ?? -1;
+}
+```
+
+**Known Safe Property Names:**
+- `programIndex` - Instance index in Program.instances array
+- Internal properties prefixed with `_` (e.g., `_programIndex`)
+
+**Checking for Collisions:**
+1. Search terminfo database for capability names
+2. Avoid short, generic names like `index`, `tab`, `clear`
+3. Prefix Program-specific properties with `program*` or `_`
 
 ## Testing Strategy
 

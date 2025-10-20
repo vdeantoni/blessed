@@ -3,9 +3,14 @@
  * Testing low-level terminal control and escape sequence generation
  */
 
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, beforeAll, afterEach, vi } from 'vitest';
 import { EventEmitter } from 'events';
 import { StringDecoder } from 'string_decoder';
+
+// Initialize test runtime
+import { initTestRuntime, setTestEnv, getTestEnv } from '../helpers/mock.js';
+import { clearEnvCache } from '../../src/lib/runtime-helpers.js';
+import { getRuntime } from '../../src/runtime-context.js';
 
 // Mock child_process and fs before requiring program
 vi.mock('child_process');
@@ -29,6 +34,11 @@ cp.execFileSync = vi.fn(() => 'tmux 2.5');
 // Import Program after mocking
 import ProgramModule from '../../src/lib/program.js';
 const Program = ProgramModule.default || ProgramModule;
+
+// Initialize runtime before all tests
+beforeAll(() => {
+  initTestRuntime();
+});
 
 /**
  * Create a mock writable stream for testing
@@ -213,7 +223,7 @@ describe('Program - Core Infrastructure', () => {
 
     it('should detect terminal type from environment', () => {
       const originalTerm = process.env.TERM;
-      process.env.TERM = 'xterm-256color';
+      setTestEnv('TERM', 'xterm-256color');
 
       program = new Program({
         input,
@@ -249,17 +259,18 @@ describe('Program - Core Infrastructure', () => {
 
   describe('Terminal Detection', () => {
     beforeEach(() => {
-      // Clear environment
-      delete process.env.TERM_PROGRAM;
-      delete process.env.ITERM_SESSION_ID;
-      delete process.env.COLORTERM;
-      delete process.env.TERMINATOR_UUID;
-      delete process.env.VTE_VERSION;
-      delete process.env.TMUX;
+      // Clear environment using setTestEnv
+      initTestRuntime();
+      setTestEnv('TERM_PROGRAM', undefined);
+      setTestEnv('ITERM_SESSION_ID', undefined);
+      setTestEnv('COLORTERM', undefined);
+      setTestEnv('TERMINATOR_UUID', undefined);
+      setTestEnv('VTE_VERSION', undefined);
+      setTestEnv('TMUX', undefined);
     });
 
     it('should detect iTerm2 from TERM_PROGRAM', () => {
-      process.env.TERM_PROGRAM = 'iTerm.app';
+      setTestEnv('TERM_PROGRAM', 'iTerm.app');
 
       program = new Program({ input, output });
 
@@ -268,7 +279,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should detect iTerm2 from ITERM_SESSION_ID', () => {
-      process.env.ITERM_SESSION_ID = 'w0t0p0:12345678-1234-1234-1234-123456789012';
+      setTestEnv('ITERM_SESSION_ID', 'w0t0p0:12345678-1234-1234-1234-123456789012');
 
       program = new Program({ input, output });
 
@@ -276,7 +287,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should detect Terminal.app from TERM_PROGRAM', () => {
-      process.env.TERM_PROGRAM = 'Apple_Terminal';
+      setTestEnv('TERM_PROGRAM', 'Apple_Terminal');
 
       program = new Program({ input, output });
 
@@ -285,7 +296,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should detect VTE from VTE_VERSION', () => {
-      process.env.VTE_VERSION = '5003';
+      setTestEnv('VTE_VERSION', '5003');
 
       program = new Program({ input, output });
 
@@ -293,7 +304,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should detect XFCE terminal from COLORTERM', () => {
-      process.env.COLORTERM = 'xfce4-terminal';
+      setTestEnv('COLORTERM', 'xfce4-terminal');
 
       program = new Program({ input, output });
 
@@ -302,7 +313,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should detect Terminator from TERMINATOR_UUID', () => {
-      process.env.TERMINATOR_UUID = 'urn:uuid:12345678-1234-1234-1234-123456789012';
+      setTestEnv('TERMINATOR_UUID', 'urn:uuid:12345678-1234-1234-1234-123456789012');
 
       program = new Program({ input, output });
 
@@ -311,7 +322,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should detect rxvt from COLORTERM', () => {
-      process.env.COLORTERM = 'rxvt-xpm';
+      setTestEnv('COLORTERM', 'rxvt-xpm');
 
       program = new Program({ input, output });
 
@@ -319,7 +330,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should detect tmux from TMUX environment variable', () => {
-      process.env.TMUX = '/tmp/tmux-1000/default,1234,0';
+      setTestEnv('TMUX', '/tmp/tmux-1000/default,1234,0');
 
       program = new Program({ input, output });
 
@@ -327,7 +338,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should detect tmux version', () => {
-      process.env.TMUX = '/tmp/tmux-1000/default,1234,0';
+      setTestEnv('TMUX', '/tmp/tmux-1000/default,1234,0');
 
       // Mock the tmux version detection
       const mockExec = vi.fn(() => 'tmux 2.5\n');
@@ -345,7 +356,7 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should default tmux version to 2 on error', () => {
-      process.env.TMUX = '/tmp/tmux-1000/default,1234,0';
+      setTestEnv('TMUX', '/tmp/tmux-1000/default,1234,0');
       cp.execFileSync.mockImplementation(() => {
         throw new Error('Command not found');
       });
@@ -356,24 +367,19 @@ describe('Program - Core Infrastructure', () => {
     });
 
     it('should handle windows platform terminal detection', () => {
-      const originalPlatform = process.platform;
-      Object.defineProperty(process, 'platform', {
-        value: 'win32',
-        writable: true,
-        configurable: true,
-      });
+      // Update runtime platform
+      const runtime = getRuntime();
+      const originalPlatform = runtime.process.platform;
+      runtime.process.platform = 'win32';
 
-      delete process.env.TERM;
+      setTestEnv('TERM', undefined);
 
       program = new Program({ input, output });
 
       expect(program._terminal).toBe('windows-ansi');
 
-      Object.defineProperty(process, 'platform', {
-        value: originalPlatform,
-        writable: true,
-        configurable: true,
-      });
+      // Restore platform
+      runtime.process.platform = originalPlatform;
     });
   });
 
@@ -406,9 +412,9 @@ describe('Program - Core Infrastructure', () => {
       const program2 = new Program({ input, output });
       const program3 = new Program({ input, output });
 
-      expect(program1.index).toBe(0);
-      expect(program2.index).toBe(1);
-      expect(program3.index).toBe(2);
+      expect(program1.programIndex).toBe(0);
+      expect(program2.programIndex).toBe(1);
+      expect(program3.programIndex).toBe(2);
 
       program1.destroy();
       program2.destroy();
@@ -635,7 +641,7 @@ describe('Program - Output & Buffering', () => {
 
   describe('Tmux Passthrough', () => {
     beforeEach(() => {
-      process.env.TMUX = '/tmp/tmux-1000/default,1234,0';
+      setTestEnv('TMUX', '/tmp/tmux-1000/default,1234,0');
     });
 
     it('should wrap escape sequences in tmux DCS codes', () => {
@@ -658,7 +664,7 @@ describe('Program - Output & Buffering', () => {
     });
 
     it('should pass through normally when not in tmux', () => {
-      delete process.env.TMUX;
+      setTestEnv('TMUX', undefined);
       program = new Program({ input, output });
 
       program._twrite('\x1b[5m');
@@ -2259,7 +2265,7 @@ describe('Program - Mouse Handling', () => {
   describe('VTE Coordinate Overflow Handling', () => {
     beforeEach(() => {
       // Simulate VTE terminal
-      process.env.VTE_VERSION = '5003';
+      setTestEnv('VTE_VERSION', '5003');
       program.destroy();
       program = new Program({ input, output });
       program.bindMouse();
@@ -2267,7 +2273,7 @@ describe('Program - Mouse Handling', () => {
     });
 
     afterEach(() => {
-      delete process.env.VTE_VERSION;
+      setTestEnv('VTE_VERSION', undefined);
     });
 
     it('should handle VTE coordinate overflow (> 223)', () => {
@@ -2407,7 +2413,7 @@ describe('Program - Mouse Handling', () => {
 
   describe('Terminal-Specific Mouse Setup', () => {
     it('should setup mouse for rxvt terminal', () => {
-      process.env.COLORTERM = 'rxvt-xpm';
+      setTestEnv('COLORTERM', 'rxvt-xpm');
       const rxvtProgram = new Program({ input, output });
 
       rxvtProgram.enableMouse();
@@ -2416,7 +2422,7 @@ describe('Program - Mouse Handling', () => {
       expect(output.write).toHaveBeenCalled();
 
       rxvtProgram.destroy();
-      delete process.env.COLORTERM;
+      setTestEnv('COLORTERM', undefined);
     });
 
     it('should setup mouse for xterm terminal', () => {
@@ -4485,7 +4491,7 @@ describe('Program - Phase 16: Critical Gaps', () => {
 
     it('should handle empty TMUX environment variable', () => {
       const originalTmux = process.env.TMUX;
-      process.env.TMUX = '';
+      setTestEnv('TMUX', '');
 
       program = new Program({ input, output });
 
@@ -4493,15 +4499,15 @@ describe('Program - Phase 16: Critical Gaps', () => {
 
       // Restore
       if (originalTmux !== undefined) {
-        process.env.TMUX = originalTmux;
+        setTestEnv('TMUX', originalTmux);
       } else {
-        delete process.env.TMUX;
+        setTestEnv('TMUX', undefined);
       }
     });
 
     it('should handle malformed TMUX environment variable', () => {
       const originalTmux = process.env.TMUX;
-      process.env.TMUX = 'invalid-format';
+      setTestEnv('TMUX', 'invalid-format');
 
       program = new Program({ input, output });
 
@@ -4510,9 +4516,9 @@ describe('Program - Phase 16: Critical Gaps', () => {
 
       // Restore
       if (originalTmux !== undefined) {
-        process.env.TMUX = originalTmux;
+        setTestEnv('TMUX', originalTmux);
       } else {
-        delete process.env.TMUX;
+        setTestEnv('TMUX', undefined);
       }
     });
 
@@ -4575,7 +4581,7 @@ describe('Program - Phase 16: Critical Gaps', () => {
       cp.execFileSync.mockImplementationOnce(() => 'invalid version format');
 
       const originalTmux = process.env.TMUX;
-      process.env.TMUX = '/tmp/tmux-1000/default,1234,0';
+      setTestEnv('TMUX', '/tmp/tmux-1000/default,1234,0');
 
       program = new Program({ input, output });
 
@@ -4585,9 +4591,9 @@ describe('Program - Phase 16: Critical Gaps', () => {
 
       // Restore
       if (originalTmux !== undefined) {
-        process.env.TMUX = originalTmux;
+        setTestEnv('TMUX', originalTmux);
       } else {
-        delete process.env.TMUX;
+        setTestEnv('TMUX', undefined);
       }
     });
   });
@@ -5186,7 +5192,7 @@ describe('Program - Phase 18: High-Value Integration', () => {
     it('should copy to clipboard on iTerm2', () => {
       // Set up iTerm2 environment
       const originalTermProgram = process.env.TERM_PROGRAM;
-      process.env.TERM_PROGRAM = 'iTerm.app';
+      setTestEnv('TERM_PROGRAM', 'iTerm.app');
 
       program = new Program({ input, output });
 
@@ -5201,9 +5207,9 @@ describe('Program - Phase 18: High-Value Integration', () => {
 
       // Restore
       if (originalTermProgram !== undefined) {
-        process.env.TERM_PROGRAM = originalTermProgram;
+        setTestEnv('TERM_PROGRAM', originalTermProgram);
       } else {
-        delete process.env.TERM_PROGRAM;
+        setTestEnv('TERM_PROGRAM', undefined);
       }
     });
 

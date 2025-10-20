@@ -19,7 +19,7 @@ Welcome! This document provides context and guidelines for working on **tui** - 
 - ✅ Full TypeScript conversion with strict mode
 - ✅ Platform-agnostic core architecture
 - ✅ Runtime dependency injection pattern
-- ✅ 98.5% test coverage (1,565/1,588 tests)
+- ✅ 100% test coverage (1,987/1,987 tests)
 - ✅ Browser support via XTerm.js
 - ✅ Modern build tooling (tsup, pnpm, Turborepo)
 
@@ -158,9 +158,7 @@ tui/
 - [ ] Alpha release to npm
 
 **Known Issues:**
-- 23 terminfo parsing tests failing (not runtime critical)
 - @tui/blessed needs integration tests with real blessed examples
-
 
 ### Deferred Phases
 

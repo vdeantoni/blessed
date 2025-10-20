@@ -10,7 +10,7 @@ import Tput from './tput.js';
 import colors from './colors.js';
 import { emitKeypressEvents } from './keys.js';
 import gpmclient from './gpmclient.js';
-import EventEmitter from './events';
+import EventEmitter from 'events';
 import { getNextTick, getEnvVar, type Runtime, type BufferType, getRuntime  } from './runtime-helpers.js';
 
 /**
@@ -200,7 +200,14 @@ class Program extends EventEmitter {
       });
     }
 
-    override type = 'program';
+    type = 'program';
+
+    /**
+     * Get the program's index in the instances array.
+     */
+    get programIndex(): number {
+        return (this as any)._programIndex ?? -1;
+    }
 
     /**
      * Write to the log file if one was created.

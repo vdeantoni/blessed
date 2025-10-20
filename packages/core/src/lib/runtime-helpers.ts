@@ -26,6 +26,14 @@ export function getEnvVar(varName: string): string {
 }
 
 /**
+ * Clear the environment variable cache
+ * Useful for testing when env vars change
+ */
+export function clearEnvCache(): void {
+  envCache.clear();
+}
+
+/**
  * Get nextTick function from runtime
  * Lazily initialized on first access
  */

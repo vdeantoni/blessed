@@ -20,7 +20,7 @@
  */
 
 import alias from './alias.js';
-import { getRuntime, getEnvVar, Runtime, type BufferType } from './runtime-helpers.js';
+import { getRuntime, getEnvVar, getDataPath, Runtime, type BufferType } from './runtime-helpers.js';
 
 /**
  * Tput
@@ -121,21 +121,21 @@ class Tput {
     };
 
     _useXtermCap() {
-        return this.injectTermcap(__dirname + '/usr/xterm.termcap');
+        return this.injectTermcap(this.runtime.path.join(getDataPath(), 'xterm.termcap'));
     };
 
     _useXtermInfo() {
-        return this.injectTerminfo(__dirname + '/usr/xterm');
+        return this.injectTerminfo(this.runtime.path.join(getDataPath(), 'xterm'));
     };
 
     _useInternalInfo(name: string) {
         name = this.runtime.path.basename(name);
-        return this.injectTerminfo(__dirname + '/usr/' + name);
+        return this.injectTerminfo(this.runtime.path.join(getDataPath(), name));
     };
 
     _useInternalCap(name: string) {
         name = this.runtime.path.basename(name);
-        return this.injectTermcap(__dirname + '/usr/' + name + '.termcap');
+        return this.injectTermcap(this.runtime.path.join(getDataPath(), name + '.termcap'));
     };
 
     readTerminfo(term: string) {

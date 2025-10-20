@@ -4,7 +4,8 @@
 
 import { EventEmitter } from 'events';
 import { vi } from 'vitest';
-import { setRuntime, _clearRuntime } from '../../src/runtime-context.js';
+import { setRuntime, getRuntime, _clearRuntime } from '../../src/runtime-context.js';
+import { clearEnvCache } from '../../src/lib/runtime-helpers.js';
 import fs from 'fs';
 import path from 'path';
 import process from 'process';
@@ -20,9 +21,33 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 /**
+ * Create a mock environment with clean defaults
+ */
+function createMockEnv() {
+  return {
+    // Basic environment - no terminal detection variables
+    HOME: process.env.HOME || '/home/test',
+    USER: process.env.USER || 'test',
+    PATH: process.env.PATH || '/usr/bin:/bin',
+    TERM: 'xterm-256color',  // Default to standard xterm
+    // Explicitly unset terminal detection variables
+    TERM_PROGRAM: undefined,
+    ITERM_SESSION_ID: undefined,
+    VTE_VERSION: undefined,
+    COLORTERM: undefined,
+    TERMINATOR_UUID: undefined,
+    TMUX: undefined,
+    COLUMNS: undefined,
+    LINES: undefined,
+  };
+}
+
+/**
  * Create a mock runtime for testing
  */
-function createMockRuntime() {
+function createMockRuntime(options = {}) {
+  const mockEnv = options.env || createMockEnv();
+
   return {
     // Core APIs (always required)
     fs: {
@@ -42,11 +67,12 @@ function createMockRuntime() {
       dirname: path.dirname,
       basename: path.basename,
       extname: path.extname,
+      normalize: path.normalize,
       sep: path.sep,
     },
     process: {
       platform: process.platform,
-      env: process.env,
+      env: mockEnv,  // Use mock environment
       cwd: vi.fn(() => path.resolve(__dirname, '../..')),
       exit: vi.fn(),
       stdin: process.stdin,
@@ -144,10 +170,44 @@ function createMockRuntime() {
  * Initialize runtime for tests
  * Call this before creating any widgets
  */
-export function initTestRuntime() {
+export function initTestRuntime(options = {}) {
   _clearRuntime();
+  clearEnvCache(); // Clear env cache to allow tests to set env vars
+  const runtime = createMockRuntime(options);
+  setRuntime(runtime);
+  return runtime;
+}
+
+/**
+ * Helper to get the current runtime's environment
+ * Use this to modify environment variables in tests
+ */
+export function getTestEnv() {
+  const runtime = getRuntime();
+  return runtime.process.env;
+}
+
+/**
+ * Helper to set environment variable in the test runtime
+ */
+export function setTestEnv(key, value) {
+  const runtime = getRuntime();
+  if (value === undefined) {
+    delete runtime.process.env[key];
+  } else {
+    runtime.process.env[key] = value;
+  }
+  clearEnvCache(); // Clear cache so changes take effect
+}
+
+/**
+ * Reset the runtime environment to clean defaults
+ * Useful for tests that need to isolate environment variables
+ */
+export function resetTestEnvironment() {
   const runtime = createMockRuntime();
   setRuntime(runtime);
+  clearEnvCache();
   return runtime;
 }
 
