@@ -6,6 +6,7 @@
   "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
   "license": "MIT",
   "type": "module",
+  "packageManager": "pnpm@10.18.3",
   "main": "./dist/blessed.js",
   "module": "./dist/blessed.js",
   "types": "./dist/blessed.d.ts",
