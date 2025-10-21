@@ -361,13 +361,20 @@ describe('Program - Core Infrastructure', () => {
 
     it('should default tmux version to 2 on error', () => {
       setTestEnv('TMUX', '/tmp/tmux-1000/default,1234,0');
-      cp.execFileSync.mockImplementation(() => {
+
+      // Mock the runtime's execFileSync to throw an error
+      const runtime = getRuntime();
+      const originalExecFileSync = runtime.processes.childProcess.execFileSync;
+      runtime.processes.childProcess.execFileSync = vi.fn(() => {
         throw new Error('Command not found');
       });
 
       program = new Program({ input, output });
 
       expect(program.tmuxVersion).toBe(2);
+
+      // Restore original
+      runtime.processes.childProcess.execFileSync = originalExecFileSync;
     });
 
     it('should handle windows platform terminal detection', () => {
@@ -4834,7 +4841,8 @@ describe('Program - Phase 17: Character Sets & Control Characters', () => {
     });
 
     it('should send backspace with backspace()', () => {
-      program = new Program({ input, output });
+      // Disable tput to ensure consistent behavior across environments
+      program = new Program({ input, output, tput: false });
 
       program.x = 10;
       clearWriteHistory(output);
@@ -4919,7 +4927,8 @@ describe('Program - Phase 17: Character Sets & Control Characters', () => {
     });
 
     it('should send newline with nel()', () => {
-      program = new Program({ input, output });
+      // Disable tput to ensure consistent behavior across environments
+      program = new Program({ input, output, tput: false });
 
       program.x = 10;
       const initialY = program.y;
@@ -4934,7 +4943,8 @@ describe('Program - Phase 17: Character Sets & Control Characters', () => {
     });
 
     it('should support newline() and feed() aliases', () => {
-      program = new Program({ input, output });
+      // Disable tput to ensure consistent behavior across environments
+      program = new Program({ input, output, tput: false });
 
       clearWriteHistory(output);
 
