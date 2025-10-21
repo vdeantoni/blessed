@@ -185,7 +185,8 @@ describe('Type Compatibility with @types/blessed', () => {
     });
 
     it('overlayimage factory should be compatible', () => {
-      const overlayimageTui = BlessedTui.default.overlayimage();
+      // Disable w3m search to prevent slow filesystem traversal in tests
+      const overlayimageTui = BlessedTui.default.overlayimage({ search: false });
       expectTypeOf(overlayimageTui).toMatchTypeOf<ReturnType<typeof BlessedOriginal.overlayimage>>();
     });
   });
