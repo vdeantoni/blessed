@@ -85,7 +85,7 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@unblessed/core": "workspace:*"
+    "@unblessed/core": "^1.0.0-alpha.1"
   },
   "engines": {
     "node": ">= 22.0.0"
