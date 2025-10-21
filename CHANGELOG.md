@@ -1,0 +1,67 @@
+# [0.2.0](https://github.com/vdeantoni/unblessed/compare/v0.1.81...v0.2.0) (2025-10-21)
+
+
+### Bug Fixes
+
+* Add emoji and symbol support to unicode width calculation ([270de50](https://github.com/vdeantoni/unblessed/commit/270de50e05abbb5715b8cf2ed4c30b9d6055a69b))
+* Auto-correct package.json formatting (npm publish warnings) ([17ed038](https://github.com/vdeantoni/unblessed/commit/17ed038a175c1520a0481f4a4be0d3d99afe7566))
+* **ci:** install Playwright browsers before running tests in release workflow ([8a4e7ca](https://github.com/vdeantoni/unblessed/commit/8a4e7ca70e847055e6c4c803c6860ab41ced2d94))
+* **ci:** update package name in test workflow ([0ec1147](https://github.com/vdeantoni/unblessed/commit/0ec1147856c422616ba7c82c145b91cb736722bc))
+* Clean npm cache before install in CI ([cccacb4](https://github.com/vdeantoni/unblessed/commit/cccacb482306b0e9444ae5771951e2bf8f279104))
+* Compile TypeScript files to JavaScript for npm package ([93b0446](https://github.com/vdeantoni/unblessed/commit/93b0446d226413086e4e3e22d73a6324de1a4273))
+* Complete strictNullChecks and cleanup blessed-browser ([b370c70](https://github.com/vdeantoni/unblessed/commit/b370c704a6bebb034de2782dab21d8b0c5329b99))
+* Correct CommonJS exports for compiled TypeScript modules ([864649b](https://github.com/vdeantoni/unblessed/commit/864649b19417bf73563eaa0fde5bc852fc72c12f))
+* Correct style types and preserve falsy values for dynamic styling ([ffed666](https://github.com/vdeantoni/unblessed/commit/ffed666243b887b68113f95ad3d5014491868664))
+* element.ts was defining a method that needed to be ovewritten by scrollable.js ([8c8f9ad](https://github.com/vdeantoni/unblessed/commit/8c8f9adff87a55f8402e4c921848ab6938577891))
+* Exclude TypeScript source files from npm package ([054e5c2](https://github.com/vdeantoni/unblessed/commit/054e5c206021604c4fd6b275f585ba44d29a1e96))
+* Fixed github action to also include firefox and webkit when installling playwright ([e5dfc6b](https://github.com/vdeantoni/unblessed/commit/e5dfc6b06e497c86aabdccadf10449bdeba8d969))
+* generate new lock file ([572da4a](https://github.com/vdeantoni/unblessed/commit/572da4a2c025f6b240d1d0744c5d445e8e9934e8))
+* Guard against undefined program in screen cleanup ([f2e9ba7](https://github.com/vdeantoni/unblessed/commit/f2e9ba7a4c427fcab78513fa4eff4e6e32423c1a))
+* Handle modern terminfo sequences in tput compiler ([9ce0277](https://github.com/vdeantoni/unblessed/commit/9ce0277999d6dd47eb01d8559071dea0e1508d2c))
+* handle surrogate pairs correctly in unicode padding ([1023508](https://github.com/vdeantoni/unblessed/commit/10235085c930f1f1b59df49e6eee1a042931689d))
+* Improve exports and logging directory handling ([8a78bfe](https://github.com/vdeantoni/unblessed/commit/8a78bfea39557981f09398074d7d15708964f244))
+* Include vendor and browser directories in npm package ([bc722de](https://github.com/vdeantoni/unblessed/commit/bc722dea0ef3d0ea57d79d6234d1c5c35d9dadaf))
+* npm pkg fix ([16dd993](https://github.com/vdeantoni/unblessed/commit/16dd993cf549f2bbcee2c6f94e6512336aa1c1da))
+* Phase 3B strictNullChecks - Fix 180 of 291 errors (62% complete) ([3f3dffd](https://github.com/vdeantoni/unblessed/commit/3f3dffd3a453a1de3ac764708b4e11c8581e2de3))
+* Phase 3B strictNullChecks - Fix 44 errors in 4 files ([c8fcb9e](https://github.com/vdeantoni/unblessed/commit/c8fcb9e9416c77cb4b10957792f64bba60912bfc))
+* Phase 3B strictNullChecks - Fix remaining 34 errors in 8 widget files ([c986e07](https://github.com/vdeantoni/unblessed/commit/c986e07bf7275d1c32007a9d20bb757857f60718))
+* Prevent OOM errors in benchmark suite ([c1c866b](https://github.com/vdeantoni/unblessed/commit/c1c866b680b60d87e3ec9244c3b7f95f67432fc3))
+* **publish:** prepare package.json files for npm publishing ([01b05a3](https://github.com/vdeantoni/unblessed/commit/01b05a305112fa32d2b26239bdce89a21a7bf636))
+* Remove circular dependency and require() from unicode.ts ([978d49d](https://github.com/vdeantoni/unblessed/commit/978d49de51c4f0abafb294dde74e2901353820b8))
+* Remove package-lock.json in CI before install ([149c489](https://github.com/vdeantoni/unblessed/commit/149c489fdbdf4ed6a0491b16a91e56f544fabe1d))
+* remove return when calling process.exit ([161227c](https://github.com/vdeantoni/unblessed/commit/161227cf51d2bb3366138fd030f2051d2e21b853))
+* removed manual test only dependencies ([5e23199](https://github.com/vdeantoni/unblessed/commit/5e23199ec1eb3f87dccf8272ad9e645f66fb8ed8))
+* Replace deprecated done() callbacks with promises in FileManager tests ([c016e14](https://github.com/vdeantoni/unblessed/commit/c016e141e26ebf3f1208bcd7dc7a0e877c8ed6c3))
+* Resolve all 120+ TypeScript type errors ([a334999](https://github.com/vdeantoni/unblessed/commit/a334999c4b0c27ff52ad06d7a1553befdd027cdb))
+* Resolve terminfo loading and achieve 100% test coverage ([dbfafcb](https://github.com/vdeantoni/unblessed/commit/dbfafcbf9bcedf984c64f33ba6ecf918bc43fceb))
+* Restore helpers.js for npm compatibility (alpha.8 hotfix) ([0ae1a3f](https://github.com/vdeantoni/unblessed/commit/0ae1a3fc2d3782a7e497d4f162e797747ff7cb90))
+* Simplify CI to use npm install instead of npm ci ([8069aa5](https://github.com/vdeantoni/unblessed/commit/8069aa5cb49fdcdf56a3422777060a68f30c6ddd))
+* sync unicode width detection with padding logic ([073e3f9](https://github.com/vdeantoni/unblessed/commit/073e3f9c1839966219a2024f0b4f565ea53b66ce))
+* **test:** fix CI test failures due to environment-specific terminal capabilities ([960c567](https://github.com/vdeantoni/unblessed/commit/960c56717d8f340542e01fb7a50a9a87c37e23c3))
+* **test:** prevent overlayimage test timeout by disabling w3m search ([0c8ed50](https://github.com/vdeantoni/unblessed/commit/0c8ed504cc68349d11168cc21ed2c4e9fe560991))
+* tests failing in ci looking for files in the filesystem ([ee5b566](https://github.com/vdeantoni/unblessed/commit/ee5b566234d22ef22fbacfc22d21d8874499d101))
+* Update CI to run tests once instead of watch mode ([6f5438a](https://github.com/vdeantoni/unblessed/commit/6f5438adfa5f297492eaa8bfb14d183e63b1e1bc))
+* Upgrade npm in CI to support lockfileVersion 3 ([2984f73](https://github.com/vdeantoni/unblessed/commit/2984f7372ffaafd50f6465e7441dbdc23a3a837b))
+* use fileURLToPath for __dirname in ESM modules ([09bc351](https://github.com/vdeantoni/unblessed/commit/09bc351111d5ad8c7a6e4c1f29bd4c1343a0d204))
+
+
+### Features
+
+* Add AGENTS.md and update README for modernization ([17ea255](https://github.com/vdeantoni/unblessed/commit/17ea255051f53d9fe8c6a1a1aacfd0bd52a54d43))
+* Add blessed-browser package with zero-config browser support ([79b9089](https://github.com/vdeantoni/unblessed/commit/79b90890c1f9f714fe5fd91190ca84e94081925b))
+* Add comprehensive type compatibility tests for @tuxe/blessed ([2a7e79b](https://github.com/vdeantoni/unblessed/commit/2a7e79b75643f9a90b468916c9dd7f9577c8b53a))
+* Add modern build system and development tools - Phase 2 complete ([cb82ed7](https://github.com/vdeantoni/unblessed/commit/cb82ed73e46a3abaff047a14149dad39275c1cba))
+* Add performance benchmarking infrastructure - Phase 1.6 partial ([d7c9e16](https://github.com/vdeantoni/unblessed/commit/d7c9e1699481cebcae7285ddea61d74c73b251e1))
+* Add proper TypeScript types and @types/blessed compatibility ([94b148b](https://github.com/vdeantoni/unblessed/commit/94b148b35bb3018a91c1b05e5afca8f937b229b9))
+* Complete noUnusedLocals/noUnusedParameters - Phase 3B Step 8 complete ([075d5fb](https://github.com/vdeantoni/unblessed/commit/075d5fbe30c5f4559fab9c577cfc0d8f5c28f856))
+* Complete Phase 3C.1 - Type Refinement (100+ any → proper types) ([c2bad49](https://github.com/vdeantoni/unblessed/commit/c2bad49a4fd51850dfeac95bf967b478b19dd207))
+* Enable noImplicitOverride - Phase 3B Step 8 complete ([02ddf43](https://github.com/vdeantoni/unblessed/commit/02ddf4306285c11f4fcbfb538896c49e40c480cf))
+* Enable noUnusedLocals/noUnusedParameters - Phase 3B Step 8 (partial) ([8add5f7](https://github.com/vdeantoni/unblessed/commit/8add5f72154b98dd72a1c59304ae20e5a681f072))
+* Enable strictPropertyInitialization - Phase 3B Step 7 complete ([41fb1d5](https://github.com/vdeantoni/unblessed/commit/41fb1d52422b9c1757165bda1fc5945cf4de2d3d))
+* Phase 3B - Enable 5 strict TypeScript flags ([be307cd](https://github.com/vdeantoni/unblessed/commit/be307cd93b2ba5b731c02ac510759d29d29422f6))
+
+
+### Performance Improvements
+
+* optimize unicode charWidth by caching env var check ([1bbc108](https://github.com/vdeantoni/unblessed/commit/1bbc108f67b2ee42b6873155f32d3848c9ec7536))
+* update benchmarks to test bundled output + micro-optimization ([b48a530](https://github.com/vdeantoni/unblessed/commit/b48a53055748c06305d6d2e959e350ed5ad064ba))

@@ -1,7 +1,7 @@
 {
   "name": "@unblessed/blessed",
   "description": "100% backward compatible blessed API wrapper over @unblessed/node",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.0",
   "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
   "license": "MIT",
   "publishConfig": {
