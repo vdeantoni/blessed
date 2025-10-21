@@ -12,7 +12,7 @@ export default defineConfig({
     exclude: ['__tests__/e2e/**/*'],
     coverage: {
       provider: 'v8',
-      reporter: ['text', 'json', 'html'],
+      reporter: ['text', 'json', 'html', 'lcov'],
       exclude: [
         'node_modules/**',
         '__tests__/**',
