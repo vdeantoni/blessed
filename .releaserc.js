@@ -11,7 +11,12 @@
  */
 
 export default {
-  branches: ['main'],
+  branches: [
+    {
+      name: 'main',
+      prerelease: 'alpha'
+    }
+  ],
   plugins: [
     // Analyze commits to determine version bump
     '@semantic-release/commit-analyzer',
