@@ -1,98 +1,21 @@
 # TODO
 
-## 1. Add `this.runtime` to Node class - refactor getRuntime() usage
-**Complexity:** Medium (~3-4 hours)
+Code modernization and cleanup tasks for @unblessed.
 
-**Description:**
-Add a `runtime` property to the Node class so all widgets have direct access via `this.runtime`. Refactor current usage of `getRuntime()` in widgets to use the instance property instead.
+## High Priority
 
-**Current state:**
-- 23 calls to `getRuntime()` across widget files
-- Scattered throughout: screen.ts (5), overlayimage.ts (11), element.ts (1), log.ts (1), bigtext.ts (1), ansiimage.ts (1), filemanager.ts (2), screen-header.ts (1)
-- Runtime is currently accessed via global context through `getRuntime()` helper
-
-**Implementation approach:**
-1. Add `runtime: Runtime` property to Node class (packages/tui-core/src/widgets/node.ts:28)
-2. Initialize in Node constructor: `this.runtime = getRuntime()`
-3. Update all widget files to use `this.runtime` instead of `getRuntime()`
-4. Consider keeping `getRuntime()` for utility functions that don't have widget context
-
-**Files to modify:**
-- `packages/tui-core/src/widgets/node.ts` (add property + initialization)
-- `packages/tui-core/src/widgets/screen.ts` (5 usages)
-- `packages/tui-core/src/widgets/overlayimage.ts` (11 usages)
-- `packages/tui-core/src/widgets/element.ts` (1 usage + module-level nextTick)
-- `packages/tui-core/src/widgets/log.ts` (1 usage)
-- `packages/tui-core/src/widgets/bigtext.ts` (1 usage)
-- `packages/tui-core/src/widgets/ansiimage.ts` (1 usage)
-- `packages/tui-core/src/widgets/filemanager.ts` (2 usages)
-- `packages/tui-core/src/widgets/screen-header.ts` (1 usage)
-
-**Benefits:**
-- More explicit dependency injection
-- Better for testing (can mock runtime per widget instance)
-- Clearer widget API - runtime available without import
-- Slightly better performance (one fewer function call)
-
----
-
-## 2. Refactor colors.ts - export individual functions instead of object
-**Complexity:** Medium (~2-3 hours)
-
-**Description:**
-Refactor `colors.ts` to export individual functions directly instead of attaching them to a `colors` object. Modern ES6 module style with named exports.
-
-**Current state:**
-- 536 lines in colors.ts
-- ~13 functions attached to `colors` object
-- Default export of `colors` object
-- Used in 7 files: index.ts, screen.ts, program.ts, ansiimage.ts, image-renderer.ts, screen-header.ts, element.ts
-
-**Implementation approach:**
-1. Convert each `colors.functionName = function(...)` to `export function functionName(...)`
-2. Keep internal data structures (vcolors, _cache, ncolors, etc.) as module-scoped variables
-3. Update imports across all consumer files from `import colors from './colors'` to `import { match, blend, convert, ... } from './colors'`
-4. Remove default export
-
-**Functions to convert:**
-- `match()` - color matching
-- `RGBToHex()` - RGB to hex conversion
-- `hexToRGB()` - hex to RGB conversion
-- `mixColors()` - color mixing
-- `blend()` - attribute blending
-- `reduce()` - color reduction
-- `convert()` - color conversion
-- Plus module-scoped data: xterm, colors, vcolors, ccolors, ncolors, colorNames
-
-**Files to update imports:**
-- `packages/tui-core/src/index.ts`
-- `packages/tui-core/src/widgets/screen.ts`
-- `packages/tui-core/src/lib/program.ts`
-- `packages/tui-core/src/widgets/ansiimage.ts`
-- `packages/tui-core/src/lib/image-renderer.ts`
-- `packages/tui-core/src/widgets/screen-header.ts`
-- `packages/tui-core/src/widgets/element.ts`
-
-**Benefits:**
-- Modern ES6 module pattern
-- Better tree-shaking (only used functions bundled)
-- Clearer API - explicit imports show what's used
-- Easier to test individual functions
-- Better IDE autocomplete/IntelliSense
-
----
-
-## 3. Remove legacy `var self = this` pattern
-**Complexity:** Low (~1-2 hours)
+### 1. Remove `var self = this` pattern
+**Effort:** Low (~1 hour)
+**Priority:** High
+**Status:** Ready to implement
 
 **Description:**
 Replace old JavaScript closure pattern `var self = this` with arrow functions to preserve `this` context. Modern ES6 approach that's cleaner and more maintainable.
 
 **Current state:**
-- 10 occurrences of `var self = this` pattern
-- Found in 2 files:
-  - `overlayimage.ts`: 4 occurrences (lines 156, 256, 488, 560)
-  - `tput.ts`: 6 occurrences (lines 505, 552, 1137, 1335, 1404, 1891)
+- 7 occurrences across 2 files:
+  - `overlayimage.ts`: 1 occurrence
+  - `tput.ts`: 6 occurrences
 
 **Implementation approach:**
 1. Identify callbacks/closures using `self` variable
@@ -115,8 +38,8 @@ something.on('event', () => {
 ```
 
 **Files to modify:**
-- `packages/tui-core/src/widgets/overlayimage.ts` (4 instances)
-- `packages/tui-core/src/lib/tput.ts` (6 instances)
+- `packages/core/src/widgets/overlayimage.ts` (1 instance)
+- `packages/core/src/lib/tput.ts` (6 instances)
 
 **Benefits:**
 - Modern ES6 pattern
@@ -126,29 +49,33 @@ something.on('event', () => {
 
 ---
 
-## 4. Replace `var` with `const`/`let`
-**Complexity:** Medium-High (~4-6 hours)
+## Low Priority
+
+### 2. Replace `var` with `const`/`let`
+**Effort:** Medium (~3-4 hours)
+**Priority:** Low
+**Status:** Future improvement
 
 **Description:**
 Replace all `var` declarations with `const` (for immutable bindings) or `let` (for reassignable variables). Modern ES6 best practice with better scoping rules (block vs function scope).
 
 **Current state:**
-- 105 `var` declarations across 4 files:
-  - `tput.ts`: ~3,060 lines (majority of var usage - ~52 instances)
-  - `program.ts`: ~4,483 lines (~12 instances)
-  - `overlayimage.ts`: ~795 lines (~39 instances)
-  - `ansiimage.ts`: ~191 lines (~2 instances)
+- 82 occurrences across 4 files:
+  - `ansiimage.ts`: 2 instances
+  - `overlayimage.ts`: 16 instances
+  - `program.ts`: 12 instances
+  - `tput.ts`: 52 instances
 
 **Implementation approach:**
-1. Use automated tool/script to identify all `var` declarations
-2. Analyze each declaration to determine if variable is reassigned:
+1. Start with smallest files first:
+   - `ansiimage.ts` (2 vars) - easiest to validate
+   - `program.ts` (12 vars) - medium complexity
+   - `overlayimage.ts` (16 vars) - after removing var self pattern
+   - `tput.ts` (52 vars) - largest, save for last
+2. For each var declaration, analyze if variable is reassigned:
    - Never reassigned → use `const`
    - Reassigned → use `let`
-3. File-by-file conversion:
-   - Start with smaller files (ansiimage.ts, overlayimage.ts)
-   - Then tackle larger files (program.ts, tput.ts)
-4. Run tests after each file conversion to catch scope issues
-5. Enable `noUncheckedIndexedAccess` in tsconfig.json after cleanup (if not already enabled)
+3. Run tests after each file conversion to catch scope issues
 
 **Example transformation:**
 ```typescript
@@ -164,42 +91,87 @@ y = 20;
 ```
 
 **Files to modify:**
-- `packages/tui-core/src/widgets/ansiimage.ts` (~2 vars)
-- `packages/tui-core/src/widgets/overlayimage.ts` (~39 vars)
-- `packages/tui-core/src/lib/program.ts` (~12 vars)
-- `packages/tui-core/src/lib/tput.ts` (~52 vars)
+- `packages/core/src/widgets/ansiimage.ts` (2 vars)
+- `packages/core/src/lib/program.ts` (12 vars)
+- `packages/core/src/widgets/overlayimage.ts` (16 vars)
+- `packages/core/src/lib/tput.ts` (52 vars)
 
 **Benefits:**
 - Block scoping prevents subtle bugs
 - `const` signals immutability intent
-- Better with TypeScript strict mode
+- Better alignment with TypeScript strict mode
 - Modern ES6 standard
 - Easier to reason about variable lifecycle
 
-**Note:** This is higher complexity due to the volume (105 instances) and need to carefully analyze each case for mutability. Large files like tput.ts (3,060 lines) and program.ts (4,483 lines) require extra care.
+**Why Low Priority:**
+- Current code works fine with `var`
+- TypeScript strict mode already catches many issues
+- Requires careful analysis of each case
+- Not urgent, but good practice
 
 ---
 
-## 5. Investigate EventEmitter replacement strategy
-**Complexity:** Low-Medium (~2-3 hours)
+## Not Recommended
 
-**Description:**
-Investigate if we can switch from our custom EventEmitter implementation to using the runtime's event emitter, while having tui-node use Node.js's native event emitter.
+These items from the old TODO list are **not recommended** for implementation:
 
-**Current state:**
-- Custom EventEmitter implementation in tui-core
-- tui-node likely wraps or extends this
-- Need to assess compatibility and migration path
+### ❌ Add `this.runtime` to Node class
+**Why Skip:**
+- Marginal performance benefit (getRuntime() is already optimized)
+- Adds memory overhead to every widget instance
+- Current pattern better reflects singleton semantics
+- Theoretical testing benefit doesn't materialize in practice
+- Would add complexity without meaningful gain
 
-**Investigation tasks:**
-1. Document current EventEmitter usage and API surface
-2. Compare runtime's event emitter capabilities vs current implementation
-3. Identify Node.js EventEmitter integration points in tui-node
-4. Assess breaking changes and migration complexity
-5. Determine if runtime-based approach provides benefits (performance, size, maintenance)
+**Current approach is cleaner:** Runtime as global singleton accessed via `getRuntime()` is explicit and appropriate for the architecture.
 
-**Benefits (if viable):**
-- Reduce custom code maintenance
-- Leverage native Node.js EventEmitter in tui-node
-- Potentially better performance
-- Smaller bundle size
+---
+
+### ❌ Investigate EventEmitter replacement
+**Why Skip:**
+- Current custom EventEmitter is stable and battle-tested
+- High risk of subtle behavior changes for minimal benefit
+- Provides consistent behavior across all platforms (Node, browser, tests)
+- Full control over implementation details
+- No significant bundle size savings expected
+
+**Current approach is stable:** The custom EventEmitter works well and provides predictable behavior.
+
+---
+
+### ⏸️ Refactor colors.ts to named exports
+**Why Defer to v2.0.0:**
+- Would be a breaking change for external consumers
+- Current v1.x goal is 100% backward compatibility with blessed
+- Functions benefit from namespace (match, blend, convert are generic names)
+- Primarily used internally, so tree-shaking benefit is limited
+
+**Consider for v2.0.0:** This would be a good modernization, but should wait for the next major version when breaking changes are acceptable.
+
+**Alternative approach:** Could export both ways temporarily (default + named exports) to allow gradual migration without breaking changes.
+
+---
+
+## Summary
+
+**Do now:** Item #1 (remove var self = this) - Quick win with clear benefits
+
+**Do later:** Item #2 (replace var with const/let) - Good practice but not urgent
+
+**Don't do:** Items #3-5 - Not worth the effort/risk, or deferred to v2.0.0
+
+---
+
+## Completed Tasks
+
+For historical reference, these major refactoring efforts have been completed:
+
+- ✅ Full TypeScript conversion with strict mode
+- ✅ Runtime dependency injection pattern implemented
+- ✅ Platform-agnostic core architecture
+- ✅ 100% test coverage (1,987/1,987 tests passing)
+- ✅ Browser support via XTerm.js integration
+- ✅ Monorepo setup with Turborepo
+- ✅ Modern build tooling (tsup, pnpm)
+- ✅ Package rebranding from @tui to @unblessed
+- ✅ Documentation consolidation and cleanup
