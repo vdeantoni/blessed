@@ -5,6 +5,8 @@ Browser runtime adapter for [@unblessed/core](../core) - Run terminal UIs in the
 [![npm version](https://img.shields.io/npm/v/@unblessed/browser)](https://www.npmjs.com/package/@unblessed/browser)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 
+> ⚠️ **ALPHA SOFTWARE** - This package is part of the unblessed alpha release. API may change between alpha versions.
+
 ## Overview
 
 `@unblessed/browser` enables terminal user interface (TUI) applications built with `@unblessed/core` to run in web browsers. It provides:
@@ -17,12 +19,14 @@ Browser runtime adapter for [@unblessed/core](../core) - Run terminal UIs in the
 ## Installation
 
 ```bash
-npm install @unblessed/browser xterm
+npm install @unblessed/browser@alpha xterm
 # or
-pnpm add @unblessed/browser xterm
+pnpm add @unblessed/browser@alpha xterm
 # or
-yarn add @unblessed/browser xterm
+yarn add @unblessed/browser@alpha xterm
 ```
+
+**Requirements:** Modern browser with ES2020 support (Chrome 90+, Firefox 88+, Safari 14+)
 
 ## Quick Start
 
@@ -84,7 +88,7 @@ screen.render();
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tui Browser Example</title>
+  <title>unblessed Browser Example</title>
   <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
   <style>
     body {
@@ -429,7 +433,7 @@ new Screen({ terminal: term, mouse: true })
 
 ## Contributing
 
-See the main [tui repository](https://github.com/vdeantoni/unblessed) for contribution guidelines.
+See the main [unblessed repository](https://github.com/vdeantoni/unblessed) for contribution guidelines.
 
 ## License
 

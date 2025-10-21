@@ -1,4 +1,4 @@
-# tui
+# unblessed
 
 > A modern, platform-agnostic terminal UI library for Node.js and browsers
 
@@ -6,7 +6,9 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-blue.svg)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-%3E%3D22-green.svg)](https://nodejs.org/)
 
-**tui** is a complete modernization of the beloved [blessed](https://github.com/chjj/blessed) terminal UI library, bringing it into the modern era with TypeScript, comprehensive tests, platform-agnostic architecture, and browser support.
+> ⚠️ **ALPHA SOFTWARE** - This is an alpha release under active development. While the API is stable and backward-compatible with blessed, expect potential breaking changes between alpha versions. See [Project Status](#-project-status) for details.
+
+**unblessed** is a complete modernization of the beloved [blessed](https://github.com/chjj/blessed) terminal UI library, bringing it into the modern era with TypeScript, comprehensive tests, platform-agnostic architecture, and browser support.
 
 ## ✨ Features
 
@@ -20,14 +22,16 @@
 
 ## 📦 Packages
 
-The tui project is organized as a monorepo with four main packages:
+> **Note:** Packages are currently in alpha. Use `@alpha` tag when installing: `npm install @unblessed/node@alpha`
+
+The unblessed project is organized as a monorepo with four main packages:
 
 ### [@unblessed/core](packages/core)
 
 Platform-agnostic core library with all widget logic, rendering, and events.
 
 ```bash
-npm install @unblessed/core
+npm install @unblessed/core@alpha
 ```
 
 **Use when:** Building custom runtime adapters or need platform-agnostic code.
@@ -37,7 +41,7 @@ npm install @unblessed/core
 Modern Node.js runtime with clean, class-based API.
 
 ```bash
-npm install @unblessed/node
+npm install @unblessed/node@alpha
 ```
 
 **Use when:** Building new Node.js terminal applications (recommended).
@@ -72,7 +76,7 @@ screen.render();
 Browser runtime with XTerm.js integration for web-based terminals.
 
 ```bash
-npm install @unblessed/browser xterm
+npm install @unblessed/browser@alpha xterm
 ```
 
 **Use when:** Building terminal UIs in the browser.
@@ -96,14 +100,14 @@ const box = new Box({
 screen.render();
 ```
 
-[Try the interactive playground →](packages/browser)
+> **Interactive Playground:** Clone the repo and run `pnpm --filter @unblessed/browser dev` to try the browser playground at http://localhost:5173
 
 ### [@unblessed/blessed](packages/blessed)
 
 100% backward-compatible blessed API for seamless migration.
 
 ```bash
-npm install @unblessed/blessed
+npm install @unblessed/blessed@alpha
 ```
 
 **Use when:** Migrating from blessed or need exact API compatibility.
@@ -128,7 +132,7 @@ screen.render();
 Start with **@unblessed/node** for the best experience:
 
 ```bash
-npm install @unblessed/node
+npm install @unblessed/node@alpha
 ```
 
 ```typescript
@@ -164,7 +168,7 @@ screen.render();
 Migrate seamlessly with **@unblessed/blessed**:
 
 ```bash
-npm install @unblessed/blessed
+npm install @unblessed/blessed@alpha
 ```
 
 ```diff
@@ -236,7 +240,7 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 - @unblessed/blessed integration tests
 - Migration guide and examples
-- Alpha release to npm
+- Performance optimization
 
 ### 📋 Roadmap
 
@@ -246,6 +250,53 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 - Phase 8: Declarative UI APIs (post-v1.0.0)
 
 See [CLAUDE.md](CLAUDE.md) for the complete modernization roadmap.
+
+## ⚠️ Known Limitations (Alpha)
+
+As an alpha release, please be aware of the following:
+
+**Stability:**
+- API may change between alpha versions
+- Some edge cases may not be fully tested
+- Performance optimizations are ongoing
+
+**Testing:**
+- @unblessed/blessed integration tests in progress
+- Some complex blessed examples may need adjustments
+- Browser package E2E tests cover common scenarios but not all edge cases
+
+**Documentation:**
+- Migration guide from blessed is being written
+- Some advanced features may lack documentation
+- API documentation is primarily via TypeScript definitions
+
+**Platform Support:**
+- Node.js >= 22.0.0 required (modern LTS versions coming soon)
+- Browser support tested on Chrome, Firefox, Safari
+- Terminal compatibility verified on iTerm2, Alacritty, Windows Terminal
+
+## 💬 Alpha Feedback
+
+We need your help to make unblessed production-ready! Please test and report:
+
+**What to Test:**
+- Migration from existing blessed applications
+- Your favorite blessed widgets and features
+- Browser terminal UIs with XTerm.js
+- Performance with large UIs or rapid updates
+
+**How to Report Issues:**
+- [Open an issue](https://github.com/vdeantoni/unblessed/issues) on GitHub
+- Include your environment (Node version, OS, terminal emulator)
+- Provide minimal reproduction code
+- Check existing issues first
+
+**What We're Looking For:**
+- API ergonomics and developer experience feedback
+- Breaking changes from blessed behavior
+- Performance bottlenecks
+- Browser compatibility issues
+- Documentation gaps
 
 ## 🎨 Widget Gallery
 
@@ -281,7 +332,7 @@ tui includes 27+ widgets for building rich terminal UIs:
 ```bash
 # Clone the repository
 git clone https://github.com/vdeantoni/unblessed.git
-cd tui
+cd unblessed
 
 # Install dependencies
 pnpm install
@@ -347,4 +398,11 @@ Based on the original [blessed](https://github.com/chjj/blessed) library by Chri
 
 ---
 
-**Note:** This is an alpha release. The API is stable and backward-compatible with blessed, but some features are still being finalized. We're working toward a full v1.0.0 release.
+## ⚡ Quick Links for Alpha Testers
+
+- **Report Issues:** [GitHub Issues](https://github.com/vdeantoni/unblessed/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/vdeantoni/unblessed/discussions)
+- **Changelog:** [CHANGELOG.md](CHANGELOG.md) _(will be generated on release)_
+- **Roadmap:** [CLAUDE.md](CLAUDE.md#current-status)
+
+**Alpha Version Notice:** This is alpha software under active development. The core API is stable and backward-compatible with blessed, but expect potential breaking changes as we work toward v1.0.0. Production use is not recommended until beta or stable release.

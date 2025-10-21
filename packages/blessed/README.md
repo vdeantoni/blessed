@@ -5,6 +5,8 @@
 [![npm version](https://img.shields.io/npm/v/@unblessed/blessed)](https://www.npmjs.com/package/@unblessed/blessed)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 
+> ⚠️ **ALPHA SOFTWARE** - This package is part of the unblessed alpha release. API may change between alpha versions.
+
 ## Overview
 
 `@unblessed/blessed` provides a 100% backward-compatible API with the original [blessed](https://github.com/chjj/blessed) library. It's a thin wrapper over `@unblessed/node` that maintains the exact same API surface, making migration seamless.
@@ -23,12 +25,14 @@
 ## Installation
 
 ```bash
-npm install @unblessed/blessed
+npm install @unblessed/blessed@alpha
 # or
-pnpm add @unblessed/blessed
+pnpm add @unblessed/blessed@alpha
 # or
-yarn add @unblessed/blessed
+yarn add @unblessed/blessed@alpha
 ```
+
+**Requirements:** Node.js >= 22.0.0
 
 ## Quick Start
 
@@ -353,7 +357,7 @@ Include `@unblessed/blessed` types:
 
 **Runtime errors?**
 
-Check that you're using Node.js >= 18:
+Check that you're using Node.js >= 22:
 ```bash
 node --version
 ```

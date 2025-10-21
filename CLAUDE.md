@@ -1,93 +1,37 @@
-# Agent Instructions for tui
+# CLAUDE.md
 
-Welcome! This document provides context and guidelines for working on **tui** - a modernized, platform-agnostic terminal UI library based on blessed.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-**tui** (@unblessed) is a complete modernization of the blessed TUI library with a platform-agnostic architecture:
+**unblessed** is a modernized, platform-agnostic terminal UI library based on blessed, organized as a monorepo with TypeScript, comprehensive tests, and multi-platform support.
+
+### Architecture
 
 ```
-@unblessed/core      → Platform-agnostic blessed logic (Runtime interface)
+@unblessed/core      → Platform-agnostic core (Runtime interface)
 @unblessed/node      → Node.js runtime implementation
 @unblessed/browser   → Browser runtime (XTerm.js integration)
-@unblessed/blessed   → Backward-compatible wrapper (pending)
+@unblessed/blessed   → Backward-compatible wrapper
 ```
+
+**Key Features:**
+- Full TypeScript with strict mode
+- Platform-agnostic via runtime dependency injection
+- 1,987+ tests with 98.5% coverage
+- Browser support via XTerm.js
+- 100% backward compatible with blessed
 
 **Current Version:** `1.0.0-alpha.19`
 
-**Key Achievements:**
-- ✅ Full TypeScript conversion with strict mode
-- ✅ Platform-agnostic core architecture
-- ✅ Runtime dependency injection pattern
-- ✅ 100% test coverage (1,987/1,987 tests)
-- ✅ Browser support via XTerm.js
-- ✅ Modern build tooling (tsup, pnpm, Turborepo)
-
-## Architecture
-
-### Runtime Dependency Injection
-
-tui uses a **global runtime context** pattern for platform abstraction:
-
-```typescript
-// @unblessed/core defines interface
-export interface Runtime {
-  fs: FileSystemAPI;
-  process: ProcessAPI;
-  // ... other platform APIs
-}
-
-// Platform packages implement runtime
-import { setRuntime } from '@unblessed/core';
-setRuntime(new NodeRuntime());  // or BrowserRuntime
-
-// Core code uses runtime
-import { getRuntime } from './runtime-context';
-const data = getRuntime().fs.readFileSync(path);
-```
-
-**Benefits:**
-- Single codebase, multiple platforms
-- Testable with mock runtimes
-- Easy to add new platforms (Deno, Bun)
-
-### Package Structure
-
-**@unblessed/core** - Platform-agnostic core
-- All widget logic, rendering, events
-- Zero platform dependencies
-- Strict TypeScript, fully typed
-- Used as foundation by all runtimes
-
-**@unblessed/node** - Node.js runtime
-- NodeRuntime implementation
-- Auto-initializes on import
-- Modern, clean API
-- Tree-shakeable exports
-- Example: `import { Screen, Box } from '@unblessed/node'`
-
-**@unblessed/browser** - Browser runtime
-- BrowserRuntime with polyfills
-- Auto-initializes on import
-- XTerm.js integration
-- Same API as @unblessed/node
-- Interactive playground at http://localhost:5173
-
-**@unblessed/blessed** - Compatibility layer
-- 100% backward compatible with blessed
-- Thin wrapper over @unblessed/node
-- Drop-in replacement: `require('@unblessed/blessed')`
-- 56 type compatibility tests (100% passing)
-
-## Development
+## Development Commands
 
 ### Prerequisites
-
-- **Node.js:** >= 22.0.0 (LTS)
+- **Node.js:** >= 22.0.0
 - **Package Manager:** pnpm (required, not npm)
 - **Build Tool:** Turborepo + tsup
 
-### Setup
+### Common Commands
 
 ```bash
 # Install dependencies
@@ -96,13 +40,189 @@ pnpm install
 # Build all packages
 pnpm build
 
-# Run tests
+# Build specific package
+pnpm --filter @unblessed/core build
+pnpm --filter @unblessed/browser build
+
+# Watch mode for development
+pnpm --filter @unblessed/core build:watch
+
+# Run all tests
 pnpm test
 
-# Run specific package
+# Run tests for specific package
 pnpm --filter @unblessed/core test
-pnpm --filter @unblessed/browser build
+pnpm --filter @unblessed/browser test
+
+# Run tests in watch mode
+pnpm --filter @unblessed/core test:watch
+
+# Run tests with UI
+pnpm test:ui
+
+# Run tests with coverage
+pnpm test:coverage
+
+# Lint & format
+pnpm lint              # Auto-fix linting issues
+pnpm lint:check        # Check only
+pnpm format            # Auto-format code
+pnpm format:check      # Check only
+
+# Run benchmarks
+pnpm --filter benchmarks bench
+
+# Browser playground (development server)
+pnpm --filter @unblessed/browser dev
+# Then visit http://localhost:5173
+
+# Clean build artifacts
+pnpm clean
 ```
+
+### Testing Individual Files
+
+```bash
+# Run specific test file
+pnpm --filter @unblessed/core test -- __tests__/widgets/box.test.js
+
+# Run tests matching pattern
+pnpm --filter @unblessed/core test -- -t "Screen"
+
+# Run with coverage for specific file
+pnpm --filter @unblessed/core test:coverage -- __tests__/lib/colors.test.js
+```
+
+## Architecture & Key Patterns
+
+### Runtime Dependency Injection
+
+The core architectural pattern is **runtime dependency injection** for platform abstraction:
+
+```typescript
+// @unblessed/core defines the Runtime interface
+export interface Runtime {
+  fs: FileSystemAPI;
+  process: ProcessAPI;
+  tty: TtyAPI;
+  buffer: BufferAPI;
+  // ... other platform APIs
+}
+
+// Platform packages implement and initialize runtime
+import { setRuntime } from '@unblessed/core';
+setRuntime(new NodeRuntime());  // or BrowserRuntime()
+
+// Core code accesses runtime via context
+import { getRuntime } from './runtime-context';
+const data = getRuntime().fs.readFileSync(path);
+```
+
+**Why this matters:**
+- Single codebase works across Node.js, browsers, and future platforms
+- Testable with mock runtimes
+- Zero platform dependencies in @unblessed/core
+- Easy to add new platforms (Deno, Bun, etc.)
+
+### Package Responsibilities
+
+**@unblessed/core** - Platform-agnostic core
+- All widget logic, rendering engine, event handling
+- Zero platform dependencies
+- Defines Runtime interface
+- Located in: `packages/core/`
+
+**@unblessed/node** - Node.js runtime
+- NodeRuntime implementation
+- Auto-initializes on import
+- Modern, class-based API
+- Located in: `packages/node/`
+
+**@unblessed/browser** - Browser runtime
+- BrowserRuntime with polyfills
+- XTerm.js integration
+- Auto-initializes on import
+- Interactive playground
+- Located in: `packages/browser/`
+
+**@unblessed/blessed** - Compatibility layer
+- 100% backward compatible with blessed
+- Thin wrapper over @unblessed/node
+- Drop-in replacement
+- Located in: `packages/blessed/`
+
+### Key Architectural Decisions
+
+Understanding these design decisions will help you maintain consistency:
+
+**1. Auto-initialization Pattern**
+
+Runtime packages auto-initialize on import - no manual setup required:
+
+```typescript
+// ✅ Simply import and use
+import { Screen, Box } from '@unblessed/node';
+const screen = new Screen({ smartCSR: true });
+
+// ❌ Old pattern (removed) - no longer needed
+import { initRuntime } from '@unblessed/node';
+initRuntime();
+```
+
+**Why:** Reduces boilerplate and makes the API more ergonomic. Users shouldn't have to think about runtime initialization.
+
+**2. Widget Attachment with `parent` Property**
+
+Widgets attach to parents using the `parent` option:
+
+```typescript
+// ✅ Correct - use parent property
+const box = new Box({
+  parent: screen,
+  content: 'Hello'
+});
+
+// ❌ Wrong - don't pass screen directly
+const box = new Box(screen, { content: 'Hello' });
+```
+
+**Why:** Consistent with blessed API and allows for cleaner option objects.
+
+**3. Browser Screen Auto-detection**
+
+Browser Screen automatically detects XTerm.js Terminal instances:
+
+```typescript
+// ✅ Screen auto-creates XTermAdapter
+import { Screen } from '@unblessed/browser';
+const screen = new Screen({ terminal: term });
+
+// ❌ Old pattern (removed)
+import { createXTermScreen } from '@unblessed/browser';
+const screen = createXTermScreen({ terminal: term });
+```
+
+**Why:** Simplifies API, removes redundant helper functions, and sets sensible defaults (smartCSR, fastCSR, fullUnicode).
+
+**4. Browser Polyfills from npm**
+
+Browser runtime uses battle-tested npm packages instead of custom polyfills:
+
+- `util` package → inspect, format functions
+- `stream-browserify` → Readable, Writable streams
+- Custom polyfills only where necessary (fs with bundled data, process with event management)
+
+**Why:** Reduces maintenance burden, leverages community-tested code, smaller bundle size.
+
+**5. Single Source of Truth for Polyfills**
+
+Browser runtime handles all polyfill initialization in `auto-init.ts`:
+
+- Vite plugin only handles build optimization
+- Runtime class in separate file (`browser-runtime.ts`)
+- Clear separation: initialization vs implementation vs build
+
+**Why:** Prevents duplicate initialization, easier to debug, clearer code organization.
 
 ### Testing Strategy
 
@@ -111,74 +231,214 @@ pnpm --filter @unblessed/browser build
 - `NODE_ENV=test` allows runtime replacement
 - Mock runtimes for unit tests
 
+**Test Structure:**
+```
+packages/*/
+└── __tests__/
+    ├── setup.js          # Test initialization
+    ├── helpers/          # Test utilities
+    │   └── mock.js       # Runtime mocking
+    ├── lib/              # Library tests
+    └── widgets/          # Widget tests
+```
+
 **Coverage Targets:**
 - Core modules: 70%+ (currently 98.5%)
 - Widgets: 70%+
-- Overall: 50%+ (currently exceeded)
+- Overall: 50%+ (exceeded)
+
+**Testing with Runtime:**
+```typescript
+import { setRuntime } from '@unblessed/core';
+import { initTestRuntime } from '../helpers/mock.js';
+
+beforeAll(() => {
+  initTestRuntime();
+});
+```
 
 ### Build System
 
 **Monorepo Structure:**
 ```
-tui/
+unblessed/
 ├── packages/
-│   ├── core/      # Platform-agnostic core
-│   ├── node/      # Node.js runtime
-│   ├── browser/   # Browser runtime
-│   └── blessed/   # Compatibility layer (pending)
+│   ├── core/         # Platform-agnostic core
+│   ├── node/         # Node.js runtime
+│   ├── browser/      # Browser runtime
+│   └── blessed/      # Compatibility layer
 ├── apps/
-│   └── docs/           # Documentation (TBD)
-└── tools/
-    └── benchmarks/     # Performance benchmarks
+│   └── docs/         # Documentation
+├── tools/
+│   └── benchmarks/   # Performance benchmarks
+└── scripts/          # Build & release scripts
 ```
 
 **Build Configuration:**
-- TypeScript strict mode enabled
+- TypeScript strict mode enabled (all 8 flags)
 - tsup for library builds (CJS + ESM + DTS)
 - Turborepo for monorepo orchestration
+- Vitest for testing
+- Playwright for browser E2E tests
 
-## Current Status
+**Turborepo Tasks:**
+- Tasks automatically run dependencies (e.g., `test` depends on `build`)
+- Tasks cache outputs for faster rebuilds
+- Use `--filter` to target specific packages
 
-### Completed Phases
+## Common Development Tasks
 
-- ✅ **Phase 0:** Analysis & Critical Decisions
-- ✅ **Phase 1:** Testing Infrastructure (1,638 tests)
-- ✅ **Phase 2:** Build System & Modern Tooling
-- ✅ **Phase 3A:** TypeScript Conversion
-- ✅ **Phase 3B:** Strict TypeScript (all 8 flags enabled)
-- ✅ **Phase 3C.1:** Type Refinement + JSDoc
-- ✅ **Phase 6:** @unblessed Architecture (95% complete)
+### Adding a New Widget
 
-### In Progress
+1. Create widget file in `packages/core/src/widgets/`:
+```typescript
+import { Box, type BoxOptions } from './box.js';
 
-**Phase 6 Remaining:**
-- [x] @unblessed/blessed compatibility layer (type tests complete)
-- [ ] End-to-end integration tests
-- [ ] Migration guide
-- [ ] Alpha release to npm
+export interface MyWidgetOptions extends BoxOptions {
+  myOption?: string;
+}
 
-**Known Issues:**
-- @unblessed/blessed needs integration tests with real blessed examples
+export class MyWidget extends Box {
+  constructor(options: MyWidgetOptions = {}) {
+    super(options);
+    this.type = 'mywidget';
+  }
+}
+```
 
-### Deferred Phases
+2. Export from `packages/core/src/widgets/index.ts`
+3. Add tests in `packages/core/__tests__/widgets/`
+4. Update documentation
 
-- **Phase 4:** Performance optimization (after Phase 6)
-- **Phase 5:** Polish & release preparation
-- **Phase 7:** blessed-contrib integration
-- **Phase 8:** Declarative UI APIs (post-v1.0.0)
+### Adding Runtime API
 
-## Key Decisions
+```typescript
+// 1. Add to Runtime interface (@unblessed/core/src/runtime.ts)
+export interface Runtime {
+  newAPI: NewAPIType;
+}
 
-### Compatibility Strategy
+// 2. Implement in platform packages
+// @unblessed/node/src/runtime.ts
+this.newAPI = require('new-api');
+
+// @unblessed/browser/src/browser-runtime.ts
+this.newAPI = { /* browser polyfill */ };
+
+// 3. Use in core code via getRuntime()
+const api = getRuntime().newAPI;
+```
+
+### Working with Colors
+
+```typescript
+import colors from './lib/colors.js';
+
+// Convert hex to terminal color
+const color = colors.convert('#ff0000');
+
+// Reduce to palette size
+const reduced = colors.reduce(color, 256);
+
+// Match closest color
+const matched = colors.match('#ff0000');
+```
+
+## Code Quality Guidelines
+
+### TypeScript
+
+1. **Strict Mode:** All strict flags must pass
+2. **Type-only imports** from @types/node in core:
+   ```typescript
+   // ✅ Good
+   import type { Readable, Writable } from 'stream';
+
+   // ❌ Bad - creates runtime dependency
+   import { Readable, Writable } from 'stream';
+   ```
+
+3. **Never use Node.js globals directly in core:**
+   ```typescript
+   // ❌ Bad
+   import { Buffer } from 'buffer';
+
+   // ✅ Good
+   const Buffer = getRuntime().buffer.Buffer;
+   ```
+
+### Platform Agnostic Code
+
+**In @unblessed/core, always use runtime context:**
+```typescript
+// ❌ Don't import platform APIs
+import fs from 'fs';
+
+// ✅ Use runtime context
+import { getRuntime } from './runtime-context.js';
+const runtime = getRuntime();
+const data = runtime.fs.readFileSync(path);
+```
+
+### Compatibility
+
 - **v1.x:** 100% backward compatible with blessed
-- **v2.x+:** Modern API, breaking changes allowed with migration guide
+- **No breaking changes** in v1.x
+- All blessed examples should work
 
-### Module Format
-- **Source:** ESM (import/export)
-- **Output:** Dual CJS + ESM with TypeScript definitions
-- **Browser:** ESM and CJS builds for bundlers
+## Git & Release Process
 
-### Terminal Compatibility
+### Commit Convention
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```bash
+# Feature (minor bump: 1.0.0 → 1.1.0)
+feat(core): add new widget type
+
+# Bug fix (patch bump: 1.0.0 → 1.0.1)
+fix(browser): resolve xterm rendering issue
+
+# Breaking change (major bump: 1.0.0 → 2.0.0)
+feat(core)!: redesign widget API
+```
+
+**Commit Types:**
+- `feat` - New feature
+- `fix` - Bug fix
+- `docs` - Documentation
+- `style` - Code style
+- `refactor` - Code refactoring
+- `perf` - Performance
+- `test` - Tests
+- `build` - Build system
+- `ci` - CI/CD
+- `chore` - Other changes
+
+**Scopes:**
+- `core` - @unblessed/core
+- `node` - @unblessed/node
+- `browser` - @unblessed/browser
+- `blessed` - @unblessed/blessed
+- `deps` - Dependencies
+- `ci` - CI/CD
+- `dx` - Developer experience
+
+### Automated Releases
+
+**Releases are 100% automated:**
+1. Commit with conventional format
+2. Merge PR to main
+3. Automatic:
+   - Version bump from commits
+   - All packages stay in sync
+   - Changelog generation
+   - npm publish with provenance
+   - GitHub release creation
+
+See [RELEASE.md](./RELEASE.md) for details.
+
+## Terminal Compatibility
 
 **Officially Supported:**
 - iTerm2, Alacritty, Kitty (macOS)
@@ -192,190 +452,71 @@ tui/
 - Unicode support
 - CSR (change scroll region)
 
-## Guidelines for Contributors
+## Performance Baselines
 
-### Code Quality
-
-1. **TypeScript Strict Mode:** All strict flags must pass
-2. **Test Coverage:** New code must have tests (70%+ target)
-3. **Platform Agnostic:** Use `getRuntime()` for platform APIs
-4. **No Breaking Changes:** v1.x maintains backward compatibility
-
-### Common Patterns
-
-**Adding Runtime API:**
-```typescript
-// 1. Add to Runtime interface (@unblessed/core/src/runtime.ts)
-export interface Runtime {
-  newAPI: NewAPIType;
-}
-
-// 2. Implement in platform packages
-// @unblessed/node
-this.newAPI = require('new-api');
-
-// @unblessed/browser
-this.newAPI = { /* browser polyfill */ };
-
-// 3. Use in core code
-const api = getRuntime().newAPI;
-```
-
-**Testing with Runtime:**
-```typescript
-import { setRuntime } from '@unblessed/core';
-
-beforeAll(() => {
-  setRuntime(createMockRuntime());
-});
-```
-
-### Performance
-
-**Baseline Metrics** (Pre-TypeScript):
-- Empty screen render: 6.49ms
-- Complex screen (100 boxes): 10.95ms
-- Large list (1K items): 187ms
+**Target Metrics:**
+- Empty screen render: ~6.5ms
+- Complex screen (100 boxes): ~11ms
+- Large list (1K items): ~187ms
 - Event processing: < 2ms
-
-**Targets:**
-- No regressions
-- 10-20% improvement in rendering
-- Sub-millisecond event latency
 
 **Run Benchmarks:**
 ```bash
 pnpm --filter benchmarks bench
 ```
 
+## Current Status
+
+### Completed
+- ✅ Full TypeScript conversion with strict mode
+- ✅ Platform-agnostic core architecture
+- ✅ Runtime dependency injection pattern
+- ✅ 100% test coverage (1,987/1,987 tests)
+- ✅ Browser support via XTerm.js
+- ✅ Modern build tooling (tsup, pnpm, Turborepo)
+- ✅ @unblessed/blessed compatibility layer
+
+### In Progress
+- End-to-end integration tests
+- Migration guide
+- Alpha release to npm
+
+### Roadmap
+- Performance optimization (Phase 4)
+- Polish & release preparation (Phase 5)
+- blessed-contrib integration (Phase 7)
+- Declarative UI APIs (Phase 8, post-v1.0.0)
+
 ## Resources
 
 ### Documentation
-- **Core:** `packages/core/CLAUDE.md`
-- **Node:** `packages/node/README.md`
-- **Browser:** `packages/browser/CLAUDE.md`
-- **Playground:** http://localhost:5173 (run `pnpm --filter @unblessed/browser dev`)
+- [README.md](./README.md) - Main documentation
+- [SETUP_GUIDE.md](./SETUP_GUIDE.md) - Development setup
+- [CONTRIBUTING.md](./CONTRIBUTING.md) - Contribution guidelines
+- [API_REFERENCE.md](./API_REFERENCE.md) - API compatibility baseline
+- [packages/core/CLAUDE.md](./packages/core/CLAUDE.md) - Core package details
+- [packages/browser/CLAUDE.md](./packages/browser/CLAUDE.md) - Browser package details
 
-### Build Tools
+### Package Documentation
+- [@unblessed/core](./packages/core/README.md)
+- [@unblessed/node](./packages/node/README.md)
+- [@unblessed/browser](./packages/browser/README.md)
+- [@unblessed/blessed](./packages/blessed/README.md)
+
+### External Resources
+- [blessed](https://github.com/chjj/blessed) - Original library
+- [xterm.js](https://xtermjs.org/) - Browser terminal emulator
 - [tsup](https://tsup.egoist.dev/) - Library bundler
 - [Turborepo](https://turbo.build/) - Monorepo orchestration
 - [Vitest](https://vitest.dev/) - Test framework
-- [pnpm](https://pnpm.io/) - Package manager
 
-### Related Projects
-- [blessed](https://github.com/chjj/blessed) - Original library
-- [xterm.js](https://xtermjs.org/) - Browser terminal emulator
-- [ink](https://github.com/vadimdemedes/ink) - React for CLIs
+## Important Principles
 
-## Recent Session Summary
+**This is a modernization effort that respects the original blessed while bringing it to modern standards:**
 
-**@unblessed/browser Package Improvements:**
-- ✅ **Extracted BrowserRuntime** to separate file (`browser-runtime.ts`) - better code organization
-- ✅ **Simplified auto-init.ts** from ~390 lines to ~90 lines
-- ✅ **Fixed duplicate utils assignment** bug in runtime constructor
-- ✅ **Simplified Vite plugin** - removed redundant HTML transform (auto-init handles polyfills)
-- ✅ **Added deprecation warnings** to `blessed` namespace
-- ✅ **Replaced custom polyfills with npm packages**:
-  - Custom `browserUtil` → `util` package (inspect, format)
-  - EventEmitter stream stubs → `stream-browserify` (Readable, Writable)
-- ✅ **All tests passing**: 20 unit tests (100%)
-- ✅ **Code reduction**: ~360 lines removed/reorganized (32% smaller codebase)
-
-**Key Architectural Changes:**
-- Runtime class now in its own file for better maintainability
-- Using battle-tested npm polyfills instead of reinventing the wheel
-- Single source of truth for polyfill setup
-- Cleaner separation of concerns (initialization vs runtime implementation)
-- Vite plugin focused only on build optimization (no runtime concerns)
-- Only custom code where truly necessary (fs with bundled data, process with event management)
-
-**Documentation Updates:**
-- ✅ Updated browser package CLAUDE.md with new architecture
-- ✅ Documented code improvements and simplifications
-- ✅ Updated all package READMEs with auto-initialization examples
-- ✅ Fixed @unblessed/node examples to use `parent:` property
-- ✅ Created comprehensive READMEs for @unblessed/node and @unblessed/blessed
-
-**Runtime Initialization Improvements:**
-- ✅ Simplified runtime initialization - now auto-initializes on import
-- ✅ Fixed @unblessed/blessed to work with auto-init pattern
-- ✅ Updated all examples to use `parent:` property correctly
-- ✅ Fixed @unblessed/node examples (hello-world, dashboard, interactive)
-- ✅ Updated documentation across all packages
-- ✅ All builds and tests passing (1,588 core tests, 20 browser unit tests, 189 browser e2e tests)
-
-**Key Change:**
-- **Before:** Users had to call `initBrowser()` or similar
-- **After:** Runtime auto-initializes when you import from `@unblessed/node` or `@unblessed/browser`
-
-**Example Improvements:**
-- Fixed widget attachment using `parent: screen` instead of `screen`
-- Simplified dashboard sidebar (removed non-functional menu shortcuts)
-- All examples now working and rendering correctly
-
-**@unblessed/browser - E2E Test Fixes:**
-- ✅ Fixed browser runtime initialization
-- ✅ Added null/undefined handling to `fileURLToPath` polyfill
-- ✅ BigText widget now loads fonts correctly in browser
-- ✅ All 189 e2e tests passing (100%)
-- ✅ All 9 BigText tests passing across all browsers (chromium, firefox, webkit)
-- ✅ Playground example fully functional with BigText animation
-- ✅ Runtime initialization with BrowserRuntime (auto-initializes on import)
-- ✅ Fixed JSON import paths (removed .json.json)
-- ✅ Created blessed namespace with helpers
-- ✅ Upgraded Vite to 7.1.10 (Node 24 compat)
-- ✅ Added Full Demo example
-- ✅ Dev server running at http://localhost:5173
-
-**@unblessed/node:**
-- ✅ Added missing Runtime properties (net, stream, buffer)
-- ✅ Runtime auto-initializes on import
-- ✅ Build successful
-
-**@unblessed/core:**
-- ✅ Test infrastructure with runtime setup
-- ✅ Allow runtime replacement in tests
-- ✅ Fixed runtime-helpers.ts to handle undefined import.meta.url
-- ✅ 98.5% tests passing (1,588/1,588)
-
-**@unblessed/browser - API Simplification & Playground:**
-- ✅ **Removed IIFE output format** - Now outputs ESM/CJS only
-- ✅ **Removed createXTermScreen() helper** - Replaced with smarter Screen class
-- ✅ **Created browser-specific Screen class** - Auto-detects xterm.js Terminal instances
-- ✅ Screen automatically creates XTermAdapter when terminal option provided
-- ✅ Sets sensible defaults: smartCSR, fastCSR, fullUnicode
-- ✅ **Playground enhancements:**
-  - Auto-run on code changes (300ms debounce, configurable)
-  - Runs immediately when example selected
-  - Removed Run button (auto-run replaces it)
-  - Updated BigText example with shrinking animation
-  - Reorganized examples/ directory structure
-- ✅ **Test updates:** Updated all 30 HTML test fixtures to use new Screen API
-- ✅ **Documentation:** Updated README, CLAUDE.md, VITE_PLUGIN.md
-- ✅ All 174 e2e tests passing
-
-**Breaking Change:**
-```typescript
-// Before:
-import { createXTermScreen } from '@unblessed/browser';
-const screen = createXTermScreen({ terminal: term });
-
-// After:
-import { Screen } from '@unblessed/browser';
-const screen = new Screen({ terminal: term });
-```
-
-## Next Steps
-
-1. **Implement @unblessed/blessed** - Compatibility wrapper
-2. **E2E Integration Tests** - Node + Browser
-3. **Migration Guide** - blessed → @unblessed
-4. **Alpha Release** - Publish to npm with `@alpha` tag
-5. **Performance Optimization** - Phase 4 after @unblessed complete
-6. **Beta → v1.0.0** - Stabilization and launch
-
----
-
-**Remember:** This is a modernization effort that respects the original blessed while bringing it to modern standards. Focus on safety, incremental progress, and maintaining test coverage throughout all changes.
-
-For historical context and detailed phase documentation, see git history of this file.
+1. **Safety First** - Comprehensive tests before any changes
+2. **Incremental Progress** - Small, tested steps
+3. **Maintain Compatibility** - v1.x is 100% backward compatible
+4. **Test Coverage** - All new code must have tests (70%+ target)
+5. **Platform Agnostic** - Use `getRuntime()` for all platform APIs
+6. **No Breaking Changes** - v1.x maintains backward compatibility

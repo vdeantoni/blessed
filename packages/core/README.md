@@ -2,6 +2,8 @@
 
 Platform-agnostic TUI (Text User Interface) core library with runtime dependency injection.
 
+> ⚠️ **ALPHA SOFTWARE** - This package is part of the unblessed alpha release. API may change between alpha versions.
+
 ## Overview
 
 `@unblessed/core` is a modern, TypeScript-based terminal UI library that provides a complete set of widgets and terminal control primitives. Unlike traditional terminal libraries, it's designed to be truly platform-agnostic through runtime dependency injection, allowing it to run in Node.js, browsers, and other JavaScript environments.
@@ -22,13 +24,13 @@ Platform-agnostic TUI (Text User Interface) core library with runtime dependency
 
 ```bash
 # For Node.js applications (recommended)
-npm install @unblessed/node
+npm install @unblessed/node@alpha
 
 # For browser applications (recommended)
-npm install @unblessed/browser
+npm install @unblessed/browser@alpha
 
 # For backward compatibility with blessed
-npm install @unblessed/blessed
+npm install @unblessed/blessed@alpha
 ```
 
 Only install `@unblessed/core` directly if you're creating a custom runtime adapter.
@@ -455,31 +457,6 @@ For complete API documentation, see the TypeScript definitions included with the
 └── types/                # TypeScript definitions
 ```
 
-## Development
-
-```bash
-# Install dependencies
-pnpm install
-
-# Build
-pnpm build
-
-# Watch mode
-pnpm build:watch
-
-# Run tests
-pnpm test
-
-# Watch tests
-pnpm test:watch
-
-# Lint
-pnpm lint
-
-# Format
-pnpm format
-```
-
 ## Testing
 
 The library includes comprehensive tests covering:
@@ -491,12 +468,6 @@ The library includes comprehensive tests covering:
 - Layout and positioning
 - Scrolling and content management
 
-Run tests with:
-
-```bash
-pnpm test
-```
-
 ## Browser Support
 
 When using `@unblessed/browser`, the library provides browser-compatible implementations using:
@@ -507,8 +478,9 @@ When using `@unblessed/browser`, the library provides browser-compatible impleme
 
 ## Related Packages
 
-- [`@unblessed/node`](../tui-node) - Node.js runtime adapter
-- [`@unblessed/browser`](../tui-browser) - Browser runtime adapter with xterm.js integration
+- [`@unblessed/node`](../node) - Node.js runtime adapter
+- [`@unblessed/browser`](../browser) - Browser runtime adapter with xterm.js integration
+- [`@unblessed/blessed`](../blessed) - Backward-compatible blessed API
 
 ## Acknowledgments
 

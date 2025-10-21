@@ -5,6 +5,8 @@ Node.js runtime adapter for [@unblessed/core](../core) - Build beautiful termina
 [![npm version](https://img.shields.io/npm/v/@unblessed/node)](https://www.npmjs.com/package/@unblessed/node)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../../LICENSE)
 
+> ⚠️ **ALPHA SOFTWARE** - This package is part of the unblessed alpha release. API may change between alpha versions.
+
 ## Overview
 
 `@unblessed/node` brings the power of `@unblessed/core` terminal UI widgets to Node.js applications. It provides a Node.js runtime adapter that handles all platform-specific operations automatically.
@@ -20,12 +22,14 @@ Node.js runtime adapter for [@unblessed/core](../core) - Build beautiful termina
 ## Installation
 
 ```bash
-npm install @unblessed/node
+npm install @unblessed/node@alpha
 # or
-pnpm add @unblessed/node
+pnpm add @unblessed/node@alpha
 # or
-yarn add @unblessed/node
+yarn add @unblessed/node@alpha
 ```
+
+**Requirements:** Node.js >= 22.0.0
 
 ## Quick Start
 
@@ -36,7 +40,7 @@ import { Screen, Box } from '@unblessed/node';
 
 const screen = new Screen({
   smartCSR: true,
-  title: 'Hello Tui'
+  title: 'Hello unblessed'
 });
 
 const box = new Box({
@@ -105,18 +109,7 @@ screen.render();
 
 ## Examples
 
-Check out the [examples directory](./examples) for complete examples:
-
-- **[hello-world.ts](./examples/hello-world.ts)** - Simple centered box
-- **[interactive.ts](./examples/interactive.ts)** - Interactive form with inputs and buttons
-- **[dashboard.ts](./examples/dashboard.ts)** - Complex dashboard with live updates
-
-Run examples:
-```bash
-pnpm tsx examples/hello-world.ts
-pnpm tsx examples/interactive.ts
-pnpm tsx examples/dashboard.ts
-```
+The [monorepo examples directory](../../packages/node/examples) contains complete working examples including hello-world, interactive forms, and dashboards.
 
 ## Common Patterns
 
@@ -360,7 +353,7 @@ const screen = new Screen();
 Or use `@unblessed/blessed` for 100% backward compatibility:
 
 ```bash
-npm install @unblessed/blessed
+npm install @unblessed/blessed@alpha
 ```
 
 ## Performance
@@ -380,7 +373,7 @@ Tips for best performance:
 
 ## Contributing
 
-See the main [tui repository](https://github.com/vdeantoni/unblessed) for contribution guidelines.
+See the main [unblessed repository](https://github.com/vdeantoni/unblessed) for contribution guidelines.
 
 ## License
 
