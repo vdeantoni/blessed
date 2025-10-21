@@ -2,7 +2,7 @@ name: Bundle Size
 
 on:
   pull_request:
-    branches: [main, master]
+    branches: [main]
 
 jobs:
   size:
@@ -25,6 +25,14 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Setup Turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: ${{ runner.os }}-turbo-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-turbo-
 
       - name: Build packages
         run: pnpm build
@@ -53,9 +61,32 @@ jobs:
             const fs = require('fs');
             const summary = fs.readFileSync(process.env.GITHUB_STEP_SUMMARY, 'utf8');
 
-            github.rest.issues.createComment({
+            // Try to find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: summary
             });
+
+            const botComment = comments.find(comment =>
+              comment.user.type === 'Bot' &&
+              comment.body.includes('📦 Bundle Size Report')
+            );
+
+            if (botComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                comment_id: botComment.id,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: summary
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: summary
+              });
+            }

@@ -2,7 +2,7 @@ name: PR Validation
 
 on:
   pull_request:
-    branches: [main, master]
+    branches: [main]
 
 jobs:
   validate:
@@ -28,14 +28,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install Playwright browsers
+        run: pnpm --filter @unblessed/browser exec playwright install --with-deps chromium firefox webkit
+
       - name: Validate commit messages
         run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to HEAD --verbose
 
       - name: Lint code
         run: pnpm lint:check
 
+      - name: Check code formatting
+        run: pnpm format:check
+
       - name: Type check
-        run: pnpm exec tsc --noEmit --project packages/blessed/tsconfig.json
+        run: pnpm exec tsc --noEmit
 
       - name: Setup Turbo cache
         uses: actions/cache@v4
