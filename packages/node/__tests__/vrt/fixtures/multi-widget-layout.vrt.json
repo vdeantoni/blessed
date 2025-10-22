@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "dimensions": {
+    "cols": 80,
+    "rows": 24
+  },
+  "metadata": {
+    "createdAt": "2025-10-22T00:26:12.945Z",
+    "duration": 0,
+    "frameCount": 1,
+    "description": "multiple widgets in layout"
+  },
+  "frames": [
+    {
+      "screenshot": "\u001b[32m┌──────────────────────────────────────┐\u001b[m\u001b[33m┌──────────────────────────────────────┐\u001b[m\n\u001b[32m│\u001b[mTop Left                              \u001b[32m│\u001b[m\u001b[33m│\u001b[mTop Right                             \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m│\u001b[m                                      \u001b[32m│\u001b[m\u001b[33m│\u001b[m                                      \u001b[33m│\u001b[m\n\u001b[32m└──────────────────────────────────────┘\u001b[m\u001b[33m└──────────────────────────────────────┘\u001b[m\n                                 \u001b[1mCentered Text\u001b[m                                  \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n",
+      "timestamp": 0
+    }
+  ]
+}

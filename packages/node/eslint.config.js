@@ -90,6 +90,15 @@ export default [
     }
   },
 
+  // Example files
+  {
+    files: ['examples/**/*.js', 'examples/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-unused-vars': 'off',
+      'no-unused-vars': 'off'
+    }
+  },
+
   // Prettier (must be last)
   prettier
 ];

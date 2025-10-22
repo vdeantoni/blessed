@@ -28,6 +28,9 @@ const PUBLISH_ORDER = [
   '@unblessed/node',
   '@unblessed/browser',
 
+  // VRT tools - depend on @unblessed/core
+  '@unblessed/vrt',
+
   // Compatibility layer - depends on @unblessed/node
   '@unblessed/blessed'
 ];

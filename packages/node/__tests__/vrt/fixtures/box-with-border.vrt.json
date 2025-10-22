@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "dimensions": {
+    "cols": 80,
+    "rows": 24
+  },
+  "metadata": {
+    "createdAt": "2025-10-22T00:26:12.926Z",
+    "duration": 0,
+    "frameCount": 1,
+    "description": "box with border and content"
+  },
+  "frames": [
+    {
+      "screenshot": "                                                                                \n \u001b[36m┌────────────────────────────┐\u001b[m                                                 \n \u001b[36m│\u001b[m\u001b[37m         Hello VRT!         \u001b[m\u001b[36m│\u001b[m                                                 \n \u001b[36m│\u001b[m\u001b[37m                            \u001b[m\u001b[36m│\u001b[m                                                 \n \u001b[36m│\u001b[m\u001b[37m                            \u001b[m\u001b[36m│\u001b[m                                                 \n \u001b[36m│\u001b[m\u001b[37m                            \u001b[m\u001b[36m│\u001b[m                                                 \n \u001b[36m│\u001b[m\u001b[37m                            \u001b[m\u001b[36m│\u001b[m                                                 \n \u001b[36m└────────────────────────────┘\u001b[m                                                 \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n",
+      "timestamp": 0
+    }
+  ]
+}

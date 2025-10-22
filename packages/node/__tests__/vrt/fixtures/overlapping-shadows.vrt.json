@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "dimensions": {
+    "cols": 80,
+    "rows": 24
+  },
+  "metadata": {
+    "createdAt": "2025-10-22T00:58:37.323Z",
+    "duration": 0,
+    "frameCount": 1,
+    "description": "overlapping boxes with shadows render correctly"
+  },
+  "frames": [
+    {
+      "screenshot": "\u001b[44m                                                                                \u001b[m\n\u001b[44m                                                                                \u001b[m\n\u001b[44m                                                                                \u001b[m\n\u001b[44m                                                                                \u001b[m\n\u001b[44m          \u001b[m┌──────────────────────────────┐\u001b[44m                                      \u001b[m\n\u001b[44m          \u001b[m│\u001b[43mBox with Shadow               \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                                    \u001b[m\n\u001b[44m          \u001b[m│\u001b[43m                              \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                                    \u001b[m\n\u001b[44m          \u001b[m│\u001b[43m                              \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                                    \u001b[m\n\u001b[44m          \u001b[m│\u001b[43m         \u001b[m┌──────────────────────────────────────┐\u001b[44m                    \u001b[m\n\u001b[44m          \u001b[m│\u001b[43m         \u001b[m│\u001b[41m               \u001b[m\u001b[1;41mTop Box\u001b[m\u001b[41m                \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m          \u001b[m└─────────│\u001b[41m                                      \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m           \u001b[m\u001b[48;5;17m         \u001b[m│\u001b[41m                                      \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m                    \u001b[m│\u001b[41m                                      \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m                    \u001b[m│\u001b[41m                                      \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m                    \u001b[m│\u001b[41m                                      \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m                    \u001b[m│\u001b[41m                                      \u001b[m│\u001b[48;5;17m  \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m                    \u001b[m└──────────────────────────────────────┘\u001b[48;5;17m  \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m                     \u001b[m\u001b[48;5;17m                                         \u001b[m\u001b[44m                  \u001b[m\n\u001b[44m                                                                                \u001b[m\n\u001b[44m                                                                                \u001b[m\n\u001b[44m                                                                                \u001b[m\n\u001b[44m                                                                                \u001b[m\n\u001b[44m                                                                                \u001b[m\n\u001b[44m                                                                                \u001b[m\n",
+      "timestamp": 0
+    }
+  ]
+}

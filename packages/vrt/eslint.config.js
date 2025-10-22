@@ -21,20 +21,12 @@ export default [
       ecmaVersion: 'latest',
       sourceType: 'module',
       globals: {
-        // Browser globals
-        window: 'readonly',
-        document: 'readonly',
-        navigator: 'readonly',
-        console: 'readonly',
-        fetch: 'readonly',
-        Request: 'readonly',
-        Response: 'readonly',
-        Headers: 'readonly',
-        URL: 'readonly',
-        URLSearchParams: 'readonly',
-        // Node.js polyfills
+        // Node.js globals
         Buffer: 'readonly',
-        process: 'readonly'
+        process: 'readonly',
+        console: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly'
       }
     },
     rules: {
@@ -71,12 +63,11 @@ export default [
     }
   },
 
-  // Test files and examples
+  // Test files
   {
-    files: ['__tests__/**/*.js', '__tests__/**/*.ts', 'examples/**/*.js', 'example/**/*.js', 'example2/**/*.js'],
+    files: ['__tests__/**/*.js', '__tests__/**/*.ts'],
     languageOptions: {
       globals: {
-        // Vitest globals
         describe: 'readonly',
         it: 'readonly',
         test: 'readonly',
@@ -86,7 +77,6 @@ export default [
         beforeAll: 'readonly',
         afterAll: 'readonly',
         vi: 'readonly',
-        // Browser timers
         setTimeout: 'readonly',
         setInterval: 'readonly',
         clearTimeout: 'readonly',

@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "dimensions": {
+    "cols": 80,
+    "rows": 24
+  },
+  "metadata": {
+    "createdAt": "2025-10-22T00:26:12.949Z",
+    "duration": 0,
+    "frameCount": 1,
+    "description": "box with styling and tags"
+  },
+  "frames": [
+    {
+      "screenshot": "                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                    ┌──────────────────────────────────────┐                    \n                    │                                      │                    \n                    │  \u001b[1;36mStyled Content\u001b[m                      │                    \n                    │                                      │                    \n                    │  \u001b[31mRed text\u001b[m                            │                    \n                    │  \u001b[32mGreen text\u001b[m                          │                    \n                    │                                      │                    \n                    └──────────────────────────────────────┘                    \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n",
+      "timestamp": 0
+    }
+  ]
+}
