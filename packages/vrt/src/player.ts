@@ -2,12 +2,8 @@
  * VRT Player - Replay recorded terminal UI sessions
  */
 
-import type {
-  VRTRecording,
-  VRTFrame,
-  VRTPlayerOptions,
-} from './types.js';
-import { readFileSync } from 'fs';
+import type { VRTRecording, VRTFrame, VRTPlayerOptions } from "./types.js";
+import { readFileSync } from "fs";
 
 /**
  * VRTPlayer replays VRT recordings for visual inspection or automated testing.
@@ -35,7 +31,7 @@ export class VRTPlayer {
    * @param source - Path to VRT recording file or VRTRecording object
    */
   constructor(source: string | VRTRecording) {
-    if (typeof source === 'string') {
+    if (typeof source === "string") {
       this.recording = this.load(source);
     } else {
       this.recording = source;
@@ -48,7 +44,7 @@ export class VRTPlayer {
    * @returns Parsed VRT recording
    */
   private load(filePath: string): VRTRecording {
-    const content = readFileSync(filePath, 'utf8');
+    const content = readFileSync(filePath, "utf8");
     return JSON.parse(content);
   }
 
@@ -58,11 +54,7 @@ export class VRTPlayer {
    * @returns Promise that resolves when playback is complete
    */
   async play(options: VRTPlayerOptions = {}): Promise<void> {
-    const {
-      speed = 1.0,
-      onFrame,
-      writeToStdout = false,
-    } = options;
+    const { speed = 1.0, onFrame, writeToStdout = false } = options;
 
     if (this.recording.frames.length === 0) {
       return;
@@ -105,7 +97,7 @@ export class VRTPlayer {
    * Get recording metadata
    * @returns Recording metadata
    */
-  getMetadata(): VRTRecording['metadata'] {
+  getMetadata(): VRTRecording["metadata"] {
     return this.recording.metadata;
   }
 
@@ -113,7 +105,7 @@ export class VRTPlayer {
    * Get recording dimensions
    * @returns Terminal dimensions
    */
-  getDimensions(): VRTRecording['dimensions'] {
+  getDimensions(): VRTRecording["dimensions"] {
     return this.recording.dimensions;
   }
 
@@ -131,6 +123,6 @@ export class VRTPlayer {
    * @param ms - Milliseconds to sleep
    */
   private sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 }

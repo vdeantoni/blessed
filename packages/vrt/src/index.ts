@@ -26,11 +26,11 @@
  * ```
  */
 
-export { VRTRecorder } from './recorder.js';
-export { VRTPlayer } from './player.js';
-export { VRTComparator } from './comparator.js';
-export { saveGoldenSnapshot, compareWithGolden } from './golden.js';
-export type { GoldenComparisonResult } from './golden.js';
+export { VRTRecorder } from "./recorder.js";
+export { VRTPlayer } from "./player.js";
+export { VRTComparator } from "./comparator.js";
+export { saveGoldenSnapshot, compareWithGolden } from "./golden.js";
+export type { GoldenComparisonResult } from "./golden.js";
 
 export type {
   VRTFrame,
@@ -40,4 +40,4 @@ export type {
   VRTComparatorOptions,
   VRTComparisonResult,
   VRTFrameDifference,
-} from './types.js';
+} from "./types.js";

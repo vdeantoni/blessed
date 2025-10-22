@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { RadioSetOptions } from '../types';
-import Box from './box.js';
+import type { RadioSetOptions } from "../types";
+import Box from "./box.js";
 
 /**
  * RadioSet
  */
 
 class RadioSet extends Box {
-  override type = 'radio-set';
+  override type = "radio-set";
 
   constructor(options: RadioSetOptions = {}) {
     // Possibly inherit parent's style.

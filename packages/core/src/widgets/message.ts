@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { KeyEvent, MessageOptions, MouseEvent } from '../types';
-import Box from './box.js';
+import type { KeyEvent, MessageOptions, MouseEvent } from "../types";
+import Box from "./box.js";
 
 /**
  * Message / Error
  */
 
 class Message extends Box {
-  override type = 'message';
+  override type = "message";
   declare options: MessageOptions; // Type refinement - initialized by parent
 
   constructor(options: MessageOptions = {}) {
@@ -43,9 +43,9 @@ class Message extends Box {
   display(
     text: string,
     time?: number | ((err?: any, data?: any) => void),
-    callback?: (err?: any, data?: any) => void
+    callback?: (err?: any, data?: any) => void,
   ): void {
-    if (typeof time === 'function') {
+    if (typeof time === "function") {
       callback = time;
       time = undefined;
     }
@@ -83,19 +83,19 @@ class Message extends Box {
 
       setTimeout(() => {
         const keypressHandler = (_ch: any, key: KeyEvent) => {
-          if (key.name === 'mouse') return;
+          if (key.name === "mouse") return;
           if (this.scrollable) {
             if (
-              key.name === 'up' ||
-              (this.options.vi && key.name === 'k') ||
-              key.name === 'down' ||
-              (this.options.vi && key.name === 'j') ||
-              (this.options.vi && key.name === 'u' && key.ctrl) ||
-              (this.options.vi && key.name === 'd' && key.ctrl) ||
-              (this.options.vi && key.name === 'b' && key.ctrl) ||
-              (this.options.vi && key.name === 'f' && key.ctrl) ||
-              (this.options.vi && key.name === 'g' && !key.shift) ||
-              (this.options.vi && key.name === 'g' && key.shift)
+              key.name === "up" ||
+              (this.options.vi && key.name === "k") ||
+              key.name === "down" ||
+              (this.options.vi && key.name === "j") ||
+              (this.options.vi && key.name === "u" && key.ctrl) ||
+              (this.options.vi && key.name === "d" && key.ctrl) ||
+              (this.options.vi && key.name === "b" && key.ctrl) ||
+              (this.options.vi && key.name === "f" && key.ctrl) ||
+              (this.options.vi && key.name === "g" && !key.shift) ||
+              (this.options.vi && key.name === "g" && key.shift)
             ) {
               return;
             }
@@ -106,19 +106,19 @@ class Message extends Box {
           ) {
             return;
           }
-          this.removeScreenEvent('keypress', keypressHandler);
+          this.removeScreenEvent("keypress", keypressHandler);
           end();
         };
-        this.onScreenEvent('keypress', keypressHandler);
+        this.onScreenEvent("keypress", keypressHandler);
 
         // XXX May be affected by new element.options.mouse option.
         if (!this.options.mouse) return;
         const mouseHandler = (data: MouseEvent) => {
-          if (data.action === 'mousemove') return;
-          this.removeScreenEvent('mouse', mouseHandler);
+          if (data.action === "mousemove") return;
+          this.removeScreenEvent("mouse", mouseHandler);
           end();
         };
-        this.onScreenEvent('mouse', mouseHandler);
+        this.onScreenEvent("mouse", mouseHandler);
       }, 10);
 
       return;
@@ -130,7 +130,7 @@ class Message extends Box {
         this.screen.render();
         if (callback) callback();
       },
-      (time as number) * 1000
+      (time as number) * 1000,
     );
   }
 
@@ -143,7 +143,7 @@ class Message extends Box {
   get log(): (
     text: string,
     time?: number | ((err?: any, data?: any) => void),
-    callback?: (err?: any, data?: any) => void
+    callback?: (err?: any, data?: any) => void,
   ) => void {
     return this.display;
   }
@@ -160,9 +160,9 @@ class Message extends Box {
   error(
     text: string,
     time?: number | ((err?: any, data?: any) => void),
-    callback?: (err?: any, data?: any) => void
+    callback?: (err?: any, data?: any) => void,
   ): void {
-    return this.display('{red-fg}Error: ' + text + '{/red-fg}', time, callback);
+    return this.display("{red-fg}Error: " + text + "{/red-fg}", time, callback);
   }
 }
 

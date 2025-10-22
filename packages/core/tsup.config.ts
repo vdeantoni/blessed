@@ -1,14 +1,14 @@
-import { defineConfig } from 'tsup';
-import { cp } from 'fs/promises';
+import { defineConfig } from "tsup";
+import { cp } from "fs/promises";
 
 export default defineConfig({
   entry: {
-    index: 'src/index.ts',
-    runtime: 'src/runtime.ts'
+    index: "src/index.ts",
+    runtime: "src/runtime.ts",
   },
 
-  format: ['cjs', 'esm'],
-  outDir: 'dist',
+  format: ["cjs", "esm"],
+  outDir: "dist",
 
   bundle: true,
   splitting: false,
@@ -17,7 +17,7 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   dts: {
-    entry: 'src/index.ts'
+    entry: "src/index.ts",
   },
   minify: false,
   shims: true,
@@ -25,12 +25,12 @@ export default defineConfig({
 
   external: [],
 
-  platform: 'neutral',
-  target: 'es2020',
+  platform: "neutral",
+  target: "es2020",
 
   onSuccess: async () => {
-    await cp('data', 'dist/data', { recursive: true });
-    console.log('✅ Copied data/ to dist/data/');
-    console.log('✅ @unblessed/core build complete');
-  }
+    await cp("data", "dist/data", { recursive: true });
+    console.log("✅ Copied data/ to dist/data/");
+    console.log("✅ @unblessed/core build complete");
+  },
 });

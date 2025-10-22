@@ -1,76 +1,76 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import Textarea from '../../src/widgets/textarea.js';
-import { createMockScreen } from '../helpers/mock.js';
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import Textarea from "../../src/widgets/textarea.js";
+import { createMockScreen } from "../helpers/mock.js";
 
 // Helper to initialize textarea with required properties
 function initTextarea(textarea) {
   // Initialize _clines array (used by _updateCursor and _typeScroll)
-  textarea._clines = textarea._clines || [''];
+  textarea._clines = textarea._clines || [""];
   // Initialize lpos for _updateCursor
   textarea.lpos = {
     xi: 0,
     yi: 0,
     xl: 80,
-    yl: 24
+    yl: 24,
   };
   return textarea;
 }
 
-describe('Textarea', () => {
+describe("Textarea", () => {
   let screen;
 
   beforeEach(() => {
     screen = createMockScreen();
   });
 
-  describe('constructor', () => {
-    it('should create a textarea instance', () => {
+  describe("constructor", () => {
+    it("should create a textarea instance", () => {
       const textarea = new Textarea({ screen });
 
       expect(textarea).toBeDefined();
-      expect(textarea.type).toBe('textarea');
+      expect(textarea.type).toBe("textarea");
     });
 
-    it('should inherit from Input', () => {
+    it("should inherit from Input", () => {
       const textarea = new Textarea({ screen });
 
       expect(textarea.screen).toBe(screen);
-      expect(typeof textarea.readInput).toBe('function');
+      expect(typeof textarea.readInput).toBe("function");
     });
 
-    it('should set scrollable to true by default', () => {
+    it("should set scrollable to true by default", () => {
       const textarea = new Textarea({ screen });
 
       expect(textarea.options.scrollable).toBe(true);
     });
 
-    it('should allow disabling scrollable', () => {
+    it("should allow disabling scrollable", () => {
       const textarea = new Textarea({ screen, scrollable: false });
 
       expect(textarea.options.scrollable).toBe(false);
     });
 
-    it('should initialize with empty value', () => {
+    it("should initialize with empty value", () => {
       const textarea = new Textarea({ screen });
 
-      expect(textarea.value).toBe('');
+      expect(textarea.value).toBe("");
     });
 
-    it('should initialize with provided value', () => {
-      const textarea = new Textarea({ screen, value: 'Initial text' });
+    it("should initialize with provided value", () => {
+      const textarea = new Textarea({ screen, value: "Initial text" });
 
-      expect(textarea.value).toBe('Initial text');
+      expect(textarea.value).toBe("Initial text");
     });
 
-    it('should setup resize listener for cursor updates', () => {
+    it("should setup resize listener for cursor updates", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       expect(textarea.__updateCursor).toBeDefined();
-      expect(typeof textarea.__updateCursor).toBe('function');
+      expect(typeof textarea.__updateCursor).toBe("function");
     });
 
-    it('should support inputOnFocus option', () => {
+    it("should support inputOnFocus option", () => {
       const textarea = new Textarea({ screen, inputOnFocus: true });
       screen.append(textarea);
 
@@ -80,103 +80,103 @@ describe('Textarea', () => {
     });
   });
 
-  describe('getValue() / setValue()', () => {
-    it('should get current value', () => {
+  describe("getValue() / setValue()", () => {
+    it("should get current value", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.value = 'Test value';
+      textarea.value = "Test value";
 
-      expect(textarea.getValue()).toBe('Test value');
+      expect(textarea.getValue()).toBe("Test value");
     });
 
-    it('should set value', () => {
+    it("should set value", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('New value');
+      textarea.setValue("New value");
 
-      expect(textarea.value).toBe('New value');
+      expect(textarea.value).toBe("New value");
     });
 
-    it('should update content when value changes', () => {
+    it("should update content when value changes", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
 
       textarea.setContent = vi.fn();
-      textarea.setValue('Content');
+      textarea.setValue("Content");
 
-      expect(textarea.setContent).toHaveBeenCalledWith('Content');
+      expect(textarea.setContent).toHaveBeenCalledWith("Content");
     });
 
-    it('should not update if value is the same', () => {
+    it("should not update if value is the same", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('Same');
+      textarea.setValue("Same");
       textarea.setContent = vi.fn();
-      textarea.setValue('Same');
+      textarea.setValue("Same");
 
       expect(textarea.setContent).not.toHaveBeenCalled();
     });
 
-    it('should use current value when no argument provided', () => {
+    it("should use current value when no argument provided", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
 
-      textarea.value = 'existing';
+      textarea.value = "existing";
       textarea.setContent = vi.fn();
       textarea.setValue();
 
-      expect(textarea.setContent).toHaveBeenCalledWith('existing');
+      expect(textarea.setContent).toHaveBeenCalledWith("existing");
     });
 
-    it('should handle null value', () => {
+    it("should handle null value", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.value = 'initial';
+      textarea.value = "initial";
       textarea.setValue(null);
 
-      expect(textarea.value).toBe('initial');
+      expect(textarea.value).toBe("initial");
     });
 
-    it('should handle multi-line text', () => {
+    it("should handle multi-line text", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('Line 1\nLine 2\nLine 3');
+      textarea.setValue("Line 1\nLine 2\nLine 3");
 
-      expect(textarea.value).toBe('Line 1\nLine 2\nLine 3');
+      expect(textarea.value).toBe("Line 1\nLine 2\nLine 3");
     });
   });
 
-  describe('clearValue()', () => {
-    it('should clear the value', () => {
+  describe("clearValue()", () => {
+    it("should clear the value", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('Some text');
+      textarea.setValue("Some text");
       textarea.clearValue();
 
-      expect(textarea.value).toBe('');
+      expect(textarea.value).toBe("");
     });
 
-    it('should be aliased as clearInput', () => {
+    it("should be aliased as clearInput", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('Some text');
+      textarea.setValue("Some text");
       textarea.clearInput();
 
-      expect(textarea.value).toBe('');
+      expect(textarea.value).toBe("");
     });
   });
 
-  describe('readInput()', () => {
-    it('should start reading input', () => {
+  describe("readInput()", () => {
+    it("should start reading input", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
@@ -186,7 +186,7 @@ describe('Textarea', () => {
       expect(textarea._reading).toBe(true);
     });
 
-    it('should not start if already reading', () => {
+    it("should not start if already reading", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
@@ -196,7 +196,7 @@ describe('Textarea', () => {
       expect(result).toBeUndefined();
     });
 
-    it('should focus element if not focused', () => {
+    it("should focus element if not focused", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
@@ -207,7 +207,7 @@ describe('Textarea', () => {
       expect(screen.focused).toBe(textarea);
     });
 
-    it('should grab keys', () => {
+    it("should grab keys", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
@@ -217,7 +217,7 @@ describe('Textarea', () => {
       expect(screen.grabKeys).toBe(true);
     });
 
-    it('should show cursor', () => {
+    it("should show cursor", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
@@ -227,7 +227,7 @@ describe('Textarea', () => {
       expect(screen.program.hideCursor).not.toHaveBeenCalled();
     });
 
-    it('should accept callback', () => {
+    it("should accept callback", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
@@ -238,7 +238,7 @@ describe('Textarea', () => {
       expect(textarea._callback).toBe(callback);
     });
 
-    it('should be aliased as input and setInput', () => {
+    it("should be aliased as input and setInput", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
@@ -247,127 +247,131 @@ describe('Textarea', () => {
     });
   });
 
-  describe('_listener()', () => {
-    it('should handle character input', () => {
+  describe("_listener()", () => {
+    it("should handle character input", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea._done = vi.fn();
-      textarea._listener('a', { name: 'a' });
+      textarea._listener("a", { name: "a" });
 
-      expect(textarea.value).toBe('a');
+      expect(textarea.value).toBe("a");
     });
 
-    it('should handle multiple characters', () => {
+    it("should handle multiple characters", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea._done = vi.fn();
-      textarea._listener('h', { name: 'h' });
-      textarea._listener('i', { name: 'i' });
+      textarea._listener("h", { name: "h" });
+      textarea._listener("i", { name: "i" });
 
-      expect(textarea.value).toBe('hi');
+      expect(textarea.value).toBe("hi");
     });
 
-    it('should handle enter as newline', () => {
+    it("should handle enter as newline", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea._done = vi.fn();
-      textarea._listener('\r', { name: 'enter' });
+      textarea._listener("\r", { name: "enter" });
 
-      expect(textarea.value).toBe('\n');
+      expect(textarea.value).toBe("\n");
     });
 
-    it('should handle backspace', () => {
+    it("should handle backspace", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.value = 'hello';
+      textarea.value = "hello";
       textarea._done = vi.fn();
-      textarea._listener('\b', { name: 'backspace' });
+      textarea._listener("\b", { name: "backspace" });
 
-      expect(textarea.value).toBe('hell');
+      expect(textarea.value).toBe("hell");
     });
 
-    it('should handle backspace on empty value', () => {
+    it("should handle backspace on empty value", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.value = '';
+      textarea.value = "";
       textarea._done = vi.fn();
-      textarea._listener('\b', { name: 'backspace' });
+      textarea._listener("\b", { name: "backspace" });
 
-      expect(textarea.value).toBe('');
+      expect(textarea.value).toBe("");
     });
 
-    it('should call done on escape', () => {
+    it("should call done on escape", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea._done = vi.fn();
-      textarea._listener('\x1b', { name: 'escape' });
+      textarea._listener("\x1b", { name: "escape" });
 
       expect(textarea._done).toHaveBeenCalledWith(null, null);
     });
 
-    it('should ignore return key', () => {
+    it("should ignore return key", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea._done = vi.fn();
-      textarea._listener('\r', { name: 'return' });
+      textarea._listener("\r", { name: "return" });
 
       // Should not add anything to value
-      expect(textarea.value).toBe('');
+      expect(textarea.value).toBe("");
     });
 
-    it('should ignore control characters', () => {
+    it("should ignore control characters", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea._listener('\x01', { name: 'unknown' });
+      textarea._listener("\x01", { name: "unknown" });
 
-      expect(textarea.value).toBe('');
+      expect(textarea.value).toBe("");
     });
 
-    it('should handle directional keys without error', () => {
+    it("should handle directional keys without error", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.value = 'test';
-      textarea._listener('', { name: 'left' });
-      textarea._listener('', { name: 'right' });
-      textarea._listener('', { name: 'up' });
-      textarea._listener('', { name: 'down' });
+      textarea.value = "test";
+      textarea._listener("", { name: "left" });
+      textarea._listener("", { name: "right" });
+      textarea._listener("", { name: "up" });
+      textarea._listener("", { name: "down" });
 
       // Should not crash or modify value
-      expect(textarea.value).toBe('test');
+      expect(textarea.value).toBe("test");
     });
   });
 
-  describe('submit() / cancel()', () => {
-    it('should trigger escape handler on submit', () => {
+  describe("submit() / cancel()", () => {
+    it("should trigger escape handler on submit", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea.__listener = vi.fn();
       textarea.submit();
 
-      expect(textarea.__listener).toHaveBeenCalledWith('\x1b', { name: 'escape' });
+      expect(textarea.__listener).toHaveBeenCalledWith("\x1b", {
+        name: "escape",
+      });
     });
 
-    it('should trigger escape handler on cancel', () => {
+    it("should trigger escape handler on cancel", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea.__listener = vi.fn();
       textarea.cancel();
 
-      expect(textarea.__listener).toHaveBeenCalledWith('\x1b', { name: 'escape' });
+      expect(textarea.__listener).toHaveBeenCalledWith("\x1b", {
+        name: "escape",
+      });
     });
 
-    it('should do nothing if no listener attached', () => {
+    it("should do nothing if no listener attached", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
@@ -378,63 +382,65 @@ describe('Textarea', () => {
     });
   });
 
-  describe('render()', () => {
-    it('should call setValue and parent render', () => {
+  describe("render()", () => {
+    it("should call setValue and parent render", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       textarea.setValue = vi.fn();
       // Spy on the parent's render method
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(textarea)), 'render').mockReturnValue('rendered');
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(textarea)), "render")
+        .mockReturnValue("rendered");
 
       const result = textarea.render();
 
       expect(textarea.setValue).toHaveBeenCalled();
       expect(renderSpy).toHaveBeenCalled();
-      expect(result).toBe('rendered');
+      expect(result).toBe("rendered");
 
       renderSpy.mockRestore();
     });
   });
 
-  describe('readEditor()', () => {
-    it('should call screen.readEditor', () => {
+  describe("readEditor()", () => {
+    it("should call screen.readEditor", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
 
       screen.readEditor = vi.fn((options, callback) => {
-        callback(null, 'edited value');
+        callback(null, "edited value");
       });
 
-      textarea.setValue('initial');
+      textarea.setValue("initial");
       textarea.readEditor();
 
       expect(screen.readEditor).toHaveBeenCalled();
-      expect(screen.readEditor.mock.calls[0][0]).toEqual({ value: 'initial' });
+      expect(screen.readEditor.mock.calls[0][0]).toEqual({ value: "initial" });
     });
 
-    it('should update value after editing', () => {
+    it("should update value after editing", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       screen.readEditor = vi.fn((options, callback) => {
-        callback(null, 'edited content');
+        callback(null, "edited content");
       });
 
       textarea.readInput = vi.fn();
-      textarea.setValue('initial');
+      textarea.setValue("initial");
       textarea.readEditor();
 
-      expect(textarea.value).toBe('edited content');
+      expect(textarea.value).toBe("edited content");
     });
 
-    it('should call readInput after editing', () => {
+    it("should call readInput after editing", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
       screen.readEditor = vi.fn((options, callback) => {
-        callback(null, 'edited');
+        callback(null, "edited");
       });
 
       textarea.readInput = vi.fn();
@@ -443,7 +449,7 @@ describe('Textarea', () => {
       expect(textarea.readInput).toHaveBeenCalled();
     });
 
-    it('should be aliased as editor and setEditor', () => {
+    it("should be aliased as editor and setEditor", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
@@ -451,11 +457,11 @@ describe('Textarea', () => {
       expect(textarea.setEditor).toBe(textarea.readEditor);
     });
 
-    it('should handle editor errors', () => {
+    it("should handle editor errors", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      const error = new Error('Editor failed');
+      const error = new Error("Editor failed");
       screen.readEditor = vi.fn((options, callback) => {
         callback(error);
       });
@@ -468,11 +474,11 @@ describe('Textarea', () => {
       expect(textarea.readInput).toHaveBeenCalled();
     });
 
-    it('should handle unsuccessful editor exit', () => {
+    it("should handle unsuccessful editor exit", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      const error = new Error('Unsuccessful.');
+      const error = new Error("Unsuccessful.");
       screen.readEditor = vi.fn((options, callback) => {
         callback(error);
       });
@@ -486,33 +492,33 @@ describe('Textarea', () => {
     });
   });
 
-  describe('events', () => {
-    it('should emit submit event on completion', () => {
+  describe("events", () => {
+    it("should emit submit event on completion", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
 
       const spy = vi.fn();
-      textarea.on('submit', spy);
+      textarea.on("submit", spy);
 
-      textarea.value = 'submitted text';
+      textarea.value = "submitted text";
       textarea.readInput();
 
       // Simulate completion
       if (textarea._done) {
-        textarea._done(null, 'submitted text');
+        textarea._done(null, "submitted text");
       }
 
-      expect(spy).toHaveBeenCalledWith('submitted text');
+      expect(spy).toHaveBeenCalledWith("submitted text");
     });
 
-    it('should emit cancel event on cancellation', () => {
+    it("should emit cancel event on cancellation", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
 
       const spy = vi.fn();
-      textarea.on('cancel', spy);
+      textarea.on("cancel", spy);
 
       textarea.readInput();
 
@@ -523,31 +529,31 @@ describe('Textarea', () => {
       expect(spy).toHaveBeenCalledWith(null);
     });
 
-    it('should emit action event', () => {
+    it("should emit action event", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
 
       const spy = vi.fn();
-      textarea.on('action', spy);
+      textarea.on("action", spy);
 
       textarea.readInput();
 
       if (textarea._done) {
-        textarea._done(null, 'action value');
+        textarea._done(null, "action value");
       }
 
-      expect(spy).toHaveBeenCalledWith('action value');
+      expect(spy).toHaveBeenCalledWith("action value");
     });
 
-    it('should emit error event on error', () => {
+    it("should emit error event on error", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
 
-      const error = new Error('Test error');
+      const error = new Error("Test error");
       const spy = vi.fn();
-      textarea.on('error', spy);
+      textarea.on("error", spy);
 
       textarea.readInput();
 
@@ -559,14 +565,14 @@ describe('Textarea', () => {
     });
   });
 
-  describe('keyboard shortcuts', () => {
-    it('should open editor with Ctrl+E when keys enabled', () => {
+  describe("keyboard shortcuts", () => {
+    it("should open editor with Ctrl+E when keys enabled", () => {
       const textarea = new Textarea({ screen, keys: true });
       screen.append(textarea);
 
       textarea.readEditor = vi.fn();
       textarea._done = vi.fn();
-      textarea._listener('e', { name: 'e', ctrl: true });
+      textarea._listener("e", { name: "e", ctrl: true });
 
       expect(textarea.readEditor).toHaveBeenCalled();
     });
@@ -576,7 +582,7 @@ describe('Textarea', () => {
       screen.append(textarea);
 
       textarea.readEditor = vi.fn();
-      textarea.emit('keypress', 'e', { name: 'e' });
+      textarea.emit("keypress", "e", { name: "e" });
 
       expect(textarea.readEditor).toHaveBeenCalled();
     });
@@ -586,131 +592,131 @@ describe('Textarea', () => {
       screen.append(textarea);
 
       textarea.readInput = vi.fn();
-      textarea.emit('keypress', 'i', { name: 'i' });
+      textarea.emit("keypress", "i", { name: "i" });
 
       expect(textarea.readInput).toHaveBeenCalled();
     });
 
-    it('should start input with enter key', () => {
+    it("should start input with enter key", () => {
       const textarea = new Textarea({ screen, keys: true });
       screen.append(textarea);
 
       textarea.readInput = vi.fn();
-      textarea.emit('keypress', '\r', { name: 'enter' });
+      textarea.emit("keypress", "\r", { name: "enter" });
 
       expect(textarea.readInput).toHaveBeenCalled();
     });
   });
 
-  describe('mouse support', () => {
-    it('should open editor on right click', () => {
+  describe("mouse support", () => {
+    it("should open editor on right click", () => {
       const textarea = new Textarea({ screen, mouse: true });
       screen.append(textarea);
 
       textarea.readEditor = vi.fn();
-      textarea.emit('click', { button: 'right' });
+      textarea.emit("click", { button: "right" });
 
       expect(textarea.readEditor).toHaveBeenCalled();
     });
 
-    it('should not open editor on left click', () => {
+    it("should not open editor on left click", () => {
       const textarea = new Textarea({ screen, mouse: true });
       screen.append(textarea);
 
       textarea.readEditor = vi.fn();
-      textarea.emit('click', { button: 'left' });
+      textarea.emit("click", { button: "left" });
 
       expect(textarea.readEditor).not.toHaveBeenCalled();
     });
 
-    it('should not open editor when already reading', () => {
+    it("should not open editor when already reading", () => {
       const textarea = new Textarea({ screen, mouse: true });
       screen.append(textarea);
 
       textarea._reading = true;
       textarea.readEditor = vi.fn();
-      textarea.emit('click', { button: 'right' });
+      textarea.emit("click", { button: "right" });
 
       expect(textarea.readEditor).not.toHaveBeenCalled();
     });
   });
 
-  describe('edge cases', () => {
-    it('should handle very long text', () => {
+  describe("edge cases", () => {
+    it("should handle very long text", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      const longText = 'a'.repeat(10000);
+      const longText = "a".repeat(10000);
       textarea.setValue(longText);
 
       expect(textarea.value).toBe(longText);
     });
 
-    it('should handle unicode characters', () => {
+    it("should handle unicode characters", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('Hello 世界 🌍');
+      textarea.setValue("Hello 世界 🌍");
 
-      expect(textarea.value).toBe('Hello 世界 🌍');
+      expect(textarea.value).toBe("Hello 世界 🌍");
     });
 
-    it('should handle special characters', () => {
+    it("should handle special characters", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('!@#$%^&*()_+-=[]{}|;:\'",./<>?`~');
+      textarea.setValue("!@#$%^&*()_+-=[]{}|;:'\",./<>?`~");
 
-      expect(textarea.value).toBe('!@#$%^&*()_+-=[]{}|;:\'",./<>?`~');
+      expect(textarea.value).toBe("!@#$%^&*()_+-=[]{}|;:'\",./<>?`~");
     });
 
-    it('should handle empty string', () => {
+    it("should handle empty string", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('');
+      textarea.setValue("");
 
-      expect(textarea.value).toBe('');
+      expect(textarea.value).toBe("");
     });
 
-    it('should handle text with tabs', () => {
+    it("should handle text with tabs", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
 
-      textarea.setValue('Line1\tTabbed\tText');
+      textarea.setValue("Line1\tTabbed\tText");
 
-      expect(textarea.value).toBe('Line1\tTabbed\tText');
+      expect(textarea.value).toBe("Line1\tTabbed\tText");
     });
 
-    it('should handle backspace with surrogate pairs', () => {
+    it("should handle backspace with surrogate pairs", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       screen.fullUnicode = true;
 
-      textarea.value = 'test\uD83D\uDE00'; // test😀
+      textarea.value = "test\uD83D\uDE00"; // test😀
       textarea._done = vi.fn();
-      textarea._listener('\b', { name: 'backspace' });
+      textarea._listener("\b", { name: "backspace" });
 
       // Should remove the emoji (2 characters)
-      expect(textarea.value).toBe('test');
+      expect(textarea.value).toBe("test");
     });
   });
 
-  describe('integration scenarios', () => {
-    it('should work as simple text area', () => {
+  describe("integration scenarios", () => {
+    it("should work as simple text area", () => {
       const textarea = new Textarea({
         screen,
         width: 40,
-        height: 10
+        height: 10,
       });
       screen.append(textarea);
 
-      textarea.setValue('Multi-line\ntext\narea');
+      textarea.setValue("Multi-line\ntext\narea");
 
-      expect(textarea.value).toBe('Multi-line\ntext\narea');
+      expect(textarea.value).toBe("Multi-line\ntext\narea");
     });
 
-    it('should work with input/output cycle', () => {
+    it("should work with input/output cycle", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
@@ -718,10 +724,10 @@ describe('Textarea', () => {
       textarea.readInput();
 
       // Simulate typing
-      textarea._listener('H', { name: 'h' });
-      textarea._listener('i', { name: 'i' });
+      textarea._listener("H", { name: "h" });
+      textarea._listener("i", { name: "i" });
 
-      expect(textarea.value).toBe('Hi');
+      expect(textarea.value).toBe("Hi");
 
       // Submit
       textarea._done(null, textarea.value);
@@ -729,7 +735,7 @@ describe('Textarea', () => {
       expect(textarea._reading).toBe(false);
     });
 
-    it('should handle callback-based input', () => {
+    it("should handle callback-based input", () => {
       const textarea = new Textarea({ screen });
       screen.append(textarea);
       initTextarea(textarea);
@@ -737,13 +743,13 @@ describe('Textarea', () => {
       const callback = vi.fn();
       textarea.readInput(callback);
 
-      textarea.value = 'callback test';
+      textarea.value = "callback test";
 
       if (textarea._done) {
-        textarea._done(null, 'callback test');
+        textarea._done(null, "callback test");
       }
 
-      expect(callback).toHaveBeenCalledWith(null, 'callback test');
+      expect(callback).toHaveBeenCalledWith(null, "callback test");
     });
   });
 });

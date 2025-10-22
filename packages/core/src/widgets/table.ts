@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { StyleListTable, TableOptions } from '../types';
-import Box from './box.js';
+import type { StyleListTable, TableOptions } from "../types";
+import Box from "./box.js";
 
 /**
  * Table
  */
 
 class Table extends Box {
-  override type = 'table';
+  override type = "table";
   declare style: StyleListTable;
   pad: number;
   rows: any[][] = []; // Initialize to empty array
@@ -26,7 +26,7 @@ class Table extends Box {
     options.style.border = options.style.border || {};
     options.style.header = options.style.header || {};
     options.style.cell = options.style.cell || {};
-    options.align = options.align || 'center';
+    options.align = options.align || "center";
 
     // Regular tables do not get custom height (this would
     // require extra padding). Maybe add in the future.
@@ -38,13 +38,13 @@ class Table extends Box {
 
     this.setData(options.rows || options.data || []);
 
-    this.on('attach', () => {
-      this.setContent('');
+    this.on("attach", () => {
+      this.setContent("");
       this.setData(this.rows);
     });
 
-    this.on('resize', () => {
-      this.setContent('');
+    this.on("resize", () => {
+      this.setContent("");
       this.setData(this.rows);
       this.screen.render();
     });
@@ -57,7 +57,7 @@ class Table extends Box {
 
     this.rows = this.rows || [];
 
-    this.rows.forEach(row => {
+    this.rows.forEach((row) => {
       row.forEach((cell, i) => {
         const clen = this.strWidth(cell);
         if (!maxes[i] || maxes[i] < clen) {
@@ -89,7 +89,7 @@ class Table extends Box {
         return max + w;
       }));
     } else {
-      return (this._maxes = maxes.map(max => {
+      return (this._maxes = maxes.map((max) => {
         return max + this.pad;
       }));
     }
@@ -109,7 +109,7 @@ class Table extends Box {
    * ]);
    */
   setData(rows: any[][]): void {
-    let text = '';
+    let text = "";
     const align = this.align;
 
     this.rows = rows || [];
@@ -125,30 +125,30 @@ class Table extends Box {
         let clen = this.strWidth(cell);
 
         if (i !== 0) {
-          text += ' ';
+          text += " ";
         }
 
         while (clen < width) {
-          if (align === 'center') {
-            cell = ' ' + cell + ' ';
+          if (align === "center") {
+            cell = " " + cell + " ";
             clen += 2;
-          } else if (align === 'left') {
-            cell = cell + ' ';
+          } else if (align === "left") {
+            cell = cell + " ";
             clen += 1;
-          } else if (align === 'right') {
-            cell = ' ' + cell;
+          } else if (align === "right") {
+            cell = " " + cell;
             clen += 1;
           }
         }
 
         if (clen > width) {
-          if (align === 'center') {
+          if (align === "center") {
             cell = cell.substring(1);
             clen--;
-          } else if (align === 'left') {
+          } else if (align === "left") {
             cell = cell.slice(0, -1);
             clen--;
-          } else if (align === 'right') {
+          } else if (align === "right") {
             cell = cell.substring(1);
             clen--;
           }
@@ -157,7 +157,7 @@ class Table extends Box {
         text += cell;
       });
       if (!isFooter) {
-        text += '\n\n';
+        text += "\n\n";
       }
     });
 
@@ -243,10 +243,10 @@ class Table extends Box {
           } else {
             // middle
             lines[yi + ry][xi + 0][0] = battr;
-            lines[yi + ry][xi + 0][1] = '\u251c'; // '├'
+            lines[yi + ry][xi + 0][1] = "\u251c"; // '├'
             // XXX If we alter iwidth and ileft for no borders - nothing should be written here
             if (!border.left) {
-              lines[yi + ry][xi + 0][1] = '\u2500'; // '─'
+              lines[yi + ry][xi + 0][1] = "\u2500"; // '─'
             }
           }
           lines[yi + ry].dirty = true;
@@ -267,10 +267,10 @@ class Table extends Box {
             // middle
             rx++;
             lines[yi + ry][xi + rx][0] = battr;
-            lines[yi + ry][xi + rx][1] = '\u2524'; // '┤'
+            lines[yi + ry][xi + rx][1] = "\u2524"; // '┤'
             // XXX If we alter iwidth and iright for no borders - nothing should be written here
             if (!border.right) {
-              lines[yi + ry][xi + rx][1] = '\u2500'; // '─'
+              lines[yi + ry][xi + rx][1] = "\u2500"; // '─'
             }
           }
           lines[yi + ry].dirty = true;
@@ -282,19 +282,19 @@ class Table extends Box {
           // top
           rx++;
           lines[yi + ry][xi + rx][0] = battr;
-          lines[yi + ry][xi + rx][1] = '\u252c'; // '┬'
+          lines[yi + ry][xi + rx][1] = "\u252c"; // '┬'
           // XXX If we alter iheight and itop for no borders - nothing should be written here
           if (!border.top) {
-            lines[yi + ry][xi + rx][1] = '\u2502'; // '│'
+            lines[yi + ry][xi + rx][1] = "\u2502"; // '│'
           }
         } else if (ry / 2 === this.rows.length) {
           // bottom
           rx++;
           lines[yi + ry][xi + rx][0] = battr;
-          lines[yi + ry][xi + rx][1] = '\u2534'; // '┴'
+          lines[yi + ry][xi + rx][1] = "\u2534"; // '┴'
           // XXX If we alter iheight and ibottom for no borders - nothing should be written here
           if (!border.bottom) {
-            lines[yi + ry][xi + rx][1] = '\u2502'; // '│'
+            lines[yi + ry][xi + rx][1] = "\u2502"; // '│'
           }
         } else {
           // middle
@@ -306,7 +306,7 @@ class Table extends Box {
             rx++;
             lines[yi + ry][xi + rx][0] = battr;
           }
-          lines[yi + ry][xi + rx][1] = '\u253c'; // '┼'
+          lines[yi + ry][xi + rx][1] = "\u253c"; // '┼'
           // rx++;
         }
         lines[yi + ry].dirty = true;
@@ -318,7 +318,7 @@ class Table extends Box {
     for (ry = 1; ry < this.rows.length * 2; ry++) {
       if (!lines[yi + ry]) break;
       rx = 0;
-      this._maxes.slice(0, -1).forEach(max => {
+      this._maxes.slice(0, -1).forEach((max) => {
         rx += max;
         if (!lines[yi + ry][xi + rx + 1]) return;
         if (ry % 2 !== 0) {
@@ -330,14 +330,14 @@ class Table extends Box {
             rx++;
             lines[yi + ry][xi + rx][0] = battr;
           }
-          lines[yi + ry][xi + rx][1] = '\u2502'; // '│'
+          lines[yi + ry][xi + rx][1] = "\u2502"; // '│'
           lines[yi + ry].dirty = true;
         } else {
           rx++;
         }
       });
       rx = 1;
-      this._maxes.forEach(max => {
+      this._maxes.forEach((max) => {
         while (max--) {
           if (ry % 2 === 0) {
             if (!lines[yi + ry]) break;
@@ -348,7 +348,7 @@ class Table extends Box {
             } else {
               lines[yi + ry][xi + rx][0] = battr;
             }
-            lines[yi + ry][xi + rx][1] = '\u2500'; // '─'
+            lines[yi + ry][xi + rx][1] = "\u2500"; // '─'
             lines[yi + ry].dirty = true;
           }
           rx++;

@@ -9,8 +9,8 @@ var form = blessed.form({
   top: 0,
   width: 30,
   height: 4,
-  bg: 'green',
-  content: 'Submit or cancel?'
+  bg: "green",
+  content: "Submit or cancel?",
 });
 
 var submit = blessed.button({
@@ -20,21 +20,21 @@ var submit = blessed.button({
   shrink: true,
   padding: {
     left: 1,
-    right: 1
+    right: 1,
   },
   left: 10,
   top: 2,
-  name: 'submit',
-  content: 'submit',
+  name: "submit",
+  content: "submit",
   style: {
-    bg: 'blue',
+    bg: "blue",
     focus: {
-      bg: 'red'
+      bg: "red",
     },
     hover: {
-      bg: 'red'
-    }
-  }
+      bg: "red",
+    },
+  },
 });
 
 var cancel = blessed.button({
@@ -44,42 +44,42 @@ var cancel = blessed.button({
   shrink: true,
   padding: {
     left: 1,
-    right: 1
+    right: 1,
   },
   left: 20,
   top: 2,
-  name: 'cancel',
-  content: 'cancel',
+  name: "cancel",
+  content: "cancel",
   style: {
-    bg: 'blue',
+    bg: "blue",
     focus: {
-      bg: 'red'
+      bg: "red",
     },
     hover: {
-      bg: 'red'
-    }
-  }
+      bg: "red",
+    },
+  },
 });
 
-submit.on('press', function() {
+submit.on("press", function () {
   form.submit();
 });
 
-cancel.on('press', function() {
+cancel.on("press", function () {
   form.reset();
 });
 
-form.on('submit', function(data) {
-  form.setContent('Submitted.');
+form.on("submit", function (data) {
+  form.setContent("Submitted.");
   screen.render();
 });
 
-form.on('reset', function(data) {
-  form.setContent('Canceled.');
+form.on("reset", function (data) {
+  form.setContent("Canceled.");
   screen.render();
 });
 
-screen.key('q', function() {
+screen.key("q", function () {
   process.exit(0);
 });
 

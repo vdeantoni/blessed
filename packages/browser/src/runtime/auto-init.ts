@@ -7,28 +7,30 @@
  * 3. Global references
  */
 
-import { initCore } from '@unblessed/core';
-import { Buffer } from 'buffer';
-import { BrowserRuntime } from './browser-runtime.js';
+import { initCore } from "@unblessed/core";
+import { Buffer } from "buffer";
+import { BrowserRuntime } from "./browser-runtime.js";
 
 // Only initialize once
-if (typeof (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ === 'undefined') {
+if (
+  typeof (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ === "undefined"
+) {
   // Step 1: Set up process global
-  if (typeof globalThis.process === 'undefined') {
+  if (typeof globalThis.process === "undefined") {
     const listeners = new Map<string, Set<Function>>();
 
     (globalThis as any).process = {
-      platform: 'browser',
-      arch: 'x64',
-      env: { TERM: 'xterm-256color' },
-      cwd: () => '/',
+      platform: "browser",
+      arch: "x64",
+      env: { TERM: "xterm-256color" },
+      cwd: () => "/",
       exit: (code?: number) => {
         console.log(`Process exit called with code: ${code ?? 0}`);
-        throw new Error('Process exited');
+        throw new Error("Process exited");
       },
       pid: 1,
-      title: 'browser',
-      version: 'v18.0.0',
+      title: "browser",
+      version: "v18.0.0",
       stdin: {},
       stdout: {},
       stderr: {},
@@ -66,13 +68,13 @@ if (typeof (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ === 'undefined') 
         setTimeout(() => fn(...args), 0);
       },
       kill: () => {
-        throw new Error('process.kill not supported in browser');
-      }
+        throw new Error("process.kill not supported in browser");
+      },
     };
   }
 
   // Step 2: Set up Buffer global
-  if (typeof globalThis.Buffer === 'undefined') {
+  if (typeof globalThis.Buffer === "undefined") {
     (globalThis as any).Buffer = Buffer;
   }
 
@@ -87,5 +89,5 @@ if (typeof (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ === 'undefined') 
 
   // Mark as initialized
   (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ = true;
-  console.log('[blessed-browser] Runtime initialized');
+  console.log("[blessed-browser] Runtime initialized");
 }

@@ -101,7 +101,7 @@
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-import { getEnvVar } from './runtime-helpers';
+import { getEnvVar } from "./runtime-helpers";
 
 const stringFromCharCode = String.fromCharCode;
 const floor = Math.floor;
@@ -113,425 +113,536 @@ const floor = Math.floor;
 const unicode: any = {};
 
 function getCJKWidthSettings(): { enabled: boolean; value: number } {
-    const NCURSES_CJK_WIDTH = getEnvVar("NCURSES_CJK_WIDTH") || '';
-    const enabled = !!NCURSES_CJK_WIDTH;
-    const value = enabled ? (+NCURSES_CJK_WIDTH || 1) : 1;
+  const NCURSES_CJK_WIDTH = getEnvVar("NCURSES_CJK_WIDTH") || "";
+  const enabled = !!NCURSES_CJK_WIDTH;
+  const value = enabled ? +NCURSES_CJK_WIDTH || 1 : 1;
 
-    return { enabled, value };
+  return { enabled, value };
 }
 
-unicode.charWidth = function(str: any, i?: number, tabSize: number = 8): number {
-    const point = typeof str !== 'number'
-        ? unicode.codePointAt(str, i || 0)
-        : str;
+unicode.charWidth = function (
+  str: any,
+  i?: number,
+  tabSize: number = 8,
+): number {
+  const point =
+    typeof str !== "number" ? unicode.codePointAt(str, i || 0) : str;
 
-    // nul
-    if (point === 0) return 0;
+  // nul
+  if (point === 0) return 0;
 
-    // tab
-    if (point === 0x09) {
-        return tabSize;
-    }
+  // tab
+  if (point === 0x09) {
+    return tabSize;
+  }
 
-    // 8-bit control characters (2-width according to unicode??)
-    if (point < 32 || (point >= 0x7f && point < 0xa0)) {
-        return 0;
-    }
+  // 8-bit control characters (2-width according to unicode??)
+  if (point < 32 || (point >= 0x7f && point < 0xa0)) {
+    return 0;
+  }
 
-    // search table of non-spacing characters
-    // is ucs combining or C0/C1 control character
-    if (unicode.combining[point]) {
-        return 0;
-    }
+  // search table of non-spacing characters
+  // is ucs combining or C0/C1 control character
+  if (unicode.combining[point]) {
+    return 0;
+  }
 
-    // check for double-wide
-    // if (point >= 0x1100
-    //     && (point <= 0x115f // Hangul Jamo init. consonants
-    //     || point === 0x2329 || point === 0x232a
-    //     || (point >= 0x2e80 && point <= 0xa4cf
-    //     && point !== 0x303f) // CJK ... Yi
-    //     || (point >= 0xac00 && point <= 0xd7a3) // Hangul Syllables
-    //     || (point >= 0xf900 && point <= 0xfaff) // CJK Compatibility Ideographs
-    //     || (point >= 0xfe10 && point <= 0xfe19) // Vertical forms
-    //     || (point >= 0xfe30 && point <= 0xfe6f) // CJK Compatibility Forms
-    //     || (point >= 0xff00 && point <= 0xff60) // Fullwidth Forms
-    //     || (point >= 0xffe0 && point <= 0xffe6)
-    //     || (point >= 0x20000 && point <= 0x2fffd)
-    //     || (point >= 0x30000 && point <= 0x3fffd))) {
-    //   return 2;
-    // }
+  // check for double-wide
+  // if (point >= 0x1100
+  //     && (point <= 0x115f // Hangul Jamo init. consonants
+  //     || point === 0x2329 || point === 0x232a
+  //     || (point >= 0x2e80 && point <= 0xa4cf
+  //     && point !== 0x303f) // CJK ... Yi
+  //     || (point >= 0xac00 && point <= 0xd7a3) // Hangul Syllables
+  //     || (point >= 0xf900 && point <= 0xfaff) // CJK Compatibility Ideographs
+  //     || (point >= 0xfe10 && point <= 0xfe19) // Vertical forms
+  //     || (point >= 0xfe30 && point <= 0xfe6f) // CJK Compatibility Forms
+  //     || (point >= 0xff00 && point <= 0xff60) // Fullwidth Forms
+  //     || (point >= 0xffe0 && point <= 0xffe6)
+  //     || (point >= 0x20000 && point <= 0x2fffd)
+  //     || (point >= 0x30000 && point <= 0x3fffd))) {
+  //   return 2;
+  // }
 
-    // check for double-wide
-    if ((0x3000 === point)
-        || (0xFF01 <= point && point <= 0xFF60)
-        || (0xFFE0 <= point && point <= 0xFFE6)) {
-        return 2;
-    }
+  // check for double-wide
+  if (
+    0x3000 === point ||
+    (0xff01 <= point && point <= 0xff60) ||
+    (0xffe0 <= point && point <= 0xffe6)
+  ) {
+    return 2;
+  }
 
-    if ((0x1100 <= point && point <= 0x115F)
-        || (0x11A3 <= point && point <= 0x11A7)
-        || (0x11FA <= point && point <= 0x11FF)
-        || (0x2329 <= point && point <= 0x232A)
-        // Miscellaneous Symbols and emoji symbols (selective)
-        || (0x2600 <= point && point <= 0x26FF) // Miscellaneous Symbols (☀️⚡✅❌)
-        || (0x2700 <= point && point <= 0x2712) // Dingbats - before check marks
-        || (0x2714 <= point && point <= 0x2716) // Heavy check mark, etc (skip ✓ U+2713)
-        || (0x2718 <= point && point <= 0x27BF) // Dingbats - after ballot X (skip ✗ U+2717)
-        || (0x2E80 <= point && point <= 0x2E99)
-        || (0x2E9B <= point && point <= 0x2EF3)
-        || (0x2F00 <= point && point <= 0x2FD5)
-        || (0x2FF0 <= point && point <= 0x2FFB)
-        || (0x3001 <= point && point <= 0x303E)
-        || (0x3041 <= point && point <= 0x3096)
-        || (0x3099 <= point && point <= 0x30FF)
-        || (0x3105 <= point && point <= 0x312D)
-        || (0x3131 <= point && point <= 0x318E)
-        || (0x3190 <= point && point <= 0x31BA)
-        || (0x31C0 <= point && point <= 0x31E3)
-        || (0x31F0 <= point && point <= 0x321E)
-        || (0x3220 <= point && point <= 0x3247)
-        || (0x3250 <= point && point <= 0x32FE)
-        || (0x3300 <= point && point <= 0x4DBF)
-        || (0x4E00 <= point && point <= 0xA48C)
-        || (0xA490 <= point && point <= 0xA4C6)
-        || (0xA960 <= point && point <= 0xA97C)
-        || (0xAC00 <= point && point <= 0xD7A3)
-        || (0xD7B0 <= point && point <= 0xD7C6)
-        || (0xD7CB <= point && point <= 0xD7FB)
-        || (0xF900 <= point && point <= 0xFAFF)
-        || (0xFE10 <= point && point <= 0xFE19)
-        || (0xFE30 <= point && point <= 0xFE52)
-        || (0xFE54 <= point && point <= 0xFE66)
-        || (0xFE68 <= point && point <= 0xFE6B)
-        || (0x1B000 <= point && point <= 0x1B001)
-        || (0x1F200 <= point && point <= 0x1F202)
-        || (0x1F210 <= point && point <= 0x1F23A)
-        || (0x1F240 <= point && point <= 0x1F248)
-        || (0x1F250 <= point && point <= 0x1F251)
-        // Emoji ranges (double-width)
-        || (0x1F300 <= point && point <= 0x1F5FF) // Misc Symbols and Pictographs
-        || (0x1F600 <= point && point <= 0x1F64F) // Emoticons
-        || (0x1F650 <= point && point <= 0x1F67F) // Ornamental Dingbats
-        || (0x1F680 <= point && point <= 0x1F6FF) // Transport and Map
-        || (0x1F700 <= point && point <= 0x1F77F) // Alchemical Symbols
-        || (0x1F780 <= point && point <= 0x1F7FF) // Geometric Shapes Extended
-        || (0x1F800 <= point && point <= 0x1F8FF) // Supplemental Arrows-C
-        || (0x1F900 <= point && point <= 0x1F9FF) // Supplemental Symbols and Pictographs
-        || (0x1FA00 <= point && point <= 0x1FA6F) // Chess Symbols
-        || (0x1FA70 <= point && point <= 0x1FAFF) // Symbols and Pictographs Extended-A
-        || (0x20000 <= point && point <= 0x2F73F)
-        || (0x2B740 <= point && point <= 0x2FFFD)
-        || (0x30000 <= point && point <= 0x3FFFD)) {
-        return 2;
-    }
+  if (
+    (0x1100 <= point && point <= 0x115f) ||
+    (0x11a3 <= point && point <= 0x11a7) ||
+    (0x11fa <= point && point <= 0x11ff) ||
+    (0x2329 <= point && point <= 0x232a) ||
+    // Miscellaneous Symbols and emoji symbols (selective)
+    (0x2600 <= point && point <= 0x26ff) || // Miscellaneous Symbols (☀️⚡✅❌)
+    (0x2700 <= point && point <= 0x2712) || // Dingbats - before check marks
+    (0x2714 <= point && point <= 0x2716) || // Heavy check mark, etc (skip ✓ U+2713)
+    (0x2718 <= point && point <= 0x27bf) || // Dingbats - after ballot X (skip ✗ U+2717)
+    (0x2e80 <= point && point <= 0x2e99) ||
+    (0x2e9b <= point && point <= 0x2ef3) ||
+    (0x2f00 <= point && point <= 0x2fd5) ||
+    (0x2ff0 <= point && point <= 0x2ffb) ||
+    (0x3001 <= point && point <= 0x303e) ||
+    (0x3041 <= point && point <= 0x3096) ||
+    (0x3099 <= point && point <= 0x30ff) ||
+    (0x3105 <= point && point <= 0x312d) ||
+    (0x3131 <= point && point <= 0x318e) ||
+    (0x3190 <= point && point <= 0x31ba) ||
+    (0x31c0 <= point && point <= 0x31e3) ||
+    (0x31f0 <= point && point <= 0x321e) ||
+    (0x3220 <= point && point <= 0x3247) ||
+    (0x3250 <= point && point <= 0x32fe) ||
+    (0x3300 <= point && point <= 0x4dbf) ||
+    (0x4e00 <= point && point <= 0xa48c) ||
+    (0xa490 <= point && point <= 0xa4c6) ||
+    (0xa960 <= point && point <= 0xa97c) ||
+    (0xac00 <= point && point <= 0xd7a3) ||
+    (0xd7b0 <= point && point <= 0xd7c6) ||
+    (0xd7cb <= point && point <= 0xd7fb) ||
+    (0xf900 <= point && point <= 0xfaff) ||
+    (0xfe10 <= point && point <= 0xfe19) ||
+    (0xfe30 <= point && point <= 0xfe52) ||
+    (0xfe54 <= point && point <= 0xfe66) ||
+    (0xfe68 <= point && point <= 0xfe6b) ||
+    (0x1b000 <= point && point <= 0x1b001) ||
+    (0x1f200 <= point && point <= 0x1f202) ||
+    (0x1f210 <= point && point <= 0x1f23a) ||
+    (0x1f240 <= point && point <= 0x1f248) ||
+    (0x1f250 <= point && point <= 0x1f251) ||
+    // Emoji ranges (double-width)
+    (0x1f300 <= point && point <= 0x1f5ff) || // Misc Symbols and Pictographs
+    (0x1f600 <= point && point <= 0x1f64f) || // Emoticons
+    (0x1f650 <= point && point <= 0x1f67f) || // Ornamental Dingbats
+    (0x1f680 <= point && point <= 0x1f6ff) || // Transport and Map
+    (0x1f700 <= point && point <= 0x1f77f) || // Alchemical Symbols
+    (0x1f780 <= point && point <= 0x1f7ff) || // Geometric Shapes Extended
+    (0x1f800 <= point && point <= 0x1f8ff) || // Supplemental Arrows-C
+    (0x1f900 <= point && point <= 0x1f9ff) || // Supplemental Symbols and Pictographs
+    (0x1fa00 <= point && point <= 0x1fa6f) || // Chess Symbols
+    (0x1fa70 <= point && point <= 0x1faff) || // Symbols and Pictographs Extended-A
+    (0x20000 <= point && point <= 0x2f73f) ||
+    (0x2b740 <= point && point <= 0x2fffd) ||
+    (0x30000 <= point && point <= 0x3fffd)
+  ) {
+    return 2;
+  }
 
-    // CJK Ambiguous - check lazily loaded settings
-    if (getCJKWidthSettings().enabled) {
-        return unicode.checkCJKAmbiguous(point);
-    }
+  // CJK Ambiguous - check lazily loaded settings
+  if (getCJKWidthSettings().enabled) {
+    return unicode.checkCJKAmbiguous(point);
+  }
 
-    return 1;
+  return 1;
 };
 
 // Separate function for CJK Ambiguous - not inlined, only called when env var is set
-unicode.checkCJKAmbiguous = function(point: number): number {
-    // http://www.unicode.org/reports/tr11/
-    // http://www.unicode.org/reports/tr11/#Ambiguous
-    if ((0x00A1 === point)
-        || (0x00A4 === point)
-        || (0x00A7 <= point && point <= 0x00A8)
-        || (0x00AA === point)
-        || (0x00AD <= point && point <= 0x00AE)
-        || (0x00B0 <= point && point <= 0x00B4)
-        || (0x00B6 <= point && point <= 0x00BA)
-        || (0x00BC <= point && point <= 0x00BF)
-        || (0x00C6 === point)
-        || (0x00D0 === point)
-        || (0x00D7 <= point && point <= 0x00D8)
-        || (0x00DE <= point && point <= 0x00E1)
-        || (0x00E6 === point)
-        || (0x00E8 <= point && point <= 0x00EA)
-        || (0x00EC <= point && point <= 0x00ED)
-        || (0x00F0 === point)
-        || (0x00F2 <= point && point <= 0x00F3)
-        || (0x00F7 <= point && point <= 0x00FA)
-        || (0x00FC === point)
-        || (0x00FE === point)
-        || (0x0101 === point)
-        || (0x0111 === point)
-        || (0x0113 === point)
-        || (0x011B === point)
-        || (0x0126 <= point && point <= 0x0127)
-        || (0x012B === point)
-        || (0x0131 <= point && point <= 0x0133)
-        || (0x0138 === point)
-        || (0x013F <= point && point <= 0x0142)
-        || (0x0144 === point)
-        || (0x0148 <= point && point <= 0x014B)
-        || (0x014D === point)
-        || (0x0152 <= point && point <= 0x0153)
-        || (0x0166 <= point && point <= 0x0167)
-        || (0x016B === point)
-        || (0x01CE === point)
-        || (0x01D0 === point)
-        || (0x01D2 === point)
-        || (0x01D4 === point)
-        || (0x01D6 === point)
-        || (0x01D8 === point)
-        || (0x01DA === point)
-        || (0x01DC === point)
-        || (0x0251 === point)
-        || (0x0261 === point)
-        || (0x02C4 === point)
-        || (0x02C7 === point)
-        || (0x02C9 <= point && point <= 0x02CB)
-        || (0x02CD === point)
-        || (0x02D0 === point)
-        || (0x02D8 <= point && point <= 0x02DB)
-        || (0x02DD === point)
-        || (0x02DF === point)
-        || (0x0300 <= point && point <= 0x036F)
-        || (0x0391 <= point && point <= 0x03A1)
-        || (0x03A3 <= point && point <= 0x03A9)
-        || (0x03B1 <= point && point <= 0x03C1)
-        || (0x03C3 <= point && point <= 0x03C9)
-        || (0x0401 === point)
-        || (0x0410 <= point && point <= 0x044F)
-        || (0x0451 === point)
-        || (0x2010 === point)
-        || (0x2013 <= point && point <= 0x2016)
-        || (0x2018 <= point && point <= 0x2019)
-        || (0x201C <= point && point <= 0x201D)
-        || (0x2020 <= point && point <= 0x2022)
-        || (0x2024 <= point && point <= 0x2027)
-        || (0x2030 === point)
-        || (0x2032 <= point && point <= 0x2033)
-        || (0x2035 === point)
-        || (0x203B === point)
-        || (0x203E === point)
-        || (0x2074 === point)
-        || (0x207F === point)
-        || (0x2081 <= point && point <= 0x2084)
-        || (0x20AC === point)
-        || (0x2103 === point)
-        || (0x2105 === point)
-        || (0x2109 === point)
-        || (0x2113 === point)
-        || (0x2116 === point)
-        || (0x2121 <= point && point <= 0x2122)
-        || (0x2126 === point)
-        || (0x212B === point)
-        || (0x2153 <= point && point <= 0x2154)
-        || (0x215B <= point && point <= 0x215E)
-        || (0x2160 <= point && point <= 0x216B)
-        || (0x2170 <= point && point <= 0x2179)
-        || (0x2189 === point)
-        || (0x2190 <= point && point <= 0x2199)
-        || (0x21B8 <= point && point <= 0x21B9)
-        || (0x21D2 === point)
-        || (0x21D4 === point)
-        || (0x21E7 === point)
-        || (0x2200 === point)
-        || (0x2202 <= point && point <= 0x2203)
-        || (0x2207 <= point && point <= 0x2208)
-        || (0x220B === point)
-        || (0x220F === point)
-        || (0x2211 === point)
-        || (0x2215 === point)
-        || (0x221A === point)
-        || (0x221D <= point && point <= 0x2220)
-        || (0x2223 === point)
-        || (0x2225 === point)
-        || (0x2227 <= point && point <= 0x222C)
-        || (0x222E === point)
-        || (0x2234 <= point && point <= 0x2237)
-        || (0x223C <= point && point <= 0x223D)
-        || (0x2248 === point)
-        || (0x224C === point)
-        || (0x2252 === point)
-        || (0x2260 <= point && point <= 0x2261)
-        || (0x2264 <= point && point <= 0x2267)
-        || (0x226A <= point && point <= 0x226B)
-        || (0x226E <= point && point <= 0x226F)
-        || (0x2282 <= point && point <= 0x2283)
-        || (0x2286 <= point && point <= 0x2287)
-        || (0x2295 === point)
-        || (0x2299 === point)
-        || (0x22A5 === point)
-        || (0x22BF === point)
-        || (0x2312 === point)
-        || (0x2460 <= point && point <= 0x24E9)
-        || (0x24EB <= point && point <= 0x254B)
-        || (0x2550 <= point && point <= 0x2573)
-        || (0x2580 <= point && point <= 0x258F)
-        || (0x2592 <= point && point <= 0x2595)
-        || (0x25A0 <= point && point <= 0x25A1)
-        || (0x25A3 <= point && point <= 0x25A9)
-        || (0x25B2 <= point && point <= 0x25B3)
-        || (0x25B6 <= point && point <= 0x25B7)
-        || (0x25BC <= point && point <= 0x25BD)
-        || (0x25C0 <= point && point <= 0x25C1)
-        || (0x25C6 <= point && point <= 0x25C8)
-        || (0x25CB === point)
-        || (0x25CE <= point && point <= 0x25D1)
-        || (0x25E2 <= point && point <= 0x25E5)
-        || (0x25EF === point)
-        || (0x2605 <= point && point <= 0x2606)
-        || (0x2609 === point)
-        || (0x260E <= point && point <= 0x260F)
-        || (0x2614 <= point && point <= 0x2615)
-        || (0x261C === point)
-        || (0x261E === point)
-        || (0x2640 === point)
-        || (0x2642 === point)
-        || (0x2660 <= point && point <= 0x2661)
-        || (0x2663 <= point && point <= 0x2665)
-        || (0x2667 <= point && point <= 0x266A)
-        || (0x266C <= point && point <= 0x266D)
-        || (0x266F === point)
-        || (0x269E <= point && point <= 0x269F)
-        || (0x26BE <= point && point <= 0x26BF)
-        || (0x26C4 <= point && point <= 0x26CD)
-        || (0x26CF <= point && point <= 0x26E1)
-        || (0x26E3 === point)
-        || (0x26E8 <= point && point <= 0x26FF)
-        || (0x273D === point)
-        || (0x2757 === point)
-        || (0x2776 <= point && point <= 0x277F)
-        || (0x2B55 <= point && point <= 0x2B59)
-        || (0x3248 <= point && point <= 0x324F)
-        || (0xE000 <= point && point <= 0xF8FF)
-        || (0xFE00 <= point && point <= 0xFE0F)
-        || (0xFFFD === point)
-        || (0x1F100 <= point && point <= 0x1F10A)
-        || (0x1F110 <= point && point <= 0x1F12D)
-        || (0x1F130 <= point && point <= 0x1F169)
-        || (0x1F170 <= point && point <= 0x1F19A)
-        || (0xE0100 <= point && point <= 0xE01EF)
-        || (0xF0000 <= point && point <= 0xFFFFD)
-        || (0x100000 <= point && point <= 0x10FFFD)) {
-        return getCJKWidthSettings().value;
-    }
-    return 1;
+unicode.checkCJKAmbiguous = function (point: number): number {
+  // http://www.unicode.org/reports/tr11/
+  // http://www.unicode.org/reports/tr11/#Ambiguous
+  if (
+    0x00a1 === point ||
+    0x00a4 === point ||
+    (0x00a7 <= point && point <= 0x00a8) ||
+    0x00aa === point ||
+    (0x00ad <= point && point <= 0x00ae) ||
+    (0x00b0 <= point && point <= 0x00b4) ||
+    (0x00b6 <= point && point <= 0x00ba) ||
+    (0x00bc <= point && point <= 0x00bf) ||
+    0x00c6 === point ||
+    0x00d0 === point ||
+    (0x00d7 <= point && point <= 0x00d8) ||
+    (0x00de <= point && point <= 0x00e1) ||
+    0x00e6 === point ||
+    (0x00e8 <= point && point <= 0x00ea) ||
+    (0x00ec <= point && point <= 0x00ed) ||
+    0x00f0 === point ||
+    (0x00f2 <= point && point <= 0x00f3) ||
+    (0x00f7 <= point && point <= 0x00fa) ||
+    0x00fc === point ||
+    0x00fe === point ||
+    0x0101 === point ||
+    0x0111 === point ||
+    0x0113 === point ||
+    0x011b === point ||
+    (0x0126 <= point && point <= 0x0127) ||
+    0x012b === point ||
+    (0x0131 <= point && point <= 0x0133) ||
+    0x0138 === point ||
+    (0x013f <= point && point <= 0x0142) ||
+    0x0144 === point ||
+    (0x0148 <= point && point <= 0x014b) ||
+    0x014d === point ||
+    (0x0152 <= point && point <= 0x0153) ||
+    (0x0166 <= point && point <= 0x0167) ||
+    0x016b === point ||
+    0x01ce === point ||
+    0x01d0 === point ||
+    0x01d2 === point ||
+    0x01d4 === point ||
+    0x01d6 === point ||
+    0x01d8 === point ||
+    0x01da === point ||
+    0x01dc === point ||
+    0x0251 === point ||
+    0x0261 === point ||
+    0x02c4 === point ||
+    0x02c7 === point ||
+    (0x02c9 <= point && point <= 0x02cb) ||
+    0x02cd === point ||
+    0x02d0 === point ||
+    (0x02d8 <= point && point <= 0x02db) ||
+    0x02dd === point ||
+    0x02df === point ||
+    (0x0300 <= point && point <= 0x036f) ||
+    (0x0391 <= point && point <= 0x03a1) ||
+    (0x03a3 <= point && point <= 0x03a9) ||
+    (0x03b1 <= point && point <= 0x03c1) ||
+    (0x03c3 <= point && point <= 0x03c9) ||
+    0x0401 === point ||
+    (0x0410 <= point && point <= 0x044f) ||
+    0x0451 === point ||
+    0x2010 === point ||
+    (0x2013 <= point && point <= 0x2016) ||
+    (0x2018 <= point && point <= 0x2019) ||
+    (0x201c <= point && point <= 0x201d) ||
+    (0x2020 <= point && point <= 0x2022) ||
+    (0x2024 <= point && point <= 0x2027) ||
+    0x2030 === point ||
+    (0x2032 <= point && point <= 0x2033) ||
+    0x2035 === point ||
+    0x203b === point ||
+    0x203e === point ||
+    0x2074 === point ||
+    0x207f === point ||
+    (0x2081 <= point && point <= 0x2084) ||
+    0x20ac === point ||
+    0x2103 === point ||
+    0x2105 === point ||
+    0x2109 === point ||
+    0x2113 === point ||
+    0x2116 === point ||
+    (0x2121 <= point && point <= 0x2122) ||
+    0x2126 === point ||
+    0x212b === point ||
+    (0x2153 <= point && point <= 0x2154) ||
+    (0x215b <= point && point <= 0x215e) ||
+    (0x2160 <= point && point <= 0x216b) ||
+    (0x2170 <= point && point <= 0x2179) ||
+    0x2189 === point ||
+    (0x2190 <= point && point <= 0x2199) ||
+    (0x21b8 <= point && point <= 0x21b9) ||
+    0x21d2 === point ||
+    0x21d4 === point ||
+    0x21e7 === point ||
+    0x2200 === point ||
+    (0x2202 <= point && point <= 0x2203) ||
+    (0x2207 <= point && point <= 0x2208) ||
+    0x220b === point ||
+    0x220f === point ||
+    0x2211 === point ||
+    0x2215 === point ||
+    0x221a === point ||
+    (0x221d <= point && point <= 0x2220) ||
+    0x2223 === point ||
+    0x2225 === point ||
+    (0x2227 <= point && point <= 0x222c) ||
+    0x222e === point ||
+    (0x2234 <= point && point <= 0x2237) ||
+    (0x223c <= point && point <= 0x223d) ||
+    0x2248 === point ||
+    0x224c === point ||
+    0x2252 === point ||
+    (0x2260 <= point && point <= 0x2261) ||
+    (0x2264 <= point && point <= 0x2267) ||
+    (0x226a <= point && point <= 0x226b) ||
+    (0x226e <= point && point <= 0x226f) ||
+    (0x2282 <= point && point <= 0x2283) ||
+    (0x2286 <= point && point <= 0x2287) ||
+    0x2295 === point ||
+    0x2299 === point ||
+    0x22a5 === point ||
+    0x22bf === point ||
+    0x2312 === point ||
+    (0x2460 <= point && point <= 0x24e9) ||
+    (0x24eb <= point && point <= 0x254b) ||
+    (0x2550 <= point && point <= 0x2573) ||
+    (0x2580 <= point && point <= 0x258f) ||
+    (0x2592 <= point && point <= 0x2595) ||
+    (0x25a0 <= point && point <= 0x25a1) ||
+    (0x25a3 <= point && point <= 0x25a9) ||
+    (0x25b2 <= point && point <= 0x25b3) ||
+    (0x25b6 <= point && point <= 0x25b7) ||
+    (0x25bc <= point && point <= 0x25bd) ||
+    (0x25c0 <= point && point <= 0x25c1) ||
+    (0x25c6 <= point && point <= 0x25c8) ||
+    0x25cb === point ||
+    (0x25ce <= point && point <= 0x25d1) ||
+    (0x25e2 <= point && point <= 0x25e5) ||
+    0x25ef === point ||
+    (0x2605 <= point && point <= 0x2606) ||
+    0x2609 === point ||
+    (0x260e <= point && point <= 0x260f) ||
+    (0x2614 <= point && point <= 0x2615) ||
+    0x261c === point ||
+    0x261e === point ||
+    0x2640 === point ||
+    0x2642 === point ||
+    (0x2660 <= point && point <= 0x2661) ||
+    (0x2663 <= point && point <= 0x2665) ||
+    (0x2667 <= point && point <= 0x266a) ||
+    (0x266c <= point && point <= 0x266d) ||
+    0x266f === point ||
+    (0x269e <= point && point <= 0x269f) ||
+    (0x26be <= point && point <= 0x26bf) ||
+    (0x26c4 <= point && point <= 0x26cd) ||
+    (0x26cf <= point && point <= 0x26e1) ||
+    0x26e3 === point ||
+    (0x26e8 <= point && point <= 0x26ff) ||
+    0x273d === point ||
+    0x2757 === point ||
+    (0x2776 <= point && point <= 0x277f) ||
+    (0x2b55 <= point && point <= 0x2b59) ||
+    (0x3248 <= point && point <= 0x324f) ||
+    (0xe000 <= point && point <= 0xf8ff) ||
+    (0xfe00 <= point && point <= 0xfe0f) ||
+    0xfffd === point ||
+    (0x1f100 <= point && point <= 0x1f10a) ||
+    (0x1f110 <= point && point <= 0x1f12d) ||
+    (0x1f130 <= point && point <= 0x1f169) ||
+    (0x1f170 <= point && point <= 0x1f19a) ||
+    (0xe0100 <= point && point <= 0xe01ef) ||
+    (0xf0000 <= point && point <= 0xffffd) ||
+    (0x100000 <= point && point <= 0x10fffd)
+  ) {
+    return getCJKWidthSettings().value;
+  }
+  return 1;
 };
 
-unicode.strWidth = function(str: string, tabSize: number = 8): number {
-    let width = 0;
-    for (let i = 0; i < str.length; i++) {
-        width += unicode.charWidth(str, i, tabSize);
-        if (unicode.isSurrogate(str, i)) i++;
-    }
-    return width;
+unicode.strWidth = function (str: string, tabSize: number = 8): number {
+  let width = 0;
+  for (let i = 0; i < str.length; i++) {
+    width += unicode.charWidth(str, i, tabSize);
+    if (unicode.isSurrogate(str, i)) i++;
+  }
+  return width;
 };
 
-unicode.isSurrogate = function(str: any, i?: number): boolean {
-    const point = typeof str !== 'number'
-        ? unicode.codePointAt(str, i || 0)
-        : str;
-    return point > 0x00ffff;
+unicode.isSurrogate = function (str: any, i?: number): boolean {
+  const point =
+    typeof str !== "number" ? unicode.codePointAt(str, i || 0) : str;
+  return point > 0x00ffff;
 };
 
 unicode.combiningTable = [
-    [0x0300, 0x036F],   [0x0483, 0x0486],   [0x0488, 0x0489],
-    [0x0591, 0x05BD],   [0x05BF, 0x05BF],   [0x05C1, 0x05C2],
-    [0x05C4, 0x05C5],   [0x05C7, 0x05C7],   [0x0600, 0x0603],
-    [0x0610, 0x0615],   [0x064B, 0x065E],   [0x0670, 0x0670],
-    [0x06D6, 0x06E4],   [0x06E7, 0x06E8],   [0x06EA, 0x06ED],
-    [0x070F, 0x070F],   [0x0711, 0x0711],   [0x0730, 0x074A],
-    [0x07A6, 0x07B0],   [0x07EB, 0x07F3],   [0x0901, 0x0902],
-    [0x093C, 0x093C],   [0x0941, 0x0948],   [0x094D, 0x094D],
-    [0x0951, 0x0954],   [0x0962, 0x0963],   [0x0981, 0x0981],
-    [0x09BC, 0x09BC],   [0x09C1, 0x09C4],   [0x09CD, 0x09CD],
-    [0x09E2, 0x09E3],   [0x0A01, 0x0A02],   [0x0A3C, 0x0A3C],
-    [0x0A41, 0x0A42],   [0x0A47, 0x0A48],   [0x0A4B, 0x0A4D],
-    [0x0A70, 0x0A71],   [0x0A81, 0x0A82],   [0x0ABC, 0x0ABC],
-    [0x0AC1, 0x0AC5],   [0x0AC7, 0x0AC8],   [0x0ACD, 0x0ACD],
-    [0x0AE2, 0x0AE3],   [0x0B01, 0x0B01],   [0x0B3C, 0x0B3C],
-    [0x0B3F, 0x0B3F],   [0x0B41, 0x0B43],   [0x0B4D, 0x0B4D],
-    [0x0B56, 0x0B56],   [0x0B82, 0x0B82],   [0x0BC0, 0x0BC0],
-    [0x0BCD, 0x0BCD],   [0x0C3E, 0x0C40],   [0x0C46, 0x0C48],
-    [0x0C4A, 0x0C4D],   [0x0C55, 0x0C56],   [0x0CBC, 0x0CBC],
-    [0x0CBF, 0x0CBF],   [0x0CC6, 0x0CC6],   [0x0CCC, 0x0CCD],
-    [0x0CE2, 0x0CE3],   [0x0D41, 0x0D43],   [0x0D4D, 0x0D4D],
-    [0x0DCA, 0x0DCA],   [0x0DD2, 0x0DD4],   [0x0DD6, 0x0DD6],
-    [0x0E31, 0x0E31],   [0x0E34, 0x0E3A],   [0x0E47, 0x0E4E],
-    [0x0EB1, 0x0EB1],   [0x0EB4, 0x0EB9],   [0x0EBB, 0x0EBC],
-    [0x0EC8, 0x0ECD],   [0x0F18, 0x0F19],   [0x0F35, 0x0F35],
-    [0x0F37, 0x0F37],   [0x0F39, 0x0F39],   [0x0F71, 0x0F7E],
-    [0x0F80, 0x0F84],   [0x0F86, 0x0F87],   [0x0F90, 0x0F97],
-    [0x0F99, 0x0FBC],   [0x0FC6, 0x0FC6],   [0x102D, 0x1030],
-    [0x1032, 0x1032],   [0x1036, 0x1037],   [0x1039, 0x1039],
-    [0x1058, 0x1059],   [0x1160, 0x11FF],   [0x135F, 0x135F],
-    [0x1712, 0x1714],   [0x1732, 0x1734],   [0x1752, 0x1753],
-    [0x1772, 0x1773],   [0x17B4, 0x17B5],   [0x17B7, 0x17BD],
-    [0x17C6, 0x17C6],   [0x17C9, 0x17D3],   [0x17DD, 0x17DD],
-    [0x180B, 0x180D],   [0x18A9, 0x18A9],   [0x1920, 0x1922],
-    [0x1927, 0x1928],   [0x1932, 0x1932],   [0x1939, 0x193B],
-    [0x1A17, 0x1A18],   [0x1B00, 0x1B03],   [0x1B34, 0x1B34],
-    [0x1B36, 0x1B3A],   [0x1B3C, 0x1B3C],   [0x1B42, 0x1B42],
-    [0x1B6B, 0x1B73],   [0x1DC0, 0x1DCA],   [0x1DFE, 0x1DFF],
-    [0x200B, 0x200F],   [0x202A, 0x202E],   [0x2060, 0x2063],
-    [0x206A, 0x206F],   [0x20D0, 0x20EF],   [0x302A, 0x302F],
-    [0x3099, 0x309A],   [0xA806, 0xA806],   [0xA80B, 0xA80B],
-    [0xA825, 0xA826],   [0xFB1E, 0xFB1E],   [0xFE00, 0xFE0F],
-    [0xFE20, 0xFE23],   [0xFEFF, 0xFEFF],   [0xFFF9, 0xFFFB],
-    [0x10A01, 0x10A03], [0x10A05, 0x10A06], [0x10A0C, 0x10A0F],
-    [0x10A38, 0x10A3A], [0x10A3F, 0x10A3F], [0x1D167, 0x1D169],
-    [0x1D173, 0x1D182], [0x1D185, 0x1D18B], [0x1D1AA, 0x1D1AD],
-    [0x1D242, 0x1D244], [0xE0001, 0xE0001], [0xE0020, 0xE007F],
-    [0xE0100, 0xE01EF]
+  [0x0300, 0x036f],
+  [0x0483, 0x0486],
+  [0x0488, 0x0489],
+  [0x0591, 0x05bd],
+  [0x05bf, 0x05bf],
+  [0x05c1, 0x05c2],
+  [0x05c4, 0x05c5],
+  [0x05c7, 0x05c7],
+  [0x0600, 0x0603],
+  [0x0610, 0x0615],
+  [0x064b, 0x065e],
+  [0x0670, 0x0670],
+  [0x06d6, 0x06e4],
+  [0x06e7, 0x06e8],
+  [0x06ea, 0x06ed],
+  [0x070f, 0x070f],
+  [0x0711, 0x0711],
+  [0x0730, 0x074a],
+  [0x07a6, 0x07b0],
+  [0x07eb, 0x07f3],
+  [0x0901, 0x0902],
+  [0x093c, 0x093c],
+  [0x0941, 0x0948],
+  [0x094d, 0x094d],
+  [0x0951, 0x0954],
+  [0x0962, 0x0963],
+  [0x0981, 0x0981],
+  [0x09bc, 0x09bc],
+  [0x09c1, 0x09c4],
+  [0x09cd, 0x09cd],
+  [0x09e2, 0x09e3],
+  [0x0a01, 0x0a02],
+  [0x0a3c, 0x0a3c],
+  [0x0a41, 0x0a42],
+  [0x0a47, 0x0a48],
+  [0x0a4b, 0x0a4d],
+  [0x0a70, 0x0a71],
+  [0x0a81, 0x0a82],
+  [0x0abc, 0x0abc],
+  [0x0ac1, 0x0ac5],
+  [0x0ac7, 0x0ac8],
+  [0x0acd, 0x0acd],
+  [0x0ae2, 0x0ae3],
+  [0x0b01, 0x0b01],
+  [0x0b3c, 0x0b3c],
+  [0x0b3f, 0x0b3f],
+  [0x0b41, 0x0b43],
+  [0x0b4d, 0x0b4d],
+  [0x0b56, 0x0b56],
+  [0x0b82, 0x0b82],
+  [0x0bc0, 0x0bc0],
+  [0x0bcd, 0x0bcd],
+  [0x0c3e, 0x0c40],
+  [0x0c46, 0x0c48],
+  [0x0c4a, 0x0c4d],
+  [0x0c55, 0x0c56],
+  [0x0cbc, 0x0cbc],
+  [0x0cbf, 0x0cbf],
+  [0x0cc6, 0x0cc6],
+  [0x0ccc, 0x0ccd],
+  [0x0ce2, 0x0ce3],
+  [0x0d41, 0x0d43],
+  [0x0d4d, 0x0d4d],
+  [0x0dca, 0x0dca],
+  [0x0dd2, 0x0dd4],
+  [0x0dd6, 0x0dd6],
+  [0x0e31, 0x0e31],
+  [0x0e34, 0x0e3a],
+  [0x0e47, 0x0e4e],
+  [0x0eb1, 0x0eb1],
+  [0x0eb4, 0x0eb9],
+  [0x0ebb, 0x0ebc],
+  [0x0ec8, 0x0ecd],
+  [0x0f18, 0x0f19],
+  [0x0f35, 0x0f35],
+  [0x0f37, 0x0f37],
+  [0x0f39, 0x0f39],
+  [0x0f71, 0x0f7e],
+  [0x0f80, 0x0f84],
+  [0x0f86, 0x0f87],
+  [0x0f90, 0x0f97],
+  [0x0f99, 0x0fbc],
+  [0x0fc6, 0x0fc6],
+  [0x102d, 0x1030],
+  [0x1032, 0x1032],
+  [0x1036, 0x1037],
+  [0x1039, 0x1039],
+  [0x1058, 0x1059],
+  [0x1160, 0x11ff],
+  [0x135f, 0x135f],
+  [0x1712, 0x1714],
+  [0x1732, 0x1734],
+  [0x1752, 0x1753],
+  [0x1772, 0x1773],
+  [0x17b4, 0x17b5],
+  [0x17b7, 0x17bd],
+  [0x17c6, 0x17c6],
+  [0x17c9, 0x17d3],
+  [0x17dd, 0x17dd],
+  [0x180b, 0x180d],
+  [0x18a9, 0x18a9],
+  [0x1920, 0x1922],
+  [0x1927, 0x1928],
+  [0x1932, 0x1932],
+  [0x1939, 0x193b],
+  [0x1a17, 0x1a18],
+  [0x1b00, 0x1b03],
+  [0x1b34, 0x1b34],
+  [0x1b36, 0x1b3a],
+  [0x1b3c, 0x1b3c],
+  [0x1b42, 0x1b42],
+  [0x1b6b, 0x1b73],
+  [0x1dc0, 0x1dca],
+  [0x1dfe, 0x1dff],
+  [0x200b, 0x200f],
+  [0x202a, 0x202e],
+  [0x2060, 0x2063],
+  [0x206a, 0x206f],
+  [0x20d0, 0x20ef],
+  [0x302a, 0x302f],
+  [0x3099, 0x309a],
+  [0xa806, 0xa806],
+  [0xa80b, 0xa80b],
+  [0xa825, 0xa826],
+  [0xfb1e, 0xfb1e],
+  [0xfe00, 0xfe0f],
+  [0xfe20, 0xfe23],
+  [0xfeff, 0xfeff],
+  [0xfff9, 0xfffb],
+  [0x10a01, 0x10a03],
+  [0x10a05, 0x10a06],
+  [0x10a0c, 0x10a0f],
+  [0x10a38, 0x10a3a],
+  [0x10a3f, 0x10a3f],
+  [0x1d167, 0x1d169],
+  [0x1d173, 0x1d182],
+  [0x1d185, 0x1d18b],
+  [0x1d1aa, 0x1d1ad],
+  [0x1d242, 0x1d244],
+  [0xe0001, 0xe0001],
+  [0xe0020, 0xe007f],
+  [0xe0100, 0xe01ef],
 ];
 
-unicode.combining = unicode.combiningTable.reduce(function(out: any, row: number[]) {
-    for (let i = row[0]; i <= row[1]; i++) {
-        out[i] = true;
-    }
-    return out;
+unicode.combining = unicode.combiningTable.reduce(function (
+  out: any,
+  row: number[],
+) {
+  for (let i = row[0]; i <= row[1]; i++) {
+    out[i] = true;
+  }
+  return out;
 }, {});
 
-unicode.isCombining = function(str: any, i?: number): boolean {
-    const point = typeof str !== 'number'
-        ? unicode.codePointAt(str, i || 0)
-        : str;
-    return unicode.combining[point] === true;
+unicode.isCombining = function (str: any, i?: number): boolean {
+  const point =
+    typeof str !== "number" ? unicode.codePointAt(str, i || 0) : str;
+  return unicode.combining[point] === true;
 };
 
 /**
  * Code Point Helpers
  */
 
-unicode.codePointAt = function(str: any, position?: number): number | undefined {
-    if (str == null) {
-        throw TypeError();
+unicode.codePointAt = function (
+  str: any,
+  position?: number,
+): number | undefined {
+  if (str == null) {
+    throw TypeError();
+  }
+  const string = String(str);
+  if (string.codePointAt) {
+    return string.codePointAt(position!);
+  }
+  const size = string.length;
+  // `ToInteger`
+  let index = position ? Number(position) : 0;
+  if (index !== index) {
+    // better `isNaN`
+    index = 0;
+  }
+  // Account for out-of-bounds indices:
+  if (index < 0 || index >= size) {
+    return undefined;
+  }
+  // Get the first code unit
+  const first = string.charCodeAt(index);
+  let second: number;
+  if (
+    // check if it's the start of a surrogate pair
+    first >= 0xd800 &&
+    first <= 0xdbff && // high surrogate
+    size > index + 1 // there is a next code unit
+  ) {
+    second = string.charCodeAt(index + 1);
+    if (second >= 0xdc00 && second <= 0xdfff) {
+      // low surrogate
+      // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+      return (first - 0xd800) * 0x400 + second - 0xdc00 + 0x10000;
     }
-    const string = String(str);
-    if (string.codePointAt) {
-        return string.codePointAt(position!);
-    }
-    const size = string.length;
-    // `ToInteger`
-    let index = position ? Number(position) : 0;
-    if (index !== index) { // better `isNaN`
-        index = 0;
-    }
-    // Account for out-of-bounds indices:
-    if (index < 0 || index >= size) {
-        return undefined;
-    }
-    // Get the first code unit
-    const first = string.charCodeAt(index);
-    let second: number;
-    if ( // check if it's the start of a surrogate pair
-        first >= 0xD800 && first <= 0xDBFF && // high surrogate
-        size > index + 1 // there is a next code unit
-    ) {
-        second = string.charCodeAt(index + 1);
-        if (second >= 0xDC00 && second <= 0xDFFF) { // low surrogate
-            // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-            return (first - 0xD800) * 0x400 + second - 0xDC00 + 0x10000;
-        }
-    }
-    return first;
+  }
+  return first;
 };
 
 // unicode.codePointAt = function(str, position) {
@@ -548,45 +659,47 @@ unicode.codePointAt = function(str: any, position?: number): number | undefined 
 //   return point;
 // };
 
-unicode.fromCodePoint = function(...args: any[]): string {
-    if (String.fromCodePoint) {
-        return String.fromCodePoint.apply(String, args);
+unicode.fromCodePoint = function (...args: any[]): string {
+  if (String.fromCodePoint) {
+    return String.fromCodePoint.apply(String, args);
+  }
+  const MAX_SIZE = 0x4000;
+  const codeUnits: number[] = [];
+  let highSurrogate: number;
+  let lowSurrogate: number;
+  let index = -1;
+  const length = args.length;
+  if (!length) {
+    return "";
+  }
+  let result = "";
+  while (++index < length) {
+    const codePoint = Number(args[index]);
+    if (
+      !isFinite(codePoint) || // `NaN`, `+Infinity`, or `-Infinity`
+      codePoint < 0 || // not a valid Unicode code point
+      codePoint > 0x10ffff || // not a valid Unicode code point
+      floor(codePoint) !== codePoint // not an integer
+    ) {
+      throw RangeError("Invalid code point: " + codePoint);
     }
-    const MAX_SIZE = 0x4000;
-    const codeUnits: number[] = [];
-    let highSurrogate: number;
-    let lowSurrogate: number;
-    let index = -1;
-    const length = args.length;
-    if (!length) {
-        return '';
+    if (codePoint <= 0xffff) {
+      // BMP code point
+      codeUnits.push(codePoint);
+    } else {
+      // Astral code point; split in surrogate halves
+      // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+      const adjustedCodePoint = codePoint - 0x10000;
+      highSurrogate = (adjustedCodePoint >> 10) + 0xd800;
+      lowSurrogate = (adjustedCodePoint % 0x400) + 0xdc00;
+      codeUnits.push(highSurrogate, lowSurrogate);
     }
-    let result = '';
-    while (++index < length) {
-        const codePoint = Number(args[index]);
-        if (
-            !isFinite(codePoint) ||       // `NaN`, `+Infinity`, or `-Infinity`
-            codePoint < 0 ||              // not a valid Unicode code point
-            codePoint > 0x10FFFF ||       // not a valid Unicode code point
-            floor(codePoint) !== codePoint // not an integer
-        ) {
-            throw RangeError('Invalid code point: ' + codePoint);
-        }
-        if (codePoint <= 0xFFFF) { // BMP code point
-            codeUnits.push(codePoint);
-        } else { // Astral code point; split in surrogate halves
-            // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
-            const adjustedCodePoint = codePoint - 0x10000;
-            highSurrogate = (adjustedCodePoint >> 10) + 0xD800;
-            lowSurrogate = (adjustedCodePoint % 0x400) + 0xDC00;
-            codeUnits.push(highSurrogate, lowSurrogate);
-        }
-        if (index + 1 === length || codeUnits.length > MAX_SIZE) {
-            result += stringFromCharCode.apply(null, codeUnits as any);
-            codeUnits.length = 0;
-        }
+    if (index + 1 === length || codeUnits.length > MAX_SIZE) {
+      result += stringFromCharCode.apply(null, codeUnits as any);
+      codeUnits.length = 0;
     }
-    return result;
+  }
+  return result;
 };
 
 /**
@@ -600,75 +713,92 @@ unicode.chars = {} as any;
 // regex anyway. This regex is used to put a blank char after wide chars to
 // be eaten, however, if this is a surrogate pair, parseContent already adds
 // the extra one char because its length equals 2 instead of 1.
-unicode.chars.wide = new RegExp('(['
-    + '\\u1100-\\u115f' // Hangul Jamo init. consonants
-    + '\\u2329\\u232a'
-    + '\\u2e80-\\u303e\\u3040-\\ua4cf' // CJK ... Yi
-    + '\\uac00-\\ud7a3' // Hangul Syllables
-    + '\\uf900-\\ufaff' // CJK Compatibility Ideographs
-    + '\\ufe10-\\ufe19' // Vertical forms
-    + '\\ufe30-\\ufe6f' // CJK Compatibility Forms
-    + '\\uff00-\\uff60' // Fullwidth Forms
-    + '\\uffe0-\\uffe6'
-    + '])', 'g');
+unicode.chars.wide = new RegExp(
+  "([" +
+    "\\u1100-\\u115f" + // Hangul Jamo init. consonants
+    "\\u2329\\u232a" +
+    "\\u2e80-\\u303e\\u3040-\\ua4cf" + // CJK ... Yi
+    "\\uac00-\\ud7a3" + // Hangul Syllables
+    "\\uf900-\\ufaff" + // CJK Compatibility Ideographs
+    "\\ufe10-\\ufe19" + // Vertical forms
+    "\\ufe30-\\ufe6f" + // CJK Compatibility Forms
+    "\\uff00-\\uff60" + // Fullwidth Forms
+    "\\uffe0-\\uffe6" +
+    "])",
+  "g",
+);
 
 // All surrogate pair wide chars.
-unicode.chars.swide = new RegExp('('
+unicode.chars.swide = new RegExp(
+  "(" +
     // 0x20000 - 0x2fffd:
-    + '[\\ud840-\\ud87f][\\udc00-\\udffd]'
-    + '|'
+    "[\\ud840-\\ud87f][\\udc00-\\udffd]" +
+    "|" +
     // 0x30000 - 0x3fffd:
-    + '[\\ud880-\\ud8bf][\\udc00-\\udffd]'
-    + ')', 'g');
+    "[\\ud880-\\ud8bf][\\udc00-\\udffd]" +
+    ")",
+  "g",
+);
 
 // All wide chars including surrogate pairs.
-unicode.chars.all = new RegExp('('
-    + unicode.chars.swide.source.slice(1, -1)
-    + '|'
-    + unicode.chars.wide.source.slice(1, -1)
-    + ')', 'g');
+unicode.chars.all = new RegExp(
+  "(" +
+    unicode.chars.swide.source.slice(1, -1) +
+    "|" +
+    unicode.chars.wide.source.slice(1, -1) +
+    ")",
+  "g",
+);
 
 // Regex to detect a surrogate pair.
 unicode.chars.surrogate = /[\ud800-\udbff][\udc00-\udfff]/g;
 
 // Regex to find combining characters.
-unicode.chars.combining = unicode.combiningTable.reduce(function(out: string, row: number[]) {
-    let low: string;
-    let high: string;
-    let lowArr: string[];
-    let highArr: string[];
-    let range: string;
-    if (row[0] > 0x00ffff) {
-        low = unicode.fromCodePoint(row[0]);
-        lowArr = [
-            hexify(low.charCodeAt(0)),
-            hexify(low.charCodeAt(1))
-        ];
-        high = unicode.fromCodePoint(row[1]);
-        highArr = [
-            hexify(high.charCodeAt(0)),
-            hexify(high.charCodeAt(1))
-        ];
-        range = '[\\u' + lowArr[0] + '-' + '\\u' + highArr[0] + ']'
-            + '[\\u' + lowArr[1] + '-' + '\\u' + highArr[1] + ']';
-        if (!~out.indexOf('|')) out += ']';
-        out += '|' + range;
-    } else {
-        low = hexify(row[0]);
-        high = hexify(row[1]);
-        low = '\\u' + low;
-        high = '\\u' + high;
-        out += low + '-' + high;
-    }
-    return out;
-}, '[');
+unicode.chars.combining = unicode.combiningTable.reduce(function (
+  out: string,
+  row: number[],
+) {
+  let low: string;
+  let high: string;
+  let lowArr: string[];
+  let highArr: string[];
+  let range: string;
+  if (row[0] > 0x00ffff) {
+    low = unicode.fromCodePoint(row[0]);
+    lowArr = [hexify(low.charCodeAt(0)), hexify(low.charCodeAt(1))];
+    high = unicode.fromCodePoint(row[1]);
+    highArr = [hexify(high.charCodeAt(0)), hexify(high.charCodeAt(1))];
+    range =
+      "[\\u" +
+      lowArr[0] +
+      "-" +
+      "\\u" +
+      highArr[0] +
+      "]" +
+      "[\\u" +
+      lowArr[1] +
+      "-" +
+      "\\u" +
+      highArr[1] +
+      "]";
+    if (!~out.indexOf("|")) out += "]";
+    out += "|" + range;
+  } else {
+    low = hexify(row[0]);
+    high = hexify(row[1]);
+    low = "\\u" + low;
+    high = "\\u" + high;
+    out += low + "-" + high;
+  }
+  return out;
+}, "[");
 
-unicode.chars.combining = new RegExp(unicode.chars.combining, 'g');
+unicode.chars.combining = new RegExp(unicode.chars.combining, "g");
 
 function hexify(n: number): string {
-    let result = n.toString(16);
-    while (result.length < 4) result = '0' + result;
-    return result;
+  let result = n.toString(16);
+  while (result.length < 4) result = "0" + result;
+  return result;
 }
 
 /*
@@ -820,32 +950,31 @@ unicode.chars.combining = new RegExp(
 , 'g');
 */
 
-
 /**
  * Add padding characters after wide (double-width) characters.
  * Used in fullUnicode mode to prevent wide chars from eating the next character.
  * Only adds padding after characters that have width === 2.
  */
-unicode.padWideChars = function(str: string, tabSize: number = 8): string {
-    let result = '';
-    for (let i = 0; i < str.length; i++) {
-        const startPos = i;
+unicode.padWideChars = function (str: string, tabSize: number = 8): string {
+  let result = "";
+  for (let i = 0; i < str.length; i++) {
+    const startPos = i;
+    result += str[i];
+
+    // If this is a surrogate pair, add the low surrogate too
+    if (unicode.isSurrogate(str, i)) {
+      i++;
+      if (i < str.length) {
         result += str[i];
-
-        // If this is a surrogate pair, add the low surrogate too
-        if (unicode.isSurrogate(str, i)) {
-            i++;
-            if (i < str.length) {
-                result += str[i];
-            }
-        }
-
-        // Now check width of the complete character and add padding if needed
-        if (unicode.charWidth(str, startPos, tabSize) === 2) {
-            result += '\x03';
-        }
+      }
     }
-    return result;
+
+    // Now check width of the complete character and add padding if needed
+    if (unicode.charWidth(str, startPos, tabSize) === 2) {
+      result += "\x03";
+    }
+  }
+  return result;
 };
 
 /**
@@ -853,28 +982,28 @@ unicode.padWideChars = function(str: string, tabSize: number = 8): string {
  * Used in non-fullUnicode mode for terminals that don't support wide chars.
  * Only replaces characters that have width === 2.
  */
-unicode.replaceWideChars = function(str: string, tabSize: number = 8): string {
-    let result = '';
-    for (let i = 0; i < str.length; i++) {
-        const startPos = i;
-        let char = str[i];
+unicode.replaceWideChars = function (str: string, tabSize: number = 8): string {
+  let result = "";
+  for (let i = 0; i < str.length; i++) {
+    const startPos = i;
+    let char = str[i];
 
-        // If this is a surrogate pair, get both parts
-        if (unicode.isSurrogate(str, i)) {
-            i++;
-            if (i < str.length) {
-                char += str[i];
-            }
-        }
-
-        // Now check width and replace if needed
-        if (unicode.charWidth(str, startPos, tabSize) === 2) {
-            result += '??';
-        } else {
-            result += char;
-        }
+    // If this is a surrogate pair, get both parts
+    if (unicode.isSurrogate(str, i)) {
+      i++;
+      if (i < str.length) {
+        char += str[i];
+      }
     }
-    return result;
+
+    // Now check width and replace if needed
+    if (unicode.charWidth(str, startPos, tabSize) === 2) {
+      result += "??";
+    } else {
+      result += char;
+    }
+  }
+  return result;
 };
 
 export default unicode;

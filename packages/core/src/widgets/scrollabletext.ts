@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { ScrollableTextOptions } from '../types';
-import ScrollableBox from './scrollablebox.js';
+import type { ScrollableTextOptions } from "../types";
+import ScrollableBox from "./scrollablebox.js";
 
 /**
  * ScrollableText
  */
 
 class ScrollableText extends ScrollableBox {
-  override type = 'scrollable-text';
+  override type = "scrollable-text";
 
   constructor(options: ScrollableTextOptions = {}) {
     options.alwaysScroll = true;

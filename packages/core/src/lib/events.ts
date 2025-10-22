@@ -23,12 +23,12 @@ class EventEmitter {
   addListener(type: string, listener: Function): void {
     if (!this._events[type]) {
       this._events[type] = listener;
-    } else if (typeof this._events[type] === 'function') {
+    } else if (typeof this._events[type] === "function") {
       this._events[type] = [this._events[type], listener];
     } else {
       this._events[type].push(listener);
     }
-    this._emit('newListener', [type, listener]);
+    this._emit("newListener", [type, listener]);
   }
 
   on(type: string, listener: Function): any {
@@ -39,16 +39,16 @@ class EventEmitter {
     const handler = this._events[type];
     if (!handler) return;
 
-    if (typeof handler === 'function' || handler.length === 1) {
+    if (typeof handler === "function" || handler.length === 1) {
       delete this._events[type];
-      this._emit('removeListener', [type, listener]);
+      this._emit("removeListener", [type, listener]);
       return;
     }
 
     for (let i = 0; i < handler.length; i++) {
       if (handler[i] === listener || handler[i].listener === listener) {
         handler.splice(i, 1);
-        this._emit('removeListener', [type, listener]);
+        this._emit("removeListener", [type, listener]);
         return;
       }
     }
@@ -77,7 +77,7 @@ class EventEmitter {
   }
 
   listeners(type: string): Function[] {
-    return typeof this._events[type] === 'function'
+    return typeof this._events[type] === "function"
       ? [this._events[type]]
       : this._events[type] || [];
   }
@@ -91,13 +91,13 @@ class EventEmitter {
     // }
 
     if (!handler) {
-      if (type === 'error') {
-        throw new args[0];
+      if (type === "error") {
+        throw new args[0]();
       }
       return;
     }
 
-    if (typeof handler === 'function') {
+    if (typeof handler === "function") {
       return handler.apply(this, args);
     }
 
@@ -115,9 +115,9 @@ class EventEmitter {
     const params = [type, ...rest];
     let el: any = this;
 
-    this._emit('event', params);
+    this._emit("event", params);
 
-    if (this.type === 'screen') {
+    if (this.type === "screen") {
       return this._emit(type, args);
     }
 
@@ -125,7 +125,7 @@ class EventEmitter {
       return false;
     }
 
-    type = 'element ' + type;
+    type = "element " + type;
     args.unshift(this);
     // `element` prefix
     // params = [type].concat(args);
@@ -138,7 +138,7 @@ class EventEmitter {
       if (el._emit(type, args) === false) {
         return false;
       }
-    } while (el = el.parent);
+    } while ((el = el.parent));
 
     return true;
   }

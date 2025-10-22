@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { ButtonOptions, KeyEvent } from '../types';
-import Input from './input.js';
+import type { ButtonOptions, KeyEvent } from "../types";
+import Input from "./input.js";
 
 /**
  * Button
  */
 
 class Button extends Input {
-  override type = 'button';
+  override type = "button";
   value?: boolean;
 
   constructor(options: ButtonOptions = {}) {
@@ -24,14 +24,14 @@ class Button extends Input {
 
     super(options);
 
-    this.on('keypress', (_ch: string, key: KeyEvent) => {
-      if (key.name === 'enter' || key.name === 'space') {
+    this.on("keypress", (_ch: string, key: KeyEvent) => {
+      if (key.name === "enter" || key.name === "space") {
         return this.press();
       }
     });
 
     if ((this.options as any).mouse) {
-      this.on('click', () => {
+      this.on("click", () => {
         return this.press();
       });
     }
@@ -52,7 +52,7 @@ class Button extends Input {
   press(): any {
     this.focus();
     this.value = true;
-    const result = this.emit('press');
+    const result = this.emit("press");
     delete this.value;
     return result;
   }

@@ -4,16 +4,20 @@
 
 const colors: any = {};
 
-colors.match = function(r1: any, g1?: number, b1?: number): number {
-  if (typeof r1 === 'string') {
+colors.match = function (r1: any, g1?: number, b1?: number): number {
+  if (typeof r1 === "string") {
     const hex = r1;
-    if (hex[0] !== '#') {
+    if (hex[0] !== "#") {
       return -1;
     }
     const rgb = colors.hexToRGB(hex);
-    r1 = rgb[0]; g1 = rgb[1]; b1 = rgb[2];
+    r1 = rgb[0];
+    g1 = rgb[1];
+    b1 = rgb[2];
   } else if (Array.isArray(r1)) {
-    b1 = r1[2]; g1 = r1[1]; r1 = r1[0];
+    b1 = r1[2];
+    g1 = r1[1];
+    r1 = r1[0];
   }
 
   const hash = (r1 << 16) | (g1! << 8) | b1!;
@@ -50,29 +54,28 @@ colors.match = function(r1: any, g1?: number, b1?: number): number {
     }
   }
 
-  return colors._cache[hash] = li;
+  return (colors._cache[hash] = li);
 };
 
-colors.RGBToHex = function(r: any, g?: number, b?: number): string {
+colors.RGBToHex = function (r: any, g?: number, b?: number): string {
   if (Array.isArray(r)) {
-    b = r[2]; g = r[1]; r = r[0];
+    b = r[2];
+    g = r[1];
+    r = r[0];
   }
 
   function hex(n: number): string {
     let result = n.toString(16);
-    if (result.length < 2) result = '0' + result;
+    if (result.length < 2) result = "0" + result;
     return result;
   }
 
-  return '#' + hex(r) + hex(g!) + hex(b!);
+  return "#" + hex(r) + hex(g!) + hex(b!);
 };
 
-colors.hexToRGB = function(hex: string): number[] {
+colors.hexToRGB = function (hex: string): number[] {
   if (hex.length === 4) {
-    hex = hex[0]
-      + hex[1] + hex[1]
-      + hex[2] + hex[2]
-      + hex[3] + hex[3];
+    hex = hex[0] + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
   }
 
   const col = parseInt(hex.substring(1), 16);
@@ -89,15 +92,24 @@ colors.hexToRGB = function(hex: string): number[] {
 // propose a superior solution.
 // [1] http://stackoverflow.com/questions/1633828
 
-function colorDistance(r1: number, g1: number, b1: number, r2: number, g2: number, b2: number): number {
-  return Math.pow(30 * (r1 - r2), 2)
-    + Math.pow(59 * (g1 - g2), 2)
-    + Math.pow(11 * (b1 - b2), 2);
+function colorDistance(
+  r1: number,
+  g1: number,
+  b1: number,
+  r2: number,
+  g2: number,
+  b2: number,
+): number {
+  return (
+    Math.pow(30 * (r1 - r2), 2) +
+    Math.pow(59 * (g1 - g2), 2) +
+    Math.pow(11 * (b1 - b2), 2)
+  );
 }
 
 // This might work well enough for a terminal's colors: treat RGB as XYZ in a
 // 3-dimensional space and go midway between the two points.
-colors.mixColors = function(c1: number, c2: number, alpha?: number): number {
+colors.mixColors = function (c1: number, c2: number, alpha?: number): number {
   // if (c1 === 0x1ff) return c1;
   // if (c2 === 0x1ff) return c1;
   if (c1 === 0x1ff) c1 = 0;
@@ -114,14 +126,18 @@ colors.mixColors = function(c1: number, c2: number, alpha?: number): number {
   const g2 = color2[1];
   const b2 = color2[2];
 
-  r1 += (r2 - r1) * alpha | 0;
-  g1 += (g2 - g1) * alpha | 0;
-  b1 += (b2 - b1) * alpha | 0;
+  r1 += ((r2 - r1) * alpha) | 0;
+  g1 += ((g2 - g1) * alpha) | 0;
+  b1 += ((b2 - b1) * alpha) | 0;
 
   return colors.match([r1, g1, b1]);
 };
 
-colors.blend = function blend(attr: number, attr2?: number, alpha?: number): number {
+colors.blend = function blend(
+  attr: number,
+  attr2?: number,
+  alpha?: number,
+): number {
   if (!(blend as any)._cache) (blend as any)._cache = {};
   const cache = (blend as any)._cache;
   let name: string;
@@ -138,8 +154,8 @@ colors.blend = function blend(attr: number, attr2?: number, alpha?: number): num
   } else {
     if (cache[bg] != null) {
       bg = cache[bg];
-    // } else if (bg < 8) {
-    //   bg += 8;
+      // } else if (bg < 8) {
+      //   bg += 8;
     } else if (bg >= 8 && bg <= 15) {
       bg -= 8;
     } else {
@@ -178,8 +194,8 @@ colors.blend = function blend(attr: number, attr2?: number, alpha?: number): num
   } else {
     if (cache[fg] != null) {
       fg = cache[fg];
-    // } else if (fg < 8) {
-    //   fg += 8;
+      // } else if (fg < 8) {
+      //   fg += 8;
     } else if (fg >= 8 && fg <= 15) {
       fg -= 8;
     } else {
@@ -206,10 +222,9 @@ colors.blend = function blend(attr: number, attr2?: number, alpha?: number): num
   return attr;
 };
 
-
 colors._cache = {};
 
-colors.reduce = function(color: number, total: number): number {
+colors.reduce = function (color: number, total: number): number {
   if (color >= 16 && total <= 16) {
     color = colors.ccolors[color];
   } else if (color >= 8 && total <= 8) {
@@ -225,29 +240,29 @@ colors.reduce = function(color: number, total: number): number {
 // keywords. The X11 source needed to be examined to find the actual values.
 // They then had to be mapped to rgb values and then converted to hex values.
 colors.xterm = [
-  '#000000', // black
-  '#cd0000', // red3
-  '#00cd00', // green3
-  '#cdcd00', // yellow3
-  '#0000ee', // blue2
-  '#cd00cd', // magenta3
-  '#00cdcd', // cyan3
-  '#e5e5e5', // gray90
-  '#7f7f7f', // gray50
-  '#ff0000', // red
-  '#00ff00', // green
-  '#ffff00', // yellow
-  '#5c5cff', // rgb:5c/5c/ff
-  '#ff00ff', // magenta
-  '#00ffff', // cyan
-  '#ffffff'  // white
+  "#000000", // black
+  "#cd0000", // red3
+  "#00cd00", // green3
+  "#cdcd00", // yellow3
+  "#0000ee", // blue2
+  "#cd00cd", // magenta3
+  "#00cdcd", // cyan3
+  "#e5e5e5", // gray90
+  "#7f7f7f", // gray50
+  "#ff0000", // red
+  "#00ff00", // green
+  "#ffff00", // yellow
+  "#5c5cff", // rgb:5c/5c/ff
+  "#ff00ff", // magenta
+  "#00ffff", // cyan
+  "#ffffff", // white
 ];
 
 // Seed all 256 colors. Assume xterm defaults.
 // Ported from the xterm color generation script.
-colors.colors = (function() {
-  const cols: string[] = colors.colors = [];
-  const _cols: number[][] = colors.vcolors = [];
+colors.colors = (function () {
+  const cols: string[] = (colors.colors = []);
+  const _cols: number[][] = (colors.vcolors = []);
   let r: number;
   let g: number;
   let b: number;
@@ -256,37 +271,39 @@ colors.colors = (function() {
 
   function hex(n: number): string {
     let result = n.toString(16);
-    if (result.length < 2) result = '0' + result;
+    if (result.length < 2) result = "0" + result;
     return result;
   }
 
   function push(i: number, r: number, g: number, b: number): void {
-    cols[i] = '#' + hex(r) + hex(g) + hex(b);
+    cols[i] = "#" + hex(r) + hex(g) + hex(b);
     _cols[i] = [r, g, b];
   }
 
   // 0 - 15
-  colors.xterm.forEach(function(c: string, i: number) {
+  colors.xterm.forEach(function (c: string, i: number) {
     const colorValue = parseInt(c.substring(1), 16);
-    push(i, (colorValue >> 16) & 0xff, (colorValue >> 8) & 0xff, colorValue & 0xff);
+    push(
+      i,
+      (colorValue >> 16) & 0xff,
+      (colorValue >> 8) & 0xff,
+      colorValue & 0xff,
+    );
   });
 
   // 16 - 231
   for (r = 0; r < 6; r++) {
     for (g = 0; g < 6; g++) {
       for (b = 0; b < 6; b++) {
-        i = 16 + (r * 36) + (g * 6) + b;
-        push(i,
-          r ? (r * 40 + 55) : 0,
-          g ? (g * 40 + 55) : 0,
-          b ? (b * 40 + 55) : 0);
+        i = 16 + r * 36 + g * 6 + b;
+        push(i, r ? r * 40 + 55 : 0, g ? g * 40 + 55 : 0, b ? b * 40 + 55 : 0);
       }
     }
   }
 
   // 232 - 255 are grey.
   for (g = 0; g < 24; g++) {
-    l = (g * 10) + 8;
+    l = g * 10 + 8;
     i = 232 + g;
     push(i, l, l, l);
   }
@@ -296,7 +313,7 @@ colors.colors = (function() {
 
 // Map higher colors to the first 8 colors.
 // This allows translation of high colors to low colors on 8-color terminals.
-colors.ccolors = (function() {
+colors.ccolors = (function () {
   const _cols = colors.vcolors.slice();
   const cols = colors.colors.slice();
   let out: number[];
@@ -313,7 +330,7 @@ colors.ccolors = (function() {
   return out;
 })();
 
-const colorNames: { [key: string]: number } = colors.colorNames = {
+const colorNames: { [key: string]: number } = (colors.colorNames = {
   // special
   default: -1,
   normal: -1,
@@ -352,14 +369,13 @@ const colorNames: { [key: string]: number } = colors.colorNames = {
   lightgrey: 7,
   lightgray: 7,
   brightgrey: 7,
-  brightgray: 7
-};
+  brightgray: 7,
+});
 
-colors.convert = function(color: any): number {
-  if (typeof color === 'number') {
-    ;
-  } else if (typeof color === 'string') {
-    color = color.replace(/[\- ]/g, '');
+colors.convert = function (color: any): number {
+  if (typeof color === "number") {
+  } else if (typeof color === "string") {
+    color = color.replace(/[\- ]/g, "");
     if (colorNames[color] != null) {
       color = colorNames[color];
     } else {
@@ -404,7 +420,7 @@ colors.ccolors = {
     171,
     177,
     183,
-    189
+    189,
   ],
 
   green: [
@@ -424,27 +440,11 @@ colors.ccolors = {
     [118, 122],
     [148, 151],
     [154, 158],
-    [190, 194]
+    [190, 194],
   ],
 
   cyan: [
-    6,
-    14,
-    23,
-    30,
-    37,
-    44,
-    51,
-    66,
-    73,
-    80,
-    87,
-    109,
-    116,
-    123,
-    152,
-    159,
-    195
+    6, 14, 23, 30, 37, 44, 51, 66, 73, 80, 87, 109, 116, 123, 152, 159, 195,
   ],
 
   red: [
@@ -464,63 +464,26 @@ colors.ccolors = {
     [202, 206],
     [208, 212],
     [214, 218],
-    [220, 224]
+    [220, 224],
   ],
 
   magenta: [
-    5,
-    13,
-    53,
-    90,
-    96,
-    127,
-    133,
-    139,
-    164,
-    170,
-    176,
-    182,
-    201,
-    207,
-    213,
-    219,
-    225
+    5, 13, 53, 90, 96, 127, 133, 139, 164, 170, 176, 182, 201, 207, 213, 219,
+    225,
   ],
 
-  yellow: [
-    3,
-    11,
-    58,
-    [100, 101],
-    [142, 144],
-    [184, 187],
-    [226, 230]
-  ],
+  yellow: [3, 11, 58, [100, 101], [142, 144], [184, 187], [226, 230]],
 
-  black: [
-    0,
-    8,
-    16,
-    59,
-    102,
-    [232, 243]
-  ],
+  black: [0, 8, 16, 59, 102, [232, 243]],
 
-  white: [
-    7,
-    15,
-    145,
-    188,
-    231,
-    [244, 255]
-  ]
+  white: [7, 15, 145, 188, 231, [244, 255]],
 };
 
 colors.ncolors = [];
 
-Object.keys(colors.ccolors).forEach(function(name: string) {
-  colors.ccolors[name].forEach(function(offset: any) {
-    if (typeof offset === 'number') {
+Object.keys(colors.ccolors).forEach(function (name: string) {
+  colors.ccolors[name].forEach(function (offset: any) {
+    if (typeof offset === "number") {
       colors.ncolors[offset] = name;
       colors.ccolors[offset] = colors.colorNames[name];
       return;

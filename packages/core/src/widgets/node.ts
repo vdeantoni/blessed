@@ -6,9 +6,9 @@
  * Modules
  */
 
-import { EventEmitter } from '../lib/events.js';
-import type { NodeOptions } from '../types';
-import { type Runtime, getRuntime, getNextTick } from '../lib/runtime-helpers';
+import { EventEmitter } from "../lib/events.js";
+import type { NodeOptions } from "../types";
+import { type Runtime, getRuntime, getNextTick } from "../lib/runtime-helpers";
 
 /**
  * Screen Registry - breaks circular dependency
@@ -19,7 +19,7 @@ const ScreenRegistry: any = {
   global: null,
   get total() {
     return this.instances.length;
-  }
+  },
 };
 
 /**
@@ -34,7 +34,7 @@ class Node extends EventEmitter {
    * Type of the node (e.g. box, list, form, etc.).
    * Used to identify the widget type at runtime.
    */
-  override type = 'node';
+  override type = "node";
   options: NodeOptions;
   /**
    * Reference to the parent Screen instance.
@@ -98,13 +98,13 @@ class Node extends EventEmitter {
     this.screen = this.screen || options.screen;
 
     if (!this.screen) {
-      if (this.type === 'screen' || options._isScreen) {
+      if (this.type === "screen" || options._isScreen) {
         this.screen = this;
       } else if (ScreenRegistry.total === 1) {
         this.screen = ScreenRegistry.global;
       } else if (options.parent) {
         this.screen = options.parent;
-        while (this.screen && this.screen.type !== 'screen') {
+        while (this.screen && this.screen.type !== "screen") {
           this.screen = this.screen.parent;
         }
       } else if (ScreenRegistry.total) {
@@ -116,16 +116,16 @@ class Node extends EventEmitter {
           if (!this.parent) {
             throw new Error(
               `Element (${this.type})` +
-                ' was not appended synchronously after the' +
+                " was not appended synchronously after the" +
                 " screen's creation. Please set a `parent`" +
                 " or `screen` option in the element's constructor" +
-                ' if you are going to use multiple screens and' +
-                ' append the element later.'
+                " if you are going to use multiple screens and" +
+                " append the element later.",
             );
           }
         });
       } else {
-        throw new Error('No active screen.');
+        throw new Error("No active screen.");
       }
     }
 
@@ -137,7 +137,7 @@ class Node extends EventEmitter {
 
     // Don't mark screen as detached (check options._isScreen since child class
     // field 'type' is not set until after super() returns in ES6)
-    if (this.type !== 'screen' && !options._isScreen) {
+    if (this.type !== "screen" && !options._isScreen) {
       this.detached = true;
     }
 
@@ -168,13 +168,13 @@ class Node extends EventEmitter {
       this.children.splice(i, 0, element);
     }
 
-    element.emit('reparent', this);
-    this.emit('adopt', element);
+    element.emit("reparent", this);
+    this.emit("adopt", element);
 
     const emit = (el: any): void => {
       const n = el.detached !== this.detached;
       el.detached = this.detached;
-      if (n) el.emit('attach');
+      if (n) el.emit("attach");
       el.children.forEach(emit);
     };
     emit(element);
@@ -232,13 +232,13 @@ class Node extends EventEmitter {
     i = this.screen.keyable.indexOf(element);
     if (~i) this.screen.keyable.splice(i, 1);
 
-    element.emit('reparent', null);
-    this.emit('remove', element);
+    element.emit("reparent", null);
+    this.emit("remove", element);
 
     const emit = (el: any): void => {
       const n = el.detached !== true;
       el.detached = true;
-      if (n) el.emit('detach');
+      if (n) el.emit("detach");
       el.children.forEach(emit);
     };
     emit(element);
@@ -272,7 +272,7 @@ class Node extends EventEmitter {
     this.forDescendants((el: any) => {
       el.free();
       el.destroyed = true;
-      el.emit('destroy');
+      el.emit("destroy");
     }, this);
   }
 
@@ -326,7 +326,7 @@ class Node extends EventEmitter {
   emitDescendants(...args: any[]): void {
     let iter: ((el: any) => void) | undefined;
 
-    if (typeof args[args.length - 1] === 'function') {
+    if (typeof args[args.length - 1] === "function") {
       iter = args.pop();
     }
 
@@ -342,7 +342,7 @@ class Node extends EventEmitter {
   emitAncestors(...args: any[]): void {
     let iter: ((el: any) => void) | undefined;
 
-    if (typeof args[args.length - 1] === 'function') {
+    if (typeof args[args.length - 1] === "function") {
       iter = args.pop();
     }
 

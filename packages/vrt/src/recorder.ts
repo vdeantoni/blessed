@@ -2,13 +2,9 @@
  * VRT Recorder - Capture terminal UI screenshots over time
  */
 
-import type { Screen } from '@unblessed/core';
-import type {
-  VRTRecording,
-  VRTFrame,
-  VRTRecorderOptions,
-} from './types.js';
-import { writeFileSync } from 'fs';
+import type { Screen } from "@unblessed/core";
+import type { VRTRecording, VRTFrame, VRTRecorderOptions } from "./types.js";
+import { writeFileSync } from "fs";
 
 /**
  * VRTRecorder captures screen screenshots at regular intervals for visual regression testing.
@@ -39,8 +35,8 @@ export class VRTRecorder {
     this.screen = screen;
     this.options = {
       interval: options.interval ?? 100,
-      outputPath: options.outputPath,  // No default - only save if explicitly provided
-      description: options.description ?? 'VRT Recording',
+      outputPath: options.outputPath, // No default - only save if explicitly provided
+      description: options.description ?? "VRT Recording",
       metadata: options.metadata ?? {},
     } as Required<VRTRecorderOptions>;
   }
@@ -50,7 +46,7 @@ export class VRTRecorder {
    */
   start(): void {
     if (this.recording) {
-      throw new Error('Recording already in progress');
+      throw new Error("Recording already in progress");
     }
 
     this.recording = true;
@@ -83,7 +79,7 @@ export class VRTRecorder {
    */
   stop(): VRTRecording {
     if (!this.recording) {
-      throw new Error('No recording in progress');
+      throw new Error("No recording in progress");
     }
 
     if (this.timer) {
@@ -100,7 +96,7 @@ export class VRTRecorder {
     this.startTime = null;
 
     const recording: VRTRecording = {
-      version: '1.0.0',
+      version: "1.0.0",
       dimensions: {
         cols: this.screen.cols,
         rows: this.screen.rows,
@@ -130,7 +126,7 @@ export class VRTRecorder {
    */
   save(recording: VRTRecording, outputPath: string): void {
     const json = JSON.stringify(recording, null, 2);
-    writeFileSync(outputPath, json, 'utf8');
+    writeFileSync(outputPath, json, "utf8");
   }
 
   /**

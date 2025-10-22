@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import ANSIImage from '../../src/widgets/ansiimage.js';
-import { createMockScreen } from '../helpers/mock.js';
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import ANSIImage from "../../src/widgets/ansiimage.js";
+import { createMockScreen } from "../helpers/mock.js";
 
-describe('ANSIImage', () => {
+describe("ANSIImage", () => {
   let screen;
 
   beforeEach(() => {
@@ -13,127 +13,127 @@ describe('ANSIImage', () => {
     vi.restoreAllMocks();
   });
 
-  describe('constructor', () => {
-    it('should create an ansiimage instance', () => {
+  describe("constructor", () => {
+    it("should create an ansiimage instance", () => {
       const image = new ANSIImage({ screen });
 
       expect(image).toBeDefined();
-      expect(image.type).toBe('ansiimage');
+      expect(image.type).toBe("ansiimage");
     });
 
-    it('should inherit from Box', () => {
+    it("should inherit from Box", () => {
       const image = new ANSIImage({ screen });
 
       expect(image.screen).toBe(screen);
-      expect(typeof image.render).toBe('function');
+      expect(typeof image.render).toBe("function");
     });
 
-    it('should enable shrink by default', () => {
+    it("should enable shrink by default", () => {
       const image = new ANSIImage({ screen });
 
       expect(image.options.shrink).toBe(true);
     });
 
-    it('should default scale to 1.0', () => {
+    it("should default scale to 1.0", () => {
       const image = new ANSIImage({ screen });
 
       expect(image.scale).toBe(1.0);
     });
 
-    it('should accept custom scale', () => {
+    it("should accept custom scale", () => {
       const image = new ANSIImage({
         screen,
-        scale: 0.5
+        scale: 0.5,
       });
 
       expect(image.scale).toBe(0.5);
     });
 
-    it('should enable animate by default', () => {
+    it("should enable animate by default", () => {
       const image = new ANSIImage({ screen });
 
       expect(image.options.animate).toBe(true);
     });
 
-    it('should accept animate option', () => {
+    it("should accept animate option", () => {
       const image = new ANSIImage({
         screen,
-        animate: false
+        animate: false,
       });
 
       expect(image.options.animate).toBe(false);
     });
 
-    it('should set _noFill flag', () => {
+    it("should set _noFill flag", () => {
       const image = new ANSIImage({ screen });
 
       expect(image._noFill).toBe(true);
     });
 
-    it('should register prerender handler on screen', () => {
+    it("should register prerender handler on screen", () => {
       const image = new ANSIImage({ screen });
 
-      expect(screen.listeners('prerender').length).toBeGreaterThan(0);
+      expect(screen.listeners("prerender").length).toBeGreaterThan(0);
     });
 
-    it('should register destroy handler', () => {
+    it("should register destroy handler", () => {
       const image = new ANSIImage({ screen });
 
-      expect(image.listeners('destroy').length).toBeGreaterThan(0);
+      expect(image.listeners("destroy").length).toBeGreaterThan(0);
     });
   });
 
-  describe('setImage()', () => {
-    it('should have setImage method', () => {
+  describe("setImage()", () => {
+    it("should have setImage method", () => {
       const image = new ANSIImage({ screen });
 
-      expect(typeof image.setImage).toBe('function');
+      expect(typeof image.setImage).toBe("function");
     });
 
-    it('should store file path', () => {
+    it("should store file path", () => {
       const image = new ANSIImage({ screen });
 
       try {
-        image.setImage('/path/to/image.png');
+        image.setImage("/path/to/image.png");
       } catch (e) {
         // Will fail loading actual image, but should set file
       }
 
-      expect(image.file).toBe('/path/to/image.png');
+      expect(image.file).toBe("/path/to/image.png");
     });
 
-    it('should handle image loading errors gracefully', () => {
+    it("should handle image loading errors gracefully", () => {
       const image = new ANSIImage({ screen });
 
-      image.setImage('/nonexistent/image.png');
+      image.setImage("/nonexistent/image.png");
 
-      expect(image.content).toContain('Image Error');
+      expect(image.content).toContain("Image Error");
       expect(image.img).toBeNull();
       expect(image.cellmap).toBeNull();
     });
 
-    it('should clear content before loading', () => {
+    it("should clear content before loading", () => {
       const image = new ANSIImage({ screen });
       image.setContent = vi.fn();
 
       try {
-        image.setImage('/path/to/image.png');
+        image.setImage("/path/to/image.png");
       } catch (e) {
         // Ignore loading error
       }
 
-      expect(image.setContent).toHaveBeenCalledWith('');
+      expect(image.setContent).toHaveBeenCalledWith("");
     });
   });
 
-  describe('play()', () => {
-    it('should have play method', () => {
+  describe("play()", () => {
+    it("should have play method", () => {
       const image = new ANSIImage({ screen });
 
-      expect(typeof image.play).toBe('function');
+      expect(typeof image.play).toBe("function");
     });
 
-    it('should return early if no img', () => {
+    it("should return early if no img", () => {
       const image = new ANSIImage({ screen });
       image.img = null;
 
@@ -142,10 +142,10 @@ describe('ANSIImage', () => {
       expect(result).toBeUndefined();
     });
 
-    it('should call img.play if img exists', () => {
+    it("should call img.play if img exists", () => {
       const image = new ANSIImage({ screen });
       image.img = {
-        play: vi.fn()
+        play: vi.fn(),
       };
 
       image.play();
@@ -154,14 +154,14 @@ describe('ANSIImage', () => {
     });
   });
 
-  describe('pause()', () => {
-    it('should have pause method', () => {
+  describe("pause()", () => {
+    it("should have pause method", () => {
       const image = new ANSIImage({ screen });
 
-      expect(typeof image.pause).toBe('function');
+      expect(typeof image.pause).toBe("function");
     });
 
-    it('should return early if no img', () => {
+    it("should return early if no img", () => {
       const image = new ANSIImage({ screen });
       image.img = null;
 
@@ -170,10 +170,10 @@ describe('ANSIImage', () => {
       expect(result).toBeUndefined();
     });
 
-    it('should call img.pause if img exists', () => {
+    it("should call img.pause if img exists", () => {
       const image = new ANSIImage({ screen });
       image.img = {
-        pause: vi.fn()
+        pause: vi.fn(),
       };
 
       image.pause();
@@ -182,14 +182,14 @@ describe('ANSIImage', () => {
     });
   });
 
-  describe('stop()', () => {
-    it('should have stop method', () => {
+  describe("stop()", () => {
+    it("should have stop method", () => {
       const image = new ANSIImage({ screen });
 
-      expect(typeof image.stop).toBe('function');
+      expect(typeof image.stop).toBe("function");
     });
 
-    it('should return early if no img', () => {
+    it("should return early if no img", () => {
       const image = new ANSIImage({ screen });
       image.img = null;
 
@@ -198,10 +198,10 @@ describe('ANSIImage', () => {
       expect(result).toBeUndefined();
     });
 
-    it('should call img.stop if img exists', () => {
+    it("should call img.stop if img exists", () => {
       const image = new ANSIImage({ screen });
       image.img = {
-        stop: vi.fn()
+        stop: vi.fn(),
       };
 
       image.stop();
@@ -210,14 +210,14 @@ describe('ANSIImage', () => {
     });
   });
 
-  describe('clearImage()', () => {
-    it('should have clearImage method', () => {
+  describe("clearImage()", () => {
+    it("should have clearImage method", () => {
       const image = new ANSIImage({ screen });
 
-      expect(typeof image.clearImage).toBe('function');
+      expect(typeof image.clearImage).toBe("function");
     });
 
-    it('should stop animation', () => {
+    it("should stop animation", () => {
       const image = new ANSIImage({ screen });
       image.stop = vi.fn();
 
@@ -226,19 +226,19 @@ describe('ANSIImage', () => {
       expect(image.stop).toHaveBeenCalled();
     });
 
-    it('should clear content', () => {
+    it("should clear content", () => {
       const image = new ANSIImage({ screen });
       image.setContent = vi.fn();
 
       image.clearImage();
 
-      expect(image.setContent).toHaveBeenCalledWith('');
+      expect(image.setContent).toHaveBeenCalledWith("");
     });
 
-    it('should clear img and cellmap', () => {
+    it("should clear img and cellmap", () => {
       const image = new ANSIImage({ screen });
       image.img = {
-        stop: vi.fn()
+        stop: vi.fn(),
       };
       image.cellmap = {};
 
@@ -249,18 +249,20 @@ describe('ANSIImage', () => {
     });
   });
 
-  describe('render()', () => {
-    it('should have render method', () => {
+  describe("render()", () => {
+    it("should have render method", () => {
       const image = new ANSIImage({ screen });
 
-      expect(typeof image.render).toBe('function');
+      expect(typeof image.render).toBe("function");
     });
 
-    it('should call parent\'s render', () => {
+    it("should call parent's render", () => {
       const image = new ANSIImage({ screen });
       screen.append(image);
       // Spy on parent's render method
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), "render")
+        .mockReturnValue(null);
 
       image.render();
 
@@ -268,32 +270,39 @@ describe('ANSIImage', () => {
       renderSpy.mockRestore();
     });
 
-    it('should render image if img and cellmap exist', () => {
+    it("should render image if img and cellmap exist", () => {
       const image = new ANSIImage({ screen });
       screen.append(image);
       // Spy on parent's render method
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), "render")
+        .mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
 
       image.img = {
-        renderElement: vi.fn()
+        renderElement: vi.fn(),
       };
       image.cellmap = [[1, 2, 3]];
 
       image.render();
 
-      expect(image.img.renderElement).toHaveBeenCalledWith(image.cellmap, image);
+      expect(image.img.renderElement).toHaveBeenCalledWith(
+        image.cellmap,
+        image,
+      );
       renderSpy.mockRestore();
     });
 
-    it('should skip rendering if no cellmap', () => {
+    it("should skip rendering if no cellmap", () => {
       const image = new ANSIImage({ screen });
       screen.append(image);
 
       // Spy on parent's render method
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(image)), "render")
+        .mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
 
       image.img = {
-        renderElement: vi.fn()
+        renderElement: vi.fn(),
       };
       image.cellmap = null;
 
@@ -304,58 +313,58 @@ describe('ANSIImage', () => {
     });
   });
 
-  describe('curl static method', () => {
-    it('should have curl static method', () => {
-      expect(typeof ANSIImage.curl).toBe('function');
+  describe("curl static method", () => {
+    it("should have curl static method", () => {
+      expect(typeof ANSIImage.curl).toBe("function");
     });
   });
 
-  describe('common use cases', () => {
-    it('should create an image viewer', () => {
+  describe("common use cases", () => {
+    it("should create an image viewer", () => {
       const image = new ANSIImage({
         screen,
         top: 0,
         left: 0,
         width: 40,
-        height: 20
+        height: 20,
       });
 
       expect(image.scale).toBe(1.0);
       expect(image.options.animate).toBe(true);
     });
 
-    it('should create a scaled image', () => {
+    it("should create a scaled image", () => {
       const image = new ANSIImage({
         screen,
-        scale: 0.5
+        scale: 0.5,
       });
 
       expect(image.scale).toBe(0.5);
     });
 
-    it('should create a static image', () => {
+    it("should create a static image", () => {
       const image = new ANSIImage({
         screen,
-        animate: false
+        animate: false,
       });
 
       expect(image.options.animate).toBe(false);
     });
 
-    it('should handle error display', () => {
+    it("should handle error display", () => {
       const image = new ANSIImage({ screen });
 
-      image.setImage('/invalid/path.png');
+      image.setImage("/invalid/path.png");
 
-      expect(image.content).toContain('Image Error');
+      expect(image.content).toContain("Image Error");
     });
 
-    it('should support playback control', () => {
+    it("should support playback control", () => {
       const image = new ANSIImage({ screen });
       image.img = {
         play: vi.fn(),
         pause: vi.fn(),
-        stop: vi.fn()
+        stop: vi.fn(),
       };
 
       image.play();
@@ -368,11 +377,11 @@ describe('ANSIImage', () => {
       expect(image.img.stop).toHaveBeenCalled();
     });
 
-    it('should cleanup on destroy', () => {
+    it("should cleanup on destroy", () => {
       const image = new ANSIImage({ screen });
       image.stop = vi.fn();
 
-      image.emit('destroy');
+      image.emit("destroy");
 
       expect(image.stop).toHaveBeenCalled();
     });

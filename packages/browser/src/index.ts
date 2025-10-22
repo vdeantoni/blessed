@@ -20,15 +20,15 @@
  */
 
 // Initialize runtime BEFORE importing @unblessed/core (critical!)
-import './runtime/auto-init.js';
+import "./runtime/auto-init.js";
 
 // Re-export everything from core EXCEPT Screen
-export * from '@unblessed/core';
+export * from "@unblessed/core";
 
 // Export browser-specific Screen (overrides core Screen)
-export { Screen } from './screen.js';
-export type { BrowserScreenOptions } from './screen.js';
+export { Screen } from "./screen.js";
+export type { BrowserScreenOptions } from "./screen.js";
 
 // Export browser-specific adapters
-export { XTermAdapter } from './adapters/xterm-adapter.js';
-export type { XTermAdapterOptions } from './adapters/xterm-adapter.js';
+export { XTermAdapter } from "./adapters/xterm-adapter.js";
+export type { XTermAdapterOptions } from "./adapters/xterm-adapter.js";

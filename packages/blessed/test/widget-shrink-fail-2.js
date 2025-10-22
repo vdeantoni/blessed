@@ -3,7 +3,7 @@ import util from "util";
 
 var screen = blessed.screen({
   autoPadding: true,
-  warnings: true
+  warnings: true,
 });
 
 var tab = blessed.box({
@@ -17,28 +17,28 @@ var tab = blessed.box({
   vi: true,
   alwaysScroll: true,
   scrollbar: {
-    ch: ' '
+    ch: " ",
   },
   style: {
     scrollbar: {
-      inverse: true
-    }
-  }
+      inverse: true,
+    },
+  },
 });
 
 tab._.data = blessed.text({
   parent: tab,
   top: 0,
   left: 3,
-  height: 'shrink',
-  width: 'shrink',
-  content: '',
-  tags: true
+  height: "shrink",
+  width: "shrink",
+  content: "",
+  tags: true,
 });
 
 tab._.data.setContent(util.inspect(process, null, 6));
 
-screen.key('q', function() {
+screen.key("q", function () {
   screen.destroy();
 });
 

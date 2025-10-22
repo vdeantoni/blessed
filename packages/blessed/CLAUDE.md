@@ -5,16 +5,17 @@ This package provides 100% backward compatibility with the original [blessed](ht
 ## Purpose
 
 **For users migrating from blessed:**
+
 ```javascript
 // Before: blessed
-const blessed = require('blessed');
+const blessed = require("blessed");
 const screen = blessed.screen();
-const box = blessed.box({ parent: screen, content: 'Hello' });
+const box = blessed.box({ parent: screen, content: "Hello" });
 
 // After: @unblessed/blessed (exact same code works!)
-const blessed = require('@unblessed/blessed');
+const blessed = require("@unblessed/blessed");
 const screen = blessed.screen();
-const box = blessed.box({ parent: screen, content: 'Hello' });
+const box = blessed.box({ parent: screen, content: "Hello" });
 ```
 
 **For new projects:**
@@ -48,7 +49,9 @@ const proto = blessed.box.prototype;     // Prototype
 Our wrapper implements this via `createWidgetFactory()`:
 
 ```typescript
-function createWidgetFactory<T>(WidgetClass: new (options?: any) => T): WidgetFactory<T> {
+function createWidgetFactory<T>(
+  WidgetClass: new (options?: any) => T,
+): WidgetFactory<T> {
   const factory = (options?: any) => new WidgetClass(options);
   factory.class = WidgetClass;
   factory.prototype = WidgetClass.prototype;
@@ -103,24 +106,31 @@ Our `Widgets` namespace provides type aliases that map to @unblessed/core types,
 All 27 widget types from original blessed:
 
 **Core Widgets:**
+
 - Node, Screen, Element, Box, Text, Line
 
 **Scrollable Widgets:**
+
 - ScrollableBox, ScrollableText
 
 **List Widgets:**
+
 - List, Listbar, ListTable
 
 **Form Widgets:**
+
 - Form, Input, Textarea, Textbox, Button, Checkbox, RadioSet, RadioButton
 
 **UI Widgets:**
+
 - ProgressBar, Loading, Log, Message, Prompt, Question
 
 **Special Widgets:**
+
 - BigText, FileManager, Layout, Table
 
 **Image Widgets:**
+
 - Image, ANSIImage, OverlayImage
 
 ### Export Patterns
@@ -153,23 +163,25 @@ const box5 = new blessed.Box.class({ ... });
 **Tool:** tsup with CJS + ESM dual output
 
 **Configuration:**
+
 ```typescript
 // tsup.config.ts
 export default defineConfig({
   entry: {
-    index: 'src/index.ts',    // Main blessed wrapper
-    tput: 'bin/tput.ts',      // CLI tool
+    index: "src/index.ts", // Main blessed wrapper
+    tput: "bin/tput.ts", // CLI tool
   },
-  format: ['cjs', 'esm'],
-  external: ['@unblessed/node'],   // Don't bundle, use as peer dep
+  format: ["cjs", "esm"],
+  external: ["@unblessed/node"], // Don't bundle, use as peer dep
   onSuccess: async () => {
     // Copy terminfo/font data for CLI tool
-    await cp('../core/data', 'dist/usr', { recursive: true });
-  }
+    await cp("../core/data", "dist/usr", { recursive: true });
+  },
 });
 ```
 
 **Outputs:**
+
 - `dist/index.js` - ESM main entry
 - `dist/index.cjs` - CJS main entry
 - `dist/index.d.ts` - TypeScript definitions
@@ -207,6 +219,7 @@ export default defineConfig({
 ✅ **Comprehensive Type Tests** - 56 tests verifying 100% type compatibility with @types/blessed
 
 **Test Coverage:**
+
 - Default export (callable blessed function)
 - Widget factories (callable functions + .class property)
 - Named exports (PascalCase + lowercase)
@@ -224,12 +237,16 @@ export default defineConfig({
 We use type-only imports from `@types/blessed` to verify compile-time type compatibility without requiring the actual blessed package:
 
 ```typescript
-import type * as BlessedOriginal from 'blessed';
-import * as BlessedTui from '@unblessed/blessed';
+import type * as BlessedOriginal from "blessed";
+import * as BlessedTui from "@unblessed/blessed";
 
 // Verify types are compatible
-expectTypeOf(BlessedTui.box()).toMatchTypeOf<ReturnType<typeof BlessedOriginal.box>>();
-expectTypeOf(BlessedTui.screen()).toMatchTypeOf<BlessedOriginal.Widgets.Screen>();
+expectTypeOf(BlessedTui.box()).toMatchTypeOf<
+  ReturnType<typeof BlessedOriginal.box>
+>();
+expectTypeOf(
+  BlessedTui.screen(),
+).toMatchTypeOf<BlessedOriginal.Widgets.Screen>();
 ```
 
 This ensures that any code written for `@types/blessed` will work with `@unblessed/blessed` without TypeScript errors.
@@ -268,6 +285,7 @@ Runtime auto-initializes when you import the package (via @unblessed/node). This
 ### Widget Attachment
 
 **Original blessed allowed both patterns:**
+
 ```javascript
 // Pattern 1 (deprecated in tui)
 const box = blessed.box({ screen: screen, ... });
@@ -303,65 +321,65 @@ pnpm test:watch
 ### CommonJS (Classic Blessed Style)
 
 ```javascript
-const blessed = require('@unblessed/blessed');
+const blessed = require("@unblessed/blessed");
 
 const screen = blessed.screen({
-  smartCSR: true
+  smartCSR: true,
 });
 
 const box = blessed.box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello World!',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello World!",
   tags: true,
-  border: 'line',
+  border: "line",
   style: {
-    fg: 'white',
-    bg: 'blue',
-    border: { fg: '#f0f0f0' }
-  }
+    fg: "white",
+    bg: "blue",
+    border: { fg: "#f0f0f0" },
+  },
 });
 
-screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
+screen.key(["escape", "q", "C-c"], () => process.exit(0));
 screen.render();
 ```
 
 ### ESM (Modern Style)
 
 ```javascript
-import blessed from '@unblessed/blessed';
+import blessed from "@unblessed/blessed";
 
 const screen = blessed.screen({ smartCSR: true });
 const box = blessed.box({
   parent: screen,
-  content: 'Hello World!'
+  content: "Hello World!",
 });
 
-screen.key(['q'], () => process.exit(0));
+screen.key(["q"], () => process.exit(0));
 screen.render();
 ```
 
 ### TypeScript
 
 ```typescript
-import blessed from '@unblessed/blessed';
-import type { Widgets } from '@unblessed/blessed';
+import blessed from "@unblessed/blessed";
+import type { Widgets } from "@unblessed/blessed";
 
 const screen: Widgets.Screen = blessed.screen({
-  smartCSR: true
+  smartCSR: true,
 });
 
 const options: Widgets.BoxOptions = {
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello World!',
-  tags: true
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello World!",
+  tags: true,
 };
 
 const box: Widgets.BoxElement = blessed.box(options);
@@ -375,19 +393,20 @@ screen.render();
 **Don't use @unblessed/blessed.** Use `@unblessed/node` instead:
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 const screen = new Screen({ smartCSR: true });
 const box = new Box({
   parent: screen,
-  content: 'Hello World!'
+  content: "Hello World!",
 });
 
-screen.key(['q'], () => process.exit(0));
+screen.key(["q"], () => process.exit(0));
 screen.render();
 ```
 
 **Benefits:**
+
 - Modern class-based API
 - Better TypeScript support
 - Tree-shakeable imports

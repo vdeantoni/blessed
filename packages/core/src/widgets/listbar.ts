@@ -6,16 +6,16 @@
  * Modules
  */
 
-import type { KeyEvent, ListbarOptions, ListElementStyle } from '../types';
-import helpers from '../lib/helpers.js';
-import Box from './box.js';
+import type { KeyEvent, ListbarOptions, ListElementStyle } from "../types";
+import helpers from "../lib/helpers.js";
+import Box from "./box.js";
 
 /**
  * Listbar / HorizontalList
  */
 
 class Listbar extends Box {
-  override type = 'listbar';
+  override type = "listbar";
   declare style: ListElementStyle;
   override items: any[] = [];
   ritems: any[] = [];
@@ -54,35 +54,35 @@ class Listbar extends Box {
     }
 
     if (options.keys) {
-      this.on('keypress', (_ch: any, key: KeyEvent) => {
+      this.on("keypress", (_ch: any, key: KeyEvent) => {
         if (
-          key.name === 'left' ||
-          (options.vi && key.name === 'h') ||
-          (key.shift && key.name === 'tab')
+          key.name === "left" ||
+          (options.vi && key.name === "h") ||
+          (key.shift && key.name === "tab")
         ) {
           this.moveLeft();
           this.screen.render();
           // Stop propagation if we're in a form.
-          if (key.name === 'tab') return false;
+          if (key.name === "tab") return false;
           return undefined;
         }
         if (
-          key.name === 'right' ||
-          (options.vi && key.name === 'l') ||
-          key.name === 'tab'
+          key.name === "right" ||
+          (options.vi && key.name === "l") ||
+          key.name === "tab"
         ) {
           this.moveRight();
           this.screen.render();
           // Stop propagation if we're in a form.
-          if (key.name === 'tab') return false;
+          if (key.name === "tab") return false;
           return undefined;
         }
         if (
-          key.name === 'enter' ||
-          (options.vi && key.name === 'k' && !key.shift)
+          key.name === "enter" ||
+          (options.vi && key.name === "k" && !key.shift)
         ) {
-          this.emit('action', this.items[this.selected], this.selected);
-          this.emit('select', this.items[this.selected], this.selected);
+          this.emit("action", this.items[this.selected], this.selected);
+          this.emit("select", this.items[this.selected], this.selected);
           const item = this.items[this.selected];
           if (item._.cmd.callback) {
             item._.cmd.callback();
@@ -90,9 +90,9 @@ class Listbar extends Box {
           this.screen.render();
           return undefined;
         }
-        if (key.name === 'escape' || (options.vi && key.name === 'q')) {
-          this.emit('action');
-          this.emit('cancel');
+        if (key.name === "escape" || (options.vi && key.name === "q")) {
+          this.emit("action");
+          this.emit("cancel");
           return undefined;
         }
         return undefined;
@@ -100,7 +100,7 @@ class Listbar extends Box {
     }
 
     if (options.autoCommandKeys) {
-      this.onScreenEvent('keypress', (ch: any) => {
+      this.onScreenEvent("keypress", (ch: any) => {
         if (/^[0-9]$/.test(ch)) {
           let i = +ch - 1;
           if (!~i) i = 9;
@@ -109,7 +109,7 @@ class Listbar extends Box {
       });
     }
 
-    this.on('focus', () => {
+    this.on("focus", () => {
       this.select(this.selected);
     });
   }
@@ -138,13 +138,13 @@ class Listbar extends Box {
           let cmd = commands[key];
           let cb: any;
 
-          if (typeof cmd === 'function') {
+          if (typeof cmd === "function") {
             cb = cmd;
             cmd = { callback: cb };
           }
 
           if (cmd.text == null) cmd.text = key;
-          if (cmd.prefix == null) cmd.prefix = ++i + '';
+          if (cmd.prefix == null) cmd.prefix = ++i + "";
 
           if (cmd.text == null && cmd.callback) {
             cmd.text = cmd.callback.name;
@@ -154,7 +154,7 @@ class Listbar extends Box {
 
           return obj;
         },
-        []
+        [],
       );
     }
 
@@ -170,7 +170,7 @@ class Listbar extends Box {
       this.add(cmd);
     });
 
-    this.emit('set items');
+    this.emit("set items");
   }
 
   appendItem(item: any, callback?: any) {
@@ -189,22 +189,22 @@ class Listbar extends Box {
       }
     }
 
-    if (typeof item === 'object') {
+    if (typeof item === "object") {
       cmd = item;
-      if (cmd.prefix == null) cmd.prefix = this.items.length + 1 + '';
+      if (cmd.prefix == null) cmd.prefix = this.items.length + 1 + "";
     }
 
-    if (typeof item === 'string') {
+    if (typeof item === "string") {
       cmd = {
-        prefix: this.items.length + 1 + '',
+        prefix: this.items.length + 1 + "",
         text: item,
         callback: callback,
       };
     }
 
-    if (typeof item === 'function') {
+    if (typeof item === "function") {
       cmd = {
-        prefix: this.items.length + 1 + '',
+        prefix: this.items.length + 1 + "",
         text: item.name,
         callback: item,
       };
@@ -214,13 +214,13 @@ class Listbar extends Box {
       cmd.prefix = cmd.keys[0];
     }
 
-    const t = helpers.generateTags(this.style.prefix || { fg: 'lightblack' });
+    const t = helpers.generateTags(this.style.prefix || { fg: "lightblack" });
 
     title =
-      (cmd.prefix != null ? t.open + cmd.prefix + t.close + ':' : '') +
+      (cmd.prefix != null ? t.open + cmd.prefix + t.close + ":" : "") +
       cmd.text;
 
-    len = ((cmd.prefix != null ? cmd.prefix + ':' : '') + cmd.text).length;
+    len = ((cmd.prefix != null ? cmd.prefix + ":" : "") + cmd.text).length;
 
     const options: any = {
       screen: this.screen,
@@ -229,7 +229,7 @@ class Listbar extends Box {
       height: 1,
       content: title,
       width: len + 2,
-      align: 'center',
+      align: "center",
       autoFocus: false,
       tags: true,
       mouse: true,
@@ -242,17 +242,17 @@ class Listbar extends Box {
       options.left += this.ileft;
     }
 
-    ['bg', 'fg', 'bold', 'underline', 'blink', 'inverse', 'invisible'].forEach(
-      name => {
+    ["bg", "fg", "bold", "underline", "blink", "inverse", "invisible"].forEach(
+      (name) => {
         options.style[name] = () => {
           let attr =
             this.items[this.selected] === el
               ? this.style.selected[name]
               : this.style.item[name];
-          if (typeof attr === 'function') attr = attr(el);
+          if (typeof attr === "function") attr = attr(el);
           return attr;
         };
-      }
+      },
     );
 
     const el = new Box(options);
@@ -269,8 +269,8 @@ class Listbar extends Box {
     if (cmd.callback) {
       if (cmd.keys) {
         this.screen.key(cmd.keys, () => {
-          this.emit('action', el, this.selected);
-          this.emit('select', el, this.selected);
+          this.emit("action", el, this.selected);
+          this.emit("select", el, this.selected);
           if ((el as any)._.cmd.callback) {
             (el as any)._.cmd.callback();
           }
@@ -286,9 +286,9 @@ class Listbar extends Box {
 
     // XXX May be affected by new element.options.mouse option.
     if (this.mouse) {
-      el.on('click', () => {
-        this.emit('action', el, this.selected);
-        this.emit('select', el, this.selected);
+      el.on("click", () => {
+        this.emit("action", el, this.selected);
+        this.emit("select", el, this.selected);
         if ((el as any)._.cmd.callback) {
           (el as any)._.cmd.callback();
         }
@@ -297,7 +297,7 @@ class Listbar extends Box {
       });
     }
 
-    this.emit('add item');
+    this.emit("add item");
   }
 
   override render() {
@@ -329,7 +329,7 @@ class Listbar extends Box {
    * listbar.select(itemElement); // Select by element
    */
   select(offset: any) {
-    if (typeof offset !== 'number') {
+    if (typeof offset !== "number") {
       offset = this.items.indexOf(offset);
     }
 
@@ -340,7 +340,7 @@ class Listbar extends Box {
     }
 
     if (!this.parent) {
-      this.emit('select item', this.items[offset], offset);
+      this.emit("select item", this.items[offset], offset);
       return;
     }
 
@@ -387,7 +387,7 @@ class Listbar extends Box {
     }
 
     // XXX Move `action` and `select` events here.
-    this.emit('select item', el, offset);
+    this.emit("select item", el, offset);
   }
 
   /**
@@ -399,7 +399,7 @@ class Listbar extends Box {
    * listbar.removeItem(itemElement);
    */
   removeItem(child: any) {
-    const i = typeof child !== 'number' ? this.items.indexOf(child) : child;
+    const i = typeof child !== "number" ? this.items.indexOf(child) : child;
 
     if (~i && this.items[i]) {
       child = this.items.splice(i, 1)[0];
@@ -411,7 +411,7 @@ class Listbar extends Box {
       }
     }
 
-    this.emit('remove item');
+    this.emit("remove item");
   }
 
   /**
@@ -466,7 +466,7 @@ class Listbar extends Box {
       this.select(index);
       this.screen.render();
     }
-    this.emit('select tab', item, index);
+    this.emit("select tab", item, index);
   }
 
   /**

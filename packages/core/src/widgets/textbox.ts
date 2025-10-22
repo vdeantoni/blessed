@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { KeyEvent, TextboxOptions } from '../types';
-import Textarea from './textarea.js';
+import type { KeyEvent, TextboxOptions } from "../types";
+import Textarea from "./textarea.js";
 
 /**
  * Textbox
  */
 
 class Textbox extends Textarea {
-  override type = 'textbox';
+  override type = "textbox";
   /**
    * Completely hide all text (no characters displayed).
    * Useful for password fields.
@@ -46,7 +46,7 @@ class Textbox extends Textarea {
   }
 
   override _listener(ch: any, key: KeyEvent) {
-    if (key.name === 'enter') {
+    if (key.name === "enter") {
       this._done(null, this.value);
       return;
     }
@@ -61,13 +61,13 @@ class Textbox extends Textarea {
     } else if (this._value === value) {
       return;
     }
-    value = value.replace(/\n/g, '');
+    value = value.replace(/\n/g, "");
     this.value = value;
     this._value = value;
     if (this.secret) {
-      this.setContent('');
+      this.setContent("");
     } else if (this.censor) {
-      this.setContent(Array(this.value.length + 1).join('*'));
+      this.setContent(Array(this.value.length + 1).join("*"));
     } else {
       visible = -(this.width - this.iwidth - 1);
       val = this.value.replace(/\t/g, this.screen.tabc);
@@ -78,7 +78,7 @@ class Textbox extends Textarea {
 
   override submit() {
     if (!this.__listener) return;
-    return this.__listener('\r', { name: 'enter' });
+    return this.__listener("\r", { name: "enter" });
   }
 }
 

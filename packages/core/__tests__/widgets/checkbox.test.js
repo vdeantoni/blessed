@@ -1,73 +1,73 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import Checkbox from '../../src/widgets/checkbox.js';
-import { createMockScreen } from '../helpers/mock.js';
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import Checkbox from "../../src/widgets/checkbox.js";
+import { createMockScreen } from "../helpers/mock.js";
 
-describe('Checkbox', () => {
+describe("Checkbox", () => {
   let screen;
 
   beforeEach(() => {
     screen = createMockScreen();
   });
 
-  describe('constructor', () => {
-    it('should create a checkbox instance', () => {
+  describe("constructor", () => {
+    it("should create a checkbox instance", () => {
       const checkbox = new Checkbox({ screen });
 
       expect(checkbox).toBeDefined();
-      expect(checkbox.type).toBe('checkbox');
+      expect(checkbox.type).toBe("checkbox");
     });
 
-    it('should inherit from Input', () => {
+    it("should inherit from Input", () => {
       const checkbox = new Checkbox({ screen });
 
       expect(checkbox.screen).toBe(screen);
-      expect(typeof checkbox.toggle).toBe('function');
+      expect(typeof checkbox.toggle).toBe("function");
     });
 
-    it('should default to unchecked', () => {
+    it("should default to unchecked", () => {
       const checkbox = new Checkbox({ screen });
 
       expect(checkbox.checked).toBe(false);
       expect(checkbox.value).toBe(false);
     });
 
-    it('should accept checked option', () => {
+    it("should accept checked option", () => {
       const checkbox = new Checkbox({
         screen,
-        checked: true
+        checked: true,
       });
 
       expect(checkbox.checked).toBe(true);
       expect(checkbox.value).toBe(true);
     });
 
-    it('should accept text option', () => {
+    it("should accept text option", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'Enable feature'
+        text: "Enable feature",
       });
 
-      expect(checkbox.text).toBe('Enable feature');
+      expect(checkbox.text).toBe("Enable feature");
     });
 
-    it('should accept content as text', () => {
+    it("should accept content as text", () => {
       const checkbox = new Checkbox({
         screen,
-        content: 'Enable feature'
+        content: "Enable feature",
       });
 
-      expect(checkbox.text).toBe('Enable feature');
+      expect(checkbox.text).toBe("Enable feature");
     });
 
-    it('should default text to empty string', () => {
+    it("should default text to empty string", () => {
       const checkbox = new Checkbox({ screen });
 
-      expect(checkbox.text).toBe('');
+      expect(checkbox.text).toBe("");
     });
   });
 
-  describe('check()', () => {
-    it('should set checked to true', () => {
+  describe("check()", () => {
+    it("should set checked to true", () => {
       const checkbox = new Checkbox({ screen });
 
       checkbox.check();
@@ -76,35 +76,35 @@ describe('Checkbox', () => {
       expect(checkbox.value).toBe(true);
     });
 
-    it('should emit check event', () => {
+    it("should emit check event", () => {
       const checkbox = new Checkbox({ screen });
       const checkSpy = vi.fn();
 
-      checkbox.on('check', checkSpy);
+      checkbox.on("check", checkSpy);
       checkbox.check();
 
       expect(checkSpy).toHaveBeenCalled();
     });
 
-    it('should not emit if already checked', () => {
+    it("should not emit if already checked", () => {
       const checkbox = new Checkbox({
         screen,
-        checked: true
+        checked: true,
       });
       const checkSpy = vi.fn();
 
-      checkbox.on('check', checkSpy);
+      checkbox.on("check", checkSpy);
       checkbox.check();
 
       expect(checkSpy).not.toHaveBeenCalled();
     });
   });
 
-  describe('uncheck()', () => {
-    it('should set checked to false', () => {
+  describe("uncheck()", () => {
+    it("should set checked to false", () => {
       const checkbox = new Checkbox({
         screen,
-        checked: true
+        checked: true,
       });
 
       checkbox.uncheck();
@@ -113,32 +113,32 @@ describe('Checkbox', () => {
       expect(checkbox.value).toBe(false);
     });
 
-    it('should emit uncheck event', () => {
+    it("should emit uncheck event", () => {
       const checkbox = new Checkbox({
         screen,
-        checked: true
+        checked: true,
       });
       const uncheckSpy = vi.fn();
 
-      checkbox.on('uncheck', uncheckSpy);
+      checkbox.on("uncheck", uncheckSpy);
       checkbox.uncheck();
 
       expect(uncheckSpy).toHaveBeenCalled();
     });
 
-    it('should not emit if already unchecked', () => {
+    it("should not emit if already unchecked", () => {
       const checkbox = new Checkbox({ screen });
       const uncheckSpy = vi.fn();
 
-      checkbox.on('uncheck', uncheckSpy);
+      checkbox.on("uncheck", uncheckSpy);
       checkbox.uncheck();
 
       expect(uncheckSpy).not.toHaveBeenCalled();
     });
   });
 
-  describe('toggle()', () => {
-    it('should check when unchecked', () => {
+  describe("toggle()", () => {
+    it("should check when unchecked", () => {
       const checkbox = new Checkbox({ screen });
 
       checkbox.toggle();
@@ -146,10 +146,10 @@ describe('Checkbox', () => {
       expect(checkbox.checked).toBe(true);
     });
 
-    it('should uncheck when checked', () => {
+    it("should uncheck when checked", () => {
       const checkbox = new Checkbox({
         screen,
-        checked: true
+        checked: true,
       });
 
       checkbox.toggle();
@@ -157,7 +157,7 @@ describe('Checkbox', () => {
       expect(checkbox.checked).toBe(false);
     });
 
-    it('should toggle multiple times', () => {
+    it("should toggle multiple times", () => {
       const checkbox = new Checkbox({ screen });
 
       expect(checkbox.checked).toBe(false);
@@ -173,118 +173,130 @@ describe('Checkbox', () => {
     });
   });
 
-  describe('render()', () => {
-    it('should set content with unchecked state', () => {
+  describe("render()", () => {
+    it("should set content with unchecked state", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'Option'
+        text: "Option",
       });
 
       // Instead of calling render(), verify setContent works correctly
       // render() calls setContent internally
-      checkbox.setContent('[' + (checkbox.checked ? 'x' : ' ') + '] ' + checkbox.text, true);
+      checkbox.setContent(
+        "[" + (checkbox.checked ? "x" : " ") + "] " + checkbox.text,
+        true,
+      );
 
       // Check that content was set correctly
-      expect(checkbox.content).toContain('[ ]');
-      expect(checkbox.content).toContain('Option');
+      expect(checkbox.content).toContain("[ ]");
+      expect(checkbox.content).toContain("Option");
     });
 
-    it('should set content with checked state', () => {
+    it("should set content with checked state", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'Option',
-        checked: true
+        text: "Option",
+        checked: true,
       });
 
       // Verify setContent works correctly for checked state
-      checkbox.setContent('[' + (checkbox.checked ? 'x' : ' ') + '] ' + checkbox.text, true);
+      checkbox.setContent(
+        "[" + (checkbox.checked ? "x" : " ") + "] " + checkbox.text,
+        true,
+      );
 
       // Check that content was set correctly
-      expect(checkbox.content).toContain('[x]');
-      expect(checkbox.content).toContain('Option');
+      expect(checkbox.content).toContain("[x]");
+      expect(checkbox.content).toContain("Option");
     });
 
-    it('should update content on toggle', () => {
+    it("should update content on toggle", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'Option'
+        text: "Option",
       });
 
       // Initial state
-      checkbox.setContent('[' + (checkbox.checked ? 'x' : ' ') + '] ' + checkbox.text, true);
-      expect(checkbox.content).toContain('[ ]');
+      checkbox.setContent(
+        "[" + (checkbox.checked ? "x" : " ") + "] " + checkbox.text,
+        true,
+      );
+      expect(checkbox.content).toContain("[ ]");
 
       // After toggle
       checkbox.toggle();
-      checkbox.setContent('[' + (checkbox.checked ? 'x' : ' ') + '] ' + checkbox.text, true);
-      expect(checkbox.content).toContain('[x]');
+      checkbox.setContent(
+        "[" + (checkbox.checked ? "x" : " ") + "] " + checkbox.text,
+        true,
+      );
+      expect(checkbox.content).toContain("[x]");
     });
   });
 
-  describe('keyboard interaction', () => {
-    it('should toggle on enter key', () => {
+  describe("keyboard interaction", () => {
+    it("should toggle on enter key", () => {
       const checkbox = new Checkbox({ screen });
 
-      checkbox.emit('keypress', '\r', { name: 'enter' });
+      checkbox.emit("keypress", "\r", { name: "enter" });
 
       expect(checkbox.checked).toBe(true);
     });
 
-    it('should toggle on space key', () => {
+    it("should toggle on space key", () => {
       const checkbox = new Checkbox({ screen });
 
-      checkbox.emit('keypress', ' ', { name: 'space' });
+      checkbox.emit("keypress", " ", { name: "space" });
 
       expect(checkbox.checked).toBe(true);
     });
 
-    it('should render after keypress', () => {
+    it("should render after keypress", () => {
       const checkbox = new Checkbox({ screen });
 
-      checkbox.emit('keypress', '\r', { name: 'enter' });
+      checkbox.emit("keypress", "\r", { name: "enter" });
 
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should not toggle on other keys', () => {
+    it("should not toggle on other keys", () => {
       const checkbox = new Checkbox({ screen });
 
-      checkbox.emit('keypress', 'a', { name: 'a' });
+      checkbox.emit("keypress", "a", { name: "a" });
 
       expect(checkbox.checked).toBe(false);
     });
   });
 
-  describe('mouse interaction', () => {
-    it('should toggle on click when mouse enabled', () => {
+  describe("mouse interaction", () => {
+    it("should toggle on click when mouse enabled", () => {
       const checkbox = new Checkbox({
         screen,
-        mouse: true
+        mouse: true,
       });
 
-      checkbox.emit('click');
+      checkbox.emit("click");
 
       expect(checkbox.checked).toBe(true);
     });
 
-    it('should render after click', () => {
+    it("should render after click", () => {
       const checkbox = new Checkbox({
         screen,
-        mouse: true
+        mouse: true,
       });
 
-      checkbox.emit('click');
+      checkbox.emit("click");
 
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should not handle clicks when mouse disabled', () => {
+    it("should not handle clicks when mouse disabled", () => {
       const checkbox = new Checkbox({
         screen,
-        mouse: false
+        mouse: false,
       });
 
-      checkbox.emit('click');
+      checkbox.emit("click");
 
       // Should still be unchecked since mouse is disabled
       // Note: The constructor doesn't add click handler if mouse is false
@@ -292,42 +304,45 @@ describe('Checkbox', () => {
     });
   });
 
-  describe('focus/blur behavior', () => {
-    it('should handle focus event', () => {
+  describe("focus/blur behavior", () => {
+    it("should handle focus event", () => {
       const checkbox = new Checkbox({ screen });
       checkbox.lpos = { yi: 5, xi: 10 };
 
-      checkbox.emit('focus');
+      checkbox.emit("focus");
 
-      expect(screen.program.lsaveCursor).toHaveBeenCalledWith('checkbox');
+      expect(screen.program.lsaveCursor).toHaveBeenCalledWith("checkbox");
       expect(screen.program.showCursor).toHaveBeenCalled();
     });
 
-    it('should not crash on focus without lpos', () => {
+    it("should not crash on focus without lpos", () => {
       const checkbox = new Checkbox({ screen });
 
       expect(() => {
-        checkbox.emit('focus');
+        checkbox.emit("focus");
       }).not.toThrow();
     });
 
-    it('should handle blur event', () => {
+    it("should handle blur event", () => {
       const checkbox = new Checkbox({ screen });
 
-      checkbox.emit('blur');
+      checkbox.emit("blur");
 
-      expect(screen.program.lrestoreCursor).toHaveBeenCalledWith('checkbox', true);
+      expect(screen.program.lrestoreCursor).toHaveBeenCalledWith(
+        "checkbox",
+        true,
+      );
     });
   });
 
-  describe('events', () => {
-    it('should emit check and uncheck events', () => {
+  describe("events", () => {
+    it("should emit check and uncheck events", () => {
       const checkbox = new Checkbox({ screen });
       const checkSpy = vi.fn();
       const uncheckSpy = vi.fn();
 
-      checkbox.on('check', checkSpy);
-      checkbox.on('uncheck', uncheckSpy);
+      checkbox.on("check", checkSpy);
+      checkbox.on("uncheck", uncheckSpy);
 
       checkbox.check();
       expect(checkSpy).toHaveBeenCalledTimes(1);
@@ -339,44 +354,44 @@ describe('Checkbox', () => {
     });
   });
 
-  describe('common use cases', () => {
-    it('should create settings checkbox', () => {
+  describe("common use cases", () => {
+    it("should create settings checkbox", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'Enable notifications',
+        text: "Enable notifications",
         checked: true,
         left: 2,
-        top: 5
+        top: 5,
       });
 
-      expect(checkbox.text).toBe('Enable notifications');
+      expect(checkbox.text).toBe("Enable notifications");
       expect(checkbox.checked).toBe(true);
     });
 
-    it('should create form checkbox', () => {
+    it("should create form checkbox", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'I agree to terms',
-        mouse: true
+        text: "I agree to terms",
+        mouse: true,
       });
 
       const handler = vi.fn();
-      checkbox.on('check', handler);
+      checkbox.on("check", handler);
 
       checkbox.toggle();
       expect(handler).toHaveBeenCalled();
       expect(checkbox.checked).toBe(true);
     });
 
-    it('should track value changes', () => {
+    it("should track value changes", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'Option'
+        text: "Option",
       });
 
       const values = [];
-      checkbox.on('check', () => values.push(true));
-      checkbox.on('uncheck', () => values.push(false));
+      checkbox.on("check", () => values.push(true));
+      checkbox.on("uncheck", () => values.push(false));
 
       checkbox.toggle();
       checkbox.toggle();
@@ -386,13 +401,13 @@ describe('Checkbox', () => {
     });
   });
 
-  describe('real execution coverage tests', () => {
-    it('should execute render method', () => {
+  describe("real execution coverage tests", () => {
+    it("should execute render method", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'Test Option',
+        text: "Test Option",
         width: 20,
-        height: 3
+        height: 3,
       });
       screen.append(checkbox);
 
@@ -401,7 +416,7 @@ describe('Checkbox', () => {
       expect(result).toBeDefined();
     });
 
-    it('should execute check with state change', () => {
+    it("should execute check with state change", () => {
       const checkbox = new Checkbox({ screen });
 
       // Execute real check (lines 71-72)
@@ -411,10 +426,10 @@ describe('Checkbox', () => {
       expect(checkbox.value).toBe(true);
     });
 
-    it('should execute uncheck with state change', () => {
+    it("should execute uncheck with state change", () => {
       const checkbox = new Checkbox({
         screen,
-        checked: true
+        checked: true,
       });
 
       // Execute real uncheck (lines 77-78)
@@ -424,7 +439,7 @@ describe('Checkbox', () => {
       expect(checkbox.value).toBe(false);
     });
 
-    it('should execute toggle return path for check', () => {
+    it("should execute toggle return path for check", () => {
       const checkbox = new Checkbox({ screen });
 
       // Execute toggle when unchecked (lines 82-84)
@@ -434,10 +449,10 @@ describe('Checkbox', () => {
       expect(result).toBeUndefined();
     });
 
-    it('should execute toggle return path for uncheck', () => {
+    it("should execute toggle return path for uncheck", () => {
       const checkbox = new Checkbox({
         screen,
-        checked: true
+        checked: true,
       });
 
       // Execute toggle when checked (lines 82-84)
@@ -447,12 +462,12 @@ describe('Checkbox', () => {
       expect(result).toBeUndefined();
     });
 
-    it('should render with both checked states', () => {
+    it("should render with both checked states", () => {
       const checkbox = new Checkbox({
         screen,
-        text: 'Option',
+        text: "Option",
         width: 20,
-        height: 3
+        height: 3,
       });
       screen.append(checkbox);
 

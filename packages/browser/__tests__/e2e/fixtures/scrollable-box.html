@@ -1,61 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E2E Test: ScrollableBox</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css" />
-  <style>
-    body { margin: 0; padding: 20px; background: #000; }
-    #terminal { width: 800px; height: 600px; }
-  </style>
-</head>
-<body>
-  <div id="terminal"></div>
-  
-  <script type="module">
-    import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
-
-    import { Screen, Box } from '../../../dist/index.js';
-
-    const term = new Terminal({ rows: 24, cols: 80 });
-    term.open(document.getElementById('terminal'));
-    const screen = new Screen({ terminal: term });
-
-    const scrollBox = new Box({
-      parent: screen,
-      top: 'center',
-      left: 'center',
-      width: '50%',
-      height: '50%',
-      scrollable: true,
-      keys: true,
-      vi: true,
-      alwaysScroll: true,
-      scrollbar: {
-        ch: ' ',
-        bg: 'blue'
-      },
-      border: { type: 'line' },
-      style: {
-        border: { fg: 'cyan' }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E2E Test: ScrollableBox</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #000;
       }
-    });
+      #terminal {
+        width: 800px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="terminal"></div>
 
-    // Add lots of content to enable scrolling
-    let content = [];
-    for (let i = 1; i <= 50; i++) {
-      content.push(`Line ${i}: This is scrollable content`);
-    }
-    scrollBox.setContent(content.join('\n'));
+    <script type="module">
+      import { Terminal } from "https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm";
 
-    scrollBox.focus();
-    screen.render();
+      import { Screen, Box } from "../../../dist/index.js";
 
-    // Expose for Playwright
-    window.testScrollBox = scrollBox;
-    window.testScreen = screen;
-    window.testReady = true;
-  </script>
-</body>
+      const term = new Terminal({ rows: 24, cols: 80 });
+      term.open(document.getElementById("terminal"));
+      const screen = new Screen({ terminal: term });
+
+      const scrollBox = new Box({
+        parent: screen,
+        top: "center",
+        left: "center",
+        width: "50%",
+        height: "50%",
+        scrollable: true,
+        keys: true,
+        vi: true,
+        alwaysScroll: true,
+        scrollbar: {
+          ch: " ",
+          bg: "blue",
+        },
+        border: { type: "line" },
+        style: {
+          border: { fg: "cyan" },
+        },
+      });
+
+      // Add lots of content to enable scrolling
+      let content = [];
+      for (let i = 1; i <= 50; i++) {
+        content.push(`Line ${i}: This is scrollable content`);
+      }
+      scrollBox.setContent(content.join("\n"));
+
+      scrollBox.focus();
+      screen.render();
+
+      // Expose for Playwright
+      window.testScrollBox = scrollBox;
+      window.testScreen = screen;
+      window.testReady = true;
+    </script>
+  </body>
 </html>

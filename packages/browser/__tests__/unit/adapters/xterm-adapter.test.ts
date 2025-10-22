@@ -1,13 +1,13 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { EventEmitter } from 'events';
+import { describe, it, expect, vi, beforeEach } from "vitest";
+import { EventEmitter } from "events";
 
 // Mock blessed before importing XTermAdapter
-vi.mock('@unblessed/blessed', () => ({
+vi.mock("@unblessed/blessed", () => ({
   default: {},
 }));
 
 // Now import XTermAdapter
-import { XTermAdapter } from '../../../src';
+import { XTermAdapter } from "../../../src";
 
 // Mock xterm.js Terminal
 class MockTerminal extends EventEmitter {
@@ -21,17 +21,17 @@ class MockTerminal extends EventEmitter {
 
   // Mock xterm event methods
   onData(callback: (data: string) => void) {
-    this.on('data', callback);
+    this.on("data", callback);
     return { dispose: vi.fn() };
   }
 
   onResize(callback: (size: { cols: number; rows: number }) => void) {
-    this.on('resize', callback);
+    this.on("resize", callback);
     return { dispose: vi.fn() };
   }
 }
 
-describe('adapters/XTermAdapter', () => {
+describe("adapters/XTermAdapter", () => {
   let mockTerminal: MockTerminal;
   let adapter: XTermAdapter;
 
@@ -40,62 +40,62 @@ describe('adapters/XTermAdapter', () => {
     adapter = new XTermAdapter({ terminal: mockTerminal as any });
   });
 
-  it('initializes with terminal', () => {
+  it("initializes with terminal", () => {
     expect(adapter).toBeDefined();
   });
 
-  it('forwards onData events as data', async () => {
+  it("forwards onData events as data", async () => {
     const dataPromise = new Promise<Buffer>((resolve) => {
-      adapter.on('data', (data) => {
+      adapter.on("data", (data) => {
         resolve(data);
       });
     });
 
-    mockTerminal.emit('data', 'hello');
+    mockTerminal.emit("data", "hello");
 
     const data = await dataPromise;
     expect(Buffer.isBuffer(data)).toBe(true);
-    expect(data.toString()).toBe('hello');
+    expect(data.toString()).toBe("hello");
   });
 
-  it('forwards onResize events', async () => {
+  it("forwards onResize events", async () => {
     const resizePromise = new Promise<void>((resolve) => {
-      adapter.on('resize', () => {
+      adapter.on("resize", () => {
         resolve();
       });
     });
 
-    mockTerminal.emit('resize', { cols: 100, rows: 30 });
+    mockTerminal.emit("resize", { cols: 100, rows: 30 });
 
     await resizePromise;
   });
 
-  it('implements write method', () => {
-    adapter.write('test');
-    expect(mockTerminal.write).toHaveBeenCalledWith('test');
+  it("implements write method", () => {
+    adapter.write("test");
+    expect(mockTerminal.write).toHaveBeenCalledWith("test");
 
-    adapter.write(Buffer.from('buffer'));
-    expect(mockTerminal.write).toHaveBeenCalledWith('buffer');
+    adapter.write(Buffer.from("buffer"));
+    expect(mockTerminal.write).toHaveBeenCalledWith("buffer");
   });
 
-  it('implements getWindowSize', () => {
+  it("implements getWindowSize", () => {
     const [cols, rows] = adapter.getWindowSize();
     expect(cols).toBe(80);
     expect(rows).toBe(24);
   });
 
-  it('reports as writable and TTY', () => {
+  it("reports as writable and TTY", () => {
     expect(adapter.writable).toBe(true);
     expect(adapter.isTTY).toBe(true);
     expect(adapter.isRaw).toBe(true);
   });
 
-  it('provides terminal dimensions via properties', () => {
+  it("provides terminal dimensions via properties", () => {
     expect(adapter.columns).toBe(80);
     expect(adapter.rows).toBe(24);
   });
 
-  it('implements terminal control methods', () => {
+  it("implements terminal control methods", () => {
     adapter.clear();
     expect(mockTerminal.clear).toHaveBeenCalled();
 
@@ -103,7 +103,7 @@ describe('adapters/XTermAdapter', () => {
     expect(mockTerminal.reset).toHaveBeenCalled();
   });
 
-  it('no-op methods do not throw', () => {
+  it("no-op methods do not throw", () => {
     expect(() => adapter.setRawMode(true)).not.toThrow();
     expect(() => adapter.resume()).not.toThrow();
     expect(() => adapter.pause()).not.toThrow();

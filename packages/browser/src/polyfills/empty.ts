@@ -5,8 +5,8 @@
 
 // Export commonly imported functions as no-ops
 export const fileURLToPath = (url: string | URL): string => {
-  const urlStr = typeof url === 'string' ? url : url.toString();
-  if (urlStr.startsWith('file://')) {
+  const urlStr = typeof url === "string" ? url : url.toString();
+  if (urlStr.startsWith("file://")) {
     return urlStr.slice(7);
   }
   return urlStr;

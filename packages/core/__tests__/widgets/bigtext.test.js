@@ -6,16 +6,16 @@ import {
   beforeAll,
   afterEach,
   vi,
-} from 'vitest';
-import fs from 'fs';
+} from "vitest";
+import fs from "fs";
 
-import path from 'path';
-import url from 'url';
-import { setRuntime } from '../../src/runtime-context.js';
-import BigText from '../../src/widgets/bigtext.js';
-import { createMockScreen } from '../helpers/mock.js';
+import path from "path";
+import url from "url";
+import { setRuntime } from "../../src/runtime-context.js";
+import BigText from "../../src/widgets/bigtext.js";
+import { createMockScreen } from "../helpers/mock.js";
 
-describe('BigText', () => {
+describe("BigText", () => {
   let screen;
 
   beforeAll(() => {
@@ -26,9 +26,9 @@ describe('BigText', () => {
           let correctedPath = filePath;
 
           // Redirect paths that try to access /widgets/data/ or /lib/data/ or /src/data/
-          if (typeof filePath === 'string') {
-            if (filePath.includes('/src/data/')) {
-              correctedPath = filePath.replace('/src/data/', '/data/');
+          if (typeof filePath === "string") {
+            if (filePath.includes("/src/data/")) {
+              correctedPath = filePath.replace("/src/data/", "/data/");
             }
           }
 
@@ -52,146 +52,148 @@ describe('BigText', () => {
     vi.restoreAllMocks();
   });
 
-  describe('constructor', () => {
-    it('should create a bigtext instance', () => {
+  describe("constructor", () => {
+    it("should create a bigtext instance", () => {
       const bigtext = new BigText({ screen });
 
       expect(bigtext).toBeDefined();
-      expect(bigtext.type).toBe('bigtext');
+      expect(bigtext.type).toBe("bigtext");
     });
 
-    it('should inherit from Box', () => {
+    it("should inherit from Box", () => {
       const bigtext = new BigText({ screen });
 
       expect(bigtext.screen).toBe(screen);
-      expect(typeof bigtext.render).toBe('function');
+      expect(typeof bigtext.render).toBe("function");
     });
 
-    it('should have default font path', () => {
+    it("should have default font path", () => {
       const bigtext = new BigText({ screen });
 
       expect(bigtext.font).toBeDefined();
     });
 
-    it('should accept custom font', () => {
+    it("should accept custom font", () => {
       const bigtext = new BigText({
         screen,
-        font: __dirname + '/../../src/data/fonts/ter-u14n.json',
+        font: __dirname + "/../../src/data/fonts/ter-u14n.json",
       });
 
       expect(bigtext.font).toBeDefined();
     });
 
-    it('should initialize ratio object', () => {
+    it("should initialize ratio object", () => {
       const bigtext = new BigText({ screen });
 
       expect(bigtext.ratio).toBeDefined();
-      expect(typeof bigtext.ratio).toBe('object');
+      expect(typeof bigtext.ratio).toBe("object");
     });
 
-    it('should load font with width and height', () => {
+    it("should load font with width and height", () => {
       const bigtext = new BigText({ screen });
 
       expect(bigtext.ratio.width).toBeDefined();
       expect(bigtext.ratio.height).toBeDefined();
     });
 
-    it('should accept fch option for fill character', () => {
+    it("should accept fch option for fill character", () => {
       const bigtext = new BigText({
         screen,
-        fch: '#'
+        fch: "#",
       });
 
-      expect(bigtext.fch).toBe('#');
+      expect(bigtext.fch).toBe("#");
     });
 
-    it('should use bold font when style.bold is true', () => {
+    it("should use bold font when style.bold is true", () => {
       const bigtext = new BigText({
         screen,
-        style: { bold: true }
+        style: { bold: true },
       });
 
       expect(bigtext.font).toBe(bigtext.fontBold);
     });
   });
 
-  describe('loadFont()', () => {
-    it('should have loadFont method', () => {
+  describe("loadFont()", () => {
+    it("should have loadFont method", () => {
       const bigtext = new BigText({ screen });
 
-      expect(typeof bigtext.loadFont).toBe('function');
+      expect(typeof bigtext.loadFont).toBe("function");
     });
 
-    it('should return font object', () => {
+    it("should return font object", () => {
       const bigtext = new BigText({ screen });
 
       const font = bigtext.loadFont(
-        __dirname + '/../../src/data/fonts/ter-u14n.json'
+        __dirname + "/../../src/data/fonts/ter-u14n.json",
       );
 
-      expect(typeof font).toBe('object');
+      expect(typeof font).toBe("object");
     });
 
-    it('should set ratio width and height', () => {
+    it("should set ratio width and height", () => {
       const bigtext = new BigText({ screen });
 
       expect(bigtext.ratio.width).toBeGreaterThan(0);
       expect(bigtext.ratio.height).toBeGreaterThan(0);
     });
 
-    it('should remove space character from font', () => {
+    it("should remove space character from font", () => {
       const bigtext = new BigText({ screen });
 
-      expect(bigtext.font[' ']).toBeUndefined();
+      expect(bigtext.font[" "]).toBeUndefined();
     });
   });
 
-  describe('setContent()', () => {
-    it('should set text property', () => {
+  describe("setContent()", () => {
+    it("should set text property", () => {
       const bigtext = new BigText({ screen });
 
-      bigtext.setContent('HELLO');
+      bigtext.setContent("HELLO");
 
-      expect(bigtext.text).toBe('HELLO');
+      expect(bigtext.text).toBe("HELLO");
     });
 
-    it('should clear content property', () => {
+    it("should clear content property", () => {
       const bigtext = new BigText({ screen });
 
-      bigtext.setContent('TEST');
+      bigtext.setContent("TEST");
 
-      expect(bigtext.content).toBe('');
+      expect(bigtext.content).toBe("");
     });
 
-    it('should handle empty content', () => {
+    it("should handle empty content", () => {
       const bigtext = new BigText({ screen });
 
       bigtext.setContent();
 
-      expect(bigtext.text).toBe('');
+      expect(bigtext.text).toBe("");
     });
 
-    it('should handle null content', () => {
+    it("should handle null content", () => {
       const bigtext = new BigText({ screen });
 
       bigtext.setContent(null);
 
-      expect(bigtext.text).toBe('');
+      expect(bigtext.text).toBe("");
     });
   });
 
-  describe('render()', () => {
-    it('should have render method', () => {
+  describe("render()", () => {
+    it("should have render method", () => {
       const bigtext = new BigText({ screen });
 
-      expect(typeof bigtext.render).toBe('function');
+      expect(typeof bigtext.render).toBe("function");
     });
 
-    it('should calculate width based on text length', () => {
+    it("should calculate width based on text length", () => {
       const bigtext = new BigText({ screen });
-      bigtext.setContent('ABC');
+      bigtext.setContent("ABC");
 
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), "render")
+        .mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
 
       bigtext.render();
 
@@ -199,11 +201,13 @@ describe('BigText', () => {
       renderSpy.mockRestore();
     });
 
-    it('should calculate height based on ratio', () => {
+    it("should calculate height based on ratio", () => {
       const bigtext = new BigText({ screen });
-      bigtext.setContent('TEST');
+      bigtext.setContent("TEST");
 
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), "render")
+        .mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
 
       bigtext.render();
 
@@ -211,11 +215,13 @@ describe('BigText', () => {
       renderSpy.mockRestore();
     });
 
-    it('should set shrink flags', () => {
+    it("should set shrink flags", () => {
       const bigtext = new BigText({ screen });
-      bigtext.setContent('X');
+      bigtext.setContent("X");
 
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), "render")
+        .mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
 
       bigtext.render();
 
@@ -225,71 +231,73 @@ describe('BigText', () => {
     });
   });
 
-  describe('common use cases', () => {
-    it('should create a banner widget', () => {
+  describe("common use cases", () => {
+    it("should create a banner widget", () => {
       const bigtext = new BigText({
         screen,
         top: 0,
-        left: 'center',
+        left: "center",
         shrink: true,
         style: {
-          fg: 'yellow',
-          bold: true
-        }
+          fg: "yellow",
+          bold: true,
+        },
       });
 
-      bigtext.setContent('WELCOME');
+      bigtext.setContent("WELCOME");
 
-      expect(bigtext.text).toBe('WELCOME');
-      expect(bigtext.style.fg).toBe('yellow');
+      expect(bigtext.text).toBe("WELCOME");
+      expect(bigtext.style.fg).toBe("yellow");
     });
 
-    it('should create a title display', () => {
+    it("should create a title display", () => {
       const bigtext = new BigText({
         screen,
-        top: 'center',
-        left: 'center',
+        top: "center",
+        left: "center",
         shrink: true,
-        fch: '#'
+        fch: "#",
       });
 
-      bigtext.setContent('TITLE');
+      bigtext.setContent("TITLE");
 
-      expect(bigtext.text).toBe('TITLE');
-      expect(bigtext.fch).toBe('#');
+      expect(bigtext.text).toBe("TITLE");
+      expect(bigtext.fch).toBe("#");
     });
 
-    it('should support custom fill character', () => {
+    it("should support custom fill character", () => {
       const bigtext = new BigText({
         screen,
-        fch: '*'
+        fch: "*",
       });
 
-      bigtext.setContent('STAR');
+      bigtext.setContent("STAR");
 
-      expect(bigtext.fch).toBe('*');
-      expect(bigtext.text).toBe('STAR');
+      expect(bigtext.fch).toBe("*");
+      expect(bigtext.text).toBe("STAR");
     });
 
-    it('should render with bold style', () => {
+    it("should render with bold style", () => {
       const bigtext = new BigText({
         screen,
         style: {
           bold: true,
-          fg: 'red'
-        }
+          fg: "red",
+        },
       });
 
-      bigtext.setContent('BOLD');
+      bigtext.setContent("BOLD");
 
       expect(bigtext.font).toBe(bigtext.fontBold);
     });
 
-    it('should calculate dimensions for text', () => {
+    it("should calculate dimensions for text", () => {
       const bigtext = new BigText({ screen });
-      bigtext.setContent('TEST');
+      bigtext.setContent("TEST");
 
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), 'render').mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(bigtext)), "render")
+        .mockReturnValue({ xi: 0, xl: 80, yi: 0, yl: 24 });
       bigtext.render();
 
       expect(bigtext.position.width).toBeGreaterThan(0);
@@ -297,31 +305,31 @@ describe('BigText', () => {
       renderSpy.mockRestore();
     });
 
-    it('should handle long text', () => {
+    it("should handle long text", () => {
       const bigtext = new BigText({ screen });
 
-      bigtext.setContent('HELLO WORLD');
+      bigtext.setContent("HELLO WORLD");
 
-      expect(bigtext.text).toBe('HELLO WORLD');
+      expect(bigtext.text).toBe("HELLO WORLD");
     });
 
-    it('should handle single character', () => {
+    it("should handle single character", () => {
       const bigtext = new BigText({ screen });
 
-      bigtext.setContent('A');
+      bigtext.setContent("A");
 
-      expect(bigtext.text).toBe('A');
+      expect(bigtext.text).toBe("A");
       expect(bigtext.text.length).toBe(1);
     });
 
-    it('should update text dynamically', () => {
+    it("should update text dynamically", () => {
       const bigtext = new BigText({ screen });
 
-      bigtext.setContent('FIRST');
-      expect(bigtext.text).toBe('FIRST');
+      bigtext.setContent("FIRST");
+      expect(bigtext.text).toBe("FIRST");
 
-      bigtext.setContent('SECOND');
-      expect(bigtext.text).toBe('SECOND');
+      bigtext.setContent("SECOND");
+      expect(bigtext.text).toBe("SECOND");
     });
   });
 });

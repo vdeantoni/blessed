@@ -5,18 +5,18 @@ const __dirname = import.meta.dirname;
 var auto = true;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/listbar.log',
+  dump: __dirname + "/logs/listbar.log",
   autoPadding: auto,
-  warnings: true
+  warnings: true,
 });
 
 var box = blessed.box({
   parent: screen,
   top: 0,
   right: 0,
-  width: 'shrink',
-  height: 'shrink',
-  content: '...'
+  width: "shrink",
+  height: "shrink",
+  content: "...",
 });
 
 var bar = blessed.listbar({
@@ -24,99 +24,99 @@ var bar = blessed.listbar({
   bottom: 0,
   left: 3,
   right: 3,
-  height: auto ? 'shrink' : 3,
+  height: auto ? "shrink" : 3,
   mouse: true,
   keys: true,
   autoCommandKeys: true,
-  border: 'line',
+  border: "line",
   vi: true,
   style: {
-    bg: 'green',
+    bg: "green",
     item: {
-      bg: 'red',
+      bg: "red",
       hover: {
-        bg: 'blue'
+        bg: "blue",
       },
       //focus: {
       //  bg: 'blue'
       //}
     },
     selected: {
-      bg: 'blue'
-    }
+      bg: "blue",
+    },
   },
   commands: {
-    'one': {
-      keys: ['a'],
-      callback: function() {
-        box.setContent('Pressed one.');
+    one: {
+      keys: ["a"],
+      callback: function () {
+        box.setContent("Pressed one.");
         screen.render();
-      }
+      },
     },
-    'two': function() {
-      box.setContent('Pressed two.');
+    two: function () {
+      box.setContent("Pressed two.");
       screen.render();
     },
-    'three': function() {
-      box.setContent('Pressed three.');
+    three: function () {
+      box.setContent("Pressed three.");
       screen.render();
     },
-    'four': function() {
-      box.setContent('Pressed four.');
+    four: function () {
+      box.setContent("Pressed four.");
       screen.render();
     },
-    'five': function() {
-      box.setContent('Pressed five.');
+    five: function () {
+      box.setContent("Pressed five.");
       screen.render();
     },
-    'six': function() {
-      box.setContent('Pressed six.');
+    six: function () {
+      box.setContent("Pressed six.");
       screen.render();
     },
-    'seven': function() {
-      box.setContent('Pressed seven.');
+    seven: function () {
+      box.setContent("Pressed seven.");
       screen.render();
     },
-    'eight': function() {
-      box.setContent('Pressed eight.');
+    eight: function () {
+      box.setContent("Pressed eight.");
       screen.render();
     },
-    'nine': function() {
-      box.setContent('Pressed nine.');
+    nine: function () {
+      box.setContent("Pressed nine.");
       screen.render();
     },
-    'ten': function() {
-      box.setContent('Pressed ten.');
+    ten: function () {
+      box.setContent("Pressed ten.");
       screen.render();
     },
-    'eleven': function() {
-      box.setContent('Pressed eleven.');
+    eleven: function () {
+      box.setContent("Pressed eleven.");
       screen.render();
     },
-    'twelve': function() {
-      box.setContent('Pressed twelve.');
+    twelve: function () {
+      box.setContent("Pressed twelve.");
       screen.render();
     },
-    'thirteen': function() {
-      box.setContent('Pressed thirteen.');
+    thirteen: function () {
+      box.setContent("Pressed thirteen.");
       screen.render();
     },
-    'fourteen': function() {
-      box.setContent('Pressed fourteen.');
+    fourteen: function () {
+      box.setContent("Pressed fourteen.");
       screen.render();
     },
-    'fifteen': function() {
-      box.setContent('Pressed fifteen.');
+    fifteen: function () {
+      box.setContent("Pressed fifteen.");
       screen.render();
-    }
-  }
+    },
+  },
 });
 
 screen.append(bar);
 
 bar.focus();
 
-screen.key('q', function() {
+screen.key("q", function () {
   return screen.destroy();
 });
 

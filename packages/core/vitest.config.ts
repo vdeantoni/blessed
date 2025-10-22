@@ -1,31 +1,26 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
 
 export default defineConfig({
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
   test: {
     globals: true,
-    environment: 'node',
-    setupFiles: ['./__tests__/setup.js'],
-    include: ['__tests__/**/*.test.{ts,js}'],
+    environment: "node",
+    setupFiles: ["./__tests__/setup.js"],
+    include: ["__tests__/**/*.test.{ts,js}"],
     env: {
-      NODE_ENV: 'test'
+      NODE_ENV: "test",
     },
     server: {
       deps: {
-        inline: true
-      }
+        inline: true,
+      },
     },
     coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html', 'lcov'],
-      exclude: [
-        'node_modules/**',
-        '__tests__/**',
-        'dist/**',
-        '**/*.config.*',
-      ],
+      provider: "v8",
+      reporter: ["text", "json", "html", "lcov"],
+      exclude: ["node_modules/**", "__tests__/**", "dist/**", "**/*.config.*"],
       thresholds: {
         lines: 70,
         functions: 70,

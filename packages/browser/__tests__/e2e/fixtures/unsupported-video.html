@@ -1,53 +1,63 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>E2E Test: Unsupported Video Widget</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css" />
-  <style>
-    body { margin: 0; padding: 20px; background: #000; }
-    #terminal { width: 800px; height: 600px; }
-  </style>
-</head>
-<body>
-  <div id="terminal"></div>
-  
-  <script type="module">
-    import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
-    import { Screen, Video } from '../../../dist/index.js';
-
-    window.testError = null;
-    window.testWidget = null;
-    window.testReady = false;
-
-    try {
-      const term = new Terminal({ rows: 24, cols: 80 });
-      term.open(document.getElementById('terminal'));
-      const screen = new Screen({ terminal: term });
-
-      // Attempt to create video widget
-      const video = new Video({
-        parent: screen,
-        top: 'center',
-        left: 'center',
-        width: 20,
-        height: 10,
-        file: 'test.mp4'
-      });
-
-      window.testWidget = video;
-
-      // If no error, check if it's a placeholder or warning
-      if (!video || video.type !== 'video') {
-        window.testError = 'Video widget not supported or degraded';
+  <head>
+    <meta charset="UTF-8" />
+    <title>E2E Test: Unsupported Video Widget</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #000;
       }
+      #terminal {
+        width: 800px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="terminal"></div>
 
-      screen.render();
-    } catch (error) {
-      window.testError = error.message || 'Video widget failed';
-    } finally {
-      window.testReady = true;
-    }
-  </script>
-</body>
+    <script type="module">
+      import { Terminal } from "https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm";
+      import { Screen, Video } from "../../../dist/index.js";
+
+      window.testError = null;
+      window.testWidget = null;
+      window.testReady = false;
+
+      try {
+        const term = new Terminal({ rows: 24, cols: 80 });
+        term.open(document.getElementById("terminal"));
+        const screen = new Screen({ terminal: term });
+
+        // Attempt to create video widget
+        const video = new Video({
+          parent: screen,
+          top: "center",
+          left: "center",
+          width: 20,
+          height: 10,
+          file: "test.mp4",
+        });
+
+        window.testWidget = video;
+
+        // If no error, check if it's a placeholder or warning
+        if (!video || video.type !== "video") {
+          window.testError = "Video widget not supported or degraded";
+        }
+
+        screen.render();
+      } catch (error) {
+        window.testError = error.message || "Video widget failed";
+      } finally {
+        window.testReady = true;
+      }
+    </script>
+  </body>
 </html>

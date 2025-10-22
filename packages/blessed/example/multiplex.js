@@ -8,125 +8,125 @@
  */
 import blessed from "../dist/index.js";
 
-process.title = 'multiplex.js';
+process.title = "multiplex.js";
 
 var screen;
 
 screen = blessed.screen({
   smartCSR: true,
-  log: process.env.HOME + '/blessed-terminal.log',
+  log: process.env.HOME + "/blessed-terminal.log",
   fullUnicode: true,
   dockBorders: true,
-  ignoreDockContrast: true
+  ignoreDockContrast: true,
 });
 
 var topleft = blessed.terminal({
   parent: screen,
-  cursor: 'line',
+  cursor: "line",
   cursorBlink: true,
   screenKeys: false,
-  label: ' multiplex.js ',
+  label: " multiplex.js ",
   left: 0,
   top: 0,
-  width: '50%',
-  height: '50%',
-  border: 'line',
+  width: "50%",
+  height: "50%",
+  border: "line",
   style: {
-    fg: 'default',
-    bg: 'default',
+    fg: "default",
+    bg: "default",
     focus: {
       border: {
-        fg: 'green'
-      }
-    }
-  }
+        fg: "green",
+      },
+    },
+  },
 });
 
-topleft.pty.on('data', function(data) {
+topleft.pty.on("data", function (data) {
   screen.log(JSON.stringify(data));
 });
 
 var topright = blessed.terminal({
   parent: screen,
-  cursor: 'block',
+  cursor: "block",
   cursorBlink: true,
   screenKeys: false,
-  label: ' multiplex.js ',
-  left: '50%-1',
+  label: " multiplex.js ",
+  left: "50%-1",
   top: 0,
-  width: '50%+1',
-  height: '50%',
-  border: 'line',
+  width: "50%+1",
+  height: "50%",
+  border: "line",
   style: {
-    fg: 'red',
-    bg: 'black',
+    fg: "red",
+    bg: "black",
     focus: {
       border: {
-        fg: 'green'
-      }
-    }
-  }
+        fg: "green",
+      },
+    },
+  },
 });
 
 var bottomleft = blessed.terminal({
   parent: screen,
-  cursor: 'block',
+  cursor: "block",
   cursorBlink: true,
   screenKeys: false,
-  label: ' multiplex.js ',
+  label: " multiplex.js ",
   left: 0,
-  top: '50%-1',
-  width: '50%',
-  height: '50%+1',
-  border: 'line',
+  top: "50%-1",
+  width: "50%",
+  height: "50%+1",
+  border: "line",
   style: {
-    fg: 'default',
-    bg: 'default',
+    fg: "default",
+    bg: "default",
     focus: {
       border: {
-        fg: 'green'
-      }
-    }
-  }
+        fg: "green",
+      },
+    },
+  },
 });
 
 var bottomright = blessed.terminal({
   parent: screen,
-  cursor: 'block',
+  cursor: "block",
   cursorBlink: true,
   screenKeys: false,
-  label: ' multiplex.js ',
-  left: '50%-1',
-  top: '50%-1',
-  width: '50%+1',
-  height: '50%+1',
-  border: 'line',
+  label: " multiplex.js ",
+  left: "50%-1",
+  top: "50%-1",
+  width: "50%+1",
+  height: "50%+1",
+  border: "line",
   style: {
-    fg: 'default',
-    bg: 'default',
+    fg: "default",
+    bg: "default",
     focus: {
       border: {
-        fg: 'green'
-      }
-    }
-  }
+        fg: "green",
+      },
+    },
+  },
 });
 
-[topleft, topright, bottomleft, bottomright].forEach(function(term) {
-  term.enableDrag(function(mouse) {
+[topleft, topright, bottomleft, bottomright].forEach(function (term) {
+  term.enableDrag(function (mouse) {
     return !!mouse.ctrl;
   });
-  term.on('title', function(title) {
+  term.on("title", function (title) {
     screen.title = title;
-    term.setLabel(' ' + title + ' ');
+    term.setLabel(" " + title + " ");
     screen.render();
   });
-  term.on('click', term.focus.bind(term));
+  term.on("click", term.focus.bind(term));
 });
 
 topleft.focus();
 
-screen.key('C-q', function() {
+screen.key("C-q", function () {
   topleft.kill();
   topright.kill();
   bottomleft.kill();
@@ -134,7 +134,7 @@ screen.key('C-q', function() {
   return screen.destroy();
 });
 
-screen.program.key('S-tab', function() {
+screen.program.key("S-tab", function () {
   screen.focusNext();
   screen.render();
 });

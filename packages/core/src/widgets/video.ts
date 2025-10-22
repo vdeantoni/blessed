@@ -6,16 +6,16 @@
  * Modules
  */
 
-import type { VideoOptions } from '../types';
-import Box from './box.js';
-import Terminal from './terminal.js';
+import type { VideoOptions } from "../types";
+import Box from "./box.js";
+import Terminal from "./terminal.js";
 
 /**
  * Video
  */
 
 class Video extends Box {
-  override type = 'video';
+  override type = "video";
   /**
    * The terminal element running mplayer or mpv.
    * Provides access to the underlying terminal that executes the video player.
@@ -30,17 +30,17 @@ class Video extends Box {
     let shell: string;
     let args: string[];
 
-    if (this.exists('mplayer')) {
-      shell = 'mplayer';
-      args = ['-vo', 'caca', '-quiet', options.file || ''];
-    } else if (this.exists('mpv')) {
-      shell = 'mpv';
-      args = ['--vo', 'caca', '--really-quiet', options.file || ''];
+    if (this.exists("mplayer")) {
+      shell = "mplayer";
+      args = ["-vo", "caca", "-quiet", options.file || ""];
+    } else if (this.exists("mpv")) {
+      shell = "mpv";
+      args = ["--vo", "caca", "--really-quiet", options.file || ""];
     } else {
       this.parseTags = true;
       this.setContent(
-        '{red-fg}{bold}Error:{/bold}' +
-          ' mplayer or mpv not installed.{/red-fg}'
+        "{red-fg}{bold}Error:{/bold}" +
+          " mplayer or mpv not installed.{/red-fg}",
       );
       return this;
     }
@@ -58,10 +58,10 @@ class Video extends Box {
     this.now = (Date.now() / 1000) | 0;
     this.start = opts.start || 0;
     if (this.start) {
-      if (shell === 'mplayer') {
-        opts.args.unshift('-ss', this.start + '');
-      } else if (shell === 'mpv') {
-        opts.args.unshift('--start', this.start + '');
+      if (shell === "mplayer") {
+        opts.args.unshift("-ss", this.start + "");
+      } else if (shell === "mpv") {
+        opts.args.unshift("--start", this.start + "");
       }
     }
 
@@ -70,13 +70,13 @@ class Video extends Box {
     this.tty = new Terminal(opts);
     this.runtime.process.env.DISPLAY = DISPLAY;
 
-    this.on('click', () => {
-      this.tty.pty.write('p');
+    this.on("click", () => {
+      this.tty.pty.write("p");
     });
 
     // mplayer/mpv cannot resize itself in the terminal, so we have
     // to restart it at the correct start time.
-    this.on('resize', () => {
+    this.on("resize", () => {
       this.tty.destroy();
 
       const opts: any = {
@@ -92,10 +92,10 @@ class Video extends Box {
       const watched = ((Date.now() / 1000) | 0) - this.now;
       this.now = (Date.now() / 1000) | 0;
       this.start += watched;
-      if (shell === 'mplayer') {
-        opts.args.unshift('-ss', this.start + '');
-      } else if (shell === 'mpv') {
-        opts.args.unshift('--start', this.start + '');
+      if (shell === "mplayer") {
+        opts.args.unshift("-ss", this.start + "");
+      } else if (shell === "mpv") {
+        opts.args.unshift("--start", this.start + "");
       }
 
       const DISPLAY = this.runtime.process.env.DISPLAY;
@@ -108,10 +108,10 @@ class Video extends Box {
 
   exists(program: string): boolean {
     try {
-      return !!+this.runtime.processes!.childProcess
-        .execSync(
-          'type ' + program + ' > /dev/null 2> /dev/null' + ' && echo 1',
-          { encoding: 'utf8' }
+      return !!+this.runtime
+        .processes!.childProcess.execSync(
+          "type " + program + " > /dev/null 2> /dev/null" + " && echo 1",
+          { encoding: "utf8" },
         )
         .trim();
     } catch (e) {

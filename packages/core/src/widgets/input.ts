@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { InputOptions } from '../types';
-import Box from './box.js';
+import type { InputOptions } from "../types";
+import Box from "./box.js";
 
 /**
  * Input
  */
 
 class Input extends Box {
-  override type = 'input';
+  override type = "input";
 
   constructor(options: InputOptions = {}) {
     super(options);

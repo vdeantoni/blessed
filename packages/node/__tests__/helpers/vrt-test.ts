@@ -4,11 +4,11 @@
  * Provides utilities for creating visual regression tests with golden snapshot workflow.
  */
 
-import { it } from 'vitest';
-import { Screen } from '@unblessed/core';
-import { compareWithGolden } from '@unblessed/vrt';
-import type { VRTRecording } from '@unblessed/vrt';
-import { EventEmitter } from 'events';
+import { it } from "vitest";
+import { Screen } from "@unblessed/core";
+import { compareWithGolden } from "@unblessed/vrt";
+import type { VRTRecording } from "@unblessed/vrt";
+import { EventEmitter } from "events";
 
 /**
  * Create a mock writable stream for testing
@@ -53,7 +53,7 @@ function createMockOutputStream() {
 export function createVRTTest(
   name: string,
   testFn: (screen: Screen) => void | Promise<void>,
-  fixturePath: string
+  fixturePath: string,
 ): void {
   it(name, async () => {
     // Create mock output stream with proper dimensions
@@ -74,7 +74,7 @@ export function createVRTTest(
 
       // Create recording with single frame
       const recording: VRTRecording = {
-        version: '1.0.0',
+        version: "1.0.0",
         dimensions: {
           cols: screen.cols,
           rows: screen.rows,
@@ -100,7 +100,6 @@ export function createVRTTest(
       if (!result.pass) {
         throw new Error(result.errorMessage);
       }
-
     } finally {
       // Cleanup
       screen.destroy();
@@ -135,7 +134,7 @@ export function createVRTTest(
 export function createMultiFrameVRTTest(
   name: string,
   testFn: (screen: Screen, capture: () => Promise<void>) => Promise<void>,
-  fixturePath: string
+  fixturePath: string,
 ): void {
   it(name, async () => {
     const mockOutput = createMockOutputStream();
@@ -150,7 +149,7 @@ export function createMultiFrameVRTTest(
     // Capture function for test to call
     const capture = async () => {
       // Small delay to ensure render completes
-      await new Promise(resolve => setTimeout(resolve, 10));
+      await new Promise((resolve) => setTimeout(resolve, 10));
       const screenshot = screen.screenshot();
       const timestamp = Date.now() - startTime;
       frames.push({ screenshot, timestamp });
@@ -162,7 +161,7 @@ export function createMultiFrameVRTTest(
 
       // Create recording from captured frames
       const recording: VRTRecording = {
-        version: '1.0.0',
+        version: "1.0.0",
         dimensions: {
           cols: screen.cols,
           rows: screen.rows,
@@ -182,7 +181,6 @@ export function createMultiFrameVRTTest(
       if (!result.pass) {
         throw new Error(result.errorMessage);
       }
-
     } finally {
       screen.destroy();
     }

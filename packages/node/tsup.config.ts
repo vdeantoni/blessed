@@ -1,12 +1,12 @@
-import { defineConfig } from 'tsup';
+import { defineConfig } from "tsup";
 
 export default defineConfig({
   entry: {
-    index: 'src/index.ts'
+    index: "src/index.ts",
   },
 
-  format: ['cjs', 'esm'],
-  outDir: 'dist',
+  format: ["cjs", "esm"],
+  outDir: "dist",
 
   bundle: true,
   splitting: false,
@@ -19,15 +19,12 @@ export default defineConfig({
   shims: true,
   cjsInterop: true,
 
-  external: [
-    /^node:.*/,
-    '@unblessed/core'
-  ],
+  external: [/^node:.*/, "@unblessed/core"],
 
-  platform: 'node',
-  target: 'node22',
+  platform: "node",
+  target: "node22",
 
   onSuccess: async () => {
-    console.log('✅ @unblessed/node build complete');
-  }
+    console.log("✅ @unblessed/node build complete");
+  },
 });

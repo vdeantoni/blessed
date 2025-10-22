@@ -6,15 +6,15 @@
  * Modules
  */
 
-import Element from './element.js';
-import type { TextOptions } from '../types';
+import Element from "./element.js";
+import type { TextOptions } from "../types";
 
 /**
  * Text
  */
 
 class Text extends Element {
-  override type = 'text';
+  override type = "text";
 
   constructor(options: TextOptions = {}) {
     options.shrink = true;

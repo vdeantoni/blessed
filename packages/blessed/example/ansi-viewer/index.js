@@ -5,30 +5,34 @@
  * https://github.com/chjj/blessed
  */
 
-import blessed from '../../index.js';
-import request from 'request';
-import singlebyte from './singlebyte.js';
-import fs from 'fs';
+import blessed from "../../index.js";
+import request from "request";
+import singlebyte from "./singlebyte.js";
+import fs from "fs";
 
 const __dirname = import.meta.dirname;
 
 // $ wget -r -o log --tries=10 'http://artscene.textfiles.com/ansi/'
 // $ grep 'http.*\.ans$' log | awk '{ print $3 }' > ansi-art.list
 
-var urls = fs.readFileSync(__dirname + '/ansi-art.list', 'utf8').trim().split('\n');
+var urls = fs
+  .readFileSync(__dirname + "/ansi-art.list", "utf8")
+  .trim()
+  .split("\n");
 
-var map = urls.reduce(function(map, url) {
+var map = urls.reduce(function (map, url) {
   map[/([^.\/]+\/[^.\/]+)\.ans$/.exec(url)[1]] = url;
   return map;
 }, {});
 
-var max = Object.keys(map).reduce(function(out, text) {
-  return Math.max(out, text.length);
-}, 0) + 6;
+var max =
+  Object.keys(map).reduce(function (out, text) {
+    return Math.max(out, text.length);
+  }, 0) + 6;
 
 var screen = blessed.screen({
   smartCSR: true,
-  dockBorders: true
+  dockBorders: true,
 });
 
 var art = blessed.terminal({
@@ -38,52 +42,52 @@ var art = blessed.terminal({
   height: 60,
   // some are 78/80, some are 80/82
   width: 82,
-  border: 'line',
+  border: "line",
   tags: true,
-  label: ' {bold}{cyan-fg}ANSI Art{/cyan-fg}{/bold} (Drag Me) ',
-  handler: function() {},
-  draggable: true
+  label: " {bold}{cyan-fg}ANSI Art{/cyan-fg}{/bold} (Drag Me) ",
+  handler: function () {},
+  draggable: true,
 });
 
 var list = blessed.list({
   parent: screen,
-  label: ' {bold}{cyan-fg}Art List{/cyan-fg}{/bold} (Drag Me) ',
+  label: " {bold}{cyan-fg}Art List{/cyan-fg}{/bold} (Drag Me) ",
   tags: true,
   draggable: true,
   top: 0,
   right: 0,
   width: max,
-  height: '50%',
+  height: "50%",
   keys: true,
   vi: true,
   mouse: true,
-  border: 'line',
+  border: "line",
   scrollbar: {
-    ch: ' ',
+    ch: " ",
     track: {
-      bg: 'cyan'
+      bg: "cyan",
     },
     style: {
-      inverse: true
-    }
+      inverse: true,
+    },
   },
   style: {
     item: {
       hover: {
-        bg: 'blue'
-      }
+        bg: "blue",
+      },
     },
     selected: {
-      bg: 'blue',
-      bold: true
-    }
+      bg: "blue",
+      bold: true,
+    },
   },
-  search: function(callback) {
-    prompt.input('Search:', '', function(err, value) {
+  search: function (callback) {
+    prompt.input("Search:", "", function (err, value) {
       if (err) return;
       return callback(null, value);
     });
-  }
+  },
 });
 
 var status = blessed.box({
@@ -91,54 +95,54 @@ var status = blessed.box({
   bottom: 0,
   right: 0,
   height: 1,
-  width: 'shrink',
+  width: "shrink",
   style: {
-    bg: 'blue'
+    bg: "blue",
   },
-  content: 'Select your piece of ANSI art (`/` to search).'
+  content: "Select your piece of ANSI art (`/` to search).",
 });
 
 var loader = blessed.loading({
   parent: screen,
-  top: 'center',
-  left: 'center',
+  top: "center",
+  left: "center",
   height: 5,
-  align: 'center',
-  width: '50%',
+  align: "center",
+  width: "50%",
   tags: true,
   hidden: true,
-  border: 'line'
+  border: "line",
 });
 
 var msg = blessed.message({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  height: 'shrink',
-  width: '50%',
-  align: 'center',
+  top: "center",
+  left: "center",
+  height: "shrink",
+  width: "50%",
+  align: "center",
   tags: true,
   hidden: true,
-  border: 'line'
+  border: "line",
 });
 
 var prompt = blessed.prompt({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  height: 'shrink',
-  width: 'shrink',
+  top: "center",
+  left: "center",
+  height: "shrink",
+  width: "shrink",
   keys: true,
   vi: true,
   mouse: true,
   tags: true,
-  border: 'line',
-  hidden: true
+  border: "line",
+  hidden: true,
 });
 
 list.setItems(Object.keys(map));
 
-list.on('select', function(el, selected) {
+list.on("select", function (el, selected) {
   if (list._.rendering) return;
 
   var name = el.getText();
@@ -147,57 +151,63 @@ list.on('select', function(el, selected) {
   status.setContent(url);
 
   list._.rendering = true;
-  loader.load('Loading...');
+  loader.load("Loading...");
 
-  request({
-    uri: url,
-    encoding: null
-  }, function(err, res, body) {
-    list._.rendering = false;
-    loader.stop();
+  request(
+    {
+      uri: url,
+      encoding: null,
+    },
+    function (err, res, body) {
+      list._.rendering = false;
+      loader.stop();
 
-    if (err) {
-      return msg.error(err.message);
-    }
-
-    if (!body) {
-      return msg.error('No body.');
-    }
-
-    return cp437ToUtf8(body, function(err, body) {
       if (err) {
         return msg.error(err.message);
       }
 
-      if (process.argv[2] === '--debug') {
-        var filename = name.replace(/\//g, '.') + '.ans';
-        fs.writeFileSync(__dirname + '/' + filename, body);
+      if (!body) {
+        return msg.error("No body.");
       }
 
-      // Remove text:
-      body = body.replace('Downloaded From P-80 International Information Systems 304-744-2253', '');
+      return cp437ToUtf8(body, function (err, body) {
+        if (err) {
+          return msg.error(err.message);
+        }
 
-      // Remove MCI codes:
-      body = body.replace(/%[A-Z0-9]{2}/g, '');
+        if (process.argv[2] === "--debug") {
+          var filename = name.replace(/\//g, ".") + ".ans";
+          fs.writeFileSync(__dirname + "/" + filename, body);
+        }
 
-      // ^A (SOH) seems to need to produce CRLF in some cases??
-      // body = body.replace(/\x01/g, '\r\n');
+        // Remove text:
+        body = body.replace(
+          "Downloaded From P-80 International Information Systems 304-744-2253",
+          "",
+        );
 
-      // Reset and write the art:
-      art.term.reset();
-      art.term.write(body);
-      art.term.cursorHidden = true;
+        // Remove MCI codes:
+        body = body.replace(/%[A-Z0-9]{2}/g, "");
 
-      screen.render();
+        // ^A (SOH) seems to need to produce CRLF in some cases??
+        // body = body.replace(/\x01/g, '\r\n');
 
-      if (process.argv[2] === '--debug' || process.argv[2] === '--save') {
-        takeScreenshot(name);
-      }
-    });
-  });
+        // Reset and write the art:
+        art.term.reset();
+        art.term.write(body);
+        art.term.cursorHidden = true;
+
+        screen.render();
+
+        if (process.argv[2] === "--debug" || process.argv[2] === "--save") {
+          takeScreenshot(name);
+        }
+      });
+    },
+  );
 });
 
-list.items.forEach(function(item, i) {
+list.items.forEach(function (item, i) {
   var text = item.getText();
   item.setHover(map[text]);
 });
@@ -205,24 +215,24 @@ list.items.forEach(function(item, i) {
 list.focus();
 list.enterSelected(0);
 
-screen.key('h', function() {
+screen.key("h", function () {
   list.toggle();
   if (list.visible) list.focus();
 });
 
-screen.key('r', function() {
+screen.key("r", function () {
   shuffle();
 });
 
-screen.key('S-s', function() {
+screen.key("S-s", function () {
   takeScreenshot(list.ritems[list.selected]);
 });
 
-screen.key('s', function() {
+screen.key("s", function () {
   slideshow();
 });
 
-screen.key('q', function() {
+screen.key("q", function () {
   process.exit(0);
 });
 
@@ -237,7 +247,7 @@ screen.render();
 
 function cp437ToUtf8(buf, callback) {
   try {
-    return callback(null, singlebyte.bufToStr(buf, 'cp437'));
+    return callback(null, singlebyte.bufToStr(buf, "cp437"));
   } catch (e) {
     return callback(e);
   }
@@ -245,50 +255,57 @@ function cp437ToUtf8(buf, callback) {
 
 // Animating ANSI art doesn't work for screenshots.
 var ANIMATING = [
-  'bbs/void3',
-  'holiday/xmasfwks',
-  'unsorted/diver',
-  'unsorted/mash-chp',
-  'unsorted/ryans47',
-  'unsorted/xmasfwks'
+  "bbs/void3",
+  "holiday/xmasfwks",
+  "unsorted/diver",
+  "unsorted/mash-chp",
+  "unsorted/ryans47",
+  "unsorted/xmasfwks",
 ];
 
 function takeScreenshot(name) {
-  var filename = name.replace(/\//g, '.') + '.ans.sgr';
+  var filename = name.replace(/\//g, ".") + ".ans.sgr";
   var image;
   // Animating art hangs terminal during screenshot as of right now.
   if (~ANIMATING.indexOf(name)) {
-    image = blessed.element.prototype.screenshot.call(art,
-      0 - art.ileft, art.width - art.iright,
-      0 - art.itop, art.height - art.ibottom);
+    image = blessed.element.prototype.screenshot.call(
+      art,
+      0 - art.ileft,
+      art.width - art.iright,
+      0 - art.itop,
+      art.height - art.ibottom,
+    );
   } else {
     image = art.screenshot();
   }
-  fs.writeFileSync(__dirname + '/' + filename, image);
-  msg.display('Screenshot taken.');
+  fs.writeFileSync(__dirname + "/" + filename, image);
+  msg.display("Screenshot taken.");
 }
 
 function slideshow() {
   if (!screen._.slideshow) {
-    screen._.slideshow = setInterval(function slide() {
-      if (screen.lockKeys) return;
-      var i = (list.items.length - 1) * Math.random() | 0;
-      list.enterSelected(i);
-      return slide;
-    }(), 3000);
-    msg.display('Slideshow started.');
+    screen._.slideshow = setInterval(
+      (function slide() {
+        if (screen.lockKeys) return;
+        var i = ((list.items.length - 1) * Math.random()) | 0;
+        list.enterSelected(i);
+        return slide;
+      })(),
+      3000,
+    );
+    msg.display("Slideshow started.");
   } else {
     clearInterval(screen._.slideshow);
     delete screen._.slideshow;
-    msg.display('Slideshow stopped.');
+    msg.display("Slideshow stopped.");
   }
 }
 
 function shuffle() {
-  var items = Object.keys(map).sort(function(key) {
+  var items = Object.keys(map).sort(function (key) {
     return Math.random() > 0.5 ? 1 : -1;
   });
   list.setItems(items);
   screen.render();
-  msg.display('Shuffled items.');
+  msg.display("Shuffled items.");
 }

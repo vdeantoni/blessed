@@ -2,8 +2,8 @@
  * scrollable.ts - scrollable mixin for blessed elements
  */
 
-import type { ScrollableOptions } from '../types';
-import type { RenderCoords } from '../types';
+import type { ScrollableOptions } from "../types";
+import type { RenderCoords } from "../types";
 
 /**
  * Scrollable Mixin
@@ -199,7 +199,7 @@ const scrollMethods = {
     // content and descendant elements.
     // Scroll the content if necessary.
     if (this.childBase === base) {
-      return this.emit('scroll');
+      return this.emit("scroll");
     }
 
     // When scrolling text, we want to be able to handle SGR codes as well as line
@@ -245,7 +245,7 @@ const scrollMethods = {
       }
     }
 
-    return this.emit('scroll');
+    return this.emit("scroll");
   },
 
   _recalculateIndex(this: ScrollableElement) {
@@ -278,7 +278,7 @@ const scrollMethods = {
     if (!this.scrollable) return;
     this.childOffset = 0;
     this.childBase = 0;
-    return this.emit('scroll');
+    return this.emit("scroll");
   },
 
   getScrollHeight(this: ScrollableElement) {
@@ -318,7 +318,10 @@ const scrollMethods = {
  * @param {Element} element - The element to make scrollable
  * @param {Object} options - Scrollable options
  */
-export function makeScrollable(element: any, options: ScrollableOptions = {}): void {
+export function makeScrollable(
+  element: any,
+  options: ScrollableOptions = {},
+): void {
   if (options.scrollable === false) {
     return;
   }
@@ -331,7 +334,7 @@ export function makeScrollable(element: any, options: ScrollableOptions = {}): v
 
   element.scrollbar = options.scrollbar;
   if (element.scrollbar) {
-    element.scrollbar.ch = element.scrollbar.ch || ' ';
+    element.scrollbar.ch = element.scrollbar.ch || " ";
     element.style.scrollbar =
       element.style.scrollbar || element.scrollbar.style;
     if (!element.style.scrollbar) {
@@ -348,7 +351,7 @@ export function makeScrollable(element: any, options: ScrollableOptions = {}): v
       element.track = element.scrollbar.track || element.track;
       element.style.track =
         element.style.scrollbar.track || element.style.track;
-      element.track.ch = element.track.ch || ' ';
+      element.track.ch = element.track.ch || " ";
       element.style.track = element.style.track || element.track.style;
       if (!element.style.track) {
         element.style.track = {};
@@ -363,7 +366,7 @@ export function makeScrollable(element: any, options: ScrollableOptions = {}): v
     }
     // Allow controlling of the scrollbar via the mouse:
     if (options.mouse) {
-      element.on('mousedown', (data: { x: number; y: number }) => {
+      element.on("mousedown", (data: { x: number; y: number }) => {
         if (element._scrollingBar) {
           // Do not allow dragging on the scrollbar:
           delete element.screen._dragging;
@@ -376,30 +379,31 @@ export function makeScrollable(element: any, options: ScrollableOptions = {}): v
           // Do not allow dragging on the scrollbar:
           delete element.screen._dragging;
           delete element._drag;
-          const perc: number = (y - element.itop) / (element.height - element.iheight);
+          const perc: number =
+            (y - element.itop) / (element.height - element.iheight);
           element.setScrollPerc((perc * 100) | 0);
           element.screen.render();
           let smd: (data: { x: number; y: number }) => void, smu: () => void;
           element._scrollingBar = true;
           element.onScreenEvent(
-            'mousedown',
+            "mousedown",
             (smd = (data: { x: number; y: number }) => {
               const y: number = data.y - element.atop;
               const perc: number = y / element.height;
               element.setScrollPerc((perc * 100) | 0);
               element.screen.render();
-            })
+            }),
           );
           // If mouseup occurs out of the window, no mouseup event fires, and
           // scrollbar will drag again on mousedown until another mouseup
           // occurs.
           element.onScreenEvent(
-            'mouseup',
+            "mouseup",
             (smu = () => {
               element._scrollingBar = false;
-              element.removeScreenEvent('mousedown', smd);
-              element.removeScreenEvent('mouseup', smu);
-            })
+              element.removeScreenEvent("mousedown", smd);
+              element.removeScreenEvent("mouseup", smu);
+            }),
           );
         }
       });
@@ -407,62 +411,65 @@ export function makeScrollable(element: any, options: ScrollableOptions = {}): v
   }
 
   if (options.mouse) {
-    element.on('wheeldown', () => {
+    element.on("wheeldown", () => {
       element.scroll((element.height / 2) | 0 || 1);
       element.screen.render();
     });
-    element.on('wheelup', () => {
+    element.on("wheelup", () => {
       element.scroll(-((element.height / 2) | 0) || -1);
       element.screen.render();
     });
   }
 
   if (options.keys && !options.ignoreKeys) {
-    element.on('keypress', (_ch: string, key: { name: string; ctrl?: boolean; shift?: boolean }) => {
-      if (key.name === 'up' || (options.vi && key.name === 'k')) {
-        element.scroll(-1);
-        element.screen.render();
-        return;
-      }
-      if (key.name === 'down' || (options.vi && key.name === 'j')) {
-        element.scroll(1);
-        element.screen.render();
-        return;
-      }
-      if (options.vi && key.name === 'u' && key.ctrl) {
-        element.scroll(-((element.height / 2) | 0) || -1);
-        element.screen.render();
-        return;
-      }
-      if (options.vi && key.name === 'd' && key.ctrl) {
-        element.scroll((element.height / 2) | 0 || 1);
-        element.screen.render();
-        return;
-      }
-      if (options.vi && key.name === 'b' && key.ctrl) {
-        element.scroll(-element.height || -1);
-        element.screen.render();
-        return;
-      }
-      if (options.vi && key.name === 'f' && key.ctrl) {
-        element.scroll(element.height || 1);
-        element.screen.render();
-        return;
-      }
-      if (options.vi && key.name === 'g' && !key.shift) {
-        element.scrollTo(0);
-        element.screen.render();
-        return;
-      }
-      if (options.vi && key.name === 'g' && key.shift) {
-        element.scrollTo(element.getScrollHeight());
-        element.screen.render();
-        return;
-      }
-    });
+    element.on(
+      "keypress",
+      (_ch: string, key: { name: string; ctrl?: boolean; shift?: boolean }) => {
+        if (key.name === "up" || (options.vi && key.name === "k")) {
+          element.scroll(-1);
+          element.screen.render();
+          return;
+        }
+        if (key.name === "down" || (options.vi && key.name === "j")) {
+          element.scroll(1);
+          element.screen.render();
+          return;
+        }
+        if (options.vi && key.name === "u" && key.ctrl) {
+          element.scroll(-((element.height / 2) | 0) || -1);
+          element.screen.render();
+          return;
+        }
+        if (options.vi && key.name === "d" && key.ctrl) {
+          element.scroll((element.height / 2) | 0 || 1);
+          element.screen.render();
+          return;
+        }
+        if (options.vi && key.name === "b" && key.ctrl) {
+          element.scroll(-element.height || -1);
+          element.screen.render();
+          return;
+        }
+        if (options.vi && key.name === "f" && key.ctrl) {
+          element.scroll(element.height || 1);
+          element.screen.render();
+          return;
+        }
+        if (options.vi && key.name === "g" && !key.shift) {
+          element.scrollTo(0);
+          element.screen.render();
+          return;
+        }
+        if (options.vi && key.name === "g" && key.shift) {
+          element.scrollTo(element.getScrollHeight());
+          element.screen.render();
+          return;
+        }
+      },
+    );
   }
 
-  element.on('parsed content', () => {
+  element.on("parsed content", () => {
     if (element._recalculateIndex) {
       element._recalculateIndex();
     }
@@ -482,8 +489,8 @@ export function makeScrollable(element: any, options: ScrollableOptions = {}): v
   });
 
   // Add getter properties
-  if (!Object.getOwnPropertyDescriptor(element, 'reallyScrollable')) {
-    Object.defineProperty(element, 'reallyScrollable', {
+  if (!Object.getOwnPropertyDescriptor(element, "reallyScrollable")) {
+    Object.defineProperty(element, "reallyScrollable", {
       get() {
         if (this.shrink) return this.scrollable;
         return this.getScrollHeight() > this.height;

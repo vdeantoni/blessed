@@ -3,7 +3,7 @@
  */
 
 export const examples = {
-  'Simple Box': `// Simple centered box
+  "Simple Box": `// Simple centered box
 const box = new tui.Box({
   parent: screen,
   top: 'center',
@@ -28,7 +28,7 @@ const box = new tui.Box({
 
 screen.render();`,
 
-  'Interactive List': `// Interactive list with selection
+  "Interactive List": `// Interactive list with selection
 const list = new tui.List({
   parent: screen,
   top: 'center',
@@ -81,7 +81,7 @@ list.on('select', (item, index) => {
 list.focus();
 screen.render();`,
 
-  'Form Input': `// Form with text input
+  "Form Input": `// Form with text input
 const form = new tui.Form({
   parent: screen,
   top: 'center',
@@ -198,7 +198,7 @@ form.on('submit', (data) => {
 nameInput.focus();
 screen.render();`,
 
-  'Table': `// Data table
+  Table: `// Data table
 const table = new tui.Table({
   parent: screen,
   top: 'center',
@@ -236,7 +236,7 @@ const table = new tui.Table({
 table.focus();
 screen.render();`,
 
-  'Layout': `// Multi-pane layout
+  Layout: `// Multi-pane layout
 const container = new tui.Box({
   parent: screen,
   width: '100%',
@@ -327,7 +327,7 @@ sidebar.on('select', (item) => {
 sidebar.focus();
 screen.render();`,
 
-  'Animation': `// Animated progress bar
+  Animation: `// Animated progress bar
 const box = new tui.Box({
   parent: screen,
   top: 'center',
@@ -394,7 +394,7 @@ const interval = setInterval(() => {
 
 screen.render();`,
 
-  'BigText': `// Large ASCII art text with shrinking animation
+  BigText: `// Large ASCII art text with shrinking animation
 const content = 'HELLO WORLD';
 const length = content.length;
 
@@ -446,7 +446,7 @@ const instructions = new tui.Box({
 
 screen.render();`,
 
-  'Full Demo': `// Complete interactive demo with multiple widgets
+  "Full Demo": `// Complete interactive demo with multiple widgets
 // Based on @unblessed/core demo.js
 
 // Header bar
@@ -884,7 +884,7 @@ logBox.add('Select a demo from the list');
 // Focus and show first demo
 widgetList.focus();
 showColorfulBox();
-screen.render();`
+screen.render();`,
 };
 
 export default examples;

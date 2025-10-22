@@ -3,7 +3,7 @@
  * Based on patterns from @types/blessed community types.
  */
 
-import type { MouseAction } from './common.js';
+import type { MouseAction } from "./common.js";
 
 /**
  * Mouse event argument passed to mouse event handlers.

@@ -6,16 +6,16 @@
  * Modules
  */
 
-import type { ScrollableBoxOptions } from '../types';
-import Box from './box.js';
-import { makeScrollable } from '../mixins/scrollable.js';
+import type { ScrollableBoxOptions } from "../types";
+import Box from "./box.js";
+import { makeScrollable } from "../mixins/scrollable.js";
 
 /**
  * ScrollableBox
  */
 
 class ScrollableBox extends Box {
-  override type = 'scrollable-box';
+  override type = "scrollable-box";
 
   constructor(options: ScrollableBoxOptions = {}) {
     super(options);

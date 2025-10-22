@@ -3,37 +3,37 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/insert.log',
-  warnings: true
+  dump: __dirname + "/logs/insert.log",
+  warnings: true,
 });
 
 var box = blessed.box({
   parent: screen,
   //align: 'center',
   style: {
-    bg: 'blue'
+    bg: "blue",
   },
   height: 5,
-  top: 'center',
+  top: "center",
   left: 0,
   width: 12,
   tags: true,
-  content: '{yellow-fg}line{/yellow-fg}{|}1',
+  content: "{yellow-fg}line{/yellow-fg}{|}1",
   //valign: 'middle'
 });
 
 screen.render();
 
-box.insertBottom('{yellow-fg}line{/yellow-fg}{|}2');
-box.insertTop('{yellow-fg}line{/yellow-fg}{|}0');
+box.insertBottom("{yellow-fg}line{/yellow-fg}{|}2");
+box.insertTop("{yellow-fg}line{/yellow-fg}{|}0");
 
 screen.render();
 
-setTimeout(function() {
+setTimeout(function () {
   box.deleteTop();
   screen.render();
 }, 2000);
 
-screen.key('q', function() {
+screen.key("q", function () {
   screen.destroy();
 });

@@ -19,37 +19,37 @@ pnpm add -D @unblessed/vrt
 The most common use case is golden snapshot testing with the `compareWithGolden` utility:
 
 ```typescript
-import { compareWithGolden } from '@unblessed/vrt';
-import { Screen, Box } from '@unblessed/node';
+import { compareWithGolden } from "@unblessed/vrt";
+import { Screen, Box } from "@unblessed/node";
 
-it('box renders correctly', async () => {
+it("box renders correctly", async () => {
   const screen = new Screen();
 
   const box = new Box({
     parent: screen,
-    content: 'Hello',
-    border: { type: 'line' }
+    content: "Hello",
+    border: { type: "line" },
   });
   screen.render();
 
   // Capture screenshot
   const recording = {
-    version: '1.0.0',
+    version: "1.0.0",
     dimensions: { cols: screen.cols, rows: screen.rows },
     metadata: {
       createdAt: new Date().toISOString(),
       duration: 0,
       frameCount: 1,
-      description: 'box test',
+      description: "box test",
     },
     frames: [{ screenshot: screen.screenshot(), timestamp: 0 }],
   };
 
   // Compare with golden snapshot
   const result = compareWithGolden(
-    '__tests__/fixtures/box.vrt.json',
+    "__tests__/fixtures/box.vrt.json",
     recording,
-    'box renders correctly'
+    "box renders correctly",
   );
 
   if (!result.pass) {
@@ -61,6 +61,7 @@ it('box renders correctly', async () => {
 ```
 
 **Commands:**
+
 ```bash
 # Normal - compare with golden
 pnpm test
@@ -76,12 +77,14 @@ UPDATE_SNAPSHOTS=1 pnpm test
 #### `compareWithGolden(fixturePath, recording, testName)`
 
 Complete golden snapshot workflow that handles:
+
 - Creating golden on first run
 - Updating golden when `UPDATE_SNAPSHOTS=1`
 - Comparing with golden on normal runs
 - Formatting detailed error messages
 
 **Returns:** `GoldenComparisonResult`
+
 - `pass: boolean` - Whether test should pass
 - `action: 'created' | 'updated' | 'matched' | 'failed'`
 - `errorMessage?: string` - Formatted error (on failure)
@@ -95,13 +98,13 @@ Save a VRT recording as a golden snapshot file.
 ### Recording a Session
 
 ```typescript
-import { VRTRecorder } from '@unblessed/vrt';
-import { Screen, Box } from '@unblessed/node';
+import { VRTRecorder } from "@unblessed/vrt";
+import { Screen, Box } from "@unblessed/node";
 
 const screen = new Screen({ smartCSR: true });
 const recorder = new VRTRecorder(screen, {
-  interval: 100,  // Capture every 100ms
-  outputPath: './recording.vrt.json'
+  interval: 100, // Capture every 100ms
+  outputPath: "./recording.vrt.json",
 });
 
 // Start recording
@@ -110,8 +113,8 @@ recorder.start();
 // Create UI and interact
 const box = new Box({
   parent: screen,
-  content: 'Hello World',
-  border: { type: 'line' }
+  content: "Hello World",
+  border: { type: "line" },
 });
 screen.render();
 
@@ -123,9 +126,9 @@ const recording = recorder.stop();
 ### Playing Back a Recording
 
 ```typescript
-import { VRTPlayer } from '@unblessed/vrt';
+import { VRTPlayer } from "@unblessed/vrt";
 
-const player = new VRTPlayer('./recording.vrt.json');
+const player = new VRTPlayer("./recording.vrt.json");
 
 // Play to stdout
 await player.play({ writeToStdout: true });
@@ -135,29 +138,33 @@ await player.play({
   onFrame: (frame, index) => {
     console.log(`Frame ${index}: ${frame.screenshot.length} bytes`);
   },
-  speed: 2.0  // 2x speed
+  speed: 2.0, // 2x speed
 });
 ```
 
 ### Comparing Recordings
 
 ```typescript
-import { VRTComparator } from '@unblessed/vrt';
+import { VRTComparator } from "@unblessed/vrt";
 
 const result = VRTComparator.compare(
-  './golden.vrt.json',    // Expected
-  './current.vrt.json',   // Actual
+  "./golden.vrt.json", // Expected
+  "./current.vrt.json", // Actual
   {
-    threshold: 5,         // Allow up to 5 char differences
-    ignoreColors: false,  // Compare colors too
-  }
+    threshold: 5, // Allow up to 5 char differences
+    ignoreColors: false, // Compare colors too
+  },
 );
 
 if (!result.match) {
   console.error(`Visual regression detected!`);
-  console.error(`  ${result.differentFrames} of ${result.totalFrames} frames differ`);
-  result.differences?.forEach(diff => {
-    console.error(`  Frame ${diff.frameIndex}: ${diff.diffCount} chars different`);
+  console.error(
+    `  ${result.differentFrames} of ${result.totalFrames} frames differ`,
+  );
+  result.differences?.forEach((diff) => {
+    console.error(
+      `  Frame ${diff.frameIndex}: ${diff.diffCount} chars different`,
+    );
   });
 }
 ```
@@ -167,12 +174,12 @@ if (!result.match) {
 Use VRT in your Vitest tests:
 
 ```typescript
-import { describe, it, expect } from 'vitest';
-import { Screen, Box } from '@unblessed/node';
-import { VRTRecorder, VRTComparator } from '@unblessed/vrt';
+import { describe, it, expect } from "vitest";
+import { Screen, Box } from "@unblessed/node";
+import { VRTRecorder, VRTComparator } from "@unblessed/vrt";
 
-describe('Box rendering', () => {
-  it('renders with border correctly', async () => {
+describe("Box rendering", () => {
+  it("renders with border correctly", async () => {
     const screen = new Screen();
     const recorder = new VRTRecorder(screen);
 
@@ -184,20 +191,20 @@ describe('Box rendering', () => {
       left: 0,
       width: 20,
       height: 5,
-      content: 'Test',
-      border: { type: 'line' }
+      content: "Test",
+      border: { type: "line" },
     });
     screen.render();
 
-    await new Promise(resolve => setTimeout(resolve, 100));
+    await new Promise((resolve) => setTimeout(resolve, 100));
 
     const recording = recorder.stop();
     screen.destroy();
 
     // Compare with golden snapshot
     const result = VRTComparator.compare(
-      './__tests__/fixtures/box-golden.vrt.json',
-      recording
+      "./__tests__/fixtures/box-golden.vrt.json",
+      recording,
     );
 
     expect(result.match).toBe(true);
@@ -212,11 +219,13 @@ describe('Box rendering', () => {
 Records screen screenshots at regular intervals.
 
 **Constructor:**
+
 ```typescript
 new VRTRecorder(screen: Screen, options?: VRTRecorderOptions)
 ```
 
 **Methods:**
+
 - `start()` - Start recording
 - `stop()` - Stop recording and return VRTRecording
 - `isRecording()` - Check if recording is in progress
@@ -227,11 +236,13 @@ new VRTRecorder(screen: Screen, options?: VRTRecorderOptions)
 Plays back VRT recordings.
 
 **Constructor:**
+
 ```typescript
 new VRTPlayer(source: string | VRTRecording)
 ```
 
 **Methods:**
+
 - `play(options?: VRTPlayerOptions)` - Play the recording
 - `getFrames()` - Get all frames
 - `getFrame(index)` - Get specific frame
@@ -243,6 +254,7 @@ new VRTPlayer(source: string | VRTRecording)
 Compares two VRT recordings.
 
 **Static Methods:**
+
 - `compare(expected, actual, options?)` - Compare two recordings
 - `compareRecordings(expected, actual, options?)` - Compare VRTRecording objects
 

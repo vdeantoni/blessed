@@ -5,10 +5,10 @@
  * in their test helpers.
  */
 
-import type { VRTRecording, VRTComparisonResult } from './types.js';
-import { VRTComparator } from './comparator.js';
-import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { dirname } from 'path';
+import type { VRTRecording, VRTComparisonResult } from "./types.js";
+import { VRTComparator } from "./comparator.js";
+import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { dirname } from "path";
 
 /**
  * Result of golden snapshot comparison
@@ -17,7 +17,7 @@ export interface GoldenComparisonResult {
   /** Whether test should pass (golden created, updated, or matched) */
   pass: boolean;
   /** Action taken (created, updated, matched, or failed) */
-  action: 'created' | 'updated' | 'matched' | 'failed';
+  action: "created" | "updated" | "matched" | "failed";
   /** Detailed comparison result (only present on failed) */
   comparisonResult?: VRTComparisonResult;
   /** Formatted error message (only present on failed) */
@@ -37,7 +37,10 @@ export interface GoldenComparisonResult {
  * saveGoldenSnapshot('__tests__/fixtures/box.vrt.json', recording);
  * ```
  */
-export function saveGoldenSnapshot(goldenPath: string, recording: VRTRecording): void {
+export function saveGoldenSnapshot(
+  goldenPath: string,
+  recording: VRTRecording,
+): void {
   // Ensure directory exists
   const dir = dirname(goldenPath);
   if (!existsSync(dir)) {
@@ -46,7 +49,7 @@ export function saveGoldenSnapshot(goldenPath: string, recording: VRTRecording):
 
   // Write golden snapshot with pretty formatting
   const json = JSON.stringify(recording, null, 2);
-  writeFileSync(goldenPath, json, 'utf8');
+  writeFileSync(goldenPath, json, "utf8");
 }
 
 /**
@@ -79,29 +82,29 @@ export function saveGoldenSnapshot(goldenPath: string, recording: VRTRecording):
 export function compareWithGolden(
   fixturePath: string,
   recording: VRTRecording,
-  testName: string
+  testName: string,
 ): GoldenComparisonResult {
-  const updateGolden = process.env.UPDATE_SNAPSHOTS === '1';
+  const updateGolden = process.env.UPDATE_SNAPSHOTS === "1";
 
   // Update mode: save and return success
   if (updateGolden) {
     saveGoldenSnapshot(fixturePath, recording);
     console.log(`  ✅ Updated golden snapshot: ${fixturePath}`);
-    return { pass: true, action: 'updated' };
+    return { pass: true, action: "updated" };
   }
 
   // First run: create golden and return success
   if (!existsSync(fixturePath)) {
     saveGoldenSnapshot(fixturePath, recording);
     console.log(`  ⚠️  Created new golden snapshot: ${fixturePath}`);
-    return { pass: true, action: 'created' };
+    return { pass: true, action: "created" };
   }
 
   // Normal run: compare with golden
   const comparisonResult = VRTComparator.compare(fixturePath, recording);
 
   if (comparisonResult.match) {
-    return { pass: true, action: 'matched' };
+    return { pass: true, action: "matched" };
   }
 
   // Failed: format detailed error message
@@ -110,13 +113,15 @@ export function compareWithGolden(
     `  Total frames: ${comparisonResult.totalFrames}`,
     `  Matched: ${comparisonResult.matchedFrames}`,
     `  Different: ${comparisonResult.differentFrames}`,
-    `  Different frame indices: ${comparisonResult.differentFrameIndices.join(', ')}`,
+    `  Different frame indices: ${comparisonResult.differentFrameIndices.join(", ")}`,
   ];
 
   if (comparisonResult.differences && comparisonResult.differences.length > 0) {
     const firstDiff = comparisonResult.differences[0];
     errorMsg.push(`\nFirst difference (frame ${firstDiff.frameIndex}):`);
-    errorMsg.push(`  Expected ${firstDiff.expected.length} chars, got ${firstDiff.actual.length} chars`);
+    errorMsg.push(
+      `  Expected ${firstDiff.expected.length} chars, got ${firstDiff.actual.length} chars`,
+    );
     errorMsg.push(`  ${firstDiff.diffCount} characters differ`);
 
     if (firstDiff.diff) {
@@ -129,8 +134,8 @@ export function compareWithGolden(
 
   return {
     pass: false,
-    action: 'failed',
+    action: "failed",
     comparisonResult,
-    errorMessage: errorMsg.join('\n'),
+    errorMessage: errorMsg.join("\n"),
   };
 }

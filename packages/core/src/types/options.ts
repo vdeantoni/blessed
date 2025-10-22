@@ -2,10 +2,17 @@
  * Options type definitions for blessed widgets
  */
 
-import type { PositionValue, Alignment, Border, Padding, Position, Cursor } from './common.js';
-import type { ListElementStyle, StyleListTable } from './style.js';
-import type { Node } from '../widgets/node.js';
-import type { ReadableType, WritableType, BufferType } from '../runtime.js';
+import type {
+  PositionValue,
+  Alignment,
+  Border,
+  Padding,
+  Position,
+  Cursor,
+} from "./common.js";
+import type { ListElementStyle, StyleListTable } from "./style.js";
+import type { Node } from "../widgets/node.js";
+import type { ReadableType, WritableType, BufferType } from "../runtime.js";
 
 // Forward declarations for circular dependencies
 export type Screen = any;
@@ -396,7 +403,8 @@ export interface BigTextOptions extends BoxOptions {
   fch?: string;
 }
 
-export interface ListOptions<TStyle extends ListElementStyle = ListElementStyle> extends BoxOptions {
+export interface ListOptions<TStyle extends ListElementStyle = ListElementStyle>
+  extends BoxOptions {
   /**
    * Style for a selected item and an unselected item.
    */

@@ -6,9 +6,9 @@
  * Modules
  */
 
-import type { LoadingOptions } from '../types';
-import Box from './box.js';
-import Text from './text.js';
+import type { LoadingOptions } from "../types";
+import Box from "./box.js";
+import Text from "./text.js";
 
 /**
  * Private data for Loading widget
@@ -24,7 +24,7 @@ interface LoadingData {
  */
 
 class Loading extends Box {
-  override type = 'loading';
+  override type = "loading";
   declare _: LoadingData;
 
   constructor(options: LoadingOptions = {}) {
@@ -32,12 +32,12 @@ class Loading extends Box {
 
     this._.icon = new Text({
       parent: this,
-      align: 'center',
+      align: "center",
       top: 2,
       left: 1,
       right: 1,
       height: 1,
-      content: '|',
+      content: "|",
     });
   }
 
@@ -68,14 +68,14 @@ class Loading extends Box {
     this.screen.lockKeys = true;
 
     this._.timer = setInterval(() => {
-      if (this._.icon.content === '|') {
-        this._.icon.setContent('/');
-      } else if (this._.icon.content === '/') {
-        this._.icon.setContent('-');
-      } else if (this._.icon.content === '-') {
-        this._.icon.setContent('\\');
-      } else if (this._.icon.content === '\\') {
-        this._.icon.setContent('|');
+      if (this._.icon.content === "|") {
+        this._.icon.setContent("/");
+      } else if (this._.icon.content === "/") {
+        this._.icon.setContent("-");
+      } else if (this._.icon.content === "-") {
+        this._.icon.setContent("\\");
+      } else if (this._.icon.content === "\\") {
+        this._.icon.setContent("|");
       }
       this.screen.render();
     }, 200);

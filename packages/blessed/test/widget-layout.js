@@ -3,36 +3,36 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/layout.log',
+  dump: __dirname + "/logs/layout.log",
   smartCSR: true,
   autoPadding: true,
-  warnings: true
+  warnings: true,
 });
 
 var layout = blessed.layout({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  border: 'line',
-  layout: process.argv[2] === 'grid' ? 'grid' : 'inline',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  border: "line",
+  layout: process.argv[2] === "grid" ? "grid" : "inline",
   style: {
-    bg: 'red',
+    bg: "red",
     border: {
-      fg: 'blue'
-    }
-  }
+      fg: "blue",
+    },
+  },
 });
 
 var box1 = blessed.box({
   parent: layout,
-  top: 'center',
-  left: 'center',
+  top: "center",
+  left: "center",
   width: 20,
   height: 10,
-  border: 'line',
-  content: '1'
+  border: "line",
+  content: "1",
 });
 
 var box2 = blessed.box({
@@ -41,8 +41,8 @@ var box2 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line',
-  content: '2'
+  border: "line",
+  content: "2",
 });
 
 var box3 = blessed.box({
@@ -51,8 +51,8 @@ var box3 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line',
-  content: '3'
+  border: "line",
+  content: "3",
 });
 
 var box4 = blessed.box({
@@ -61,8 +61,8 @@ var box4 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line',
-  content: '4'
+  border: "line",
+  content: "4",
 });
 
 var box5 = blessed.box({
@@ -71,8 +71,8 @@ var box5 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line',
-  content: '5'
+  border: "line",
+  content: "5",
 });
 
 var box6 = blessed.box({
@@ -81,8 +81,8 @@ var box6 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line',
-  content: '6'
+  border: "line",
+  content: "6",
 });
 
 var box7 = blessed.box({
@@ -91,18 +91,18 @@ var box7 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line',
-  content: '7'
+  border: "line",
+  content: "7",
 });
 
 var box8 = blessed.box({
   parent: layout,
-  top: 'center',
-  left: 'center',
+  top: "center",
+  left: "center",
   width: 20,
   height: 10,
-  border: 'line',
-  content: '8'
+  border: "line",
+  content: "8",
 });
 
 var box9 = blessed.box({
@@ -111,18 +111,18 @@ var box9 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line',
-  content: '9'
+  border: "line",
+  content: "9",
 });
 
 var box10 = blessed.box({
   parent: layout,
-  top: 'center',
-  left: 'center',
+  top: "center",
+  left: "center",
   width: 20,
   height: 10,
-  border: 'line',
-  content: '10'
+  border: "line",
+  content: "10",
 });
 
 var box11 = blessed.box({
@@ -131,21 +131,21 @@ var box11 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line',
-  content: '11'
+  border: "line",
+  content: "11",
 });
 
 var box12 = blessed.box({
   parent: layout,
-  top: 'center',
-  left: 'center',
+  top: "center",
+  left: "center",
   width: 20,
   height: 10,
-  border: 'line',
-  content: '12'
+  border: "line",
+  content: "12",
 });
 
-if (process.argv[2] !== 'grid') {
+if (process.argv[2] !== "grid") {
   for (var i = 0; i < 10; i++) {
     blessed.box({
       parent: layout,
@@ -153,13 +153,13 @@ if (process.argv[2] !== 'grid') {
       // height: i % 2 === 0 ? 5 : 10,
       width: Math.random() > 0.5 ? 10 : 20,
       height: Math.random() > 0.5 ? 5 : 10,
-      border: 'line',
-      content: (i + 1 + 12) + ''
+      border: "line",
+      content: i + 1 + 12 + "",
     });
   }
 }
 
-screen.key('q', function() {
+screen.key("q", function () {
   return screen.destroy();
 });
 

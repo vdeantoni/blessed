@@ -6,8 +6,8 @@
  * Modules
  */
 
-import { getRuntime, type BufferType } from '../runtime-context.js';
-import { EventEmitter } from './events';
+import { getRuntime, type BufferType } from "../runtime-context.js";
+import { EventEmitter } from "./events";
 
 const GPM_USE_MAGIC = false;
 
@@ -22,8 +22,8 @@ const GPM_MFLAG = 128;
 const GPM_REQ_NOPASTE = 3;
 const GPM_HARD = 256;
 
-const GPM_MAGIC = 0x47706D4C;
-const GPM_SOCKET = '/dev/gpmctl';
+const GPM_MAGIC = 0x47706d4c;
+const GPM_SOCKET = "/dev/gpmctl";
 
 // typedef struct Gpm_Connect {
 //   unsigned short eventMask, defaultMask;
@@ -32,7 +32,11 @@ const GPM_SOCKET = '/dev/gpmctl';
 //   int vc;
 // } Gpm_Connect;
 
-function send_config(socket: any, Gpm_Connect: any, callback?: () => void): void {
+function send_config(
+  socket: any,
+  Gpm_Connect: any,
+  callback?: () => void,
+): void {
   const runtime = getRuntime();
   const Buffer = runtime.buffer.Buffer;
 
@@ -110,11 +114,11 @@ class GpmClient extends EventEmitter {
     // check tty for /dev/tty[n]
     let path: string | undefined;
     try {
-      path = runtime.fs.readlinkSync('/proc/' + pid + '/fd/0');
+      path = runtime.fs.readlinkSync("/proc/" + pid + "/fd/0");
     } catch (e) {
       // ignore
     }
-    let tty: RegExpExecArray | null = /tty[0-9]+$/.exec(path || '');
+    let tty: RegExpExecArray | null = /tty[0-9]+$/.exec(path || "");
     if (tty === null) {
       // TODO: should also check for /dev/input/..
     }
@@ -140,13 +144,13 @@ class GpmClient extends EventEmitter {
           minMod: 0,
           maxMod: 0xffff,
           pid: pid,
-          vc: vc
+          vc: vc,
         };
 
         const gpm = runtime.networking!.net.createConnection(GPM_SOCKET);
         this.gpm = gpm;
 
-        gpm.on('connect', () => {
+        gpm.on("connect", () => {
           send_config(gpm, conf, () => {
             conf.pid = 0;
             conf.vc = GPM_REQ_NOPASTE;
@@ -154,45 +158,75 @@ class GpmClient extends EventEmitter {
           });
         });
 
-        gpm.on('data', (packet: BufferType) => {
+        gpm.on("data", (packet: BufferType) => {
           const evnt = parseEvent(packet);
           switch (evnt.type & 15) {
             case GPM_MOVE:
               if (evnt.dx || evnt.dy) {
-                this.emit('move', evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
+                this.emit("move", evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
               }
               if (evnt.wdx || evnt.wdy) {
-                this.emit('mousewheel',
-                  evnt.buttons, evnt.modifiers,
-                  evnt.x, evnt.y, evnt.wdx, evnt.wdy);
+                this.emit(
+                  "mousewheel",
+                  evnt.buttons,
+                  evnt.modifiers,
+                  evnt.x,
+                  evnt.y,
+                  evnt.wdx,
+                  evnt.wdy,
+                );
               }
               break;
             case GPM_DRAG:
               if (evnt.dx || evnt.dy) {
-                this.emit('drag', evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
+                this.emit("drag", evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
               }
               if (evnt.wdx || evnt.wdy) {
-                this.emit('mousewheel',
-                  evnt.buttons, evnt.modifiers,
-                  evnt.x, evnt.y, evnt.wdx, evnt.wdy);
+                this.emit(
+                  "mousewheel",
+                  evnt.buttons,
+                  evnt.modifiers,
+                  evnt.x,
+                  evnt.y,
+                  evnt.wdx,
+                  evnt.wdy,
+                );
               }
               break;
             case GPM_DOWN:
-              this.emit('btndown', evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
+              this.emit(
+                "btndown",
+                evnt.buttons,
+                evnt.modifiers,
+                evnt.x,
+                evnt.y,
+              );
               if (evnt.type & GPM_DOUBLE) {
-                this.emit('dblclick', evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
+                this.emit(
+                  "dblclick",
+                  evnt.buttons,
+                  evnt.modifiers,
+                  evnt.x,
+                  evnt.y,
+                );
               }
               break;
             case GPM_UP:
-              this.emit('btnup', evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
+              this.emit("btnup", evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
               if (!(evnt.type & GPM_MFLAG)) {
-                this.emit('click', evnt.buttons, evnt.modifiers, evnt.x, evnt.y);
+                this.emit(
+                  "click",
+                  evnt.buttons,
+                  evnt.modifiers,
+                  evnt.x,
+                  evnt.y,
+                );
               }
               break;
           }
         });
 
-        gpm.on('error', () => {
+        gpm.on("error", () => {
           this.stop();
         });
       });
@@ -207,10 +241,10 @@ class GpmClient extends EventEmitter {
   }
 
   ButtonName(btn: number): string {
-    if (btn & 4) return 'left';
-    if (btn & 2) return 'middle';
-    if (btn & 1) return 'right';
-    return '';
+    if (btn & 4) return "left";
+    if (btn & 2) return "middle";
+    if (btn & 1) return "right";
+    return "";
   }
 
   hasShiftKey(mod: number): boolean {

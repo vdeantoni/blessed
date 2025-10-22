@@ -6,10 +6,10 @@
  * Modules
  */
 
-import type { KeyEvent, ListElementStyle, ListOptions } from '../types';
-import helpers from '../lib/helpers.js';
-import Box from './box.js';
-import ScrollableBox from './scrollablebox.js';
+import type { KeyEvent, ListElementStyle, ListOptions } from "../types";
+import helpers from "../lib/helpers.js";
+import Box from "./box.js";
+import ScrollableBox from "./scrollablebox.js";
 
 /**
  * List
@@ -20,7 +20,7 @@ import ScrollableBox from './scrollablebox.js';
  */
 
 class List extends ScrollableBox {
-  override type = 'list';
+  override type = "list";
   declare style: ListElementStyle;
   value: string;
   override items: any[];
@@ -38,7 +38,7 @@ class List extends ScrollableBox {
 
     super(options);
 
-    this.value = '';
+    this.value = "";
     this.items = [];
     this.ritems = [];
     this.selected = 0;
@@ -69,22 +69,22 @@ class List extends ScrollableBox {
     // Legacy: for apps written before the addition of item attributes.
     // Copy base style properties to item style if not already set
     type StyleKey =
-      | 'bg'
-      | 'fg'
-      | 'bold'
-      | 'underline'
-      | 'blink'
-      | 'inverse'
-      | 'invisible';
+      | "bg"
+      | "fg"
+      | "bold"
+      | "underline"
+      | "blink"
+      | "inverse"
+      | "invisible";
     (
       [
-        'bg',
-        'fg',
-        'bold',
-        'underline',
-        'blink',
-        'inverse',
-        'invisible',
+        "bg",
+        "fg",
+        "bold",
+        "underline",
+        "blink",
+        "inverse",
+        "invisible",
       ] as const
     ).forEach((name: StyleKey) => {
       const styleValue = this.style[name];
@@ -119,65 +119,65 @@ class List extends ScrollableBox {
 
     if (options.mouse) {
       this.screen._listenMouse(this);
-      this.on('element wheeldown', () => {
+      this.on("element wheeldown", () => {
         this.select(this.selected + 2);
         this.screen.render();
       });
-      this.on('element wheelup', () => {
+      this.on("element wheelup", () => {
         this.select(this.selected - 2);
         this.screen.render();
       });
     }
 
     if (options.keys) {
-      this.on('keypress', (_ch: any, key: KeyEvent) => {
-        if (key.name === 'up' || (options.vi && key.name === 'k')) {
+      this.on("keypress", (_ch: any, key: KeyEvent) => {
+        if (key.name === "up" || (options.vi && key.name === "k")) {
           this.up();
           this.screen.render();
           return;
         }
-        if (key.name === 'down' || (options.vi && key.name === 'j')) {
+        if (key.name === "down" || (options.vi && key.name === "j")) {
           this.down();
           this.screen.render();
           return;
         }
         if (
-          key.name === 'enter' ||
-          (options.vi && key.name === 'l' && !key.shift)
+          key.name === "enter" ||
+          (options.vi && key.name === "l" && !key.shift)
         ) {
           this.enterSelected();
           return;
         }
-        if (key.name === 'escape' || (options.vi && key.name === 'q')) {
+        if (key.name === "escape" || (options.vi && key.name === "q")) {
           this.cancelSelected();
           return;
         }
-        if (options.vi && key.name === 'u' && key.ctrl) {
+        if (options.vi && key.name === "u" && key.ctrl) {
           this.move(-((this.height - this.iheight) / 2) | 0);
           this.screen.render();
           return;
         }
-        if (options.vi && key.name === 'd' && key.ctrl) {
+        if (options.vi && key.name === "d" && key.ctrl) {
           this.move(((this.height - this.iheight) / 2) | 0);
           this.screen.render();
           return;
         }
-        if (options.vi && key.name === 'b' && key.ctrl) {
+        if (options.vi && key.name === "b" && key.ctrl) {
           this.move(-(this.height - this.iheight));
           this.screen.render();
           return;
         }
-        if (options.vi && key.name === 'f' && key.ctrl) {
+        if (options.vi && key.name === "f" && key.ctrl) {
           this.move(this.height - this.iheight);
           this.screen.render();
           return;
         }
-        if (options.vi && key.name === 'h' && key.shift) {
+        if (options.vi && key.name === "h" && key.shift) {
           this.move((this.childBase || 0) - this.selected);
           this.screen.render();
           return;
         }
-        if (options.vi && key.name === 'm' && key.shift) {
+        if (options.vi && key.name === "m" && key.shift) {
           // TODO: Maybe use Math.min(this.items.length,
           // ... for calculating visible items elsewhere.
           const visible =
@@ -186,50 +186,50 @@ class List extends ScrollableBox {
           this.screen.render();
           return;
         }
-        if (options.vi && key.name === 'l' && key.shift) {
+        if (options.vi && key.name === "l" && key.shift) {
           // XXX This goes one too far on lists with an odd number of items.
           this.down(
             (this.childBase || 0) +
               Math.min(this.height - this.iheight, this.items.length) -
-              this.selected
+              this.selected,
           );
           this.screen.render();
           return;
         }
-        if (options.vi && key.name === 'g' && !key.shift) {
+        if (options.vi && key.name === "g" && !key.shift) {
           this.select(0);
           this.screen.render();
           return;
         }
-        if (options.vi && key.name === 'g' && key.shift) {
+        if (options.vi && key.name === "g" && key.shift) {
           this.select(this.items.length - 1);
           this.screen.render();
           return;
         }
 
-        if (options.vi && (key.ch === '/' || key.ch === '?')) {
-          if (typeof options.search !== 'function') {
+        if (options.vi && (key.ch === "/" || key.ch === "?")) {
+          if (typeof options.search !== "function") {
             return;
           }
           return options.search((err: any, value: any) => {
             if (
-              typeof err === 'string' ||
-              typeof err === 'function' ||
-              typeof err === 'number' ||
+              typeof err === "string" ||
+              typeof err === "function" ||
+              typeof err === "number" ||
               (err && err.test)
             ) {
               value = err;
               err = null;
             }
             if (err || !value) return this.screen.render();
-            this.select(this.fuzzyFind(value, key.ch === '?'));
+            this.select(this.fuzzyFind(value, key.ch === "?"));
             this.screen.render();
           });
         }
       });
     }
 
-    this.on('resize', () => {
+    this.on("resize", () => {
       const visible = this.height - this.iheight;
       // if (this.selected < visible - 1) {
       if (visible >= this.selected + 1) {
@@ -242,7 +242,7 @@ class List extends ScrollableBox {
       }
     });
 
-    this.on('adopt', (el: any) => {
+    this.on("adopt", (el: any) => {
       if (!~this.items.indexOf(el)) {
         el.fixed = true;
       }
@@ -250,7 +250,7 @@ class List extends ScrollableBox {
 
     // Ensure children are removed from the
     // item list if they are items.
-    this.on('remove', (el: any) => {
+    this.on("remove", (el: any) => {
       this.removeItem(el);
     });
   }
@@ -260,7 +260,7 @@ class List extends ScrollableBox {
     const options: any = {
       screen: this.screen,
       content: content,
-      align: this.align || 'left',
+      align: this.align || "left",
       top: 0,
       left: 0,
       right: this.scrollbar ? 1 : 0,
@@ -281,20 +281,20 @@ class List extends ScrollableBox {
     // XXX NOTE: Maybe just do this on all shrinkage once autoPadding is default?
     if (this.shrink && options.normalShrink) {
       delete options.right;
-      options.width = 'shrink';
+      options.width = "shrink";
     }
 
-    ['bg', 'fg', 'bold', 'underline', 'blink', 'inverse', 'invisible'].forEach(
-      name => {
+    ["bg", "fg", "bold", "underline", "blink", "inverse", "invisible"].forEach(
+      (name) => {
         options[name] = () => {
           let attr =
             this.items[this.selected] === item && this.interactive
               ? this.style.selected[name]
               : this.style.item[name];
-          if (typeof attr === 'function') attr = attr(item);
+          if (typeof attr === "function") attr = attr(item);
           return attr;
         };
-      }
+      },
     );
 
     if (this.style.transparent) {
@@ -304,11 +304,11 @@ class List extends ScrollableBox {
     const item = new Box(options);
 
     if (this.mouse) {
-      item.on('click', () => {
+      item.on("click", () => {
         this.focus();
         if (this.items[this.selected] === item) {
-          this.emit('action', item, this.selected);
-          this.emit('select', item, this.selected);
+          this.emit("action", item, this.selected);
+          this.emit("select", item, this.selected);
           return;
         }
         this.select(item);
@@ -316,7 +316,7 @@ class List extends ScrollableBox {
       });
     }
 
-    this.emit('create item');
+    this.emit("create item");
 
     return item;
   }
@@ -348,7 +348,7 @@ class List extends ScrollableBox {
   }
 
   appendItem(content: any): any {
-    content = typeof content === 'string' ? content : content.getContent();
+    content = typeof content === "string" ? content : content.getContent();
 
     const item = this.createItem(content);
     item.position.top = this.items.length;
@@ -364,7 +364,7 @@ class List extends ScrollableBox {
       this.select(0);
     }
 
-    this.emit('add item');
+    this.emit("add item");
 
     return item;
   }
@@ -395,7 +395,7 @@ class List extends ScrollableBox {
         this.select(i - 1);
       }
     }
-    this.emit('remove item');
+    this.emit("remove item");
     return child;
   }
 
@@ -409,7 +409,7 @@ class List extends ScrollableBox {
    * list.insertItem(2, 'New Item');
    */
   insertItem(child: any, content: any): void {
-    content = typeof content === 'string' ? content : content.getContent();
+    content = typeof content === "string" ? content : content.getContent();
     const i = this.getItemIndex(child);
     if (!~i) return;
     if (i >= this.items.length) return this.appendItem(content);
@@ -424,7 +424,7 @@ class List extends ScrollableBox {
     if (i === this.selected) {
       this.select(i + 1);
     }
-    this.emit('insert item');
+    this.emit("insert item");
   }
 
   /**
@@ -448,7 +448,7 @@ class List extends ScrollableBox {
    * list.setItem(0, 'Updated Content');
    */
   setItem(child: any, content: any): void {
-    content = typeof content === 'string' ? content : content.getContent();
+    content = typeof content === "string" ? content : content.getContent();
     const i = this.getItemIndex(child);
     if (!~i) return;
     this.items[i].setContent(content);
@@ -506,7 +506,7 @@ class List extends ScrollableBox {
       this.select(Math.min(selected, items.length - 1));
     }
 
-    this.emit('set items');
+    this.emit("set items");
   }
 
   /**
@@ -575,7 +575,7 @@ class List extends ScrollableBox {
     while (n--) {
       removed.push(this.removeItem(i));
     }
-    items.forEach(item => {
+    items.forEach((item) => {
       this.insertItem(i++, item);
     });
     return removed;
@@ -613,24 +613,24 @@ class List extends ScrollableBox {
     const start = this.selected + (back ? -1 : 1);
     let i: number;
 
-    if (typeof search === 'number') search = search + '';
+    if (typeof search === "number") search = search + "";
 
-    if (search && search[0] === '/' && search[search.length - 1] === '/') {
+    if (search && search[0] === "/" && search[search.length - 1] === "/") {
       try {
         search = new RegExp(search.slice(1, -1));
       } catch (e) {}
     }
 
     const test =
-      typeof search === 'string'
+      typeof search === "string"
         ? (item: string) => !!~item.indexOf(search)
         : search.test
           ? search.test.bind(search)
           : search;
 
-    if (typeof test !== 'function') {
+    if (typeof test !== "function") {
       if (this.screen.options.debug) {
-        throw new Error('fuzzyFind(): `test` is not a function.');
+        throw new Error("fuzzyFind(): `test` is not a function.");
       }
       return this.selected;
     }
@@ -669,9 +669,9 @@ class List extends ScrollableBox {
    * const index = list.getItemIndex(5);
    */
   getItemIndex(child: any): number {
-    if (typeof child === 'number') {
+    if (typeof child === "number") {
       return child;
-    } else if (typeof child === 'string') {
+    } else if (typeof child === "string") {
       let i = this.ritems.indexOf(child);
       if (~i) return i;
       for (i = 0; i < this.ritems.length; i++) {
@@ -703,12 +703,12 @@ class List extends ScrollableBox {
 
     if (!this.items.length) {
       this.selected = 0;
-      this.value = '';
+      this.value = "";
       this.scrollTo?.(0);
       return;
     }
 
-    if (typeof index === 'object') {
+    if (typeof index === "object") {
       index = this.items.indexOf(index);
     }
 
@@ -727,7 +727,7 @@ class List extends ScrollableBox {
     this.scrollTo?.(this.selected);
 
     // XXX Move `action` and `select` events here.
-    this.emit('select item', this.items[this.selected], this.selected);
+    this.emit("select item", this.items[this.selected], this.selected);
   }
 
   /**
@@ -790,7 +790,7 @@ class List extends ScrollableBox {
     }
 
     const focused = this.screen.focused;
-    if (focused && focused._done) focused._done('stop');
+    if (focused && focused._done) focused._done("stop");
     this.screen.saveFocus();
 
     // XXX Keep above:
@@ -803,7 +803,7 @@ class List extends ScrollableBox {
     this.select(0);
     if (label) this.setLabel(label);
     this.screen.render();
-    this.once('action', (el: any, selected: number) => {
+    this.once("action", (el: any, selected: number) => {
       if (label) this.removeLabel();
       this.screen.restoreFocus();
       this.hide();
@@ -815,14 +815,14 @@ class List extends ScrollableBox {
 
   enterSelected(i?: number): void {
     if (i != null) this.select(i);
-    this.emit('action', this.items[this.selected], this.selected);
-    this.emit('select', this.items[this.selected], this.selected);
+    this.emit("action", this.items[this.selected], this.selected);
+    this.emit("select", this.items[this.selected], this.selected);
   }
 
   cancelSelected(i?: number): void {
     if (i != null) this.select(i);
-    this.emit('action');
-    this.emit('cancel');
+    this.emit("action");
+    this.emit("cancel");
   }
 }
 

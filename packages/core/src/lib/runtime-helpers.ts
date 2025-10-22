@@ -4,10 +4,10 @@
  * These helpers provide lazy access to runtime APIs with proper initialization.
  */
 
-import * as runtime from '../runtime-context.js';
+import * as runtime from "../runtime-context.js";
 
 // Re-export for convenience
-export * from '../runtime-context.js';
+export * from "../runtime-context.js";
 
 /**
  * Get environment variable from runtime
@@ -20,7 +20,7 @@ export function getEnvVar(varName: string): string {
   if (envCache.has(varName)) {
     return envCache.get(varName)!;
   }
-  const value = runtime.getRuntime().process.env[varName] || '';
+  const value = runtime.getRuntime().process.env[varName] || "";
   envCache.set(varName, value);
   return value;
 }
@@ -40,7 +40,8 @@ export function clearEnvCache(): void {
 let nextTick: ((callback: () => void) => void) | null = null;
 export function getNextTick(): (callback: () => void) => void {
   if (!nextTick) {
-    nextTick = (callback: () => void) => runtime.getRuntime().process.nextTick(callback);
+    nextTick = (callback: () => void) =>
+      runtime.getRuntime().process.nextTick(callback);
   }
   return nextTick;
 }
@@ -53,9 +54,7 @@ let __dirname: string | null = null;
 export function getDir(): string {
   if (!__dirname) {
     const rt = runtime.getRuntime();
-    __dirname = rt.path.dirname(
-      rt.url.fileURLToPath(import.meta.url)
-    );
+    __dirname = rt.path.dirname(rt.url.fileURLToPath(import.meta.url));
   }
   return __dirname;
 }
@@ -70,7 +69,7 @@ export function getDataPath(): string {
     const rt = runtime.getRuntime();
     const dir = getDir();
     // Go up from src/lib to package root, then into data
-    __dataPath = rt.path.resolve(rt.path.join(dir, '../../data'));
+    __dataPath = rt.path.resolve(rt.path.join(dir, "../../data"));
   }
   return __dataPath;
 }

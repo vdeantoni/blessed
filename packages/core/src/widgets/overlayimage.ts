@@ -6,9 +6,9 @@
  * Modules
  */
 
-import type { OverlayImageOptions } from '../types';
-import Box from './box.js';
-import helpers from '../lib/helpers';
+import type { OverlayImageOptions } from "../types";
+import Box from "./box.js";
+import helpers from "../lib/helpers";
 
 /**
  * OverlayImage
@@ -17,8 +17,8 @@ import helpers from '../lib/helpers';
  */
 
 class OverlayImage extends Box {
-  override type = 'overlayimage';
-  static w3mdisplay = '/usr/lib/w3m/w3mimgdisplay';
+  override type = "overlayimage";
+  static w3mdisplay = "/usr/lib/w3m/w3mimgdisplay";
   static hasW3MDisplay?: boolean;
 
   declare options: OverlayImageOptions; // Type refinement - initialized by parent
@@ -45,9 +45,9 @@ class OverlayImage extends Box {
         OverlayImage.hasW3MDisplay = true;
       } else if (options.search !== false) {
         const file =
-          helpers.findFile('/usr', 'w3mimgdisplay') ||
-          helpers.findFile('/lib', 'w3mimgdisplay') ||
-          helpers.findFile('/bin', 'w3mimgdisplay');
+          helpers.findFile("/usr", "w3mimgdisplay") ||
+          helpers.findFile("/lib", "w3mimgdisplay") ||
+          helpers.findFile("/bin", "w3mimgdisplay");
         if (file) {
           OverlayImage.hasW3MDisplay = true;
           OverlayImage.w3mdisplay = file;
@@ -57,27 +57,27 @@ class OverlayImage extends Box {
       }
     }
 
-    this.on('hide', () => {
+    this.on("hide", () => {
       this._lastFile = this.file;
       this.clearImage();
     });
 
-    this.on('show', () => {
+    this.on("show", () => {
       if (!this._lastFile) return;
       this.setImage(this._lastFile);
     });
 
-    this.on('detach', () => {
+    this.on("detach", () => {
       this._lastFile = this.file;
       this.clearImage();
     });
 
-    this.on('attach', () => {
+    this.on("attach", () => {
       if (!this._lastFile) return;
       this.setImage(this._lastFile);
     });
 
-    this.onScreenEvent('resize', () => {
+    this.onScreenEvent("resize", () => {
       this._needsRatio = true;
     });
 
@@ -108,7 +108,7 @@ class OverlayImage extends Box {
     //   recurse(self.screen);
     // });
 
-    this.onScreenEvent('render', () => {
+    this.onScreenEvent("render", () => {
       this.screen.program.flush();
       if (!this._noImage) {
         this.setImage(this.file);
@@ -127,14 +127,14 @@ class OverlayImage extends Box {
     opt = opt || {};
     ps = spawnProcess(file, args, opt);
 
-    ps.on('error', function (err: any) {
+    ps.on("error", function (err: any) {
       if (!callback) return;
       return callback(err);
     });
 
-    ps.on('exit', function (code: number) {
+    ps.on("exit", function (code: number) {
       if (!callback) return;
-      if (code !== 0) return callback(new Error('Exit Code: ' + code));
+      if (code !== 0) return callback(new Error("Exit Code: " + code));
       return callback(null, code === 0);
     });
 
@@ -170,13 +170,13 @@ class OverlayImage extends Box {
     if (OverlayImage.hasW3MDisplay === false) {
       reset();
       if (!callback) return;
-      return callback(new Error('W3M Image Display not available.'));
+      return callback(new Error("W3M Image Display not available."));
     }
 
     if (!img) {
       reset();
       if (!callback) return;
-      return callback(new Error('No image.'));
+      return callback(new Error("No image."));
     }
 
     this.file = img;
@@ -286,16 +286,16 @@ class OverlayImage extends Box {
    * @returns Operation result with image dimensions
    */
   imageSize(callback?: any): any {
-      callback =
-        callback ||
-        function (_err: any, result: any) {
-          return result;
-        };
-      try {
-        return callback(null, this.imageSizeSync());
-      } catch (e) {
-        return callback(e);
-      }
+    callback =
+      callback ||
+      function (_err: any, result: any) {
+        return result;
+      };
+    try {
+      return callback(null, this.imageSizeSync());
+    } catch (e) {
+      return callback(e);
+    }
   }
 
   /**
@@ -337,11 +337,11 @@ class OverlayImage extends Box {
 
   renderImageSync(img: string, ratio: any): boolean {
     if (OverlayImage.hasW3MDisplay === false) {
-      throw new Error('W3M Image Display not available.');
+      throw new Error("W3M Image Display not available.");
     }
 
     if (!ratio) {
-      throw new Error('No ratio.');
+      throw new Error("No ratio.");
     }
 
     // clearImage unsets these:
@@ -359,17 +359,17 @@ class OverlayImage extends Box {
       atop = (this.atop * ratio.th) | 0;
 
     var input =
-      '0;1;' +
+      "0;1;" +
       aleft +
-      ';' +
+      ";" +
       atop +
-      ';' +
+      ";" +
       width +
-      ';' +
+      ";" +
       height +
-      ';;;;;' +
+      ";;;;;" +
       img +
-      '\n4;\n3;\n';
+      "\n4;\n3;\n";
 
     this._props = {
       aleft: aleft,
@@ -379,12 +379,16 @@ class OverlayImage extends Box {
     };
 
     try {
-      this.runtime.processes!.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
-        env: this.runtime.process.env as Record<string, string>,
-        encoding: 'utf8',
-        input: input,
-        timeout: 1000,
-      });
+      this.runtime.processes!.childProcess.execFileSync(
+        OverlayImage.w3mdisplay,
+        [],
+        {
+          env: this.runtime.process.env as Record<string, string>,
+          encoding: "utf8",
+          input: input,
+          timeout: 1000,
+        },
+      );
     } catch (e) {}
 
     return true;
@@ -392,7 +396,7 @@ class OverlayImage extends Box {
 
   clearImageSync(): boolean {
     if (OverlayImage.hasW3MDisplay === false) {
-      throw new Error('W3M Image Display not available.');
+      throw new Error("W3M Image Display not available.");
     }
 
     if (!this._props) {
@@ -412,19 +416,23 @@ class OverlayImage extends Box {
     }
 
     var input =
-      '6;' + aleft + ';' + atop + ';' + width + ';' + height + '\n4;\n3;\n';
+      "6;" + aleft + ";" + atop + ";" + width + ";" + height + "\n4;\n3;\n";
 
     delete this.file;
     delete this._props;
     delete this._lastSize;
 
     try {
-      this.runtime.processes!.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
-        env: this.runtime.process.env as Record<string, string>,
-        encoding: 'utf8',
-        input: input,
-        timeout: 1000,
-      });
+      this.runtime.processes!.childProcess.execFileSync(
+        OverlayImage.w3mdisplay,
+        [],
+        {
+          env: this.runtime.process.env as Record<string, string>,
+          encoding: "utf8",
+          input: input,
+          timeout: 1000,
+        },
+      );
     } catch (e) {}
 
     return true;
@@ -434,23 +442,27 @@ class OverlayImage extends Box {
     var img = this.file;
 
     if (OverlayImage.hasW3MDisplay === false) {
-      throw new Error('W3M Image Display not available.');
+      throw new Error("W3M Image Display not available.");
     }
 
     if (!img) {
-      throw new Error('No image.');
+      throw new Error("No image.");
     }
 
-    var buf = '';
-    var input = '5;' + img + '\n';
+    var buf = "";
+    var input = "5;" + img + "\n";
 
     try {
-      buf = this.runtime.processes!.childProcess.execFileSync(OverlayImage.w3mdisplay, [], {
-        env: this.runtime.process.env as Record<string, string>,
-        encoding: 'utf8',
-        input: input,
-        timeout: 1000,
-      }) as string;
+      buf = this.runtime.processes!.childProcess.execFileSync(
+        OverlayImage.w3mdisplay,
+        [],
+        {
+          env: this.runtime.process.env as Record<string, string>,
+          encoding: "utf8",
+          input: input,
+          timeout: 1000,
+        },
+      ) as string;
     } catch (e) {}
 
     var size = buf.trim().split(/\s+/);
@@ -464,20 +476,20 @@ class OverlayImage extends Box {
 
   termSizeSync(_?: any, recurse?: number): any {
     if (OverlayImage.hasW3MDisplay === false) {
-      throw new Error('W3M Image Display not available.');
+      throw new Error("W3M Image Display not available.");
     }
 
-    var buf = '';
+    var buf = "";
 
     try {
       buf = this.runtime.processes!.childProcess.execFileSync(
         OverlayImage.w3mdisplay,
-        ['-test'],
+        ["-test"],
         {
           env: this.runtime.process.env as Record<string, string>,
-          encoding: 'utf8',
+          encoding: "utf8",
           timeout: 1000,
-        }
+        },
       ) as string;
     } catch (e) {}
 
@@ -486,7 +498,7 @@ class OverlayImage extends Box {
       // output nothing. Try again:
       recurse = recurse || 0;
       if (++recurse === 5) {
-        throw new Error('Term size not determined.');
+        throw new Error("Term size not determined.");
       }
       return this.termSizeSync(_, recurse);
     }

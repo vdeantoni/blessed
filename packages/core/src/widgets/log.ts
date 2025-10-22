@@ -6,16 +6,16 @@
  * Modules
  */
 
-import type { LogOptions } from '../types';
-import ScrollableText from './scrollabletext.js';
-import { getNextTick } from '../lib/runtime-helpers';
+import type { LogOptions } from "../types";
+import ScrollableText from "./scrollabletext.js";
+import { getNextTick } from "../lib/runtime-helpers";
 
 /**
  * Log
  */
 
 class Log extends ScrollableText {
-  override type = 'log';
+  override type = "log";
   /**
    * Amount of scrollback lines allowed.
    * When exceeded, oldest lines are removed.
@@ -42,7 +42,7 @@ class Log extends ScrollableText {
       options.scrollback != null ? options.scrollback : Infinity;
     this.scrollOnInput = options.scrollOnInput;
 
-    this.on('set content', () => {
+    this.on("set content", () => {
       if (!this._userScrolled || this.scrollOnInput) {
         getNextTick()(() => {
           this.setScrollPerc?.(100);
@@ -79,11 +79,11 @@ class Log extends ScrollableText {
    * log.add('Processing %d items', count);
    */
   add(...args: any[]): any {
-    if (typeof args[0] === 'object') {
+    if (typeof args[0] === "object") {
       args[0] = this.runtime.utils.util.inspect(args[0], true, 20, true);
     }
     const text = this.runtime.utils.util.format(args[0], ...args.slice(1));
-    this.emit('log', text);
+    this.emit("log", text);
     const ret = this.pushLine(text);
     if (this._clines.fake.length > this.scrollback) {
       this.shiftLine(0, (this.scrollback / 3) | 0);

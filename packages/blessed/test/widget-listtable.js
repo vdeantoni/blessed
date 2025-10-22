@@ -3,14 +3,14 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/listtable.log',
+  dump: __dirname + "/logs/listtable.log",
   autoPadding: false,
   fullUnicode: true,
-  warnings: true
+  warnings: true,
 });
 
-var DU = '杜';
-var JUAN = '鹃';
+var DU = "杜";
+var JUAN = "鹃";
 
 /*
 var box = blessed.box({
@@ -32,35 +32,36 @@ var box = blessed.box({
 
 var table = blessed.listtable({
   //parent: screen,
-  top: 'center',
-  left: 'center',
+  top: "center",
+  left: "center",
   data: null,
-  border: 'line',
-  align: 'center',
+  border: "line",
+  align: "center",
   tags: true,
   keys: true,
   //width: '80%',
-  width: 'shrink',
-  height: '70%',
+  width: "shrink",
+  height: "70%",
   vi: true,
   mouse: true,
   style: {
     border: {
-      fg: 'red'
+      fg: "red",
     },
     header: {
-      fg: 'blue',
-      bold: true
+      fg: "blue",
+      bold: true,
     },
     cell: {
-      fg: 'magenta',
+      fg: "magenta",
       selected: {
-        bg: 'blue'
-      }
-    }
-  }
+        bg: "blue",
+      },
+    },
+  },
 });
 
+// prettier-ignore
 var data1 = [
   [ 'Animals',  'Foods',  'Times'  ],
   [ 'Elephant', 'Apple',  '1:00am' ],
@@ -69,9 +70,10 @@ var data1 = [
   [ 'Mouse',    'Cheese', '9:05am' ]
 ];
 
-data1[1][0] = '{red-fg}' + data1[1][0] + '{/red-fg}';
-data1[2][0] += ' (' + DU + JUAN + ')';
+data1[1][0] = "{red-fg}" + data1[1][0] + "{/red-fg}";
+data1[2][0] += " (" + DU + JUAN + ")";
 
+// prettier-ignore
 var data2 = [
   [ 'Animals',  'Foods',  'Times',   'Numbers' ],
   [ 'Elephant', 'Apple',  '1:00am',  'One'     ],
@@ -80,10 +82,10 @@ var data2 = [
   [ 'Mouse',    'Cheese', '9:05am',  'Four'    ]
 ];
 
-data2[1][0] = '{red-fg}' + data2[1][0] + '{/red-fg}';
-data2[2][0] += ' (' + DU + JUAN + ')';
+data2[1][0] = "{red-fg}" + data2[1][0] + "{/red-fg}";
+data2[2][0] += " (" + DU + JUAN + ")";
 
-screen.key('q', function() {
+screen.key("q", function () {
   return screen.destroy();
 });
 
@@ -95,7 +97,7 @@ screen.append(table);
 
 screen.render();
 
-setTimeout(function() {
+setTimeout(function () {
   table.setData(data1);
   screen.render();
 }, 3000);

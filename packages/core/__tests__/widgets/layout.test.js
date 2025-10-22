@@ -1,106 +1,106 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import Layout from '../../src/widgets/layout.js';
-import Box from '../../src/widgets/box.js';
-import { createMockScreen } from '../helpers/mock.js';
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import Layout from "../../src/widgets/layout.js";
+import Box from "../../src/widgets/box.js";
+import { createMockScreen } from "../helpers/mock.js";
 
-describe('Layout', () => {
+describe("Layout", () => {
   let screen;
 
   beforeEach(() => {
     screen = createMockScreen();
   });
 
-  describe('constructor', () => {
-    it('should create a layout instance', () => {
+  describe("constructor", () => {
+    it("should create a layout instance", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       expect(layout).toBeDefined();
-      expect(layout.type).toBe('layout');
+      expect(layout.type).toBe("layout");
     });
 
-    it('should inherit from Element', () => {
+    it("should inherit from Element", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       expect(layout.screen).toBe(screen);
-      expect(typeof layout.render).toBe('function');
+      expect(typeof layout.render).toBe("function");
     });
 
-    it('should throw error without width and height', () => {
+    it("should throw error without width and height", () => {
       expect(() => {
         new Layout({ screen });
-      }).toThrow('`Layout` must have a width and height!');
+      }).toThrow("`Layout` must have a width and height!");
     });
 
-    it('should accept width with left/right', () => {
+    it("should accept width with left/right", () => {
       const layout = new Layout({
         screen,
         left: 0,
         right: 0,
-        height: '100%'
+        height: "100%",
       });
 
       expect(layout).toBeDefined();
     });
 
-    it('should accept height with top/bottom', () => {
+    it("should accept height with top/bottom", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
+        width: "100%",
         top: 0,
-        bottom: 0
+        bottom: 0,
       });
 
       expect(layout).toBeDefined();
     });
 
-    it('should default layout type to inline', () => {
+    it("should default layout type to inline", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
-      expect(layout.options.layout).toBe('inline');
+      expect(layout.options.layout).toBe("inline");
     });
 
-    it('should accept grid layout type', () => {
+    it("should accept grid layout type", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%',
-        layout: 'grid'
+        width: "100%",
+        height: "100%",
+        layout: "grid",
       });
 
-      expect(layout.options.layout).toBe('grid');
+      expect(layout.options.layout).toBe("grid");
     });
 
-    it('should accept custom renderer', () => {
+    it("should accept custom renderer", () => {
       const customRenderer = vi.fn();
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%',
-        renderer: customRenderer
+        width: "100%",
+        height: "100%",
+        renderer: customRenderer,
       });
 
       expect(layout.renderer).toBe(customRenderer);
     });
   });
 
-  describe('isRendered()', () => {
-    it('should return false if element has no lpos', () => {
+  describe("isRendered()", () => {
+    it("should return false if element has no lpos", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       const box = new Box({ screen });
@@ -108,11 +108,11 @@ describe('Layout', () => {
       expect(layout.isRendered(box)).toBe(false);
     });
 
-    it('should return false if element has zero width', () => {
+    it("should return false if element has zero width", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       const box = new Box({ screen });
@@ -121,11 +121,11 @@ describe('Layout', () => {
       expect(layout.isRendered(box)).toBe(false);
     });
 
-    it('should return false if element has zero height', () => {
+    it("should return false if element has zero height", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       const box = new Box({ screen });
@@ -134,11 +134,11 @@ describe('Layout', () => {
       expect(layout.isRendered(box)).toBe(false);
     });
 
-    it('should return true if element has valid dimensions', () => {
+    it("should return true if element has valid dimensions", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       const box = new Box({ screen });
@@ -148,12 +148,12 @@ describe('Layout', () => {
     });
   });
 
-  describe('getLast()', () => {
-    it('should return last rendered child before index', () => {
+  describe("getLast()", () => {
+    it("should return last rendered child before index", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       const box1 = new Box({ screen, width: 10, height: 5 });
@@ -172,11 +172,11 @@ describe('Layout', () => {
       expect(last).toBe(box2);
     });
 
-    it('should return undefined if no rendered children before index', () => {
+    it("should return undefined if no rendered children before index", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       const box1 = new Box({ screen, width: 10, height: 5 });
@@ -191,12 +191,12 @@ describe('Layout', () => {
     });
   });
 
-  describe('getLastCoords()', () => {
-    it('should return coordinates of last rendered child', () => {
+  describe("getLastCoords()", () => {
+    it("should return coordinates of last rendered child", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       const box1 = new Box({ screen, width: 10, height: 5 });
@@ -213,11 +213,11 @@ describe('Layout', () => {
       expect(lastCoords).toBe(coords);
     });
 
-    it('should return undefined if no last child', () => {
+    it("should return undefined if no last child", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
       const box = new Box({ screen, width: 10, height: 5 });
@@ -229,25 +229,25 @@ describe('Layout', () => {
     });
   });
 
-  describe('renderer()', () => {
-    it('should return an iterator function', () => {
+  describe("renderer()", () => {
+    it("should return an iterator function", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
       const iterator = layout.renderer(coords);
 
-      expect(typeof iterator).toBe('function');
+      expect(typeof iterator).toBe("function");
     });
 
-    it('should position first child at 0,0', () => {
+    it("should position first child at 0,0", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       const box = new Box({ screen, width: 10, height: 5 });
@@ -262,11 +262,11 @@ describe('Layout', () => {
       expect(box.position.top).toBe(0);
     });
 
-    it('should make children shrinkable', () => {
+    it("should make children shrinkable", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       const box = new Box({ screen, width: 10, height: 5 });
@@ -281,29 +281,31 @@ describe('Layout', () => {
     });
   });
 
-  describe('render()', () => {
-    it('should have render method', () => {
+  describe("render()", () => {
+    it("should have render method", () => {
       const layout = new Layout({
         screen,
-        width: '100%',
-        height: '100%'
+        width: "100%",
+        height: "100%",
       });
 
-      expect(typeof layout.render).toBe('function');
+      expect(typeof layout.render).toBe("function");
     });
 
-    it('should call renderer when rendering', () => {
+    it("should call renderer when rendering", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       const renderer = vi.fn(() => () => {});
       layout.renderer = renderer;
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
 
       layout.render();
 
@@ -312,38 +314,38 @@ describe('Layout', () => {
     });
   });
 
-  describe('common use cases', () => {
-    it('should create an inline layout', () => {
+  describe("common use cases", () => {
+    it("should create an inline layout", () => {
       const layout = new Layout({
         screen,
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        layout: 'inline'
+        width: "100%",
+        height: "100%",
+        layout: "inline",
       });
 
-      expect(layout.options.layout).toBe('inline');
+      expect(layout.options.layout).toBe("inline");
     });
 
-    it('should create a grid layout', () => {
+    it("should create a grid layout", () => {
       const layout = new Layout({
         screen,
         top: 0,
         left: 0,
-        width: '100%',
-        height: '100%',
-        layout: 'grid'
+        width: "100%",
+        height: "100%",
+        layout: "grid",
       });
 
-      expect(layout.options.layout).toBe('grid');
+      expect(layout.options.layout).toBe("grid");
     });
 
-    it('should contain multiple children', () => {
+    it("should contain multiple children", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       const box1 = new Box({ screen, width: 20, height: 10 });
@@ -357,18 +359,18 @@ describe('Layout', () => {
       expect(layout.children.length).toBe(3);
     });
 
-    it('should support border and padding', () => {
+    it("should support border and padding", () => {
       const layout = new Layout({
         screen,
         width: 80,
         height: 24,
-        border: 'line',
+        border: "line",
         padding: {
           left: 2,
           right: 2,
           top: 1,
-          bottom: 1
-        }
+          bottom: 1,
+        },
       });
 
       expect(layout.border).toBeDefined();
@@ -376,13 +378,13 @@ describe('Layout', () => {
     });
   });
 
-  describe('Inline Layout Positioning', () => {
-    it('should position second child to the right of first', () => {
+  describe("Inline Layout Positioning", () => {
+    it("should position second child to the right of first", () => {
       const layout = new Layout({
         screen,
         width: 80,
         height: 24,
-        layout: 'inline'
+        layout: "inline",
       });
 
       const box1 = new Box({ screen, width: 10, height: 5 });
@@ -403,12 +405,12 @@ describe('Layout', () => {
       expect(box2.position.top).toBe(0);
     });
 
-    it('should wrap to new row when child exceeds width', () => {
+    it("should wrap to new row when child exceeds width", () => {
       const layout = new Layout({
         screen,
         width: 30,
         height: 24,
-        layout: 'inline'
+        layout: "inline",
       });
 
       const box1 = new Box({ screen, width: 15, height: 5 });
@@ -434,12 +436,12 @@ describe('Layout', () => {
       expect(box3.position.top).toBe(5);
     });
 
-    it('should position child below previous row element', () => {
+    it("should position child below previous row element", () => {
       const layout = new Layout({
         screen,
         width: 30,
         height: 24,
-        layout: 'inline'
+        layout: "inline",
       });
 
       const box1 = new Box({ screen, width: 10, height: 5 });
@@ -473,12 +475,12 @@ describe('Layout', () => {
       expect(box4.position.top).toBeGreaterThanOrEqual(5);
     });
 
-    it('should handle element that fits on same row', () => {
+    it("should handle element that fits on same row", () => {
       const layout = new Layout({
         screen,
         width: 80,
         height: 24,
-        layout: 'inline'
+        layout: "inline",
       });
 
       const box1 = new Box({ screen, width: 20, height: 10 });
@@ -500,13 +502,13 @@ describe('Layout', () => {
     });
   });
 
-  describe('Grid Layout Positioning', () => {
-    it('should calculate highest width in grid mode', () => {
+  describe("Grid Layout Positioning", () => {
+    it("should calculate highest width in grid mode", () => {
       const layout = new Layout({
         screen,
         width: 80,
         height: 24,
-        layout: 'grid'
+        layout: "grid",
       });
 
       const box1 = new Box({ screen, width: 10, height: 5 });
@@ -524,12 +526,12 @@ describe('Layout', () => {
       expect(box1.shrink).toBe(true);
     });
 
-    it('should compensate position for grid layout', () => {
+    it("should compensate position for grid layout", () => {
       const layout = new Layout({
         screen,
         width: 80,
         height: 24,
-        layout: 'grid'
+        layout: "grid",
       });
 
       const box1 = new Box({ screen, width: 10, height: 5 });
@@ -551,22 +553,22 @@ describe('Layout', () => {
     });
   });
 
-  describe('Edge Cases', () => {
-    it('should handle empty layout', () => {
+  describe("Edge Cases", () => {
+    it("should handle empty layout", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       expect(layout.children.length).toBe(0);
     });
 
-    it('should handle single child', () => {
+    it("should handle single child", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       const box = new Box({ screen, width: 10, height: 5 });
@@ -575,11 +577,11 @@ describe('Layout', () => {
       expect(layout.children.length).toBe(1);
     });
 
-    it('should handle child that overflows height', () => {
+    it("should handle child that overflows height", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 20
+        height: 20,
       });
 
       const box = new Box({ screen, width: 10, height: 25 });
@@ -594,11 +596,11 @@ describe('Layout', () => {
       expect(box.position.top).toBe(0);
     });
 
-    it('should handle zero-width layout', () => {
+    it("should handle zero-width layout", () => {
       const layout = new Layout({
         screen,
         width: 0,
-        height: 24
+        height: 24,
       });
 
       const box = new Box({ screen, width: 10, height: 5 });
@@ -607,11 +609,11 @@ describe('Layout', () => {
       expect(layout.children.length).toBe(1);
     });
 
-    it('should handle zero-height layout', () => {
+    it("should handle zero-height layout", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 0
+        height: 0,
       });
 
       const box = new Box({ screen, width: 10, height: 5 });
@@ -621,8 +623,8 @@ describe('Layout', () => {
     });
   });
 
-  describe('Renderer Options', () => {
-    it('should use custom renderer if provided', () => {
+  describe("Renderer Options", () => {
+    it("should use custom renderer if provided", () => {
       const customIterator = vi.fn();
       const customRenderer = vi.fn(() => customIterator);
 
@@ -630,11 +632,13 @@ describe('Layout', () => {
         screen,
         width: 80,
         height: 24,
-        renderer: customRenderer
+        renderer: customRenderer,
       });
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
 
       layout.render();
 
@@ -642,19 +646,21 @@ describe('Layout', () => {
       renderSpy.mockRestore();
     });
 
-    it('should pass coords to renderer', () => {
+    it("should pass coords to renderer", () => {
       const customRenderer = vi.fn(() => () => {});
 
       const layout = new Layout({
         screen,
         width: 80,
         height: 24,
-        renderer: customRenderer
+        renderer: customRenderer,
       });
 
       const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
       layout._getCoords = vi.fn(() => coords);
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
 
       layout.render();
 
@@ -663,26 +669,28 @@ describe('Layout', () => {
           xi: expect.any(Number),
           xl: expect.any(Number),
           yi: expect.any(Number),
-          yl: expect.any(Number)
-        })
+          yl: expect.any(Number),
+        }),
       );
       renderSpy.mockRestore();
     });
   });
 
-  describe('Render Lifecycle', () => {
-    it('should emit prerender event', () => {
+  describe("Render Lifecycle", () => {
+    it("should emit prerender event", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       const prerenderSpy = vi.fn();
-      layout.on('prerender', prerenderSpy);
+      layout.on("prerender", prerenderSpy);
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
 
       layout.render();
 
@@ -690,19 +698,21 @@ describe('Layout', () => {
       renderSpy.mockRestore();
     });
 
-    it('should emit render event with coords', () => {
+    it("should emit render event with coords", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       const renderEventSpy = vi.fn();
-      layout.on('render', renderEventSpy);
+      layout.on("render", renderEventSpy);
 
       const coords = { xi: 0, xl: 80, yi: 0, yl: 24 };
       layout._getCoords = vi.fn(() => coords);
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
 
       layout.render();
 
@@ -710,15 +720,17 @@ describe('Layout', () => {
       renderSpy.mockRestore();
     });
 
-    it('should handle render with no coords', () => {
+    it("should handle render with no coords", () => {
       const layout = new Layout({
         screen,
         width: 80,
-        height: 24
+        height: 24,
       });
 
       layout._getCoords = vi.fn(() => null);
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
 
       const result = layout.render();
 
@@ -727,48 +739,54 @@ describe('Layout', () => {
       renderSpy.mockRestore();
     });
 
-    it('should handle render with zero width coords', () => {
-      const layout = new Layout({
-        screen,
-        width: 80,
-        height: 24
-      });
-
-      layout._getCoords = vi.fn(() => ({ xi: 10, xl: 10, yi: 0, yl: 24 }));
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
-
-      const result = layout.render();
-
-      expect(result).toBeUndefined();
-      renderSpy.mockRestore();
-    });
-
-    it('should handle render with zero height coords', () => {
-      const layout = new Layout({
-        screen,
-        width: 80,
-        height: 24
-      });
-
-      layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 10, yl: 10 }));
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
-
-      const result = layout.render();
-
-      expect(result).toBeUndefined();
-      renderSpy.mockRestore();
-    });
-
-    it('should adjust coords for border', () => {
+    it("should handle render with zero width coords", () => {
       const layout = new Layout({
         screen,
         width: 80,
         height: 24,
-        border: 'line'
+      });
+
+      layout._getCoords = vi.fn(() => ({ xi: 10, xl: 10, yi: 0, yl: 24 }));
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
+
+      const result = layout.render();
+
+      expect(result).toBeUndefined();
+      renderSpy.mockRestore();
+    });
+
+    it("should handle render with zero height coords", () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+      });
+
+      layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 10, yl: 10 }));
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
+
+      const result = layout.render();
+
+      expect(result).toBeUndefined();
+      renderSpy.mockRestore();
+    });
+
+    it("should adjust coords for border", () => {
+      const layout = new Layout({
+        screen,
+        width: 80,
+        height: 24,
+        border: "line",
       });
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
 
       layout.render();
 
@@ -776,7 +794,7 @@ describe('Layout', () => {
       renderSpy.mockRestore();
     });
 
-    it('should adjust coords for padding', () => {
+    it("should adjust coords for padding", () => {
       const layout = new Layout({
         screen,
         width: 80,
@@ -785,12 +803,14 @@ describe('Layout', () => {
           left: 2,
           right: 2,
           top: 1,
-          bottom: 1
-        }
+          bottom: 1,
+        },
       });
 
       layout._getCoords = vi.fn(() => ({ xi: 0, xl: 80, yi: 0, yl: 24 }));
-      const renderSpy = vi.spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), 'render').mockReturnValue(null);
+      const renderSpy = vi
+        .spyOn(Object.getPrototypeOf(Object.getPrototypeOf(layout)), "render")
+        .mockReturnValue(null);
 
       layout.render();
 

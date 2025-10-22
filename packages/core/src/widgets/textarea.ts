@@ -6,10 +6,10 @@
  * Modules
  */
 
-import type { KeyEvent, MouseEvent, TextareaOptions } from '../types';
-import unicode from '../lib/unicode.js';
-import Input from './input.js';
-import { getNextTick } from '../lib/runtime-helpers.js';
+import type { KeyEvent, MouseEvent, TextareaOptions } from "../types";
+import unicode from "../lib/unicode.js";
+import Input from "./input.js";
+import { getNextTick } from "../lib/runtime-helpers.js";
 
 /**
  * Textarea
@@ -20,7 +20,7 @@ import { getNextTick } from '../lib/runtime-helpers.js';
  */
 
 class Textarea extends Input {
-  override type = 'textarea';
+  override type = "textarea";
   declare options: TextareaOptions; // Type refinement - initialized by parent
   override scrollable: boolean;
   __updateCursor: any;
@@ -56,37 +56,37 @@ class Textarea extends Input {
 
     // Initialize using Object.defineProperty to create a value property
     // separate from _value, matching original behavior
-    Object.defineProperty(this, 'value', {
-      value: options.value || '',
+    Object.defineProperty(this, "value", {
+      value: options.value || "",
       writable: true,
       configurable: true,
       enumerable: true,
     });
 
     this.__updateCursor = this._updateCursor.bind(this);
-    this.on('resize', this.__updateCursor);
-    this.on('move', this.__updateCursor);
+    this.on("resize", this.__updateCursor);
+    this.on("move", this.__updateCursor);
 
     if (options.inputOnFocus) {
-      this.on('focus', this.readInput.bind(this, null));
+      this.on("focus", this.readInput.bind(this, null));
     }
 
     if (!options.inputOnFocus && options.keys) {
-      this.on('keypress', (_ch: any, key: KeyEvent) => {
+      this.on("keypress", (_ch: any, key: KeyEvent) => {
         if (this._reading) return;
-        if (key.name === 'enter' || (options.vi && key.name === 'i')) {
+        if (key.name === "enter" || (options.vi && key.name === "i")) {
           return this.readInput();
         }
-        if (key.name === 'e') {
+        if (key.name === "e") {
           return this.readEditor();
         }
       });
     }
 
     if (options.mouse) {
-      this.on('click', (data: MouseEvent) => {
+      this.on("click", (data: MouseEvent) => {
         if (this._reading) return;
-        if (data.button !== 'right') return;
+        if (data.button !== "right") return;
         this.readEditor();
       });
     }
@@ -110,13 +110,13 @@ class Textarea extends Input {
     // and the last cline appears to always be empty from the
     // _typeScroll `+ '\n'` thing.
     // Maybe not necessary anymore?
-    if (last === '' && this.value[this.value.length - 1] !== '\n') {
-      last = this._clines[this._clines.length - 2] || '';
+    if (last === "" && this.value[this.value.length - 1] !== "\n") {
+      last = this._clines[this._clines.length - 2] || "";
     }
 
     line = Math.min(
       this._clines.length - 1 - (this.childBase || 0),
-      lpos.yl - lpos.yi - this.iheight - 1
+      lpos.yl - lpos.yi - this.iheight - 1,
     );
 
     // When calling clearValue() on a full textarea with a border, the first
@@ -192,10 +192,10 @@ class Textarea extends Input {
       delete this._callback;
       delete this._done;
 
-      this.removeListener('keypress', this.__listener);
+      this.removeListener("keypress", this.__listener);
       delete this.__listener;
 
-      this.removeListener('blur', this.__done);
+      this.removeListener("blur", this.__done);
       delete this.__done;
 
       this.screen.program.hideCursor();
@@ -210,16 +210,16 @@ class Textarea extends Input {
       }
 
       // Ugly
-      if (err === 'stop') return;
+      if (err === "stop") return;
 
       if (err) {
-        this.emit('error', err);
+        this.emit("error", err);
       } else if (value != null) {
-        this.emit('submit', value);
+        this.emit("submit", value);
       } else {
-        this.emit('cancel', value);
+        this.emit("cancel", value);
       }
-      this.emit('action', value);
+      this.emit("action", value);
 
       if (!callback) return;
 
@@ -230,11 +230,11 @@ class Textarea extends Input {
     // key event doesn't trigger any keys input.
     getNextTick()(() => {
       this.__listener = this._listener.bind(this);
-      this.on('keypress', this.__listener);
+      this.on("keypress", this.__listener);
     });
 
     this.__done = this._done.bind(this, null, null);
-    this.on('blur', this.__done);
+    this.on("blur", this.__done);
   }
 
   /**
@@ -265,29 +265,29 @@ class Textarea extends Input {
     const done = this._done;
     const value = this.value;
 
-    if (key.name === 'return') return;
-    if (key.name === 'enter') {
-      ch = '\n';
+    if (key.name === "return") return;
+    if (key.name === "enter") {
+      ch = "\n";
     }
 
     // TODO: Handle directional keys.
     if (
-      key.name === 'left' ||
-      key.name === 'right' ||
-      key.name === 'up' ||
-      key.name === 'down'
+      key.name === "left" ||
+      key.name === "right" ||
+      key.name === "up" ||
+      key.name === "down"
     ) {
     }
 
-    if (this.options.keys && key.ctrl && key.name === 'e') {
+    if (this.options.keys && key.ctrl && key.name === "e") {
       return this.readEditor();
     }
 
     // TODO: Optimize typing by writing directly
     // to the screen and screen buffer here.
-    if (key.name === 'escape') {
+    if (key.name === "escape") {
       if (done) done(null, null);
-    } else if (key.name === 'backspace') {
+    } else if (key.name === "backspace") {
       if (this.value.length) {
         if (this.screen.fullUnicode) {
           if (unicode.isSurrogate(this.value, this.value.length - 2)) {
@@ -360,7 +360,7 @@ class Textarea extends Input {
    * textarea.clearValue();
    */
   clearValue() {
-    return this.setValue('');
+    return this.setValue("");
   }
 
   /**
@@ -382,7 +382,7 @@ class Textarea extends Input {
    */
   submit() {
     if (!this.__listener) return;
-    return this.__listener('\x1b', { name: 'escape' });
+    return this.__listener("\x1b", { name: "escape" });
   }
 
   /**
@@ -394,7 +394,7 @@ class Textarea extends Input {
    */
   cancel() {
     if (!this.__listener) return;
-    return this.__listener('\x1b', { name: 'escape' });
+    return this.__listener("\x1b", { name: "escape" });
   }
 
   override render() {
@@ -419,7 +419,7 @@ class Textarea extends Input {
       const _cb = this._callback;
       const cb = callback;
 
-      this._done('stop');
+      this._done("stop");
 
       callback = (err: any, value: any) => {
         if (_cb) _cb(err, value);
@@ -435,7 +435,7 @@ class Textarea extends Input {
       { value: this.value },
       (err: any, value: any) => {
         if (err) {
-          if (err.message === 'Unsuccessful.') {
+          if (err.message === "Unsuccessful.") {
             this.screen.render();
             return this.readInput(callback);
           }
@@ -446,7 +446,7 @@ class Textarea extends Input {
         this.setValue(value);
         this.screen.render();
         return this.readInput(callback);
-      }
+      },
     );
   }
 

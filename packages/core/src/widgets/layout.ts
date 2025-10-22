@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { LayoutOptions } from '../types';
-import Element from './element.js';
+import type { LayoutOptions } from "../types";
+import Element from "./element.js";
 
 /**
  * Layout
  */
 
 class Layout extends Element {
-  override type = 'layout';
+  override type = "layout";
   declare options: LayoutOptions; // Type refinement - initialized by parent
 
   constructor(options: LayoutOptions = {}) {
@@ -24,10 +24,10 @@ class Layout extends Element {
         options.right == null) ||
       (options.height == null && options.top == null && options.bottom == null)
     ) {
-      throw new Error('`Layout` must have a width and height!');
+      throw new Error("`Layout` must have a width and height!");
     }
 
-    options.layout = options.layout || 'inline';
+    options.layout = options.layout || "inline";
 
     super(options);
 
@@ -102,7 +102,7 @@ class Layout extends Element {
 
     // Figure out the highest width child
     let highWidth: number;
-    if (this.options.layout === 'grid') {
+    if (this.options.layout === "grid") {
       highWidth = this.children.reduce((out: number, el: any) => {
         out = Math.max(out, el.width);
         return out;
@@ -128,7 +128,7 @@ class Layout extends Element {
         el.position.left = last.lpos.xl - xi;
 
         // Make sure the position matches the highest width element
-        if (this.options.layout === 'grid') {
+        if (this.options.layout === "grid") {
           // Compensate with width:
           // el.position.width = el.width + (highWidth - el.width);
           // Compensate with position:
@@ -159,7 +159,7 @@ class Layout extends Element {
       }
 
       // Make sure the elements on lower rows gravitate up as much as possible
-      if (this.options.layout === 'inline') {
+      if (this.options.layout === "inline") {
         let above: any = null;
         let abovea = Infinity;
         for (let j = lastRowIndex; j < rowIndex; j++) {
@@ -187,7 +187,7 @@ class Layout extends Element {
   }
 
   override render(): any {
-    this._emit('prerender', []);
+    this._emit("prerender", []);
 
     const coords = this._renderCoords();
     if (!coords) {
@@ -253,7 +253,7 @@ class Layout extends Element {
       // }
     });
 
-    this._emit('render', [coords]);
+    this._emit("render", [coords]);
 
     return coords;
   }

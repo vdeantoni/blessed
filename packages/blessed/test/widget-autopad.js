@@ -3,19 +3,19 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/autopad.log',
+  dump: __dirname + "/logs/autopad.log",
   smartCSR: true,
   autoPadding: true,
-  warnings: true
+  warnings: true,
 });
 
 var box1 = blessed.box({
   parent: screen,
-  top: 'center',
-  left: 'center',
+  top: "center",
+  left: "center",
   width: 20,
   height: 10,
-  border: 'line'
+  border: "line",
 });
 
 var box2 = blessed.box({
@@ -24,10 +24,10 @@ var box2 = blessed.box({
   left: 0,
   width: 10,
   height: 5,
-  border: 'line'
+  border: "line",
 });
 
-screen.key('q', function() {
+screen.key("q", function () {
   return screen.destroy();
 });
 

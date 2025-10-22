@@ -3,36 +3,36 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/exit.log',
+  dump: __dirname + "/logs/exit.log",
   smartCSR: true,
   autoPadding: true,
   warnings: true,
-  ignoreLocked: ['C-q']
+  ignoreLocked: ["C-q"],
 });
 
 var box = blessed.prompt({
   parent: screen,
-  left: 'center',
-  top: 'center',
-  width: '70%',
-  height: 'shrink',
-  border: 'line'
+  left: "center",
+  top: "center",
+  width: "70%",
+  height: "shrink",
+  border: "line",
 });
 
 screen.render();
 
-box.input('Input: ', '', function(err, data) {
+box.input("Input: ", "", function (err, data) {
   screen.destroy();
-  if (process.argv[2] === 'resume') {
+  if (process.argv[2] === "resume") {
     process.stdin.resume();
-  } else if (process.argv[2] === 'end') {
+  } else if (process.argv[2] === "end") {
     process.stdin.setRawMode(false);
     process.stdin.end();
   }
   if (err) throw err;
-  console.log('Input: ' + data);
+  console.log("Input: " + data);
 });
 
-screen.key('C-q', function(ch, key) {
+screen.key("C-q", function (ch, key) {
   return screen.destroy();
 });

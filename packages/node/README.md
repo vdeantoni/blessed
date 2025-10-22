@@ -12,6 +12,7 @@ Node.js runtime adapter for [@unblessed/core](../core) - Build beautiful termina
 `@unblessed/node` brings the power of `@unblessed/core` terminal UI widgets to Node.js applications. It provides a Node.js runtime adapter that handles all platform-specific operations automatically.
 
 **Features:**
+
 - 🚀 **Auto-initialization** - Runtime sets up automatically on import
 - 📦 **Zero configuration** - Just import and use
 - 🎨 **Rich widget library** - 30+ widgets for building TUIs
@@ -34,32 +35,33 @@ yarn add @unblessed/node@alpha
 ## Quick Start
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 // Runtime auto-initializes - no setup needed!
 
 const screen = new Screen({
   smartCSR: true,
-  title: 'Hello unblessed'
+  title: "Hello unblessed",
 });
 
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: '{bold}{cyan-fg}Hello, World!{/cyan-fg}{/bold}\n\nPress {inverse} q {/inverse} to quit.',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content:
+    "{bold}{cyan-fg}Hello, World!{/cyan-fg}{/bold}\n\nPress {inverse} q {/inverse} to quit.",
   tags: true,
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    fg: 'white',
-    bg: 'black',
-    border: { fg: '#f0f0f0' }
-  }
+    fg: "white",
+    bg: "black",
+    border: { fg: "#f0f0f0" },
+  },
 });
 
-screen.key(['escape', 'q', 'C-c'], () => {
+screen.key(["escape", "q", "C-c"], () => {
   process.exit(0);
 });
 
@@ -70,12 +72,14 @@ screen.render();
 ## Available Widgets
 
 ### Layout Widgets
+
 - **Screen** - Root container for the application
 - **Box** - Basic container with borders and styling
 - **Layout** - Automatic layout manager (horizontal/vertical)
 - **Line** - Horizontal or vertical line
 
 ### Input Widgets
+
 - **Form** - Form container
 - **Input** - Single-line text input
 - **Textarea** - Multi-line text input
@@ -86,6 +90,7 @@ screen.render();
 - **RadioSet** - Group of radio buttons
 
 ### Display Widgets
+
 - **Text** - Static or dynamic text
 - **List** - Scrollable list of items
 - **ListTable** - Table with list-style rows
@@ -104,6 +109,7 @@ screen.render();
 - **Listbar** - Navigation bar
 
 ### Container Widgets
+
 - **ScrollableBox** - Box with scrolling
 - **ScrollableText** - Text with scrolling
 
@@ -119,12 +125,12 @@ Always use `parent:` to attach widgets to their container:
 
 ```typescript
 const container = new Box({
-  parent: screen,  // Attach to screen
+  parent: screen, // Attach to screen
   // ... options
 });
 
 const button = new Button({
-  parent: container,  // Attach to container
+  parent: container, // Attach to container
   // ... options
 });
 ```
@@ -133,18 +139,18 @@ const button = new Button({
 
 ```typescript
 // Global keyboard shortcuts
-screen.key(['escape', 'q'], () => {
+screen.key(["escape", "q"], () => {
   process.exit(0);
 });
 
 // Widget-specific events
-button.on('press', () => {
-  console.log('Button clicked!');
+button.on("press", () => {
+  console.log("Button clicked!");
 });
 
 // Mouse events
-box.on('click', (data) => {
-  console.log('Clicked at', data.x, data.y);
+box.on("click", (data) => {
+  console.log("Clicked at", data.x, data.y);
 });
 ```
 
@@ -156,20 +162,20 @@ Use inline tags or style objects:
 // Inline tags
 const text = new Text({
   parent: screen,
-  content: '{bold}{red-fg}Error:{/red-fg}{/bold} Something went wrong',
-  tags: true
+  content: "{bold}{red-fg}Error:{/red-fg}{/bold} Something went wrong",
+  tags: true,
 });
 
 // Style object
 const box = new Box({
   parent: screen,
   style: {
-    fg: 'white',
-    bg: 'blue',
-    border: { fg: 'cyan' },
-    hover: { bg: 'green' },
-    focus: { border: { fg: 'yellow' } }
-  }
+    fg: "white",
+    bg: "blue",
+    border: { fg: "cyan" },
+    hover: { bg: "green" },
+    focus: { border: { fg: "yellow" } },
+  },
 });
 ```
 
@@ -180,11 +186,11 @@ const box = new Box({
 input.focus();
 
 // Tab navigation
-input.key('tab', () => {
+input.key("tab", () => {
   button.focus();
 });
 
-button.key('tab', () => {
+button.key("tab", () => {
   list.focus();
 });
 ```
@@ -197,17 +203,17 @@ The root container for your application.
 
 ```typescript
 const screen = new Screen({
-  smartCSR: true,      // Smart cursor save/restore
-  fastCSR: true,       // Fast CSR for terminals that support it
-  title: 'My App',     // Window title
+  smartCSR: true, // Smart cursor save/restore
+  fastCSR: true, // Fast CSR for terminals that support it
+  title: "My App", // Window title
   cursor: {
-    artificial: true,  // Artificial cursor
-    shape: 'block',    // Cursor shape
-    blink: true        // Blinking cursor
+    artificial: true, // Artificial cursor
+    shape: "block", // Cursor shape
+    blink: true, // Blinking cursor
   },
-  fullUnicode: true,   // Full Unicode support
-  dockBorders: true,   // Dock borders to edges
-  ignoreDockContrast: true
+  fullUnicode: true, // Full Unicode support
+  dockBorders: true, // Dock borders to edges
+  ignoreDockContrast: true,
 });
 ```
 
@@ -218,30 +224,30 @@ Basic container widget.
 ```typescript
 const box = new Box({
   parent: screen,
-  top: 0,              // Position (number or string)
+  top: 0, // Position (number or string)
   left: 0,
-  width: '50%',        // Size (number or string)
+  width: "50%", // Size (number or string)
   height: 10,
-  content: 'Hello',    // Text content
-  tags: true,          // Enable inline tags
+  content: "Hello", // Text content
+  tags: true, // Enable inline tags
   border: {
-    type: 'line'       // 'line', 'bg', or custom characters
+    type: "line", // 'line', 'bg', or custom characters
   },
   style: {
-    fg: 'white',
-    bg: 'blue',
-    border: { fg: 'cyan' }
+    fg: "white",
+    bg: "blue",
+    border: { fg: "cyan" },
   },
   padding: {
     left: 2,
     right: 2,
     top: 1,
-    bottom: 1
+    bottom: 1,
   },
-  scrollable: true,    // Enable scrolling
-  mouse: true,         // Enable mouse events
-  keys: true,          // Enable keyboard events
-  vi: true            // Vi-style navigation
+  scrollable: true, // Enable scrolling
+  mouse: true, // Enable mouse events
+  keys: true, // Enable keyboard events
+  vi: true, // Vi-style navigation
 });
 ```
 
@@ -257,9 +263,9 @@ For complete widget options, see [@unblessed/core types](../core/src/types/optio
 
 ```typescript
 // Internal structure (simplified)
-import { initCore } from '@unblessed/core';
-import fs from 'fs';
-import process from 'process';
+import { initCore } from "@unblessed/core";
+import fs from "fs";
+import process from "process";
 // ... other Node.js modules
 
 const runtime = {
@@ -272,10 +278,11 @@ const runtime = {
 initCore(runtime);
 
 // Re-export all widgets
-export * from '@unblessed/core';
+export * from "@unblessed/core";
 ```
 
 This means you get:
+
 - ✅ Full Node.js file system access
 - ✅ Real process I/O (stdin/stdout/stderr)
 - ✅ Child process support (for Terminal widget)
@@ -287,23 +294,27 @@ This means you get:
 Tested and supported terminals:
 
 **macOS:**
+
 - iTerm2 ✅
 - Terminal.app ✅
 - Alacritty ✅
 - Kitty ✅
 
 **Linux:**
+
 - gnome-terminal ✅
 - konsole ✅
 - xterm ✅
 - rxvt-unicode ✅
 
 **Windows:**
+
 - Windows Terminal ✅
 - ConEmu ✅
 - PowerShell ✅
 
 **Multiplexers:**
+
 - tmux ✅
 - screen ✅
 
@@ -316,22 +327,26 @@ Tested and supported terminals:
 ## Troubleshooting
 
 **Terminal not rendering correctly?**
+
 ```bash
 export TERM=xterm-256color
 node your-app.js
 ```
 
 **Mouse not working?**
+
 - Check if your terminal supports mouse events
 - Ensure `mouse: true` is set on widgets
 - Some terminals in tmux/screen need additional config
 
 **Widgets not showing?**
+
 - Verify `parent: screen` is used for all top-level widgets
 - Call `screen.render()` after creating widgets
 - Check widget positioning (top, left, width, height)
 
 **Keyboard input not working?**
+
 - Widget must have focus: `widget.focus()`
 - Enable keyboard: `keys: true`
 - Use `screen.key()` for global shortcuts
@@ -342,11 +357,11 @@ node your-app.js
 
 ```typescript
 // Old blessed code
-const blessed = require('blessed');
+const blessed = require("blessed");
 const screen = blessed.screen();
 
 // New @unblessed/node code
-import { Screen } from '@unblessed/node';
+import { Screen } from "@unblessed/node";
 const screen = new Screen();
 ```
 
@@ -366,6 +381,7 @@ npm install @unblessed/blessed@alpha
 - **Event coalescing** - Reduced re-renders
 
 Tips for best performance:
+
 1. Use `smartCSR: true` in screen options
 2. Batch widget updates before `render()`
 3. Use `alwaysScroll: false` when possible

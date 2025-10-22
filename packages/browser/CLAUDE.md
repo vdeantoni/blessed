@@ -27,6 +27,7 @@ This document provides architectural context and development guidelines for the 
 ### Key Components
 
 **BrowserRuntime** (`src/runtime/browser-runtime.ts`)
+
 - Implements Runtime interface with browser polyfills
 - Virtual filesystem with bundled terminfo/font data
 - Uses npm packages for standard APIs (`util`, `stream-browserify`, `path-browserify`)
@@ -34,22 +35,26 @@ This document provides architectural context and development guidelines for the 
 - ~257 lines (simplified from original ~319 lines)
 
 **Auto-initialization** (`src/runtime/auto-init.ts`)
+
 - Sets up global polyfills (process, Buffer, global)
 - Creates and registers BrowserRuntime
 - Runs automatically when package is imported
 - ~90 lines (simplified from original ~390 lines)
 
 **XTermAdapter** (`src/adapters/xterm-adapter.ts`)
+
 - Bridges Program API to xterm.js Terminal
 - Handles keyboard and mouse events
 - Converts DOM events to terminal sequences
 
 **Index** (`src/index.ts`)
+
 - Entry point with runtime initialization
 - Re-exports all @unblessed/core widgets
 - Exports browser-specific Screen and XTermAdapter
 
 **Vite Plugin** (`src/vite-plugin/index.ts`)
+
 - Optional optimization plugin for Vite users
 - Configures module resolution and dependency optimization
 - Handles Node.js polyfills in browser environment
@@ -57,6 +62,7 @@ This document provides architectural context and development guidelines for the 
 ## Recent Improvements
 
 **Code Organization (October 2025)**:
+
 - ✅ Extracted BrowserRuntime to separate file (`browser-runtime.ts`)
 - ✅ Simplified auto-init.ts from ~390 lines to ~90 lines
 - ✅ Fixed duplicate utils assignment bug
@@ -68,12 +74,14 @@ This document provides architectural context and development guidelines for the 
 - ✅ All 20 unit tests passing
 
 **Code Reduction Summary**:
+
 - Initial: ~1,118 total lines
 - After extraction: ~820 lines (~300 lines saved)
 - After polyfill replacement: ~758 lines (~62 more lines saved)
 - **Total reduction: ~360 lines (32% smaller)**
 
 **Architecture Improvements**:
+
 - Better separation of concerns (runtime vs initialization)
 - Using battle-tested npm polyfills instead of custom code
 - Single source of truth for polyfills
@@ -88,13 +96,13 @@ The runtime MUST be initialized **before** any @unblessed/core modules load:
 
 ```typescript
 // src/runtime/auto-init.ts
-import { setRuntime } from '@unblessed/core';
+import { setRuntime } from "@unblessed/core";
 
 // Create BrowserRuntime with polyfills
 const runtime = new BrowserRuntime();
-setRuntime(runtime);  // Register globally
+setRuntime(runtime); // Register globally
 
-console.log('[tui-browser] Runtime initialized');
+console.log("[tui-browser] Runtime initialized");
 ```
 
 **Why?** When `export * from '@unblessed/core'` executes in index.ts, widget modules load and some access `getRuntime()` during initialization. Without prior setup, you get "Runtime not initialized" errors.
@@ -124,6 +132,7 @@ if (typeof globalThis.process === 'undefined') {
 ```
 
 **Key Methods:**
+
 - `removeAllListeners` - Used by program.ts in unshiftEvent()
 - `listeners` - Used by screen.ts for event management
 - `nextTick` - Implemented via setTimeout(fn, 0)
@@ -131,9 +140,9 @@ if (typeof globalThis.process === 'undefined') {
 ### Buffer Polyfill
 
 ```typescript
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
-if (typeof globalThis.Buffer === 'undefined') {
+if (typeof globalThis.Buffer === "undefined") {
   (globalThis as any).Buffer = Buffer;
 }
 ```
@@ -146,11 +155,15 @@ Custom implementation to avoid circular dependencies:
 
 ```typescript
 const browserUtil = {
-  inspect: (obj: any, options?: any): string => { /* ... */ },
-  format: (format: string, ...args: any[]): string => { /* ... */ }
+  inspect: (obj: any, options?: any): string => {
+    /* ... */
+  },
+  format: (format: string, ...args: any[]): string => {
+    /* ... */
+  },
 };
 
-this.util = browserUtil as Runtime['util'];
+this.util = browserUtil as Runtime["util"];
 ```
 
 **Do NOT** import `import util from 'util'` - it causes "process is not defined" errors.
@@ -190,9 +203,9 @@ function encodeMouseEvent(e: MouseEvent, action: string): string {
   const col = Math.floor(e.offsetX / cellWidth);
   const row = Math.floor(e.offsetY / cellHeight);
   const button = e.button;
-  const cb = action === 'mousemove' ? 32 : button;
+  const cb = action === "mousemove" ? 32 : button;
 
-  return `\x1b[<${cb};${col + 1};${row + 1}M`;  // SGR encoding
+  return `\x1b[<${cb};${col + 1};${row + 1}M`; // SGR encoding
 }
 ```
 
@@ -203,23 +216,23 @@ function encodeMouseEvent(e: MouseEvent, action: string): string {
 The browser can't access real files, so we bundle necessary data:
 
 ```typescript
-import xtermData from '@unblessed/core/data/terminfo/xterm-256color.json';
-import terU14n from '@unblessed/core/data/fonts/ter-u14n.json';
-import terU14b from '@unblessed/core/data/fonts/ter-u14b.json';
+import xtermData from "@unblessed/core/data/terminfo/xterm-256color.json";
+import terU14n from "@unblessed/core/data/fonts/ter-u14n.json";
+import terU14b from "@unblessed/core/data/fonts/ter-u14b.json";
 
 // In BrowserRuntime
 this.fs = {
   readFileSync: (filePath: PathLike, encoding?: any) => {
     const pathStr = filePath.toString();
 
-    if (pathStr.includes('xterm')) {
+    if (pathStr.includes("xterm")) {
       // Return bundled terminfo
       const base64Data = xtermData.data;
-      const buffer = Buffer.from(atob(base64Data), 'binary');
+      const buffer = Buffer.from(atob(base64Data), "binary");
       return encoding ? buffer.toString(encoding) : buffer;
     }
 
-    if (pathStr.endsWith('ter-u14n.json')) {
+    if (pathStr.endsWith("ter-u14n.json")) {
       return JSON.stringify(terU14n);
     }
 
@@ -261,19 +274,21 @@ this.fs = {
 **Cause:** Process polyfill missing this method.
 
 **Solution:** Add to process polyfill:
+
 ```typescript
 removeAllListeners: (event?: string) => {
   if (event) listeners.delete(event);
   else listeners.clear();
-}
+};
 ```
 
 ### Issue: ESM Import Hoisting
 
 **Problem:** Even type-only imports execute before top-level code:
+
 ```typescript
-import { Buffer } from 'buffer';  // Executes FIRST
-globalThis.Buffer = Buffer;      // Executes SECOND
+import { Buffer } from "buffer"; // Executes FIRST
+globalThis.Buffer = Buffer; // Executes SECOND
 ```
 
 **Solution:** Put all polyfill setup BEFORE any imports.
@@ -285,6 +300,7 @@ globalThis.Buffer = Buffer;      // Executes SECOND
 If @unblessed/core needs a new Node.js API:
 
 1. **Add to Runtime interface** in @unblessed/core:
+
 ```typescript
 export interface Runtime {
   // ... existing
@@ -293,12 +309,15 @@ export interface Runtime {
 ```
 
 2. **Implement in BrowserRuntime**:
+
 ```typescript
 export class BrowserRuntime implements Runtime {
   constructor() {
     // ...
     this.newAPI = {
-      method: () => { /* browser implementation */ }
+      method: () => {
+        /* browser implementation */
+      },
     };
   }
 }
@@ -309,6 +328,7 @@ export class BrowserRuntime implements Runtime {
 ### Module Load Order
 
 **Correct order** in runtime.ts:
+
 1. Type-only imports (`import type`)
 2. Buffer import and global assignment
 3. Process polyfill setup
@@ -319,8 +339,9 @@ export class BrowserRuntime implements Runtime {
 ### Avoiding Module-Level process Access
 
 **Bad:**
+
 ```typescript
-const TERM = process.env.TERM;  // Fails if process not defined yet
+const TERM = process.env.TERM; // Fails if process not defined yet
 
 export class Foo {
   // ...
@@ -328,8 +349,9 @@ export class Foo {
 ```
 
 **Good:**
+
 ```typescript
-import { getRuntime } from './runtime-context.js';
+import { getRuntime } from "./runtime-context.js";
 
 export class Foo {
   getTerm() {
@@ -345,19 +367,14 @@ export class Foo {
 ```typescript
 export default defineConfig({
   entry: {
-    index: 'src/index.ts',
-    runtime: 'src/runtime.ts'
+    index: "src/index.ts",
+    runtime: "src/runtime.ts",
   },
-  format: ['esm', 'cjs'],  // ESM for modern, CJS for compat
+  format: ["esm", "cjs"], // ESM for modern, CJS for compat
   dts: true,
   sourcemap: true,
-  external: ['xterm'],  // xterm is a peer dependency
-  noExternal: [
-    'buffer',
-    'events',
-    'path-browserify',
-    'string_decoder'
-  ]  // Bundle polyfills
+  external: ["xterm"], // xterm is a peer dependency
+  noExternal: ["buffer", "events", "path-browserify", "string_decoder"], // Bundle polyfills
 });
 ```
 
@@ -381,8 +398,8 @@ The vite plugin injects runtime initialization code directly into the HTML `<hea
 **1. Install the plugin in your vite.config.ts:**
 
 ```typescript
-import { defineConfig } from 'vite';
-import tuiBrowser from '@unblessed/browser/vite-plugin';
+import { defineConfig } from "vite";
+import tuiBrowser from "@unblessed/browser/vite-plugin";
 
 export default defineConfig({
   plugins: [tuiBrowser()],
@@ -392,13 +409,13 @@ export default defineConfig({
 **2. Use @unblessed/browser in your app:**
 
 ```typescript
-import { Screen, Box } from '@unblessed/browser';
-import { Terminal } from 'xterm';
-import 'xterm/css/xterm.css';
+import { Screen, Box } from "@unblessed/browser";
+import { Terminal } from "xterm";
+import "xterm/css/xterm.css";
 
 // Create xterm terminal
 const term = new Terminal();
-term.open(document.getElementById('terminal')!);
+term.open(document.getElementById("terminal")!);
 
 // Create screen (automatically sets up xterm adapter)
 const screen = new Screen({ terminal: term });
@@ -406,12 +423,12 @@ const screen = new Screen({ terminal: term });
 // Use widgets
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello from tui in the browser!',
-  border: { type: 'line' }
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello from tui in the browser!",
+  border: { type: "line" },
 });
 
 screen.render();
@@ -445,25 +462,25 @@ If you're not using Vite or want to initialize manually, you can do it in your H
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <script type="module">
-    import { Buffer } from 'buffer';
-    import { setRuntime } from '@unblessed/core';
-    import { BrowserRuntime } from '@unblessed/browser';
+  <head>
+    <script type="module">
+      import { Buffer } from "buffer";
+      import { setRuntime } from "@unblessed/core";
+      import { BrowserRuntime } from "@unblessed/browser";
 
-    // Set up polyfills
-    globalThis.Buffer = Buffer;
+      // Set up polyfills
+      globalThis.Buffer = Buffer;
 
-    // Initialize runtime
-    const runtime = new BrowserRuntime();
-    setRuntime(runtime);
-    globalThis.__TUI_BROWSER_INITIALIZED__ = true;
-  </script>
-</head>
-<body>
-  <div id="terminal"></div>
-  <script type="module" src="/src/main.ts"></script>
-</body>
+      // Initialize runtime
+      const runtime = new BrowserRuntime();
+      setRuntime(runtime);
+      globalThis.__TUI_BROWSER_INITIALIZED__ = true;
+    </script>
+  </head>
+  <body>
+    <div id="terminal"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
 ```
 
@@ -480,11 +497,13 @@ This means the runtime wasn't set up before `@unblessed/core` tried to use it. M
 **Plugin not working:**
 
 Check your browser console - you should see:
+
 ```
 [tui-browser] Runtime initialized via vite plugin
 ```
 
 If you don't see this message, the plugin's HTML injection may have failed. Check that:
+
 - Your HTML has a `<head>` tag
 - You're using vite's dev server (not a static file server)
 
@@ -493,6 +512,7 @@ If you don't see this message, the plugin's HTML injection may have failed. Chec
 ### Unit Tests (`__tests__/*.test.ts`)
 
 Test runtime polyfills in isolation:
+
 - Process polyfill event system
 - Buffer operations
 - Path operations
@@ -501,6 +521,7 @@ Test runtime polyfills in isolation:
 ### E2E Tests (`__tests__/e2e/*.spec.ts`)
 
 Test full widget rendering with Playwright:
+
 - Widget creation and display
 - User interactions (click, type, etc.)
 - Layout and styling
@@ -509,6 +530,7 @@ Test full widget rendering with Playwright:
 ### Test Helpers (`__tests__/e2e/fixtures/`)
 
 Reusable test utilities:
+
 - `tui-page.ts` - Page object for common operations
 - `example-runner.ts` - Load and run example files
 
@@ -558,19 +580,19 @@ Reusable test utilities:
 const screen = new Screen({
   terminal: term,
   debug: true,
-  log: 'console'  // Or file path (won't work in browser)
+  log: "console", // Or file path (won't work in browser)
 });
 ```
 
 ### Inspect Runtime State
 
 ```typescript
-import { getRuntime } from '@unblessed/core';
+import { getRuntime } from "@unblessed/core";
 
 const runtime = getRuntime();
-console.log('Platform:', runtime.process.platform);
-console.log('Env:', runtime.process.env);
-console.log('FS methods:', Object.keys(runtime.fs));
+console.log("Platform:", runtime.process.platform);
+console.log("Env:", runtime.process.env);
+console.log("FS methods:", Object.keys(runtime.fs));
 ```
 
 ### Browser DevTools

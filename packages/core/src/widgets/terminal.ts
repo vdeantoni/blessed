@@ -6,10 +6,10 @@
  * Modules
  */
 
-import type { TerminalOptions } from '../types';
-import { getNextTick, getRuntime, getEnvVar } from '../lib/runtime-helpers.js';
-import Box from './box.js';
-import { createRequire } from 'module';
+import type { TerminalOptions } from "../types";
+import { getNextTick, getRuntime, getEnvVar } from "../lib/runtime-helpers.js";
+import Box from "./box.js";
+import { createRequire } from "module";
 
 const require = createRequire(import.meta.url);
 
@@ -18,7 +18,7 @@ const require = createRequire(import.meta.url);
  */
 
 class Terminal extends Box {
-  override type = 'terminal';
+  override type = "terminal";
   handler?: (data: any) => void;
   shell: string;
   args: string[];
@@ -52,7 +52,7 @@ class Terminal extends Box {
     }
 
     this.handler = options.handler;
-    this.shell = options.shell || getEnvVar("SHELL") || 'sh';
+    this.shell = options.shell || getEnvVar("SHELL") || "sh";
     this.args = options.args || [];
 
     this.cursor = this.options.cursor;
@@ -60,11 +60,11 @@ class Terminal extends Box {
     this.screenKeys = this.options.screenKeys;
 
     this.style = this.style || {};
-    this.style.bg = this.style.bg || 'default';
-    this.style.fg = this.style.fg || 'default';
+    this.style.bg = this.style.bg || "default";
+    this.style.fg = this.style.fg || "default";
 
     this.termName =
-      options.terminal || options.term || getEnvVar("TERM") || 'xterm';
+      options.terminal || options.term || getEnvVar("TERM") || "xterm";
 
     this.bootstrap();
   }
@@ -77,7 +77,7 @@ class Terminal extends Box {
       get document() {
         return element;
       },
-      navigator: { userAgent: 'node.js' },
+      navigator: { userAgent: "node.js" },
 
       // document
       get defaultView() {
@@ -117,7 +117,7 @@ class Terminal extends Box {
     element.parentNode = element;
     element.offsetParent = element;
 
-    this.term = require('term.js')({
+    this.term = require("term.js")({
       termName: this.termName,
       cols: this.width - this.iwidth,
       rows: this.height - this.iheight,
@@ -151,15 +151,15 @@ class Terminal extends Box {
     // Incoming keys and mouse inputs.
     // NOTE: Cannot pass mouse events - coordinates will be off!
     this.screen.program.input.on(
-      'data',
+      "data",
       (this._onData = function (data: any) {
         if (self.screen.focused === self && !self._isMouse(data)) {
           self.handler?.(data);
         }
-      })
+      }),
     );
 
-    this.onScreenEvent('mouse', function (data: any) {
+    this.onScreenEvent("mouse", function (data: any) {
       if (self.screen.focused !== self) return;
 
       if (data.x < self.aleft + self.ileft) return;
@@ -189,25 +189,25 @@ class Terminal extends Box {
         if (self.screen.program.sgrMouse) {
           b += 32;
         }
-        s = '\x1b[' + b + ';' + (x + 32) + ';' + (y + 32) + 'M';
+        s = "\x1b[" + b + ";" + (x + 32) + ";" + (y + 32) + "M";
       } else if (self.term.sgrMouse) {
         if (!self.screen.program.sgrMouse) {
           b -= 32;
         }
         s =
-          '\x1b[<' +
+          "\x1b[<" +
           b +
-          ';' +
+          ";" +
           x +
-          ';' +
+          ";" +
           y +
-          (data.action === 'mousedown' ? 'M' : 'm');
+          (data.action === "mousedown" ? "M" : "m");
       } else {
         if (self.screen.program.sgrMouse) {
           b += 32;
         }
         s =
-          '\x1b[M' +
+          "\x1b[M" +
           String.fromCharCode(b) +
           String.fromCharCode(x + 32) +
           String.fromCharCode(y + 32);
@@ -216,37 +216,37 @@ class Terminal extends Box {
       self.handler?.(s);
     });
 
-    this.on('focus', function () {
+    this.on("focus", function () {
       self.term.focus();
     });
 
-    this.on('blur', function () {
+    this.on("blur", function () {
       self.term.blur();
     });
 
-    this.term.on('title', function (title: string) {
+    this.term.on("title", function (title: string) {
       self.title = title;
-      self.emit('title', title);
+      self.emit("title", title);
     });
 
-    this.term.on('passthrough', function (data: any) {
+    this.term.on("passthrough", function (data: any) {
       self.screen.program.flush();
       self.screen.program._owrite(data);
     });
 
-    this.on('resize', function () {
+    this.on("resize", function () {
       getNextTick()(function () {
         self.term.resize(self.width - self.iwidth, self.height - self.iheight);
       });
     });
 
-    this.once('render', function () {
+    this.once("render", function () {
       self.term.resize(self.width - self.iwidth, self.height - self.iheight);
     });
 
-    this.on('destroy', function () {
+    this.on("destroy", function () {
       self.kill();
-      self.screen.program.input.removeListener('data', self._onData);
+      self.screen.program.input.removeListener("data", self._onData);
     });
 
     if (this.handler) {
@@ -254,7 +254,7 @@ class Terminal extends Box {
     }
 
     const runtime = getRuntime();
-    this.pty = require('pty.js').fork(this.shell, this.args, {
+    this.pty = require("pty.js").fork(this.shell, this.args, {
       name: this.termName,
       cols: this.width - this.iwidth,
       rows: this.height - this.iheight,
@@ -262,7 +262,7 @@ class Terminal extends Box {
       env: this.options.env || runtime.process.env,
     });
 
-    this.on('resize', function () {
+    this.on("resize", function () {
       getNextTick()(function () {
         try {
           self.pty.resize(self.width - self.iwidth, self.height - self.iheight);
@@ -275,16 +275,16 @@ class Terminal extends Box {
       self.screen.render();
     };
 
-    this.pty.on('data', function (data: any) {
+    this.pty.on("data", function (data: any) {
       self.write(data);
       self.screen.render();
     });
 
-    this.pty.on('exit', function (code: number) {
-      self.emit('exit', code || null);
+    this.pty.on("exit", function (code: number) {
+      self.emit("exit", code || null);
     });
 
-    this.onScreenEvent('keypress', function () {
+    this.onScreenEvent("keypress", function () {
       self.screen.render();
     });
 
@@ -337,13 +337,13 @@ class Terminal extends Box {
         line[x][0] = this.term.lines[scrollback + y - yi][x - xi][0];
 
         if (x === cursor) {
-          if (this.cursor === 'line') {
+          if (this.cursor === "line") {
             line[x][0] = this.dattr;
-            line[x][1] = '\u2502';
+            line[x][1] = "\u2502";
             continue;
-          } else if (this.cursor === 'underline') {
+          } else if (this.cursor === "underline") {
             line[x][0] = this.dattr | (2 << 18);
-          } else if (this.cursor === 'block' || !this.cursor) {
+          } else if (this.cursor === "block" || !this.cursor) {
             line[x][0] = this.dattr | (8 << 18);
           }
         }
@@ -377,9 +377,9 @@ class Terminal extends Box {
     if (Buffer.isBuffer(s)) {
       if (s[0] > 127 && s[1] === undefined) {
         s[0] -= 128;
-        s = '\x1b' + s.toString('utf-8');
+        s = "\x1b" + s.toString("utf-8");
       } else {
-        s = s.toString('utf-8');
+        s = s.toString("utf-8");
       }
     }
     return (
@@ -396,7 +396,7 @@ class Terminal extends Box {
   // @ts-expect-error - Override Box scrollable property with Terminal-specific method
   scrollTo(offset: number): void {
     this.term.ydisp = offset;
-    this.emit('scroll');
+    this.emit("scroll");
   }
 
   // @ts-expect-error - Override Box scrollable property with Terminal-specific method
@@ -407,14 +407,14 @@ class Terminal extends Box {
   // @ts-expect-error - Override Box scrollable property with Terminal-specific method
   scroll(offset: number): void {
     this.term.scrollDisp(offset);
-    this.emit('scroll');
+    this.emit("scroll");
   }
 
   // @ts-expect-error - Override Box scrollable property with Terminal-specific method
   resetScroll(): void {
     this.term.ydisp = 0;
     this.term.ybase = 0;
-    this.emit('scroll');
+    this.emit("scroll");
   }
 
   // @ts-expect-error - Override Box scrollable property with Terminal-specific method
@@ -465,7 +465,7 @@ class Terminal extends Box {
       this.pty.kill();
     }
     this.term.refresh = function () {};
-    this.term.write('\x1b[H\x1b[J');
+    this.term.write("\x1b[H\x1b[J");
     if (this.term._blink) {
       clearInterval(this.term._blink);
     }

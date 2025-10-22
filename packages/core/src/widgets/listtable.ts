@@ -6,17 +6,17 @@
  * Modules
  */
 
-import type { ListTableOptions } from '../types';
-import Box from './box.js';
-import List from './list.js';
-import Table from './table.js';
+import type { ListTableOptions } from "../types";
+import Box from "./box.js";
+import List from "./list.js";
+import Table from "./table.js";
 
 /**
  * ListTable
  */
 
 class ListTable extends List {
-  override type = 'list-table';
+  override type = "list-table";
   __align: string;
   _header: any;
   pad: number;
@@ -31,7 +31,7 @@ class ListTable extends List {
     options.style.border = options.style.border || {};
     options.style.header = options.style.header || {};
     options.style.cell = options.style.cell || {};
-    const align = options.align || 'center';
+    const align = options.align || "center";
     delete options.align;
 
     options.style.selected = options.style.cell.selected;
@@ -40,7 +40,7 @@ class ListTable extends List {
     const border = options.border;
     if (
       border &&
-      typeof border === 'object' &&
+      typeof border === "object" &&
       border.top === false &&
       border.bottom === false &&
       border.left === false &&
@@ -58,13 +58,13 @@ class ListTable extends List {
       parent: this,
       left: this.screen.autoPadding ? 0 : this.ileft,
       top: 0,
-      width: 'shrink',
+      width: "shrink",
       height: 1,
       style: options.style.header,
       tags: options.parseTags || options.tags,
     });
 
-    this.on('scroll', () => {
+    this.on("scroll", () => {
       this._header.setFront();
       this._header.rtop = this.childBase || 0;
       if (!this.screen.autoPadding) {
@@ -76,11 +76,11 @@ class ListTable extends List {
 
     this.setData(options.rows || options.data);
 
-    this.on('attach', () => {
+    this.on("attach", () => {
       this.setData(this.rows);
     });
 
-    this.on('resize', () => {
+    this.on("resize", () => {
       const selected = this.selected;
       this.setData(this.rows);
       this.select(selected);
@@ -138,40 +138,40 @@ class ListTable extends List {
 
     if (!this._maxes) return;
 
-    this.addItem('');
+    this.addItem("");
 
     this.rows.forEach((row: any, i: number) => {
       const isHeader = i === 0;
-      let text = '';
+      let text = "";
       row.forEach((cell: any, i: number) => {
         const width = this._maxes[i];
         let clen = this.strWidth(cell);
 
         if (i !== 0) {
-          text += ' ';
+          text += " ";
         }
 
         while (clen < width) {
-          if (align === 'center') {
-            cell = ' ' + cell + ' ';
+          if (align === "center") {
+            cell = " " + cell + " ";
             clen += 2;
-          } else if (align === 'left') {
-            cell = cell + ' ';
+          } else if (align === "left") {
+            cell = cell + " ";
             clen += 1;
-          } else if (align === 'right') {
-            cell = ' ' + cell;
+          } else if (align === "right") {
+            cell = " " + cell;
             clen += 1;
           }
         }
 
         if (clen > width) {
-          if (align === 'center') {
+          if (align === "center") {
             cell = cell.substring(1);
             clen--;
-          } else if (align === 'left') {
+          } else if (align === "left") {
             cell = cell.slice(0, -1);
             clen--;
-          } else if (align === 'right') {
+          } else if (align === "right") {
             cell = cell.substring(1);
             clen--;
           }
@@ -233,8 +233,8 @@ class ListTable extends List {
     let border = this.border;
     if (!this.border && this.options.border) {
       const optBorder = this.options.border;
-      if (typeof optBorder === 'string') {
-        border = { type: optBorder as 'line' | 'bg' };
+      if (typeof optBorder === "string") {
+        border = { type: optBorder as "line" | "bg" };
       } else {
         border = optBorder;
       }
@@ -255,20 +255,20 @@ class ListTable extends List {
           // top
           rx++;
           lines[yi + ry][xi + rx][0] = battr;
-          lines[yi + ry][xi + rx][1] = '\u252c'; // '┬'
+          lines[yi + ry][xi + rx][1] = "\u252c"; // '┬'
           // XXX If we alter iheight and itop for no borders - nothing should be written here
           if (!border.top) {
-            lines[yi + ry][xi + rx][1] = '\u2502'; // '│'
+            lines[yi + ry][xi + rx][1] = "\u2502"; // '│'
           }
           lines[yi + ry].dirty = true;
         } else if (ry === height) {
           // bottom
           rx++;
           lines[yi + ry][xi + rx][0] = battr;
-          lines[yi + ry][xi + rx][1] = '\u2534'; // '┴'
+          lines[yi + ry][xi + rx][1] = "\u2534"; // '┴'
           // XXX If we alter iheight and ibottom for no borders - nothing should be written here
           if (!border.bottom) {
-            lines[yi + ry][xi + rx][1] = '\u2502'; // '│'
+            lines[yi + ry][xi + rx][1] = "\u2502"; // '│'
           }
           lines[yi + ry].dirty = true;
         } else {
@@ -294,7 +294,7 @@ class ListTable extends List {
           rx++;
           lines[yi + ry][xi + rx][0] = battr;
         }
-        lines[yi + ry][xi + rx][1] = '\u2502'; // '│'
+        lines[yi + ry][xi + rx][1] = "\u2502"; // '│'
         lines[yi + ry].dirty = true;
       });
     }

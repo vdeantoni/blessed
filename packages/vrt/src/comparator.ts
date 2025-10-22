@@ -7,8 +7,8 @@ import type {
   VRTComparatorOptions,
   VRTComparisonResult,
   VRTFrameDifference,
-} from './types.js';
-import { readFileSync } from 'fs';
+} from "./types.js";
+import { readFileSync } from "fs";
 
 /**
  * VRTComparator compares two VRT recordings to detect visual regressions.
@@ -39,15 +39,17 @@ export class VRTComparator {
   static compare(
     expected: string | VRTRecording,
     actual: string | VRTRecording,
-    options: VRTComparatorOptions = {}
+    options: VRTComparatorOptions = {},
   ): VRTComparisonResult {
-    const expectedRecording = typeof expected === 'string'
-      ? JSON.parse(readFileSync(expected, 'utf8'))
-      : expected;
+    const expectedRecording =
+      typeof expected === "string"
+        ? JSON.parse(readFileSync(expected, "utf8"))
+        : expected;
 
-    const actualRecording = typeof actual === 'string'
-      ? JSON.parse(readFileSync(actual, 'utf8'))
-      : actual;
+    const actualRecording =
+      typeof actual === "string"
+        ? JSON.parse(readFileSync(actual, "utf8"))
+        : actual;
 
     return this.compareRecordings(expectedRecording, actualRecording, options);
   }
@@ -62,7 +64,7 @@ export class VRTComparator {
   static compareRecordings(
     expected: VRTRecording,
     actual: VRTRecording,
-    options: VRTComparatorOptions = {}
+    options: VRTComparatorOptions = {},
   ): VRTComparisonResult {
     const {
       threshold = 0,
@@ -81,13 +83,15 @@ export class VRTComparator {
         matchedFrames: 0,
         differentFrames: Math.max(expected.frames.length, actual.frames.length),
         differentFrameIndices: [],
-        differences: [{
-          frameIndex: -1,
-          expected: `${expected.dimensions.cols}x${expected.dimensions.rows}`,
-          actual: `${actual.dimensions.cols}x${actual.dimensions.rows}`,
-          diffCount: -1,
-          diff: 'Dimension mismatch',
-        }],
+        differences: [
+          {
+            frameIndex: -1,
+            expected: `${expected.dimensions.cols}x${expected.dimensions.rows}`,
+            actual: `${actual.dimensions.cols}x${actual.dimensions.rows}`,
+            diffCount: -1,
+            diff: "Dimension mismatch",
+          },
+        ],
       };
     }
 
@@ -99,13 +103,15 @@ export class VRTComparator {
         matchedFrames: 0,
         differentFrames: Math.max(expected.frames.length, actual.frames.length),
         differentFrameIndices: [],
-        differences: [{
-          frameIndex: -1,
-          expected: `${expected.frames.length} frames`,
-          actual: `${actual.frames.length} frames`,
-          diffCount: -1,
-          diff: 'Frame count mismatch',
-        }],
+        differences: [
+          {
+            frameIndex: -1,
+            expected: `${expected.frames.length} frames`,
+            actual: `${actual.frames.length} frames`,
+            diffCount: -1,
+            diff: "Frame count mismatch",
+          },
+        ],
       };
     }
 
@@ -115,11 +121,11 @@ export class VRTComparator {
     let matchedFrames = 0;
 
     for (let i = 0; i < expected.frames.length; i++) {
-      const diff = this.compareFrames(
-        expected.frames[i],
-        actual.frames[i],
-        { threshold, ignoreColors, ignoreWhitespace }
-      );
+      const diff = this.compareFrames(expected.frames[i], actual.frames[i], {
+        threshold,
+        ignoreColors,
+        ignoreWhitespace,
+      });
 
       if (diff.diffCount === 0) {
         matchedFrames++;
@@ -155,7 +161,7 @@ export class VRTComparator {
   private static compareFrames(
     expected: { screenshot: string },
     actual: { screenshot: string },
-    options: VRTComparatorOptions
+    options: VRTComparatorOptions,
   ): { diffCount: number; diff?: string } {
     let expectedStr = expected.screenshot;
     let actualStr = actual.screenshot;
@@ -167,8 +173,8 @@ export class VRTComparator {
     }
 
     if (options.ignoreWhitespace) {
-      expectedStr = expectedStr.replace(/\s+/g, ' ').trim();
-      actualStr = actualStr.replace(/\s+/g, ' ').trim();
+      expectedStr = expectedStr.replace(/\s+/g, " ").trim();
+      actualStr = actualStr.replace(/\s+/g, " ").trim();
     }
 
     // Exact match check
@@ -197,7 +203,7 @@ export class VRTComparator {
    */
   private static stripAnsiColors(str: string): string {
     // Remove all SGR (Select Graphic Rendition) codes
-    return str.replace(/\x1b\[[0-9;]*m/g, '');
+    return str.replace(/\x1b\[[0-9;]*m/g, "");
   }
 
   /**

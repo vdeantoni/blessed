@@ -6,8 +6,8 @@
  * Modules
  */
 
-import unicode from './unicode.js';
-import { getRuntime, Runtime } from '../runtime-context';
+import unicode from "./unicode.js";
+import { getRuntime, Runtime } from "../runtime-context";
 
 /**
  * Helpers
@@ -27,7 +27,7 @@ helpers.asort = (obj: any[]): any[] => {
     a = a.name.toLowerCase();
     b = b.name.toLowerCase();
 
-    if (a[0] === '.' && b[0] === '.') {
+    if (a[0] === "." && b[0] === ".") {
       a = a[1];
       b = b[1];
     } else {
@@ -35,7 +35,7 @@ helpers.asort = (obj: any[]): any[] => {
       b = b[0];
     }
 
-    return a > b ? 1 : (a < b ? -1 : 0);
+    return a > b ? 1 : a < b ? -1 : 0;
   });
 };
 
@@ -47,10 +47,12 @@ helpers.hsort = (obj: any[]): any[] => {
 
 helpers.findFile = (start: string, target: string): string | null => {
   return (function read(dir: string): string | null {
-    let files: string[], file: string, stat: ReturnType<Runtime['fs']['lstatSync']> | null, out: string | null;
+    let files: string[],
+      file: string,
+      stat: ReturnType<Runtime["fs"]["lstatSync"]> | null,
+      out: string | null;
 
-    if (dir === '/dev' || dir === '/sys'
-        || dir === '/proc' || dir === '/net') {
+    if (dir === "/dev" || dir === "/sys" || dir === "/proc" || dir === "/net") {
       return null;
     }
 
@@ -66,17 +68,17 @@ helpers.findFile = (start: string, target: string): string | null => {
       file = files[i];
 
       if (file === target) {
-        return (dir === '/' ? '' : dir) + '/' + file;
+        return (dir === "/" ? "" : dir) + "/" + file;
       }
 
       try {
-        stat = runtime.fs.lstatSync((dir === '/' ? '' : dir) + '/' + file);
+        stat = runtime.fs.lstatSync((dir === "/" ? "" : dir) + "/" + file);
       } catch (e) {
         stat = null;
       }
 
       if (stat && stat.isDirectory() && !stat.isSymbolicLink()) {
-        out = read((dir === '/' ? '' : dir) + '/' + file);
+        out = read((dir === "/" ? "" : dir) + "/" + file);
         if (out) return out;
       }
     }
@@ -88,30 +90,32 @@ helpers.findFile = (start: string, target: string): string | null => {
 // Escape text for tag-enabled elements.
 helpers.escape = (text: string): string => {
   return text.replace(/[{}]/g, (ch) => {
-    return ch === '{' ? '{open}' : '{close}';
+    return ch === "{" ? "{open}" : "{close}";
   });
 };
 
 helpers.parseTags = (text: string, screen?: any): any => {
   return helpers.Element.prototype._parseTags.call(
-    { parseTags: true, screen: screen || helpers.Screen.global }, text);
+    { parseTags: true, screen: screen || helpers.Screen.global },
+    text,
+  );
 };
 
 helpers.generateTags = (style: any, text?: string): any => {
-  let open = '';
-  let close = '';
+  let open = "";
+  let close = "";
 
   Object.keys(style || {}).forEach((key) => {
     let val = style[key];
-    if (typeof val === 'string') {
-      val = val.replace(/^light(?!-)/, 'light-');
-      val = val.replace(/^bright(?!-)/, 'bright-');
-      open = '{' + val + '-' + key + '}' + open;
-      close += '{/' + val + '-' + key + '}';
+    if (typeof val === "string") {
+      val = val.replace(/^light(?!-)/, "light-");
+      val = val.replace(/^bright(?!-)/, "bright-");
+      open = "{" + val + "-" + key + "}" + open;
+      close += "{/" + val + "-" + key + "}";
     } else {
       if (val === true) {
-        open = '{' + key + '}' + open;
-        close += '{/' + key + '}';
+        open = "{" + key + "}" + open;
+        close += "{/" + key + "}";
       }
     }
   });
@@ -122,7 +126,7 @@ helpers.generateTags = (style: any, text?: string): any => {
 
   return {
     open: open,
-    close: close
+    close: close,
   };
 };
 
@@ -131,10 +135,10 @@ helpers.attrToBinary = (style: any, element?: any): any => {
 };
 
 helpers.stripTags = (text: string): string => {
-  if (!text) return '';
+  if (!text) return "";
   return text
-    .replace(/{(\/?)([\w\-,;!#]*)}/g, '')
-    .replace(/\x1b\[[\d;]*m/g, '');
+    .replace(/{(\/?)([\w\-,;!#]*)}/g, "")
+    .replace(/\x1b\[[\d;]*m/g, "");
 };
 
 helpers.cleanTags = (text: string): string => {
@@ -142,23 +146,35 @@ helpers.cleanTags = (text: string): string => {
 };
 
 helpers.dropUnicode = (text: string): string => {
-  if (!text) return '';
+  if (!text) return "";
   return text
-    .split('')
+    .split("")
     .map((char: string, _i: number, _arr: string[]) => {
       // Use unicode.replaceWideChars logic inline for better performance with chaining
       const width = unicode.charWidth(char, 0);
       if (width === 2) {
-        return '??';
+        return "??";
       }
       return char;
     })
-    .join('')
-    .replace(unicode.chars.combining, '')
-    .replace(unicode.chars.surrogate, '?');
+    .join("")
+    .replace(unicode.chars.combining, "")
+    .replace(unicode.chars.surrogate, "?");
 };
 
 // Export individual functions for convenience
-export const { merge, asort, hsort, findFile, escape, parseTags, generateTags, attrToBinary, stripTags, cleanTags, dropUnicode } = helpers;
+export const {
+  merge,
+  asort,
+  hsort,
+  findFile,
+  escape,
+  parseTags,
+  generateTags,
+  attrToBinary,
+  stripTags,
+  cleanTags,
+  dropUnicode,
+} = helpers;
 
 export default helpers;

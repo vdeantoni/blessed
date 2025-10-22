@@ -6,14 +6,14 @@ import {
   beforeAll,
   afterEach,
   vi,
-} from 'vitest';
-import fs from 'fs';
-import path from 'path';
-import { setRuntime } from '../../src/runtime-context.js';
-import FileManager from '../../src/widgets/filemanager.js';
-import { createMockScreen } from '../helpers/mock.js';
+} from "vitest";
+import fs from "fs";
+import path from "path";
+import { setRuntime } from "../../src/runtime-context.js";
+import FileManager from "../../src/widgets/filemanager.js";
+import { createMockScreen } from "../helpers/mock.js";
 
-describe('FileManager', () => {
+describe("FileManager", () => {
   let screen;
 
   beforeAll(() => {
@@ -30,70 +30,70 @@ describe('FileManager', () => {
     vi.restoreAllMocks();
   });
 
-  describe('constructor', () => {
-    it('should create a filemanager instance', () => {
+  describe("constructor", () => {
+    it("should create a filemanager instance", () => {
       const fm = new FileManager({ screen });
 
       expect(fm).toBeDefined();
-      expect(fm.type).toBe('file-manager');
+      expect(fm.type).toBe("file-manager");
     });
 
-    it('should inherit from List', () => {
+    it("should inherit from List", () => {
       const fm = new FileManager({ screen });
 
       expect(fm.screen).toBe(screen);
-      expect(typeof fm.setItems).toBe('function');
-      expect(typeof fm.select).toBe('function');
+      expect(typeof fm.setItems).toBe("function");
+      expect(typeof fm.select).toBe("function");
     });
 
-    it('should default cwd to process.cwd()', () => {
+    it("should default cwd to process.cwd()", () => {
       const fm = new FileManager({ screen });
 
       expect(fm.cwd).toBe(process.cwd());
     });
 
-    it('should accept custom cwd', () => {
-      const fm = new FileManager({ screen, cwd: '/tmp' });
+    it("should accept custom cwd", () => {
+      const fm = new FileManager({ screen, cwd: "/tmp" });
 
-      expect(fm.cwd).toBe('/tmp');
+      expect(fm.cwd).toBe("/tmp");
     });
 
-    it('should set file and value to cwd', () => {
-      const fm = new FileManager({ screen, cwd: '/home/user' });
+    it("should set file and value to cwd", () => {
+      const fm = new FileManager({ screen, cwd: "/home/user" });
 
-      expect(fm.file).toBe('/home/user');
-      expect(fm.value).toBe('/home/user');
+      expect(fm.file).toBe("/home/user");
+      expect(fm.value).toBe("/home/user");
     });
 
-    it('should enable tag parsing', () => {
+    it("should enable tag parsing", () => {
       const fm = new FileManager({ screen });
 
       expect(fm.options.parseTags).toBe(true);
     });
 
-    it('should handle label with %path placeholder', () => {
+    it("should handle label with %path placeholder", () => {
       const fm = new FileManager({
         screen,
-        label: ' {blue-fg}%path{/blue-fg} ',
-        cwd: '/test/path'
+        label: " {blue-fg}%path{/blue-fg} ",
+        cwd: "/test/path",
       });
 
-      expect(fm._label.content).toContain('/test/path');
+      expect(fm._label.content).toContain("/test/path");
     });
   });
 
-  describe('refresh()', () => {
-    it('should have refresh method', () => {
-      const fm = new FileManager({ screen, cwd: '/test' });
+  describe("refresh()", () => {
+    it("should have refresh method", () => {
+      const fm = new FileManager({ screen, cwd: "/test" });
 
-      expect(typeof fm.refresh).toBe('function');
+      expect(typeof fm.refresh).toBe("function");
     });
 
-    it('should emit refresh event when called', () => {
+    it("should emit refresh event when called", () => {
       return new Promise((resolve) => {
         const fm = new FileManager({ screen, cwd: process.cwd() });
 
-        fm.on('refresh', () => {
+        fm.on("refresh", () => {
           resolve();
         });
 
@@ -101,7 +101,7 @@ describe('FileManager', () => {
       });
     });
 
-    it('should accept callback parameter', () => {
+    it("should accept callback parameter", () => {
       return new Promise((resolve) => {
         const fm = new FileManager({ screen, cwd: process.cwd() });
 
@@ -111,9 +111,9 @@ describe('FileManager', () => {
       });
     });
 
-    it('should accept new cwd and callback', () => {
+    it("should accept new cwd and callback", () => {
       return new Promise((resolve) => {
-        const fm = new FileManager({ screen, cwd: '/old' });
+        const fm = new FileManager({ screen, cwd: "/old" });
 
         fm.refresh(process.cwd(), () => {
           expect(fm.cwd).toBe(process.cwd());
@@ -123,31 +123,31 @@ describe('FileManager', () => {
     });
   });
 
-  describe('select event handling', () => {
-    it('should handle select events', () => {
-      const fm = new FileManager({ screen, cwd: '/test' });
+  describe("select event handling", () => {
+    it("should handle select events", () => {
+      const fm = new FileManager({ screen, cwd: "/test" });
 
       // Test that select handler is set up
-      expect(fm.listeners('select').length).toBeGreaterThan(0);
+      expect(fm.listeners("select").length).toBeGreaterThan(0);
     });
 
-    it('should strip tags from selected item content', () => {
-      const fm = new FileManager({ screen, cwd: '/test' });
+    it("should strip tags from selected item content", () => {
+      const fm = new FileManager({ screen, cwd: "/test" });
 
       // Verify the select handler processes content
-      const handler = fm.listeners('select')[0];
-      expect(typeof handler).toBe('function');
+      const handler = fm.listeners("select")[0];
+      expect(typeof handler).toBe("function");
     });
   });
 
-  describe('pick()', () => {
-    it('should have pick method', () => {
-      const fm = new FileManager({ screen, cwd: '/test' });
+  describe("pick()", () => {
+    it("should have pick method", () => {
+      const fm = new FileManager({ screen, cwd: "/test" });
 
-      expect(typeof fm.pick).toBe('function');
+      expect(typeof fm.pick).toBe("function");
     });
 
-    it('should accept callback parameter', () => {
+    it("should accept callback parameter", () => {
       return new Promise((resolve) => {
         const fm = new FileManager({ screen, cwd: process.cwd() });
 
@@ -158,12 +158,12 @@ describe('FileManager', () => {
 
         // Simulate file selection
         setTimeout(() => {
-          fm.emit('file', '/test/file.txt');
+          fm.emit("file", "/test/file.txt");
         }, 10);
       });
     });
 
-    it('should handle cancel event', () => {
+    it("should handle cancel event", () => {
       return new Promise((resolve) => {
         const fm = new FileManager({ screen, cwd: process.cwd() });
 
@@ -173,20 +173,20 @@ describe('FileManager', () => {
         });
 
         setTimeout(() => {
-          fm.emit('cancel');
+          fm.emit("cancel");
         }, 10);
       });
     });
   });
 
-  describe('reset()', () => {
-    it('should have reset method', () => {
-      const fm = new FileManager({ screen, cwd: '/test' });
+  describe("reset()", () => {
+    it("should have reset method", () => {
+      const fm = new FileManager({ screen, cwd: "/test" });
 
-      expect(typeof fm.reset).toBe('function');
+      expect(typeof fm.reset).toBe("function");
     });
 
-    it('should accept callback parameter', () => {
+    it("should accept callback parameter", () => {
       return new Promise((resolve) => {
         const fm = new FileManager({ screen, cwd: process.cwd() });
 
@@ -196,9 +196,9 @@ describe('FileManager', () => {
       });
     });
 
-    it('should accept cwd and callback', () => {
+    it("should accept cwd and callback", () => {
       return new Promise((resolve) => {
-        const fm = new FileManager({ screen, cwd: '/old' });
+        const fm = new FileManager({ screen, cwd: "/old" });
 
         fm.reset(process.cwd(), () => {
           expect(fm.cwd).toBe(process.cwd());
@@ -208,28 +208,28 @@ describe('FileManager', () => {
     });
   });
 
-  describe('common use cases', () => {
-    it('should create a file browser', () => {
+  describe("common use cases", () => {
+    it("should create a file browser", () => {
       const fm = new FileManager({
         screen,
-        cwd: '/home/user',
-        border: 'line',
-        label: ' Files: %path ',
+        cwd: "/home/user",
+        border: "line",
+        label: " Files: %path ",
         style: {
-          border: { fg: 'cyan' },
-          selected: { bg: 'blue' }
-        }
+          border: { fg: "cyan" },
+          selected: { bg: "blue" },
+        },
       });
 
-      expect(fm.cwd).toBe('/home/user');
-      expect(fm._label.content).toContain('/home/user');
+      expect(fm.cwd).toBe("/home/user");
+      expect(fm._label.content).toContain("/home/user");
     });
 
-    it('should track file and value properties', () => {
-      const fm = new FileManager({ screen, cwd: '/test' });
+    it("should track file and value properties", () => {
+      const fm = new FileManager({ screen, cwd: "/test" });
 
-      expect(fm.file).toBe('/test');
-      expect(fm.value).toBe('/test');
+      expect(fm.file).toBe("/test");
+      expect(fm.value).toBe("/test");
     });
   });
 });

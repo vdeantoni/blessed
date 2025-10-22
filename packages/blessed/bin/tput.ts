@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import blessed from '../src/blessed.js';
+import blessed from "../src/blessed.js";
 
 const argv = process.argv.slice(2);
 const cmd = argv.shift();

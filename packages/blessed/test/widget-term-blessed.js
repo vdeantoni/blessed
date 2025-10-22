@@ -3,9 +3,9 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/termblessed.log',
+  dump: __dirname + "/logs/termblessed.log",
   smartCSR: true,
-  warnings: true
+  warnings: true,
 });
 
 var terminal = blessed.terminal({
@@ -13,21 +13,21 @@ var terminal = blessed.terminal({
   // cursor: 'line',
   cursorBlink: true,
   screenKeys: false,
-  top: 'center',
-  left: 'center',
-  width: '90%',
-  height: '90%',
-  border: 'line',
-  handler: function() {},
+  top: "center",
+  left: "center",
+  width: "90%",
+  height: "90%",
+  border: "line",
+  handler: function () {},
   style: {
-    fg: 'default',
-    bg: 'default',
+    fg: "default",
+    bg: "default",
     focus: {
       border: {
-        fg: 'green'
-      }
-    }
-  }
+        fg: "green",
+      },
+    },
+  },
 });
 
 terminal.focus();
@@ -35,24 +35,24 @@ terminal.focus();
 var term = terminal.term;
 
 var screen2 = blessed.screen({
-  dump: __dirname + '/logs/termblessed2.log',
+  dump: __dirname + "/logs/termblessed2.log",
   smartCSR: true,
   warnings: true,
   input: term,
-  output: term
+  output: term,
 });
 
 var box1 = blessed.box({
   parent: screen2,
-  top: 'center',
-  left: 'center',
+  top: "center",
+  left: "center",
   width: 20,
   height: 10,
-  border: 'line',
-  content: 'Hello world'
+  border: "line",
+  content: "Hello world",
 });
 
-screen.key('C-q', function() {
+screen.key("C-q", function () {
   // NOTE:
   // not necessary since screen.destroy causes terminal.term to be destroyed
   // (screen2's input and output are no longer readable/writable)

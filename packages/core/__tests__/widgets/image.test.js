@@ -1,12 +1,12 @@
-import { describe, it, expect, beforeEach, beforeAll } from 'vitest';
-import fs from 'fs';
-import path from 'path';
-import childProcess from 'child_process';
-import { setRuntime } from '../../src/runtime-context.js';
-import Image from '../../src/widgets/image.js';
-import { createMockScreen } from '../helpers/mock.js';
+import { describe, it, expect, beforeEach, beforeAll } from "vitest";
+import fs from "fs";
+import path from "path";
+import childProcess from "child_process";
+import { setRuntime } from "../../src/runtime-context.js";
+import Image from "../../src/widgets/image.js";
+import { createMockScreen } from "../helpers/mock.js";
 
-describe('Image', () => {
+describe("Image", () => {
   let screen;
 
   beforeAll(() => {
@@ -18,62 +18,62 @@ describe('Image', () => {
     screen = createMockScreen();
   });
 
-  describe('constructor', () => {
-    it('should have Image constructor', () => {
-      expect(typeof Image).toBe('function');
+  describe("constructor", () => {
+    it("should have Image constructor", () => {
+      expect(typeof Image).toBe("function");
     });
 
-    it('should default type to ansi', () => {
+    it("should default type to ansi", () => {
       const image = new Image({ screen });
 
-      expect(image.options.type).toBe('ansi');
+      expect(image.options.type).toBe("ansi");
     });
 
-    it('should accept itype option', () => {
+    it("should accept itype option", () => {
       const image = new Image({
         screen,
-        itype: 'overlay',
-        search: false // Prevent filesystem search for w3mimgdisplay in CI
+        itype: "overlay",
+        search: false, // Prevent filesystem search for w3mimgdisplay in CI
       });
 
-      expect(image.options.type).toBe('overlay');
+      expect(image.options.type).toBe("overlay");
     });
 
-    it('should accept type option', () => {
+    it("should accept type option", () => {
       const image = new Image({
         screen,
-        type: 'overlay',
-        search: false // Prevent filesystem search for w3mimgdisplay in CI
+        type: "overlay",
+        search: false, // Prevent filesystem search for w3mimgdisplay in CI
       });
 
-      expect(image.options.type).toBe('overlay');
+      expect(image.options.type).toBe("overlay");
     });
 
-    it('should throw error for invalid type', () => {
+    it("should throw error for invalid type", () => {
       expect(() => {
         new Image({
           screen,
-          type: 'invalid'
+          type: "invalid",
         });
-      }).toThrow('`type` must either be `ansi` or `overlay`.');
+      }).toThrow("`type` must either be `ansi` or `overlay`.");
     });
   });
 
-  describe('common use cases', () => {
-    it('should pass file option', () => {
+  describe("common use cases", () => {
+    it("should pass file option", () => {
       const image = new Image({
         screen,
-        file: '/path/to/image.png'
+        file: "/path/to/image.png",
       });
 
-      expect(image.options.file).toBe('/path/to/image.png');
+      expect(image.options.file).toBe("/path/to/image.png");
     });
 
-    it('should pass dimensions', () => {
+    it("should pass dimensions", () => {
       const image = new Image({
         screen,
         width: 40,
-        height: 20
+        height: 20,
       });
 
       expect(image.options.width).toBe(40);

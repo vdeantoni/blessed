@@ -6,15 +6,20 @@
  * Modules
  */
 
-import type { KeyEvent, MouseEvent, ProgressBarOptions, ProgressBarStyle } from '../types';
-import Input from './input.js';
+import type {
+  KeyEvent,
+  MouseEvent,
+  ProgressBarOptions,
+  ProgressBarStyle,
+} from "../types";
+import Input from "./input.js";
 
 /**
  * ProgressBar
  */
 
 class ProgressBar extends Input {
-  override type = 'progress-bar';
+  override type = "progress-bar";
   declare style: ProgressBarStyle;
   filled: number;
   value: number;
@@ -26,7 +31,7 @@ class ProgressBar extends Input {
 
     let filled: number | string = options.filled || 0;
     let filledNum: number;
-    if (typeof filled === 'string') {
+    if (typeof filled === "string") {
       filledNum = +filled.slice(0, -1);
     } else {
       filledNum = filled;
@@ -34,12 +39,12 @@ class ProgressBar extends Input {
     this.filled = filledNum;
     this.value = this.filled;
 
-    this.pch = options.pch || ' ';
+    this.pch = options.pch || " ";
 
     // XXX Workaround that predates the usage of `el.ch`.
     if (options.ch) {
       this.pch = options.ch;
-      this.ch = ' ';
+      this.ch = " ";
     }
     if (options.bch) {
       this.ch = options.bch;
@@ -51,18 +56,18 @@ class ProgressBar extends Input {
       this.style.bar.bg = options.barBg;
     }
 
-    this.orientation = options.orientation || 'horizontal';
+    this.orientation = options.orientation || "horizontal";
 
     if (options.keys) {
-      this.on('keypress', (_ch: any, key: KeyEvent) => {
+      this.on("keypress", (_ch: any, key: KeyEvent) => {
         let back: string[] = [];
         let forward: string[] = [];
-        if (this.orientation === 'horizontal') {
-          back = ['left', 'h'];
-          forward = ['right', 'l'];
-        } else if (this.orientation === 'vertical') {
-          back = ['down', 'j'];
-          forward = ['up', 'k'];
+        if (this.orientation === "horizontal") {
+          back = ["left", "h"];
+          forward = ["right", "l"];
+        } else if (this.orientation === "vertical") {
+          back = ["down", "j"];
+          forward = ["up", "k"];
         }
         if (key.name === back[0] || (options.vi && key.name === back[1])) {
           this.progress(-5);
@@ -81,15 +86,15 @@ class ProgressBar extends Input {
     }
 
     if (options.mouse) {
-      this.on('click', (data: MouseEvent) => {
+      this.on("click", (data: MouseEvent) => {
         let x: number, y: number, m: number;
         let p: number = 0;
         if (!this.lpos) return;
-        if (this.orientation === 'horizontal') {
+        if (this.orientation === "horizontal") {
           x = data.x - this.lpos.xi;
           m = this.lpos.xl - this.lpos.xi - this.iwidth;
           p = ((x / m) * 100) | 0;
-        } else if (this.orientation === 'vertical') {
+        } else if (this.orientation === "vertical") {
           y = data.y - this.lpos.yi;
           m = this.lpos.yl - this.lpos.yi - this.iheight;
           p = ((y / m) * 100) | 0;
@@ -116,9 +121,9 @@ class ProgressBar extends Input {
       yl--;
     }
 
-    if (this.orientation === 'horizontal') {
+    if (this.orientation === "horizontal") {
       xl = (xi + (xl - xi) * (this.filled / 100)) | 0;
-    } else if (this.orientation === 'vertical') {
+    } else if (this.orientation === "vertical") {
       yi = yi + (yl - yi - (((yl - yi) * (this.filled / 100)) | 0));
     }
 
@@ -153,7 +158,7 @@ class ProgressBar extends Input {
     if (this.filled < 0) this.filled = 0;
     else if (this.filled > 100) this.filled = 100;
     if (this.filled === 100) {
-      this.emit('complete');
+      this.emit("complete");
     }
     this.value = this.filled;
   }
@@ -179,7 +184,7 @@ class ProgressBar extends Input {
    * progressBar.reset();
    */
   reset(): void {
-    this.emit('reset');
+    this.emit("reset");
     this.filled = 0;
     this.value = this.filled;
   }

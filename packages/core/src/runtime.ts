@@ -10,17 +10,17 @@
  */
 
 // Type-only imports from @types/node
-import type * as fs from 'fs';
-import type * as path from 'path';
-import type * as child_process from 'child_process';
-import type * as tty from 'tty';
-import type * as url from 'url';
-import type * as util from 'util';
-import type * as net from 'net';
-import type { StringDecoder } from 'string_decoder';
-import type { Readable, Writable } from 'stream';
-import type { Buffer } from 'buffer';
-import type EventEmitter from 'events';
+import type * as fs from "fs";
+import type * as path from "path";
+import type * as child_process from "child_process";
+import type * as tty from "tty";
+import type * as url from "url";
+import type * as util from "util";
+import type * as net from "net";
+import type { StringDecoder } from "string_decoder";
+import type { Readable, Writable } from "stream";
+import type { Buffer } from "buffer";
+import type EventEmitter from "events";
 
 /**
  * Complete runtime abstraction interface
@@ -184,13 +184,12 @@ export interface StreamAPI {
 /**
  * Readable type alias for use throughout the codebase
  */
-export type ReadableType = InstanceType<StreamAPI['Readable']>;
+export type ReadableType = InstanceType<StreamAPI["Readable"]>;
 
 /**
  * Writable type alias for use throughout the codebase
  */
-export type WritableType = InstanceType<StreamAPI['Writable']>;
-
+export type WritableType = InstanceType<StreamAPI["Writable"]>;
 
 export interface EventsAPI {
   EventEmitter: typeof EventEmitter;
@@ -199,7 +198,8 @@ export interface EventsAPI {
 /**
  * EventEmitter type alias for use throughout the codebase
  */
-export interface EventEmitterType extends InstanceType<EventsAPI['EventEmitter']> {}
+export interface EventEmitterType
+  extends InstanceType<EventsAPI["EventEmitter"]> {}
 
 /**
  * Buffer operations interface
@@ -212,7 +212,7 @@ export interface BufferAPI {
 /**
  * Buffer type alias for use throughout the codebase
  */
-export type BufferType = InstanceType<BufferAPI['Buffer']>;
+export type BufferType = InstanceType<BufferAPI["Buffer"]>;
 
 /**
  * PNG image library interface (pngjs)
@@ -226,7 +226,7 @@ export interface PngAPI {
       gamma: number;
       parse(
         data: BufferType,
-        callback?: (error: Error | null, data: any) => void
+        callback?: (error: Error | null, data: any) => void,
       ): any;
       pack(): any;
       on(event: string, callback: (...args: any[]) => void): any;
@@ -335,27 +335,35 @@ export interface UtilsAPI {
 /**
  * Check if runtime has image processing support
  */
-export function hasImageSupport(runtime: Runtime): runtime is Runtime & { images: ImageAPI } {
+export function hasImageSupport(
+  runtime: Runtime,
+): runtime is Runtime & { images: ImageAPI } {
   return runtime.images !== undefined;
 }
 
 /**
  * Check if runtime has process spawning support
  */
-export function hasProcessSupport(runtime: Runtime): runtime is Runtime & { processes: ProcessesAPI } {
+export function hasProcessSupport(
+  runtime: Runtime,
+): runtime is Runtime & { processes: ProcessesAPI } {
   return runtime.processes !== undefined;
 }
 
 /**
  * Check if runtime has networking support
  */
-export function hasNetworkSupport(runtime: Runtime): runtime is Runtime & { networking: NetworkingAPI } {
+export function hasNetworkSupport(
+  runtime: Runtime,
+): runtime is Runtime & { networking: NetworkingAPI } {
   return runtime.networking !== undefined;
 }
 
 /**
  * Check if runtime has utility functions
  */
-export function hasUtilsSupport(runtime: Runtime): runtime is Runtime & { utils: UtilsAPI } {
+export function hasUtilsSupport(
+  runtime: Runtime,
+): runtime is Runtime & { utils: UtilsAPI } {
   return runtime.utils !== undefined;
 }

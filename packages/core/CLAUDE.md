@@ -7,6 +7,7 @@ This document provides architectural context and development guidelines for work
 `@unblessed/core` is the **platform-agnostic core** of the Tui terminal UI library. It contains all widget logic, rendering code, and terminal control primitives while having **zero dependencies** on any specific platform (Node.js, browser, etc.).
 
 **Key Principles:**
+
 - Platform-agnostic design via runtime dependency injection
 - Strict TypeScript with full type safety
 - Comprehensive test coverage (100% - all 1,987 tests passing)
@@ -21,29 +22,30 @@ All platform-specific operations go through a `Runtime` interface:
 ```typescript
 // src/runtime.ts
 export interface Runtime {
-  fs: FileSystemAPI;        // File system operations
-  path: PathAPI;            // Path manipulation
-  process: ProcessAPI;      // Process I/O and environment
+  fs: FileSystemAPI; // File system operations
+  path: PathAPI; // Path manipulation
+  process: ProcessAPI; // Process I/O and environment
   childProcess: ChildProcessAPI;
   tty: TtyAPI;
-  buffer: BufferAPI;        // Buffer operations
-  stream: StreamAPI;        // Readable/Writable streams
+  buffer: BufferAPI; // Buffer operations
+  stream: StreamAPI; // Readable/Writable streams
   stringDecoder: StringDecoderAPI;
   url: UrlAPI;
   util: UtilAPI;
   net: NetAPI;
-  png: PngAPI;              // PNG image library (pngjs)
-  gif: GifAPI;              // GIF image library (omggif)
+  png: PngAPI; // PNG image library (pngjs)
+  gif: GifAPI; // GIF image library (omggif)
 }
 ```
 
 **Usage Pattern:**
+
 ```typescript
 // ❌ Don't import platform APIs directly
-import fs from 'fs';
+import fs from "fs";
 
 // ✅ Use runtime context
-import { getRuntime } from './runtime-context.js';
+import { getRuntime } from "./runtime-context.js";
 const runtime = getRuntime();
 const data = runtime.fs.readFileSync(path);
 ```
@@ -62,13 +64,14 @@ export function setRuntime(runtime: Runtime): void {
 
 export function getRuntime(): Runtime {
   if (!globalRuntime) {
-    throw new Error('Runtime not initialized');
+    throw new Error("Runtime not initialized");
   }
   return globalRuntime;
 }
 ```
 
 **Initialization:**
+
 - Platform packages (@unblessed/node, @unblessed/browser) call `setRuntime()` at startup
 - Core code accesses runtime via `getRuntime()`
 - One runtime per process (Node.js) or browser tab
@@ -124,8 +127,9 @@ packages/core/
 If you need to use a new Node.js API:
 
 1. **Add to Runtime interface** (`src/runtime.ts`):
+
 ```typescript
-import type * as newModule from 'new-module';
+import type * as newModule from "new-module";
 
 export interface NewModuleAPI {
   someFunction: typeof newModule.someFunction;
@@ -138,8 +142,9 @@ export interface Runtime {
 ```
 
 2. **Use via getRuntime()** in implementation code:
+
 ```typescript
-import { getRuntime } from '../runtime-context.js';
+import { getRuntime } from "../runtime-context.js";
 
 function useNewAPI() {
   const runtime = getRuntime();
@@ -148,15 +153,16 @@ function useNewAPI() {
 ```
 
 3. **Update test mocks** (`__tests__/helpers/mock.js`):
+
 ```javascript
-import * as newModule from 'new-module';
+import * as newModule from "new-module";
 
 function createMockRuntime() {
   return {
     // ... existing APIs
     newModule: {
-      someFunction: newModule.someFunction
-    }
+      someFunction: newModule.someFunction,
+    },
   };
 }
 ```
@@ -167,9 +173,9 @@ The test suite uses a mock runtime that provides real Node.js implementations:
 
 ```javascript
 // __tests__/helpers/mock.js
-import { setRuntime } from '../../src/runtime-context.js';
-import * as fs from 'fs';
-import * as path from 'path';
+import { setRuntime } from "../../src/runtime-context.js";
+import * as fs from "fs";
+import * as path from "path";
 // ... other Node.js imports
 
 export function initTestRuntime() {
@@ -180,36 +186,38 @@ export function initTestRuntime() {
 ```
 
 **Always initialize runtime in tests:**
-```javascript
-import { describe, it, beforeAll } from 'vitest';
-import { initTestRuntime } from '../helpers/mock.js';
 
-describe('MyModule', () => {
+```javascript
+import { describe, it, beforeAll } from "vitest";
+import { initTestRuntime } from "../helpers/mock.js";
+
+describe("MyModule", () => {
   beforeAll(() => {
     initTestRuntime();
   });
 
-  it('should work', () => {
+  it("should work", () => {
     // Test code
   });
 });
 ```
 
 **Testing with environment variables:**
+
 ```javascript
-import { setTestEnv, getTestEnv } from '../helpers/mock.js';
+import { setTestEnv, getTestEnv } from "../helpers/mock.js";
 
 // Set environment variable in mock runtime
-setTestEnv('TERM_PROGRAM', 'iTerm.app');
+setTestEnv("TERM_PROGRAM", "iTerm.app");
 
 // Clear environment variable
-setTestEnv('TERM_PROGRAM', undefined);
+setTestEnv("TERM_PROGRAM", undefined);
 
 // ❌ Don't use process.env directly - it won't affect the mock runtime
-process.env.TERM_PROGRAM = 'iTerm.app'; // Wrong!
+process.env.TERM_PROGRAM = "iTerm.app"; // Wrong!
 
 // ✅ Always use setTestEnv() to modify environment in tests
-setTestEnv('TERM_PROGRAM', 'iTerm.app'); // Correct!
+setTestEnv("TERM_PROGRAM", "iTerm.app"); // Correct!
 ```
 
 ### Build System
@@ -220,24 +228,26 @@ The package uses `tsup` for building:
 // tsup.config.ts
 export default defineConfig({
   entry: {
-    index: 'src/index.ts',
-    runtime: 'src/runtime.ts',
-    'widgets/index': 'src/widgets/index.ts'
+    index: "src/index.ts",
+    runtime: "src/runtime.ts",
+    "widgets/index": "src/widgets/index.ts",
   },
-  format: ['esm', 'cjs'],
+  format: ["esm", "cjs"],
   dts: true,
   sourcemap: true,
   clean: true,
-  splitting: false
+  splitting: false,
 });
 ```
 
 **Multiple entry points:**
+
 - `index` - Main package entry
 - `runtime` - Runtime interfaces for adapters
 - `widgets/index` - Widget exports
 
 **Build outputs:**
+
 - ESM: `.js` files
 - CommonJS: `.cjs` files
 - TypeScript definitions: `.d.ts` and `.d.cts` files
@@ -245,25 +255,27 @@ export default defineConfig({
 ### Type Safety
 
 **Use type-only imports from @types/node:**
+
 ```typescript
 // ✅ Good
-import type { Readable, Writable } from 'stream';
+import type { Readable, Writable } from "stream";
 
 // ❌ Bad - runtime import
-import { Readable, Writable } from 'stream';
+import { Readable, Writable } from "stream";
 ```
 
 **Never use Node.js globals directly:**
+
 ```typescript
 // ❌ Bad
-import { Buffer } from 'buffer';
-const buf = Buffer.from('data');
+import { Buffer } from "buffer";
+const buf = Buffer.from("data");
 
 // ✅ Good
-import { getRuntime, type BufferType } from './runtime-context.js';
+import { getRuntime, type BufferType } from "./runtime-context.js";
 const runtime = getRuntime();
 const Buffer = runtime.buffer.Buffer;
-const buf = Buffer.from('data');
+const buf = Buffer.from("data");
 ```
 
 ### Error Handling
@@ -272,12 +284,12 @@ Don't use `assert()` - throw explicit errors:
 
 ```typescript
 // ❌ Bad
-import assert from 'assert';
-assert(condition, 'Error message');
+import assert from "assert";
+assert(condition, "Error message");
 
 // ✅ Good
 if (!condition) {
-  throw new Error('Error message');
+  throw new Error("Error message");
 }
 ```
 
@@ -290,6 +302,7 @@ if (!condition) {
 **Solution**: Abstract all platform operations behind interfaces that can be implemented differently for each platform.
 
 **Benefits**:
+
 - Single codebase works in Node.js, browsers, Electron, etc.
 - Platform adapters can optimize for their environment
 - Testing is easier with mock implementations
@@ -302,6 +315,7 @@ if (!condition) {
 **Solution**: Use `import type` syntax to ensure types are erased during compilation.
 
 **Benefits**:
+
 - TypeScript type safety without runtime dependencies
 - No Node.js code bundled in the package
 - Works in any JavaScript environment
@@ -313,6 +327,7 @@ if (!condition) {
 **Solution**: Core package has zero dependencies, adapter packages (`@unblessed/node`, `@unblessed/browser`) provide implementations.
 
 **Benefits**:
+
 - Users only install what they need
 - Adapter-specific optimizations possible
 - Clear separation of concerns
@@ -326,9 +341,9 @@ This section provides a comprehensive explanation of how the runtime system work
 Terminal UI libraries are traditionally tightly coupled to Node.js APIs:
 
 ```typescript
-import fs from 'fs';           // ❌ Only works in Node.js
-import process from 'process'; // ❌ Only works in Node.js
-import { Buffer } from 'buffer'; // ❌ Only works in Node.js
+import fs from "fs"; // ❌ Only works in Node.js
+import process from "process"; // ❌ Only works in Node.js
+import { Buffer } from "buffer"; // ❌ Only works in Node.js
 ```
 
 This makes them impossible to run in browsers or other JavaScript environments.
@@ -353,16 +368,16 @@ The Runtime interface (`@unblessed/core/src/runtime.ts`) defines what a runtime 
 ```typescript
 export interface Runtime {
   // ========== CORE (Required) ==========
-  fs: FileSystemAPI;      // File operations
-  path: PathAPI;          // Path manipulation
-  process: ProcessAPI;    // Process I/O, env, events
-  buffer: BufferAPI;      // Buffer operations
-  url: UrlAPI;           // URL utils (fileURLToPath)
-  utils: UtilsAPI;       // util, stream, stringDecoder
+  fs: FileSystemAPI; // File operations
+  path: PathAPI; // Path manipulation
+  process: ProcessAPI; // Process I/O, env, events
+  buffer: BufferAPI; // Buffer operations
+  url: UrlAPI; // URL utils (fileURLToPath)
+  utils: UtilsAPI; // util, stream, stringDecoder
 
   // ========== OPTIONAL ==========
-  images?: ImageAPI;          // PNG/GIF (Image widgets only)
-  processes?: ProcessesAPI;   // Child processes (Terminal, image tools)
+  images?: ImageAPI; // PNG/GIF (Image widgets only)
+  processes?: ProcessesAPI; // Child processes (Terminal, image tools)
   networking?: NetworkingAPI; // Net/TTY (GPM mouse only)
 }
 ```
@@ -378,6 +393,7 @@ export interface FileSystemAPI {
 ```
 
 **Why grouped?**
+
 - **Core**: Used by EVERY widget (I/O, logging, events)
 - **Optional**: Used by SPECIFIC widgets (images, terminal, GPM)
 
@@ -390,9 +406,9 @@ let runtime: Runtime | null = null;
 
 export function setRuntime(rt: Runtime): void {
   if (runtime && runtime !== rt) {
-    const isTest = process.env?.NODE_ENV === 'test';
+    const isTest = process.env?.NODE_ENV === "test";
     if (!isTest) {
-      throw new Error('Runtime already initialized');
+      throw new Error("Runtime already initialized");
     }
   }
   runtime = rt;
@@ -400,13 +416,14 @@ export function setRuntime(rt: Runtime): void {
 
 export function getRuntime(): Runtime {
   if (!runtime) {
-    throw new Error('Runtime not initialized');
+    throw new Error("Runtime not initialized");
   }
   return runtime;
 }
 ```
 
 **Key behaviors:**
+
 - ✅ One runtime per process/tab
 - ✅ Set once at startup
 - ✅ Used everywhere via getRuntime()
@@ -419,9 +436,9 @@ export function getRuntime(): Runtime {
 Simply wraps real Node.js modules:
 
 ```typescript
-import fs from 'fs';
-import process from 'process';
-import { PNG } from 'pngjs';
+import fs from "fs";
+import process from "process";
+import { PNG } from "pngjs";
 // ...
 
 export class NodeRuntime implements Runtime {
@@ -448,13 +465,14 @@ let nodeRuntime: NodeRuntime | null = null;
 export function getNodeRuntime(): NodeRuntime {
   if (!nodeRuntime) {
     nodeRuntime = new NodeRuntime();
-    setRuntime(nodeRuntime);  // Register globally!
+    setRuntime(nodeRuntime); // Register globally!
   }
   return nodeRuntime;
 }
 ```
 
 **Key points:**
+
 - Zero overhead (direct assignments)
 - Provides ALL APIs
 - Singleton pattern
@@ -516,6 +534,7 @@ setRuntime(runtime);
 ```
 
 **Key points:**
+
 - Global polyfills FIRST (process, Buffer)
 - Virtual FS with bundled terminfo/fonts
 - Stubs throw helpful errors
@@ -527,10 +546,10 @@ Global setup for all tests:
 
 ```javascript
 // __tests__/setup.js
-import { beforeAll } from 'vitest';
-import { setRuntime } from '../src/runtime-context.js';
-import fs from 'fs';
-import { PNG } from 'pngjs';
+import { beforeAll } from "vitest";
+import { setRuntime } from "../src/runtime-context.js";
+import fs from "fs";
+import { PNG } from "pngjs";
 // ...
 
 beforeAll(() => {
@@ -541,7 +560,11 @@ beforeAll(() => {
     process,
     buffer: { Buffer },
     url,
-    utils: { util, stream: { Readable, Writable }, stringDecoder: { StringDecoder } },
+    utils: {
+      util,
+      stream: { Readable, Writable },
+      stringDecoder: { StringDecoder },
+    },
 
     // Optional - real implementations
     images: { png: { PNG }, gif: { GifReader } },
@@ -552,6 +575,7 @@ beforeAll(() => {
 ```
 
 **Why:**
+
 - Tests run in Node.js (real APIs available)
 - Single setup for ALL tests
 - Runs before any test file loads
@@ -561,6 +585,7 @@ beforeAll(() => {
 **Initialization Flow:**
 
 **Node.js App:**
+
 1. `import { getNodeRuntime } from '@unblessed/node'`
 2. `getNodeRuntime()` → Creates NodeRuntime, calls `setRuntime()`
 3. `import { Screen, Box } from '@unblessed/core'`
@@ -568,6 +593,7 @@ beforeAll(() => {
 5. ✅ Works with real fs, process, etc.
 
 **Browser App:**
+
 1. `import '@unblessed/browser'` → Auto-runs at module load!
    - Sets up global polyfills (process, Buffer)
    - Creates BrowserRuntime
@@ -577,6 +603,7 @@ beforeAll(() => {
 4. ✅ Works with polyfills/stubs
 
 **Tests:**
+
 1. Vitest loads `__tests__/setup.js`
 2. `beforeAll()` calls `setRuntime()` with real Node.js APIs
 3. Test files load
@@ -589,15 +616,15 @@ beforeAll(() => {
 
 ```typescript
 // lib/tput.ts
-import { getRuntime } from '../runtime-context.js';
+import { getRuntime } from "../runtime-context.js";
 
 class Tput {
   loadTerminfo(term: string) {
-    const runtime = getRuntime();  // Get current runtime
+    const runtime = getRuntime(); // Get current runtime
 
     // Use runtime.fs (not import fs!)
     const data = runtime.fs.readFileSync(
-      runtime.path.join('/usr/share/terminfo', term)
+      runtime.path.join("/usr/share/terminfo", term),
     );
 
     return this.parseTerminfo(data);
@@ -609,16 +636,16 @@ class Tput {
 
 ```typescript
 // lib/program.ts
-import { getRuntime } from '../runtime-context.js';
+import { getRuntime } from "../runtime-context.js";
 
 class Program {
   setupDump() {
     const runtime = getRuntime();
 
     // StringDecoder from runtime.utils
-    const decoder = new runtime.utils.stringDecoder.StringDecoder('utf8');
+    const decoder = new runtime.utils.stringDecoder.StringDecoder("utf8");
 
-    this.on('data', (data) => {
+    this.on("data", (data) => {
       const str = decoder.write(data);
       this.log(str);
     });
@@ -630,7 +657,7 @@ class Program {
 
 ```typescript
 // lib/image-renderer.ts
-import { getRuntime } from '../runtime-context.js';
+import { getRuntime } from "../runtime-context.js";
 
 class ImageRenderer {
   parsePNG(buffer: Buffer) {
@@ -638,7 +665,7 @@ class ImageRenderer {
 
     // Check if optional API exists
     if (!runtime.images) {
-      throw new Error('Image support not available');
+      throw new Error("Image support not available");
     }
 
     // Use it
@@ -649,6 +676,7 @@ class ImageRenderer {
 ```
 
 **The Pattern:**
+
 1. Import `getRuntime` (never import fs, process, etc.!)
 2. Call `getRuntime()` to get current runtime
 3. Use `runtime.api.method()` instead of direct imports
@@ -660,8 +688,9 @@ Type-safe guards for optional APIs:
 
 ```typescript
 // runtime.ts
-export function hasImageSupport(runtime: Runtime):
-  runtime is Runtime & { images: ImageAPI } {
+export function hasImageSupport(
+  runtime: Runtime,
+): runtime is Runtime & { images: ImageAPI } {
   return runtime.images !== undefined;
 }
 
@@ -677,6 +706,7 @@ if (hasImageSupport(runtime)) {
 ### API Usage Analysis
 
 **Core APIs (Required):**
+
 - `fs` (24 uses) - terminfo, fonts, data files
 - `path` (22 uses) - path manipulation
 - `process` (41 uses) - I/O, env, events, nextTick
@@ -685,6 +715,7 @@ if (hasImageSupport(runtime)) {
 - `utils` (10 uses) - formatting, string decoding, I/O
 
 **Optional APIs:**
+
 - `images` (2 uses) - PNG/GIF in image-renderer.ts only
 - `processes` (13 uses) - Terminal widget, image tools (curl, w3m, ImageMagick)
 - `networking` (1 use) - GPM mouse (Linux console only, very rare)
@@ -692,6 +723,7 @@ if (hasImageSupport(runtime)) {
 ### Why This Design?
 
 **Benefits:**
+
 1. **Platform Agnostic** - Same code runs in Node.js, browsers, Deno, Bun
 2. **Testable** - Easy to mock any API
 3. **Tree Shakeable** - Unused optional APIs not bundled
@@ -699,6 +731,7 @@ if (hasImageSupport(runtime)) {
 5. **Clear Dependencies** - Easy to see what's used where
 
 **Trade-offs:**
+
 1. **Extra Indirection** - `runtime.fs.readFileSync()` vs `fs.readFileSync()` (minimal overhead)
 2. **Runtime Errors** - Wrong API fails at runtime (but TypeScript helps)
 3. **Setup Required** - Must call `setRuntime()` (but platforms handle automatically)
@@ -723,8 +756,9 @@ This allows one codebase to work across multiple platforms while maintaining typ
 ### Adding a New Widget
 
 1. Create widget file in `src/widgets/`:
+
 ```typescript
-import { Box, type BoxOptions } from './box.js';
+import { Box, type BoxOptions } from "./box.js";
 
 export interface MyWidgetOptions extends BoxOptions {
   myOption?: string;
@@ -735,7 +769,7 @@ export class MyWidget extends Box {
 
   constructor(options: MyWidgetOptions = {}) {
     super(options);
-    this.type = 'mywidget';
+    this.type = "mywidget";
     // Initialize widget
   }
 }
@@ -744,9 +778,10 @@ export default MyWidget;
 ```
 
 2. Export from `src/widgets/index.ts`:
+
 ```typescript
-export { MyWidget } from './mywidget.js';
-export type { MyWidgetOptions } from './mywidget.js';
+export { MyWidget } from "./mywidget.js";
+export type { MyWidgetOptions } from "./mywidget.js";
 ```
 
 3. Add tests in `__tests__/widgets/mywidget.test.js`
@@ -764,6 +799,7 @@ Terminal capabilities come from terminfo/termcap databases:
 **Bundled Terminfo Files:**
 
 The core package includes fallback terminfo/termcap files in `data/`:
+
 - `xterm.terminfo` - Binary terminfo database
 - `xterm.termcap` - Text termcap database
 
@@ -772,18 +808,19 @@ The core package includes fallback terminfo/termcap files in `data/`:
 Use the `getDataPath()` helper to resolve paths to bundled data files:
 
 ```typescript
-import { getDataPath, getRuntime } from './runtime-helpers.js';
+import { getDataPath, getRuntime } from "./runtime-helpers.js";
 
 // Get path to data directory
 const dataDir = getDataPath();
 
 // Load bundled terminfo file
 const terminfo = runtime.fs.readFileSync(
-  runtime.path.join(getDataPath(), 'xterm.terminfo')
+  runtime.path.join(getDataPath(), "xterm.terminfo"),
 );
 ```
 
 **Terminfo Loading Order** (`tput.ts`):
+
 1. System terminfo files (e.g., `/usr/share/terminfo/`)
 2. User terminfo files (`~/.terminfo/`)
 3. Bundled fallback files in `data/` directory
@@ -794,16 +831,16 @@ const terminfo = runtime.fs.readFileSync(
 The `colors` module (`src/lib/colors.ts`) handles color conversion:
 
 ```typescript
-import colors from './lib/colors.js';
+import colors from "./lib/colors.js";
 
 // Convert hex to terminal color
-const color = colors.convert('#ff0000');
+const color = colors.convert("#ff0000");
 
 // Reduce to palette size
 const reduced = colors.reduce(color, 256);
 
 // Match closest color
-const matched = colors.match('#ff0000');
+const matched = colors.match("#ff0000");
 ```
 
 ### Handling Images
@@ -811,14 +848,14 @@ const matched = colors.match('#ff0000');
 Image rendering (`src/lib/image-renderer.ts`) supports PNG and GIF:
 
 ```typescript
-import { ImageRenderer } from './lib/image-renderer.js';
-import colors from './lib/colors.js';
+import { ImageRenderer } from "./lib/image-renderer.js";
+import colors from "./lib/colors.js";
 
 const img = new ImageRenderer(buffer, {
   colors: colors,
   width: 80,
   height: 24,
-  ascii: true  // Use ASCII for better rendering
+  ascii: true, // Use ASCII for better rendering
 });
 
 // Get terminal-ready cellmap
@@ -849,10 +886,12 @@ error TS2339: Property 'listenerCount' does not exist on type 'typeof EventEmitt
 The `Program` class copies all terminfo capabilities to itself via `setupTput()`. This can cause collisions with Program properties if they share names with terminfo capabilities.
 
 **Example Collision:**
+
 - Terminfo has an `index` capability (ESC D - Index)
 - Program had a property to track its instance index
 
 **Solution**: Use namespaced property names for Program internals:
+
 ```typescript
 // ❌ Bad - collides with terminfo 'index' capability
 get index(): number {
@@ -866,10 +905,12 @@ get programIndex(): number {
 ```
 
 **Known Safe Property Names:**
+
 - `programIndex` - Instance index in Program.instances array
 - Internal properties prefixed with `_` (e.g., `_programIndex`)
 
 **Checking for Collisions:**
+
 1. Search terminfo database for capability names
 2. Avoid short, generic names like `index`, `tab`, `clear`
 3. Prefix Program-specific properties with `program*` or `_`
@@ -884,11 +925,13 @@ The package has comprehensive test coverage:
 - **Image tests**: PNG/GIF parsing and rendering
 
 **Test utilities** (`__tests__/helpers/mock.js`):
+
 - `createMockRuntime()`: Creates a runtime with real Node.js implementations
 - `initTestRuntime()`: Initializes and sets the global runtime
 - `createMockScreen()`: Creates a mock screen for widget testing
 
 **Running tests:**
+
 ```bash
 pnpm test              # Run all tests once
 pnpm test:watch        # Watch mode
@@ -924,14 +967,14 @@ pnpm test -- --coverage # Coverage report
 ```typescript
 const screen = new Screen({
   debug: true,
-  log: './debug.log'
+  log: "./debug.log",
 });
 ```
 
 ### Inspect Screen Buffer
 
 ```typescript
-console.log(screen.lines);  // View screen buffer
+console.log(screen.lines); // View screen buffer
 console.log(screen.olines); // View old buffer for diffing
 ```
 
@@ -939,8 +982,8 @@ console.log(screen.olines); // View old buffer for diffing
 
 ```typescript
 function printTree(node, indent = 0) {
-  console.log('  '.repeat(indent) + node.type);
-  node.children.forEach(child => printTree(child, indent + 1));
+  console.log("  ".repeat(indent) + node.type);
+  node.children.forEach((child) => printTree(child, indent + 1));
 }
 
 printTree(screen);
@@ -949,8 +992,8 @@ printTree(screen);
 ### Mouse Event Debugging
 
 ```typescript
-screen.on('mouse', (data) => {
-  console.log('Mouse:', data.action, data.x, data.y, data.button);
+screen.on("mouse", (data) => {
+  console.log("Mouse:", data.action, data.x, data.y, data.button);
 });
 ```
 
@@ -959,23 +1002,26 @@ screen.on('mouse', (data) => {
 If migrating from blessed:
 
 1. **Install runtime adapter**:
+
    ```bash
    npm install @unblessed/node
    ```
 
 2. **Initialize runtime**:
+
    ```typescript
-   import { createNodeRuntime } from '@unblessed/node';
+   import { createNodeRuntime } from "@unblessed/node";
    createNodeRuntime();
    ```
 
 3. **Update imports**:
+
    ```typescript
    // Before
-   import blessed from 'blessed';
+   import blessed from "blessed";
 
    // After
-   import { Screen, Box, List } from '@unblessed/core';
+   import { Screen, Box, List } from "@unblessed/core";
    ```
 
 4. **API is mostly compatible** - Most blessed code should work with minimal changes

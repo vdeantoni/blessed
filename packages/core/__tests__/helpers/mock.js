@@ -2,25 +2,29 @@
  * Test utilities for mocking terminal I/O and screen buffers
  */
 
-import { EventEmitter } from 'events';
-import { vi } from 'vitest';
-import { setRuntime, getRuntime, _clearRuntime } from '../../src/runtime-context.js';
-import { clearEnvCache } from '../../src/lib/runtime-helpers.js';
-import fs from 'fs';
-import path from 'path';
-import process from 'process';
-import * as child_process from 'child_process';
-import tty from 'tty';
-import * as url from 'url';
-import * as util from 'util';
-import net from 'net';
-import { StringDecoder } from 'string_decoder';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
-import { Readable, Writable } from 'stream';
-import { Buffer } from 'buffer';
-import { PNG } from 'pngjs';
-import { GifReader } from 'omggif';
+import { EventEmitter } from "events";
+import { vi } from "vitest";
+import {
+  setRuntime,
+  getRuntime,
+  _clearRuntime,
+} from "../../src/runtime-context.js";
+import { clearEnvCache } from "../../src/lib/runtime-helpers.js";
+import fs from "fs";
+import path from "path";
+import process from "process";
+import * as child_process from "child_process";
+import tty from "tty";
+import * as url from "url";
+import * as util from "util";
+import net from "net";
+import { StringDecoder } from "string_decoder";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
+import { Readable, Writable } from "stream";
+import { Buffer } from "buffer";
+import { PNG } from "pngjs";
+import { GifReader } from "omggif";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,10 +35,10 @@ const __dirname = dirname(__filename);
 function createMockEnv() {
   return {
     // Basic environment - no terminal detection variables
-    HOME: process.env.HOME || '/home/test',
-    USER: process.env.USER || 'test',
-    PATH: process.env.PATH || '/usr/bin:/bin',
-    TERM: 'xterm-256color',  // Default to standard xterm
+    HOME: process.env.HOME || "/home/test",
+    USER: process.env.USER || "test",
+    PATH: process.env.PATH || "/usr/bin:/bin",
+    TERM: "xterm-256color", // Default to standard xterm
     // Explicitly unset terminal detection variables
     TERM_PROGRAM: undefined,
     ITERM_SESSION_ID: undefined,
@@ -191,8 +195,8 @@ function createMockRuntime(options = {}) {
       stderr: process.stderr,
       platform: process.platform,
       arch: process.arch,
-      env: mockEnv,  // Use mock environment
-      cwd: vi.fn(() => path.resolve(__dirname, '../..')),
+      env: mockEnv, // Use mock environment
+      cwd: vi.fn(() => path.resolve(__dirname, "../..")),
       exit: vi.fn(),
       pid: process.pid,
       title: process.title,
@@ -204,7 +208,7 @@ function createMockRuntime(options = {}) {
       listeners: vi.fn(() => []),
       nextTick: vi.fn((callback) => {
         // Use setImmediate for mock nextTick
-        if (typeof setImmediate !== 'undefined') {
+        if (typeof setImmediate !== "undefined") {
           setImmediate(callback);
         } else {
           setTimeout(callback, 0);
@@ -220,10 +224,10 @@ function createMockRuntime(options = {}) {
       format: url.format,
       fileURLToPath: vi.fn((url) => {
         // Return path to core/src for proper font resolution
-        if (typeof url === 'string' && url.includes('runtime-helpers')) {
-          return path.join(__dirname, '../../src/lib/runtime-helpers.js');
+        if (typeof url === "string" && url.includes("runtime-helpers")) {
+          return path.join(__dirname, "../../src/lib/runtime-helpers.js");
         }
-        return path.join(__dirname, '../..');
+        return path.join(__dirname, "../..");
       }),
     },
     utils: {
@@ -231,27 +235,34 @@ function createMockRuntime(options = {}) {
         inspect: vi.fn((obj) => JSON.stringify(obj)),
         format: vi.fn((...args) => {
           // Implement basic util.format behavior
-          if (args.length === 0) return '';
+          if (args.length === 0) return "";
           let str = String(args[0]);
           let i = 1;
           str = str.replace(/%[sdifjoO%]/g, (match) => {
             if (i >= args.length) return match;
-            if (match === '%%') return '%';
+            if (match === "%%") return "%";
             const arg = args[i++];
             switch (match) {
-              case '%s': return String(arg);
-              case '%d': return Number(arg);
-              case '%i': return parseInt(arg);
-              case '%f': return parseFloat(arg);
-              case '%j': return JSON.stringify(arg);
-              case '%o':
-              case '%O': return JSON.stringify(arg);
-              default: return match;
+              case "%s":
+                return String(arg);
+              case "%d":
+                return Number(arg);
+              case "%i":
+                return parseInt(arg);
+              case "%f":
+                return parseFloat(arg);
+              case "%j":
+                return JSON.stringify(arg);
+              case "%o":
+              case "%O":
+                return JSON.stringify(arg);
+              default:
+                return match;
             }
           });
           // Append remaining arguments
           while (i < args.length) {
-            str += ' ' + args[i++];
+            str += " " + args[i++];
           }
           return str;
         }),
@@ -286,10 +297,10 @@ function createMockRuntime(options = {}) {
     },
     images: {
       png: {
-        PNG,  // Use real PNG library for tests
+        PNG, // Use real PNG library for tests
       },
       gif: {
-        GifReader,  // Use real GifReader for tests
+        GifReader, // Use real GifReader for tests
       },
     },
   };
@@ -310,9 +321,10 @@ export function initTestRuntime(options = {}) {
   clearEnvCache(); // Clear env cache to allow tests to set env vars
 
   // Use mocks only if explicitly requested or if custom options provided
-  const runtime = options.useMocks || options.env
-    ? createMockRuntime(options)
-    : createNodeRuntimeForTests();
+  const runtime =
+    options.useMocks || options.env
+      ? createMockRuntime(options)
+      : createNodeRuntimeForTests();
 
   setRuntime(runtime);
   return runtime;
@@ -422,7 +434,7 @@ export function createMockProgram(options = {}) {
   program.clear = vi.fn();
   program.write = vi.fn();
   program.flush = vi.fn();
-  program.term = vi.fn().mockReturnValue('xterm-256color');
+  program.term = vi.fn().mockReturnValue("xterm-256color");
 
   // Mock positioning methods
   program.move = vi.fn();
@@ -434,9 +446,9 @@ export function createMockProgram(options = {}) {
   program.attr = vi.fn();
   program._attr = vi.fn((param) => {
     // Basic mock of _attr for tags parsing
-    if (typeof param === 'string') {
+    if (typeof param === "string") {
       // Return some mock attribute code
-      return '\x1b[0m'; // reset
+      return "\x1b[0m"; // reset
     }
     return null;
   });
@@ -475,7 +487,7 @@ export function createMockScreen(options = {}) {
 
   screen.program = program;
   screen.tput = program.tput;
-  screen.type = 'screen'; // Needed for detached check
+  screen.type = "screen"; // Needed for detached check
   screen.detached = false; // Screen is never detached
 
   screen.width = options.width || program.cols || 80;
@@ -501,8 +513,12 @@ export function createMockScreen(options = {}) {
     right: 0,
     top: 0,
     bottom: 0,
-    get height() { return screen.height; },
-    get width() { return screen.width; }
+    get height() {
+      return screen.height;
+    },
+    get width() {
+      return screen.width;
+    },
   };
 
   screen.ileft = 0;
@@ -513,14 +529,14 @@ export function createMockScreen(options = {}) {
   screen.iwidth = screen.width;
 
   screen.autoPadding = options.autoPadding !== false;
-  screen.tabc = '    '; // 4 spaces for tab
+  screen.tabc = "    "; // 4 spaces for tab
   screen.dockBorders = options.dockBorders || false;
   screen.ignoreLocked = options.ignoreLocked || [];
   screen.fullUnicode = options.fullUnicode || false;
   screen._unicode = program.tput.unicode;
   screen._borderStops = {};
 
-  screen.dattr = ((0 << 18) | (0x1ff << 9)) | 0x1ff;
+  screen.dattr = (0 << 18) | (0x1ff << 9) | 0x1ff;
   screen.renders = 0;
   screen.tput = program.tput;
 
@@ -536,7 +552,7 @@ export function createMockScreen(options = {}) {
   screen.cleanSides = vi.fn();
 
   // Mock _getPos for positioning calculations
-  screen._getPos = vi.fn(function() {
+  screen._getPos = vi.fn(function () {
     return {
       xi: this.left || 0,
       xl: this.width,
@@ -547,7 +563,7 @@ export function createMockScreen(options = {}) {
       atop: this.top || 0,
       abottom: 0,
       width: this.width,
-      height: this.height
+      height: this.height,
     };
   });
 
@@ -556,7 +572,7 @@ export function createMockScreen(options = {}) {
   for (let i = 0; i < screen.height; i++) {
     screen.lines[i] = [];
     for (let j = 0; j < screen.width; j++) {
-      screen.lines[i][j] = [screen.dattr, ' '];
+      screen.lines[i][j] = [screen.dattr, " "];
     }
   }
 
@@ -564,12 +580,12 @@ export function createMockScreen(options = {}) {
   for (let i = 0; i < screen.height; i++) {
     screen.olines[i] = [];
     for (let j = 0; j < screen.width; j++) {
-      screen.olines[i][j] = [screen.dattr, ' '];
+      screen.olines[i][j] = [screen.dattr, " "];
     }
   }
 
   // Mock methods
-  screen.append = vi.fn(function(element) {
+  screen.append = vi.fn(function (element) {
     element.parent = this;
     element.screen = this;
     element.detached = false; // Mark element as attached
@@ -577,7 +593,7 @@ export function createMockScreen(options = {}) {
 
     // Add focus() method to elements if they don't have one
     if (!element.focus) {
-      element.focus = function() {
+      element.focus = function () {
         this.screen.focused = this;
       };
     }
@@ -593,7 +609,7 @@ export function createMockScreen(options = {}) {
     return element;
   });
 
-  screen.remove = vi.fn(function(element) {
+  screen.remove = vi.fn(function (element) {
     const index = this.children.indexOf(element);
     if (index !== -1) {
       this.children.splice(index, 1);
@@ -639,9 +655,9 @@ export function createMockScreen(options = {}) {
  * Get text content from screen buffer at a specific position
  */
 export function getScreenText(screen, x, y, width) {
-  if (y < 0 || y >= screen.lines.length) return '';
+  if (y < 0 || y >= screen.lines.length) return "";
   const line = screen.lines[y];
-  let text = '';
+  let text = "";
   for (let i = x; i < x + width && i < line.length; i++) {
     text += line[i][1];
   }
@@ -652,8 +668,8 @@ export function getScreenText(screen, x, y, width) {
  * Get entire line of text from screen buffer
  */
 export function getScreenLine(screen, y) {
-  if (y < 0 || y >= screen.lines.length) return '';
-  return screen.lines[y].map(cell => cell[1]).join('');
+  if (y < 0 || y >= screen.lines.length) return "";
+  return screen.lines[y].map((cell) => cell[1]).join("");
 }
 
 /**
@@ -663,7 +679,7 @@ export function createElement(ElementClass, options = {}) {
   const screen = options.screen || createMockScreen();
   const element = new ElementClass({
     screen,
-    ...options
+    ...options,
   });
   return element;
 }

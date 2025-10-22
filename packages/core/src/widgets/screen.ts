@@ -11,17 +11,17 @@ import type {
   MouseEvent,
   RenderCoords,
   ScreenOptions,
-} from '../types';
-import colors from '../lib/colors.js';
-import Program from '../lib/program.js';
-import unicode from '../lib/unicode.js';
-import helpers from '../lib/helpers.js';
-import Node from './node.js';
-import Log from './log.js';
-import Element from './element.js';
-import Box from './box.js';
-import { getEnvVar, getNextTick } from '../lib/runtime-helpers';
-import { getRuntime } from '../runtime-context.js';
+} from "../types";
+import colors from "../lib/colors.js";
+import Program from "../lib/program.js";
+import unicode from "../lib/unicode.js";
+import helpers from "../lib/helpers.js";
+import Node from "./node.js";
+import Log from "./log.js";
+import Element from "./element.js";
+import Box from "./box.js";
+import { getEnvVar, getNextTick } from "../lib/runtime-helpers";
+import { getRuntime } from "../runtime-context.js";
 
 /**
  * Screen
@@ -79,7 +79,7 @@ class Screen extends Node {
   _hoverText?: any;
   _savedFocus?: any;
   _cursorBlink?: any;
-  override type = 'screen';
+  override type = "screen";
 
   constructor(options: ScreenOptions = {}) {
     if (options.rsety && options.listen) {
@@ -125,7 +125,7 @@ class Screen extends Node {
     this.tput = this.program.tput;
 
     this.autoPadding = options.autoPadding !== false;
-    this.tabc = Array((options.tabSize || 4) + 1).join(' ');
+    this.tabc = Array((options.tabSize || 4) + 1).join(" ");
     this.dockBorders = options.dockBorders;
 
     this.ignoreLocked = options.ignoreLocked || [];
@@ -170,7 +170,7 @@ class Screen extends Node {
     this.grabKeys = false;
     this.lockKeys = false;
     this.focused = false;
-    this._buf = '';
+    this._buf = "";
 
     this._ci = -1;
 
@@ -180,14 +180,14 @@ class Screen extends Node {
 
     const cursorConfig = options.cursor || {
       artificial: options.artificialCursor || false,
-      shape: options.cursorShape || 'block',
+      shape: options.cursorShape || "block",
       blink: options.cursorBlink || false,
       color: options.cursorColor || null,
     };
 
     this.cursor = {
       artificial: cursorConfig.artificial || false,
-      shape: cursorConfig.shape || 'block',
+      shape: cursorConfig.shape || "block",
       blink: cursorConfig.blink || false,
       color: cursorConfig.color || null,
       _set: false,
@@ -195,48 +195,48 @@ class Screen extends Node {
       _hidden: true,
     };
 
-    this.program.on('resize', () => {
+    this.program.on("resize", () => {
       this.alloc();
       this.render();
       (function emit(el: any) {
-        el.emit('resize');
+        el.emit("resize");
         el.children.forEach(emit);
       })(this);
     });
 
-    this.program.on('focus', () => {
-      this.emit('focus');
+    this.program.on("focus", () => {
+      this.emit("focus");
     });
 
-    this.program.on('blur', () => {
-      this.emit('blur');
+    this.program.on("blur", () => {
+      this.emit("blur");
     });
 
-    this.program.on('warning', (text: any) => {
-      this.emit('warning', text);
+    this.program.on("warning", (text: any) => {
+      this.emit("warning", text);
     });
 
-    this.on('newListener', (type: any) => {
+    this.on("newListener", (type: any) => {
       if (
-        type === 'keypress' ||
-        type.indexOf('key ') === 0 ||
-        type === 'mouse'
+        type === "keypress" ||
+        type.indexOf("key ") === 0 ||
+        type === "mouse"
       ) {
-        if (type === 'keypress' || type.indexOf('key ') === 0)
+        if (type === "keypress" || type.indexOf("key ") === 0)
           this._listenKeys();
-        if (type === 'mouse') this._listenMouse();
+        if (type === "mouse") this._listenMouse();
       }
       if (
-        type === 'mouse' ||
-        type === 'click' ||
-        type === 'mouseover' ||
-        type === 'mouseout' ||
-        type === 'mousedown' ||
-        type === 'mouseup' ||
-        type === 'mousewheel' ||
-        type === 'wheeldown' ||
-        type === 'wheelup' ||
-        type === 'mousemove'
+        type === "mouse" ||
+        type === "click" ||
+        type === "mouseover" ||
+        type === "mouseout" ||
+        type === "mousedown" ||
+        type === "mouseup" ||
+        type === "mousewheel" ||
+        type === "wheeldown" ||
+        type === "wheelup" ||
+        type === "mousemove"
       ) {
         this._listenMouse();
       }
@@ -316,8 +316,8 @@ class Screen extends Node {
   setTerminal(terminal: string): void {
     const entered = !!this.program.isAlt;
     if (entered) {
-      this._buf = '';
-      this.program._buf = '';
+      this._buf = "";
+      this.program._buf = "";
       this.leave();
     }
     this.program.setTerminal(terminal);
@@ -341,9 +341,12 @@ class Screen extends Node {
         this.cursorColor(this.cursor.color);
       }
     }
-    if (this.runtime.process.platform === 'win32') {
+    if (this.runtime.process.platform === "win32") {
       try {
-        this.runtime.processes!.childProcess.execSync('cls', { stdio: 'ignore', timeout: 1000 });
+        this.runtime.processes!.childProcess.execSync("cls", {
+          stdio: "ignore",
+          timeout: 1000,
+        });
       } catch (e) {}
     }
     this.program.alternateBuffer();
@@ -381,9 +384,12 @@ class Screen extends Node {
     this.program.normalBuffer();
     if (this.cursor._set) this.cursorReset();
     this.program.flush();
-    if (this.runtime.process.platform === 'win32') {
+    if (this.runtime.process.platform === "win32") {
       try {
-        this.runtime.processes!.childProcess.execSync('cls', { stdio: 'ignore', timeout: 1000 });
+        this.runtime.processes!.childProcess.execSync("cls", {
+          stdio: "ignore",
+          timeout: 1000,
+        });
       } catch (e) {}
     }
   }
@@ -399,20 +405,20 @@ class Screen extends Node {
         parent: this,
         hidden: true,
         draggable: true,
-        left: 'center',
-        top: 'center',
-        width: '30%',
-        height: '30%',
-        border: 'line',
-        label: ' {bold}Debug Log{/bold} ',
+        left: "center",
+        top: "center",
+        width: "30%",
+        height: "30%",
+        border: "line",
+        label: " {bold}Debug Log{/bold} ",
         tags: true,
         keys: true,
         vi: true,
         mouse: true,
         scrollbar: {
-          ch: ' ',
+          ch: " ",
           track: {
-            bg: 'yellow',
+            bg: "yellow",
           },
           style: {
             inverse: true,
@@ -433,25 +439,25 @@ class Screen extends Node {
         this.render();
       };
 
-      this.debugLog.key(['q', 'escape'], this.debugLog.toggle);
-      this.key('f12', this.debugLog.toggle);
+      this.debugLog.key(["q", "escape"], this.debugLog.toggle);
+      this.key("f12", this.debugLog.toggle);
     }
 
     if (this.options.warnings) {
-      this.on('warning', (text: any) => {
+      this.on("warning", (text: any) => {
         const warning = new Box({
           screen: this,
           parent: this,
-          left: 'center',
-          top: 'center',
-          width: 'shrink',
+          left: "center",
+          top: "center",
+          width: "shrink",
           padding: 1,
-          height: 'shrink',
-          align: 'center',
-          valign: 'middle',
-          border: 'line',
-          label: ' {red-fg}{bold}WARNING{/} ',
-          content: '{bold}' + text + '{/bold}',
+          height: "shrink",
+          align: "center",
+          valign: "middle",
+          border: "line",
+          label: " {red-fg}{bold}WARNING{/} ",
+          content: "{bold}" + text + "{/bold}",
           tags: true,
         });
         this.render();
@@ -481,11 +487,14 @@ class Screen extends Node {
       registry.global = registry.instances[0] || null;
 
       if (registry.total === 0) {
-        this.runtime.process.removeListener('uncaughtException', Screen._exceptionHandler);
-        this.runtime.process.removeListener('SIGTERM', Screen._sigtermHandler);
-        this.runtime.process.removeListener('SIGINT', Screen._sigintHandler);
-        this.runtime.process.removeListener('SIGQUIT', Screen._sigquitHandler);
-        this.runtime.process.removeListener('exit', Screen._exitHandler);
+        this.runtime.process.removeListener(
+          "uncaughtException",
+          Screen._exceptionHandler,
+        );
+        this.runtime.process.removeListener("SIGTERM", Screen._sigtermHandler);
+        this.runtime.process.removeListener("SIGINT", Screen._sigintHandler);
+        this.runtime.process.removeListener("SIGQUIT", Screen._sigquitHandler);
+        this.runtime.process.removeListener("exit", Screen._exitHandler);
         delete (Screen as any)._exceptionHandler;
         delete (Screen as any)._sigtermHandler;
         delete (Screen as any)._sigintHandler;
@@ -496,7 +505,7 @@ class Screen extends Node {
       }
 
       this.destroyed = true;
-      this.emit('destroy');
+      this.emit("destroy");
       if ((this as any)._destroy) {
         (this as any)._destroy();
       }
@@ -542,11 +551,11 @@ class Screen extends Node {
       this.program.setMouse({ sendFocus: true }, true);
     }
 
-    this.on('render', () => {
+    this.on("render", () => {
       this._needsClickableSort = true;
     });
 
-    this.program.on('mouse', (data: MouseEvent) => {
+    this.program.on("mouse", (data: MouseEvent) => {
       if (this.lockKeys) return;
 
       if (this._needsClickableSort) {
@@ -578,21 +587,21 @@ class Screen extends Node {
           data.y >= pos.yi &&
           data.y < pos.yl
         ) {
-          el.emit('mouse', data);
-          if (data.action === 'mousedown') {
+          el.emit("mouse", data);
+          if (data.action === "mousedown") {
             this.mouseDown = el;
-          } else if (data.action === 'mouseup') {
-            (this.mouseDown || el).emit('click', data);
+          } else if (data.action === "mouseup") {
+            (this.mouseDown || el).emit("click", data);
             this.mouseDown = null;
-          } else if (data.action === 'mousemove') {
+          } else if (data.action === "mousemove") {
             if (this.hover && el.index > this.hover.index) {
               set = false;
             }
             if (this.hover !== el && !set) {
               if (this.hover) {
-                this.hover.emit('mouseout', data);
+                this.hover.emit("mouseout", data);
               }
-              el.emit('mouseover', data);
+              el.emit("mouseover", data);
               this.hover = el;
             }
             set = true;
@@ -604,17 +613,17 @@ class Screen extends Node {
 
       // Just mouseover?
       if (
-        (data.action === 'mousemove' ||
-          data.action === 'mousedown' ||
-          data.action === 'mouseup') &&
+        (data.action === "mousemove" ||
+          data.action === "mousedown" ||
+          data.action === "mouseup") &&
         this.hover &&
         !set
       ) {
-        this.hover.emit('mouseout', data);
+        this.hover.emit("mouseout", data);
         this.hover = null;
       }
 
-      this.emit('mouse', data);
+      this.emit("mouse", data);
       this.emit(data.action, data);
     });
 
@@ -630,7 +639,7 @@ class Screen extends Node {
     // });
 
     // Autofocus elements with the appropriate option.
-    this.on('element click', (el: any) => {
+    this.on("element click", (el: any) => {
       if (el.clickable === true && el.options.autoFocus !== false) {
         el.focus();
       }
@@ -665,7 +674,7 @@ class Screen extends Node {
     // After the first keypress emitted, the handler
     // checks to make sure grabKeys, lockKeys, and focused
     // weren't changed, and handles those situations appropriately.
-    this.program.on('keypress', (ch: any, key: KeyEvent) => {
+    this.program.on("keypress", (ch: any, key: KeyEvent) => {
       if (this.lockKeys && !~this.ignoreLocked.indexOf(key.full)) {
         return;
       }
@@ -674,8 +683,8 @@ class Screen extends Node {
       const grabKeys = this.grabKeys;
 
       if (!grabKeys || ~this.ignoreLocked.indexOf(key.full)) {
-        this.emit('keypress', ch, key);
-        this.emit('key ' + key.full, ch, key);
+        this.emit("keypress", ch, key);
+        this.emit("key " + key.full, ch, key);
       }
 
       // If something changed from the screen key handler, stop.
@@ -684,8 +693,8 @@ class Screen extends Node {
       }
 
       if (focused && focused.keyable) {
-        focused.emit('keypress', ch, key);
-        focused.emit('key ' + key.full, ch, key);
+        focused.emit("keypress", ch, key);
+        focused.emit("key " + key.full, ch, key);
       }
     });
   }
@@ -722,26 +731,26 @@ class Screen extends Node {
       left: 0,
       top: 0,
       tags: false,
-      height: 'shrink',
-      width: 'shrink',
-      border: 'line',
+      height: "shrink",
+      width: "shrink",
+      border: "line",
       style: {
         border: {
-          fg: 'default',
+          fg: "default",
         },
-        bg: 'default',
-        fg: 'default',
+        bg: "default",
+        fg: "default",
       },
     });
 
-    this.on('mousemove', (data: MouseEvent) => {
+    this.on("mousemove", (data: MouseEvent) => {
       if (this._hoverText.detached) return;
       this._hoverText.rleft = data.x + 1;
       this._hoverText.rtop = data.y;
       this.render();
     });
 
-    this.on('element mouseover', (el: any, data: MouseEvent) => {
+    this.on("element mouseover", (el: any, data: MouseEvent) => {
       if (!el._hoverOptions) return;
       this._hoverText.parseTags = el.parseTags;
       this._hoverText.setContent(el._hoverOptions.text);
@@ -751,7 +760,7 @@ class Screen extends Node {
       this.render();
     });
 
-    this.on('element mouseout', () => {
+    this.on("element mouseout", () => {
       if (this._hoverText.detached) return;
       this._hoverText.detach();
       this.render();
@@ -760,7 +769,7 @@ class Screen extends Node {
     // XXX This can cause problems if the
     // terminal does not support allMotion.
     // Workaround: check to see if content is set.
-    this.on('element mouseup', (el: any) => {
+    this.on("element mouseup", (el: any) => {
       if (!this._hoverText.getContent()) return;
       if (!el._hoverOptions) return;
       this.append(this._hoverText);
@@ -778,7 +787,7 @@ class Screen extends Node {
     for (y = 0; y < this.rows; y++) {
       this.lines[y] = [];
       for (x = 0; x < this.cols; x++) {
-        this.lines[y][x] = [this.dattr, ' '];
+        this.lines[y][x] = [this.dattr, " "];
       }
       this.lines[y].dirty = !!dirty;
     }
@@ -787,7 +796,7 @@ class Screen extends Node {
     for (y = 0; y < this.rows; y++) {
       this.olines[y] = [];
       for (x = 0; x < this.cols; x++) {
-        this.olines[y][x] = [this.dattr, ' '];
+        this.olines[y][x] = [this.dattr, " "];
       }
     }
 
@@ -807,7 +816,7 @@ class Screen extends Node {
   render(): void {
     if (this.destroyed) return;
 
-    this.emit('prerender');
+    this.emit("prerender");
 
     this._borderStops = {};
 
@@ -841,7 +850,7 @@ class Screen extends Node {
 
     this.renders++;
 
-    this.emit('render');
+    this.emit("render");
   }
 
   /**
@@ -853,7 +862,7 @@ class Screen extends Node {
   blankLine(ch?: string, dirty?: boolean): any[] {
     const out: any = [];
     for (let x = 0; x < this.cols; x++) {
-      out[x] = [this.dattr, ch || ' '];
+      out[x] = [this.dattr, ch || " "];
     }
     out.dirty = dirty;
     return out;
@@ -972,7 +981,7 @@ class Screen extends Node {
 
     this._buf += this.tput.csr(top, bottom);
     this._buf += this.tput.cup(bottom, 0);
-    this._buf += Array(n + 1).join('\n');
+    this._buf += Array(n + 1).join("\n");
     this._buf += this.tput.csr(0, this.height - 1);
 
     const j = bottom + 1;
@@ -1136,7 +1145,7 @@ class Screen extends Node {
     //   for (x = stop.xi; x < stop.xl; x++) {
 
     const stopKeys = Object.keys(stops)
-      .map(k => +k)
+      .map((k) => +k)
       .sort((a, b) => a - b);
 
     for (i = 0; i < stopKeys.length; i++) {
@@ -1236,7 +1245,7 @@ class Screen extends Node {
     let bg: number;
     let flags: number;
 
-    let main = '';
+    let main = "";
     let pre: string;
     let post: string;
 
@@ -1252,7 +1261,7 @@ class Screen extends Node {
 
     if (this._buf) {
       main += this._buf;
-      this._buf = '';
+      this._buf = "";
     }
 
     for (y = start; y <= end; y++) {
@@ -1264,7 +1273,7 @@ class Screen extends Node {
       }
       line.dirty = false;
 
-      out = '';
+      out = "";
       attr = this.dattr;
 
       for (x = 0; x < line.length; x++) {
@@ -1289,7 +1298,7 @@ class Screen extends Node {
         // the bg for non BCE terminals worth the overhead?
         if (
           this.options.useBCE &&
-          ch === ' ' &&
+          ch === " " &&
           (this.tput.bools.back_color_erase ||
             (data & 0x1ff) === (this.dattr & 0x1ff)) &&
           ((data >> 18) & 8) === ((this.dattr >> 18) & 8)
@@ -1298,7 +1307,7 @@ class Screen extends Node {
           neq = false;
 
           for (xx = x; xx < line.length; xx++) {
-            if (line[xx][0] !== data || line[xx][1] !== ' ') {
+            if (line[xx][0] !== data || line[xx][1] !== " ") {
               clr = false;
               break;
             }
@@ -1318,7 +1327,7 @@ class Screen extends Node {
             out += this.tput.el();
             for (xx = x; xx < line.length; xx++) {
               o[xx][0] = data;
-              o[xx][1] = ' ';
+              o[xx][1] = " ";
             }
             break;
           }
@@ -1391,10 +1400,10 @@ class Screen extends Node {
 
         if (data !== attr) {
           if (attr !== this.dattr) {
-            out += '\x1b[m';
+            out += "\x1b[m";
           }
           if (data !== this.dattr) {
-            out += '\x1b[';
+            out += "\x1b[";
 
             bg = data & 0x1ff;
             fg = (data >> 9) & 0x1ff;
@@ -1402,27 +1411,27 @@ class Screen extends Node {
 
             // bold
             if (flags & 1) {
-              out += '1;';
+              out += "1;";
             }
 
             // underline
             if (flags & 2) {
-              out += '4;';
+              out += "4;";
             }
 
             // blink
             if (flags & 4) {
-              out += '5;';
+              out += "5;";
             }
 
             // inverse
             if (flags & 8) {
-              out += '7;';
+              out += "7;";
             }
 
             // invisible
             if (flags & 16) {
-              out += '8;';
+              out += "8;";
             }
 
             if (bg !== 0x1ff) {
@@ -1434,9 +1443,9 @@ class Screen extends Node {
                   bg -= 8;
                   bg += 100;
                 }
-                out += bg + ';';
+                out += bg + ";";
               } else {
-                out += '48;5;' + bg + ';';
+                out += "48;5;" + bg + ";";
               }
             }
 
@@ -1449,15 +1458,15 @@ class Screen extends Node {
                   fg -= 8;
                   fg += 90;
                 }
-                out += fg + ';';
+                out += fg + ";";
               } else {
-                out += '38;5;' + fg + ';';
+                out += "38;5;" + fg + ";";
               }
             }
 
-            if (out[out.length - 1] === ';') out = out.slice(0, -1);
+            if (out[out.length - 1] === ";") out = out.slice(0, -1);
 
-            out += 'm';
+            out += "m";
           }
         }
 
@@ -1474,16 +1483,16 @@ class Screen extends Node {
             if (x === line.length - 1 || angles[line[x + 1][1]]) {
               // If we're at the end, we don't have enough space for a
               // double-width. Overwrite it with a space and ignore.
-              ch = ' ';
-              o[x][1] = '\0';
+              ch = " ";
+              o[x][1] = "\0";
             } else {
               // ALWAYS refresh double-width chars because this special cursor
               // behavior is needed. There may be a more efficient way of doing
               // this. See above.
-              o[x][1] = '\0';
+              o[x][1] = "\0";
               // Eat the next character by moving forward and marking as a
               // space (which it is).
-              o[++x][1] = '\0';
+              o[++x][1] = "\0";
             }
           }
         }
@@ -1531,8 +1540,8 @@ class Screen extends Node {
           // NOTE: It could be the case that the $LANG
           // is all that matters in some cases:
           // if (!this.tput.unicode && ch > '~') {
-          if (!this.tput.unicode && this.tput.numbers.U8 !== 1 && ch > '~') {
-            ch = this.tput.utoa[ch] || '?';
+          if (!this.tput.unicode && this.tput.numbers.U8 !== 1 && ch > "~") {
+            ch = this.tput.utoa[ch] || "?";
           }
         }
 
@@ -1541,7 +1550,7 @@ class Screen extends Node {
       }
 
       if (attr !== this.dattr) {
-        out += '\x1b[m';
+        out += "\x1b[m";
       }
 
       if (out) {
@@ -1555,8 +1564,8 @@ class Screen extends Node {
     }
 
     if (main) {
-      pre = '';
-      post = '';
+      pre = "";
+      post = "";
 
       pre += this.tput.sc();
       post += this.tput.rc();
@@ -1599,8 +1608,8 @@ class Screen extends Node {
     let c: number;
     let i: number;
 
-    let codeArray = code.slice(2, -1).split(';');
-    if (!codeArray[0]) codeArray[0] = '0';
+    let codeArray = code.slice(2, -1).split(";");
+    if (!codeArray[0]) codeArray[0] = "0";
 
     for (i = 0; i < codeArray.length; i++) {
       c = +codeArray[i] || 0;
@@ -1660,7 +1669,7 @@ class Screen extends Node {
             bg = colors.match(
               +codeArray[i],
               +codeArray[i + 1],
-              +codeArray[i + 2]
+              +codeArray[i + 2],
             );
             if (bg === -1) bg = def & 0x1ff;
             i += 2;
@@ -1674,7 +1683,7 @@ class Screen extends Node {
             fg = colors.match(
               +codeArray[i],
               +codeArray[i + 1],
-              +codeArray[i + 2]
+              +codeArray[i + 2],
             );
             if (fg === -1) fg = (def >> 9) & 0x1ff;
             i += 2;
@@ -1716,31 +1725,31 @@ class Screen extends Node {
     let flags = (code >> 18) & 0x1ff;
     let fg = (code >> 9) & 0x1ff;
     let bg = code & 0x1ff;
-    let out = '';
+    let out = "";
 
     // bold
     if (flags & 1) {
-      out += '1;';
+      out += "1;";
     }
 
     // underline
     if (flags & 2) {
-      out += '4;';
+      out += "4;";
     }
 
     // blink
     if (flags & 4) {
-      out += '5;';
+      out += "5;";
     }
 
     // inverse
     if (flags & 8) {
-      out += '7;';
+      out += "7;";
     }
 
     // invisible
     if (flags & 16) {
-      out += '8;';
+      out += "8;";
     }
 
     if (bg !== 0x1ff) {
@@ -1752,9 +1761,9 @@ class Screen extends Node {
           bg -= 8;
           bg += 100;
         }
-        out += bg + ';';
+        out += bg + ";";
       } else {
-        out += '48;5;' + bg + ';';
+        out += "48;5;" + bg + ";";
       }
     }
 
@@ -1767,15 +1776,15 @@ class Screen extends Node {
           fg -= 8;
           fg += 90;
         }
-        out += fg + ';';
+        out += fg + ";";
       } else {
-        out += '38;5;' + fg + ';';
+        out += "38;5;" + fg + ";";
       }
     }
 
-    if (out[out.length - 1] === ';') out = out.slice(0, -1);
+    if (out[out.length - 1] === ";") out = out.slice(0, -1);
 
-    return '\x1b[' + out + 'm';
+    return "\x1b[" + out + "m";
   }
 
   /**
@@ -1909,7 +1918,7 @@ class Screen extends Node {
     }
 
     if (old) {
-      old.emit('blur');
+      old.emit("blur");
     }
   }
 
@@ -1950,10 +1959,10 @@ class Screen extends Node {
     }
 
     if (old) {
-      old.emit('blur', self);
+      old.emit("blur", self);
     }
 
-    self.emit('focus', old);
+    self.emit("focus", old);
   }
 
   /**
@@ -1970,9 +1979,9 @@ class Screen extends Node {
     xl: number,
     yi: number,
     yl: number,
-    override?: boolean
+    override?: boolean,
   ): void {
-    return this.fillRegion(this.dattr, ' ', xi, xl, yi, yl, override);
+    return this.fillRegion(this.dattr, " ", xi, xl, yi, yl, override);
   }
 
   /**
@@ -1993,7 +2002,7 @@ class Screen extends Node {
     xl: number,
     yi: number,
     yl: number,
-    override?: boolean
+    override?: boolean,
   ): void {
     const lines = this.lines;
     let cell: any;
@@ -2075,9 +2084,9 @@ class Screen extends Node {
 
     options = options || {};
 
-    options.stdio = options.stdio || 'inherit';
+    options.stdio = options.stdio || "inherit";
 
-    program.lsaveCursor('spawn');
+    program.lsaveCursor("spawn");
     // program.csr(0, program.rows - 1);
     program.normalBuffer();
     program.showCursor();
@@ -2112,14 +2121,14 @@ class Screen extends Node {
       screen.alloc();
       screen.render();
 
-      screen.program.lrestoreCursor('spawn', true);
+      screen.program.lrestoreCursor("spawn", true);
     };
 
     ps = spawn(file, args, options);
 
-    ps.on('error', resume);
+    ps.on("error", resume);
 
-    ps.on('exit', resume);
+    ps.on("exit", resume);
 
     return ps;
   }
@@ -2135,12 +2144,12 @@ class Screen extends Node {
   exec(file: string, args?: any, options?: any, callback?: any): any {
     const ps = this.spawn(file, args, options);
 
-    ps.on('error', (err: any) => {
+    ps.on("error", (err: any) => {
       if (!callback) return;
       return callback(err, false);
     });
 
-    ps.on('exit', (code: any) => {
+    ps.on("exit", (code: any) => {
       if (!callback) return;
       return callback(null, code === 0);
     });
@@ -2156,7 +2165,7 @@ class Screen extends Node {
    * @returns Result of the editor operation
    */
   readEditor(options: any, callback?: any): any {
-    if (typeof options === 'string') {
+    if (typeof options === "string") {
       options = { editor: options };
     }
 
@@ -2171,15 +2180,15 @@ class Screen extends Node {
 
     options = options || {};
 
-    const editor = options.editor || getEnvVar("EDITOR") || 'vi';
-    const name = options.name || this.runtime.process.title || 'blessed';
-    const rnd = Math.random().toString(36).split('.').pop();
-    const file = '/tmp/' + name + '.' + rnd;
+    const editor = options.editor || getEnvVar("EDITOR") || "vi";
+    const name = options.name || this.runtime.process.title || "blessed";
+    const rnd = Math.random().toString(36).split(".").pop();
+    const file = "/tmp/" + name + "." + rnd;
     const args = [file];
     let opt: any;
 
     opt = {
-      stdio: 'inherit',
+      stdio: "inherit",
       env: this.runtime.process.env,
       cwd: getEnvVar("HOME"),
     };
@@ -2193,9 +2202,9 @@ class Screen extends Node {
       if (err) return callback(err);
       return this.exec(editor, args, opt, (err: any, success: any) => {
         if (err) return callback(err);
-        return this.runtime.fs.readFile(file, 'utf8', (err: any, data: any) => {
+        return this.runtime.fs.readFile(file, "utf8", (err: any, data: any) => {
           return this.runtime.fs.unlink(file, () => {
-            if (!success) return callback(new Error('Unsuccessful.'));
+            if (!success) return callback(new Error("Unsuccessful."));
             if (err) return callback(err);
             return callback(null, data);
           });
@@ -2214,43 +2223,43 @@ class Screen extends Node {
   displayImage(file: string, callback?: any): any {
     if (!file) {
       if (!callback) return;
-      return callback(new Error('No image.'));
+      return callback(new Error("No image."));
     }
 
     file = this.runtime.path.resolve(this.runtime.process.cwd(), file);
 
-    if (!~file.indexOf('://')) {
-      file = 'file://' + file;
+    if (!~file.indexOf("://")) {
+      file = "file://" + file;
     }
 
-    const args = ['w3m', '-T', 'text/html'];
+    const args = ["w3m", "-T", "text/html"];
 
     const input =
-      '<title>press q to exit</title>' +
+      "<title>press q to exit</title>" +
       '<img align="center" src="' +
       file +
       '">';
 
     const opt = {
-      stdio: ['pipe', 1, 2],
+      stdio: ["pipe", 1, 2],
       env: this.runtime.process.env,
       cwd: getEnvVar("HOME"),
     };
 
     const ps = this.spawn(args[0], args.slice(1), opt);
 
-    ps.on('error', (err: any) => {
+    ps.on("error", (err: any) => {
       if (!callback) return;
       return callback(err);
     });
 
-    ps.on('exit', (code: any) => {
+    ps.on("exit", (code: any) => {
       if (!callback) return;
-      if (code !== 0) return callback(new Error('Exit Code: ' + code));
+      if (code !== 0) return callback(new Error("Exit Code: " + code));
       return callback(null, code === 0);
     });
 
-    ps.stdin.write(input + '\n');
+    ps.stdin.write(input + "\n");
     ps.stdin.end();
   }
 
@@ -2271,14 +2280,14 @@ class Screen extends Node {
     over: any,
     out: any,
     effects: any,
-    temp?: any
+    temp?: any,
   ): void {
     if (!effects) return;
 
     const tmp: any = {};
     if (temp) el[temp] = tmp;
 
-    if (typeof el !== 'function') {
+    if (typeof el !== "function") {
       const _el = el;
       el = function () {
         return _el;
@@ -2289,7 +2298,7 @@ class Screen extends Node {
       const element = el();
       Object.keys(effects).forEach((key: string) => {
         const val = effects[key];
-        if (val !== null && typeof val === 'object') {
+        if (val !== null && typeof val === "object") {
           tmp[key] = tmp[key] || {};
           // element.style[key] = element.style[key] || {};
           Object.keys(val).forEach((k: any) => {
@@ -2309,7 +2318,7 @@ class Screen extends Node {
       const element = el();
       Object.keys(effects).forEach((key: string) => {
         const val = effects[key];
-        if (val !== null && typeof val === 'object') {
+        if (val !== null && typeof val === "object") {
           tmp[key] = tmp[key] || {};
           // element.style[key] = element.style[key] || {};
           Object.keys(val).forEach((k: any) => {
@@ -2336,7 +2345,7 @@ class Screen extends Node {
     this.program.sigtstp(() => {
       this.alloc();
       this.render();
-      this.program.lrestoreCursor('pause', true);
+      this.program.lrestoreCursor("pause", true);
       if (callback) callback();
     });
   }
@@ -2359,7 +2368,7 @@ class Screen extends Node {
    * @returns True if successful
    */
   cursorShape(shape?: string, blink?: boolean): boolean {
-    this.cursor.shape = shape || 'block';
+    this.cursor.shape = shape || "block";
     this.cursor.blink = blink || false;
     this.cursor._set = true;
 
@@ -2421,7 +2430,7 @@ class Screen extends Node {
    * @returns True if successful
    */
   cursorReset(): boolean {
-    this.cursor.shape = 'block';
+    this.cursor.shape = "block";
     this.cursor.blink = false;
     this.cursor.color = null;
     this.cursor._set = false;
@@ -2464,21 +2473,21 @@ class Screen extends Node {
   _cursorAttr(cursor: any, dattr?: number): any {
     let attr = dattr || this.dattr;
     let cattr: any;
-    let ch: string = ' ';
+    let ch: string = " ";
 
-    if (cursor.shape === 'line') {
+    if (cursor.shape === "line") {
       attr &= ~(0x1ff << 9);
       attr |= 7 << 9;
-      ch = '\u2502';
-    } else if (cursor.shape === 'underline') {
+      ch = "\u2502";
+    } else if (cursor.shape === "underline") {
       attr &= ~(0x1ff << 9);
       attr |= 7 << 9;
       attr |= 2 << 18;
-    } else if (cursor.shape === 'block') {
+    } else if (cursor.shape === "block") {
       attr &= ~(0x1ff << 9);
       attr |= 7 << 9;
       attr |= 8 << 18;
-    } else if (typeof cursor.shape === 'object' && cursor.shape) {
+    } else if (typeof cursor.shape === "object" && cursor.shape) {
       cattr = Element.prototype.sattr.call(cursor, cursor.shape);
 
       if (
@@ -2533,7 +2542,7 @@ class Screen extends Node {
     xl?: number,
     yi?: number,
     yl?: number,
-    term?: any
+    term?: any,
   ): string {
     if (xi == null) xi = 0;
     if (xl == null) xl = this.cols;
@@ -2557,14 +2566,14 @@ class Screen extends Node {
       this.dattr = term.defAttr;
     }
 
-    let main = '';
+    let main = "";
 
     for (y = yi; y < yl; y++) {
       line = term ? term.lines[y] : this.lines[y];
 
       if (!line) break;
 
-      out = '';
+      out = "";
       attr = this.dattr;
 
       for (x = xi; x < xl; x++) {
@@ -2575,7 +2584,7 @@ class Screen extends Node {
 
         if (data !== attr) {
           if (attr !== this.dattr) {
-            out += '\x1b[m';
+            out += "\x1b[m";
           }
           if (data !== this.dattr) {
             let _data = data;
@@ -2590,7 +2599,7 @@ class Screen extends Node {
         if (this.fullUnicode) {
           if (unicode.charWidth(line[x][1]) === 2) {
             if (x === xl - 1) {
-              ch = ' ';
+              ch = " ";
             } else {
               x++;
             }
@@ -2602,15 +2611,15 @@ class Screen extends Node {
       }
 
       if (attr !== this.dattr) {
-        out += '\x1b[m';
+        out += "\x1b[m";
       }
 
       if (out) {
-        main += (y > 0 ? '\n' : '') + out;
+        main += (y > 0 ? "\n" : "") + out;
       }
     }
 
-    main = main.replace(/(?:\s*\x1b\[40m\s*\x1b\[m\s*)*$/, '') + '\n';
+    main = main.replace(/(?:\s*\x1b\[40m\s*\x1b\[m\s*)*$/, "") + "\n";
 
     if (term) {
       this.dattr = sdattr;
@@ -2647,20 +2656,28 @@ class Screen extends Node {
 const registry = (Node as any).ScreenRegistry;
 
 // Maintain backward compatibility with Screen.total, Screen.global, Screen.instances
-Object.defineProperty(Screen, 'global', {
-  get() { return registry.global; },
-  set(value: any) { registry.global = value; }
+Object.defineProperty(Screen, "global", {
+  get() {
+    return registry.global;
+  },
+  set(value: any) {
+    registry.global = value;
+  },
 });
 
-Object.defineProperty(Screen, 'total', {
-  get() { return registry.total; }
+Object.defineProperty(Screen, "total", {
+  get() {
+    return registry.total;
+  },
 });
 
-Object.defineProperty(Screen, 'instances', {
-  get() { return registry.instances; }
+Object.defineProperty(Screen, "instances", {
+  get() {
+    return registry.instances;
+  },
 });
 
-Screen.bind = function(screen: any) {
+Screen.bind = function (screen: any) {
   if (!registry.global) {
     registry.global = screen;
   }
@@ -2675,37 +2692,46 @@ Screen.bind = function(screen: any) {
 
   const runtime = getRuntime();
 
-  runtime.process.on('uncaughtException', Screen._exceptionHandler = function(err: any) {
-    if (runtime.process.listeners('uncaughtException').length > 1) {
-      return;
-    }
-    registry.instances.slice().forEach(function(screen: any) {
-      screen.destroy();
-    });
-    err = err || new Error('Uncaught Exception.');
-    console.error(err.stack ? err.stack + '' : err + '');
-    getNextTick()(function() {
-      runtime.process.exit(1);
-    });
-  });
-
-  (['SIGTERM', 'SIGINT', 'SIGQUIT'] as const).forEach(function(signal) {
-    const name = '_' + signal.toLowerCase() + 'Handler';
-    runtime.process.on(signal, (Screen as any)[name] = function() {
-      if (runtime.process.listeners(signal).length > 1) {
+  runtime.process.on(
+    "uncaughtException",
+    (Screen._exceptionHandler = function (err: any) {
+      if (runtime.process.listeners("uncaughtException").length > 1) {
         return;
       }
-      getNextTick()(function() {
-        runtime.process.exit(0);
+      registry.instances.slice().forEach(function (screen: any) {
+        screen.destroy();
       });
-    });
+      err = err || new Error("Uncaught Exception.");
+      console.error(err.stack ? err.stack + "" : err + "");
+      getNextTick()(function () {
+        runtime.process.exit(1);
+      });
+    }),
+  );
+
+  (["SIGTERM", "SIGINT", "SIGQUIT"] as const).forEach(function (signal) {
+    const name = "_" + signal.toLowerCase() + "Handler";
+    runtime.process.on(
+      signal,
+      ((Screen as any)[name] = function () {
+        if (runtime.process.listeners(signal).length > 1) {
+          return;
+        }
+        getNextTick()(function () {
+          runtime.process.exit(0);
+        });
+      }),
+    );
   });
 
-  runtime.process.on('exit', Screen._exitHandler = function() {
-    registry.instances.slice().forEach(function(screen: any) {
-      screen.destroy();
-    });
-  });
+  runtime.process.on(
+    "exit",
+    (Screen._exitHandler = function () {
+      registry.instances.slice().forEach(function (screen: any) {
+        screen.destroy();
+      });
+    }),
+  );
 };
 
 /**
@@ -2713,57 +2739,57 @@ Screen.bind = function(screen: any) {
  */
 
 const angles: any = {
-  '\u2518': true, // '┘'
-  '\u2510': true, // '┐'
-  '\u250c': true, // '┌'
-  '\u2514': true, // '└'
-  '\u253c': true, // '┼'
-  '\u251c': true, // '├'
-  '\u2524': true, // '┤'
-  '\u2534': true, // '┴'
-  '\u252c': true, // '┬'
-  '\u2502': true, // '│'
-  '\u2500': true  // '─'
+  "\u2518": true, // '┘'
+  "\u2510": true, // '┐'
+  "\u250c": true, // '┌'
+  "\u2514": true, // '└'
+  "\u253c": true, // '┼'
+  "\u251c": true, // '├'
+  "\u2524": true, // '┤'
+  "\u2534": true, // '┴'
+  "\u252c": true, // '┬'
+  "\u2502": true, // '│'
+  "\u2500": true, // '─'
 };
 
 const langles: any = {
-  '\u250c': true, // '┌'
-  '\u2514': true, // '└'
-  '\u253c': true, // '┼'
-  '\u251c': true, // '├'
-  '\u2534': true, // '┴'
-  '\u252c': true, // '┬'
-  '\u2500': true  // '─'
+  "\u250c": true, // '┌'
+  "\u2514": true, // '└'
+  "\u253c": true, // '┼'
+  "\u251c": true, // '├'
+  "\u2534": true, // '┴'
+  "\u252c": true, // '┬'
+  "\u2500": true, // '─'
 };
 
 const uangles: any = {
-  '\u2510': true, // '┐'
-  '\u250c': true, // '┌'
-  '\u253c': true, // '┼'
-  '\u251c': true, // '├'
-  '\u2524': true, // '┤'
-  '\u252c': true, // '┬'
-  '\u2502': true  // '│'
+  "\u2510": true, // '┐'
+  "\u250c": true, // '┌'
+  "\u253c": true, // '┼'
+  "\u251c": true, // '├'
+  "\u2524": true, // '┤'
+  "\u252c": true, // '┬'
+  "\u2502": true, // '│'
 };
 
 const rangles: any = {
-  '\u2518': true, // '┘'
-  '\u2510': true, // '┐'
-  '\u253c': true, // '┼'
-  '\u2524': true, // '┤'
-  '\u2534': true, // '┴'
-  '\u252c': true, // '┬'
-  '\u2500': true  // '─'
+  "\u2518": true, // '┘'
+  "\u2510": true, // '┐'
+  "\u253c": true, // '┼'
+  "\u2524": true, // '┤'
+  "\u2534": true, // '┴'
+  "\u252c": true, // '┬'
+  "\u2500": true, // '─'
 };
 
 const dangles: any = {
-  '\u2518': true, // '┘'
-  '\u2514': true, // '└'
-  '\u253c': true, // '┼'
-  '\u251c': true, // '├'
-  '\u2524': true, // '┤'
-  '\u2534': true, // '┴'
-  '\u2502': true  // '│'
+  "\u2518": true, // '┘'
+  "\u2514": true, // '└'
+  "\u253c": true, // '┼'
+  "\u251c": true, // '├'
+  "\u2524": true, // '┤'
+  "\u2534": true, // '┴'
+  "\u2502": true, // '│'
 };
 
 // var cdangles = {
@@ -2774,25 +2800,25 @@ const dangles: any = {
 // represented by 4 bits ordered like this:
 // [langle][uangle][rangle][dangle]
 const angleTable: any = {
-  '0000': '', // ?
-  '0001': '\u2502', // '│' // ?
-  '0010': '\u2500', // '─' // ??
-  '0011': '\u250c', // '┌'
-  '0100': '\u2502', // '│' // ?
-  '0101': '\u2502', // '│'
-  '0110': '\u2514', // '└'
-  '0111': '\u251c', // '├'
-  '1000': '\u2500', // '─' // ??
-  '1001': '\u2510', // '┐'
-  '1010': '\u2500', // '─' // ??
-  '1011': '\u252c', // '┬'
-  '1100': '\u2518', // '┘'
-  '1101': '\u2524', // '┤'
-  '1110': '\u2534', // '┴'
-  '1111': '\u253c'  // '┼'
+  "0000": "", // ?
+  "0001": "\u2502", // '│' // ?
+  "0010": "\u2500", // '─' // ??
+  "0011": "\u250c", // '┌'
+  "0100": "\u2502", // '│' // ?
+  "0101": "\u2502", // '│'
+  "0110": "\u2514", // '└'
+  "0111": "\u251c", // '├'
+  "1000": "\u2500", // '─' // ??
+  "1001": "\u2510", // '┐'
+  "1010": "\u2500", // '─' // ??
+  "1011": "\u252c", // '┬'
+  "1100": "\u2518", // '┘'
+  "1101": "\u2524", // '┤'
+  "1110": "\u2534", // '┴'
+  "1111": "\u253c", // '┼'
 };
 
-Object.keys(angleTable).forEach(function(key: string) {
+Object.keys(angleTable).forEach(function (key: string) {
   angleTable[parseInt(key, 2)] = angleTable[key];
   delete angleTable[key];
 });

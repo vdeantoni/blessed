@@ -6,13 +6,13 @@
  * Refactored to use pngjs and omggif libraries
  */
 
-import { getRuntime, type BufferType } from '../runtime-context.js';
-import type colors from './colors.js';
+import { getRuntime, type BufferType } from "../runtime-context.js";
+import type colors from "./colors.js";
 
 interface ImageOptions {
   filename?: string;
   colors?: typeof colors;
-  optimization?: 'mem' | 'cpu';
+  optimization?: "mem" | "cpu";
   speed?: number;
   width?: number;
   height?: number;
@@ -55,7 +55,7 @@ interface Frame {
 class ImageRenderer {
   options: ImageOptions;
   colors: typeof colors;
-  optimization: 'mem' | 'cpu';
+  optimization: "mem" | "cpu";
   speed: number;
   file: string | null;
   format: string;
@@ -75,7 +75,7 @@ class ImageRenderer {
 
     this.options = options;
     this.colors = options.colors!;
-    this.optimization = options.optimization || 'mem';
+    this.optimization = options.optimization || "mem";
     this.speed = options.speed || 1;
 
     let buf: BufferType;
@@ -90,19 +90,26 @@ class ImageRenderer {
     }
 
     // Detect format
-    this.format = buf.readUInt32BE(0) === 0x89504e47 ? 'png'
-      : buf.slice(0, 3).toString('ascii') === 'GIF' ? 'gif'
-      : buf.readUInt16BE(0) === 0xffd8 ? 'jpg'
-      : runtime.path.extname(this.file || '').slice(1).toLowerCase() || 'png';
+    this.format =
+      buf.readUInt32BE(0) === 0x89504e47
+        ? "png"
+        : buf.slice(0, 3).toString("ascii") === "GIF"
+          ? "gif"
+          : buf.readUInt16BE(0) === 0xffd8
+            ? "jpg"
+            : runtime.path
+                .extname(this.file || "")
+                .slice(1)
+                .toLowerCase() || "png";
 
-    if (this.format !== 'png' && this.format !== 'gif') {
+    if (this.format !== "png" && this.format !== "gif") {
       this.convertToPNG(buf);
       return;
     }
 
-    if (this.format === 'png') {
+    if (this.format === "png") {
       this.parsePNG(buf);
-    } else if (this.format === 'gif') {
+    } else if (this.format === "gif") {
       this.parseGIF(buf);
     }
 
@@ -117,9 +124,9 @@ class ImageRenderer {
 
     if (!runtime.images) {
       throw new Error(
-        'Image support not available. ' +
-        'PNG rendering requires runtime.images API. ' +
-        'Make sure you are using a runtime that provides image support.'
+        "Image support not available. " +
+          "PNG rendering requires runtime.images API. " +
+          "Make sure you are using a runtime that provides image support.",
       );
     }
 
@@ -135,7 +142,7 @@ class ImageRenderer {
         r: png.data[i],
         g: png.data[i + 1],
         b: png.data[i + 2],
-        a: png.data[i + 3]
+        a: png.data[i + 3],
       });
     }
 
@@ -154,9 +161,9 @@ class ImageRenderer {
 
     if (!runtime.images) {
       throw new Error(
-        'Image support not available. ' +
-        'GIF rendering requires runtime.images API. ' +
-        'Make sure you are using a runtime that provides image support.'
+        "Image support not available. " +
+          "GIF rendering requires runtime.images API. " +
+          "Make sure you are using a runtime that provides image support.",
       );
     }
 
@@ -188,10 +195,10 @@ class ImageRenderer {
             delayNum: frameInfo.delay || 10,
             delayDen: 100,
             disposeOp: frameInfo.disposal,
-            blendOp: 0
+            blendOp: 0,
           },
           delay: (frameInfo.delay || 10) * 10, // Convert to milliseconds
-          bmp
+          bmp,
         });
       }
 
@@ -207,7 +214,11 @@ class ImageRenderer {
   /**
    * Convert pixel array to 2D bitmap
    */
-  private pixelArrayToBitmap(pixels: Uint8Array, width: number, height: number): Bitmap {
+  private pixelArrayToBitmap(
+    pixels: Uint8Array,
+    width: number,
+    height: number,
+  ): Bitmap {
     const bmp: Bitmap = [];
     let idx = 0;
 
@@ -218,7 +229,7 @@ class ImageRenderer {
           r: pixels[idx++],
           g: pixels[idx++],
           b: pixels[idx++],
-          a: pixels[idx++]
+          a: pixels[idx++],
         });
       }
       bmp.push(line);
@@ -233,8 +244,11 @@ class ImageRenderer {
   private convertToPNG(input: BufferType): void {
     const runtime = getRuntime();
     try {
-      const buf = runtime.processes!.childProcess.execFileSync('convert', [this.format + ':-', 'png:-'],
-        { stdio: ['pipe', 'pipe', 'ignore'], input });
+      const buf = runtime.processes!.childProcess.execFileSync(
+        "convert",
+        [this.format + ":-", "png:-"],
+        { stdio: ["pipe", "pipe", "ignore"], input },
+      );
       const img = new ImageRenderer(buf, this.options);
       Object.assign(this, img);
     } catch (e) {
@@ -250,7 +264,7 @@ class ImageRenderer {
     options = options || this.options;
 
     const cellmap: Cellmap = [];
-    let scale = options.scale || 0.20;
+    let scale = options.scale || 0.2;
     const height = bmp.length;
     const width = bmp[0].length;
     let cmwidth = options.width;
@@ -293,14 +307,14 @@ class ImageRenderer {
    * Render to ANSI SGR codes
    */
   renderANSI(bmp: Bitmap): string {
-    let out = '';
+    let out = "";
 
     bmp.forEach((line, y) => {
       line.forEach((pixel, x) => {
         const outch = this.getOutch(x, y, line, pixel);
         out += this.pixelToSGR(pixel, outch);
       });
-      out += '\n';
+      out += "\n";
     });
 
     return out;
@@ -310,14 +324,14 @@ class ImageRenderer {
    * Render to blessed element (sets content)
    */
   renderContent(bmp: Bitmap, el: any): string {
-    let out = '';
+    let out = "";
 
     bmp.forEach((line, y) => {
       line.forEach((pixel, x) => {
         const outch = this.getOutch(x, y, line, pixel);
         out += this.pixelToTags(pixel, outch);
       });
-      out += '\n';
+      out += "\n";
     });
 
     el.setContent(out);
@@ -327,7 +341,14 @@ class ImageRenderer {
   /**
    * Render directly to screen buffer
    */
-  renderScreen(bmp: Bitmap, screen: any, xi: number, xl: number, yi: number, yl: number): void {
+  renderScreen(
+    bmp: Bitmap,
+    screen: any,
+    xi: number,
+    xl: number,
+    yi: number,
+    yl: number,
+  ): void {
     const lines = screen.lines;
 
     const cellLines = bmp.reduce<any[]>((cellLines, line, y) => {
@@ -358,7 +379,7 @@ class ImageRenderer {
             const attr = cellLines[yy][xx][0];
             const ch = cellLines[yy][xx][1];
             lines[y][x][0] = this.colors.blend(lines[y][x][0], attr, alpha);
-            if (ch !== ' ') lines[y][x][1] = ch;
+            if (ch !== " ") lines[y][x][1] = ch;
             lines[y].dirty = true;
             continue;
           }
@@ -392,16 +413,16 @@ class ImageRenderer {
     const a = pixel.a / 255;
 
     const bg = this.colors.match(
-      pixel.r * a * bga | 0,
-      pixel.g * a * bga | 0,
-      pixel.b * a * bga | 0
+      (pixel.r * a * bga) | 0,
+      (pixel.g * a * bga) | 0,
+      (pixel.b * a * bga) | 0,
     );
 
     if (ch && this.options.ascii) {
       const fg = this.colors.match(
-        pixel.r * a * fga | 0,
-        pixel.g * a * fga | 0,
-        pixel.b * a * fga | 0
+        (pixel.r * a * fga) | 0,
+        (pixel.g * a * fga) | 0,
+        (pixel.b * a * fga) | 0,
       );
       if (a === 0) {
         return `\x1b[38;5;${fg}m${ch}\x1b[m`;
@@ -409,7 +430,7 @@ class ImageRenderer {
       return `\x1b[38;5;${fg}m\x1b[48;5;${bg}m${ch}\x1b[m`;
     }
 
-    if (a === 0) return ' ';
+    if (a === 0) return " ";
     return `\x1b[48;5;${bg}m \x1b[m`;
   }
 
@@ -422,16 +443,16 @@ class ImageRenderer {
     const a = pixel.a / 255;
 
     const bg = this.colors.RGBToHex(
-      pixel.r * a * bga | 0,
-      pixel.g * a * bga | 0,
-      pixel.b * a * bga | 0
+      (pixel.r * a * bga) | 0,
+      (pixel.g * a * bga) | 0,
+      (pixel.b * a * bga) | 0,
     );
 
     if (ch && this.options.ascii) {
       const fg = this.colors.RGBToHex(
-        pixel.r * a * fga | 0,
-        pixel.g * a * fga | 0,
-        pixel.b * a * fga | 0
+        (pixel.r * a * fga) | 0,
+        (pixel.g * a * fga) | 0,
+        (pixel.b * a * fga) | 0,
       );
       if (a === 0) {
         return `{${fg}-fg}${ch}{/}`;
@@ -439,7 +460,7 @@ class ImageRenderer {
       return `{${fg}-fg}{${bg}-bg}${ch}{/}`;
     }
 
-    if (a === 0) return ' ';
+    if (a === 0) return " ";
     return `{${bg}-bg} {/${bg}-bg}`;
   }
 
@@ -452,31 +473,31 @@ class ImageRenderer {
     const a = pixel.a / 255;
 
     const bg = this.colors.match(
-      pixel.r * bga | 0,
-      pixel.g * bga | 0,
-      pixel.b * bga | 0
+      (pixel.r * bga) | 0,
+      (pixel.g * bga) | 0,
+      (pixel.b * bga) | 0,
     );
 
     let fg: number;
     if (ch && this.options.ascii) {
       fg = this.colors.match(
-        pixel.r * fga | 0,
-        pixel.g * fga | 0,
-        pixel.b * fga | 0
+        (pixel.r * fga) | 0,
+        (pixel.g * fga) | 0,
+        (pixel.b * fga) | 0,
       );
     } else {
       fg = 0x1ff;
       ch = undefined;
     }
 
-    return [(0 << 18) | (fg << 9) | (bg << 0), ch || ' ', a];
+    return [(0 << 18) | (fg << 9) | (bg << 0), ch || " ", a];
   }
 
   /**
    * Get ASCII art character based on luminance (from libcaca)
    */
   getOutch(_x: number, _y: number, _line: Pixel[], pixel: Pixel): string {
-    const dchars = '????8@8@#8@8##8#MKXWwz$&%x><\\/xo;+=|^-:i\'.`,  `.        ';
+    const dchars = "????8@8@#8@8##8#MKXWwz$&%x><\\/xo;+=|^-:i'.`,  `.        ";
 
     const a = pixel.a / 255;
     const r = pixel.r * a;
@@ -485,7 +506,7 @@ class ImageRenderer {
     const l = 0.2126 * r + 0.7152 * g + 0.0722 * b;
     const lumi = l / 255;
 
-    const outch = dchars[lumi * (dchars.length - 1) | 0];
+    const outch = dchars[(lumi * (dchars.length - 1)) | 0];
     return outch;
   }
 
@@ -544,7 +565,7 @@ class ImageRenderer {
         return;
       }
 
-      if (this.optimization === 'mem') {
+      if (this.optimization === "mem") {
         const renderBmp = this.renderFrame(frame.bmp, frame, i);
         const cellmap = this.createCellmap(renderBmp);
         if (callback) callback(renderBmp, cellmap);
@@ -552,7 +573,7 @@ class ImageRenderer {
         if (callback) callback(frame.bmp, frame.cellmap);
       }
 
-      setTimeout(next, frame.delay / this.speed | 0);
+      setTimeout(next, (frame.delay / this.speed) | 0);
     };
 
     this._control = (state: number) => {
@@ -565,7 +586,7 @@ class ImageRenderer {
         if (callback) {
           callback(
             firstFrame.bmp,
-            firstFrame.cellmap || this.createCellmap(firstFrame.bmp)
+            firstFrame.cellmap || this.createCellmap(firstFrame.bmp),
           );
         }
         return;
@@ -657,7 +678,10 @@ class ImageRenderer {
 /**
  * Exports
  */
-export default function tng(file: string | BufferType, options?: ImageOptions): ImageRenderer {
+export default function tng(
+  file: string | BufferType,
+  options?: ImageOptions,
+): ImageRenderer {
   return new ImageRenderer(file, options);
 }
 

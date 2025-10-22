@@ -5,18 +5,18 @@
 
 // Add fileURLToPath stub for browser (not really applicable in browser)
 export function fileURLToPath(url: string | URL): string {
-  if (typeof url === 'string') {
+  if (typeof url === "string") {
     // Simple stub - just return a fake path
-    if (url.startsWith('file://')) {
-      return url.replace('file://', '/');
+    if (url.startsWith("file://")) {
+      return url.replace("file://", "/");
     }
-    return '/';
+    return "/";
   }
   // If it's a URL object
-  return '/';
+  return "/";
 }
 
 // Add pathToFileURL stub
 export function pathToFileURL(path: string): URL {
-  return new URL('file://' + path);
+  return new URL("file://" + path);
 }

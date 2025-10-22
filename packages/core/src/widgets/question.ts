@@ -6,9 +6,9 @@
  * Modules
  */
 
-import type { KeyEvent, QuestionOptions } from '../types';
-import Box from './box.js';
-import Button from './button.js';
+import type { KeyEvent, QuestionOptions } from "../types";
+import Box from "./box.js";
+import Button from "./button.js";
 
 /**
  * Private data for Question widget
@@ -24,7 +24,7 @@ interface QuestionData {
  */
 
 class Question extends Box {
-  override type = 'question';
+  override type = "question";
   declare _: QuestionData;
 
   constructor(options: QuestionOptions = {}) {
@@ -39,10 +39,10 @@ class Question extends Box {
       height: 1,
       left: 2,
       width: 6,
-      content: 'Okay',
-      align: 'center',
-      bg: 'black',
-      hoverBg: 'blue',
+      content: "Okay",
+      align: "center",
+      bg: "black",
+      hoverBg: "blue",
       autoFocus: false,
       mouse: true,
     });
@@ -55,10 +55,10 @@ class Question extends Box {
       shrink: true,
       left: 10,
       width: 8,
-      content: 'Cancel',
-      align: 'center',
-      bg: 'black',
-      hoverBg: 'blue',
+      content: "Cancel",
+      align: "center",
+      bg: "black",
+      hoverBg: "blue",
       autoFocus: false,
       mouse: true,
     });
@@ -86,37 +86,37 @@ class Question extends Box {
     // parent.append(this);
 
     this.show();
-    this.setContent(' ' + text);
+    this.setContent(" " + text);
 
     this.onScreenEvent(
-      'keypress',
+      "keypress",
       (press = (_ch: any, key: KeyEvent) => {
-        if (key.name === 'mouse') return;
+        if (key.name === "mouse") return;
         if (
-          key.name !== 'enter' &&
-          key.name !== 'escape' &&
-          key.name !== 'q' &&
-          key.name !== 'y' &&
-          key.name !== 'n'
+          key.name !== "enter" &&
+          key.name !== "escape" &&
+          key.name !== "q" &&
+          key.name !== "y" &&
+          key.name !== "n"
         ) {
           return;
         }
-        done(null, key.name === 'enter' || key.name === 'y');
-      })
+        done(null, key.name === "enter" || key.name === "y");
+      }),
     );
 
     this._.okay.on(
-      'press',
+      "press",
       (okay = () => {
         done(null, true);
-      })
+      }),
     );
 
     this._.cancel.on(
-      'press',
+      "press",
       (cancel = () => {
         done(null, false);
-      })
+      }),
     );
 
     this.screen.saveFocus();
@@ -125,9 +125,9 @@ class Question extends Box {
     const done = (err: any, data: boolean) => {
       this.hide();
       this.screen.restoreFocus();
-      this.removeScreenEvent('keypress', press);
-      this._.okay.removeListener('press', okay);
-      this._.cancel.removeListener('press', cancel);
+      this.removeScreenEvent("keypress", press);
+      this._.okay.removeListener("press", okay);
+      this._.cancel.removeListener("press", cancel);
       return callback(err, data);
     };
 

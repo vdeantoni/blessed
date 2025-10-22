@@ -3,9 +3,9 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/scrollable-boxes.log',
+  dump: __dirname + "/logs/scrollable-boxes.log",
   smartCSR: true,
-  warnings: true
+  warnings: true,
 });
 
 var box = blessed.box({
@@ -13,75 +13,75 @@ var box = blessed.box({
   //padding: 2,
   scrollable: true,
   mouse: true,
-  left: 'center',
-  top: 'center',
-  width: '80%',
-  height: '80%',
+  left: "center",
+  top: "center",
+  width: "80%",
+  height: "80%",
   style: {
-    bg: 'green'
+    bg: "green",
   },
-  border: 'line',
-  content: 'foobar',
+  border: "line",
+  content: "foobar",
   keys: true,
   vi: true,
   alwaysScroll: true,
   scrollbar: {
-    ch: ' ',
-    inverse: true
-  }
+    ch: " ",
+    inverse: true,
+  },
 });
 
 var text = blessed.box({
   parent: box,
-  content: 'hello1\nhello2\nhello3\nhello4',
+  content: "hello1\nhello2\nhello3\nhello4",
   padding: 2,
   style: {
-    bg: 'red'
+    bg: "red",
   },
   left: 2,
   top: 30,
-  width: '50%',
-  height: 6
+  width: "50%",
+  height: 6,
 });
 
 var text2 = blessed.box({
   parent: box,
-  content: 'world',
+  content: "world",
   padding: 1,
   style: {
-    bg: 'red'
+    bg: "red",
   },
   left: 2,
   top: 50,
-  width: '50%',
-  height: 3
+  width: "50%",
+  height: 3,
 });
 
 var box2 = blessed.box({
   parent: box,
   scrollable: true,
-  content: 'foo-one\nfoo-two\nfoo-three',
+  content: "foo-one\nfoo-two\nfoo-three",
   padding: 2,
-  left: 'center',
+  left: "center",
   top: 20,
-  width: '80%',
+  width: "80%",
   height: 9,
-  border: 'line',
+  border: "line",
   style: {
-    bg: 'magenta',
+    bg: "magenta",
     focus: {
-      bg: 'blue'
+      bg: "blue",
     },
     hover: {
-      bg: 'red'
-    }
+      bg: "red",
+    },
     // scrollbar: {
     //   inverse: true
     // }
   },
   keys: true,
   vi: true,
-  alwaysScroll: true
+  alwaysScroll: true,
   // scrollbar: {
   //   ch: ' '
   // }
@@ -94,34 +94,34 @@ var box3 = blessed.box({
   //left: 'center',
   left: 3,
   top: 3,
-  content: 'foo',
+  content: "foo",
   //shrink: true,
   height: 4,
   width: 5,
   //width: '80%',
   //height: 5,
-  border: 'line',
+  border: "line",
   style: {
-    bg: 'yellow',
+    bg: "yellow",
     focus: {
-      bg: 'blue'
+      bg: "blue",
     },
     hover: {
-      bg: 'red'
-    }
+      bg: "red",
+    },
     // scrollbar: {
     //   inverse: true
     // }
   },
   keys: true,
   vi: true,
-  alwaysScroll: true
+  alwaysScroll: true,
   // scrollbar: {
   //   ch: ' '
   // }
 });
 
-screen.key('q', function() {
+screen.key("q", function () {
   return screen.destroy();
 });
 

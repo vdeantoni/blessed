@@ -3,9 +3,9 @@
  * Interactive code execution environment for @unblessed/browser
  */
 
-import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
-import { FitAddon } from 'https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/+esm';
-import * as tui from '../../dist/index.js';
+import { Terminal } from "https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm";
+import { FitAddon } from "https://cdn.jsdelivr.net/npm/@xterm/addon-fit@0.10.0/+esm";
+import * as tui from "../../dist/index.js";
 
 export class BlessedPlayground {
   constructor(terminalElement, options = {}) {
@@ -29,26 +29,26 @@ export class BlessedPlayground {
       fontSize: 14,
       fontFamily: 'Menlo, Monaco, "Courier New", monospace',
       theme: {
-        background: '#1e1e1e',
-        foreground: '#d4d4d4',
-        cursor: '#ffffff',
-        black: '#000000',
-        red: '#cd3131',
-        green: '#0dbc79',
-        yellow: '#e5e510',
-        blue: '#2472c8',
-        magenta: '#bc3fbc',
-        cyan: '#11a8cd',
-        white: '#e5e5e5',
-        brightBlack: '#666666',
-        brightRed: '#f14c4c',
-        brightGreen: '#23d18b',
-        brightYellow: '#f5f543',
-        brightBlue: '#3b8eea',
-        brightMagenta: '#d670d6',
-        brightCyan: '#29b8db',
-        brightWhite: '#ffffff'
-      }
+        background: "#1e1e1e",
+        foreground: "#d4d4d4",
+        cursor: "#ffffff",
+        black: "#000000",
+        red: "#cd3131",
+        green: "#0dbc79",
+        yellow: "#e5e510",
+        blue: "#2472c8",
+        magenta: "#bc3fbc",
+        cyan: "#11a8cd",
+        white: "#e5e5e5",
+        brightBlack: "#666666",
+        brightRed: "#f14c4c",
+        brightGreen: "#23d18b",
+        brightYellow: "#f5f543",
+        brightBlue: "#3b8eea",
+        brightMagenta: "#d670d6",
+        brightCyan: "#29b8db",
+        brightWhite: "#ffffff",
+      },
     });
 
     // Add fit addon for responsive sizing
@@ -60,7 +60,7 @@ export class BlessedPlayground {
     this.fitAddon.fit();
 
     // Handle window resize
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       if (this.fitAddon) {
         this.fitAddon.fit();
       }
@@ -74,12 +74,18 @@ export class BlessedPlayground {
    * Show welcome message
    */
   showWelcome() {
-    this.terminal.writeln('\x1b[1;36m╔══════════════════════════════════════════╗\x1b[0m');
-    this.terminal.writeln('\x1b[1;36m║    blessed-browser Interactive Playground    ║\x1b[0m');
-    this.terminal.writeln('\x1b[1;36m╚══════════════════════════════════════════╝\x1b[0m');
-    this.terminal.writeln('');
-    this.terminal.writeln('Write blessed code on the left and click Run');
-    this.terminal.writeln('');
+    this.terminal.writeln(
+      "\x1b[1;36m╔══════════════════════════════════════════╗\x1b[0m",
+    );
+    this.terminal.writeln(
+      "\x1b[1;36m║    blessed-browser Interactive Playground    ║\x1b[0m",
+    );
+    this.terminal.writeln(
+      "\x1b[1;36m╚══════════════════════════════════════════╝\x1b[0m",
+    );
+    this.terminal.writeln("");
+    this.terminal.writeln("Write blessed code on the left and click Run");
+    this.terminal.writeln("");
   }
 
   /**
@@ -87,8 +93,8 @@ export class BlessedPlayground {
    */
   clear() {
     // Clear all timers
-    this.intervals.forEach(id => clearInterval(id));
-    this.timeouts.forEach(id => clearTimeout(id));
+    this.intervals.forEach((id) => clearInterval(id));
+    this.timeouts.forEach((id) => clearTimeout(id));
     this.intervals = [];
     this.timeouts = [];
 
@@ -138,8 +144,8 @@ export class BlessedPlayground {
   async run(code) {
     try {
       // Clear previous execution
-      this.intervals.forEach(id => clearInterval(id));
-      this.timeouts.forEach(id => clearTimeout(id));
+      this.intervals.forEach((id) => clearInterval(id));
+      this.timeouts.forEach((id) => clearTimeout(id));
       this.intervals = [];
       this.timeouts = [];
 
@@ -157,11 +163,11 @@ export class BlessedPlayground {
 
       // Create new screen
       this.screen = new tui.Screen({
-        terminal: this.terminal
+        terminal: this.terminal,
       });
 
       // Handle quit key
-      this.screen.key(['escape', 'q', 'C-c'], () => {
+      this.screen.key(["escape", "q", "C-c"], () => {
         this.clear();
       });
 
@@ -180,13 +186,13 @@ export class BlessedPlayground {
 
       // Create sandboxed function with tui and screen in scope
       const userFunction = new Function(
-        'tui',
-        'screen',
-        'setInterval',
-        'setTimeout',
-        'clearInterval',
-        'clearTimeout',
-        code
+        "tui",
+        "screen",
+        "setInterval",
+        "setTimeout",
+        "clearInterval",
+        "clearTimeout",
+        code,
       );
 
       // Execute user code
@@ -196,9 +202,8 @@ export class BlessedPlayground {
         wrappedSetInterval,
         wrappedSetTimeout,
         clearInterval,
-        clearTimeout
+        clearTimeout,
       );
-
     } catch (error) {
       // Display error
       this.showError(error);
@@ -210,23 +215,29 @@ export class BlessedPlayground {
    */
   showError(error) {
     this.terminal.clear();
-    this.terminal.writeln('\x1b[1;31m╔══════════════════════════════════════════╗\x1b[0m');
-    this.terminal.writeln('\x1b[1;31m║              ERROR                       ║\x1b[0m');
-    this.terminal.writeln('\x1b[1;31m╚══════════════════════════════════════════╝\x1b[0m');
-    this.terminal.writeln('');
+    this.terminal.writeln(
+      "\x1b[1;31m╔══════════════════════════════════════════╗\x1b[0m",
+    );
+    this.terminal.writeln(
+      "\x1b[1;31m║              ERROR                       ║\x1b[0m",
+    );
+    this.terminal.writeln(
+      "\x1b[1;31m╚══════════════════════════════════════════╝\x1b[0m",
+    );
+    this.terminal.writeln("");
     this.terminal.writeln(`\x1b[1;31m${error.message}\x1b[0m`);
-    this.terminal.writeln('');
+    this.terminal.writeln("");
 
     if (error.stack) {
-      this.terminal.writeln('\x1b[90mStack trace:\x1b[0m');
-      const stackLines = error.stack.split('\n').slice(1, 6); // First 5 lines
-      stackLines.forEach(line => {
+      this.terminal.writeln("\x1b[90mStack trace:\x1b[0m");
+      const stackLines = error.stack.split("\n").slice(1, 6); // First 5 lines
+      stackLines.forEach((line) => {
         this.terminal.writeln(`\x1b[90m${line}\x1b[0m`);
       });
     }
 
-    this.terminal.writeln('');
-    this.terminal.writeln('\x1b[33mFix the error and click Run again\x1b[0m');
+    this.terminal.writeln("");
+    this.terminal.writeln("\x1b[33mFix the error and click Run again\x1b[0m");
   }
 
   /**
@@ -239,8 +250,8 @@ export class BlessedPlayground {
       this.debounceTimer = null;
     }
 
-    this.intervals.forEach(id => clearInterval(id));
-    this.timeouts.forEach(id => clearTimeout(id));
+    this.intervals.forEach((id) => clearInterval(id));
+    this.timeouts.forEach((id) => clearTimeout(id));
 
     if (this.screen) {
       this.screen.destroy();

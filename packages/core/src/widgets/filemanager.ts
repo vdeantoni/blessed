@@ -6,17 +6,17 @@
  * Modules
  */
 
-import type { FileManagerOptions } from '../types';
-import helpers from '../lib/helpers.js';
-import List from './list.js';
-import { getEnvVar } from '../lib/runtime-helpers';
+import type { FileManagerOptions } from "../types";
+import helpers from "../lib/helpers.js";
+import List from "./list.js";
+import { getEnvVar } from "../lib/runtime-helpers";
 
 /**
  * FileManager
  */
 
 class FileManager extends List {
-  override type = 'file-manager';
+  override type = "file-manager";
   declare options: FileManagerOptions; // Type refinement - initialized by parent
   /**
    * The current working directory.
@@ -39,29 +39,29 @@ class FileManager extends List {
     this.file = this.cwd;
     this.value = this.cwd;
 
-    if (options.label && ~options.label.indexOf('%path')) {
-      this._label.setContent(options.label.replace('%path', this.cwd));
+    if (options.label && ~options.label.indexOf("%path")) {
+      this._label.setContent(options.label.replace("%path", this.cwd));
     }
 
-    this.on('select', (item: any) => {
-      const value = item.content.replace(/\{[^{}]+\}/g, '').replace(/@$/, '');
+    this.on("select", (item: any) => {
+      const value = item.content.replace(/\{[^{}]+\}/g, "").replace(/@$/, "");
       const file = this.runtime.path.resolve(this.cwd, value);
 
       return this.runtime.fs.stat(file, (err, stat) => {
         if (err) {
-          return this.emit('error', err, file);
+          return this.emit("error", err, file);
         }
         this.file = file;
         this.value = file;
         if (stat.isDirectory()) {
-          this.emit('cd', file, this.cwd);
+          this.emit("cd", file, this.cwd);
           this.cwd = file;
-          if (options.label && ~options.label.indexOf('%path')) {
-            this._label.setContent(options.label.replace('%path', file));
+          if (options.label && ~options.label.indexOf("%path")) {
+            this._label.setContent(options.label.replace("%path", file));
           }
           this.refresh();
         } else {
-          this.emit('file', file);
+          this.emit("file", file);
         }
         return undefined;
       });
@@ -91,22 +91,22 @@ class FileManager extends List {
     else cwd = this.cwd;
 
     return this.runtime.fs.readdir(cwd, (err, list) => {
-      if (err && err.code === 'ENOENT') {
-        this.cwd = cwd !== getEnvVar("HOME") ? getEnvVar("HOME") || '/' : '/';
+      if (err && err.code === "ENOENT") {
+        this.cwd = cwd !== getEnvVar("HOME") ? getEnvVar("HOME") || "/" : "/";
         return this.refresh(callback);
       }
 
       if (err) {
         if (callback) return callback(err);
-        return this.emit('error', err, cwd);
+        return this.emit("error", err, cwd);
       }
 
       let dirs: any[] = [];
       let files: any[] = [];
 
-      list.unshift('..');
+      list.unshift("..");
 
-      list.forEach(name => {
+      list.forEach((name) => {
         const f = this.runtime.path.resolve(cwd, name);
         let stat: any;
 
@@ -114,16 +114,16 @@ class FileManager extends List {
           stat = this.runtime.fs.lstatSync(f);
         } catch (e) {}
 
-        if ((stat && stat.isDirectory()) || name === '..') {
+        if ((stat && stat.isDirectory()) || name === "..") {
           dirs.push({
             name: name,
-            text: '{light-blue-fg}' + name + '{/light-blue-fg}/',
+            text: "{light-blue-fg}" + name + "{/light-blue-fg}/",
             dir: true,
           });
         } else if (stat && stat.isSymbolicLink()) {
           files.push({
             name: name,
-            text: '{light-cyan-fg}' + name + '{/light-cyan-fg}@',
+            text: "{light-cyan-fg}" + name + "{/light-cyan-fg}@",
             dir: false,
           });
         } else {
@@ -138,7 +138,7 @@ class FileManager extends List {
       dirs = helpers.asort(dirs);
       files = helpers.asort(files);
 
-      list = dirs.concat(files).map(data => {
+      list = dirs.concat(files).map((data) => {
         return data.text;
       });
 
@@ -146,7 +146,7 @@ class FileManager extends List {
       this.select(0);
       this.screen.render();
 
-      this.emit('refresh');
+      this.emit("refresh");
 
       if (callback) callback();
     });
@@ -176,8 +176,8 @@ class FileManager extends List {
     let onfile: any, oncancel: any;
 
     const resume = () => {
-      this.removeListener('file', onfile);
-      this.removeListener('cancel', oncancel);
+      this.removeListener("file", onfile);
+      this.removeListener("cancel", oncancel);
       if (hidden) {
         this.hide();
       }
@@ -188,19 +188,19 @@ class FileManager extends List {
     };
 
     this.on(
-      'file',
+      "file",
       (onfile = (file: any) => {
         resume();
         return callback(null, file);
-      })
+      }),
     );
 
     this.on(
-      'cancel',
+      "cancel",
       (oncancel = () => {
         resume();
         return callback();
-      })
+      }),
     );
 
     this.refresh(cwd, (err: any) => {

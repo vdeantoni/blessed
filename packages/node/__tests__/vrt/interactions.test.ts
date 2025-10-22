@@ -5,13 +5,13 @@
  * Uses multi-frame VRT to capture state changes over time.
  */
 
-import { describe } from 'vitest';
-import { Box, ScrollableText } from '@unblessed/core';
-import { createMultiFrameVRTTest } from '../helpers/vrt-test.js';
+import { describe } from "vitest";
+import { Box, ScrollableText } from "@unblessed/core";
+import { createMultiFrameVRTTest } from "../helpers/vrt-test.js";
 
-describe('VRT - Widget Interactions', () => {
+describe("VRT - Widget Interactions", () => {
   createMultiFrameVRTTest(
-    'draggable box moves to different positions',
+    "draggable box moves to different positions",
     async (screen, capture) => {
       // Create draggable box
       const box = new Box({
@@ -20,12 +20,12 @@ describe('VRT - Widget Interactions', () => {
         top: 5,
         width: 30,
         height: 7,
-        content: '{center}{bold}Drag Me!{/bold}{/center}',
+        content: "{center}{bold}Drag Me!{/bold}{/center}",
         tags: true,
-        border: { type: 'line' },
+        border: { type: "line" },
         draggable: true,
         style: {
-          border: { fg: 'green' },
+          border: { fg: "green" },
         },
       });
 
@@ -50,24 +50,24 @@ describe('VRT - Widget Interactions', () => {
       screen.render();
       await capture(); // Frame 4: Moved to (5, 2)
     },
-    '__tests__/vrt/fixtures/box-dragging.vrt.json'
+    "__tests__/vrt/fixtures/box-dragging.vrt.json",
   );
 
   createMultiFrameVRTTest(
-    'scrollable text scrolls through content',
+    "scrollable text scrolls through content",
     async (screen, capture) => {
       const content = [
-        'Line 1 - First line of content',
-        'Line 2 - Second line',
-        'Line 3 - Third line',
-        'Line 4 - Fourth line',
-        'Line 5 - Fifth line',
-        'Line 6 - Sixth line',
-        'Line 7 - Seventh line',
-        'Line 8 - Eighth line',
-        'Line 9 - Ninth line',
-        'Line 10 - Tenth line',
-      ].join('\n');
+        "Line 1 - First line of content",
+        "Line 2 - Second line",
+        "Line 3 - Third line",
+        "Line 4 - Fourth line",
+        "Line 5 - Fifth line",
+        "Line 6 - Sixth line",
+        "Line 7 - Seventh line",
+        "Line 8 - Eighth line",
+        "Line 9 - Ninth line",
+        "Line 10 - Tenth line",
+      ].join("\n");
 
       const scrollable = new ScrollableText({
         parent: screen,
@@ -76,9 +76,9 @@ describe('VRT - Widget Interactions', () => {
         width: 40,
         height: 6,
         content,
-        border: { type: 'line' },
+        border: { type: "line" },
         scrollbar: {
-          ch: '█',
+          ch: "█",
         },
         keys: true,
         vi: true,
@@ -102,23 +102,23 @@ describe('VRT - Widget Interactions', () => {
       screen.render();
       await capture(); // Frame 4: Scrolled back up
     },
-    '__tests__/vrt/fixtures/scrollable-text.vrt.json'
+    "__tests__/vrt/fixtures/scrollable-text.vrt.json",
   );
 
   createMultiFrameVRTTest(
-    'box content updates dynamically',
+    "box content updates dynamically",
     async (screen, capture) => {
       const box = new Box({
         parent: screen,
-        top: 'center',
-        left: 'center',
+        top: "center",
+        left: "center",
         width: 35,
         height: 8,
-        content: 'Initial Content',
-        border: { type: 'line' },
+        content: "Initial Content",
+        border: { type: "line" },
         tags: true,
         style: {
-          fg: 'white',
+          fg: "white",
         },
       });
 
@@ -126,25 +126,22 @@ describe('VRT - Widget Interactions', () => {
       await capture(); // Frame 1: Initial content
 
       // Update content
-      box.setContent('{bold}{cyan-fg}Updated Content{/}');
+      box.setContent("{bold}{cyan-fg}Updated Content{/}");
       screen.render();
       await capture(); // Frame 2: After update
 
       // Update again with more text
-      box.setContent([
-        '{bold}Multiple Lines{/}',
-        '',
-        'Line 2',
-        'Line 3',
-      ].join('\n'));
+      box.setContent(
+        ["{bold}Multiple Lines{/}", "", "Line 2", "Line 3"].join("\n"),
+      );
       screen.render();
       await capture(); // Frame 3: Multi-line content
 
       // Clear content
-      box.setContent('');
+      box.setContent("");
       screen.render();
       await capture(); // Frame 4: Empty
     },
-    '__tests__/vrt/fixtures/dynamic-content.vrt.json'
+    "__tests__/vrt/fixtures/dynamic-content.vrt.json",
   );
 });

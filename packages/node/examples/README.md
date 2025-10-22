@@ -36,6 +36,7 @@ pnpm example:hello-world
 The simplest possible example - shows a centered box with text.
 
 **Features:**
+
 - Basic screen creation
 - Centered box with styled content
 - Keyboard event handling (quit on Escape/q)
@@ -45,6 +46,7 @@ The simplest possible example - shows a centered box with text.
 An interactive form with text input, buttons, and a list.
 
 **Features:**
+
 - Text input with focus styling
 - Buttons with hover/press effects
 - List widget with scrolling
@@ -56,6 +58,7 @@ An interactive form with text input, buttons, and a list.
 A more complex example showing a dashboard layout with multiple widgets.
 
 **Features:**
+
 - Layout with header, sidebar, main content
 - Progress bars
 - Tables
@@ -67,22 +70,22 @@ A more complex example showing a dashboard layout with multiple widgets.
 All examples follow this pattern:
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 // 1. Create screen (runtime auto-initializes on import)
 const screen = new Screen({
   smartCSR: true,
-  title: 'My App'
+  title: "My App",
 });
 
 // 2. Create widgets with parent reference
 const box = new Box({
-  parent: screen,  // IMPORTANT: Attach widget to screen
+  parent: screen, // IMPORTANT: Attach widget to screen
   // ... options
 });
 
 // 3. Set up event handlers
-screen.key(['escape', 'q', 'C-c'], () => {
+screen.key(["escape", "q", "C-c"], () => {
   process.exit(0);
 });
 
@@ -97,18 +100,19 @@ screen.render();
 The runtime initializes automatically when you import from `@unblessed/node`. Just import and use:
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 // That's it! Runtime is ready. Just use the widgets:
 const screen = new Screen();
 const box = new Box({
-  parent: screen,  // Attach to screen
-  content: 'Hello!'
+  parent: screen, // Attach to screen
+  content: "Hello!",
 });
 screen.render();
 ```
 
 **Why it's simple:**
+
 - ✅ No manual initialization needed
 - ✅ No helper functions required
 - ✅ Just import widgets and use them
@@ -119,12 +123,13 @@ screen.render();
 Widgets form a tree structure:
 
 ```typescript
-const screen = new Screen();                   // Root
+const screen = new Screen(); // Root
 
 const container = new Box({ parent: screen }); // Child of screen
 
-const button = new Button({                    // Child of container
-  parent: container
+const button = new Button({
+  // Child of container
+  parent: container,
 });
 ```
 
@@ -136,10 +141,10 @@ Use `screen.key()` for global keys, or `widget.key()` for widget-specific keys:
 
 ```typescript
 // Global - works anywhere
-screen.key('q', () => process.exit(0));
+screen.key("q", () => process.exit(0));
 
 // Widget-specific - only when focused
-button.key('enter', () => {
+button.key("enter", () => {
   // Handle button press
 });
 ```
@@ -155,18 +160,22 @@ button.key('enter', () => {
 ## Troubleshooting
 
 **Widgets not showing up?**
+
 - Make sure you use `parent: screen` to attach widgets
 - Check that `screen.render()` is called after creating widgets
 
 **Terminal not rendering correctly?**
+
 - Try setting `TERM=xterm-256color`
 - Use `smartCSR: true` in screen options
 
 **Widgets not responding to keyboard?**
+
 - Make sure the widget has focus: `widget.focus()`
 - Enable keys on the widget: `keys: true`
 
 **Mouse not working?**
+
 - Enable mouse on the widget: `mouse: true`
 - Some terminals don't support mouse events
 

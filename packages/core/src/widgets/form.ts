@@ -6,8 +6,8 @@
  * Modules
  */
 
-import type { FormOptions, KeyEvent } from '../types';
-import Box from './box.js';
+import type { FormOptions, KeyEvent } from "../types";
+import Box from "./box.js";
 
 /**
  * Form
@@ -18,7 +18,7 @@ import Box from './box.js';
  */
 
 class Form extends Box {
-  override type = 'form';
+  override type = "form";
   _children: any;
   _selected: any;
   /**
@@ -38,20 +38,20 @@ class Form extends Box {
 
     if (options.keys) {
       this.screen._listenKeys(this);
-      this.on('element keypress', (el: any, _ch: any, key: KeyEvent) => {
+      this.on("element keypress", (el: any, _ch: any, key: KeyEvent) => {
         if (
-          (key.name === 'tab' && !key.shift) ||
-          (el.type === 'textbox' && options.autoNext && key.name === 'enter') ||
-          key.name === 'down' ||
-          (options.vi && key.name === 'j')
+          (key.name === "tab" && !key.shift) ||
+          (el.type === "textbox" && options.autoNext && key.name === "enter") ||
+          key.name === "down" ||
+          (options.vi && key.name === "j")
         ) {
-          if (el.type === 'textbox' || el.type === 'textarea') {
-            if (key.name === 'j') return;
-            if (key.name === 'tab') {
+          if (el.type === "textbox" || el.type === "textarea") {
+            if (key.name === "j") return;
+            if (key.name === "tab") {
               // Workaround, since we can't stop the tab from being added.
-              el.emit('keypress', null, { name: 'backspace' });
+              el.emit("keypress", null, { name: "backspace" });
             }
-            el.emit('keypress', '\x1b', { name: 'escape' });
+            el.emit("keypress", "\x1b", { name: "escape" });
           }
           // Set _selected to the element that triggered navigation if not set
           if (!this._selected) {
@@ -62,13 +62,13 @@ class Form extends Box {
         }
 
         if (
-          (key.name === 'tab' && key.shift) ||
-          key.name === 'up' ||
-          (options.vi && key.name === 'k')
+          (key.name === "tab" && key.shift) ||
+          key.name === "up" ||
+          (options.vi && key.name === "k")
         ) {
-          if (el.type === 'textbox' || el.type === 'textarea') {
-            if (key.name === 'k') return;
-            el.emit('keypress', '\x1b', { name: 'escape' });
+          if (el.type === "textbox" || el.type === "textarea") {
+            if (key.name === "k") return;
+            el.emit("keypress", "\x1b", { name: "escape" });
           }
           // Set _selected to the element that triggered navigation if not set
           if (!this._selected) {
@@ -78,7 +78,7 @@ class Form extends Box {
           return;
         }
 
-        if (key.name === 'escape') {
+        if (key.name === "escape") {
           this.focus();
           return;
         }
@@ -224,7 +224,7 @@ class Form extends Box {
       });
     });
 
-    this.emit('submit', out);
+    this.emit("submit", out);
 
     return (this.submission = out);
   }
@@ -236,7 +236,7 @@ class Form extends Box {
    * form.cancel();
    */
   cancel() {
-    this.emit('cancel');
+    this.emit("cancel");
   }
 
   /**
@@ -254,138 +254,138 @@ class Form extends Box {
   reset() {
     this.children.forEach((el: any) => {
       switch (el.type) {
-        case 'screen':
+        case "screen":
           break;
-        case 'box':
+        case "box":
           break;
-        case 'text':
+        case "text":
           break;
-        case 'line':
+        case "line":
           break;
-        case 'scrollable-box':
+        case "scrollable-box":
           break;
-        case 'list':
+        case "list":
           el.select(0);
           return;
-        case 'form':
+        case "form":
           break;
-        case 'input':
+        case "input":
           break;
-        case 'textbox':
+        case "textbox":
           el.clearInput();
           return;
-        case 'textarea':
+        case "textarea":
           el.clearInput();
           return;
-        case 'button':
+        case "button":
           delete el.value;
           break;
-        case 'progress-bar':
+        case "progress-bar":
           el.setProgress(0);
           break;
-        case 'file-manager':
+        case "file-manager":
           el.refresh(el.options.cwd);
           return;
-        case 'checkbox':
+        case "checkbox":
           el.uncheck();
           return;
-        case 'radio-set':
+        case "radio-set":
           break;
-        case 'radio-button':
+        case "radio-button":
           el.uncheck();
           return;
-        case 'prompt':
+        case "prompt":
           break;
-        case 'question':
+        case "question":
           break;
-        case 'message':
+        case "message":
           break;
-        case 'info':
+        case "info":
           break;
-        case 'loading':
+        case "loading":
           break;
-        case 'list-bar':
+        case "list-bar":
           //el.select(0);
           break;
-        case 'dir-manager':
+        case "dir-manager":
           el.refresh(el.options.cwd);
           return;
-        case 'terminal':
-          el.write('');
+        case "terminal":
+          el.write("");
           return;
-        case 'image':
+        case "image":
           //el.clearImage();
           return;
       }
       el.children.forEach((child: any) => {
         switch (child.type) {
-          case 'screen':
+          case "screen":
             break;
-          case 'box':
+          case "box":
             break;
-          case 'text':
+          case "text":
             break;
-          case 'line':
+          case "line":
             break;
-          case 'scrollable-box':
+          case "scrollable-box":
             break;
-          case 'list':
+          case "list":
             child.select(0);
             return;
-          case 'form':
+          case "form":
             break;
-          case 'input':
+          case "input":
             break;
-          case 'textbox':
+          case "textbox":
             child.clearInput();
             return;
-          case 'textarea':
+          case "textarea":
             child.clearInput();
             return;
-          case 'button':
+          case "button":
             delete child.value;
             break;
-          case 'progress-bar':
+          case "progress-bar":
             child.setProgress(0);
             break;
-          case 'file-manager':
+          case "file-manager":
             child.refresh(child.options.cwd);
             return;
-          case 'checkbox':
+          case "checkbox":
             child.uncheck();
             return;
-          case 'radio-set':
+          case "radio-set":
             break;
-          case 'radio-button':
+          case "radio-button":
             child.uncheck();
             return;
-          case 'prompt':
+          case "prompt":
             break;
-          case 'question':
+          case "question":
             break;
-          case 'message':
+          case "message":
             break;
-          case 'info':
+          case "info":
             break;
-          case 'loading':
+          case "loading":
             break;
-          case 'list-bar':
+          case "list-bar":
             //child.select(0);
             break;
-          case 'dir-manager':
+          case "dir-manager":
             child.refresh(child.options.cwd);
             return;
-          case 'terminal':
-            child.write('');
+          case "terminal":
+            child.write("");
             return;
-          case 'image':
+          case "image":
             //child.clearImage();
             return;
         }
       });
     });
 
-    this.emit('reset');
+    this.emit("reset");
   }
 }
 

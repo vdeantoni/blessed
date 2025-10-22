@@ -3,9 +3,9 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/textarea.log',
+  dump: __dirname + "/logs/textarea.log",
   fullUnicode: true,
-  warnings: true
+  warnings: true,
 });
 
 var box = blessed.textarea({
@@ -13,25 +13,25 @@ var box = blessed.textarea({
   // Possibly support:
   // align: 'center',
   style: {
-    bg: 'blue'
+    bg: "blue",
   },
-  height: 'half',
-  width: 'half',
-  top: 'center',
-  left: 'center',
-  tags: true
+  height: "half",
+  width: "half",
+  top: "center",
+  left: "center",
+  tags: true,
 });
 
 screen.render();
 
-screen.key('q', function() {
+screen.key("q", function () {
   screen.destroy();
 });
 
-screen.key('i', function() {
-  box.readInput(function() {});
+screen.key("i", function () {
+  box.readInput(function () {});
 });
 
-screen.key('e', function() {
-  box.readEditor(function() {});
+screen.key("e", function () {
+  box.readEditor(function () {});
 });

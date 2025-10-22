@@ -1,14 +1,14 @@
-import { defineConfig } from 'tsup';
-import { cp } from 'fs/promises';
+import { defineConfig } from "tsup";
+import { cp } from "fs/promises";
 
 export default defineConfig({
   entry: {
-    index: 'src/index.ts',
-    tput: 'bin/tput.ts',
+    index: "src/index.ts",
+    tput: "bin/tput.ts",
   },
 
-  format: ['cjs', 'esm'],
-  outDir: 'dist',
+  format: ["cjs", "esm"],
+  outDir: "dist",
 
   bundle: true,
   splitting: false,
@@ -17,22 +17,20 @@ export default defineConfig({
   clean: true,
   sourcemap: true,
   dts: {
-    entry: 'src/index.ts',
+    entry: "src/index.ts",
   },
   minify: true,
   shims: true,
   cjsInterop: true,
 
-  external: [
-    '@unblessed/node'
-  ],
+  external: ["@unblessed/node"],
 
-  platform: 'node',
-  target: 'node22',
+  platform: "node",
+  target: "node22",
 
   onSuccess: async () => {
-    await cp('../core/data', 'dist/usr', { recursive: true });
-    console.log('✅ Copied ../core/data/ to dist/usr/');
-    console.log('✅ @unblessed/blessed build complete');
-  }
+    await cp("../core/data", "dist/usr", { recursive: true });
+    console.log("✅ Copied ../core/data/ to dist/usr/");
+    console.log("✅ @unblessed/blessed build complete");
+  },
 });

@@ -1,25 +1,25 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
 /**
  * E2E tests for basic blessed widgets
  * Tests: Box, Text, ScrollableBox, ScrollableText, Line
  */
 
-test.describe('Basic Widgets', () => {
-  test.describe('Box', () => {
-    test('renders box with content', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/basic-box.html');
+test.describe("Basic Widgets", () => {
+  test.describe("Box", () => {
+    test("renders box with content", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/basic-box.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const boxContent = await page.evaluate(() => {
         return window.testBox.content;
       });
 
-      expect(boxContent).toBe('Test Box Content');
+      expect(boxContent).toBe("Test Box Content");
     });
 
-    test('box has correct dimensions', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/basic-box.html');
+    test("box has correct dimensions", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/basic-box.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const dimensions = await page.evaluate(() => {
@@ -33,8 +33,8 @@ test.describe('Basic Widgets', () => {
       expect(dimensions.height).toBe(10);
     });
 
-    test('box supports style changes', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/basic-box.html');
+    test("box supports style changes", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/basic-box.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const hasStyle = await page.evaluate(() => {
@@ -45,24 +45,24 @@ test.describe('Basic Widgets', () => {
     });
   });
 
-  test.describe('Text', () => {
-    test('renders text widget', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/text-widget.html');
+  test.describe("Text", () => {
+    test("renders text widget", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/text-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const content = await page.evaluate(() => {
         return window.testText.content;
       });
 
-      expect(content).toContain('Static Text');
+      expect(content).toContain("Static Text");
     });
 
-    test('text widget updates content', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/text-widget.html');
+    test("text widget updates content", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/text-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       await page.evaluate(() => {
-        window.testText.setContent('Updated Text');
+        window.testText.setContent("Updated Text");
         window.testScreen.render();
       });
 
@@ -70,13 +70,13 @@ test.describe('Basic Widgets', () => {
         return window.testText.content;
       });
 
-      expect(content).toBe('Updated Text');
+      expect(content).toBe("Updated Text");
     });
   });
 
-  test.describe('ScrollableBox', () => {
-    test('renders scrollable content', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/scrollable-box.html');
+  test.describe("ScrollableBox", () => {
+    test("renders scrollable content", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/scrollable-box.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const hasContent = await page.evaluate(() => {
@@ -86,8 +86,8 @@ test.describe('Basic Widgets', () => {
       expect(hasContent).toBe(true);
     });
 
-    test('scrollable box responds to scroll', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/scrollable-box.html');
+    test("scrollable box responds to scroll", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/scrollable-box.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const initialScroll = await page.evaluate(() => {
@@ -107,33 +107,36 @@ test.describe('Basic Widgets', () => {
     });
   });
 
-  test.describe('Line', () => {
-    test('renders line widget', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/line-widget.html');
+  test.describe("Line", () => {
+    test("renders line widget", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/line-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const lineType = await page.evaluate(() => {
         return window.testLine.type;
       });
 
-      expect(lineType).toBe('line');
+      expect(lineType).toBe("line");
     });
   });
 
-  test.describe('ScrollableText', () => {
-    test('renders scrollabletext widget', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/scrollabletext-widget.html');
+  test.describe("ScrollableText", () => {
+    test("renders scrollabletext widget", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/scrollabletext-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const hasScrollableText = await page.evaluate(() => {
-        return !!(window.testScrollableText && window.testScrollableText.type === 'scrollable-text');
+        return !!(
+          window.testScrollableText &&
+          window.testScrollableText.type === "scrollable-text"
+        );
       });
 
       expect(hasScrollableText).toBe(true);
     });
 
-    test('scrollabletext has alwaysScroll enabled', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/scrollabletext-widget.html');
+    test("scrollabletext has alwaysScroll enabled", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/scrollabletext-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const alwaysScroll = await page.evaluate(() => {
@@ -143,12 +146,12 @@ test.describe('Basic Widgets', () => {
       expect(alwaysScroll).toBe(true);
     });
 
-    test('scrollabletext can scroll', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/scrollabletext-widget.html');
+    test("scrollabletext can scroll", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/scrollabletext-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const canScroll = await page.evaluate(() => {
-        return typeof window.testScrollableText.scroll === 'function';
+        return typeof window.testScrollableText.scroll === "function";
       });
 
       expect(canScroll).toBe(true);

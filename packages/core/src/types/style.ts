@@ -7,7 +7,10 @@
  * Dynamic functions are evaluated at render time with the element as context.
  * Colors can be strings (color names) or numbers (color codes).
  */
-export type StyleColor = string | number | ((element: any) => string | number | undefined);
+export type StyleColor =
+  | string
+  | number
+  | ((element: any) => string | number | undefined);
 
 /**
  * Type for style boolean properties that can be static values or dynamic functions.

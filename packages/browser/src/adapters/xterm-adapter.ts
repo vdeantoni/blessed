@@ -5,8 +5,8 @@
  * enabling terminal UI applications to run in the browser.
  */
 
-import type { Terminal } from 'xterm';
-import { EventEmitter } from 'events';
+import type { Terminal } from "xterm";
+import { EventEmitter } from "events";
 
 export interface XTermAdapterOptions {
   terminal: Terminal;
@@ -44,7 +44,7 @@ export class XTermAdapter extends EventEmitter {
     this.terminal = options.terminal;
     this.options = {
       mouse: false,
-      term: 'xterm-256color',
+      term: "xterm-256color",
       ...options,
     };
 
@@ -56,13 +56,13 @@ export class XTermAdapter extends EventEmitter {
     // This includes keyboard input AND mouse events (as escape sequences)
     // Note: blessed will parse the data stream and generate keypresses internally,
     // so we don't need to use terminal.onKey() which would cause double input
-    this.terminal.onData(data => {
-      this.emit('data', Buffer.from(data));
+    this.terminal.onData((data) => {
+      this.emit("data", Buffer.from(data));
     });
 
     // Capture resize events
     this.terminal.onResize(() => {
-      this.emit('resize');
+      this.emit("resize");
     });
 
     // Enable mouse support
@@ -81,15 +81,15 @@ export class XTermAdapter extends EventEmitter {
 
     const encodeMouseEvent = (
       e: MouseEvent,
-      type: 'mousedown' | 'mouseup' | 'mousemove' | 'wheel'
+      type: "mousedown" | "mouseup" | "mousemove" | "wheel",
     ) => {
       const rect = element.getBoundingClientRect();
       // Calculate cell position
       const col = Math.floor(
-        (e.clientX - rect.left) / (rect.width / this.terminal.cols)
+        (e.clientX - rect.left) / (rect.width / this.terminal.cols),
       );
       const row = Math.floor(
-        (e.clientY - rect.top) / (rect.height / this.terminal.rows)
+        (e.clientY - rect.top) / (rect.height / this.terminal.rows),
       );
 
       // Clamp to terminal bounds
@@ -97,7 +97,7 @@ export class XTermAdapter extends EventEmitter {
       const y = Math.max(0, Math.min(row, this.terminal.rows - 1));
 
       let button = 0;
-      if (type === 'wheel') {
+      if (type === "wheel") {
         button = (e as WheelEvent).deltaY > 0 ? 65 : 64;
       } else {
         button = e.button;
@@ -111,32 +111,32 @@ export class XTermAdapter extends EventEmitter {
       const cb = button + modifier;
 
       // SGR mouse format: CSI < Cb ; Cx ; Cy M/m
-      const action = type === 'mouseup' ? 'm' : 'M';
+      const action = type === "mouseup" ? "m" : "M";
       return `\x1b[<${cb};${x + 1};${y + 1}${action}`;
     };
 
-    element.addEventListener('mousedown', (e: MouseEvent) => {
+    element.addEventListener("mousedown", (e: MouseEvent) => {
       mouseDown = true;
-      const seq = encodeMouseEvent(e, 'mousedown');
-      this.emit('data', Buffer.from(seq));
+      const seq = encodeMouseEvent(e, "mousedown");
+      this.emit("data", Buffer.from(seq));
       e.preventDefault();
     });
 
-    element.addEventListener('mouseup', (e: MouseEvent) => {
+    element.addEventListener("mouseup", (e: MouseEvent) => {
       mouseDown = false;
-      const seq = encodeMouseEvent(e, 'mouseup');
-      this.emit('data', Buffer.from(seq));
+      const seq = encodeMouseEvent(e, "mouseup");
+      this.emit("data", Buffer.from(seq));
       e.preventDefault();
     });
 
-    element.addEventListener('mousemove', (e: MouseEvent) => {
+    element.addEventListener("mousemove", (e: MouseEvent) => {
       if (mouseDown) {
-        const seq = encodeMouseEvent(e, 'mousemove');
-        this.emit('data', Buffer.from(seq));
+        const seq = encodeMouseEvent(e, "mousemove");
+        this.emit("data", Buffer.from(seq));
       }
     });
 
-    element.addEventListener('wheel', (e: WheelEvent) => {
+    element.addEventListener("wheel", (e: WheelEvent) => {
       const now = Date.now();
       if (now - lastWheelTime < wheelThrottle) {
         e.preventDefault();
@@ -144,8 +144,8 @@ export class XTermAdapter extends EventEmitter {
       }
       lastWheelTime = now;
 
-      const seq = encodeMouseEvent(e, 'wheel');
-      this.emit('data', Buffer.from(seq));
+      const seq = encodeMouseEvent(e, "wheel");
+      this.emit("data", Buffer.from(seq));
       e.preventDefault();
     });
   }
@@ -154,7 +154,7 @@ export class XTermAdapter extends EventEmitter {
    * Write data to terminal
    */
   write(data: string | Buffer): boolean {
-    const str = typeof data === 'string' ? data : data.toString();
+    const str = typeof data === "string" ? data : data.toString();
     this.terminal.write(str);
     return true;
   }

@@ -6,11 +6,11 @@
  *   pnpm example:dashboard
  */
 
-import { Screen, Box, ProgressBar, Table, Text } from '../src/index.js';
+import { Screen, Box, ProgressBar, Table, Text } from "../src/index.js";
 
 const screen = new Screen({
   smartCSR: true,
-  title: 'System Dashboard'
+  title: "System Dashboard",
 });
 
 // Header
@@ -18,14 +18,14 @@ const header = new Box({
   parent: screen,
   top: 0,
   left: 0,
-  width: '100%',
+  width: "100%",
   height: 3,
-  content: '{center}{bold}{cyan-fg}System Dashboard{/cyan-fg}{/bold}{/center}',
+  content: "{center}{bold}{cyan-fg}System Dashboard{/cyan-fg}{/bold}{/center}",
   tags: true,
   style: {
-    fg: 'white',
-    bg: 'blue'
-  }
+    fg: "white",
+    bg: "blue",
+  },
 });
 
 // Sidebar
@@ -34,16 +34,16 @@ const sidebar = new Box({
   top: 3,
   left: 0,
   width: 20,
-  height: '100%-3',
+  height: "100%-3",
   border: {
-    type: 'line'
+    type: "line",
   },
   style: {
     border: {
-      fg: 'cyan'
-    }
+      fg: "cyan",
+    },
   },
-  label: ' Menu '
+  label: " Menu ",
 });
 
 const menuItems = new Text({
@@ -51,13 +51,13 @@ const menuItems = new Text({
   top: 1,
   left: 1,
   content:
-    '{bold}Viewing:{/bold}\n' +
-    '{green-fg}▸ Metrics{/green-fg}\n\n' +
-    'Live dashboard\n' +
-    'with real-time\n' +
-    'updates.\n\n' +
-    '{gray-fg}Press q to quit{/gray-fg}',
-  tags: true
+    "{bold}Viewing:{/bold}\n" +
+    "{green-fg}▸ Metrics{/green-fg}\n\n" +
+    "Live dashboard\n" +
+    "with real-time\n" +
+    "updates.\n\n" +
+    "{gray-fg}Press q to quit{/gray-fg}",
+  tags: true,
 });
 
 // Main content area
@@ -65,17 +65,17 @@ const content = new Box({
   parent: screen,
   top: 3,
   left: 20,
-  width: '100%-20',
-  height: '100%-3',
+  width: "100%-20",
+  height: "100%-3",
   border: {
-    type: 'line'
+    type: "line",
   },
   style: {
     border: {
-      fg: 'green'
-    }
+      fg: "green",
+    },
   },
-  label: ' Metrics '
+  label: " Metrics ",
 });
 
 // CPU Progress Bar
@@ -83,30 +83,30 @@ const cpuLabel = new Text({
   parent: content,
   top: 1,
   left: 2,
-  content: 'CPU Usage:',
+  content: "CPU Usage:",
   style: {
-    fg: 'white'
-  }
+    fg: "white",
+  },
 });
 
 const cpuBar = new ProgressBar({
   parent: content,
   top: 2,
   left: 2,
-  width: '50%',
+  width: "50%",
   height: 1,
   border: {
-    type: 'line'
+    type: "line",
   },
   style: {
     bar: {
-      bg: 'green'
+      bg: "green",
     },
     border: {
-      fg: 'white'
-    }
+      fg: "white",
+    },
   },
-  filled: 0
+  filled: 0,
 });
 
 // Memory Progress Bar
@@ -114,30 +114,30 @@ const memLabel = new Text({
   parent: content,
   top: 4,
   left: 2,
-  content: 'Memory Usage:',
+  content: "Memory Usage:",
   style: {
-    fg: 'white'
-  }
+    fg: "white",
+  },
 });
 
 const memBar = new ProgressBar({
   parent: content,
   top: 5,
   left: 2,
-  width: '50%',
+  width: "50%",
   height: 1,
   border: {
-    type: 'line'
+    type: "line",
   },
   style: {
     bar: {
-      bg: 'yellow'
+      bg: "yellow",
     },
     border: {
-      fg: 'white'
-    }
+      fg: "white",
+    },
   },
-  filled: 0
+  filled: 0,
 });
 
 // Network Progress Bar
@@ -145,30 +145,30 @@ const netLabel = new Text({
   parent: content,
   top: 7,
   left: 2,
-  content: 'Network I/O:',
+  content: "Network I/O:",
   style: {
-    fg: 'white'
-  }
+    fg: "white",
+  },
 });
 
 const netBar = new ProgressBar({
   parent: content,
   top: 8,
   left: 2,
-  width: '50%',
+  width: "50%",
   height: 1,
   border: {
-    type: 'line'
+    type: "line",
   },
   style: {
     bar: {
-      bg: 'cyan'
+      bg: "cyan",
     },
     border: {
-      fg: 'white'
-    }
+      fg: "white",
+    },
   },
-  filled: 0
+  filled: 0,
 });
 
 // Stats Table
@@ -176,30 +176,30 @@ const statsTable = new Table({
   parent: content,
   top: 10,
   left: 2,
-  width: '90%',
+  width: "90%",
   height: 8,
   border: {
-    type: 'line'
+    type: "line",
   },
   style: {
     border: {
-      fg: 'yellow'
+      fg: "yellow",
     },
     header: {
-      fg: 'cyan',
-      bold: true
+      fg: "cyan",
+      bold: true,
     },
     cell: {
-      fg: 'white'
-    }
+      fg: "white",
+    },
   },
   data: [
-    ['Metric', 'Value', 'Status'],
-    ['Uptime', '2d 5h 30m', '✓'],
-    ['Processes', '234', '✓'],
-    ['Threads', '1,245', '✓'],
-    ['Load Avg', '1.23, 1.45, 1.67', '✓']
-  ]
+    ["Metric", "Value", "Status"],
+    ["Uptime", "2d 5h 30m", "✓"],
+    ["Processes", "234", "✓"],
+    ["Threads", "1,245", "✓"],
+    ["Load Avg", "1.23, 1.45, 1.67", "✓"],
+  ],
 });
 
 // Update metrics periodically
@@ -229,7 +229,7 @@ const updateInterval = setInterval(() => {
 }, 500);
 
 // Cleanup on exit
-screen.key(['escape', 'q', 'C-c'], () => {
+screen.key(["escape", "q", "C-c"], () => {
   clearInterval(updateInterval);
   return process.exit(0);
 });

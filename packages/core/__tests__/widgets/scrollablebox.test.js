@@ -1,102 +1,112 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import ScrollableBox from '../../src/widgets/scrollablebox.js';
-import Box from '../../src/widgets/box.js';
-import { createMockScreen } from '../helpers/mock.js';
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import ScrollableBox from "../../src/widgets/scrollablebox.js";
+import Box from "../../src/widgets/box.js";
+import { createMockScreen } from "../helpers/mock.js";
 
-describe('ScrollableBox', () => {
+describe("ScrollableBox", () => {
   let screen;
 
   beforeEach(() => {
     screen = createMockScreen();
   });
 
-  describe('constructor', () => {
-    it('should create a scrollablebox instance', () => {
+  describe("constructor", () => {
+    it("should create a scrollablebox instance", () => {
       const box = new ScrollableBox({ screen });
 
       expect(box).toBeDefined();
-      expect(box.type).toBe('scrollable-box');
+      expect(box.type).toBe("scrollable-box");
     });
 
-    it('should inherit from Box', () => {
+    it("should inherit from Box", () => {
       const box = new ScrollableBox({ screen });
 
       expect(box.screen).toBe(screen);
-      expect(typeof box.append).toBe('function');
+      expect(typeof box.append).toBe("function");
     });
 
-    it('should be scrollable by default', () => {
+    it("should be scrollable by default", () => {
       const box = new ScrollableBox({ screen });
 
       expect(box.scrollable).toBe(true);
     });
 
-    it('should not be scrollable if scrollable option is false', () => {
+    it("should not be scrollable if scrollable option is false", () => {
       const box = new ScrollableBox({
         screen,
-        scrollable: false
+        scrollable: false,
       });
 
       expect(box.scrollable).toBeUndefined();
     });
 
-    it('should initialize scroll properties', () => {
+    it("should initialize scroll properties", () => {
       const box = new ScrollableBox({ screen });
 
       expect(box.childOffset).toBe(0);
       expect(box.childBase).toBe(0);
     });
 
-    it('should accept baseLimit option', () => {
+    it("should accept baseLimit option", () => {
       const box = new ScrollableBox({
         screen,
-        baseLimit: 100
+        baseLimit: 100,
       });
 
       expect(box.baseLimit).toBe(100);
     });
 
-    it('should default baseLimit to Infinity', () => {
+    it("should default baseLimit to Infinity", () => {
       const box = new ScrollableBox({ screen });
 
       expect(box.baseLimit).toBe(Infinity);
     });
 
-    it('should accept alwaysScroll option', () => {
+    it("should accept alwaysScroll option", () => {
       const box = new ScrollableBox({
         screen,
-        alwaysScroll: true
+        alwaysScroll: true,
       });
 
       expect(box.alwaysScroll).toBe(true);
     });
 
-    it('should accept scrollbar option', () => {
+    it("should accept scrollbar option", () => {
       const box = new ScrollableBox({
         screen,
         scrollbar: {
-          ch: '█',
-          fg: 'blue',
-          bg: 'white'
-        }
+          ch: "█",
+          fg: "blue",
+          bg: "white",
+        },
       });
 
       expect(box.scrollbar).toBeDefined();
-      expect(box.scrollbar.ch).toBe('█');
+      expect(box.scrollbar.ch).toBe("█");
     });
   });
 
-  describe('scroll()', () => {
-    it('should update child offset on scroll', () => {
+  describe("scroll()", () => {
+    it("should update child offset on scroll", () => {
       const box = new ScrollableBox({
         screen,
         width: 20,
-        height: 10
+        height: 10,
       });
 
       // Initialize content lines to allow scrolling
-      box._clines = ['line1', 'line2', 'line3', 'line4', 'line5',
-                     'line6', 'line7', 'line8', 'line9', 'line10'];
+      box._clines = [
+        "line1",
+        "line2",
+        "line3",
+        "line4",
+        "line5",
+        "line6",
+        "line7",
+        "line8",
+        "line9",
+        "line10",
+      ];
 
       const initialOffset = box.childOffset;
       box.scroll(2);
@@ -104,14 +114,14 @@ describe('ScrollableBox', () => {
       expect(box.childOffset).toBeGreaterThanOrEqual(initialOffset);
     });
 
-    it('should not modify childBase when scrolling within visible area', () => {
+    it("should not modify childBase when scrolling within visible area", () => {
       const box = new ScrollableBox({
         screen,
         width: 20,
-        height: 10
+        height: 10,
       });
 
-      box._clines = ['line1', 'line2', 'line3'];
+      box._clines = ["line1", "line2", "line3"];
 
       const initialBase = box.childBase;
       box.scroll(1);
@@ -119,10 +129,10 @@ describe('ScrollableBox', () => {
       expect(box.childBase).toBe(initialBase);
     });
 
-    it('should not scroll when not scrollable', () => {
+    it("should not scroll when not scrollable", () => {
       const box = new ScrollableBox({
         screen,
-        scrollable: false
+        scrollable: false,
       });
 
       const result = box.scroll(5);
@@ -130,7 +140,7 @@ describe('ScrollableBox', () => {
       expect(result).toBeUndefined();
     });
 
-    it('should not scroll when detached', () => {
+    it("should not scroll when detached", () => {
       const box = new ScrollableBox({ screen });
       box.detach();
 
@@ -140,15 +150,15 @@ describe('ScrollableBox', () => {
     });
   });
 
-  describe('scrollTo()', () => {
-    it('should update scroll position', () => {
+  describe("scrollTo()", () => {
+    it("should update scroll position", () => {
       const box = new ScrollableBox({
         screen,
         width: 20,
-        height: 10
+        height: 10,
       });
 
-      box._clines = ['line1', 'line2', 'line3', 'line4', 'line5'];
+      box._clines = ["line1", "line2", "line3", "line4", "line5"];
 
       const initialScroll = box.getScroll();
       box.scrollTo(3);
@@ -157,25 +167,25 @@ describe('ScrollableBox', () => {
       expect(box.getScroll()).toBeGreaterThanOrEqual(initialScroll);
     });
 
-    it('should be aliased as setScroll', () => {
+    it("should be aliased as setScroll", () => {
       const box = new ScrollableBox({
         screen,
         width: 20,
-        height: 10
+        height: 10,
       });
 
-      box._clines = ['line1', 'line2', 'line3', 'line4', 'line5'];
+      box._clines = ["line1", "line2", "line3", "line4", "line5"];
 
       // setScroll is a wrapper method that calls scrollTo
-      expect(typeof box.setScroll).toBe('function');
+      expect(typeof box.setScroll).toBe("function");
 
       // Verify setScroll can be called without error
       expect(() => box.setScroll(3)).not.toThrow();
     });
   });
 
-  describe('getScroll()', () => {
-    it('should return current scroll position', () => {
+  describe("getScroll()", () => {
+    it("should return current scroll position", () => {
       const box = new ScrollableBox({ screen });
 
       box.childBase = 5;
@@ -184,15 +194,15 @@ describe('ScrollableBox', () => {
       expect(box.getScroll()).toBe(7);
     });
 
-    it('should return 0 initially', () => {
+    it("should return 0 initially", () => {
       const box = new ScrollableBox({ screen });
 
       expect(box.getScroll()).toBe(0);
     });
   });
 
-  describe('resetScroll()', () => {
-    it('should reset scroll to top', () => {
+  describe("resetScroll()", () => {
+    it("should reset scroll to top", () => {
       const box = new ScrollableBox({ screen });
 
       box.childBase = 10;
@@ -204,10 +214,10 @@ describe('ScrollableBox', () => {
       expect(box.childOffset).toBe(0);
     });
 
-    it('should emit scroll event', () => {
+    it("should emit scroll event", () => {
       const box = new ScrollableBox({ screen });
       const scrollSpy = vi.fn();
-      box.on('scroll', scrollSpy);
+      box.on("scroll", scrollSpy);
 
       box.childBase = 10;
       box.resetScroll();
@@ -215,10 +225,10 @@ describe('ScrollableBox', () => {
       expect(scrollSpy).toHaveBeenCalled();
     });
 
-    it('should not reset when not scrollable', () => {
+    it("should not reset when not scrollable", () => {
       const box = new ScrollableBox({
         screen,
-        scrollable: false
+        scrollable: false,
       });
 
       const result = box.resetScroll();
@@ -227,15 +237,15 @@ describe('ScrollableBox', () => {
     });
   });
 
-  describe('getScrollHeight()', () => {
-    it('should return scroll height when clines are available', () => {
+  describe("getScrollHeight()", () => {
+    it("should return scroll height when clines are available", () => {
       const box = new ScrollableBox({
         screen,
         width: 20,
-        height: 10
+        height: 10,
       });
 
-      box._clines = ['line1', 'line2', 'line3', 'line4', 'line5'];
+      box._clines = ["line1", "line2", "line3", "line4", "line5"];
 
       const height = box.getScrollHeight();
 
@@ -243,20 +253,20 @@ describe('ScrollableBox', () => {
     });
   });
 
-  describe('getScrollPerc()', () => {
-    it('should return scroll percentage when properly initialized', () => {
+  describe("getScrollPerc()", () => {
+    it("should return scroll percentage when properly initialized", () => {
       const box = new ScrollableBox({
         screen,
         width: 20,
-        height: 10
+        height: 10,
       });
 
-      box._clines = ['line1', 'line2', 'line3', 'line4', 'line5'];
+      box._clines = ["line1", "line2", "line3", "line4", "line5"];
       box.lpos = {
         xi: 0,
         xl: 20,
         yi: 0,
-        yl: 10
+        yl: 10,
       };
 
       const perc = box.getScrollPerc();
@@ -265,16 +275,26 @@ describe('ScrollableBox', () => {
     });
   });
 
-  describe('setScrollPerc()', () => {
-    it('should update scroll position based on percentage', () => {
+  describe("setScrollPerc()", () => {
+    it("should update scroll position based on percentage", () => {
       const box = new ScrollableBox({
         screen,
         width: 20,
-        height: 10
+        height: 10,
       });
 
-      box._clines = ['line1', 'line2', 'line3', 'line4', 'line5',
-                     'line6', 'line7', 'line8', 'line9', 'line10'];
+      box._clines = [
+        "line1",
+        "line2",
+        "line3",
+        "line4",
+        "line5",
+        "line6",
+        "line7",
+        "line8",
+        "line9",
+        "line10",
+      ];
 
       const initialScroll = box.getScroll();
       box.setScrollPerc(50);
@@ -283,262 +303,262 @@ describe('ScrollableBox', () => {
     });
   });
 
-  describe('keyboard interaction', () => {
-    it('should scroll down on down arrow key', () => {
+  describe("keyboard interaction", () => {
+    it("should scroll down on down arrow key", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
         width: 20,
-        height: 10
+        height: 10,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
-      box.emit('keypress', null, { name: 'down' });
+      box.emit("keypress", null, { name: "down" });
 
       expect(box.scroll).toHaveBeenCalledWith(1);
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should scroll up on up arrow key', () => {
+    it("should scroll up on up arrow key", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
         width: 20,
-        height: 10
+        height: 10,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
-      box.emit('keypress', null, { name: 'up' });
+      box.emit("keypress", null, { name: "up" });
 
       expect(box.scroll).toHaveBeenCalledWith(-1);
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should support vi keys with vi option', () => {
+    it("should support vi keys with vi option", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
-        vi: true
+        vi: true,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
       // j key (vi down)
-      box.emit('keypress', null, { name: 'j' });
+      box.emit("keypress", null, { name: "j" });
       expect(box.scroll).toHaveBeenCalledWith(1);
 
       // k key (vi up)
-      box.emit('keypress', null, { name: 'k' });
+      box.emit("keypress", null, { name: "k" });
       expect(box.scroll).toHaveBeenCalledWith(-1);
     });
 
-    it('should scroll half page with vi ctrl-d', () => {
+    it("should scroll half page with vi ctrl-d", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
         vi: true,
-        height: 20
+        height: 20,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
-      box.emit('keypress', null, { name: 'd', ctrl: true });
+      box.emit("keypress", null, { name: "d", ctrl: true });
 
       expect(box.scroll).toHaveBeenCalled();
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should scroll half page up with vi ctrl-u', () => {
+    it("should scroll half page up with vi ctrl-u", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
         vi: true,
-        height: 20
+        height: 20,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
-      box.emit('keypress', null, { name: 'u', ctrl: true });
+      box.emit("keypress", null, { name: "u", ctrl: true });
 
       expect(box.scroll).toHaveBeenCalled();
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should scroll full page with vi ctrl-f', () => {
+    it("should scroll full page with vi ctrl-f", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
         vi: true,
-        height: 20
+        height: 20,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
-      box.emit('keypress', null, { name: 'f', ctrl: true });
+      box.emit("keypress", null, { name: "f", ctrl: true });
 
       expect(box.scroll).toHaveBeenCalledWith(20);
     });
 
-    it('should scroll full page up with vi ctrl-b', () => {
+    it("should scroll full page up with vi ctrl-b", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
         vi: true,
-        height: 20
+        height: 20,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
-      box.emit('keypress', null, { name: 'b', ctrl: true });
+      box.emit("keypress", null, { name: "b", ctrl: true });
 
       expect(box.scroll).toHaveBeenCalledWith(-20);
     });
 
-    it('should scroll to top with vi g', () => {
+    it("should scroll to top with vi g", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
-        vi: true
+        vi: true,
       });
 
       screen.render = vi.fn();
       box.scrollTo = vi.fn();
 
-      box.emit('keypress', null, { name: 'g', shift: false });
+      box.emit("keypress", null, { name: "g", shift: false });
 
       expect(box.scrollTo).toHaveBeenCalledWith(0);
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should scroll to bottom with vi shift-g', () => {
+    it("should scroll to bottom with vi shift-g", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
-        vi: true
+        vi: true,
       });
 
       screen.render = vi.fn();
       box.scrollTo = vi.fn();
       box.getScrollHeight = vi.fn().mockReturnValue(100);
 
-      box.emit('keypress', null, { name: 'g', shift: true });
+      box.emit("keypress", null, { name: "g", shift: true });
 
       expect(box.scrollTo).toHaveBeenCalledWith(100);
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should not handle keys when keys option is false', () => {
+    it("should not handle keys when keys option is false", () => {
       const box = new ScrollableBox({
         screen,
-        keys: false
+        keys: false,
       });
 
       box.scroll = vi.fn();
 
-      box.emit('keypress', null, { name: 'down' });
+      box.emit("keypress", null, { name: "down" });
 
       expect(box.scroll).not.toHaveBeenCalled();
     });
 
-    it('should not handle keys when ignoreKeys is true', () => {
+    it("should not handle keys when ignoreKeys is true", () => {
       const box = new ScrollableBox({
         screen,
         keys: true,
-        ignoreKeys: true
+        ignoreKeys: true,
       });
 
       box.scroll = vi.fn();
 
-      box.emit('keypress', null, { name: 'down' });
+      box.emit("keypress", null, { name: "down" });
 
       expect(box.scroll).not.toHaveBeenCalled();
     });
   });
 
-  describe('mouse interaction', () => {
-    it('should scroll on wheel down', () => {
+  describe("mouse interaction", () => {
+    it("should scroll on wheel down", () => {
       const box = new ScrollableBox({
         screen,
         mouse: true,
-        height: 20
+        height: 20,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
-      box.emit('wheeldown');
+      box.emit("wheeldown");
 
       expect(box.scroll).toHaveBeenCalled();
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should scroll on wheel up', () => {
+    it("should scroll on wheel up", () => {
       const box = new ScrollableBox({
         screen,
         mouse: true,
-        height: 20
+        height: 20,
       });
 
       screen.render = vi.fn();
       box.scroll = vi.fn();
 
-      box.emit('wheelup');
+      box.emit("wheelup");
 
       expect(box.scroll).toHaveBeenCalled();
       expect(screen.render).toHaveBeenCalled();
     });
 
-    it('should not handle wheel events when mouse is disabled', () => {
+    it("should not handle wheel events when mouse is disabled", () => {
       const box = new ScrollableBox({
         screen,
-        mouse: false
+        mouse: false,
       });
 
       box.scroll = vi.fn();
 
-      box.emit('wheeldown');
+      box.emit("wheeldown");
 
       expect(box.scroll).not.toHaveBeenCalled();
     });
   });
 
-  describe('common use cases', () => {
-    it('should create a log viewer', () => {
+  describe("common use cases", () => {
+    it("should create a log viewer", () => {
       const box = new ScrollableBox({
         screen,
         width: 40,
         height: 20,
-        border: 'line',
-        label: 'Logs',
+        border: "line",
+        label: "Logs",
         keys: true,
         mouse: true,
         scrollbar: {
-          ch: '█',
-          fg: 'blue'
-        }
+          ch: "█",
+          fg: "blue",
+        },
       });
 
       expect(box.scrollable).toBe(true);
       expect(box.scrollbar).toBeDefined();
     });
 
-    it('should track scroll position', () => {
+    it("should track scroll position", () => {
       const box = new ScrollableBox({
         screen,
         width: 40,
-        height: 10
+        height: 10,
       });
 
-      box._clines = ['line1', 'line2', 'line3', 'line4', 'line5'];
+      box._clines = ["line1", "line2", "line3", "line4", "line5"];
       box.scrollTo(2);
 
       const scroll1 = box.getScroll();

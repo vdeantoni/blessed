@@ -3,8 +3,8 @@ import blessed from "../dist/index.js";
 const __dirname = import.meta.dirname;
 
 const screen = blessed.screen({
-  dump: __dirname + '/logs/shrink-padding.log',
-  warnings: true
+  dump: __dirname + "/logs/shrink-padding.log",
+  warnings: true,
 });
 
 var outer = blessed.box({
@@ -13,13 +13,13 @@ var outer = blessed.box({
   //top: 0,
   //left: '50%',
   //top: '50%',
-  left: 'center',
-  top: 'center',
+  left: "center",
+  top: "center",
   padding: 1,
   shrink: true,
   style: {
-    bg: 'green'
-  }
+    bg: "green",
+  },
 });
 
 var inner = blessed.box({
@@ -29,15 +29,15 @@ var inner = blessed.box({
   //width: 5,
   //height: 5,
   shrink: true,
-  content: 'foobar',
+  content: "foobar",
   //padding: 1,
   //content: 'f',
   style: {
-    bg: 'magenta'
-  }
+    bg: "magenta",
+  },
 });
 
-screen.key('q', function() {
+screen.key("q", function () {
   return screen.destroy();
 });
 

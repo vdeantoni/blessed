@@ -2,7 +2,7 @@ import blessed from "../dist/index.js";
 
 var screen = blessed.screen({
   autoPadding: true,
-  warnings: true
+  warnings: true,
 });
 
 var tab = blessed.box({
@@ -16,13 +16,13 @@ var tab = blessed.box({
   vi: true,
   alwaysScroll: true,
   scrollbar: {
-    ch: ' '
+    ch: " ",
   },
   style: {
     scrollbar: {
-      inverse: true
-    }
-  }
+      inverse: true,
+    },
+  },
 });
 
 var form = blessed.form({
@@ -34,10 +34,10 @@ var form = blessed.form({
   keys: true,
   mouse: true,
   // XXX Problem:
-  height: 'shrink',
-  label: ' {blue-fg}Form{/blue-fg} ',
-  border: 'line',
-  tags: true
+  height: "shrink",
+  label: " {blue-fg}Form{/blue-fg} ",
+  border: "line",
+  tags: true,
 });
 
 form._.ftext = blessed.text({
@@ -45,27 +45,27 @@ form._.ftext = blessed.text({
   top: 0,
   left: 0,
   height: 1,
-  content: 'Foo',
-  tags: true
+  content: "Foo",
+  tags: true,
 });
 
 form._.foo = blessed.textbox({
   parent: form,
-  name: 'foo',
+  name: "foo",
   inputOnFocus: true,
   top: 0,
   left: 9,
   right: 1,
   height: 1,
   style: {
-    bg: 'black',
+    bg: "black",
     focus: {
-      bg: 'blue'
+      bg: "blue",
     },
     hover: {
-      bg: 'blue'
-    }
-  }
+      bg: "blue",
+    },
+  },
 });
 
 form._.btext = blessed.text({
@@ -73,27 +73,27 @@ form._.btext = blessed.text({
   top: 2,
   left: 0,
   height: 1,
-  content: 'Bar',
-  tags: true
+  content: "Bar",
+  tags: true,
 });
 
 form._.bar = blessed.textbox({
   parent: form,
-  name: 'bar',
+  name: "bar",
   inputOnFocus: true,
   top: 2,
   left: 9,
   right: 1,
   height: 1,
   style: {
-    bg: 'black',
+    bg: "black",
     focus: {
-      bg: 'blue'
+      bg: "blue",
     },
     hover: {
-      bg: 'blue'
-    }
-  }
+      bg: "blue",
+    },
+  },
 });
 
 form._.ztext = blessed.text({
@@ -101,62 +101,62 @@ form._.ztext = blessed.text({
   top: 4,
   left: 0,
   height: 1,
-  content: 'Baz',
-  tags: true
+  content: "Baz",
+  tags: true,
 });
 
 form._.baz = blessed.textbox({
   parent: form,
-  name: 'baz',
+  name: "baz",
   inputOnFocus: true,
   top: 4,
   left: 9,
   right: 1,
   height: 1,
   style: {
-    bg: 'black',
+    bg: "black",
     focus: {
-      bg: 'blue'
+      bg: "blue",
     },
     hover: {
-      bg: 'blue'
-    }
-  }
+      bg: "blue",
+    },
+  },
 });
 
 form._.submit = blessed.button({
   parent: form,
-  name: 'submit',
+  name: "submit",
   top: 6,
   right: 1,
   height: 1,
   //width: 'shrink',
   width: 10,
-  content: 'send',
+  content: "send",
   tags: true,
   mouse: true,
   style: {
-    bg: 'black',
+    bg: "black",
     focus: {
-      bg: 'blue'
+      bg: "blue",
     },
     hover: {
-      bg: 'blue'
-    }
-  }
+      bg: "blue",
+    },
+  },
 });
 
-form._.submit.on('press', function() {
+form._.submit.on("press", function () {
   form.submit();
 });
 
-form.on('submit', function(data) {
+form.on("submit", function (data) {
   screen.leave();
   console.log(data);
   screen.destroy();
 });
 
-screen.key('q', function() {
+screen.key("q", function () {
   screen.destroy();
 });
 

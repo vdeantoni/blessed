@@ -1,8 +1,8 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import Form from '../../src/widgets/form.js';
-import Button from '../../src/widgets/button.js';
-import Checkbox from '../../src/widgets/checkbox.js';
-import { createMockScreen } from '../helpers/mock.js';
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import Form from "../../src/widgets/form.js";
+import Button from "../../src/widgets/button.js";
+import Checkbox from "../../src/widgets/checkbox.js";
+import { createMockScreen } from "../helpers/mock.js";
 
 // Helper to create a keyable button
 function createKeyableButton(screen) {
@@ -12,62 +12,62 @@ function createKeyableButton(screen) {
 }
 
 // Helper to create a keyable checkbox
-function createKeyableCheckbox(screen, text = '') {
+function createKeyableCheckbox(screen, text = "") {
   const checkbox = new Checkbox({ screen, text });
   checkbox.keyable = true;
   return checkbox;
 }
 
-describe('Form', () => {
+describe("Form", () => {
   let screen;
 
   beforeEach(() => {
     screen = createMockScreen();
   });
 
-  describe('constructor', () => {
-    it('should create a form instance', () => {
+  describe("constructor", () => {
+    it("should create a form instance", () => {
       const form = new Form({ screen });
 
       expect(form).toBeDefined();
-      expect(form.type).toBe('form');
+      expect(form.type).toBe("form");
     });
 
-    it('should inherit from Box', () => {
+    it("should inherit from Box", () => {
       const form = new Form({ screen });
 
       expect(form.screen).toBe(screen);
-      expect(typeof form.render).toBe('function');
+      expect(typeof form.render).toBe("function");
     });
 
-    it('should set ignoreKeys to true', () => {
+    it("should set ignoreKeys to true", () => {
       const form = new Form({ screen });
 
       expect(form.options.ignoreKeys).toBe(true);
     });
 
-    it('should preserve methods when scrollable is true', () => {
+    it("should preserve methods when scrollable is true", () => {
       const form = new Form({ screen, scrollable: true });
 
-      expect(form.type).toBe('form');
-      expect(typeof form.submit).toBe('function');
-      expect(typeof form.cancel).toBe('function');
-      expect(typeof form.reset).toBe('function');
-      expect(typeof form.focusNext).toBe('function');
-      expect(typeof form.focusPrevious).toBe('function');
+      expect(form.type).toBe("form");
+      expect(typeof form.submit).toBe("function");
+      expect(typeof form.cancel).toBe("function");
+      expect(typeof form.reset).toBe("function");
+      expect(typeof form.focusNext).toBe("function");
+      expect(typeof form.focusPrevious).toBe("function");
     });
 
-    it('should maintain Form class identity with scrollable', () => {
+    it("should maintain Form class identity with scrollable", () => {
       const form = new Form({ screen, scrollable: true });
 
       expect(form).toBeInstanceOf(Form);
-      expect(form.constructor.name).toBe('Form');
-      expect(form.type).toBe('form');
+      expect(form.constructor.name).toBe("Form");
+      expect(form.type).toBe("form");
     });
   });
 
-  describe('_refresh()', () => {
-    it('should collect keyable children', () => {
+  describe("_refresh()", () => {
+    it("should collect keyable children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -87,7 +87,7 @@ describe('Form', () => {
       expect(form._children).toContain(button2);
     });
 
-    it('should collect nested keyable children', () => {
+    it("should collect nested keyable children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -104,7 +104,7 @@ describe('Form', () => {
       expect(form._children).toContain(checkbox);
     });
 
-    it('should rebuild children list on each refresh', () => {
+    it("should rebuild children list on each refresh", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -124,13 +124,13 @@ describe('Form', () => {
     });
   });
 
-  describe('next()', () => {
+  describe("next()", () => {
     // NOTE: screen.focused = null is used in these tests to simulate a "clean slate"
     // scenario where no elements are pre-focused. In real usage, Node.prototype.insert()
     // automatically focuses the first appended element. See "real-world scenarios" tests
     // for behavior with pre-focused elements.
 
-    it('should return first child when nothing selected', () => {
+    it("should return first child when nothing selected", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -148,7 +148,7 @@ describe('Form', () => {
       expect(next).toBe(button1);
     });
 
-    it('should cycle through children', () => {
+    it("should cycle through children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -167,7 +167,7 @@ describe('Form', () => {
       expect(next).toBe(button2);
     });
 
-    it('should wrap around to first child', () => {
+    it("should wrap around to first child", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -187,7 +187,7 @@ describe('Form', () => {
       expect(next).toBe(button1);
     });
 
-    it('should skip invisible children', () => {
+    it("should skip invisible children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -211,8 +211,8 @@ describe('Form', () => {
     });
   });
 
-  describe('previous()', () => {
-    it('should return last child when nothing selected', () => {
+  describe("previous()", () => {
+    it("should return last child when nothing selected", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -227,7 +227,7 @@ describe('Form', () => {
       expect(prev).toBe(button2);
     });
 
-    it('should cycle through children backwards', () => {
+    it("should cycle through children backwards", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -243,7 +243,7 @@ describe('Form', () => {
       expect(prev).toBe(button1);
     });
 
-    it('should wrap around to last child', () => {
+    it("should wrap around to last child", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -260,7 +260,7 @@ describe('Form', () => {
       expect(prev).toBe(button2);
     });
 
-    it('should skip invisible children', () => {
+    it("should skip invisible children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -281,8 +281,8 @@ describe('Form', () => {
     });
   });
 
-  describe('focusNext() / focusPrevious()', () => {
-    it('should call next() and focus result', () => {
+  describe("focusNext() / focusPrevious()", () => {
+    it("should call next() and focus result", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -301,7 +301,7 @@ describe('Form', () => {
       expect(form._selected).toBe(button1);
     });
 
-    it('should call previous() and focus result', () => {
+    it("should call previous() and focus result", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -318,8 +318,8 @@ describe('Form', () => {
     });
   });
 
-  describe('resetSelected()', () => {
-    it('should reset selected child', () => {
+  describe("resetSelected()", () => {
+    it("should reset selected child", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -338,8 +338,8 @@ describe('Form', () => {
     });
   });
 
-  describe('focusFirst() / focusLast()', () => {
-    it('should reset and focus first child', () => {
+  describe("focusFirst() / focusLast()", () => {
+    it("should reset and focus first child", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -359,7 +359,7 @@ describe('Form', () => {
       expect(form._selected).toBe(button1);
     });
 
-    it('should reset and focus last child', () => {
+    it("should reset and focus last child", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -377,17 +377,17 @@ describe('Form', () => {
     });
   });
 
-  describe('submit()', () => {
-    it('should collect values from children', () => {
+  describe("submit()", () => {
+    it("should collect values from children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const checkbox = new Checkbox({ screen, text: 'Option' });
-      checkbox.name = 'option1';
+      const checkbox = new Checkbox({ screen, text: "Option" });
+      checkbox.name = "option1";
       checkbox.check();
 
-      const button = new Button({ screen, content: 'Submit' });
-      button.name = 'submit';
+      const button = new Button({ screen, content: "Submit" });
+      button.name = "submit";
       button.value = true;
 
       form.append(checkbox);
@@ -399,18 +399,18 @@ describe('Form', () => {
       expect(data.submit).toBe(true);
     });
 
-    it('should emit submit event with data', () => {
+    it("should emit submit event with data", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const checkbox = new Checkbox({ screen, text: 'Option' });
-      checkbox.name = 'agree';
+      const checkbox = new Checkbox({ screen, text: "Option" });
+      checkbox.name = "agree";
       checkbox.check();
 
       form.append(checkbox);
 
       const spy = vi.fn();
-      form.on('submit', spy);
+      form.on("submit", spy);
 
       form.submit();
 
@@ -418,17 +418,17 @@ describe('Form', () => {
       expect(spy.mock.calls[0][0]).toEqual({ agree: true });
     });
 
-    it('should handle multiple values with same name', () => {
+    it("should handle multiple values with same name", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const checkbox1 = new Checkbox({ screen, text: 'Option 1' });
-      checkbox1.name = 'options';
-      checkbox1.value = 'value1';
+      const checkbox1 = new Checkbox({ screen, text: "Option 1" });
+      checkbox1.name = "options";
+      checkbox1.value = "value1";
 
-      const checkbox2 = new Checkbox({ screen, text: 'Option 2' });
-      checkbox2.name = 'options';
-      checkbox2.value = 'value2';
+      const checkbox2 = new Checkbox({ screen, text: "Option 2" });
+      checkbox2.name = "options";
+      checkbox2.value = "value2";
 
       form.append(checkbox1);
       form.append(checkbox2);
@@ -436,14 +436,14 @@ describe('Form', () => {
       const data = form.submit();
 
       expect(Array.isArray(data.options)).toBe(true);
-      expect(data.options).toEqual(['value1', 'value2']);
+      expect(data.options).toEqual(["value1", "value2"]);
     });
 
-    it('should use type as name if name not provided', () => {
+    it("should use type as name if name not provided", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const checkbox = new Checkbox({ screen, text: 'Option' });
+      const checkbox = new Checkbox({ screen, text: "Option" });
       checkbox.check();
 
       form.append(checkbox);
@@ -453,12 +453,12 @@ describe('Form', () => {
       expect(data.checkbox).toBe(true);
     });
 
-    it('should store submission data', () => {
+    it("should store submission data", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const checkbox = new Checkbox({ screen, text: 'Option' });
-      checkbox.name = 'option';
+      const checkbox = new Checkbox({ screen, text: "Option" });
+      checkbox.name = "option";
       checkbox.check();
 
       form.append(checkbox);
@@ -469,24 +469,24 @@ describe('Form', () => {
     });
   });
 
-  describe('cancel()', () => {
-    it('should emit cancel event', () => {
+  describe("cancel()", () => {
+    it("should emit cancel event", () => {
       const form = new Form({ screen });
       const spy = vi.fn();
 
-      form.on('cancel', spy);
+      form.on("cancel", spy);
       form.cancel();
 
       expect(spy).toHaveBeenCalled();
     });
   });
 
-  describe('reset()', () => {
-    it('should uncheck checkboxes', () => {
+  describe("reset()", () => {
+    it("should uncheck checkboxes", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const checkbox = new Checkbox({ screen, text: 'Option' });
+      const checkbox = new Checkbox({ screen, text: "Option" });
       checkbox.check();
 
       form.append(checkbox);
@@ -496,11 +496,11 @@ describe('Form', () => {
       expect(checkbox.checked).toBe(false);
     });
 
-    it('should delete button values', () => {
+    it("should delete button values", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const button = new Button({ screen, content: 'Submit' });
+      const button = new Button({ screen, content: "Submit" });
       button.value = true;
 
       form.append(button);
@@ -510,22 +510,22 @@ describe('Form', () => {
       expect(button.value).toBeUndefined();
     });
 
-    it('should emit reset event', () => {
+    it("should emit reset event", () => {
       const form = new Form({ screen });
       const spy = vi.fn();
 
-      form.on('reset', spy);
+      form.on("reset", spy);
       form.reset();
 
       expect(spy).toHaveBeenCalled();
     });
 
-    it('should handle nested elements', () => {
+    it("should handle nested elements", () => {
       const form = new Form({ screen });
       screen.append(form);
 
       const button = new Button({ screen });
-      const checkbox = new Checkbox({ screen, text: 'Option' });
+      const checkbox = new Checkbox({ screen, text: "Option" });
       checkbox.check();
 
       form.append(button);
@@ -537,8 +537,8 @@ describe('Form', () => {
     });
   });
 
-  describe('edge cases', () => {
-    it('should handle form with no children', () => {
+  describe("edge cases", () => {
+    it("should handle form with no children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -549,7 +549,7 @@ describe('Form', () => {
       expect(prev).toBeUndefined();
     });
 
-    it('should handle form with no keyable children', () => {
+    it("should handle form with no keyable children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -568,7 +568,7 @@ describe('Form', () => {
       expect(prev).toBeUndefined();
     });
 
-    it('should handle form with single child', () => {
+    it("should handle form with single child", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -585,7 +585,7 @@ describe('Form', () => {
       expect(nextAgain).toBe(button);
     });
 
-    it('should handle all children invisible', () => {
+    it("should handle all children invisible", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -607,7 +607,7 @@ describe('Form', () => {
       expect(prev).toBeUndefined();
     });
 
-    it('should handle invisible first child', () => {
+    it("should handle invisible first child", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -625,7 +625,7 @@ describe('Form', () => {
       expect(next).toBe(button2);
     });
 
-    it('should handle invisible last child', () => {
+    it("should handle invisible last child", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -642,8 +642,8 @@ describe('Form', () => {
     });
   });
 
-  describe('_visible()', () => {
-    it('should return true when there are visible children', () => {
+  describe("_visible()", () => {
+    it("should return true when there are visible children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -656,7 +656,7 @@ describe('Form', () => {
       expect(hasVisible).toBe(true);
     });
 
-    it('should return false when all children are hidden', () => {
+    it("should return false when all children are hidden", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -675,7 +675,7 @@ describe('Form', () => {
       expect(hasVisible).toBe(false);
     });
 
-    it('should return false when no children', () => {
+    it("should return false when no children", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -686,8 +686,8 @@ describe('Form', () => {
     });
   });
 
-  describe('focus verification', () => {
-    it('should actually call focus() on element', () => {
+  describe("focus verification", () => {
+    it("should actually call focus() on element", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -707,7 +707,7 @@ describe('Form', () => {
       expect(button1.focus).toHaveBeenCalled();
     });
 
-    it('should update screen.focused', () => {
+    it("should update screen.focused", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -722,12 +722,12 @@ describe('Form', () => {
     });
   });
 
-  describe('real-world scenarios', () => {
+  describe("real-world scenarios", () => {
     // NOTE: These tests document the actual behavior when elements are
     // auto-focused by Node.prototype.insert(). In real usage, the first
     // appended element becomes focused automatically.
 
-    it('should skip already-focused element and move to next', () => {
+    it("should skip already-focused element and move to next", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -748,7 +748,7 @@ describe('Form', () => {
       expect(next).toBe(button2);
     });
 
-    it('should work correctly with pre-focused elements', () => {
+    it("should work correctly with pre-focused elements", () => {
       const form = new Form({ screen });
       screen.append(form);
 
@@ -773,15 +773,15 @@ describe('Form', () => {
     });
   });
 
-  describe('keyboard navigation', () => {
-    it('should setup keyboard listener when keys option is true', () => {
+  describe("keyboard navigation", () => {
+    it("should setup keyboard listener when keys option is true", () => {
       const form = new Form({ screen, keys: true });
 
       // Just verify the form was created with keys option
       expect(form.options.keys).toBe(true);
     });
 
-    it('should navigate forward with Tab key', () => {
+    it("should navigate forward with Tab key", () => {
       const form = new Form({ screen, keys: true });
       screen.append(form);
 
@@ -795,12 +795,15 @@ describe('Form', () => {
       form.focusFirst();
 
       // Simulate Tab key
-      form.emit('element keypress', button1, '\t', { name: 'tab', shift: false });
+      form.emit("element keypress", button1, "\t", {
+        name: "tab",
+        shift: false,
+      });
 
       expect(form._selected).toBe(button2);
     });
 
-    it('should navigate backward with Shift+Tab key', () => {
+    it("should navigate backward with Shift+Tab key", () => {
       const form = new Form({ screen, keys: true });
       screen.append(form);
 
@@ -813,12 +816,15 @@ describe('Form', () => {
       form.focusLast();
 
       // Simulate Shift+Tab key
-      form.emit('element keypress', button2, '\t', { name: 'tab', shift: true });
+      form.emit("element keypress", button2, "\t", {
+        name: "tab",
+        shift: true,
+      });
 
       expect(form._selected).toBe(button1);
     });
 
-    it('should navigate forward with Down arrow key', () => {
+    it("should navigate forward with Down arrow key", () => {
       const form = new Form({ screen, keys: true });
       screen.append(form);
 
@@ -832,12 +838,12 @@ describe('Form', () => {
       form.focusFirst();
 
       // Simulate Down arrow
-      form.emit('element keypress', button1, '', { name: 'down' });
+      form.emit("element keypress", button1, "", { name: "down" });
 
       expect(form._selected).toBe(button2);
     });
 
-    it('should navigate backward with Up arrow key', () => {
+    it("should navigate backward with Up arrow key", () => {
       const form = new Form({ screen, keys: true });
       screen.append(form);
 
@@ -850,12 +856,12 @@ describe('Form', () => {
       form.focusLast();
 
       // Simulate Up arrow
-      form.emit('element keypress', button2, '', { name: 'up' });
+      form.emit("element keypress", button2, "", { name: "up" });
 
       expect(form._selected).toBe(button1);
     });
 
-    it('should focus form on Escape key', () => {
+    it("should focus form on Escape key", () => {
       const form = new Form({ screen, keys: true });
       screen.append(form);
 
@@ -868,21 +874,21 @@ describe('Form', () => {
       form.focus = vi.fn();
 
       // Simulate Escape key
-      form.emit('element keypress', button, '\x1b', { name: 'escape' });
+      form.emit("element keypress", button, "\x1b", { name: "escape" });
 
       expect(form.focus).toHaveBeenCalled();
     });
   });
 
-  describe('vi mode navigation', () => {
-    it('should support vi mode when enabled', () => {
+  describe("vi mode navigation", () => {
+    it("should support vi mode when enabled", () => {
       const form = new Form({ screen, keys: true, vi: true });
 
       // Just verify the form was created with vi option
       expect(form.options.vi).toBe(true);
     });
 
-    it('should navigate forward with j key in vi mode', () => {
+    it("should navigate forward with j key in vi mode", () => {
       const form = new Form({ screen, keys: true, vi: true });
       screen.append(form);
 
@@ -896,12 +902,12 @@ describe('Form', () => {
       form.focusFirst();
 
       // Simulate 'j' key
-      form.emit('element keypress', button1, 'j', { name: 'j' });
+      form.emit("element keypress", button1, "j", { name: "j" });
 
       expect(form._selected).toBe(button2);
     });
 
-    it('should navigate backward with k key in vi mode', () => {
+    it("should navigate backward with k key in vi mode", () => {
       const form = new Form({ screen, keys: true, vi: true });
       screen.append(form);
 
@@ -914,48 +920,48 @@ describe('Form', () => {
       form.focusLast();
 
       // Simulate 'k' key
-      form.emit('element keypress', button2, 'k', { name: 'k' });
+      form.emit("element keypress", button2, "k", { name: "k" });
 
       expect(form._selected).toBe(button1);
     });
   });
 
-  describe('common use cases', () => {
-    it('should create login form', () => {
+  describe("common use cases", () => {
+    it("should create login form", () => {
       const form = new Form({
         screen,
         keys: true,
-        left: 'center',
-        top: 'center',
+        left: "center",
+        top: "center",
         width: 30,
-        height: 8
+        height: 8,
       });
 
       const submitButton = new Button({
         screen,
-        content: 'Login'
+        content: "Login",
       });
-      submitButton.name = 'submit';
+      submitButton.name = "submit";
 
       form.append(submitButton);
 
       const spy = vi.fn();
-      form.on('submit', spy);
+      form.on("submit", spy);
 
       form.submit();
 
       expect(spy).toHaveBeenCalled();
     });
 
-    it('should handle form with checkboxes', () => {
+    it("should handle form with checkboxes", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      const checkbox1 = new Checkbox({ screen, text: 'Option 1' });
-      checkbox1.name = 'option1';
+      const checkbox1 = new Checkbox({ screen, text: "Option 1" });
+      checkbox1.name = "option1";
 
-      const checkbox2 = new Checkbox({ screen, text: 'Option 2' });
-      checkbox2.name = 'option2';
+      const checkbox2 = new Checkbox({ screen, text: "Option 2" });
+      checkbox2.name = "option2";
 
       form.append(checkbox1);
       form.append(checkbox2);

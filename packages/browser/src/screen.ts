@@ -3,12 +3,12 @@
  * Automatically detects and handles xterm.js Terminal instances
  */
 
-import { Screen as CoreScreen } from '@unblessed/core';
-import type { ScreenOptions } from '@unblessed/core';
-import { XTermAdapter } from './adapters/xterm-adapter.js';
-import type { Terminal } from 'xterm';
+import { Screen as CoreScreen } from "@unblessed/core";
+import type { ScreenOptions } from "@unblessed/core";
+import { XTermAdapter } from "./adapters/xterm-adapter.js";
+import type { Terminal } from "xterm";
 
-export interface BrowserScreenOptions extends Omit<ScreenOptions, 'terminal'> {
+export interface BrowserScreenOptions extends Omit<ScreenOptions, "terminal"> {
   /**
    * xterm.js Terminal instance for browser rendering
    * If provided, automatically creates XTermAdapter
@@ -61,7 +61,7 @@ export class Screen extends CoreScreen {
         ...restOptions,
         input: adapter as any,
         output: adapter as any,
-        terminal: options.term || 'xterm-256color',
+        terminal: options.term || "xterm-256color",
         // Performance optimizations
         smartCSR: restOptions.smartCSR ?? true,
         fastCSR: restOptions.fastCSR ?? true,
@@ -74,8 +74,8 @@ export class Screen extends CoreScreen {
       this.xtermAdapter = adapter;
 
       // Forward resize events
-      adapter.on('resize', () => {
-        this.emit('resize');
+      adapter.on("resize", () => {
+        this.emit("resize");
         this.render();
       });
     } else {

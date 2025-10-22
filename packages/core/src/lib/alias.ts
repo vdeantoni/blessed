@@ -6,6 +6,7 @@
 const alias: any = {};
 
 // These are the boolean capabilities:
+// prettier-ignore
 alias.bools = {
   //         Variable                                      Cap-                               TCap                                  Description
   //         Booleans                                      name                               Code
@@ -49,6 +50,7 @@ alias.bools = {
 };
 
 // These are the numeric capabilities:
+// prettier-ignore
 alias.numbers = {
   //         Variable                                      Cap-                               TCap                                  Description
   //          Numeric                                      name                               Code
@@ -95,6 +97,7 @@ alias.numbers = {
 };
 
 // These are the string capabilities:
+// prettier-ignore
 alias.strings = {
   //         Variable                                      Cap-                               TCap                                  Description
   //          String                                       name                               Code

@@ -42,32 +42,32 @@ Only install `@unblessed/core` directly if you're creating a custom runtime adap
 Use `@unblessed/node` which includes the runtime and auto-initializes:
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 // No initialization needed - runtime auto-initializes on import!
 
 const screen = new Screen({
   smartCSR: true,
-  title: 'My App'
+  title: "My App",
 });
 
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello {bold}world{/bold}!',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello {bold}world{/bold}!",
   tags: true,
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    fg: 'white',
-    bg: 'blue',
-    border: { fg: '#f0f0f0' }
-  }
+    fg: "white",
+    bg: "blue",
+    border: { fg: "#f0f0f0" },
+  },
 });
 
-screen.key(['escape', 'q', 'C-c'], () => {
+screen.key(["escape", "q", "C-c"], () => {
   process.exit(0);
 });
 
@@ -79,19 +79,19 @@ screen.render();
 Use `@unblessed/browser` with xterm.js:
 
 ```typescript
-import { Terminal } from 'xterm';
-import { Screen, Box } from '@unblessed/browser';
+import { Terminal } from "xterm";
+import { Screen, Box } from "@unblessed/browser";
 
 // Runtime auto-initializes on import
 
 const term = new Terminal();
-term.open(document.getElementById('terminal')!);
+term.open(document.getElementById("terminal")!);
 
 const screen = new Screen({ terminal: term });
 
 const box = new Box({
   parent: screen,
-  content: 'Hello from browser!'
+  content: "Hello from browser!",
 });
 
 screen.render();
@@ -102,13 +102,17 @@ screen.render();
 Only needed if you're building a custom runtime adapter:
 
 ```typescript
-import { Screen, Box } from '@unblessed/core';
-import { initCore } from '@unblessed/core';
+import { Screen, Box } from "@unblessed/core";
+import { initCore } from "@unblessed/core";
 
 // Provide your custom runtime implementation
 const myRuntime = {
-  fs: { /* your fs implementation */ },
-  process: { /* your process implementation */ },
+  fs: {
+    /* your fs implementation */
+  },
+  process: {
+    /* your process implementation */
+  },
   // ... other required APIs
 };
 
@@ -126,9 +130,9 @@ const screen = new Screen();
 
 ```typescript
 interface Runtime {
-  fs: FileSystemAPI;      // File system operations
-  path: PathAPI;          // Path manipulation
-  process: ProcessAPI;    // Process information and I/O
+  fs: FileSystemAPI; // File system operations
+  path: PathAPI; // Path manipulation
+  process: ProcessAPI; // Process information and I/O
   childProcess: ChildProcessAPI;
   tty: TtyAPI;
   buffer: BufferAPI;
@@ -141,23 +145,25 @@ Platform adapters (`@unblessed/node`, `@unblessed/browser`) provide concrete imp
 
 ```typescript
 // @unblessed/node provides Node.js implementations
-import { createNodeRuntime } from '@unblessed/node';
+import { createNodeRuntime } from "@unblessed/node";
 createNodeRuntime();
 
 // @unblessed/browser provides browser polyfills
-import { createBrowserRuntime } from '@unblessed/browser';
+import { createBrowserRuntime } from "@unblessed/browser";
 createBrowserRuntime();
 ```
 
 ## Available Widgets
 
 ### Layout Widgets
+
 - `Screen` - Root container and terminal manager
 - `Box` - Basic rectangular container
 - `Layout` - Grid-based layout manager
 - `Line` - Horizontal or vertical line
 
 ### Interactive Widgets
+
 - `List` - Scrollable list with selection
 - `Form` - Form container with input handling
 - `Input` / `Textbox` - Text input field
@@ -169,6 +175,7 @@ createBrowserRuntime();
 - `FileManager` - File browser
 
 ### Display Widgets
+
 - `Text` - Static text display
 - `Log` - Scrollable log viewer
 - `Table` - Data table with rows/columns
@@ -180,6 +187,7 @@ createBrowserRuntime();
 - `Terminal` - Embedded terminal emulator
 
 ### Specialized Widgets
+
 - `ScrollableBox` - Box with scrolling
 - `ScrollableText` - Text with scrolling
 - `Message` / `Question` / `Loading` - Dialog helpers
@@ -191,11 +199,11 @@ createBrowserRuntime();
 Low-level terminal control:
 
 ```typescript
-import { Program } from '@unblessed/core';
+import { Program } from "@unblessed/core";
 
 const program = new Program({
   input: process.stdin,
-  output: process.stdout
+  output: process.stdout,
 });
 
 program.alternateBuffer();
@@ -209,16 +217,16 @@ program.clear();
 Terminal capability database:
 
 ```typescript
-import { Tput } from '@unblessed/core';
+import { Tput } from "@unblessed/core";
 
 const tput = new Tput({
-  terminal: 'xterm-256color',
-  extended: true
+  terminal: "xterm-256color",
+  extended: true,
 });
 
 // Use terminal capabilities
-tput.cup(10, 20);  // Move cursor to row 10, col 20
-tput.setaf(4);     // Set foreground color to blue
+tput.cup(10, 20); // Move cursor to row 10, col 20
+tput.setaf(4); // Set foreground color to blue
 ```
 
 ### Colors
@@ -226,13 +234,13 @@ tput.setaf(4);     // Set foreground color to blue
 Color conversion and manipulation:
 
 ```typescript
-import { colors } from '@unblessed/core';
+import { colors } from "@unblessed/core";
 
 // Convert hex to terminal color
-const color = colors.convert('#ff0000');  // Returns closest terminal color
+const color = colors.convert("#ff0000"); // Returns closest terminal color
 
 // Reduce color to palette
-const reduced = colors.reduce(196, 256);  // Reduce to 256-color palette
+const reduced = colors.reduce(196, 256); // Reduce to 256-color palette
 ```
 
 ## Styling
@@ -242,30 +250,31 @@ Widgets support comprehensive styling:
 ```typescript
 const box = new Box({
   style: {
-    fg: 'white',           // Foreground color
-    bg: 'blue',            // Background color
+    fg: "white", // Foreground color
+    bg: "blue", // Background color
     bold: true,
     underline: false,
     border: {
-      fg: 'yellow',
-      bg: 'black'
+      fg: "yellow",
+      bg: "black",
     },
     scrollbar: {
-      bg: 'blue'
+      bg: "blue",
     },
     focus: {
       border: {
-        fg: 'green'
-      }
+        fg: "green",
+      },
     },
     hover: {
-      bg: 'cyan'
-    }
-  }
+      bg: "cyan",
+    },
+  },
 });
 ```
 
 Colors can be:
+
 - Named colors: `'red'`, `'blue'`, `'green'`
 - Hex colors: `'#ff0000'`, `'#00ff00'`
 - RGB: `'rgb(255, 0, 0)'`
@@ -276,23 +285,23 @@ Colors can be:
 All widgets emit events:
 
 ```typescript
-box.on('click', (data) => {
-  console.log('Clicked at', data.x, data.y);
+box.on("click", (data) => {
+  console.log("Clicked at", data.x, data.y);
 });
 
-box.on('keypress', (ch, key) => {
-  if (key.name === 'enter') {
+box.on("keypress", (ch, key) => {
+  if (key.name === "enter") {
     // Handle enter key
   }
 });
 
-box.on('focus', () => {
-  box.style.border.fg = 'green';
+box.on("focus", () => {
+  box.style.border.fg = "green";
   screen.render();
 });
 
-box.on('blur', () => {
-  box.style.border.fg = 'white';
+box.on("blur", () => {
+  box.style.border.fg = "white";
   screen.render();
 });
 ```
@@ -304,12 +313,12 @@ Enable mouse tracking:
 ```typescript
 const screen = new Screen({
   mouse: true,
-  sendFocus: true
+  sendFocus: true,
 });
 
-box.on('mouse', (data) => {
-  if (data.action === 'mousedown') {
-    console.log('Mouse down at', data.x, data.y);
+box.on("mouse", (data) => {
+  if (data.action === "mousedown") {
+    console.log("Mouse down at", data.x, data.y);
   }
 });
 ```
@@ -318,21 +327,21 @@ box.on('mouse', (data) => {
 
 ```typescript
 // Global key handling
-screen.key(['escape', 'q', 'C-c'], (ch, key) => {
+screen.key(["escape", "q", "C-c"], (ch, key) => {
   process.exit(0);
 });
 
 // Widget-specific keys
-box.key('enter', () => {
-  console.log('Enter pressed on box');
+box.key("enter", () => {
+  console.log("Enter pressed on box");
 });
 
 // Key combinations
-screen.key('C-s', () => {
+screen.key("C-s", () => {
   // Ctrl+S
 });
 
-screen.key('M-x', () => {
+screen.key("M-x", () => {
   // Alt+X
 });
 ```
@@ -342,53 +351,53 @@ screen.key('M-x', () => {
 ### Image Rendering
 
 ```typescript
-import { ANSIImage } from '@unblessed/core';
+import { ANSIImage } from "@unblessed/core";
 
 const image = new ANSIImage({
   parent: screen,
-  file: './image.png',
-  width: '50%',
-  height: '50%',
-  ascii: true  // Use ASCII characters for better fidelity
+  file: "./image.png",
+  width: "50%",
+  height: "50%",
+  ascii: true, // Use ASCII characters for better fidelity
 });
 ```
 
 ### Forms and Input Validation
 
 ```typescript
-import { Form, Textbox, Button } from '@unblessed/core';
+import { Form, Textbox, Button } from "@unblessed/core";
 
 const form = new Form({
   parent: screen,
-  keys: true
+  keys: true,
 });
 
 const username = new Textbox({
   parent: form,
-  name: 'username',
-  label: 'Username:',
-  inputOnFocus: true
+  name: "username",
+  label: "Username:",
+  inputOnFocus: true,
 });
 
 const password = new Textbox({
   parent: form,
-  name: 'password',
-  label: 'Password:',
-  censor: true
+  name: "password",
+  label: "Password:",
+  censor: true,
 });
 
 const submit = new Button({
   parent: form,
-  content: 'Submit',
-  top: 10
+  content: "Submit",
+  top: 10,
 });
 
-submit.on('press', () => {
+submit.on("press", () => {
   form.submit();
 });
 
-form.on('submit', (data) => {
-  console.log('Form data:', data);
+form.on("submit", (data) => {
+  console.log("Form data:", data);
   // { username: '...', password: '...' }
 });
 ```
@@ -396,46 +405,46 @@ form.on('submit', (data) => {
 ### Scrollable Content
 
 ```typescript
-import { ScrollableBox } from '@unblessed/core';
+import { ScrollableBox } from "@unblessed/core";
 
 const box = new ScrollableBox({
   parent: screen,
   scrollable: true,
   alwaysScroll: true,
   scrollbar: {
-    ch: ' ',
+    ch: " ",
     style: {
-      bg: 'blue'
-    }
+      bg: "blue",
+    },
   },
-  keys: true,  // Enable vi-style scrolling keys
-  mouse: true  // Enable mouse wheel scrolling
+  keys: true, // Enable vi-style scrolling keys
+  mouse: true, // Enable mouse wheel scrolling
 });
 
 // Programmatic scrolling
-box.scroll(10);      // Scroll down 10 lines
-box.scroll(-5);      // Scroll up 5 lines
-box.scrollTo(0);     // Scroll to top
+box.scroll(10); // Scroll down 10 lines
+box.scroll(-5); // Scroll up 5 lines
+box.scrollTo(0); // Scroll to top
 box.setScrollPerc(50); // Scroll to 50%
 ```
 
 ### Terminal Emulation
 
 ```typescript
-import { Terminal } from '@unblessed/core';
+import { Terminal } from "@unblessed/core";
 
 const terminal = new Terminal({
   parent: screen,
-  shell: '/bin/bash',
+  shell: "/bin/bash",
   args: [],
   env: process.env,
   cwd: process.cwd(),
-  width: '100%',
-  height: '100%'
+  width: "100%",
+  height: "100%",
 });
 
-terminal.on('exit', (code) => {
-  console.log('Terminal exited with code', code);
+terminal.on("exit", (code) => {
+  console.log("Terminal exited with code", code);
 });
 ```
 
@@ -460,6 +469,7 @@ For complete API documentation, see the TypeScript definitions included with the
 ## Testing
 
 The library includes comprehensive tests covering:
+
 - All widget types and behaviors
 - Terminal control primitives
 - Color conversion and manipulation
@@ -471,6 +481,7 @@ The library includes comprehensive tests covering:
 ## Browser Support
 
 When using `@unblessed/browser`, the library provides browser-compatible implementations using:
+
 - Canvas rendering for terminal output
 - WebSocket connections for PTY
 - IndexedDB for file system operations

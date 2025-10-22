@@ -1,27 +1,29 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
 /**
  * E2E tests for display widgets
  * Tests: ProgressBar, Table, Log
  */
 
-test.describe('Display Widgets', () => {
-  test.describe('ProgressBar', () => {
-    test('renders progressbar', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/progressbar-widget.html');
+test.describe("Display Widgets", () => {
+  test.describe("ProgressBar", () => {
+    test("renders progressbar", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/progressbar-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const hasProgressBar = await page.evaluate(() => {
-        return !!(window.testProgressBar &&
-                  typeof window.testProgressBar.setProgress === 'function' &&
-                  typeof window.testProgressBar.filled === 'number');
+        return !!(
+          window.testProgressBar &&
+          typeof window.testProgressBar.setProgress === "function" &&
+          typeof window.testProgressBar.filled === "number"
+        );
       });
 
       expect(hasProgressBar).toBe(true);
     });
 
-    test('progressbar updates progress', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/progressbar-widget.html');
+    test("progressbar updates progress", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/progressbar-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const initialProgress = await page.evaluate(() => {
@@ -42,9 +44,9 @@ test.describe('Display Widgets', () => {
     });
   });
 
-  test.describe('Table', () => {
-    test('renders table widget', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/table-widget.html');
+  test.describe("Table", () => {
+    test("renders table widget", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/table-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const hasTable = await page.evaluate(() => {
@@ -54,8 +56,8 @@ test.describe('Display Widgets', () => {
       expect(hasTable).toBe(true);
     });
 
-    test('table displays data', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/table-widget.html');
+    test("table displays data", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/table-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const rowCount = await page.evaluate(() => {
@@ -66,31 +68,31 @@ test.describe('Display Widgets', () => {
     });
   });
 
-  test.describe('Log', () => {
-    test('renders log widget', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/log-widget.html');
+  test.describe("Log", () => {
+    test("renders log widget", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/log-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       const hasLog = await page.evaluate(() => {
-        return !!(window.testLog && typeof window.testLog.log === 'function');
+        return !!(window.testLog && typeof window.testLog.log === "function");
       });
 
       expect(hasLog).toBe(true);
     });
 
-    test('log adds messages', async ({ page }) => {
-      await page.goto('/__tests__/e2e/fixtures/log-widget.html');
+    test("log adds messages", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/log-widget.html");
       await page.waitForFunction(() => window.testReady === true);
 
       await page.evaluate(() => {
-        window.testLog.log('New log message');
+        window.testLog.log("New log message");
       });
 
       const logContent = await page.evaluate(() => {
         return window.testLog.getContent();
       });
 
-      expect(logContent).toContain('New log message');
+      expect(logContent).toContain("New log message");
     });
   });
 });

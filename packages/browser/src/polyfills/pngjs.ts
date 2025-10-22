@@ -5,7 +5,9 @@
 
 export class PNG {
   constructor() {
-    throw new Error('PNG/Image widgets are not supported in browser environment');
+    throw new Error(
+      "PNG/Image widgets are not supported in browser environment",
+    );
   }
 }
 

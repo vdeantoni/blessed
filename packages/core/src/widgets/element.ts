@@ -6,14 +6,14 @@
  * Modules
  */
 
-import colors from '../lib/colors.js';
-import unicode from '../lib/unicode.js';
-import helpers from '../lib/helpers.js';
-import Node from './node.js';
+import colors from "../lib/colors.js";
+import unicode from "../lib/unicode.js";
+import helpers from "../lib/helpers.js";
+import Node from "./node.js";
 import {
   makeScrollable,
   type ScrollableMethods,
-} from '../mixins/scrollable.js';
+} from "../mixins/scrollable.js";
 import type {
   Border,
   ElementOptions,
@@ -23,8 +23,8 @@ import type {
   ScrollbarConfig,
   Style,
   TrackConfig,
-} from '../types';
-import { getNextTick } from '../lib/runtime-helpers.js';
+} from "../types";
+import { getNextTick } from "../lib/runtime-helpers.js";
 
 const nextTick = getNextTick();
 
@@ -44,7 +44,7 @@ interface WrappedContent extends Array<string> {
 }
 
 class Element extends Node {
-  override type = 'element';
+  override type = "element";
 
   name?: string;
   /**
@@ -69,7 +69,7 @@ class Element extends Node {
   /** Border configuration */
   border?: Border;
   parseTags?: boolean;
-  content: string = ''; // Initialize to empty string
+  content: string = ""; // Initialize to empty string
   /** Last rendered position coordinates */
   lpos?: RenderCoords;
   _clines?: any;
@@ -98,16 +98,16 @@ class Element extends Node {
   scrollable?: boolean;
 
   // Scrollable mixin methods - added at runtime by makeScrollable()
-  scroll?: ScrollableMethods['scroll'];
-  scrollTo?: ScrollableMethods['scrollTo'];
-  setScroll?: ScrollableMethods['setScroll'];
-  getScroll?: ScrollableMethods['getScroll'];
-  getScrollHeight?: ScrollableMethods['getScrollHeight'];
-  getScrollPerc?: ScrollableMethods['getScrollPerc'];
-  setScrollPerc?: ScrollableMethods['setScrollPerc'];
-  resetScroll?: ScrollableMethods['resetScroll'];
-  _scrollBottom?: ScrollableMethods['_scrollBottom'];
-  _recalculateIndex?: ScrollableMethods['_recalculateIndex'];
+  scroll?: ScrollableMethods["scroll"];
+  scrollTo?: ScrollableMethods["scrollTo"];
+  setScroll?: ScrollableMethods["setScroll"];
+  getScroll?: ScrollableMethods["getScroll"];
+  getScrollHeight?: ScrollableMethods["getScrollHeight"];
+  getScrollPerc?: ScrollableMethods["getScrollPerc"];
+  setScrollPerc?: ScrollableMethods["setScrollPerc"];
+  resetScroll?: ScrollableMethods["resetScroll"];
+  _scrollBottom?: ScrollableMethods["_scrollBottom"];
+  _recalculateIndex?: ScrollableMethods["_recalculateIndex"];
 
   get focused(): boolean {
     return this.screen.focused === this;
@@ -124,15 +124,17 @@ class Element extends Node {
       top: options.top,
       bottom: options.bottom,
       width: options.width,
-      height: options.height
+      height: options.height,
     };
 
-    if (options.position.width === 'shrink'
-        || options.position.height === 'shrink') {
-      if (options.position.width === 'shrink') {
+    if (
+      options.position.width === "shrink" ||
+      options.position.height === "shrink"
+    ) {
+      if (options.position.width === "shrink") {
         delete options.position.width;
       }
-      if (options.position.height === 'shrink') {
+      if (options.position.height === "shrink") {
         delete options.position.height;
       }
       options.shrink = true;
@@ -160,19 +162,19 @@ class Element extends Node {
 
     this.hidden = options.hidden || false;
     this.fixed = options.fixed || false;
-    this.align = options.align || 'left';
-    this.valign = options.valign || 'top';
+    this.align = options.align || "left";
+    this.valign = options.valign || "top";
     this.wrap = options.wrap !== false;
     this.shrink = options.shrink;
-    this.ch = options.ch || ' ';
+    this.ch = options.ch || " ";
 
-    if (typeof options.padding === 'number' || !options.padding) {
+    if (typeof options.padding === "number" || !options.padding) {
       const paddingValue = options.padding || 0;
       options.padding = {
         left: paddingValue,
         top: paddingValue,
         right: paddingValue,
-        bottom: paddingValue
+        bottom: paddingValue,
       };
     }
 
@@ -180,21 +182,21 @@ class Element extends Node {
       left: options.padding.left ?? 0,
       top: options.padding.top ?? 0,
       right: options.padding.right ?? 0,
-      bottom: options.padding.bottom ?? 0
+      bottom: options.padding.bottom ?? 0,
     };
 
     // Handle border configuration
     if (options.border) {
       let border: Border;
-      if (typeof options.border === 'string') {
+      if (typeof options.border === "string") {
         border = { type: options.border as "line" | "bg" };
       } else {
         border = options.border;
       }
-      border.type = border.type || 'bg';
+      border.type = border.type || "bg";
       // 'ascii' is a legacy alias for 'line'
-      if (border.type === 'ascii' as any) border.type = 'line';
-      border.ch = border.ch || ' ';
+      if (border.type === ("ascii" as any)) border.type = "line";
+      border.ch = border.ch || " ";
       // Backward compat: old Border objects may have had a 'style' property
       this.style.border = this.style.border || (border as any).style;
       if (!this.style.border) {
@@ -221,7 +223,7 @@ class Element extends Node {
 
     this.parseTags = options.parseTags || options.tags;
 
-    this.setContent(options.content || '', true);
+    this.setContent(options.content || "", true);
 
     if (options.label) {
       this.setLabel(options.label);
@@ -232,33 +234,35 @@ class Element extends Node {
     }
 
     // TODO: Possibly move this to Node for onScreenEvent('mouse', ...).
-    this.on('newListener', (type: string) => {
+    this.on("newListener", (type: string) => {
       // type = type.split(' ').slice(1).join(' ');
-      if (type === 'mouse'
-        || type === 'click'
-        || type === 'mouseover'
-        || type === 'mouseout'
-        || type === 'mousedown'
-        || type === 'mouseup'
-        || type === 'mousewheel'
-        || type === 'wheeldown'
-        || type === 'wheelup'
-        || type === 'mousemove') {
+      if (
+        type === "mouse" ||
+        type === "click" ||
+        type === "mouseover" ||
+        type === "mouseout" ||
+        type === "mousedown" ||
+        type === "mouseup" ||
+        type === "mousewheel" ||
+        type === "wheeldown" ||
+        type === "wheelup" ||
+        type === "mousemove"
+      ) {
         this.screen._listenMouse(this);
-      } else if (type === 'keypress' || type.indexOf('key ') === 0) {
+      } else if (type === "keypress" || type.indexOf("key ") === 0) {
         this.screen._listenKeys(this);
       }
     });
 
-    this.on('resize', () => {
+    this.on("resize", () => {
       this.parseContent();
     });
 
-    this.on('attach', () => {
+    this.on("attach", () => {
       this.parseContent();
     });
 
-    this.on('detach', () => {
+    this.on("detach", () => {
       delete this.lpos;
     });
 
@@ -280,10 +284,22 @@ class Element extends Node {
       if (options.effects.focus) options.focusEffects = options.effects.focus;
     }
 
-    [['hoverEffects', 'mouseover', 'mouseout', '_htemp'],
-     ['focusEffects', 'focus', 'blur', '_ftemp']].forEach((props: any) => {
-      const pname = props[0], over = props[1], out = props[2], temp = props[3];
-      this.screen.setEffects(this, this, over, out, (this.options as any)[pname], temp);
+    [
+      ["hoverEffects", "mouseover", "mouseout", "_htemp"],
+      ["focusEffects", "focus", "blur", "_ftemp"],
+    ].forEach((props: any) => {
+      const pname = props[0],
+        over = props[1],
+        out = props[2],
+        temp = props[3];
+      this.screen.setEffects(
+        this,
+        this,
+        over,
+        out,
+        (this.options as any)[pname],
+        temp,
+      );
     });
 
     if (options.draggable) {
@@ -295,7 +311,7 @@ class Element extends Node {
     }
 
     // Apply scrollable behavior if requested (skip if already a ScrollableBox subclass)
-    if (options.scrollable && options.type !== 'scrollable-box') {
+    if (options.scrollable && options.type !== "scrollable-box") {
       makeScrollable(this, options);
     }
   }
@@ -315,24 +331,26 @@ class Element extends Node {
 
     // This used to be a loop, but I decided
     // to unroll it for performance's sake.
-    if (typeof bold === 'function') bold = bold(this);
-    if (typeof underline === 'function') underline = underline(this);
-    if (typeof blink === 'function') blink = blink(this);
-    if (typeof inverse === 'function') inverse = inverse(this);
-    if (typeof invisible === 'function') invisible = invisible(this);
+    if (typeof bold === "function") bold = bold(this);
+    if (typeof underline === "function") underline = underline(this);
+    if (typeof blink === "function") blink = blink(this);
+    if (typeof inverse === "function") inverse = inverse(this);
+    if (typeof invisible === "function") invisible = invisible(this);
 
-    if (typeof fg === 'function') fg = fg(this);
-    if (typeof bg === 'function') bg = bg(this);
+    if (typeof fg === "function") fg = fg(this);
+    if (typeof bg === "function") bg = bg(this);
 
     // return (this.uid << 24)
     //   | ((this.dockBorders ? 32 : 0) << 18)
-    return ((invisible ? 16 : 0) << 18)
-      | ((inverse ? 8 : 0) << 18)
-      | ((blink ? 4 : 0) << 18)
-      | ((underline ? 2 : 0) << 18)
-      | ((bold ? 1 : 0) << 18)
-      | (colors.convert(fg) << 9)
-      | colors.convert(bg);
+    return (
+      ((invisible ? 16 : 0) << 18) |
+      ((inverse ? 8 : 0) << 18) |
+      ((blink ? 4 : 0) << 18) |
+      ((underline ? 2 : 0) << 18) |
+      ((bold ? 1 : 0) << 18) |
+      (colors.convert(fg) << 9) |
+      colors.convert(bg)
+    );
   }
 
   /**
@@ -342,7 +360,7 @@ class Element extends Node {
    * @param handler - Event handler function
    */
   onScreenEvent(type: string, handler: (...args: any[]) => void): void {
-    const listeners = this._slisteners = this._slisteners || [];
+    const listeners = (this._slisteners = this._slisteners || []);
     listeners.push({ type: type, handler: handler });
     this.screen.on(type, handler);
   }
@@ -353,7 +371,7 @@ class Element extends Node {
    * @param handler - Event handler function
    */
   onceScreenEvent(type: string, handler: (...args: any[]) => void): void {
-    const listeners = this._slisteners = this._slisteners || [];
+    const listeners = (this._slisteners = this._slisteners || []);
     const entry = { type: type, handler: handler };
     listeners.push(entry);
     this.screen.once(type, (...args: any[]) => {
@@ -370,7 +388,7 @@ class Element extends Node {
    * @param handler - Event handler function
    */
   removeScreenEvent(type: string, handler: (...args: any[]) => void): void {
-    const listeners = this._slisteners = this._slisteners || [];
+    const listeners = (this._slisteners = this._slisteners || []);
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i];
       if (listener.type === type && listener.handler === handler) {
@@ -390,7 +408,7 @@ class Element extends Node {
    * and destroy().
    */
   override free(): void {
-    const listeners = this._slisteners = this._slisteners || [];
+    const listeners = (this._slisteners = this._slisteners || []);
     for (let i = 0; i < listeners.length; i++) {
       const listener = listeners[i];
       this.screen.removeListener(listener.type, listener.handler);
@@ -405,7 +423,7 @@ class Element extends Node {
     if (this.hidden) return;
     this.clearPos();
     this.hidden = true;
-    this.emit('hide');
+    this.emit("hide");
     if (this.screen.focused === this) {
       this.screen.rewindFocus();
     }
@@ -417,7 +435,7 @@ class Element extends Node {
   show(): void {
     if (!this.hidden) return;
     this.hidden = false;
-    this.emit('show');
+    this.emit("show");
   }
 
   /**
@@ -431,7 +449,7 @@ class Element extends Node {
    * Focus element.
    */
   focus(): any {
-    return this.screen.focused = this;
+    return (this.screen.focused = this);
   }
 
   /**
@@ -441,25 +459,25 @@ class Element extends Node {
    */
   setContent(content: string, noClear?: boolean, noTags?: boolean): void {
     if (!noClear) this.clearPos();
-    this.content = content || '';
+    this.content = content || "";
     this.parseContent(noTags);
-    this.emit('set content');
+    this.emit("set content");
   }
 
   /**
    * Return content, slightly different from el.content. Assume the above formatting.
    */
   getContent(): string {
-    if (!this._clines) return '';
-    return this._clines.fake.join('\n');
+    if (!this._clines) return "";
+    return this._clines.fake.join("\n");
   }
 
   /**
    * Similar to setContent, but ignore tags and remove escape codes.
    */
   setText(content: string, noClear?: boolean): void {
-    content = content || '';
-    content = content.replace(/\x1b\[[\d;]*m/g, '');
+    content = content || "";
+    content = content.replace(/\x1b\[[\d;]*m/g, "");
     return this.setContent(content, noClear, true);
   }
 
@@ -467,22 +485,24 @@ class Element extends Node {
    * Similar to getContent, but return content with tags and escape codes removed.
    */
   getText(): string {
-    return this.getContent().replace(/\x1b\[[\d;]*m/g, '');
+    return this.getContent().replace(/\x1b\[[\d;]*m/g, "");
   }
 
   parseContent(noTags?: boolean): boolean {
     if (this.detached) return false;
 
     const width = this.width - this.iwidth;
-    if (this._clines == null
-        || this._clines.width !== width
-        || this._clines.content !== this.content) {
+    if (
+      this._clines == null ||
+      this._clines.width !== width ||
+      this._clines.content !== this.content
+    ) {
       let content = this.content;
 
       content = content
-        .replace(/[\x00-\x08\x0b-\x0c\x0e-\x1a\x1c-\x1f\x7f]/g, '')
-        .replace(/\x1b(?!\[[\d;]*m)/g, '')
-        .replace(/\r\n|\r/g, '\n')
+        .replace(/[\x00-\x08\x0b-\x0c\x0e-\x1a\x1c-\x1f\x7f]/g, "")
+        .replace(/\x1b(?!\[[\d;]*m)/g, "")
+        .replace(/\r\n|\r/g, "\n")
         .replace(/\t/g, this.screen.tabc);
 
       if (this.screen.fullUnicode) {
@@ -491,7 +511,7 @@ class Element extends Node {
         content = unicode.padWideChars(content);
         // iTerm2 cannot render combining characters properly.
         if (this.screen.program.isiTerm2) {
-          content = content.replace(unicode.chars.combining, '');
+          content = content.replace(unicode.chars.combining, "");
         }
       } else {
         // no double-width: replace them with question-marks.
@@ -501,9 +521,9 @@ class Element extends Node {
         // the unicode filter, and surrogates changed to ? by the surrogate
         // regex. however, the user might expect them to be 0-width.
         // NOTE: Might be better for performance to drop!
-        content = content.replace(unicode.chars.combining, '');
+        content = content.replace(unicode.chars.combining, "");
         // no surrogate pairs: replace them with question-marks.
-        content = content.replace(unicode.chars.surrogate, '?');
+        content = content.replace(unicode.chars.surrogate, "?");
         // XXX Deduplicate code here:
         // content = helpers.dropUnicode(content);
       }
@@ -522,8 +542,8 @@ class Element extends Node {
         return total + line.length + 1;
       }, 0);
 
-      this._pcontent = this._clines.join('\n');
-      this.emit('parsed content');
+      this._pcontent = this._clines.join("\n");
+      this.emit("parsed content");
 
       return true;
     }
@@ -540,7 +560,7 @@ class Element extends Node {
     if (!/{\/?[\w\-,;!#]*}/.test(text)) return text;
 
     const program = this.screen.program;
-    let out = '';
+    let out = "";
     let state: any;
     const bg: any[] = [];
     const fg: any[] = [];
@@ -571,26 +591,26 @@ class Element extends Node {
         break;
       }
 
-      if (cap = /^{(\/?)([\w\-,;!#]*)}/.exec(text)) {
+      if ((cap = /^{(\/?)([\w\-,;!#]*)}/.exec(text))) {
         text = text.substring(cap[0].length);
-        slash = cap[1] === '/';
-        param = cap[2].replace(/-/g, ' ');
+        slash = cap[1] === "/";
+        param = cap[2].replace(/-/g, " ");
 
-        if (param === 'open') {
-          out += '{';
+        if (param === "open") {
+          out += "{";
           continue;
-        } else if (param === 'close') {
-          out += '}';
+        } else if (param === "close") {
+          out += "}";
           continue;
         }
 
-        if (param.slice(-3) === ' bg') state = bg;
-        else if (param.slice(-3) === ' fg') state = fg;
+        if (param.slice(-3) === " bg") state = bg;
+        else if (param.slice(-3) === " fg") state = fg;
         else state = flag;
 
         if (slash) {
           if (!param) {
-            out += program._attr('normal');
+            out += program._attr("normal");
             bg.length = 0;
             fg.length = 0;
             flag.length = 0;
@@ -627,7 +647,7 @@ class Element extends Node {
         continue;
       }
 
-      if (cap = /^[\s\S]+?(?={\/?[\w\-,;!#]*})/.exec(text)) {
+      if ((cap = /^[\s\S]+?(?={\/?[\w\-,;!#]*})/.exec(text))) {
         text = text.substring(cap[0].length);
         out += cap[0];
         continue;
@@ -657,8 +677,8 @@ class Element extends Node {
       line = lines[j];
       attrs[j] = attr;
       for (i = 0; i < line.length; i++) {
-        if (line[i] === '\x1b') {
-          if (c = /^\x1b\[[\d;]*m/.exec(line.substring(i))) {
+        if (line[i] === "\x1b") {
+          if ((c = /^\x1b\[[\d;]*m/.exec(line.substring(i)))) {
             attr = this.screen.attrCode(c[0], attr, dattr);
             i += c[0].length - 1;
           }
@@ -673,7 +693,7 @@ class Element extends Node {
     if (!align) return line;
     //if (!align && !~line.indexOf('{|}')) return line;
 
-    const cline = line.replace(/\x1b\[[\d;]*m/g, '');
+    const cline = line.replace(/\x1b\[[\d;]*m/g, "");
     const len = cline.length;
     let s = width - len;
 
@@ -684,17 +704,17 @@ class Element extends Node {
     if (len === 0) return line;
     if (s < 0) return line;
 
-    if (align === 'center') {
-      const spaces = Array(((s / 2) | 0) + 1).join(' ');
+    if (align === "center") {
+      const spaces = Array(((s / 2) | 0) + 1).join(" ");
       return spaces + line + spaces;
-    } else if (align === 'right') {
-      const spaces = Array(s + 1).join(' ');
+    } else if (align === "right") {
+      const spaces = Array(s + 1).join(" ");
       return spaces + line;
-    } else if (this.parseTags && ~line.indexOf('{|}')) {
-      const parts = line.split('{|}');
-      const cparts = cline.split('{|}');
+    } else if (this.parseTags && ~line.indexOf("{|}")) {
+      const parts = line.split("{|}");
+      const cparts = cline.split("{|}");
       s = Math.max(width - cparts[0].length - cparts[1].length, 0);
-      const spaces = Array(s + 1).join(' ');
+      const spaces = Array(s + 1).join(" ");
       return parts[0] + spaces + parts[1];
     }
 
@@ -720,7 +740,7 @@ class Element extends Node {
     let lines: string[];
     let rest: any;
 
-    lines = content.split('\n');
+    lines = content.split("\n");
 
     if (!content) {
       out.push(content);
@@ -734,11 +754,10 @@ class Element extends Node {
     }
 
     if (this.scrollbar) margin++;
-    if (this.type === 'textarea') margin++;
+    if (this.type === "textarea") margin++;
     if (width > margin) width -= margin;
 
-main:
-    for (; no < lines.length; no++) {
+    main: for (; no < lines.length; no++) {
       line = lines[no];
       align = state;
 
@@ -746,13 +765,11 @@ main:
 
       // Handle alignment tags.
       if (tags) {
-        if (cap = /^{(left|center|right)}/.exec(line)) {
+        if ((cap = /^{(left|center|right)}/.exec(line))) {
           line = line.substring(cap[0].length);
-          align = state = cap[1] !== 'left'
-            ? cap[1]
-            : null;
+          align = state = cap[1] !== "left" ? cap[1] : null;
         }
-        if (cap = /{\/(left|center|right)}$/.exec(line)) {
+        if ((cap = /{\/(left|center|right)}$/.exec(line))) {
           line = line.slice(0, -cap[0].length);
           //state = null;
           state = this.align;
@@ -763,8 +780,8 @@ main:
       while (line.length > width) {
         // Measure the real width of the string.
         for (i = 0, total = 0; i < line.length; i++) {
-          while (line[i] === '\x1b') {
-            while (line[i] && line[i++] !== 'm');
+          while (line[i] === "\x1b") {
+            while (line[i] && line[i++] !== "m");
           }
           if (!line[i]) break;
           if (++total === width) {
@@ -773,7 +790,7 @@ main:
             i++;
             if (!wrap) {
               rest = line.substring(i).match(/\x1b\[[^m]*m/g);
-              rest = rest ? rest.join('') : '';
+              rest = rest ? rest.join("") : "";
               out.push(this._align(line.substring(0, i) + rest, width, align));
               ftor[no].push(out.length - 1);
               rtof.push(no);
@@ -783,8 +800,8 @@ main:
               // Try to find a space to break on.
               if (i !== line.length) {
                 j = i;
-                while (j > i - 10 && j > 0 && line[--j] !== ' ');
-                if (line[j] === ' ') i = j + 1;
+                while (j > i - 10 && j > 0 && line[--j] !== " ");
+                if (line[j] === " ") i = j + 1;
               }
             } else {
               // Try to find a character to break on.
@@ -795,7 +812,8 @@ main:
                 // NOTE: Could optimize this by putting
                 // it in the parent for loop.
                 if (unicode.isSurrogate(line, i)) i--;
-                let s = 0, n = 0;
+                let s = 0,
+                  n = 0;
                 for (; n < i; n++) {
                   if (unicode.isSurrogate(line, n)) {
                     s++;
@@ -811,17 +829,23 @@ main:
                 // Break _past_ combining chars.
                 while (j > i - 10 && j > 0) {
                   j--;
-                  if (line[j] === ' '
-                      || line[j] === '\x03'
-                      || (unicode.isSurrogate(line, j - 1) && line[j + 1] !== '\x03')
-                      || unicode.isCombining(line, j)) {
+                  if (
+                    line[j] === " " ||
+                    line[j] === "\x03" ||
+                    (unicode.isSurrogate(line, j - 1) &&
+                      line[j + 1] !== "\x03") ||
+                    unicode.isCombining(line, j)
+                  ) {
                     break;
                   }
                 }
-                if (line[j] === ' '
-                    || line[j] === '\x03'
-                    || (unicode.isSurrogate(line, j - 1) && line[j + 1] !== '\x03')
-                    || unicode.isCombining(line, j)) {
+                if (
+                  line[j] === " " ||
+                  line[j] === "\x03" ||
+                  (unicode.isSurrogate(line, j - 1) &&
+                    line[j + 1] !== "\x03") ||
+                  unicode.isCombining(line, j)
+                ) {
                   i = j + 1;
                 }
               }
@@ -839,7 +863,7 @@ main:
 
         // Make sure we didn't wrap the line to the very end, otherwise
         // we get a pointless empty line after a newline.
-        if (line === '') continue main;
+        if (line === "") continue main;
 
         // If only an escape code got cut off, at it to `part`.
         if (/^(?:\x1b[\[\d;]*m)+$/.test(line)) {
@@ -860,10 +884,8 @@ main:
     wrappedOut.real = out;
 
     wrappedOut.mwidth = out.reduce((current: number, line: string) => {
-      line = line.replace(/\x1b\[[\d;]*m/g, '');
-      return line.length > current
-        ? line.length
-        : current;
+      line = line.replace(/\x1b\[[\d;]*m/g, "");
+      return line.length > current ? line.length : current;
     }, 0);
 
     return wrappedOut;
@@ -876,16 +898,16 @@ main:
       if (el.hidden) return false;
       // if (!el.lpos) return false;
       // if (el.position.width === 0 || el.position.height === 0) return false;
-    } while (el = el.parent);
+    } while ((el = el.parent));
     return true;
   }
 
   get _detached(): boolean {
     let el: any = this;
     do {
-      if (el.type === 'screen') return false;
+      if (el.type === "screen") return false;
       if (!el.parent) return true;
-    } while (el = el.parent);
+    } while ((el = el.parent));
     return false;
   }
 
@@ -934,64 +956,70 @@ main:
   enableDrag(verify?: any): boolean {
     if (this._draggable) return true;
 
-    if (typeof verify !== 'function') {
+    if (typeof verify !== "function") {
       verify = () => true;
     }
 
     this.enableMouse();
 
-    this.on('mousedown', this._dragMD = (data: MouseEvent) => {
-      if (this.screen._dragging) return;
-      if (!verify(data)) return;
-      this.screen._dragging = this;
-      this._drag = {
-        x: data.x - this.aleft,
-        y: data.y - this.atop
-      };
-      this.setFront();
-    });
+    this.on(
+      "mousedown",
+      (this._dragMD = (data: MouseEvent) => {
+        if (this.screen._dragging) return;
+        if (!verify(data)) return;
+        this.screen._dragging = this;
+        this._drag = {
+          x: data.x - this.aleft,
+          y: data.y - this.atop,
+        };
+        this.setFront();
+      }),
+    );
 
-    this.onScreenEvent('mouse', this._dragM = (data: MouseEvent) => {
-      if (this.screen._dragging !== this) return;
+    this.onScreenEvent(
+      "mouse",
+      (this._dragM = (data: MouseEvent) => {
+        if (this.screen._dragging !== this) return;
 
-      if (data.action !== 'mousedown' && data.action !== 'mousemove') {
-        delete this.screen._dragging;
-        delete this._drag;
-        return;
-      }
-
-      // This can happen in edge cases where the user is
-      // already dragging and element when it is detached.
-      if (!this.parent) return;
-
-      const ox = this._drag.x;
-      const oy = this._drag.y;
-      const px = this.parent.aleft;
-      const py = this.parent.atop;
-      const x = data.x - px - ox;
-      const y = data.y - py - oy;
-
-      if (this.position.right != null) {
-        if (this.position.left != null) {
-          this.width = '100%-' + (this.parent.width - this.width);
+        if (data.action !== "mousedown" && data.action !== "mousemove") {
+          delete this.screen._dragging;
+          delete this._drag;
+          return;
         }
-        this.position.right = null;
-      }
 
-      if (this.position.bottom != null) {
-        if (this.position.top != null) {
-          this.height = '100%-' + (this.parent.height - this.height);
+        // This can happen in edge cases where the user is
+        // already dragging and element when it is detached.
+        if (!this.parent) return;
+
+        const ox = this._drag.x;
+        const oy = this._drag.y;
+        const px = this.parent.aleft;
+        const py = this.parent.atop;
+        const x = data.x - px - ox;
+        const y = data.y - py - oy;
+
+        if (this.position.right != null) {
+          if (this.position.left != null) {
+            this.width = "100%-" + (this.parent.width - this.width);
+          }
+          this.position.right = null;
         }
-        this.position.bottom = null;
-      }
 
-      this.rleft = x;
-      this.rtop = y;
+        if (this.position.bottom != null) {
+          if (this.position.top != null) {
+            this.height = "100%-" + (this.parent.height - this.height);
+          }
+          this.position.bottom = null;
+        }
 
-      this.screen.render();
-    });
+        this.rleft = x;
+        this.rtop = y;
 
-    return this._draggable = true;
+        this.screen.render();
+      }),
+    );
+
+    return (this._draggable = true);
   }
 
   /**
@@ -1003,9 +1031,9 @@ main:
     if (!this._draggable) return false;
     delete this.screen._dragging;
     delete this._drag;
-    this.removeListener('mousedown', this._dragMD!);
-    this.removeScreenEvent('mouse', this._dragM!);
-    return this._draggable = false;
+    this.removeListener("mousedown", this._dragMD!);
+    this.removeScreenEvent("mouse", this._dragM!);
+    return (this._draggable = false);
   }
 
   /**
@@ -1093,10 +1121,7 @@ main:
     if (this.detached) return;
     const lpos = this._getCoords(get);
     if (!lpos) return;
-    this.screen.clearRegion(
-      lpos.xi, lpos.xl,
-      lpos.yi, lpos.yl,
-      override);
+    this.screen.clearRegion(lpos.xi, lpos.xl, lpos.yi, lpos.yl, override);
   }
 
   /**
@@ -1108,13 +1133,13 @@ main:
    * element.setLabel({ text: 'My Label', side: 'right' });
    */
   setLabel(options: any): void {
-    if (typeof options === 'string') {
+    if (typeof options === "string") {
       options = { text: options };
     }
 
     if (this._label) {
       this._label.setContent(options.text);
-      if (options.side !== 'right') {
+      if (options.side !== "right") {
         this._label.rleft = 2 + (this.border ? -1 : 0);
         this._label.position.right = undefined;
         if (!this.screen.autoPadding) {
@@ -1137,10 +1162,10 @@ main:
       top: -this.itop,
       tags: this.parseTags,
       shrink: true,
-      style: this.style.label
+      style: this.style.label,
     });
 
-    if (options.side !== 'right') {
+    if (options.side !== "right") {
       this._label.rleft = 2 - this.ileft;
     } else {
       this._label.rright = 2 - this.iright;
@@ -1149,7 +1174,7 @@ main:
     this._label._isLabel = true;
 
     if (!this.screen.autoPadding) {
-      if (options.side !== 'right') {
+      if (options.side !== "right") {
         this._label.rleft = 2;
       } else {
         this._label.rright = 2;
@@ -1160,20 +1185,26 @@ main:
     const reposition = () => {
       this._label.rtop = (this.childBase || 0) - this.itop;
       if (!this.screen.autoPadding) {
-        this._label.rtop = (this.childBase || 0);
+        this._label.rtop = this.childBase || 0;
       }
       this.screen.render();
     };
 
-    this.on('scroll', this._labelScroll = () => {
-      reposition();
-    });
-
-    this.on('resize', this._labelResize = () => {
-      nextTick(() => {
+    this.on(
+      "scroll",
+      (this._labelScroll = () => {
         reposition();
-      });
-    });
+      }),
+    );
+
+    this.on(
+      "resize",
+      (this._labelResize = () => {
+        nextTick(() => {
+          reposition();
+        });
+      }),
+    );
   }
 
   /**
@@ -1182,8 +1213,8 @@ main:
    */
   removeLabel(): void {
     if (!this._label) return;
-    this.removeListener('scroll', this._labelScroll!);
-    this.removeListener('resize', this._labelResize!);
+    this.removeListener("scroll", this._labelScroll!);
+    this.removeListener("resize", this._labelResize!);
     this._label.detach();
     delete this._labelScroll;
     delete this._labelResize;
@@ -1198,7 +1229,7 @@ main:
    * element.setHover({ text: 'Hover text here' });
    */
   setHover(options: any): void {
-    if (typeof options === 'string') {
+    if (typeof options === "string") {
       options = { text: options };
     }
 
@@ -1264,12 +1295,12 @@ main:
     let left: any;
     let expr: any;
 
-    if (typeof width === 'string') {
-      if (width === 'half') width = '50%';
+    if (typeof width === "string") {
+      if (width === "half") width = "50%";
       expr = width.split(/(?=\+|-)/);
       width = expr[0];
       width = +width.slice(0, -1) / 100;
-      width = parent.width * width | 0;
+      width = (parent.width * width) | 0;
       width += +(expr[1] || 0);
       return width;
     }
@@ -1282,18 +1313,20 @@ main:
     // calculated here.
     if (width == null) {
       left = this.position.left || 0;
-      if (typeof left === 'string') {
-        if (left === 'center') left = '50%';
+      if (typeof left === "string") {
+        if (left === "center") left = "50%";
         expr = left.split(/(?=\+|-)/);
         left = expr[0];
         left = +left.slice(0, -1) / 100;
-        left = parent.width * left | 0;
+        left = (parent.width * left) | 0;
         left += +(expr[1] || 0);
       }
       width = parent.width - (this.position.right || 0) - left;
       if (this.screen.autoPadding) {
-        if ((this.position.left != null || this.position.right == null)
-            && this.position.left !== 'center') {
+        if (
+          (this.position.left != null || this.position.right == null) &&
+          this.position.left !== "center"
+        ) {
           width -= this.parent.ileft;
         }
         width -= this.parent.iright;
@@ -1313,12 +1346,12 @@ main:
     let top: any;
     let expr: any;
 
-    if (typeof height === 'string') {
-      if (height === 'half') height = '50%';
+    if (typeof height === "string") {
+      if (height === "half") height = "50%";
       expr = height.split(/(?=\+|-)/);
       height = expr[0];
       height = +height.slice(0, -1) / 100;
-      height = parent.height * height | 0;
+      height = (parent.height * height) | 0;
       height += +(expr[1] || 0);
       return height;
     }
@@ -1331,19 +1364,20 @@ main:
     // calculated here.
     if (height == null) {
       top = this.position.top || 0;
-      if (typeof top === 'string') {
-        if (top === 'center') top = '50%';
+      if (typeof top === "string") {
+        if (top === "center") top = "50%";
         expr = top.split(/(?=\+|-)/);
         top = expr[0];
         top = +top.slice(0, -1) / 100;
-        top = parent.height * top | 0;
+        top = (parent.height * top) | 0;
         top += +(expr[1] || 0);
       }
       height = parent.height - (this.position.bottom || 0) - top;
       if (this.screen.autoPadding) {
-        if ((this.position.top != null
-            || this.position.bottom == null)
-            && this.position.top !== 'center') {
+        if (
+          (this.position.top != null || this.position.bottom == null) &&
+          this.position.top !== "center"
+        ) {
           height -= this.parent.itop;
         }
         height -= this.parent.ibottom;
@@ -1362,15 +1396,15 @@ main:
     let left: any = this.position.left || 0;
     let expr: any;
 
-    if (typeof left === 'string') {
-      if (left === 'center') left = '50%';
+    if (typeof left === "string") {
+      if (left === "center") left = "50%";
       expr = left.split(/(?=\+|-)/);
       left = expr[0];
       left = +left.slice(0, -1) / 100;
-      left = parent.width * left | 0;
+      left = (parent.width * left) | 0;
       left += +(expr[1] || 0);
-      if (this.position.left === 'center') {
-        left -= this._getWidth(get) / 2 | 0;
+      if (this.position.left === "center") {
+        left -= (this._getWidth(get) / 2) | 0;
       }
     }
 
@@ -1379,9 +1413,10 @@ main:
     }
 
     if (this.screen.autoPadding) {
-      if ((this.position.left != null
-          || this.position.right == null)
-          && this.position.left !== 'center') {
+      if (
+        (this.position.left != null || this.position.right == null) &&
+        this.position.left !== "center"
+      ) {
         left += this.parent.ileft;
       }
     }
@@ -1423,15 +1458,15 @@ main:
     let top: any = this.position.top || 0;
     let expr: any;
 
-    if (typeof top === 'string') {
-      if (top === 'center') top = '50%';
+    if (typeof top === "string") {
+      if (top === "center") top = "50%";
       expr = top.split(/(?=\+|-)/);
       top = expr[0];
       top = +top.slice(0, -1) / 100;
-      top = parent.height * top | 0;
+      top = (parent.height * top) | 0;
       top += +(expr[1] || 0);
-      if (this.position.top === 'center') {
-        top -= this._getHeight(get) / 2 | 0;
+      if (this.position.top === "center") {
+        top -= (this._getHeight(get) / 2) | 0;
       }
     }
 
@@ -1440,9 +1475,10 @@ main:
     }
 
     if (this.screen.autoPadding) {
-      if ((this.position.top != null
-          || this.position.bottom == null)
-          && this.position.top !== 'center') {
+      if (
+        (this.position.top != null || this.position.bottom == null) &&
+        this.position.top !== "center"
+      ) {
         top += this.parent.itop;
       }
     }
@@ -1507,7 +1543,7 @@ main:
   set width(val: any) {
     if (this.position.width === val) return;
     if (/^\d+$/.test(val)) val = +val;
-    this.emit('resize');
+    this.emit("resize");
     this.clearPos();
     this.position.width = val;
   }
@@ -1515,28 +1551,28 @@ main:
   set height(val: any) {
     if (this.position.height === val) return;
     if (/^\d+$/.test(val)) val = +val;
-    this.emit('resize');
+    this.emit("resize");
     this.clearPos();
     this.position.height = val;
   }
 
   set aleft(val: any) {
     let expr: any;
-    if (typeof val === 'string') {
-      if (val === 'center') {
-        val = this.screen.width / 2 | 0;
-        val -= this.width / 2 | 0;
+    if (typeof val === "string") {
+      if (val === "center") {
+        val = (this.screen.width / 2) | 0;
+        val -= (this.width / 2) | 0;
       } else {
         expr = val.split(/(?=\+|-)/);
         val = expr[0];
         val = +val.slice(0, -1) / 100;
-        val = this.screen.width * val | 0;
+        val = (this.screen.width * val) | 0;
         val += +(expr[1] || 0);
       }
     }
     val -= this.parent.aleft;
     if (this.position.left === val) return;
-    this.emit('move');
+    this.emit("move");
     this.clearPos();
     this.position.left = val;
   }
@@ -1544,28 +1580,28 @@ main:
   set aright(val: any) {
     val -= this.parent.aright;
     if (this.position.right === val) return;
-    this.emit('move');
+    this.emit("move");
     this.clearPos();
     this.position.right = val;
   }
 
   set atop(val: any) {
     let expr: any;
-    if (typeof val === 'string') {
-      if (val === 'center') {
-        val = this.screen.height / 2 | 0;
-        val -= this.height / 2 | 0;
+    if (typeof val === "string") {
+      if (val === "center") {
+        val = (this.screen.height / 2) | 0;
+        val -= (this.height / 2) | 0;
       } else {
         expr = val.split(/(?=\+|-)/);
         val = expr[0];
         val = +val.slice(0, -1) / 100;
-        val = this.screen.height * val | 0;
+        val = (this.screen.height * val) | 0;
         val += +(expr[1] || 0);
       }
     }
     val -= this.parent.atop;
     if (this.position.top === val) return;
-    this.emit('move');
+    this.emit("move");
     this.clearPos();
     this.position.top = val;
   }
@@ -1573,7 +1609,7 @@ main:
   set abottom(val: any) {
     val -= this.parent.abottom;
     if (this.position.bottom === val) return;
-    this.emit('move');
+    this.emit("move");
     this.clearPos();
     this.position.bottom = val;
   }
@@ -1581,14 +1617,14 @@ main:
   set rleft(val: any) {
     if (this.position.left === val) return;
     if (/^\d+$/.test(val)) val = +val;
-    this.emit('move');
+    this.emit("move");
     this.clearPos();
     this.position.left = val;
   }
 
   set rright(val: any) {
     if (this.position.right === val) return;
-    this.emit('move');
+    this.emit("move");
     this.clearPos();
     this.position.right = val;
   }
@@ -1596,14 +1632,14 @@ main:
   set rtop(val: any) {
     if (this.position.top === val) return;
     if (/^\d+$/.test(val)) val = +val;
-    this.emit('move');
+    this.emit("move");
     this.clearPos();
     this.position.top = val;
   }
 
   set rbottom(val: any) {
     if (this.position.bottom === val) return;
-    this.emit('move');
+    this.emit("move");
     this.clearPos();
     this.position.bottom = val;
   }
@@ -1643,8 +1679,12 @@ main:
   }
 
   get tpadding(): number {
-    return this.padding.left + this.padding.top
-      + this.padding.right + this.padding.bottom;
+    return (
+      this.padding.left +
+      this.padding.top +
+      this.padding.right +
+      this.padding.bottom
+    );
   }
 
   /**
@@ -1687,12 +1727,24 @@ main:
    * Rendering - here be dragons
    */
 
-  _getShrinkBox(xi: number, xl: number, yi: number, yl: number, get?: boolean): any {
+  _getShrinkBox(
+    xi: number,
+    xl: number,
+    yi: number,
+    yl: number,
+    get?: boolean,
+  ): any {
     if (!this.children.length) {
       return { xi: xi, xl: xi + 1, yi: yi, yl: yi + 1 };
     }
 
-    let i: number, el: any, ret: any, mxi = xi, mxl = xi + 1, myi = yi, myl = yi + 1;
+    let i: number,
+      el: any,
+      ret: any,
+      mxi = xi,
+      mxl = xi + 1,
+      myi = yi,
+      myl = yi + 1;
 
     // This is a chicken and egg problem. We need to determine how the children
     // will render in order to determine how this element renders, but it in
@@ -1712,7 +1764,7 @@ main:
         noright: false,
         notop: false,
         nobot: false,
-        renders: 0
+        renders: 0,
       };
       //this.shrink = false;
     }
@@ -1763,9 +1815,10 @@ main:
       //this.shrink = true;
     }
 
-    if (this.position.width == null
-        && (this.position.left == null
-        || this.position.right == null)) {
+    if (
+      this.position.width == null &&
+      (this.position.left == null || this.position.right == null)
+    ) {
       if (this.position.left == null && this.position.right != null) {
         xi = xl - (mxl - mxi);
         if (!this.screen.autoPadding) {
@@ -1782,7 +1835,7 @@ main:
           // XXX Maybe just to this for all this being that this would affect
           // width shrunken normal shrunken lists as well.
           // if (this._isList) {
-          if (this.type === 'list-table') {
+          if (this.type === "list-table") {
             xl -= this.padding.left + this.padding.right;
             xl += this.iright;
           }
@@ -1793,10 +1846,11 @@ main:
       }
     }
 
-    if (this.position.height == null
-        && (this.position.top == null
-        || this.position.bottom == null)
-        && (!this.scrollable || this._isList)) {
+    if (
+      this.position.height == null &&
+      (this.position.top == null || this.position.bottom == null) &&
+      (!this.scrollable || this._isList)
+    ) {
       // NOTE: Lists get special treatment if they are shrunken - assume they
       // want all list items showing. This is one case we can calculate the
       // height based on items/boxes.
@@ -1824,13 +1878,20 @@ main:
     return { xi: xi, xl: xl, yi: yi, yl: yl };
   }
 
-  _getShrinkContent(xi: number, xl: number, yi: number, yl: number, _get?: boolean): any {
+  _getShrinkContent(
+    xi: number,
+    xl: number,
+    yi: number,
+    yl: number,
+    _get?: boolean,
+  ): any {
     const h = this._clines.length;
     const w = this._clines.mwidth || 1;
 
-    if (this.position.width == null
-        && (this.position.left == null
-        || this.position.right == null)) {
+    if (
+      this.position.width == null &&
+      (this.position.left == null || this.position.right == null)
+    ) {
       if (this.position.left == null && this.position.right != null) {
         xi = xl - w - this.iwidth;
       } else {
@@ -1838,10 +1899,11 @@ main:
       }
     }
 
-    if (this.position.height == null
-        && (this.position.top == null
-        || this.position.bottom == null)
-        && (!this.scrollable || this._isList)) {
+    if (
+      this.position.height == null &&
+      (this.position.top == null || this.position.bottom == null) &&
+      (!this.scrollable || this._isList)
+    ) {
       if (this.position.top == null && this.position.bottom != null) {
         yi = yl - h - this.iheight;
       } else {
@@ -1852,7 +1914,13 @@ main:
     return { xi: xi, xl: xl, yi: yi, yl: yl };
   }
 
-  _getShrink(xi: number, xl: number, yi: number, yl: number, get?: boolean): any {
+  _getShrink(
+    xi: number,
+    xl: number,
+    yi: number,
+    yl: number,
+    get?: boolean,
+  ): any {
     const shrinkBox = this._getShrinkBox(xi, xl, yi, yl, get);
     const shrinkContent = this._getShrinkContent(xi, xl, yi, yl, get);
     let xll = xl;
@@ -1876,14 +1944,14 @@ main:
     }
 
     // Recenter shrunken elements.
-    if (xl < xll && this.position.left === 'center') {
-      xll = (xll - xl) / 2 | 0;
+    if (xl < xll && this.position.left === "center") {
+      xll = ((xll - xl) / 2) | 0;
       xi += xll;
       xl += xll;
     }
 
-    if (yl < yll && this.position.top === 'center') {
-      yll = (yll - yl) / 2 | 0;
+    if (yl < yll && this.position.top === "center") {
+      yll = ((yll - yl) / 2) | 0;
       yi += yll;
       yl += yll;
     }
@@ -1925,7 +1993,7 @@ main:
     }
 
     // Find a scrollable ancestor if we have one.
-    while (el = el.parent) {
+    while ((el = el.parent)) {
       if (el.scrollable) {
         if (fixed) {
           fixed = false;
@@ -2054,7 +2122,7 @@ main:
       noright: noright,
       notop: notop,
       nobot: nobot,
-      renders: this.screen.renders
+      renders: this.screen.renders,
     };
   }
 
@@ -2065,7 +2133,7 @@ main:
    * @returns Rendered coordinates object, or undefined if hidden/invalid
    */
   render(): any {
-    this._emit('prerender', []);
+    this._emit("prerender", []);
 
     this.parseContent();
 
@@ -2098,7 +2166,7 @@ main:
     let y: number;
     let cell: any;
     let attr: number;
-    let ch: string = '';
+    let ch: string = "";
     const content = this._pcontent;
     let ci = (this._clines.ci && this._clines.ci[coords.base]) || 0;
     let battr: number;
@@ -2139,7 +2207,7 @@ main:
 
     this.lpos = coords;
 
-    if (this.border && this.border.type === 'line') {
+    if (this.border && this.border.type === "line") {
       this.screen._borderStops[coords.yi] = true;
       this.screen._borderStops[coords.yl - 1] = true;
       // if (!this.screen._borderStops[coords.yi]) {
@@ -2175,7 +2243,7 @@ main:
     // content-drawing loop will skip a few cells/lines.
     // To deal with this, we can just fill the whole thing
     // ahead of time. This could be optimized.
-    if (this.tpadding || (this.valign && this.valign !== 'top')) {
+    if (this.tpadding || (this.valign && this.valign !== "top")) {
       if (this.style.transparent) {
         for (y = Math.max(yi, 0); y < yl; y++) {
           if (!lines[y]) break;
@@ -2199,13 +2267,13 @@ main:
     }
 
     // Determine where to place the text if it's vertically aligned.
-    if (this.valign === 'middle' || this.valign === 'bottom') {
+    if (this.valign === "middle" || this.valign === "bottom") {
       visible = yl - yi;
       if (this._clines.length < visible) {
-        if (this.valign === 'middle') {
-          visible = visible / 2 | 0;
-          visible -= this._clines.length / 2 | 0;
-        } else if (this.valign === 'bottom') {
+        if (this.valign === "middle") {
+          visible = (visible / 2) | 0;
+          visible -= (this._clines.length / 2) | 0;
+        } else if (this.valign === "bottom") {
           visible -= this._clines.length;
         }
         ci -= visible * (xl - xi);
@@ -2238,14 +2306,17 @@ main:
         // }
 
         // Handle escape codes.
-        while (ch === '\x1b') {
-          if (c = /^\x1b\[[\d;]*m/.exec(content!.substring(ci - 1))) {
+        while (ch === "\x1b") {
+          if ((c = /^\x1b\[[\d;]*m/.exec(content!.substring(ci - 1)))) {
             ci += c[0].length - 1;
             attr = this.screen.attrCode(c[0], attr, dattr);
             // Ignore foreground changes for selected items.
-            if (this.parent._isList && this.parent.interactive
-                && this.parent.items[this.parent.selected] === this
-                && this.parent.options.invertSelected !== false) {
+            if (
+              this.parent._isList &&
+              this.parent.interactive &&
+              this.parent.items[this.parent.selected] === this &&
+              this.parent.options.invertSelected !== false
+            ) {
               attr = (attr & ~(0x1ff << 9)) | (dattr & (0x1ff << 9));
             }
             ch = content![ci] || bch;
@@ -2256,12 +2327,12 @@ main:
         }
 
         // Handle newlines.
-        if (ch === '\t') ch = bch;
-        if (ch === '\n') {
+        if (ch === "\t") ch = bch;
+        if (ch === "\n") {
           // If we're on the first cell and we find a newline and the last cell
           // of the last line was not a newline, let's just treat this like the
           // newline was already "counted".
-          if (x === xi && y !== yi && content![ci - 2] !== '\n') {
+          if (x === xi && y !== yi && content![ci - 2] !== "\n") {
             x--;
             continue;
           }
@@ -2335,7 +2406,7 @@ main:
       i = Math.max(this._clines.length, this._scrollBottom?.() || 0);
     }
     if (coords.notop || coords.nobot) i = -Infinity;
-    if (this.scrollbar && (yl - yi) < i) {
+    if (this.scrollbar && yl - yi < i) {
       x = xl - 1;
       if (this.scrollbar.ignoreBorder && this.border) x++;
       if (this.alwaysScroll) {
@@ -2343,21 +2414,25 @@ main:
       } else {
         y = ((this.childBase || 0) + (this.childOffset || 0)) / (i - 1);
       }
-      y = yi + ((yl - yi) * y | 0);
+      y = yi + (((yl - yi) * y) | 0);
       if (y >= yl) y = yl - 1;
       cell = lines[y]?.[x];
       if (cell) {
         if (this.track) {
-          ch = this.track.ch || ' ';
-          attr = this.sattr(this.style.track,
+          ch = this.track.ch || " ";
+          attr = this.sattr(
+            this.style.track,
             this.style.track?.fg || this.style.fg,
-            this.style.track?.bg || this.style.bg);
+            this.style.track?.bg || this.style.bg,
+          );
           this.screen.fillRegion(attr, ch, x, x + 1, yi, yl);
         }
-        ch = this.scrollbar.ch || ' ';
-        attr = this.sattr(this.style.scrollbar,
+        ch = this.scrollbar.ch || " ";
+        attr = this.sattr(
+          this.style.scrollbar,
           this.style.scrollbar?.fg || this.style.fg,
-          this.style.scrollbar?.bg || this.style.bg);
+          this.style.scrollbar?.bg || this.style.bg,
+        );
         if (attr !== cell[0] || ch !== cell[1]) {
           lines[y][x][0] = attr;
           lines[y][x][1] = ch;
@@ -2391,41 +2466,41 @@ main:
         if (coords.noright && x === xl - 1) continue;
         cell = lines[y][x];
         if (!cell) continue;
-        if (this.border.type === 'line') {
+        if (this.border.type === "line") {
           if (x === xi) {
-            ch = '\u250c'; // '┌'
+            ch = "\u250c"; // '┌'
             if (!this.border.left) {
               if (this.border.top) {
-                ch = '\u2500'; // '─'
+                ch = "\u2500"; // '─'
               } else {
                 continue;
               }
             } else {
               if (!this.border.top) {
-                ch = '\u2502'; // '│'
+                ch = "\u2502"; // '│'
               }
             }
           } else if (x === xl - 1) {
-            ch = '\u2510'; // '┐'
+            ch = "\u2510"; // '┐'
             if (!this.border.right) {
               if (this.border.top) {
-                ch = '\u2500'; // '─'
+                ch = "\u2500"; // '─'
               } else {
                 continue;
               }
             } else {
               if (!this.border.top) {
-                ch = '\u2502'; // '│'
+                ch = "\u2502"; // '│'
               }
             }
           } else {
-            ch = '\u2500'; // '─'
+            ch = "\u2500"; // '─'
           }
-        } else if (this.border.type === 'bg') {
-          ch = this.border.ch || ' ';
+        } else if (this.border.type === "bg") {
+          ch = this.border.ch || " ";
         }
         if (!this.border.top && x !== xi && x !== xl - 1) {
-          ch = ' ';
+          ch = " ";
           if (dattr !== cell[0] || ch !== cell[1]) {
             lines[y][x][0] = dattr;
             lines[y][x][1] = ch;
@@ -2445,19 +2520,19 @@ main:
         cell = lines[y][xi];
         if (cell) {
           if (this.border.left) {
-            if (this.border.type === 'line') {
-              ch = '\u2502'; // '│'
-            } else if (this.border.type === 'bg') {
-              ch = this.border.ch || ' ';
+            if (this.border.type === "line") {
+              ch = "\u2502"; // '│'
+            } else if (this.border.type === "bg") {
+              ch = this.border.ch || " ";
             }
             if (!coords.noleft)
-            if (battr !== cell[0] || ch !== cell[1]) {
-              lines[y][xi][0] = battr;
-              lines[y][xi][1] = ch;
-              lines[y].dirty = true;
-            }
+              if (battr !== cell[0] || ch !== cell[1]) {
+                lines[y][xi][0] = battr;
+                lines[y][xi][1] = ch;
+                lines[y].dirty = true;
+              }
           } else {
-            ch = ' ';
+            ch = " ";
             if (dattr !== cell[0] || ch !== cell[1]) {
               lines[y][xi][0] = dattr;
               lines[y][xi][1] = ch;
@@ -2468,19 +2543,19 @@ main:
         cell = lines[y][xl - 1];
         if (cell) {
           if (this.border.right) {
-            if (this.border.type === 'line') {
-              ch = '\u2502'; // '│'
-            } else if (this.border.type === 'bg') {
-              ch = this.border.ch || ' ';
+            if (this.border.type === "line") {
+              ch = "\u2502"; // '│'
+            } else if (this.border.type === "bg") {
+              ch = this.border.ch || " ";
             }
             if (!coords.noright)
-            if (battr !== cell[0] || ch !== cell[1]) {
-              lines[y][xl - 1][0] = battr;
-              lines[y][xl - 1][1] = ch;
-              lines[y].dirty = true;
-            }
+              if (battr !== cell[0] || ch !== cell[1]) {
+                lines[y][xl - 1][0] = battr;
+                lines[y][xl - 1][1] = ch;
+                lines[y].dirty = true;
+              }
           } else {
-            ch = ' ';
+            ch = " ";
             if (dattr !== cell[0] || ch !== cell[1]) {
               lines[y][xl - 1][0] = dattr;
               lines[y][xl - 1][1] = ch;
@@ -2497,41 +2572,41 @@ main:
         if (coords.noright && x === xl - 1) continue;
         cell = lines[y][x];
         if (!cell) continue;
-        if (this.border.type === 'line') {
+        if (this.border.type === "line") {
           if (x === xi) {
-            ch = '\u2514'; // '└'
+            ch = "\u2514"; // '└'
             if (!this.border.left) {
               if (this.border.bottom) {
-                ch = '\u2500'; // '─'
+                ch = "\u2500"; // '─'
               } else {
                 continue;
               }
             } else {
               if (!this.border.bottom) {
-                ch = '\u2502'; // '│'
+                ch = "\u2502"; // '│'
               }
             }
           } else if (x === xl - 1) {
-            ch = '\u2518'; // '┘'
+            ch = "\u2518"; // '┘'
             if (!this.border.right) {
               if (this.border.bottom) {
-                ch = '\u2500'; // '─'
+                ch = "\u2500"; // '─'
               } else {
                 continue;
               }
             } else {
               if (!this.border.bottom) {
-                ch = '\u2502'; // '│'
+                ch = "\u2502"; // '│'
               }
             }
           } else {
-            ch = '\u2500'; // '─'
+            ch = "\u2500"; // '─'
           }
-        } else if (this.border.type === 'bg') {
-          ch = this.border.ch || ' ';
+        } else if (this.border.type === "bg") {
+          ch = this.border.ch || " ";
         }
         if (!this.border.bottom && x !== xi && x !== xl - 1) {
-          ch = ' ';
+          ch = " ";
           if (dattr !== cell[0] || ch !== cell[1]) {
             lines[y][x][0] = dattr;
             lines[y][x][1] = ch;
@@ -2586,7 +2661,7 @@ main:
       // }
     });
 
-    this._emit('render', [coords]);
+    this._emit("render", [coords]);
 
     return coords;
   }
@@ -2610,7 +2685,7 @@ main:
    * @param line - Line or array of lines to insert
    */
   insertLine(i: number, line: string | string[]): void {
-    if (typeof line === 'string') line = line.split('\n');
+    if (typeof line === "string") line = line.split("\n");
 
     if (i !== i || i == null) {
       i = this._clines.ftor.length;
@@ -2619,8 +2694,8 @@ main:
     i = Math.max(i, 0);
 
     while (this._clines.fake.length < i) {
-      this._clines.fake.push('');
-      this._clines.ftor.push([this._clines.push('') - 1]);
+      this._clines.fake.push("");
+      this._clines.ftor.push([this._clines.push("") - 1]);
       this._clines.rtof(this._clines.fake.length - 1);
     }
 
@@ -2641,7 +2716,7 @@ main:
       this._clines.fake.splice(i + j, 0, line[j]);
     }
 
-    this.setContent(this._clines.fake.join('\n'), true);
+    this.setContent(this._clines.fake.join("\n"), true);
 
     diff = this._clines.length - start;
 
@@ -2654,10 +2729,12 @@ main:
       const visible = real >= base && real - base < height;
 
       if (pos && visible && this.screen.cleanSides(this)) {
-        this.screen.insertLine(diff,
+        this.screen.insertLine(
+          diff,
           pos.yi + this.itop + real - base,
           pos.yi,
-          pos.yl - this.ibottom - 1);
+          pos.yl - this.ibottom - 1,
+        );
       }
     }
   }
@@ -2688,7 +2765,7 @@ main:
       this._clines.fake.splice(i, 1);
     }
 
-    this.setContent(this._clines.fake.join('\n'), true);
+    this.setContent(this._clines.fake.join("\n"), true);
 
     diff = start - this._clines.length;
 
@@ -2705,10 +2782,12 @@ main:
       const visible = real >= base && real - base < height;
 
       if (pos && visible && this.screen.cleanSides(this)) {
-        this.screen.deleteLine(diff,
+        this.screen.deleteLine(
+          diff,
           pos.yi + this.itop + real - base,
           pos.yi,
-          pos.yl - this.ibottom - 1);
+          pos.yl - this.ibottom - 1,
+        );
       }
     }
 
@@ -2773,10 +2852,10 @@ main:
   setLine(i: number, line: string): void {
     i = Math.max(i, 0);
     while (this._clines.fake.length < i) {
-      this._clines.fake.push('');
+      this._clines.fake.push("");
     }
     this._clines.fake[i] = line;
-    return this.setContent(this._clines.fake.join('\n'), true);
+    return this.setContent(this._clines.fake.join("\n"), true);
   }
 
   /**
@@ -2816,7 +2895,7 @@ main:
    */
   clearLine(i: number): void {
     i = Math.min(i, this._clines.fake.length - 1);
-    return this.setLine(i, '');
+    return this.setLine(i, "");
   }
 
   /**
@@ -2885,9 +2964,7 @@ main:
    * @returns Displayed width in cells
    */
   strWidth(text: string): number {
-    text = this.parseTags
-      ? helpers.stripTags(text)
-      : text;
+    text = this.parseTags ? helpers.stripTags(text) : text;
     return this.screen.fullUnicode
       ? unicode.strWidth(text, this.screen.tabc.length)
       : helpers.dropUnicode(text).length;
@@ -2904,7 +2981,7 @@ main:
    */
   screenshot(xi?: number, xl?: number, yi?: number, yl?: number): string {
     if (!this.lpos) {
-      throw new Error('Cannot take screenshot of element without position');
+      throw new Error("Cannot take screenshot of element without position");
     }
     xi = this.lpos.xi + this.ileft + (xi || 0);
     if (xl != null) {

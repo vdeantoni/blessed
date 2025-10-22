@@ -9,10 +9,10 @@
  * - Browser tab → BrowserRuntime (all screens share)
  */
 
-import type { Runtime } from './runtime.js';
+import type { Runtime } from "./runtime.js";
 
 // Re-export for convenience
-export * from './runtime.js';
+export * from "./runtime.js";
 
 let runtime: Runtime | null = null;
 
@@ -40,9 +40,10 @@ let runtime: Runtime | null = null;
 export function initCore(rt: Runtime): void {
   if (runtime && runtime !== rt) {
     // In test environment, allow replacing runtime
-    const isTest = typeof process !== 'undefined' && process.env?.NODE_ENV === 'test';
+    const isTest =
+      typeof process !== "undefined" && process.env?.NODE_ENV === "test";
     if (!isTest) {
-      throw new Error('Runtime already initialized with a different instance');
+      throw new Error("Runtime already initialized with a different instance");
     }
   }
   runtime = rt;
@@ -70,12 +71,12 @@ export function setRuntime(rt: Runtime): void {
 export function getRuntime(): Runtime {
   if (!runtime) {
     throw new Error(
-      'Runtime not initialized. ' +
-      'Call initNode() from @unblessed/node or initBrowser() from @unblessed/browser first.\n\n' +
-      'Example:\n' +
-      '  import { initNode, Screen } from \'@unblessed/node\';\n' +
-      '  initNode();\n' +
-      '  const screen = new Screen();'
+      "Runtime not initialized. " +
+        "Call initNode() from @unblessed/node or initBrowser() from @unblessed/browser first.\n\n" +
+        "Example:\n" +
+        "  import { initNode, Screen } from '@unblessed/node';\n" +
+        "  initNode();\n" +
+        "  const screen = new Screen();",
     );
   }
   return runtime;

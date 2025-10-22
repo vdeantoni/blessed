@@ -4,4 +4,4 @@
  */
 
 // Importing @unblessed/node auto-initializes the Node.js runtime
-import '@unblessed/node';
+import "@unblessed/node";

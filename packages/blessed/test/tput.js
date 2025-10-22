@@ -32,26 +32,30 @@ const __dirname = import.meta.dirname;
 // Copyright (c) 2012, Christopher Jeffrey (MIT License)
 
 function parseArg() {
-  var argv = process.argv.slice(2)
-    , options = [];
+  var argv = process.argv.slice(2),
+    options = [];
 
   function getarg() {
     var arg = argv.shift();
 
-    if (arg.indexOf('--') === 0) {
+    if (arg.indexOf("--") === 0) {
       // e.g. --opt
-      arg = arg.split('=');
+      arg = arg.split("=");
       if (arg.length > 1) {
         // e.g. --opt=val
-        argv.unshift(arg.slice(1).join('='));
+        argv.unshift(arg.slice(1).join("="));
       }
       arg = arg[0];
-    } else if (arg[0] === '-') {
+    } else if (arg[0] === "-") {
       if (arg.length > 2) {
         // e.g. -abc
-        argv = arg.substring(1).split('').map(function(ch) {
-          return '-' + ch;
-        }).concat(argv);
+        argv = arg
+          .substring(1)
+          .split("")
+          .map(function (ch) {
+            return "-" + ch;
+          })
+          .concat(argv);
         arg = argv.shift();
       } else {
         // e.g. -a
@@ -65,9 +69,9 @@ function parseArg() {
 
   while (argv.length) {
     arg = getarg();
-    if (arg.indexOf('-') === 0) {
-      arg = arg.replace(/^--?/, '');
-      if (argv[0] && argv[0].indexOf('-') !== 0) {
+    if (arg.indexOf("-") === 0) {
+      arg = arg.replace(/^--?/, "");
+      if (argv[0] && argv[0].indexOf("-") !== 0) {
         options[arg] = argv.shift();
       } else {
         options[arg] = true;
@@ -83,54 +87,56 @@ function parseArg() {
 var argv = parseArg();
 
 var tput = blessed.tput({
-  terminal: argv[0] !== 'all' && argv[0] !== 'rand'
-    ? argv[0] || __dirname + '/../usr/xterm'
-    : null,
+  terminal:
+    argv[0] !== "all" && argv[0] !== "rand"
+      ? argv[0] || __dirname + "/../usr/xterm"
+      : null,
   extended: true,
   debug: true,
   termcap: argv.termcap,
   terminfoFile: argv.i || argv.ifile,
   terminfoPrefix: argv.p || argv.iprefix,
-  termcapFile: argv.c || argv.cfile
+  termcapFile: argv.c || argv.cfile,
 });
 
-if (argv[0] === 'all') {
-  var rl = require('readline').createInterface({
+if (argv[0] === "all") {
+  var rl = require("readline").createInterface({
     input: process.stdin,
-    output: process.stdout
+    output: process.stdout,
   });
 
-  var text = '\x1b[31mWARNING:\x1b[m '
-    + 'This will compile every single terminfo file on your disk.\n'
-    + 'It will probably use a lot of CPU.\n'
-    + 'Do you wish to proceed? (Y/n) ';
+  var text =
+    "\x1b[31mWARNING:\x1b[m " +
+    "This will compile every single terminfo file on your disk.\n" +
+    "It will probably use a lot of CPU.\n" +
+    "Do you wish to proceed? (Y/n) ";
 
-  rl.question(text, function(result) {
+  rl.question(text, function (result) {
     result = result.trim().toLowerCase();
-    if (result !== 'y') process.exit(0);
-    console.log('\x1b[32m(You bet your ass I wish to proceed.)\x1b[m');
+    if (result !== "y") process.exit(0);
+    console.log("\x1b[32m(You bet your ass I wish to proceed.)\x1b[m");
     blessed.tput.print(
-      '$<1000/>.$<1000/>.$<1000/>.$<100/>Let\'s go...',
+      "$<1000/>.$<1000/>.$<1000/>.$<100/>Let's go...",
       process.stdout.write.bind(process.stdout),
-      function() {
+      function () {
         tput.compileAll(argv[1]);
         process.exit(0);
-      }
+      },
     );
   });
 
   return;
 }
 
-if (argv[0] === 'rand') {
-  var terms = tput.getAll()
-    , term;
+if (argv[0] === "rand") {
+  var terms = tput.getAll(),
+    term;
 
-  term = terms[(terms.length - 1) * Math.random() | 0];
+  term = terms[((terms.length - 1) * Math.random()) | 0];
 
-  console.log('Compiling ' + term + '...');
+  console.log("Compiling " + term + "...");
   tput.compileTerminfo(term);
-  console.log('Compiled ' + term + '.');
+  console.log("Compiled " + term + ".");
 
   return;
 }

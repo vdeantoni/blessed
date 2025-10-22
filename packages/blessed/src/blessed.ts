@@ -5,8 +5,8 @@
  * blessed library. It's a drop-in replacement for users migrating from blessed.
  */
 
-import * as TuiTypes from '@unblessed/node';
-export * from '@unblessed/node';
+import * as TuiTypes from "@unblessed/node";
+export * from "@unblessed/node";
 
 // Runtime auto-initializes when @unblessed/node is imported
 
@@ -24,7 +24,7 @@ export type WidgetFactory<T> = {
  * Helper to create a WidgetFactory from a class
  */
 function createWidgetFactory<T>(
-  WidgetClass: new (options?: any) => T
+  WidgetClass: new (options?: any) => T,
 ): WidgetFactory<T> {
   const factory = (options?: any) => new WidgetClass(options);
   (factory as any).class = WidgetClass;
@@ -307,7 +307,7 @@ const factories = Object.fromEntries(
   Object.entries(WIDGET_CLASSES).map(([name, WidgetClass]) => [
     name,
     createWidgetFactory(WidgetClass),
-  ])
+  ]),
 ) as Record<keyof typeof WIDGET_CLASSES, WidgetFactory<any>>;
 
 // Create lowercase variant names (PascalCase → lowercase)
@@ -315,7 +315,7 @@ const lowercaseFactories = Object.fromEntries(
   Object.entries(factories).map(([name, factory]) => [
     name.toLowerCase(), // Convert entire name to lowercase
     factory,
-  ])
+  ]),
 );
 
 /**

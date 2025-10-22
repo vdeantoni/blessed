@@ -33,9 +33,9 @@ yarn add @unblessed/browser@alpha xterm
 ### Basic Example
 
 ```typescript
-import { Terminal } from 'xterm';
-import { Screen, Box } from '@unblessed/browser';
-import 'xterm/css/xterm.css';
+import { Terminal } from "xterm";
+import { Screen, Box } from "@unblessed/browser";
+import "xterm/css/xterm.css";
 
 // Create xterm.js terminal
 const term = new Terminal({
@@ -44,7 +44,7 @@ const term = new Terminal({
 });
 
 // Mount to DOM
-term.open(document.getElementById('terminal')!);
+term.open(document.getElementById("terminal")!);
 
 // Create screen - automatically sets up xterm adapter
 const screen = new Screen({ terminal: term });
@@ -52,26 +52,26 @@ const screen = new Screen({ terminal: term });
 // Build your TUI
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: '{bold}Hello from the browser!{/bold}',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "{bold}Hello from the browser!{/bold}",
   tags: true,
   border: {
-    type: 'line'
+    type: "line",
   },
   style: {
-    fg: 'white',
-    bg: 'blue',
+    fg: "white",
+    bg: "blue",
     border: {
-      fg: '#f0f0f0'
-    }
-  }
+      fg: "#f0f0f0",
+    },
+  },
 });
 
 // Handle key events
-screen.key(['escape', 'q', 'C-c'], () => {
+screen.key(["escape", "q", "C-c"], () => {
   process.exit(0);
 });
 
@@ -85,27 +85,27 @@ screen.render();
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>unblessed Browser Example</title>
-  <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-    }
-    #terminal {
-      width: 100vw;
-      height: 100vh;
-    }
-  </style>
-</head>
-<body>
-  <div id="terminal"></div>
-  <script type="module" src="/src/main.ts"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>unblessed Browser Example</title>
+    <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: #000;
+      }
+      #terminal {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="terminal"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
 ```
 
@@ -116,20 +116,21 @@ screen.render();
 Browser-specific Screen class that automatically handles xterm.js integration.
 
 ```typescript
-import { Screen } from '@unblessed/browser';
-import { Terminal } from 'xterm';
+import { Screen } from "@unblessed/browser";
+import { Terminal } from "xterm";
 
 const term = new Terminal();
-term.open(document.getElementById('terminal')!);
+term.open(document.getElementById("terminal")!);
 
 const screen = new Screen({
-  terminal: term,           // xterm.js Terminal instance (required)
-  mouse: true,             // Enable mouse support (default: true)
-  term: 'xterm-256color'   // Terminal type (default: 'xterm-256color')
+  terminal: term, // xterm.js Terminal instance (required)
+  mouse: true, // Enable mouse support (default: true)
+  term: "xterm-256color", // Terminal type (default: 'xterm-256color')
 });
 ```
 
 **Options:**
+
 - `terminal` (Terminal) - xterm.js Terminal instance - automatically creates XTermAdapter
 - `mouse` (boolean) - Enable mouse events (default: true)
 - `term` (string) - Terminal type string (default: 'xterm-256color')
@@ -142,11 +143,11 @@ const screen = new Screen({
 Low-level adapter for manual setup (rarely needed).
 
 ```typescript
-import { XTermAdapter } from '@unblessed/browser';
+import { XTermAdapter } from "@unblessed/browser";
 
 const adapter = new XTermAdapter({
   terminal: term,
-  mouse: true
+  mouse: true,
 });
 
 // Use as input/output for custom Screen setup
@@ -157,7 +158,7 @@ const adapter = new XTermAdapter({
 Access the browser runtime for advanced use cases:
 
 ```typescript
-import { getRuntime } from '@unblessed/core';
+import { getRuntime } from "@unblessed/core";
 
 const runtime = getRuntime();
 // Provides: fs, path, process, Buffer, etc.
@@ -171,10 +172,10 @@ const runtime = getRuntime();
 All @unblessed/core widgets are re-exported for convenience:
 
 ```typescript
-import { Box, List, Input, Form, Button } from '@unblessed/browser';
+import { Box, List, Input, Form, Button } from "@unblessed/browser";
 
-const box = new Box({ parent: screen, /* ... */ });
-const list = new List({ parent: screen, /* ... */ });
+const box = new Box({ parent: screen /* ... */ });
+const list = new List({ parent: screen /* ... */ });
 ```
 
 ## Features
@@ -191,6 +192,7 @@ const list = new List({ parent: screen, /* ... */ });
 ### ✅ Full Widget Support
 
 All @unblessed/core widgets work in the browser:
+
 - Layout: Box, Layout, Line
 - Input: Input, Textarea, Button, Checkbox, RadioButton, Form
 - Display: Text, Log, List, Table, FileManager
@@ -199,6 +201,7 @@ All @unblessed/core widgets work in the browser:
 ### ✅ Mouse & Keyboard Events
 
 Full support for:
+
 - Click, hover, drag events
 - Keyboard shortcuts
 - Focus management
@@ -216,59 +219,59 @@ Full support for:
 ### Interactive Form
 
 ```typescript
-import { Form, Input, Button } from '@unblessed/browser';
+import { Form, Input, Button } from "@unblessed/browser";
 
 const form = new Form({
   parent: screen,
   keys: true,
-  left: 'center',
-  top: 'center',
+  left: "center",
+  top: "center",
   width: 50,
   height: 12,
-  border: { type: 'line' },
-  label: ' Login '
+  border: { type: "line" },
+  label: " Login ",
 });
 
 const username = new Input({
   parent: form,
-  name: 'username',
+  name: "username",
   top: 1,
   left: 1,
   height: 1,
   width: 45,
-  label: ' Username: '
+  label: " Username: ",
 });
 
 const password = new Input({
   parent: form,
-  name: 'password',
+  name: "password",
   top: 3,
   left: 1,
   height: 1,
   width: 45,
-  label: ' Password: ',
-  censor: true
+  label: " Password: ",
+  censor: true,
 });
 
 const submit = new Button({
   parent: form,
   top: 6,
-  left: 'center',
+  left: "center",
   shrink: true,
   padding: { left: 2, right: 2 },
-  content: 'Submit',
+  content: "Submit",
   style: {
-    bg: 'blue',
-    focus: { bg: 'red' }
-  }
+    bg: "blue",
+    focus: { bg: "red" },
+  },
 });
 
-submit.on('press', () => {
+submit.on("press", () => {
   form.submit();
 });
 
-form.on('submit', (data) => {
-  console.log('Form submitted:', data);
+form.on("submit", (data) => {
+  console.log("Form submitted:", data);
 });
 
 screen.render();
@@ -277,30 +280,30 @@ screen.render();
 ### File Manager
 
 ```typescript
-import { FileManager } from '@unblessed/browser';
+import { FileManager } from "@unblessed/browser";
 
 const fm = new FileManager({
   parent: screen,
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    border: { fg: 'cyan' },
-    selected: { bg: 'blue' }
+    border: { fg: "cyan" },
+    selected: { bg: "blue" },
   },
-  height: 'shrink',
-  width: 'shrink',
-  top: 'center',
-  left: 'center',
-  label: ' {blue-fg}%path{/blue-fg} ',
-  cwd: '/',
+  height: "shrink",
+  width: "shrink",
+  top: "center",
+  left: "center",
+  label: " {blue-fg}%path{/blue-fg} ",
+  cwd: "/",
   keys: true,
   vi: true,
   scrollbar: {
-    bg: 'white'
-  }
+    bg: "white",
+  },
 });
 
-fm.on('file', (file) => {
-  console.log('Selected file:', file);
+fm.on("file", (file) => {
+  console.log("Selected file:", file);
 });
 
 screen.render();
@@ -309,34 +312,36 @@ screen.render();
 ### Real-time Data Display
 
 ```typescript
-import { Log } from '@unblessed/browser';
+import { Log } from "@unblessed/browser";
 
 const log = new Log({
   parent: screen,
   top: 0,
   left: 0,
-  width: '100%',
-  height: '100%',
-  border: { type: 'line' },
-  label: ' Live Logs ',
+  width: "100%",
+  height: "100%",
+  border: { type: "line" },
+  label: " Live Logs ",
   tags: true,
   scrollable: true,
   mouse: true,
   keys: true,
   vi: true,
   scrollbar: {
-    ch: ' ',
-    inverse: true
-  }
+    ch: " ",
+    inverse: true,
+  },
 });
 
 // Simulate streaming logs
 setInterval(() => {
   const timestamp = new Date().toISOString();
-  const level = ['INFO', 'WARN', 'ERROR'][Math.floor(Math.random() * 3)];
-  const color = { INFO: 'green', WARN: 'yellow', ERROR: 'red' }[level];
+  const level = ["INFO", "WARN", "ERROR"][Math.floor(Math.random() * 3)];
+  const color = { INFO: "green", WARN: "yellow", ERROR: "red" }[level];
 
-  log.log(`{${color}-fg}[${timestamp}]{/} {bold}${level}{/}: Sample log message`);
+  log.log(
+    `{${color}-fg}[${timestamp}]{/} {bold}${level}{/}: Sample log message`,
+  );
   screen.render();
 }, 1000);
 ```
@@ -347,19 +352,19 @@ setInterval(() => {
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
 
 export default defineConfig({
   optimizeDeps: {
-    exclude: ['@unblessed/browser', '@unblessed/core']
+    exclude: ["@unblessed/browser", "@unblessed/core"],
   },
   resolve: {
     alias: {
       // If needed for older bundlers
-      buffer: 'buffer/',
-      process: 'process/browser'
-    }
-  }
+      buffer: "buffer/",
+      process: "process/browser",
+    },
+  },
 });
 ```
 
@@ -370,12 +375,12 @@ export default defineConfig({
 module.exports = {
   resolve: {
     fallback: {
-      buffer: require.resolve('buffer/'),
-      process: require.resolve('process/browser'),
-      path: require.resolve('path-browserify'),
-      stream: require.resolve('stream-browserify')
-    }
-  }
+      buffer: require.resolve("buffer/"),
+      process: require.resolve("process/browser"),
+      path: require.resolve("path-browserify"),
+      stream: require.resolve("stream-browserify"),
+    },
+  },
 };
 ```
 
@@ -420,6 +425,7 @@ If you see module resolution errors, ensure your bundler is configured to handle
 ### Blank terminal
 
 Make sure xterm.css is loaded:
+
 ```html
 <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
 ```
@@ -427,8 +433,9 @@ Make sure xterm.css is loaded:
 ### Mouse events not working
 
 Ensure mouse is enabled (it's enabled by default):
+
 ```typescript
-new Screen({ terminal: term, mouse: true })
+new Screen({ terminal: term, mouse: true });
 ```
 
 ## Contributing

@@ -10,7 +10,7 @@
  * - @unblessed/browser: EventEmitter polyfill (e.g., eventemitter3)
  */
 
-import { getRuntime, type EventEmitterType } from './runtime-helpers.js';
+import { getRuntime, type EventEmitterType } from "./runtime-helpers.js";
 
 /**
  * Base class providing EventEmitter functionality
@@ -50,7 +50,10 @@ export class EventEmitterBase implements EventEmitterType {
     return this;
   }
 
-  addListener(event: string | symbol, listener: (...args: any[]) => void): this {
+  addListener(
+    event: string | symbol,
+    listener: (...args: any[]) => void,
+  ): this {
     this._emitter.addListener(event, listener);
     return this;
   }
@@ -64,7 +67,10 @@ export class EventEmitterBase implements EventEmitterType {
     return this._emitter.emit(event, ...args);
   }
 
-  removeListener(event: string | symbol, listener: (...args: any[]) => void): this {
+  removeListener(
+    event: string | symbol,
+    listener: (...args: any[]) => void,
+  ): this {
     this._emitter.removeListener(event, listener);
     return this;
   }
@@ -100,12 +106,18 @@ export class EventEmitterBase implements EventEmitterType {
     return this._emitter.getMaxListeners();
   }
 
-  prependListener(event: string | symbol, listener: (...args: any[]) => void): this {
+  prependListener(
+    event: string | symbol,
+    listener: (...args: any[]) => void,
+  ): this {
     this._emitter.prependListener(event, listener);
     return this;
   }
 
-  prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this {
+  prependOnceListener(
+    event: string | symbol,
+    listener: (...args: any[]) => void,
+  ): this {
     this._emitter.prependOnceListener(event, listener);
     return this;
   }

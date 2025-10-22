@@ -24,25 +24,26 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-var extend = function(target) {
+var extend = function (target) {
   target = target || {};
-  Array.prototype.slice.call(arguments, 1).forEach(function(obj) {
-    Object.keys(obj || {}).forEach(function(key) {
+  Array.prototype.slice.call(arguments, 1).forEach(function (obj) {
+    Object.keys(obj || {}).forEach(function (key) {
       target[key] = obj[key];
     });
   });
   return target;
 };
 
-var singlebyte = function(){
-   if(!( this instanceof singlebyte )){
-      return new singlebyte();
-   }
+var singlebyte = function () {
+  if (!(this instanceof singlebyte)) {
+    return new singlebyte();
+  }
 
-   this.encodings = [];
+  this.encodings = [];
 
-   // CP437
-   this.learnEncoding('cp437', this.extendASCII([
+  // CP437
+  // prettier-ignore
+  this.learnEncoding('cp437', this.extendASCII([
        0xC7,   0xFC,   0xE9,   0xE2,   0xE4,   0xE0,   0xE5,   0xE7,
        0xEA,   0xEB,   0xE8,   0xEF,   0xEE,   0xEC,   0xC4,   0xC5,
        0xC9,   0xE6,   0xC6,   0xF4,   0xF6,   0xF2,   0xFB,   0xF9,
@@ -61,8 +62,9 @@ var singlebyte = function(){
       0xB0,   0x2219,  0xB7,  0x221A, 0x207F,  0xB2,  0x25A0,  0xA0
    ]));
 
-   // CP850
-   this.learnEncoding('cp850', this.extendASCII([
+  // CP850
+  // prettier-ignore
+  this.learnEncoding('cp850', this.extendASCII([
        0xC7,   0xFC,   0xE9,   0xE2,   0xE4,   0xE0,   0xE5,   0xE7,
        0xEA,   0xEB,   0xE8,   0xEF,   0xEE,   0xEC,   0xC4,   0xC5,
        0xC9,   0xE6,   0xC6,   0xF4,   0xF6,   0xF2,   0xFB,   0xF9,
@@ -81,8 +83,9 @@ var singlebyte = function(){
        0xB0,   0xA8,   0xB7,   0xB9,   0xB3,   0xB2,  0x25A0,  0xA0
    ]));
 
-   // CP858
-   this.learnEncoding('cp858', this.extendASCII([
+  // CP858
+  // prettier-ignore
+  this.learnEncoding('cp858', this.extendASCII([
        0xC7,   0xFC,   0xE9,   0xE2,   0xE4,   0xE0,   0xE5,   0xE7,
        0xEA,   0xEB,   0xE8,   0xEF,   0xEE,   0xEC,   0xC4,   0xC5,
        0xC9,   0xE6,   0xC6,   0xF4,   0xF6,   0xF2,   0xFB,   0xF9,
@@ -101,8 +104,9 @@ var singlebyte = function(){
        0xB0,   0xA8,   0xB7,   0xB9,   0xB3,   0xB2,  0x25A0,  0xA0
    ]));
 
-   // CP808
-   this.learnEncoding('cp808', this.extendASCII([
+  // CP808
+  // prettier-ignore
+  this.learnEncoding('cp808', this.extendASCII([
       0x410,  0x411,  0x412,  0x413,  0x414,  0x415,  0x416,  0x417,
       0x418,  0x419,  0x41A,  0x41B,  0x41C,  0x41D,  0x41E,  0x41F,
       0x420,  0x421,  0x422,  0x423,  0x424,  0x425,  0x426,  0x427,
@@ -121,8 +125,9 @@ var singlebyte = function(){
        0xB0,  0x2219,  0xB7,  0x221A, 0x2116, 0x20AC, 0x25A0,  0xA0
    ]));
 
-   // CP866
-   this.learnEncoding('cp866', this.extendASCII([
+  // CP866
+  // prettier-ignore
+  this.learnEncoding('cp866', this.extendASCII([
       0x410,  0x411,  0x412,  0x413,  0x414,  0x415,  0x416,  0x417,
       0x418,  0x419,  0x41A,  0x41B,  0x41C,  0x41D,  0x41E,  0x41F,
       0x420,  0x421,  0x422,  0x423,  0x424,  0x425,  0x426,  0x427,
@@ -141,8 +146,9 @@ var singlebyte = function(){
        0xB0,  0x2219,  0xB7,  0x221A, 0x2116,  0xA4,  0x25A0,  0xA0
    ]));
 
-   // CP1125
-   this.learnEncoding('cp1125', this.extendASCII([
+  // CP1125
+  // prettier-ignore
+  this.learnEncoding('cp1125', this.extendASCII([
       0x410,  0x411,  0x412,  0x413,  0x414,  0x415,  0x416,  0x417,
       0x418,  0x419,  0x41A,  0x41B,  0x41C,  0x41D,  0x41E,  0x41F,
       0x420,  0x421,  0x422,  0x423,  0x424,  0x425,  0x426,  0x427,
@@ -161,8 +167,9 @@ var singlebyte = function(){
       0x407,  0x457,   0xB7,  0x221A, 0x2116,  0xA4,  0x25A0,  0xA0
    ]));
 
-   // KOI8-R
-   this.learnEncoding('koi8-r', this.extendASCII([
+  // KOI8-R
+  // prettier-ignore
+  this.learnEncoding('koi8-r', this.extendASCII([
       0x2500, 0x2502, 0x250C, 0x2510, 0x2514, 0x2518, 0x251C, 0x2524,
       0x252C, 0x2534, 0x253C, 0x2580, 0x2584, 0x2588, 0x258C, 0x2590,
       0x2591, 0x2592, 0x2593, 0x2320, 0x25A0, 0x2219, 0x221A, 0x2248,
@@ -181,8 +188,9 @@ var singlebyte = function(){
       0x42C,  0x42B,  0x417,  0x428,  0x42D,  0x429,  0x427,  0x42A
    ]));
 
-   // KOI8-U
-   this.learnEncoding('koi8-u', this.extendASCII([
+  // KOI8-U
+  // prettier-ignore
+  this.learnEncoding('koi8-u', this.extendASCII([
       0x2500, 0x2502, 0x250C, 0x2510, 0x2514, 0x2518, 0x251C, 0x2524,
       0x252C, 0x2534, 0x253C, 0x2580, 0x2584, 0x2588, 0x258C, 0x2590,
       0x2591, 0x2592, 0x2593, 0x2320, 0x25A0, 0x2219, 0x221A, 0x2248,
@@ -201,8 +209,9 @@ var singlebyte = function(){
       0x42C,  0x42B,  0x417,  0x428,  0x42D,  0x429,  0x427,  0x42A
    ]));
 
-   // KOI8-RU
-   this.learnEncoding('koi8-ru', this.extendASCII([
+  // KOI8-RU
+  // prettier-ignore
+  this.learnEncoding('koi8-ru', this.extendASCII([
       0x2500, 0x2502, 0x250C, 0x2510, 0x2514, 0x2518, 0x251C, 0x2524,
       0x252C, 0x2534, 0x253C, 0x2580, 0x2584, 0x2588, 0x258C, 0x2590,
       0x2591, 0x2592, 0x2593, 0x2320, 0x25A0, 0x2219, 0x221A, 0x2248,
@@ -221,8 +230,9 @@ var singlebyte = function(){
       0x42C,  0x42B,  0x417,  0x428,  0x42D,  0x429,  0x427,  0x42A
    ]));
 
-   // LATIN-1 aka ISO 8859-1 (Western European)
-   this.learnEncoding('latin-1', this.extendASCII([
+  // LATIN-1 aka ISO 8859-1 (Western European)
+  // prettier-ignore
+  this.learnEncoding('latin-1', this.extendASCII([
       0x80, 0x81, 0x82, 0x83, 0x84, 0x85, 0x86, 0x87,
       0x88, 0x89, 0x8A, 0x8B, 0x8C, 0x8D, 0x8E, 0x8F,
       0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x96, 0x97,
@@ -241,8 +251,9 @@ var singlebyte = function(){
       0xF8, 0xF9, 0xFA, 0xFB, 0xFC, 0xFD, 0xFE, 0xFF
    ]));
 
-   // Windows-1252
-   this.learnEncoding('cp1252', this.extendASCII([
+  // Windows-1252
+  // prettier-ignore
+  this.learnEncoding('cp1252', this.extendASCII([
       0x20AC,  0x81,  0x201A, 0x192,  0x201E, 0x2026, 0x2020, 0x2021,
       0x2C6,  0x2030, 0x160,  0x2039, 0x152,   0x8D,  0x017D,  0x8F,
        0x90,  0x2018, 0x2019, 0x201C, 0x201D, 0x2022, 0x2013, 0x2014,
@@ -262,142 +273,144 @@ var singlebyte = function(){
    ]));
 };
 
-singlebyte.prototype.isEncoding = function(encodingName){
-   if( Buffer.isEncoding(encodingName) ) return true;
-   for( var i = 0; i < this.encodings.length; i++ ){
-      if( this.encodings[i].name === encodingName ) return true;
-   }
-   return false;
+singlebyte.prototype.isEncoding = function (encodingName) {
+  if (Buffer.isEncoding(encodingName)) return true;
+  for (var i = 0; i < this.encodings.length; i++) {
+    if (this.encodings[i].name === encodingName) return true;
+  }
+  return false;
 };
 
-singlebyte.prototype.learnEncoding = function(encodingName, encodingTable){
-   if( Buffer.isEncoding(encodingName) ){
-      throw new Error(this.errors.BUFFER_ENCODING);
-   }
+singlebyte.prototype.learnEncoding = function (encodingName, encodingTable) {
+  if (Buffer.isEncoding(encodingName)) {
+    throw new Error(this.errors.BUFFER_ENCODING);
+  }
 
-   if( encodingTable.length !== 256 ){
-      throw new Error(this.errors.INVALID_TABLE_LENGTH);
-   }
+  if (encodingTable.length !== 256) {
+    throw new Error(this.errors.INVALID_TABLE_LENGTH);
+  }
 
-   var _this = this;
-   encodingTable = encodingTable.map(function(item){
-      var nextCode = item |0;
-      if( 0 > nextCode || nextCode > 0x10FFFF ){
-         throw new Error(_this.errors.OUT_OF_UNICODE);
+  var _this = this;
+  encodingTable = encodingTable.map(function (item) {
+    var nextCode = item | 0;
+    if (0 > nextCode || nextCode > 0x10ffff) {
+      throw new Error(_this.errors.OUT_OF_UNICODE);
+    }
+    return item;
+  });
+
+  if (this.isEncoding(encodingName)) {
+    for (var i = 0; i < this.encodings.length; i++) {
+      if (this.encodings[i].name === encodingName) {
+        this.encodings[i].table = encodingTable;
+        return;
       }
-      return item;
-   });
-
-   if( this.isEncoding(encodingName) ){
-      for( var i = 0; i < this.encodings.length; i++ ){
-         if( this.encodings[i].name === encodingName ){
-            this.encodings[i].table = encodingTable;
-            return;
-         }
-      }
-   } else {
-      this.encodings.push({
-         name:  encodingName,
-         table: encodingTable
-      });
-   }
+    }
+  } else {
+    this.encodings.push({
+      name: encodingName,
+      table: encodingTable,
+    });
+  }
 };
 
-singlebyte.prototype.getEncodingTable = function(encodingName){
-   for( var i = 0; i < this.encodings.length; i++ ){
-      if( this.encodings[i].name === encodingName ){
-         return this.encodings[i].table;
-      }
-   }
-   return null;
+singlebyte.prototype.getEncodingTable = function (encodingName) {
+  for (var i = 0; i < this.encodings.length; i++) {
+    if (this.encodings[i].name === encodingName) {
+      return this.encodings[i].table;
+    }
+  }
+  return null;
 };
 
-singlebyte.prototype.extendASCII = function(extensionTable){
-   if( extensionTable.length !== 128 ){
-      throw new Error(this.errors.INVALID_EXTENSION);
-   }
+singlebyte.prototype.extendASCII = function (extensionTable) {
+  if (extensionTable.length !== 128) {
+    throw new Error(this.errors.INVALID_EXTENSION);
+  }
 
-   var output = [];
-   for( var i = 0; i < 128; i++ ) output.push(i);
-   return output.concat(extensionTable);
+  var output = [];
+  for (var i = 0; i < 128; i++) output.push(i);
+  return output.concat(extensionTable);
 };
 
-singlebyte.prototype.bufToStr = function(buf, encoding, start, end){
-   if(!( Buffer.isBuffer(buf) )){
-      throw new Error(this.errors.NOT_A_BUFFER);
-   }
-   if( Buffer.isEncoding(encoding) ){
-      return buf.toString(encoding, start, end);
-   }
-   var table = this.getEncodingTable(encoding);
-   if( table === null ) throw new Error(this.errors.UNKNOWN_ENCODING);
+singlebyte.prototype.bufToStr = function (buf, encoding, start, end) {
+  if (!Buffer.isBuffer(buf)) {
+    throw new Error(this.errors.NOT_A_BUFFER);
+  }
+  if (Buffer.isEncoding(encoding)) {
+    return buf.toString(encoding, start, end);
+  }
+  var table = this.getEncodingTable(encoding);
+  if (table === null) throw new Error(this.errors.UNKNOWN_ENCODING);
 
-   if( typeof end   === 'undefined' ) end   = buf.length;
-   if( typeof start === 'undefined' ) start = 0;
+  if (typeof end === "undefined") end = buf.length;
+  if (typeof start === "undefined") start = 0;
 
-   var output = '';
-   var sourceValue;
-   for( var i = start; i < end; i++ ){
-      sourceValue = table[ buf[i] ];
-      if( sourceValue <= 0xFFFF ){
-         output += String.fromCharCode(sourceValue);
-      } else if( 0x10000 <= sourceValue && sourceValue <= 0x10FFFF ){
-         sourceValue -= 0x10000;
-         output += String.fromCharCode( 0xD800 + (sourceValue >> 10) );
-         output += String.fromCharCode( 0xDC00 + (sourceValue & 0x3FF) );
-      } else throw new Error(this.errors.OUT_OF_UNICODE);
-   }
-   return output;
+  var output = "";
+  var sourceValue;
+  for (var i = start; i < end; i++) {
+    sourceValue = table[buf[i]];
+    if (sourceValue <= 0xffff) {
+      output += String.fromCharCode(sourceValue);
+    } else if (0x10000 <= sourceValue && sourceValue <= 0x10ffff) {
+      sourceValue -= 0x10000;
+      output += String.fromCharCode(0xd800 + (sourceValue >> 10));
+      output += String.fromCharCode(0xdc00 + (sourceValue & 0x3ff));
+    } else throw new Error(this.errors.OUT_OF_UNICODE);
+  }
+  return output;
 };
 
 var strToBufDefaults = {
-   defaultCode: 0x3F   // '?'
+  defaultCode: 0x3f, // '?'
 };
 
-singlebyte.prototype.strToBuf = function(str, encoding, encodingOptions){
-   if( Buffer.isEncoding(encoding) ){
-      return new Buffer(str, encoding);
-   }
-   str = '' + str;
-   var options = extend({}, strToBufDefaults, encodingOptions);
-   var table = this.getEncodingTable(encoding);
-   if( table === null ) throw new Error(this.errors.UNKNOWN_ENCODING);
-   var output = [];
-   for( var i = 0; i < str.length; i++ ){
-      var charUnicode;
-      var thisCharCode = str.charCodeAt(i);
-      if( 0xD800 <= thisCharCode && thisCharCode <= 0xDBFF &&
-         i+1 < str.length
-      ){
-         var nextCharCode = str.charCodeAt(i+1);
-         if( 0xDC00 <= nextCharCode && nextCharCode <= 0xDFFF ){
-            charUnicode = 0x10000 + (thisCharCode - 0xD800)*0x400 +
-               (nextCharCode - 0xDC00);
-            i++;
-         } else {
-            charUnicode = thisCharCode;
-         }
+singlebyte.prototype.strToBuf = function (str, encoding, encodingOptions) {
+  if (Buffer.isEncoding(encoding)) {
+    return new Buffer(str, encoding);
+  }
+  str = "" + str;
+  var options = extend({}, strToBufDefaults, encodingOptions);
+  var table = this.getEncodingTable(encoding);
+  if (table === null) throw new Error(this.errors.UNKNOWN_ENCODING);
+  var output = [];
+  for (var i = 0; i < str.length; i++) {
+    var charUnicode;
+    var thisCharCode = str.charCodeAt(i);
+    if (
+      0xd800 <= thisCharCode &&
+      thisCharCode <= 0xdbff &&
+      i + 1 < str.length
+    ) {
+      var nextCharCode = str.charCodeAt(i + 1);
+      if (0xdc00 <= nextCharCode && nextCharCode <= 0xdfff) {
+        charUnicode =
+          0x10000 + (thisCharCode - 0xd800) * 0x400 + (nextCharCode - 0xdc00);
+        i++;
       } else {
-         charUnicode = thisCharCode;
+        charUnicode = thisCharCode;
       }
+    } else {
+      charUnicode = thisCharCode;
+    }
 
-      var codeFoundIndex = table.indexOf(charUnicode);
-      if( codeFoundIndex < 0 ){
-         output.push(options.defaultCode);
-      } else {
-         output.push(codeFoundIndex);
-      }
-   }
-   return new Buffer(output);
+    var codeFoundIndex = table.indexOf(charUnicode);
+    if (codeFoundIndex < 0) {
+      output.push(options.defaultCode);
+    } else {
+      output.push(codeFoundIndex);
+    }
+  }
+  return new Buffer(output);
 };
 
 singlebyte.prototype.errors = {
-   NOT_A_BUFFER : 'The given source is not a buffer!',
-   UNKNOWN_ENCODING : 'The given encoding is not defined!',
-   INVALID_TABLE_LENGTH : 'The encoding table must have 256 elements!',
-   INVALID_EXTENSION : 'The ASCII extension table must have 128 elements!',
-   BUFFER_ENCODING : "Cannot redefine a Node's encoding!",
-   OUT_OF_UNICODE : "An encoding table's element is greater than 0x10FFFF!"
+  NOT_A_BUFFER: "The given source is not a buffer!",
+  UNKNOWN_ENCODING: "The given encoding is not defined!",
+  INVALID_TABLE_LENGTH: "The encoding table must have 256 elements!",
+  INVALID_EXTENSION: "The ASCII extension table must have 128 elements!",
+  BUFFER_ENCODING: "Cannot redefine a Node's encoding!",
+  OUT_OF_UNICODE: "An encoding table's element is greater than 0x10FFFF!",
 };
 
 module.exports = singlebyte();

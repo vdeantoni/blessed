@@ -6,15 +6,15 @@
  * Modules
  */
 
-import type { CheckboxOptions, KeyEvent } from '../types';
-import Input from './input.js';
+import type { CheckboxOptions, KeyEvent } from "../types";
+import Input from "./input.js";
 
 /**
  * Checkbox
  */
 
 class Checkbox extends Input {
-  override type = 'checkbox';
+  override type = "checkbox";
   /**
    * The text displayed next to the checkbox.
    *
@@ -43,39 +43,39 @@ class Checkbox extends Input {
   constructor(options: CheckboxOptions = {}) {
     super(options);
 
-    this.text = options.content || options.text || '';
+    this.text = options.content || options.text || "";
     this.checked = this.value = options.checked || false;
 
-    this.on('keypress', (_ch: string, key: KeyEvent) => {
-      if (key.name === 'enter' || key.name === 'space') {
+    this.on("keypress", (_ch: string, key: KeyEvent) => {
+      if (key.name === "enter" || key.name === "space") {
         this.toggle();
         this.screen.render();
       }
     });
 
     if (options.mouse) {
-      this.on('click', () => {
+      this.on("click", () => {
         this.toggle();
         this.screen.render();
       });
     }
 
-    this.on('focus', () => {
+    this.on("focus", () => {
       const lpos = this.lpos;
       if (!lpos) return;
-      this.screen.program.lsaveCursor('checkbox');
+      this.screen.program.lsaveCursor("checkbox");
       this.screen.program.cup(lpos.yi, lpos.xi + 1);
       this.screen.program.showCursor();
     });
 
-    this.on('blur', () => {
-      this.screen.program.lrestoreCursor('checkbox', true);
+    this.on("blur", () => {
+      this.screen.program.lrestoreCursor("checkbox", true);
     });
   }
 
   override render(): any {
     this.clearPos(true);
-    this.setContent('[' + (this.checked ? 'x' : ' ') + '] ' + this.text, true);
+    this.setContent("[" + (this.checked ? "x" : " ") + "] " + this.text, true);
     return super.render();
   }
 
@@ -90,7 +90,7 @@ class Checkbox extends Input {
   check(): void {
     if (this.checked) return;
     this.checked = this.value = true;
-    this.emit('check');
+    this.emit("check");
   }
 
   /**
@@ -104,7 +104,7 @@ class Checkbox extends Input {
   uncheck(): void {
     if (!this.checked) return;
     this.checked = this.value = false;
-    this.emit('uncheck');
+    this.emit("uncheck");
   }
 
   /**
@@ -115,9 +115,7 @@ class Checkbox extends Input {
    * checkbox.toggle();
    */
   override toggle(): void {
-    return this.checked
-      ? this.uncheck()
-      : this.check();
+    return this.checked ? this.uncheck() : this.check();
   }
 }
 

@@ -1,30 +1,32 @@
 import blessed from "../dist/index.js";
-import fs from 'fs';
+import fs from "fs";
 
 const __dirname = import.meta.dirname;
 
 var argv = {};
 
-process.argv = process.argv.map(function(arg, i) {
-  if (/^--\w+=/.test(arg)) {
-    arg = arg.split('=');
-    if (/^[0-9.]+$/.test(arg[1])) arg[1] = +arg[1];
-    argv[arg[0].replace(/^--/, '')] = arg[1];
-    return;
-  }
-  if (arg.indexOf('--') === 0) {
-    arg = arg.slice(2);
-    argv[arg] = true;
-    return;
-  }
-  return arg;
-}).filter(Boolean);
+process.argv = process.argv
+  .map(function (arg, i) {
+    if (/^--\w+=/.test(arg)) {
+      arg = arg.split("=");
+      if (/^[0-9.]+$/.test(arg[1])) arg[1] = +arg[1];
+      argv[arg[0].replace(/^--/, "")] = arg[1];
+      return;
+    }
+    if (arg.indexOf("--") === 0) {
+      arg = arg.slice(2);
+      argv[arg] = true;
+      return;
+    }
+    return arg;
+  })
+  .filter(Boolean);
 
 var screen = blessed.screen({
   tput: true,
   smartCSR: true,
-  dump: __dirname + '/logs/png.log',
-  warnings: true
+  dump: __dirname + "/logs/png.log",
+  warnings: true,
 });
 
 var box1 = blessed.box({
@@ -33,11 +35,11 @@ var box1 = blessed.box({
   top: 3,
   width: 10,
   height: 6,
-  border: 'line',
+  border: "line",
   style: {
-    bg: 'green'
+    bg: "green",
   },
-  content: fs.readFileSync(__dirname + '/lorem.txt', 'utf8')
+  content: fs.readFileSync(__dirname + "/lorem.txt", "utf8"),
 });
 
 var box2 = blessed.box({
@@ -46,20 +48,20 @@ var box2 = blessed.box({
   top: 8,
   width: 40,
   height: 15,
-  border: 'line',
+  border: "line",
   style: {
-    bg: 'green'
+    bg: "green",
   },
-  content: fs.readFileSync(__dirname + '/lorem.txt', 'utf8')
+  content: fs.readFileSync(__dirname + "/lorem.txt", "utf8"),
 });
 
 var file = process.argv[2];
-var testImage = __dirname + '/test-image.png';
-var spinfox = __dirname + '/spinfox.png';
+var testImage = __dirname + "/test-image.png";
+var spinfox = __dirname + "/spinfox.png";
 
 // XXX I'm not sure of the license of this file,
 // so I'm not going to redistribute it in the repo.
-var url = 'https://people.mozilla.org/~dolske/apng/spinfox.png';
+var url = "https://people.mozilla.org/~dolske/apng/spinfox.png";
 
 if (!file) {
   try {
@@ -86,21 +88,21 @@ var png = blessed.image({
   left: 0,
   file: file,
   draggable: true,
-  type: 'ansi',
+  type: "ansi",
   scale: argv.scale,
   ascii: argv.ascii,
   optimization: argv.optimization,
-  speed: argv.speed
+  speed: argv.speed,
 });
 
 screen.render();
 
-screen.key('q', function() {
+screen.key("q", function () {
   clearInterval(timeout);
   screen.destroy();
 });
 
-var timeout = setInterval(function() {
+var timeout = setInterval(function () {
   if (png.right <= 0) {
     clearInterval(timeout);
     return;
@@ -111,26 +113,26 @@ var timeout = setInterval(function() {
 
 if (timeout.unref) timeout.unref();
 
-screen.key(['h', 'left'], function() {
+screen.key(["h", "left"], function () {
   png.left -= 2;
 });
 
-screen.key(['k', 'up'], function() {
+screen.key(["k", "up"], function () {
   png.top -= 2;
 });
 
-screen.key(['l', 'right'], function() {
+screen.key(["l", "right"], function () {
   png.left += 2;
 });
 
-screen.key(['j', 'down'], function() {
+screen.key(["j", "down"], function () {
   png.top += 2;
 });
 
-screen.on('keypress', function() {
+screen.on("keypress", function () {
   clearInterval(timeout);
 });
 
-png.on('mousedown', function() {
+png.on("mousedown", function () {
   clearInterval(timeout);
 });
