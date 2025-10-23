@@ -506,16 +506,178 @@ export default function LiveDemo() {
   // Configure Monaco Editor with unblessed types
   const handleEditorMount = useCallback(async (editor: any, monaco: any) => {
     try {
-      // Fetch type definitions from unpkg CDN
-      const response = await fetch(
-        "https://unpkg.com/@unblessed/browser/dist/index.d.ts",
-      );
-      const types = await response.text();
+      // Declare @unblessed/browser module with core widget types
+      const unblessedTypes = `
+declare module '@unblessed/browser' {
+  export interface NodeOptions {
+    screen?: Screen;
+    parent?: Node;
+    children?: Node[];
+    left?: number | string;
+    right?: number | string;
+    top?: number | string;
+    bottom?: number | string;
+    width?: number | string;
+    height?: number | string;
+  }
+
+  export interface Style {
+    fg?: string;
+    bg?: string;
+    bold?: boolean;
+    underline?: boolean;
+    blink?: boolean;
+    inverse?: boolean;
+    invisible?: boolean;
+    border?: {
+      fg?: string;
+      bg?: string;
+    };
+    scrollbar?: {
+      fg?: string;
+      bg?: string;
+    };
+    focus?: Style;
+    selected?: Style;
+    item?: Style;
+    bar?: Style;
+    header?: Style;
+    cell?: Style;
+  }
+
+  export interface ElementOptions extends NodeOptions {
+    style?: Style;
+    border?: 'line' | 'bg' | { type: 'line' | 'bg' };
+    padding?: number | { left?: number; right?: number; top?: number; bottom?: number };
+    tags?: boolean;
+    content?: string;
+    clickable?: boolean;
+    input?: boolean;
+    keyable?: boolean;
+    focused?: any;
+    hidden?: boolean;
+    label?: string;
+    align?: 'left' | 'center' | 'right';
+    valign?: 'top' | 'middle' | 'bottom';
+    shrink?: boolean;
+    draggable?: boolean;
+    scrollable?: boolean;
+    mouse?: boolean;
+    keys?: boolean;
+    vi?: boolean;
+  }
+
+  export class Screen {
+    constructor(options?: any);
+    render(): void;
+    destroy(): void;
+    key(keys: string | string[], listener: (ch: any, key: any) => void): void;
+    on(event: string, listener: (...args: any[]) => void): void;
+  }
+
+  export class Node {
+    constructor(options?: NodeOptions);
+    screen: Screen;
+    parent?: Node;
+    children: Node[];
+    on(event: string, listener: (...args: any[]) => void): void;
+    emit(event: string, ...args: any[]): void;
+  }
+
+  export class Element extends Node {
+    constructor(options?: ElementOptions);
+    render(): void;
+    focus(): void;
+    setContent(content: string): void;
+  }
+
+  export class Box extends Element {
+    constructor(options?: ElementOptions);
+  }
+
+  export class Text extends Element {
+    constructor(options?: ElementOptions);
+  }
+
+  export interface ListOptions extends ElementOptions {
+    items?: string[];
+    selected?: number;
+  }
+
+  export class List extends Box {
+    constructor(options?: ListOptions);
+    select(index: number): void;
+    focus(): void;
+  }
+
+  export interface TableOptions extends ElementOptions {
+    data?: string[][];
+  }
+
+  export class Table extends Box {
+    constructor(options?: TableOptions);
+    setData(data: string[][]): void;
+  }
+
+  export interface FormOptions extends ElementOptions {
+    keys?: boolean;
+  }
+
+  export class Form extends Box {
+    constructor(options?: FormOptions);
+    submit(): void;
+    on(event: 'submit', listener: (data: any) => void): void;
+  }
+
+  export interface InputOptions extends ElementOptions {
+    name?: string;
+    value?: string;
+    inputOnFocus?: boolean;
+  }
+
+  export class Textbox extends Element {
+    constructor(options?: InputOptions);
+    getValue(): string;
+    setValue(value: string): void;
+    readInput(callback?: (err: any, value: string) => void): void;
+  }
+
+  export class Textarea extends Textbox {
+    constructor(options?: InputOptions);
+  }
+
+  export interface ButtonOptions extends ElementOptions {
+    content?: string;
+  }
+
+  export class Button extends Element {
+    constructor(options?: ButtonOptions);
+    on(event: 'press', listener: () => void): void;
+    press(): void;
+  }
+
+  export interface ProgressBarOptions extends ElementOptions {
+    filled?: number;
+    pch?: string;
+  }
+
+  export class ProgressBar extends Element {
+    constructor(options?: ProgressBarOptions);
+    setProgress(percent: number): void;
+  }
+
+  export class BigText extends Box {
+    constructor(options?: ElementOptions);
+  }
+}
+
+declare const screen: import('@unblessed/browser').Screen;
+`;
 
       // Add the type definitions to Monaco's TypeScript compiler
       monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        types,
-        "file:///node_modules/@unblessed/browser/index.d.ts",
+        unblessedTypes,
+        "ts:filename/unblessed.d.ts",
       );
 
       // Configure compiler options
@@ -532,15 +694,17 @@ export default function LiveDemo() {
         typeRoots: ["node_modules/@types"],
       });
 
-      // Add a global screen variable declaration so it doesn't error
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(
-        `
-declare const screen: import("@unblessed/browser").Screen;
-      `,
-        "file:///globals.d.ts",
-      );
+      // Enable diagnostics and suggestions
+      monaco.languages.typescript.typescriptDefaults.setDiagnosticsOptions({
+        noSemanticValidation: false,
+        noSyntaxValidation: false,
+        noSuggestionDiagnostics: false,
+      });
+
+      // Enable eager model sync for better IntelliSense
+      monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
     } catch (error) {
-      console.error("Failed to load type definitions:", error);
+      console.error("Failed to configure type definitions:", error);
     }
   }, []);
 
@@ -716,6 +880,30 @@ declare const screen: import("@unblessed/browser").Screen;
                     lineNumbers: "on",
                     renderLineHighlight: "all",
                     tabSize: 2,
+                    // Enable autocomplete and suggestions
+                    quickSuggestions: {
+                      other: true,
+                      comments: false,
+                      strings: false,
+                    },
+                    suggestOnTriggerCharacters: true,
+                    acceptSuggestionOnEnter: "on",
+                    tabCompletion: "on",
+                    wordBasedSuggestions: "matchingDocuments",
+                    suggest: {
+                      showMethods: true,
+                      showFunctions: true,
+                      showConstructors: true,
+                      showFields: true,
+                      showVariables: true,
+                      showClasses: true,
+                      showStructs: true,
+                      showInterfaces: true,
+                      showModules: true,
+                      showProperties: true,
+                      showKeywords: true,
+                      showSnippets: true,
+                    },
                   }}
                 />
               </div>
