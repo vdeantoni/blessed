@@ -1,3 +1,10 @@
+# [1.0.0-alpha.2](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2025-10-23)
+
+
+### Bug Fixes
+
+* **docs:** remove process.env references and add missing logo-dark.svg ([d8f0cbe](https://github.com/vdeantoni/unblessed/commit/d8f0cbeb125b7e6437fbcb9bd1589cdff9424818))
+
 # 1.0.0-alpha.1 (2025-10-23)
 
 
