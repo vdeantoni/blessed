@@ -23,6 +23,7 @@ export default defineConfig({
         "dist/**",
         "**/*.config.*",
         "examples/**",
+        "src/index.ts", // Module initialization code
       ],
       thresholds: {
         lines: 70,

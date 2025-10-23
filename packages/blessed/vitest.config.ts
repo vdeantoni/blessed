@@ -24,6 +24,8 @@ export default defineConfig({
         "example/**",
         "test/**",
         "img/**",
+        "src/blessed.ts", // Module initialization code
+        "src/index.ts", // Module initialization code
       ],
       thresholds: {
         lines: 70,

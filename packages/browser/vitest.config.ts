@@ -21,6 +21,8 @@ export default defineConfig({
         "dist/**",
         "**/*.config.*",
         "**/scripts/**",
+        "src/runtime/auto-init.ts", // Module initialization code
+        "src/vite-plugin/**", // Build-time plugin code
       ],
       thresholds: {
         lines: 70,
