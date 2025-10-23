@@ -60,6 +60,7 @@
     "clean": "rimraf dist coverage .turbo",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "lint": "eslint . --fix",
     "lint:check": "eslint .",
     "format": "prettier --write .",
