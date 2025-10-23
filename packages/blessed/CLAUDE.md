@@ -439,7 +439,7 @@ When making changes to @unblessed/blessed:
 
 ## Version History
 
-- **1.0.0-alpha.1** - Initial release with full API coverage
+- **1.0.0-alpha.0** - Initial release with full API coverage
   - All 27 widgets implemented
   - WidgetFactory pattern
   - Widgets namespace for TypeScript

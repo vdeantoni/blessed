@@ -28,7 +28,7 @@
   "preferGlobal": false,
   "repository": {
     "type": "git",
-    "url": "git://github.com/vdeantoni/unblessed.git",
+    "url": "https://github.com/vdeantoni/unblessed.git",
     "directory": "packages/blessed"
   },
   "homepage": "https://github.com/vdeantoni/unblessed/tree/master/packages/blessed",
@@ -89,8 +89,5 @@
     "tsup": "8.5.0",
     "typescript": "5.9.3",
     "vitest": "^3.2.4"
-  },
-  "peerDependencies": {
-    "@unblessed/node": "^1.0.0-alpha.1"
   }
 }

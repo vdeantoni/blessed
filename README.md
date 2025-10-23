@@ -224,7 +224,7 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 ## 🎯 Project Status
 
-**Current Version:** `1.0.0-alpha.19`
+**Current Version:** `1.0.0-alpha.0`
 
 ### ✅ Completed
 

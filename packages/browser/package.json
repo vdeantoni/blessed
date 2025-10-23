@@ -36,7 +36,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/vdeantoni/unblessed.git",
+    "url": "https://github.com/vdeantoni/unblessed.git",
     "directory": "packages/browser"
   },
   "homepage": "https://github.com/vdeantoni/unblessed",
@@ -95,7 +95,7 @@
     "vitest": "^3.2.4"
   },
   "peerDependencies": {
-    "@unblessed/core": "^1.0.0-alpha.1",
+    "@unblessed/core": "^1.0.0-alpha.0",
     "xterm": "^5.0.0"
   },
   "engines": {

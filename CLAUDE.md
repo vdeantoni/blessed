@@ -22,7 +22,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Browser support via XTerm.js
 - 100% backward compatible with blessed
 
-**Current Version:** `1.0.0-alpha.19`
+**Current Version:** `1.0.0-alpha.0`
 
 ## Development Commands
 

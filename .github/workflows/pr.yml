@@ -2,7 +2,7 @@ name: PR Validation
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, alpha, beta]
 
 jobs:
   validate:

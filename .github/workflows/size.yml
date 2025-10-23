@@ -2,7 +2,7 @@ name: Bundle Size
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, alpha, beta]
 
 jobs:
   size:

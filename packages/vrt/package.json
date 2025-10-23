@@ -1,7 +1,7 @@
 {
   "name": "@unblessed/vrt",
   "description": "Visual Regression Testing tools for @unblessed terminal UI applications",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.0",
   "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
   "license": "MIT",
   "publishConfig": {
@@ -31,7 +31,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/vdeantoni/unblessed.git",
+    "url": "https://github.com/vdeantoni/unblessed.git",
     "directory": "packages/vrt"
   },
   "homepage": "https://github.com/vdeantoni/unblessed/tree/master/packages/vrt",
@@ -59,7 +59,7 @@
     "format:check": "prettier --check ."
   },
   "peerDependencies": {
-    "@unblessed/core": "^1.0.0-alpha.1"
+    "@unblessed/core": "^1.0.0-alpha.0"
   },
   "devDependencies": {
     "@types/node": "24.6.2",

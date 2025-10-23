@@ -174,7 +174,7 @@ If automation fails:
 
 ## Release Configuration
 
-- `.releaserc.js` - Semantic-release config
+- `.releaserc.json` - Semantic-release config
 - `scripts/sync-versions.js` - Version sync script
 - `scripts/publish-packages.js` - Publishing script
 - `.github/workflows/release.yml` - Release workflow
