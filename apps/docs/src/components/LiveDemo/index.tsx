@@ -18,8 +18,10 @@ const CODE_EXAMPLES: CodeExample[] = [
     id: "simple-box",
     title: "Simple Box",
     description: "A basic centered box with styled content and borders",
-    code: `// Simple centered box
-const box = new tui.Box({
+    code: `import { Box } from '@unblessed/browser';
+
+// Simple centered box
+const box = new Box({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -43,8 +45,10 @@ screen.render();`,
     id: "interactive-list",
     title: "Interactive List",
     description: "Navigate items with keyboard or mouse, handle selections",
-    code: `// Interactive list with selection
-const list = new tui.List({
+    code: `import { List, Box } from '@unblessed/browser';
+
+// Interactive list with selection
+const list = new List({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -73,7 +77,7 @@ const list = new tui.List({
   ]
 });
 
-const box = new tui.Box({
+const box = new Box({
   parent: screen,
   top: 3,
   left: 'center',
@@ -96,8 +100,10 @@ screen.render();`,
     id: "table",
     title: "Data Table",
     description: "Display tabular data with headers and rows",
-    code: `// Data table
-const table = new tui.Table({
+    code: `import { Table } from '@unblessed/browser';
+
+// Data table
+const table = new Table({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -131,8 +137,10 @@ screen.render();`,
     id: "form",
     title: "Input Form",
     description: "Create interactive forms with text inputs and buttons",
-    code: `// Interactive form with inputs
-const form = new tui.Form({
+    code: `import { Form, Textbox, Button, Box } from '@unblessed/browser';
+
+// Interactive form with inputs
+const form = new Form({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -145,7 +153,7 @@ const form = new tui.Form({
   mouse: true
 });
 
-const nameInput = new tui.Textbox({
+const nameInput = new Textbox({
   parent: form,
   top: 2,
   left: 2,
@@ -159,7 +167,7 @@ const nameInput = new tui.Textbox({
   keys: true
 });
 
-const emailInput = new tui.Textbox({
+const emailInput = new Textbox({
   parent: form,
   top: 6,
   left: 2,
@@ -173,7 +181,7 @@ const emailInput = new tui.Textbox({
   keys: true
 });
 
-const submitBtn = new tui.Button({
+const submitBtn = new Button({
   parent: form,
   top: 10,
   left: 2,
@@ -189,7 +197,7 @@ const submitBtn = new tui.Button({
   }
 });
 
-const output = new tui.Box({
+const output = new Box({
   parent: form,
   top: 14,
   left: 2,
@@ -218,8 +226,10 @@ screen.render();`,
     id: "animation",
     title: "Animation",
     description: "Animated progress bars with dynamic status updates",
-    code: `// Animated progress bar
-const box = new tui.Box({
+    code: `import { Box, ProgressBar, Text } from '@unblessed/browser';
+
+// Animated progress bar
+const box = new Box({
   parent: screen,
   top: 'center',
   left: 'center',
@@ -231,7 +241,7 @@ const box = new tui.Box({
   tags: true
 });
 
-const progressBar = new tui.ProgressBar({
+const progressBar = new ProgressBar({
   parent: box,
   top: 1,
   left: 2,
@@ -243,7 +253,7 @@ const progressBar = new tui.ProgressBar({
   border: { type: 'line' }
 });
 
-const statusText = new tui.Text({
+const statusText = new Text({
   parent: box,
   top: 5,
   left: 'center',
@@ -277,15 +287,17 @@ screen.render();`,
     id: "dashboard",
     title: "Dashboard Layout",
     description: "Multi-pane layout with header, sidebar, and content areas",
-    code: `// Multi-pane layout
-const container = new tui.Box({
+    code: `import { Box, List } from '@unblessed/browser';
+
+// Multi-pane layout
+const container = new Box({
   parent: screen,
   width: '100%',
   height: '100%'
 });
 
 // Header
-const header = new tui.Box({
+const header = new Box({
   parent: container,
   top: 0,
   left: 0,
@@ -297,7 +309,7 @@ const header = new tui.Box({
 });
 
 // Sidebar
-const sidebar = new tui.List({
+const sidebar = new List({
   parent: container,
   top: 3,
   left: 0,
@@ -316,7 +328,7 @@ const sidebar = new tui.List({
 });
 
 // Main content area
-const content = new tui.Box({
+const content = new Box({
   parent: container,
   top: 3,
   left: '30%',
@@ -333,7 +345,7 @@ const content = new tui.Box({
 });
 
 // Footer
-const footer = new tui.Box({
+const footer = new Box({
   parent: container,
   bottom: 0,
   left: 0,
@@ -357,8 +369,10 @@ screen.render();`,
     id: "ascii-art",
     title: "ASCII Art",
     description: "Display big text and ASCII art graphics",
-    code: `// ASCII art and big text
-const title = new tui.BigText({
+    code: `import { BigText, Box, List } from '@unblessed/browser';
+
+// ASCII art and big text
+const title = new BigText({
   parent: screen,
   top: 2,
   left: 'center',
@@ -371,7 +385,7 @@ const title = new tui.BigText({
   }
 });
 
-const subtitle = new tui.Box({
+const subtitle = new Box({
   parent: screen,
   top: 13,
   left: 'center',
@@ -382,7 +396,7 @@ const subtitle = new tui.Box({
   style: { fg: 'white' }
 });
 
-const features = new tui.List({
+const features = new List({
   parent: screen,
   top: 17,
   left: 'center',
@@ -501,13 +515,39 @@ export default function LiveDemo() {
 
         screen.current = new tui.Screen({ terminal: terminal.current });
 
-        // Execute user code
-        const userFunction = new Function(
-          "tui",
-          "screen",
-          code.replace(/import.*from.*['"];?\s*/g, ""),
+        // Parse import statements to extract requested widgets
+        const importMatches = code.matchAll(
+          /import\s*\{([^}]+)\}\s*from\s*['"]@unblessed\/browser['"]/g,
         );
-        await userFunction(tui, screen.current);
+        const importedNames = new Set<string>();
+
+        for (const match of importMatches) {
+          const names = match[1].split(",").map((n) => n.trim());
+          names.forEach((name) => importedNames.add(name));
+        }
+
+        // Remove import statements
+        const cleanCode = code.replace(/import.*from.*['"];?\s*/g, "");
+
+        // Build scope with both tui namespace and individual imports
+        const scope: Record<string, any> = {
+          screen: screen.current,
+          tui, // Keep tui for backward compatibility
+        };
+
+        // Add each imported widget to scope
+        for (const name of importedNames) {
+          if (name in tui) {
+            scope[name] = (tui as any)[name];
+          }
+        }
+
+        // Create function with dynamic scope
+        const paramNames = Object.keys(scope);
+        const paramValues = Object.values(scope);
+        const userFunction = new Function(...paramNames, cleanCode);
+
+        await userFunction(...paramValues);
 
         setIsLoaded(true);
       } catch (error) {
