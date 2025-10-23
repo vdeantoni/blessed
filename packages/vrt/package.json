@@ -59,7 +59,7 @@
     "format:check": "prettier --check ."
   },
   "peerDependencies": {
-    "@unblessed/core": "^1.0.0-alpha.0"
+    "@unblessed/core": "workspace:^"
   },
   "devDependencies": {
     "@types/node": "24.6.2",
