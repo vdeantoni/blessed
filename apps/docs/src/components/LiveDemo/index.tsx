@@ -503,6 +503,47 @@ export default function LiveDemo() {
     }
   }, []);
 
+  // Configure Monaco Editor with unblessed types
+  const handleEditorMount = useCallback(async (editor: any, monaco: any) => {
+    try {
+      // Fetch type definitions from unpkg CDN
+      const response = await fetch(
+        "https://unpkg.com/@unblessed/browser/dist/index.d.ts",
+      );
+      const types = await response.text();
+
+      // Add the type definitions to Monaco's TypeScript compiler
+      monaco.languages.typescript.typescriptDefaults.addExtraLib(
+        types,
+        "file:///node_modules/@unblessed/browser/index.d.ts",
+      );
+
+      // Configure compiler options
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        target: monaco.languages.typescript.ScriptTarget.ES2020,
+        allowNonTsExtensions: true,
+        moduleResolution:
+          monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+        module: monaco.languages.typescript.ModuleKind.ESNext,
+        noEmit: true,
+        esModuleInterop: true,
+        jsx: monaco.languages.typescript.JsxEmit.React,
+        allowJs: true,
+        typeRoots: ["node_modules/@types"],
+      });
+
+      // Add a global screen variable declaration so it doesn't error
+      monaco.languages.typescript.typescriptDefaults.addExtraLib(
+        `
+declare const screen: import("@unblessed/browser").Screen;
+      `,
+        "file:///globals.d.ts",
+      );
+    } catch (error) {
+      console.error("Failed to load type definitions:", error);
+    }
+  }, []);
+
   const runDemo = useCallback(
     async (code: string) => {
       try {
@@ -664,6 +705,7 @@ export default function LiveDemo() {
                   defaultLanguage="typescript"
                   value={editorCode}
                   onChange={handleEditorChange}
+                  onMount={handleEditorMount}
                   theme="vs-dark"
                   options={{
                     minimap: { enabled: false },
