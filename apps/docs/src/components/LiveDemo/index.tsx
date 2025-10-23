@@ -15,71 +15,88 @@ interface CodeExample {
 
 const CODE_EXAMPLES: CodeExample[] = [
   {
-    id: "dashboard",
-    title: "Dashboard",
-    description: "Multi-pane layout with header, sidebar, and content",
-    code: `// Multi-pane dashboard layout
-const header = new tui.Box({
+    id: "simple-box",
+    title: "Simple Box",
+    description: "A basic centered box with styled content and borders",
+    code: `// Simple centered box
+const box = new tui.Box({
   parent: screen,
-  top: 0,
-  left: 0,
-  width: '100%',
-  height: 3,
-  content: '{center}{bold}{cyan-fg}Dashboard{/cyan-fg}{/bold}{/center}',
+  top: 'center',
+  left: 'center',
+  width: '50%',
+  height: '50%',
+  content: '{bold}{cyan-fg}Hello unblessed!{/cyan-fg}{/bold}\\n\\n' +
+           'This is unblessed running in your browser.\\n\\n' +
+           'Try the other examples!',
   tags: true,
-  style: { fg: 'white', bg: 'blue' }
-});
-
-const sidebar = new tui.List({
-  parent: screen,
-  top: 3,
-  left: 0,
-  width: '30%',
-  height: '100%-6',
-  label: ' Menu ',
   border: { type: 'line' },
   style: {
-    border: { fg: 'cyan' },
-    selected: { bg: 'cyan', fg: 'black' }
-  },
-  keys: true,
-  mouse: true,
-  items: ['Dashboard', 'Analytics', 'Settings']
+    fg: 'white',
+    bg: 'black',
+    border: { fg: 'cyan' }
+  }
 });
 
-const content = new tui.Box({
+screen.render();`,
+  },
+  {
+    id: "interactive-list",
+    title: "Interactive List",
+    description: "Navigate items with keyboard or mouse, handle selections",
+    code: `// Interactive list with selection
+const list = new tui.List({
+  parent: screen,
+  top: 'center',
+  left: 'center',
+  width: '50%',
+  height: '50%',
+  label: ' {bold}{cyan-fg}Menu{/cyan-fg}{/bold} ',
+  tags: true,
+  keys: true,
+  vi: true,
+  mouse: true,
+  border: { type: 'line' },
+  style: {
+    fg: 'white',
+    border: { fg: 'cyan' },
+    selected: {
+      bg: 'cyan',
+      fg: 'black'
+    }
+  },
+  items: [
+    'Option 1',
+    'Option 2',
+    'Option 3',
+    'Option 4',
+    'Option 5'
+  ]
+});
+
+const box = new tui.Box({
   parent: screen,
   top: 3,
-  left: '30%',
-  width: '70%',
-  height: '100%-6',
-  border: { type: 'line' },
-  content: '{center}Main Content{/center}',
-  tags: true
-});
-
-const footer = new tui.Box({
-  parent: screen,
-  bottom: 0,
-  width: '100%',
+  left: 'center',
+  width: '50%',
   height: 3,
-  content: '{center}Status Bar{/center}',
-  style: { fg: 'white', bg: 'blue' }
+  content: 'Select an item with arrow keys or mouse',
+  tags: true,
+  style: { fg: 'yellow' }
 });
 
-sidebar.on('select', (item) => {
-  content.setContent(\`{center}{bold}\${item.getText()}{/bold}{/center}\`);
+list.on('select', (item, index) => {
+  box.setContent(\`{bold}Selected:{/bold} \${item.getText()} (index: \${index})\`);
   screen.render();
 });
 
-sidebar.focus();
+list.focus();
 screen.render();`,
   },
   {
     id: "table",
     title: "Data Table",
     description: "Display tabular data with headers and rows",
-    code: `// Interactive data table
+    code: `// Data table
 const table = new tui.Table({
   parent: screen,
   top: 'center',
@@ -92,18 +109,19 @@ const table = new tui.Table({
     header: { fg: 'white', bold: true },
     cell: { fg: 'white' }
   },
+  label: ' {bold}{cyan-fg}User Table{/cyan-fg}{/bold} ',
+  tags: true,
   keys: true,
+  vi: true,
   mouse: true,
-  data: {
-    headers: ['ID', 'Name', 'Status', 'Progress'],
-    data: [
-      ['1', 'Task Alpha', 'Active', '75%'],
-      ['2', 'Task Beta', 'Pending', '30%'],
-      ['3', 'Task Gamma', 'Complete', '100%'],
-      ['4', 'Task Delta', 'Active', '50%'],
-      ['5', 'Task Epsilon', 'Active', '90%']
-    ]
-  }
+  data: [
+    ['Name', 'Email', 'Role', 'Status'],
+    ['Alice Johnson', 'alice@example.com', 'Admin', 'Active'],
+    ['Bob Smith', 'bob@example.com', 'User', 'Active'],
+    ['Carol White', 'carol@example.com', 'User', 'Inactive'],
+    ['Dave Brown', 'dave@example.com', 'Moderator', 'Active'],
+    ['Eve Davis', 'eve@example.com', 'User', 'Active']
+  ]
 });
 
 table.focus();
@@ -119,11 +137,12 @@ const form = new tui.Form({
   top: 'center',
   left: 'center',
   width: '50%',
-  height: '60%',
+  height: '70%',
   label: ' {bold}User Registration{/bold} ',
   tags: true,
   border: { type: 'line' },
-  keys: true
+  keys: true,
+  mouse: true
 });
 
 const nameInput = new tui.Textbox({
@@ -133,8 +152,11 @@ const nameInput = new tui.Textbox({
   width: '80%',
   height: 3,
   label: ' Name: ',
+  name: 'name',
   border: { type: 'line' },
-  inputOnFocus: true
+  inputOnFocus: true,
+  mouse: true,
+  keys: true
 });
 
 const emailInput = new tui.Textbox({
@@ -144,8 +166,11 @@ const emailInput = new tui.Textbox({
   width: '80%',
   height: 3,
   label: ' Email: ',
+  name: 'email',
   border: { type: 'line' },
-  inputOnFocus: true
+  inputOnFocus: true,
+  mouse: true,
+  keys: true
 });
 
 const submitBtn = new tui.Button({
@@ -155,6 +180,8 @@ const submitBtn = new tui.Button({
   width: 20,
   height: 3,
   content: 'Submit',
+  mouse: true,
+  keys: true,
   style: {
     bg: 'green',
     fg: 'white',
@@ -162,8 +189,25 @@ const submitBtn = new tui.Button({
   }
 });
 
+const output = new tui.Box({
+  parent: form,
+  top: 14,
+  left: 2,
+  width: '80%',
+  height: 3,
+  content: 'Tab to navigate • Click to focus',
+  tags: true,
+  style: { fg: 'yellow' }
+});
+
 submitBtn.on('press', () => {
-  // Handle form submission
+  form.submit();
+});
+
+form.on('submit', (data) => {
+  output.setContent(
+    \`{bold}Submitted:{/bold}\\nName: \${data.name || '(empty)'}\\nEmail: \${data.email || '(empty)'}\`
+  );
   screen.render();
 });
 
@@ -171,53 +215,142 @@ form.focus();
 screen.render();`,
   },
   {
-    id: "progress",
-    title: "Progress Bars",
-    description: "Animated progress indicators and loading states",
-    code: `// Animated progress bars
-const boxes = [];
-const bars = [];
+    id: "animation",
+    title: "Animation",
+    description: "Animated progress bars with dynamic status updates",
+    code: `// Animated progress bar
+const box = new tui.Box({
+  parent: screen,
+  top: 'center',
+  left: 'center',
+  width: '60%',
+  height: 9,
+  border: { type: 'line' },
+  style: { border: { fg: 'cyan' } },
+  label: ' {bold}{cyan-fg}Loading Animation{/cyan-fg}{/bold} ',
+  tags: true
+});
 
-for (let i = 0; i < 3; i++) {
-  const box = new tui.Box({
-    parent: screen,
-    top: 3 + (i * 6),
-    left: 'center',
-    width: '70%',
-    height: 5,
-    border: { type: 'line' },
-    label: \` Task \${i + 1} \`
-  });
+const progressBar = new tui.ProgressBar({
+  parent: box,
+  top: 1,
+  left: 2,
+  right: 2,
+  height: 3,
+  filled: 0,
+  pch: ' ',
+  style: { bar: { bg: 'cyan' } },
+  border: { type: 'line' }
+});
 
-  const bar = new tui.ProgressBar({
-    parent: box,
-    top: 1,
-    left: 1,
-    width: '100%-2',
-    height: 1,
-    filled: 0,
-    style: {
-      bar: { bg: 'cyan' },
-      bg: 'black'
-    }
-  });
+const statusText = new tui.Text({
+  parent: box,
+  top: 5,
+  left: 'center',
+  content: 'Starting...',
+  tags: true,
+  style: { fg: 'yellow' }
+});
 
-  boxes.push(box);
-  bars.push(bar);
-}
-
-// Animate progress
 let progress = 0;
 const interval = setInterval(() => {
   progress += 5;
-  bars.forEach((bar, i) => {
-    bar.setProgress(Math.min(100, progress + (i * 10)));
-  });
-  screen.render();
+  progressBar.setProgress(progress);
 
-  if (progress >= 100) clearInterval(interval);
+  if (progress < 33) {
+    statusText.setContent('Loading resources...');
+  } else if (progress < 66) {
+    statusText.setContent('Processing data...');
+  } else if (progress < 100) {
+    statusText.setContent('Almost done...');
+  } else {
+    statusText.setContent('{bold}{green-fg}Complete!{/green-fg}{/bold}');
+    clearInterval(interval);
+  }
+
+  screen.render();
 }, 100);
 
+screen.render();`,
+  },
+  {
+    id: "dashboard",
+    title: "Dashboard Layout",
+    description: "Multi-pane layout with header, sidebar, and content areas",
+    code: `// Multi-pane layout
+const container = new tui.Box({
+  parent: screen,
+  width: '100%',
+  height: '100%'
+});
+
+// Header
+const header = new tui.Box({
+  parent: container,
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: 3,
+  content: '{center}{bold}{cyan-fg}unblessed Browser Layout{/cyan-fg}{/bold}{/center}',
+  tags: true,
+  style: { fg: 'white', bg: 'blue' }
+});
+
+// Sidebar
+const sidebar = new tui.List({
+  parent: container,
+  top: 3,
+  left: 0,
+  width: '30%',
+  height: '100%-6',
+  label: ' {bold}Menu{/bold} ',
+  tags: true,
+  keys: true,
+  mouse: true,
+  border: { type: 'line' },
+  style: {
+    border: { fg: 'cyan' },
+    selected: { bg: 'cyan', fg: 'black' }
+  },
+  items: ['Dashboard', 'Users', 'Settings', 'Reports', 'Help']
+});
+
+// Main content area
+const content = new tui.Box({
+  parent: container,
+  top: 3,
+  left: '30%',
+  width: '70%',
+  height: '100%-6',
+  border: { type: 'line' },
+  style: { border: { fg: 'cyan' } },
+  label: ' {bold}Content{/bold} ',
+  tags: true,
+  content: '{center}Select a menu item{/center}',
+  scrollable: true,
+  mouse: true,
+  keys: true
+});
+
+// Footer
+const footer = new tui.Box({
+  parent: container,
+  bottom: 0,
+  left: 0,
+  width: '100%',
+  height: 3,
+  content: '{center}Press q to quit | Use arrow keys or mouse to navigate{/center}',
+  tags: true,
+  style: { fg: 'white', bg: 'blue' }
+});
+
+sidebar.on('select', (item) => {
+  const selected = item.getText();
+  content.setContent(\`{center}{bold}\${selected}{/bold}{/center}\\n\\nThis is the \${selected} page.\`);
+  screen.render();
+});
+
+sidebar.focus();
 screen.render();`,
   },
   {
@@ -495,10 +628,11 @@ export default function LiveDemo() {
                   options={{
                     minimap: { enabled: false },
                     fontSize: 13,
-                    fontFamily: 'Monaco, Menlo, "Ubuntu Mono", Consolas, monospace',
+                    fontFamily:
+                      'Monaco, Menlo, "Ubuntu Mono", Consolas, monospace',
                     scrollBeyondLastLine: false,
-                    lineNumbers: 'on',
-                    renderLineHighlight: 'all',
+                    lineNumbers: "on",
+                    renderLineHighlight: "all",
                     tabSize: 2,
                   }}
                 />
@@ -521,7 +655,9 @@ export default function LiveDemo() {
                       "Terminal"}
                   </div>
                   <div className="window-status">
-                    {isLoaded && <span className="status-indicator">● Live</span>}
+                    {isLoaded && (
+                      <span className="status-indicator">● Live</span>
+                    )}
                   </div>
                 </>
               }

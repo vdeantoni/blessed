@@ -98,6 +98,7 @@ var text = blessed.textbox({
   parent: form,
   mouse: true,
   keys: true,
+  inputOnFocus: true,
   style: {
     bg: "blue",
   },
@@ -106,10 +107,6 @@ var text = blessed.textbox({
   left: 1,
   top: 3,
   name: "text",
-});
-
-text.on("focus", function () {
-  text.readInput();
 });
 
 var check = blessed.checkbox({

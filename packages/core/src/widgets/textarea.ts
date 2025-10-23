@@ -181,7 +181,7 @@ class Textarea extends Input {
     this.screen.program.showCursor();
     //this.screen.program.sgr('normal');
 
-    this._done = (err?: any, value?: any) => {
+    this._done = (err?: any, value?: any, newFocusedEl?: any) => {
       if (!this._reading) return;
 
       if ((this._done as any).done) return;
@@ -206,7 +206,15 @@ class Textarea extends Input {
       }
 
       if (this.options.inputOnFocus) {
-        this.screen.rewindFocus();
+        // Skip rewindFocus if we're switching to another textarea/textbox
+        // to prevent infinite recursion with multiple inputs
+        const isTextareaSwitch =
+          newFocusedEl &&
+          (newFocusedEl.type === "textarea" || newFocusedEl.type === "textbox");
+
+        if (!isTextareaSwitch) {
+          this.screen.rewindFocus();
+        }
       }
 
       // Ugly
@@ -233,7 +241,8 @@ class Textarea extends Input {
       this.on("keypress", this.__listener);
     });
 
-    this.__done = this._done.bind(this, null, null);
+    // Bind blur handler to pass the new focused element as third parameter
+    this.__done = (newFocusedEl?: any) => this._done(null, null, newFocusedEl);
     this.on("blur", this.__done);
   }
 
