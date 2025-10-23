@@ -1,0 +1,224 @@
+/**
+ * CSS module for unblessed landing page
+ */
+
+.heroBanner {
+  padding: 6rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.liveDemoLoading {
+  padding: 4rem 0;
+  text-align: center;
+  color: #a0a0a0;
+  font-size: 1.1rem;
+  background: linear-gradient(180deg, #1e1e1e 0%, #252526 100%);
+  border-top: 1px solid #3e3e42;
+  border-bottom: 1px solid #3e3e42;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroDescription {
+  font-size: 1.2rem;
+  color: #d4d4d4;
+  margin: 1rem 0 2rem;
+  opacity: 0.9;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+.quickInstall {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: rgba(45, 45, 48, 0.5);
+  border-radius: 8px;
+  border: 1px solid #3e3e42;
+}
+
+.quickInstall h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+.installTabs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.installTab {
+  background: #1e1e1e;
+  border: 1px solid #3e3e42;
+  border-radius: 6px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.installTab:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+}
+
+.installTab strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--ifm-color-primary);
+  font-size: 0.9rem;
+}
+
+.installTab pre {
+  margin: 0;
+  background: transparent;
+}
+
+.installTab code {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.85rem;
+  color: #d4d4d4;
+}
+
+/* Features section */
+.features {
+  padding: 4rem 2rem;
+  background: var(--ifm-background-color);
+}
+
+.feature {
+  padding: 2rem;
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid #3e3e42;
+  transition: all 0.2s ease;
+  height: 100%;
+  margin-bottom: 1rem;
+}
+
+.feature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: var(--ifm-color-primary);
+}
+
+.feature h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.feature p {
+  color: #cccccc;
+  line-height: 1.6;
+}
+
+/* Code example section */
+.codeExample {
+  padding: 4rem 2rem;
+  background: var(--ifm-background-surface-color);
+  border-top: 1px solid #3e3e42;
+  text-align: center;
+}
+
+.codeExample h2 {
+  margin-bottom: 0.5rem;
+}
+
+.codeExample > p {
+  color: #cccccc;
+  font-size: 1.1rem;
+  margin-bottom: 3rem;
+}
+
+.exampleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.exampleCode {
+  background: #1e1e1e;
+  border: 1px solid #3e3e42;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.exampleCode h4 {
+  background: #2d2d30;
+  padding: 0.75rem 1rem;
+  margin: 0;
+  border-bottom: 1px solid #3e3e42;
+  font-size: 0.9rem;
+  color: var(--ifm-color-primary);
+}
+
+.exampleCode pre {
+  margin: 0;
+  padding: 1.5rem;
+  background: transparent;
+  overflow-x: auto;
+}
+
+.exampleCode code {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: #d4d4d4;
+}
+
+.exampleCTA {
+  margin-top: 2rem;
+}
+
+/* Responsive */
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 3rem 1rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .installTabs {
+    grid-template-columns: 1fr;
+  }
+
+  .exampleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .features {
+    padding: 2rem 1rem;
+  }
+
+  .codeExample {
+    padding: 2rem 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .heroDescription {
+    font-size: 1rem;
+  }
+
+  .exampleGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .exampleCode pre {
+    font-size: 0.75rem;
+  }
+}

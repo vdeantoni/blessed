@@ -7,11 +7,22 @@
         "lib/**/*.ts",
         "bin/**/*.ts",
         "src/**/*.ts",
+        "docs/**",
+        "blog/**",
+        "static/**",
+        "docusaurus.config.ts",
+        "sidebars.ts",
         "tsconfig.json",
         "tsup.config.ts",
         "package.json"
       ],
-      "outputs": ["dist/**"],
+      "outputs": ["dist/**", "build/**", ".docusaurus/**"],
+      "outputLogs": "new-only"
+    },
+    "dev": {
+      "dependsOn": ["^build"],
+      "cache": false,
+      "persistent": true,
       "outputLogs": "new-only"
     },
     "build:watch": {

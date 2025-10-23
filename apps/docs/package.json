@@ -2,12 +2,56 @@
   "name": "docs",
   "version": "0.0.0",
   "private": true,
-  "description": "Documentation and examples for blessed",
-  "type": "module",
+  "description": "Documentation site for unblessed TUI library",
   "scripts": {
-    "clean": ""
+    "docusaurus": "docusaurus",
+    "dev": "docusaurus start --port 3000",
+    "start": "docusaurus start",
+    "build": "docusaurus build",
+    "swizzle": "docusaurus swizzle",
+    "deploy": "docusaurus deploy",
+    "clean": "docusaurus clear && rimraf build .docusaurus",
+    "serve": "docusaurus serve",
+    "write-translations": "docusaurus write-translations",
+    "write-heading-ids": "docusaurus write-heading-ids",
+    "typecheck": "tsc"
   },
   "dependencies": {
-    "@unblessed/blessed": "workspace:*"
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
+    "@mdx-js/react": "^3.0.0",
+    "@monaco-editor/react": "^4.6.0",
+    "@unblessed/browser": "workspace:*",
+    "@unblessed/core": "workspace:*",
+    "@unblessed/node": "workspace:*",
+    "clsx": "^2.0.0",
+    "prism-react-renderer": "^2.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "xterm": "^5.3.0",
+    "@xterm/addon-fit": "^0.10.0"
+  },
+  "devDependencies": {
+    "@docusaurus/module-type-aliases": "3.9.2",
+    "@docusaurus/tsconfig": "3.9.2",
+    "@docusaurus/types": "3.9.2",
+    "@types/react": "^19.0.0",
+    "rimraf": "^6.0.1",
+    "typescript": "~5.6.2"
+  },
+  "browserslist": {
+    "production": [
+      ">0.5%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 3 chrome version",
+      "last 3 firefox version",
+      "last 5 safari version"
+    ]
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
