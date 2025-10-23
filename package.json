@@ -2,25 +2,11 @@
   "name": "@unblessed/root",
   "version": "0.0.0",
   "private": true,
-  "description": "TUI library monorepo",
+  "description": "Unblessed TUI library monorepo",
   "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
   "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@10.18.3",
-  "main": "./dist/blessed.js",
-  "module": "./dist/blessed.js",
-  "types": "./dist/blessed.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/blessed.d.ts",
-      "import": "./dist/blessed.js",
-      "require": "./dist/blessed.cjs"
-    }
-  },
-  "bin": {
-    "blessed": "dist/tput.js"
-  },
-  "preferGlobal": false,
   "repository": {
     "type": "git",
     "url": "https://github.com/vdeantoni/unblessed.git"
@@ -48,16 +34,6 @@
   "engines": {
     "node": ">= 22.0.0"
   },
-  "files": [
-    "dist/**/*.js",
-    "dist/**/*.cjs",
-    "dist/**/*.d.ts",
-    "dist/**/*.d.cts",
-    "dist/**/*.map",
-    "vendor/**/*.js",
-    "LICENSE",
-    "README.md"
-  ],
   "scripts": {
     "build": "turbo run build",
     "clean": "turbo run clean",
