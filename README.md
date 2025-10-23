@@ -224,7 +224,12 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 ## 🎯 Project Status
 
-**Current Version:** `1.0.0-alpha.0`
+**Current Version:** `1.0.0-alpha.1`
+
+**🔗 Links:**
+- 📚 [Documentation](https://unblessed-docs.vercel.app)
+- 📦 [npm Registry](https://www.npmjs.com/package/@unblessed/node)
+- 🐙 [GitHub](https://github.com/vdeantoni/unblessed)
 
 ### ✅ Completed
 
@@ -235,6 +240,9 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 - Browser support via XTerm.js
 - Modern build tooling (tsup, pnpm, Turborepo)
 - Comprehensive documentation
+- **Automated releases** via semantic-release
+- **Published to npm** with provenance
+- **Documentation site** deployed to Vercel
 
 ### 🚧 In Progress
 

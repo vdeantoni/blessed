@@ -22,7 +22,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Browser support via XTerm.js
 - 100% backward compatible with blessed
 
-**Current Version:** `1.0.0-alpha.0`
+**Current Version:** `1.0.0-alpha.1`
+
+**Release Status:**
+- ✅ Automated releases via semantic-release on `alpha` branch
+- ✅ Published to npm with provenance
+- ✅ Documentation site: https://unblessed-docs.vercel.app
+- ✅ All packages use `workspace:^` for peerDependencies (auto-synced)
 
 ## Development Commands
 
@@ -475,11 +481,16 @@ pnpm --filter benchmarks bench
 - ✅ Browser support via XTerm.js
 - ✅ Modern build tooling (tsup, pnpm, Turborepo)
 - ✅ @unblessed/blessed compatibility layer
+- ✅ Automated alpha releases via semantic-release
+- ✅ Documentation site deployed to Vercel
+- ✅ Sentry error tracking integration
+- ✅ npm publishing with provenance
 
-### In Progress
-- End-to-end integration tests
-- Migration guide
-- Alpha release to npm
+### Current (Alpha Release)
+- 🚀 Version 1.0.0-alpha.1 published to npm
+- 📚 Documentation site live at https://unblessed-docs.vercel.app
+- 🔄 CI/CD fully automated (GitHub Actions + semantic-release)
+- 📦 All packages available: core, node, browser, blessed, vrt
 
 ### Roadmap
 - Performance optimization (Phase 4)
