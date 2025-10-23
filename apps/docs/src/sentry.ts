@@ -1,10 +1,15 @@
 import * as Sentry from '@sentry/react';
 
 export function initSentry() {
+  // Check if we're in production using window.location instead of process.env
+  const isProduction = typeof window !== 'undefined' &&
+    !window.location.hostname.includes('localhost') &&
+    !window.location.hostname.includes('127.0.0.1');
+
   Sentry.init({
-    dsn: process.env.SENTRY_DSN || 'https://d9f2e9f9a0e25751d68dbfb43f09b0c8@o428318.ingest.us.sentry.io/4510240311672832',
-    environment: process.env.NODE_ENV || 'development',
-    enabled: process.env.NODE_ENV === 'production',
+    dsn: 'https://d9f2e9f9a0e25751d68dbfb43f09b0c8@o428318.ingest.us.sentry.io/4510240311672832',
+    environment: isProduction ? 'production' : 'development',
+    enabled: isProduction,
     integrations: [
       Sentry.browserTracingIntegration(),
       Sentry.replayIntegration({
@@ -20,7 +25,7 @@ export function initSentry() {
     // Additional options
     beforeSend(event) {
       // Don't send events from localhost
-      if (window.location.hostname === 'localhost') {
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
         return null;
       }
       return event;
