@@ -41,7 +41,7 @@ screen.render();
 
 ## Try it Live
 
-Visit the [Playground](/playground) and select "Simple Box" from the dropdown to see this example running in your browser!
+Visit the [Home Page](/) and select "Simple Box" from the examples to see this running in your browser!
 
 ## Key Concepts
 

@@ -48,9 +48,9 @@ Browse examples of unblessed applications with code and live playground links.
   </div>
 </div>
 
-## Try in Playground
+## Try Live Examples
 
-Visit the [Interactive Playground](/playground) to try all examples live in your browser! The playground features:
+Visit the [Home Page](/) to try all examples live in your browser! The interactive demo features:
 
 - **Monaco Editor** with syntax highlighting and autocompletion
 - **XTerm.js** terminal for live widget rendering
@@ -86,5 +86,5 @@ Build live updating dashboards with streaming data.
 ## Need More?
 
 - Check out the [API Reference](/docs/api/screen) for detailed widget documentation
-- Explore the [Playground](/playground) to experiment with code
+- Explore the [Interactive Demo](/) to experiment with code
 - Read the [Quick Start Guide](/docs/getting-started/quick-start) for a tutorial

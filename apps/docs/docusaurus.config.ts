@@ -72,11 +72,6 @@ const config: Config = {
           label: "Docs",
         },
         {
-          to: "/playground",
-          label: "Playground",
-          position: "left",
-        },
-        {
           href: "https://github.com/vdeantoni/unblessed",
           label: "GitHub",
           position: "right",

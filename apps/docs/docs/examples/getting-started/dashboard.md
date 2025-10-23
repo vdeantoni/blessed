@@ -96,7 +96,7 @@ screen.render();
 
 ## Try it Live
 
-Visit the [Playground](/playground) and select "Layout" to see this in action!
+Visit the [Home Page](/) and select "Dashboard Layout" from the examples to see this in action!
 
 ## Layout Tips
 

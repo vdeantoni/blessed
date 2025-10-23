@@ -69,7 +69,7 @@ screen.render();
 
 ## Try it Live
 
-Visit the [Playground](/playground) and select "Interactive List" to try this example!
+Visit the [Home Page](/) and select "Interactive List" from the examples to try this!
 
 ## Key Features
 
