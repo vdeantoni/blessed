@@ -112,7 +112,6 @@
     text-align: center;
     font-size: 1.25rem;
     color: #a0a0a0;
-    margin-bottom: 2rem;
     font-weight: 300;
     flex-shrink: 0;
 }
@@ -121,11 +120,11 @@
 .split-view-container {
     position: relative;
     width: 100%;
-    margin: 0 auto 3rem;
+    padding: 3rem 1rem;
     flex: 1;
     min-height: 0;
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
 }
 
 /* Editor Box - 40% */

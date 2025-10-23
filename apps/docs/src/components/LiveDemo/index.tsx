@@ -3,6 +3,8 @@ import { Terminal } from "xterm";
 import { FitAddon } from "@xterm/addon-fit";
 import Editor from "@monaco-editor/react";
 import DraggableResizableBox from "../DraggableResizableBox";
+import prettier from "prettier/standalone";
+import parserTypeScript from "prettier/parser-typescript";
 import "xterm/css/xterm.css";
 import "./styles.css";
 
@@ -18,167 +20,167 @@ const CODE_EXAMPLES: CodeExample[] = [
     id: "simple-box",
     title: "Simple Box",
     description: "A basic centered box with styled content and borders",
-    code: `import { Box } from '@unblessed/browser';
+    code: `import { Box } from "@unblessed/browser";
 
 // Simple centered box
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: '{bold}{cyan-fg}Hello unblessed!{/cyan-fg}{/bold}\\n\\n' +
-           'This is unblessed running in your browser.\\n\\n' +
-           'Try the other examples!',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content:
+    "{bold}{cyan-fg}Hello unblessed!{/cyan-fg}{/bold}\\n\\n" +
+    "This is unblessed running in your browser.\\n\\n" +
+    "Try the other examples!",
   tags: true,
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    fg: 'white',
-    bg: 'black',
-    border: { fg: 'cyan' }
-  }
+    fg: "white",
+    bg: "black",
+    border: { fg: "cyan" },
+  },
 });
 
-screen.render();`,
+screen.render();
+`,
   },
   {
     id: "interactive-list",
     title: "Interactive List",
     description: "Navigate items with keyboard or mouse, handle selections",
-    code: `import { List, Box } from '@unblessed/browser';
+    code: `import { List, Box } from "@unblessed/browser";
 
 // Interactive list with selection
 const list = new List({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  label: ' {bold}{cyan-fg}Menu{/cyan-fg}{/bold} ',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  label: " {bold}{cyan-fg}Menu{/cyan-fg}{/bold} ",
   tags: true,
   keys: true,
   vi: true,
   mouse: true,
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    fg: 'white',
-    border: { fg: 'cyan' },
+    fg: "white",
+    border: { fg: "cyan" },
     selected: {
-      bg: 'cyan',
-      fg: 'black'
-    }
+      bg: "cyan",
+      fg: "black",
+    },
   },
-  items: [
-    'Option 1',
-    'Option 2',
-    'Option 3',
-    'Option 4',
-    'Option 5'
-  ]
+  items: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"],
 });
 
 const box = new Box({
   parent: screen,
   top: 3,
-  left: 'center',
-  width: '50%',
+  left: "center",
+  width: "50%",
   height: 3,
-  content: 'Select an item with arrow keys or mouse',
+  content: "Select an item with arrow keys or mouse",
   tags: true,
-  style: { fg: 'yellow' }
+  style: { fg: "yellow" },
 });
 
-list.on('select', (item, index) => {
-  box.setContent(\`{bold}Selected:{/bold} \${item.getText()} (index: \${index})\`);
+list.on("select", (item, index) => {
+  box.setContent(
+    \`{bold}Selected:{/bold} \${item.getText()} (index: \${index})\`,
+  );
   screen.render();
 });
 
 list.focus();
-screen.render();`,
+screen.render();
+`,
   },
   {
     id: "table",
     title: "Data Table",
     description: "Display tabular data with headers and rows",
-    code: `import { Table } from '@unblessed/browser';
+    code: `import { Table } from "@unblessed/browser";
 
 // Data table
 const table = new Table({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '80%',
-  height: '80%',
-  border: { type: 'line' },
+  top: "center",
+  left: "center",
+  width: "80%",
+  height: "80%",
+  border: { type: "line" },
   style: {
-    border: { fg: 'cyan' },
-    header: { fg: 'white', bold: true },
-    cell: { fg: 'white' }
+    border: { fg: "cyan" },
+    header: { fg: "white", bold: true },
+    cell: { fg: "white" },
   },
-  label: ' {bold}{cyan-fg}User Table{/cyan-fg}{/bold} ',
+  label: " {bold}{cyan-fg}User Table{/cyan-fg}{/bold} ",
   tags: true,
   keys: true,
   vi: true,
   mouse: true,
   data: [
-    ['Name', 'Email', 'Role', 'Status'],
-    ['Alice Johnson', 'alice@example.com', 'Admin', 'Active'],
-    ['Bob Smith', 'bob@example.com', 'User', 'Active'],
-    ['Carol White', 'carol@example.com', 'User', 'Inactive'],
-    ['Dave Brown', 'dave@example.com', 'Moderator', 'Active'],
-    ['Eve Davis', 'eve@example.com', 'User', 'Active']
-  ]
+    ["Name", "Email", "Role", "Status"],
+    ["Alice Johnson", "alice@example.com", "Admin", "Active"],
+    ["Bob Smith", "bob@example.com", "User", "Active"],
+    ["Carol White", "carol@example.com", "User", "Inactive"],
+    ["Dave Brown", "dave@example.com", "Moderator", "Active"],
+    ["Eve Davis", "eve@example.com", "User", "Active"],
+  ],
 });
 
 table.focus();
-screen.render();`,
+screen.render();
+`,
   },
   {
     id: "form",
     title: "Input Form",
     description: "Create interactive forms with text inputs and buttons",
-    code: `import { Form, Textbox, Button, Box } from '@unblessed/browser';
+    code: `import { Form, Textbox, Button, Box } from "@unblessed/browser";
 
 // Interactive form with inputs
 const form = new Form({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '70%',
-  label: ' {bold}User Registration{/bold} ',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "70%",
+  label: " {bold}User Registration{/bold} ",
   tags: true,
-  border: { type: 'line' },
+  border: { type: "line" },
   keys: true,
-  mouse: true
+  mouse: true,
 });
 
 const nameInput = new Textbox({
   parent: form,
   top: 2,
   left: 2,
-  width: '80%',
+  width: "80%",
   height: 3,
-  label: ' Name: ',
-  name: 'name',
-  border: { type: 'line' },
+  label: " Name: ",
+  name: "name",
+  border: { type: "line" },
   inputOnFocus: true,
   mouse: true,
-  keys: true
+  keys: true,
 });
 
 const emailInput = new Textbox({
   parent: form,
   top: 6,
   left: 2,
-  width: '80%',
+  width: "80%",
   height: 3,
-  label: ' Email: ',
-  name: 'email',
-  border: { type: 'line' },
+  label: " Email: ",
+  name: "email",
+  border: { type: "line" },
   inputOnFocus: true,
   mouse: true,
-  keys: true
+  keys: true,
 });
 
 const submitBtn = new Button({
@@ -187,58 +189,59 @@ const submitBtn = new Button({
   left: 2,
   width: 20,
   height: 3,
-  content: 'Submit',
+  content: "Submit",
   mouse: true,
   keys: true,
   style: {
-    bg: 'green',
-    fg: 'white',
-    focus: { bg: 'cyan' }
-  }
+    bg: "green",
+    fg: "white",
+    focus: { bg: "cyan" },
+  },
 });
 
 const output = new Box({
   parent: form,
   top: 14,
   left: 2,
-  width: '80%',
+  width: "80%",
   height: 3,
-  content: 'Tab to navigate • Click to focus',
+  content: "Tab to navigate • Click to focus",
   tags: true,
-  style: { fg: 'yellow' }
+  style: { fg: "yellow" },
 });
 
-submitBtn.on('press', () => {
+submitBtn.on("press", () => {
   form.submit();
 });
 
-form.on('submit', (data) => {
+form.on("submit", (data) => {
   output.setContent(
-    \`{bold}Submitted:{/bold}\\nName: \${data.name || '(empty)'}\\nEmail: \${data.email || '(empty)'}\`
+    \`{bold}Submitted:{/bold}\\nName: \${data.name || "(empty)"}\\nEmail: \${data.email || "(empty)"}\`,
   );
   screen.render();
 });
 
 form.focus();
-screen.render();`,
+screen.render();
+`,
   },
   {
     id: "animation",
     title: "Animation",
     description: "Animated progress bars with dynamic status updates",
-    code: `import { Box, ProgressBar, Text } from '@unblessed/browser';
+    code: `import { Box, ProgressBar, Text } from "@unblessed/browser";
 
 // Animated progress bar
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '60%',
+  top: "center",
+  left: "center",
+  width: "60%",
   height: 9,
-  border: { type: 'line' },
-  style: { border: { fg: 'cyan' } },
-  label: ' {bold}{cyan-fg}Loading Animation{/cyan-fg}{/bold} ',
-  tags: true
+  border: { type: "line" },
+  style: { border: { fg: "cyan" } },
+  label: " {bold}{cyan-fg}Loading Animation{/cyan-fg}{/bold} ",
+  tags: true,
 });
 
 const progressBar = new ProgressBar({
@@ -248,18 +251,18 @@ const progressBar = new ProgressBar({
   right: 2,
   height: 3,
   filled: 0,
-  pch: ' ',
-  style: { bar: { bg: 'cyan' } },
-  border: { type: 'line' }
+  pch: " ",
+  style: { bar: { bg: "cyan" } },
+  border: { type: "line" },
 });
 
 const statusText = new Text({
   parent: box,
   top: 5,
-  left: 'center',
-  content: 'Starting...',
+  left: "center",
+  content: "Starting...",
   tags: true,
-  style: { fg: 'yellow' }
+  style: { fg: "yellow" },
 });
 
 let progress = 0;
@@ -268,32 +271,33 @@ const interval = setInterval(() => {
   progressBar.setProgress(progress);
 
   if (progress < 33) {
-    statusText.setContent('Loading resources...');
+    statusText.setContent("Loading resources...");
   } else if (progress < 66) {
-    statusText.setContent('Processing data...');
+    statusText.setContent("Processing data...");
   } else if (progress < 100) {
-    statusText.setContent('Almost done...');
+    statusText.setContent("Almost done...");
   } else {
-    statusText.setContent('{bold}{green-fg}Complete!{/green-fg}{/bold}');
+    statusText.setContent("{bold}{green-fg}Complete!{/green-fg}{/bold}");
     clearInterval(interval);
   }
 
   screen.render();
 }, 100);
 
-screen.render();`,
+screen.render();
+`,
   },
   {
     id: "dashboard",
     title: "Dashboard Layout",
     description: "Multi-pane layout with header, sidebar, and content areas",
-    code: `import { Box, List } from '@unblessed/browser';
+    code: `import { Box, List } from "@unblessed/browser";
 
 // Multi-pane layout
 const container = new Box({
   parent: screen,
-  width: '100%',
-  height: '100%'
+  width: "100%",
+  height: "100%",
 });
 
 // Header
@@ -301,11 +305,12 @@ const header = new Box({
   parent: container,
   top: 0,
   left: 0,
-  width: '100%',
+  width: "100%",
   height: 3,
-  content: '{center}{bold}{cyan-fg}unblessed Browser Layout{/cyan-fg}{/bold}{/center}',
+  content:
+    "{center}{bold}{cyan-fg}unblessed Browser Layout{/cyan-fg}{/bold}{/center}",
   tags: true,
-  style: { fg: 'white', bg: 'blue' }
+  style: { fg: "white", bg: "blue" },
 });
 
 // Sidebar
@@ -313,35 +318,35 @@ const sidebar = new List({
   parent: container,
   top: 3,
   left: 0,
-  width: '30%',
-  height: '100%-6',
-  label: ' {bold}Menu{/bold} ',
+  width: "30%",
+  height: "100%-6",
+  label: " {bold}Menu{/bold} ",
   tags: true,
   keys: true,
   mouse: true,
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    border: { fg: 'cyan' },
-    selected: { bg: 'cyan', fg: 'black' }
+    border: { fg: "cyan" },
+    selected: { bg: "cyan", fg: "black" },
   },
-  items: ['Dashboard', 'Users', 'Settings', 'Reports', 'Help']
+  items: ["Dashboard", "Users", "Settings", "Reports", "Help"],
 });
 
 // Main content area
 const content = new Box({
   parent: container,
   top: 3,
-  left: '30%',
-  width: '70%',
-  height: '100%-6',
-  border: { type: 'line' },
-  style: { border: { fg: 'cyan' } },
-  label: ' {bold}Content{/bold} ',
+  left: "30%",
+  width: "70%",
+  height: "100%-6",
+  border: { type: "line" },
+  style: { border: { fg: "cyan" } },
+  label: " {bold}Content{/bold} ",
   tags: true,
-  content: '{center}Select a menu item{/center}',
+  content: "{center}Select a menu item{/center}",
   scrollable: true,
   mouse: true,
-  keys: true
+  keys: true,
 });
 
 // Footer
@@ -349,74 +354,79 @@ const footer = new Box({
   parent: container,
   bottom: 0,
   left: 0,
-  width: '100%',
+  width: "100%",
   height: 3,
-  content: '{center}Press q to quit | Use arrow keys or mouse to navigate{/center}',
+  content:
+    "{center}Press q to quit | Use arrow keys or mouse to navigate{/center}",
   tags: true,
-  style: { fg: 'white', bg: 'blue' }
+  style: { fg: "white", bg: "blue" },
 });
 
-sidebar.on('select', (item) => {
+sidebar.on("select", (item) => {
   const selected = item.getText();
-  content.setContent(\`{center}{bold}\${selected}{/bold}{/center}\\n\\nThis is the \${selected} page.\`);
+  content.setContent(
+    \`{center}{bold}\${selected}{/bold}{/center}\\n\\nThis is the \${selected} page.\`,
+  );
   screen.render();
 });
 
 sidebar.focus();
-screen.render();`,
+screen.render();
+`,
   },
   {
     id: "ascii-art",
     title: "ASCII Art",
     description: "Display big text and ASCII art graphics",
-    code: `import { BigText, Box, List } from '@unblessed/browser';
+    code: `import { BigText, Box, List } from "@unblessed/browser";
 
 // ASCII art and big text
 const title = new BigText({
   parent: screen,
   top: 2,
-  left: 'center',
-  width: '90%',
+  left: "center",
+  width: "90%",
   height: 10,
-  content: 'UNBLESSED',
+  content: "UNBLESSED",
   style: {
-    fg: 'cyan',
-    bold: true
-  }
+    fg: "cyan",
+    bold: true,
+  },
 });
 
 const subtitle = new Box({
   parent: screen,
   top: 13,
-  left: 'center',
-  width: '60%',
+  left: "center",
+  width: "60%",
   height: 3,
-  content: '{center}Modern Terminal UI Library{/center}',
+  content: "{center}Modern Terminal UI Library{/center}",
   tags: true,
-  style: { fg: 'white' }
+  style: { fg: "white" },
 });
 
 const features = new List({
   parent: screen,
   top: 17,
-  left: 'center',
-  width: '50%',
+  left: "center",
+  width: "50%",
   height: 8,
-  border: { type: 'line' },
-  label: ' Features ',
+  border: { type: "line" },
+  label: " Features ",
   style: {
-    border: { fg: 'cyan' },
-    item: { fg: 'green' }
+    border: { fg: "cyan" },
+    item: { fg: "green" },
   },
   items: [
-    '✓ TypeScript Support',
-    '✓ Cross-Platform',
-    '✓ 100% blessed Compatible',
-    '✓ Browser Support'
-  ]
+    "✓ TypeScript Support",
+    "✓ Cross-Platform",
+    "✓ 100% blessed Compatible",
+    "✓ Browser Support",
+  ],
 });
 
-screen.render();`,
+screen.render();
+`,
   },
 ];
 
@@ -703,6 +713,53 @@ declare const screen: import('@unblessed/browser').Screen;
 
       // Enable eager model sync for better IntelliSense
       monaco.languages.typescript.typescriptDefaults.setEagerModelSync(true);
+
+      // Register Prettier as document formatting provider
+      monaco.languages.registerDocumentFormattingEditProvider("typescript", {
+        async provideDocumentFormattingEdits(model: any) {
+          try {
+            const text = model.getValue();
+            const formatted = await prettier.format(text, {
+              parser: "typescript",
+              plugins: [parserTypeScript],
+            });
+
+            return [
+              {
+                range: model.getFullModelRange(),
+                text: formatted,
+              },
+            ];
+          } catch (error) {
+            console.error("Prettier formatting error:", error);
+            return [];
+          }
+        },
+      });
+
+      // Add keyboard shortcut for formatting (Cmd+S / Ctrl+S)
+      editor.addAction({
+        id: "format-and-save",
+        label: "Format Document",
+        keybindings: [
+          monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, // Cmd+S / Ctrl+S
+        ],
+        run: async (ed: any) => {
+          await ed.getAction("editor.action.formatDocument").run();
+        },
+      });
+
+      // Also support Shift+Alt+F (default format shortcut)
+      editor.addAction({
+        id: "prettier-format",
+        label: "Format with Prettier",
+        keybindings: [
+          monaco.KeyMod.Shift | monaco.KeyMod.Alt | monaco.KeyCode.KeyF,
+        ],
+        run: async (ed: any) => {
+          await ed.getAction("editor.action.formatDocument").run();
+        },
+      });
     } catch (error) {
       console.error("Failed to configure type definitions:", error);
     }
@@ -809,10 +866,26 @@ declare const screen: import('@unblessed/browser').Screen;
 
   // Handle editor code change
   const handleEditorChange = useCallback(
-    (value: string | undefined) => {
+    async (value: string | undefined) => {
       if (value !== undefined) {
-        setEditorCode(value);
-        runDemo(value);
+        try {
+          // Format with Prettier
+          const formatted = await prettier.format(value, {
+            parser: "typescript",
+            plugins: [parserTypeScript],
+          });
+
+          // Update editor with formatted code
+          setEditorCode(formatted);
+
+          // Run the demo with formatted code
+          runDemo(formatted);
+        } catch (error) {
+          // If formatting fails, just use original value
+          console.error("Prettier error:", error);
+          setEditorCode(value);
+          runDemo(value);
+        }
       }
     },
     [runDemo],
