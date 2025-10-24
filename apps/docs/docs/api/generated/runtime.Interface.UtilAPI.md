@@ -1,0 +1,84 @@
+# Interface: UtilAPI
+
+Defined in: [packages/core/src/runtime.ts:277](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L277)
+
+Utility functions interface
+Subset of Node.js util module
+
+## Properties
+
+### inspect
+
+> **inspect**: *typeof* `inspect`
+
+Defined in: [packages/core/src/runtime.ts:278](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L278)
+
+***
+
+### format()
+
+> **format**: (`format?`, ...`param`) => `string`
+
+Defined in: [packages/core/src/runtime.ts:279](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L279)
+
+The `util.format()` method returns a formatted string using the first argument
+as a `printf`-like format string which can contain zero or more format
+specifiers. Each specifier is replaced with the converted value from the
+corresponding argument. Supported specifiers are:
+
+If a specifier does not have a corresponding argument, it is not replaced:
+
+```js
+util.format('%s:%s', 'foo');
+// Returns: 'foo:%s'
+```
+
+Values that are not part of the format string are formatted using `util.inspect()` if their type is not `string`.
+
+If there are more arguments passed to the `util.format()` method than the
+number of specifiers, the extra arguments are concatenated to the returned
+string, separated by spaces:
+
+```js
+util.format('%s:%s', 'foo', 'bar', 'baz');
+// Returns: 'foo:bar baz'
+```
+
+If the first argument does not contain a valid format specifier, `util.format()` returns a string that is the concatenation of all arguments separated by spaces:
+
+```js
+util.format(1, 2, 3);
+// Returns: '1 2 3'
+```
+
+If only one argument is passed to `util.format()`, it is returned as it is
+without any formatting:
+
+```js
+util.format('%% %s');
+// Returns: '%% %s'
+```
+
+`util.format()` is a synchronous method that is intended as a debugging tool.
+Some input values can have a significant performance overhead that can block the
+event loop. Use this function with care and never in a hot code path.
+
+#### Parameters
+
+##### format?
+
+`any`
+
+A `printf`-like format string.
+
+##### param?
+
+...`any`[]
+
+#### Returns
+
+`string`
+
+#### Since
+
+v0.5.3

@@ -1,5 +1,5 @@
 /**
- * program.js - basic curses-like functionality for blessed.
+ * program.ts - Low-level terminal I/O and control for unblessed
  */
 
 /**
@@ -20,9 +20,57 @@ import {
 import { EventEmitterBase } from "./event-emitter-base.js";
 
 /**
- * Program
+ * Program - Low-level terminal I/O, escape sequences, and terminal control.
+ *
+ * @remarks
+ * Program is the low-level interface between unblessed and the terminal. It provides:
+ * - **I/O Management**: Reads input, writes output via streams
+ * - **Escape Sequences**: Converts high-level commands to terminal codes
+ * - **Terminal Capabilities**: Loads and uses terminfo/termcap databases
+ * - **Input Processing**: Parses keyboard and mouse events
+ * - **Buffer Management**: Optimizes terminal output
+ *
+ * Program is typically created and managed by Screen. You rarely instantiate it directly.
+ *
+ * @example Basic usage
+ * ```typescript
+ * import { Screen } from '@unblessed/node';
+ *
+ * const screen = new Screen();
+ * const program = screen.program;  // Access Program instance
+ *
+ * // Use Program methods directly
+ * program.clear();
+ * program.cup(5, 10);  // Move cursor to row 5, col 10
+ * program.write('Hello!');
+ * ```
+ *
+ * @example Mouse tracking
+ * ```typescript
+ * program.enableMouse();
+ * program.setMouse({ allMotion: true, sendFocus: true }, true);
+ *
+ * program.on('mouse', (data) => {
+ *   console.log(`Mouse: ${data.action} at (${data.x}, ${data.y})`);
+ * });
+ * ```
+ *
+ * @example Keyboard input
+ * ```typescript
+ * program.on('keypress', (ch, key) => {
+ *   console.log('Key:', key.full);
+ *
+ *   if (key.name === 'q' || key.ctrl && key.name === 'c') {
+ *     program.normalBuffer();
+ *     program.showCursor();
+ *     process.exit(0);
+ *   }
+ * });
+ * ```
+ *
+ * @see {@link Screen} for high-level screen management
+ * @see {@link Runtime} for platform abstraction
  */
-
 class Program extends EventEmitterBase {
   runtime: Runtime;
   options: Record<string, any>;

@@ -95,7 +95,7 @@ const config: Config = {
             },
             {
               label: "API Reference",
-              to: "/docs/api/screen",
+              to: "/docs/api/generated/widgets.screen.Class.Screen",
             },
             {
               label: "Examples",

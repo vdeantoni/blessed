@@ -573,5 +573,5 @@ box.destroy();
 
 - [Rendering](./rendering) - How widgets are rendered
 - [Events](./events) - Event handling
-- [Widget API Reference](/docs/api/widgets/box) - Detailed API docs
+- [Widget API Reference](/docs/api/generated/widgets.box.Class.Box) - Detailed API docs
 - [Custom Widgets](../advanced/custom-widgets) - Build your own

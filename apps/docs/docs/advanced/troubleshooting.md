@@ -1159,4 +1159,4 @@ Common causes:
 
 - [Performance Optimization](./performance) - Optimize your application
 - [Custom Widgets](./custom-widgets) - Build custom components
-- [API Reference](/docs/api) - Detailed API documentation
+- [API Reference](/docs/api/generated/widgets.screen.Class.Screen) - Detailed API documentation

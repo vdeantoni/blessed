@@ -282,8 +282,8 @@ class OverlayImage extends Box {
 
   /**
    * Get the size of an image file in pixels.
-   * @param callback - Optional callback function called with (err, {raw, width, height})
-   * @returns Operation result with image dimensions
+   * @param callback - Optional callback function called with (err, size)
+   * @returns Operation result with image dimensions (raw, width, height)
    */
   imageSize(callback?: any): any {
     callback =
@@ -300,8 +300,8 @@ class OverlayImage extends Box {
 
   /**
    * Get the size of the terminal in pixels.
-   * @param callback - Optional callback function called with (err, {raw, width, height})
-   * @returns Operation result with terminal dimensions in pixels
+   * @param callback - Optional callback function called with (err, size)
+   * @returns Operation result with terminal dimensions in pixels (raw, width, height)
    */
   termSize(callback?: any): any {
     callback =
@@ -319,7 +319,7 @@ class OverlayImage extends Box {
   /**
    * Get the pixel to cell ratio for the terminal.
    * Calculates how many pixels correspond to each character cell.
-   * @param callback - Optional callback function called with (err, {tw, th})
+   * @param callback - Optional callback function called with (err, ratio)
    * @returns Operation result with pixel ratios (tw = pixels per cell width, th = pixels per cell height)
    */
   getPixelRatio(callback?: any): any {

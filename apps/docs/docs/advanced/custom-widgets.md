@@ -1176,4 +1176,4 @@ class PaginatedList extends List {
 
 - [Performance Optimization](./performance) - Optimize custom widgets
 - [Troubleshooting](./troubleshooting) - Debug widget issues
-- [Widget API Reference](/docs/api/widgets/box) - Base widget APIs
+- [Widget API Reference](/docs/api/generated/widgets.box.Class.Box) - Base widget APIs

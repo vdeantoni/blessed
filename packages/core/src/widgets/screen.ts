@@ -24,9 +24,69 @@ import { getEnvVar, getNextTick } from "../lib/runtime-helpers";
 import { getRuntime } from "../runtime-context.js";
 
 /**
- * Screen
+ * Screen - The top-level container and rendering engine for terminal UI applications.
+ *
+ * @remarks
+ * Screen manages the terminal, handles rendering, processes input, and serves as the root
+ * container for all widgets. It provides:
+ * - **Terminal management**: Alt screen buffer, cursor control, raw mode
+ * - **Rendering engine**: Efficient screen updates with smart CSR
+ * - **Input handling**: Keyboard and mouse events
+ * - **Widget container**: Root of the widget tree
+ * - **Focus management**: Tracks and manages widget focus
+ *
+ * @example Basic setup
+ * ```typescript
+ * import { Screen, Box } from '@unblessed/node';
+ *
+ * const screen = new Screen({
+ *   smartCSR: true,
+ *   title: 'My App'
+ * });
+ *
+ * const box = new Box({
+ *   parent: screen,
+ *   top: 'center',
+ *   left: 'center',
+ *   width: '50%',
+ *   height: '50%',
+ *   content: 'Hello World!',
+ *   border: { type: 'line' }
+ * });
+ *
+ * screen.key(['q', 'C-c'], () => {
+ *   screen.destroy();
+ *   process.exit(0);
+ * });
+ *
+ * screen.render();
+ * ```
+ *
+ * @example With mouse support
+ * ```typescript
+ * const screen = new Screen({
+ *   smartCSR: true,
+ *   sendFocus: true
+ * });
+ *
+ * const box = new Box({
+ *   parent: screen,
+ *   mouse: true,
+ *   // ...
+ * });
+ *
+ * box.on('click', () => {
+ *   box.setContent('Clicked!');
+ *   screen.render();
+ * });
+ *
+ * screen.render();
+ * ```
+ *
+ * @see {@link ScreenOptions} for all available configuration options
+ * @see {@link Program} for low-level terminal control
+ * @see {@link Runtime} for platform abstraction
  */
-
 class Screen extends Node {
   declare options: ScreenOptions; // Type refinement - initialized by parent
   program: any;

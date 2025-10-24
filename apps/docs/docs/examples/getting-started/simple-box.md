@@ -62,4 +62,4 @@ Visit the [Home Page](/) and select "Simple Box" from the examples to see this r
 ## Next Steps
 
 - Learn about [Interactive Lists](./interactive-list)
-- Explore [all widgets](/docs/api/widgets/box)
+- Explore [all widgets](/docs/api/generated/widgets.box.Class.Box)

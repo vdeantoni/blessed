@@ -85,6 +85,6 @@ Build live updating dashboards with streaming data.
 
 ## Need More?
 
-- Check out the [API Reference](/docs/api/screen) for detailed widget documentation
+- Check out the [API Reference](/docs/api/generated/widgets.screen.Class.Screen) for detailed widget documentation
 - Explore the [Interactive Demo](/) to experiment with code
 - Read the [Quick Start Guide](/docs/getting-started/quick-start) for a tutorial

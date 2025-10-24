@@ -1,12 +1,86 @@
 /**
  * Runtime abstraction layer for @unblessed/core
  *
- * This module defines the Runtime interface that all platform adapters must implement.
- * It abstracts Node.js-specific APIs so that @unblessed/core remains platform-agnostic.
+ * @remarks
+ * The Runtime interface provides platform-specific APIs through dependency injection.
+ * This allows unblessed to work across different platforms (Node.js, browsers, Deno, etc.)
+ * by abstracting platform-specific operations behind a common interface.
  *
- * Platform adapters:
- * - @unblessed/node: Wraps Node.js fs, path, process, child_process, tty, etc.
- * - @unblessed/browser: Provides browser polyfills for these APIs
+ * **Key Concepts**:
+ * - **Runtime Interface**: Defines what platforms must provide
+ * - **Runtime Context**: Global singleton holding the current runtime
+ * - **Platform Implementations**: Node.js runtime, browser runtime, etc.
+ * - **Dependency Injection**: Core code uses runtime instead of direct imports
+ *
+ * **Platform adapters**:
+ * - `@unblessed/node`: Wraps real Node.js APIs (fs, path, process, child_process, tty, etc.)
+ * - `@unblessed/browser`: Provides browser polyfills and virtual filesystem
+ * - Tests: Uses real Node.js APIs for testing
+ *
+ * @example Using runtime in code
+ * ```typescript
+ * import { getRuntime } from '@unblessed/core/runtime-context';
+ *
+ * function loadTerminfo(term: string): Buffer {
+ *   const runtime = getRuntime();
+ *
+ *   // Use runtime.fs instead of import fs
+ *   const path = runtime.path.join('/usr/share/terminfo', term[0], term);
+ *
+ *   if (!runtime.fs.existsSync(path)) {
+ *     throw new Error(`Terminfo not found: ${term}`);
+ *   }
+ *
+ *   return runtime.fs.readFileSync(path);
+ * }
+ * ```
+ *
+ * @example Feature detection for optional APIs
+ * ```typescript
+ * import { getRuntime, hasImageSupport } from '@unblessed/core';
+ *
+ * function canRenderImages(): boolean {
+ *   const runtime = getRuntime();
+ *   return runtime.images !== undefined;
+ * }
+ *
+ * function parseImage(buffer: Buffer) {
+ *   const runtime = getRuntime();
+ *
+ *   if (!runtime.images) {
+ *     throw new Error('Image support not available');
+ *   }
+ *
+ *   const png = runtime.images.png.PNG.sync.read(buffer);
+ *   return png;
+ * }
+ * ```
+ *
+ * @example Type-safe feature detection
+ * ```typescript
+ * const runtime = getRuntime();
+ *
+ * if (hasImageSupport(runtime)) {
+ *   // TypeScript knows runtime.images exists here!
+ *   const png = runtime.images.png.PNG.sync.read(buffer);
+ * }
+ * ```
+ *
+ * @example Platform detection
+ * ```typescript
+ * import { getRuntime } from '@unblessed/core/runtime-context';
+ *
+ * const runtime = getRuntime();
+ *
+ * if (runtime.process.platform === 'browser') {
+ *   console.log('Running in browser');
+ * } else {
+ *   console.log('Running in Node.js');
+ * }
+ * ```
+ *
+ * @see {@link getRuntime} for accessing the current runtime
+ * @see {@link setRuntime} for platform initialization
  */
 
 // Type-only imports from @types/node
@@ -66,7 +140,27 @@ export interface Runtime {
 
 /**
  * File system operations interface
- * Subset of Node.js fs module needed by blessed
+ *
+ * @remarks
+ * Subset of Node.js fs module needed by unblessed for:
+ * - Reading terminfo/termcap files
+ * - Loading font definitions
+ * - Logging and debugging
+ * - Temporary file operations
+ *
+ * @example Reading terminfo files
+ * ```typescript
+ * const runtime = getRuntime();
+ * const data = runtime.fs.readFileSync('/usr/share/terminfo/x/xterm');
+ * ```
+ *
+ * @example Checking file existence
+ * ```typescript
+ * const runtime = getRuntime();
+ * if (runtime.fs.existsSync('/path/to/file')) {
+ *   const content = runtime.fs.readFileSync('/path/to/file', 'utf8');
+ * }
+ * ```
  */
 export interface FileSystemAPI {
   readFileSync: typeof fs.readFileSync;
@@ -101,7 +195,32 @@ export interface PathAPI {
 
 /**
  * Process operations interface
- * Subset of Node.js process global
+ *
+ * @remarks
+ * Subset of Node.js process global used for:
+ * - I/O streams (stdin/stdout/stderr)
+ * - Environment variables (TERM, EDITOR, HOME, etc.)
+ * - Process events (exit, SIGTSTP, etc.)
+ * - Platform detection (platform, arch)
+ *
+ * @example Accessing I/O streams
+ * ```typescript
+ * const runtime = getRuntime();
+ * const { Readable, Writable } = runtime.utils.stream;
+ *
+ * const readable = new Readable();
+ * readable.push('Hello\n');
+ * readable.push(null);
+ * readable.pipe(runtime.process.stdout);
+ * ```
+ *
+ * @example Environment variables
+ * ```typescript
+ * const runtime = getRuntime();
+ * const term = runtime.process.env.TERM || 'xterm-256color';
+ * const editor = runtime.process.env.EDITOR || 'vi';
+ * const home = runtime.process.env.HOME || '/';
+ * ```
  */
 export interface ProcessAPI {
   stdin: NodeJS.ReadStream & { fd: 0 };
@@ -334,6 +453,23 @@ export interface UtilsAPI {
 
 /**
  * Check if runtime has image processing support
+ *
+ * @remarks
+ * Type guard to check if the current runtime supports PNG/GIF rendering.
+ * Use this before accessing `runtime.images` to avoid runtime errors.
+ *
+ * @param runtime - Runtime instance to check
+ * @returns True if image support is available
+ *
+ * @example Type-safe feature detection
+ * ```typescript
+ * const runtime = getRuntime();
+ *
+ * if (hasImageSupport(runtime)) {
+ *   // TypeScript knows runtime.images exists here!
+ *   const png = runtime.images.png.PNG.sync.read(buffer);
+ * }
+ * ```
  */
 export function hasImageSupport(
   runtime: Runtime,
@@ -343,6 +479,25 @@ export function hasImageSupport(
 
 /**
  * Check if runtime has process spawning support
+ *
+ * @remarks
+ * Type guard to check if the current runtime can spawn child processes.
+ * Needed for Terminal widget, text editors (vi, nano), and image tools.
+ *
+ * @param runtime - Runtime instance to check
+ * @returns True if process support is available
+ *
+ * @example Conditional feature usage
+ * ```typescript
+ * const runtime = getRuntime();
+ *
+ * if (hasProcessSupport(runtime)) {
+ *   // TypeScript knows runtime.processes exists
+ *   const proc = runtime.processes.childProcess.spawn('vi', ['file.txt']);
+ * } else {
+ *   console.warn('Cannot spawn processes in this environment');
+ * }
+ * ```
  */
 export function hasProcessSupport(
   runtime: Runtime,
@@ -352,6 +507,13 @@ export function hasProcessSupport(
 
 /**
  * Check if runtime has networking support
+ *
+ * @remarks
+ * Type guard for network and TTY operations. Currently only used for
+ * GPM mouse protocol on Linux console (very rare).
+ *
+ * @param runtime - Runtime instance to check
+ * @returns True if networking support is available
  */
 export function hasNetworkSupport(
   runtime: Runtime,
@@ -361,6 +523,12 @@ export function hasNetworkSupport(
 
 /**
  * Check if runtime has utility functions
+ *
+ * @remarks
+ * Type guard for util, stream, and string decoder operations.
+ *
+ * @param runtime - Runtime instance to check
+ * @returns True if utils support is available
  */
 export function hasUtilsSupport(
   runtime: Runtime,

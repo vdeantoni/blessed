@@ -24,13 +24,13 @@
 // FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 // IN THE SOFTWARE.
 
-import { EventEmitter } from "./events.js";
 import { getRuntime, type BufferType } from "../runtime-context.js";
 
 // NOTE: node <=v0.8.x has no EventEmitter.listenerCount
+// Modern Node.js uses instance method instead of static method
 function listenerCount(stream: any, event: string): number {
-  return EventEmitter.listenerCount
-    ? EventEmitter.listenerCount(stream, event)
+  return typeof stream.listenerCount === "function"
+    ? stream.listenerCount(event)
     : stream.listeners(event).length;
 }
 

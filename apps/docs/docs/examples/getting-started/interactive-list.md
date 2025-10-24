@@ -94,6 +94,6 @@ style: {
 
 ## Next Steps
 
-- Try [Tables](/docs/api/widgets/table)
-- Learn about [Forms](/docs/api/widgets/form)
+- Try [Tables](/docs/api/generated/widgets.table.Class.Table)
+- Learn about [Forms](/docs/api/generated/widgets.form.Class.Form)
 - Explore [all examples](/docs/examples)

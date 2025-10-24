@@ -1,0 +1,35 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "unblessed",
+  "entryPoints": [
+    "packages/core/src/widgets",
+    "packages/core/src/lib/program.ts",
+    "packages/core/src/runtime.ts"
+  ],
+  "entryPointStrategy": "expand",
+  "out": "apps/docs/docs/api/generated",
+  "plugin": ["typedoc-plugin-markdown"],
+  "flattenOutputFiles": true,
+  "fileExtension": ".md",
+  "tsconfig": "packages/core/tsconfig.json",
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "readme": "none",
+  "hideGenerator": true,
+  "cleanOutputDir": true,
+  "includeVersion": false,
+  "disableSources": false,
+  "sourceLinkTemplate": "https://github.com/vdeantoni/unblessed/blob/{gitRevision}/{path}#L{line}",
+  "githubPages": false,
+  "hideBreadcrumbs": true,
+  "hidePageHeader": true,
+  "hidePageTitle": false,
+  "navigation": {
+    "includeCategories": false,
+    "includeGroups": false,
+    "includeFolders": false
+  },
+  "sort": ["source-order"],
+  "kindSortOrder": ["Class", "Interface", "TypeAlias", "Function", "Variable"]
+}
