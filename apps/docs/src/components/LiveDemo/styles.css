@@ -3,7 +3,7 @@
     height: calc(100svh - var(--ifm-navbar-height));
     position: relative;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: clip; /* Use clip instead of hidden to allow positioned descendants */
     padding: 2rem 2rem 3rem;
     display: flex;
     flex-direction: column;
@@ -149,6 +149,32 @@
 .editor-container {
     height: 100%;
     background: #1e1e1e;
+    position: relative;
+}
+
+/* Format Button */
+.format-button {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 10;
+    background: transparent;
+    color: #a0a0a0;
+    border: none;
+    padding: 4px 8px;
+    font-size: 16px;
+    font-weight: 600;
+    font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, monospace;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.format-button:hover {
+    color: #0dbc79;
+}
+
+.format-button:active {
+    color: #0aa866;
 }
 
 /* Terminal Box - 60% */
@@ -224,133 +250,6 @@
     background: #0a0a0a;
 }
 
-/* Code Snippets Grid */
-.code-snippets {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    padding: 0 1rem 0;
-    align-content: end;
-    min-height: 0;
-    overflow-x: auto;
-    overflow-y: visible;
-    position: relative;
-    z-index: 100;
-    flex-shrink: 0;
-}
-
-/* Snippet Card */
-.snippet-card {
-    background: rgba(20, 20, 25, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-    padding: 1.25rem;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    backdrop-filter: blur(20px);
-    position: relative;
-    overflow: hidden;
-    animation: fadeInUp 0.6s ease-out both;
-    flex: 1;
-    min-width: 280px;
-    max-width: 350px;
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.snippet-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #0dbc79, #61afef, #c678dd);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.snippet-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(13, 188, 121, 0.4);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(13, 188, 121, 0.2);
-}
-
-.snippet-card:hover::before {
-    opacity: 1;
-}
-
-.snippet-card.active {
-    background: rgba(13, 188, 121, 0.1);
-    border-color: #0dbc79;
-    box-shadow: 0 8px 32px rgba(13, 188, 121, 0.3),
-    0 0 0 1px #0dbc79;
-}
-
-.snippet-card.active::before {
-    opacity: 1;
-}
-
-.snippet-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.75rem;
-}
-
-.snippet-header h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin: 0;
-}
-
-.active-badge {
-    font-size: 0.75rem;
-    padding: 0.25rem 0.5rem;
-    background: #0dbc79;
-    color: #000;
-    border-radius: 4px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.snippet-description {
-    font-size: 0.9rem;
-    color: #a0a0a0;
-    margin: 0 0 1rem;
-    line-height: 1.4;
-}
-
-.snippet-preview {
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 6px;
-    padding: 0.75rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.snippet-preview code {
-    font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, monospace;
-    font-size: 0.75rem;
-    line-height: 1.5;
-    color: #61afef;
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
 /* Responsive Design */
 @media (max-width: 1200px) {
     .desktop-title {
@@ -390,12 +289,6 @@
         width: 100% !important;
         height: 100% !important;
     }
-
-    .code-snippets {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-        padding: 0 1rem;
-    }
 }
 
 @media (max-width: 768px) {
@@ -429,33 +322,7 @@
         height: 100% !important;
     }
 
-    .code-snippets {
-        grid-template-columns: 1fr;
-        padding: 0 1rem;
-    }
-
-    .window-controls {
-        gap: 0.4rem;
-    }
-
-    .control {
-        width: 10px;
-        height: 10px;
-    }
-
     .window-title {
         font-size: 0.8rem;
-    }
-
-    .snippet-card {
-        padding: 1rem;
-    }
-
-    .snippet-header h3 {
-        font-size: 1rem;
-    }
-
-    .snippet-description {
-        font-size: 0.85rem;
     }
 }

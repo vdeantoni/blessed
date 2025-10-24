@@ -1,0 +1,113 @@
+/* Snippet Card */
+.snippet-card {
+  background: rgba(20, 20, 25, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 1.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
+  animation: fadeInUp 0.6s ease-out both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.snippet-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0dbc79, #61afef, #c678dd);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.snippet-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(13, 188, 121, 0.4);
+  box-shadow:
+    0 12px 24px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(13, 188, 121, 0.2);
+}
+
+.snippet-card:hover::before {
+  opacity: 1;
+}
+
+.snippet-card.active {
+  background: rgba(13, 188, 121, 0.1);
+  border-color: #0dbc79;
+  box-shadow:
+    0 8px 32px rgba(13, 188, 121, 0.3),
+    0 0 0 1px #0dbc79;
+}
+
+.snippet-card.active::before {
+  opacity: 1;
+}
+
+.snippet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.snippet-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+}
+
+.snippet-description {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin: 0 0 1rem;
+  line-height: 1.4;
+}
+
+.snippet-preview {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.snippet-preview code {
+  font-family: Monaco, Menlo, "Ubuntu Mono", Consolas, monospace;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: #61afef;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .snippet-card {
+    padding: 1rem;
+  }
+
+  .snippet-header h3 {
+    font-size: 1rem;
+  }
+
+  .snippet-description {
+    font-size: 0.85rem;
+  }
+}

@@ -3,8 +3,10 @@ import { Terminal } from "xterm";
 import { FitAddon } from "@xterm/addon-fit";
 import Editor from "@monaco-editor/react";
 import DraggableResizableBox from "../DraggableResizableBox";
-import prettier from "prettier/standalone";
-import parserTypeScript from "prettier/parser-typescript";
+import CodeSnippetsCarousel from "../CodeSnippetsCarousel";
+import * as prettier from "prettier/standalone";
+import * as parserTypeScript from "prettier/plugins/typescript";
+import * as parserEstree from "prettier/plugins/estree";
 import "xterm/css/xterm.css";
 import "./styles.css";
 
@@ -448,6 +450,9 @@ export default function LiveDemo() {
   const [editorCode, setEditorCode] = useState<string>(CODE_EXAMPLES[0].code);
   const [editorZIndex, setEditorZIndex] = useState(1);
   const [terminalZIndex, setTerminalZIndex] = useState(2);
+  const editorRef = useRef<any>(null);
+  const [needsFormatting, setNeedsFormatting] = useState(false);
+  const lastExecutedCodeRef = useRef<string>("");
 
   useEffect(() => {
     if (!terminalRef.current || terminal.current) return;
@@ -513,8 +518,176 @@ export default function LiveDemo() {
     }
   }, []);
 
+  // Display error with a fun unblessed UI
+  const displayError = useCallback(
+    async (
+      errorType: "Syntax Error" | "Runtime Error",
+      error: Error,
+      code?: string,
+    ) => {
+      try {
+        cleanup();
+
+        if (!terminal.current) return;
+
+        terminal.current.clear();
+        const tui = await import("@unblessed/browser");
+
+        screen.current = new tui.Screen({ terminal: terminal.current });
+
+        // Main error container
+        const errorBox = new tui.Box({
+          parent: screen.current,
+          top: "center",
+          left: "center",
+          width: "90%",
+          height: "90%",
+          border: { type: "line" },
+          style: {
+            fg: "white",
+            border: { fg: "red" },
+          },
+          label: ` {bold}{red-fg}⚠ ${errorType}{/red-fg}{/bold} `,
+          tags: true,
+        });
+
+        // ASCII art header
+        const header = new tui.Box({
+          parent: errorBox,
+          top: 1,
+          left: "center",
+          width: "80%",
+          height: 7,
+          content:
+            "{center}{red-fg}{bold}" +
+            "    ___                       \n" +
+            "   / _ \\ ___   ___  _ __  ___ \n" +
+            "  | | | / _ \\ / _ \\| '_ \\/ __|\n" +
+            "  | |_| | (_) | (_) | |_) \\__ \\\n" +
+            "   \\___/ \\___/ \\___/| .__/|___/\n" +
+            "                    |_|        {/bold}{/red-fg}" +
+            "{/center}",
+          tags: true,
+          style: { fg: "red" },
+        });
+
+        // Funny message
+        const funnyMessages = [
+          "Well, that didn't go as planned... 🤷",
+          "Houston, we have a problem... 🚀",
+          "Oops! Someone divided by zero... 🔢",
+          "The code gremlins strike again! 👹",
+          "Error 404: Success not found... 🔍",
+          "This is why we can't have nice things... 🎭",
+          "Plot twist: The code was the villain all along... 🎬",
+          "Achievement unlocked: Break the code! 🏆",
+        ];
+
+        const funnyMessage = new tui.Box({
+          parent: errorBox,
+          top: 8,
+          left: "center",
+          width: "80%",
+          height: 3,
+          content: `{center}{yellow-fg}${funnyMessages[Math.floor(Math.random() * funnyMessages.length)]}{/yellow-fg}{/center}`,
+          tags: true,
+          style: { fg: "yellow" },
+        });
+
+        // Error type and message
+        const errorInfo = new tui.Box({
+          parent: errorBox,
+          top: 11,
+          left: 2,
+          right: 2,
+          height: 5,
+          border: { type: "line" },
+          style: {
+            border: { fg: "yellow" },
+          },
+          label: " {bold}{yellow-fg}Error Details{/yellow-fg}{/bold} ",
+          tags: true,
+          content: `{bold}Type:{/bold} ${errorType}\n\n{bold}Message:{/bold} ${error.message}`,
+        });
+
+        // Code snippet if available (for syntax errors)
+        let codeBox;
+        if (code && errorType === "Syntax Error") {
+          const match = error.message.match(/\((\d+):(\d+)\)/);
+          if (match) {
+            const lineNum = parseInt(match[1]);
+            const colNum = parseInt(match[2]);
+            const lines = code.split("\n");
+            const contextLines = 2;
+            const startLine = Math.max(0, lineNum - contextLines - 1);
+            const endLine = Math.min(lines.length, lineNum + contextLines);
+
+            let snippet = "";
+            for (let i = startLine; i < endLine; i++) {
+              const lineNo = String(i + 1).padStart(3, " ");
+              const prefix =
+                i === lineNum - 1
+                  ? `{red-fg}▶ ${lineNo}{/red-fg}`
+                  : `  ${lineNo}`;
+              const line = lines[i] || "";
+              snippet += `${prefix} │ ${line}\n`;
+
+              if (i === lineNum - 1) {
+                const pointer = " ".repeat(7 + colNum) + "{red-fg}^{/red-fg}";
+                snippet += `${pointer}\n`;
+              }
+            }
+
+            codeBox = new tui.Box({
+              parent: errorBox,
+              top: 17,
+              left: 2,
+              right: 2,
+              height: Math.min(12, endLine - startLine + 3),
+              border: { type: "line" },
+              style: {
+                border: { fg: "cyan" },
+              },
+              label: " {bold}{cyan-fg}Code Location{/cyan-fg}{/bold} ",
+              tags: true,
+              content: snippet,
+              scrollable: true,
+              mouse: true,
+            });
+          }
+        }
+
+        // Help message
+        const helpBox = new tui.Box({
+          parent: errorBox,
+          bottom: 1,
+          left: "center",
+          width: "80%",
+          height: 3,
+          content:
+            "{center}{green-fg}{bold}💡 Tip:{/bold} Fix the error in the code editor and save (Cmd+S) to try again{/green-fg}{/center}",
+          tags: true,
+          style: { fg: "green" },
+        });
+
+        screen.current.render();
+      } catch (displayError) {
+        console.error("Error displaying error screen:", displayError);
+        // Fallback to plain text error
+        if (terminal.current) {
+          terminal.current.write(
+            `\r\n\x1b[31m${errorType}: ${error.message}\x1b[0m\r\n`,
+          );
+        }
+      }
+    },
+    [cleanup],
+  );
+
   // Configure Monaco Editor with unblessed types
   const handleEditorMount = useCallback(async (editor: any, monaco: any) => {
+    editorRef.current = editor;
+
     try {
       // Declare @unblessed/browser module with core widget types
       const unblessedTypes = `
@@ -721,7 +894,7 @@ declare const screen: import('@unblessed/browser').Screen;
             const text = model.getValue();
             const formatted = await prettier.format(text, {
               parser: "typescript",
-              plugins: [parserTypeScript],
+              plugins: [parserTypeScript, parserEstree],
             });
 
             return [
@@ -760,10 +933,18 @@ declare const screen: import('@unblessed/browser').Screen;
           await ed.getAction("editor.action.formatDocument").run();
         },
       });
+
+      // Listen for formatting events to update state
+      editor.onDidChangeModelContent(() => {
+        const newValue = editor.getValue();
+        if (newValue !== editorCode) {
+          setEditorCode(newValue);
+        }
+      });
     } catch (error) {
       console.error("Failed to configure type definitions:", error);
     }
-  }, []);
+  }, [editorCode]);
 
   const runDemo = useCallback(
     async (code: string) => {
@@ -812,16 +993,14 @@ declare const screen: import('@unblessed/browser').Screen;
         await userFunction(...paramValues);
 
         setIsLoaded(true);
-      } catch (error) {
-        console.error("Error running demo:", error);
-        if (terminal.current) {
-          terminal.current.write(
-            `\r\n\x1b[31mError: ${error.message}\x1b[0m\r\n`,
-          );
-        }
+      } catch (error: any) {
+        console.error("Runtime error:", error);
+
+        // Display runtime error in terminal with unblessed UI
+        displayError("Runtime Error", error);
       }
     },
-    [cleanup],
+    [cleanup, displayError],
   );
 
   // Run demo when terminal is ready
@@ -869,27 +1048,50 @@ declare const screen: import('@unblessed/browser').Screen;
     async (value: string | undefined) => {
       if (value !== undefined) {
         try {
-          // Format with Prettier
+          // Try to format the code to check for syntax errors
           const formatted = await prettier.format(value, {
             parser: "typescript",
-            plugins: [parserTypeScript],
+            plugins: [parserTypeScript, parserEstree],
           });
 
-          // Update editor with formatted code
-          setEditorCode(formatted);
+          // Check if needs formatting
+          setNeedsFormatting(formatted !== value);
 
-          // Run the demo with formatted code
-          runDemo(formatted);
-        } catch (error) {
-          // If formatting fails, just use original value
-          console.error("Prettier error:", error);
-          setEditorCode(value);
-          runDemo(value);
+          // Only run demo if formatted code changed from last execution
+          if (formatted !== lastExecutedCodeRef.current) {
+            lastExecutedCodeRef.current = formatted;
+            runDemo(value);
+          }
+        } catch (error: any) {
+          // Syntax error detected by Prettier
+          console.error("Syntax error detected:", error);
+          setNeedsFormatting(false);
+
+          // Display syntax error in terminal with unblessed UI
+          displayError("Syntax Error", error, value);
         }
       }
     },
-    [runDemo],
+    [runDemo, displayError],
   );
+
+  // Format code manually
+  const formatCode = useCallback(async () => {
+    if (!editorRef.current) return;
+
+    try {
+      const currentCode = editorRef.current.getValue();
+      const formatted = await prettier.format(currentCode, {
+        parser: "typescript",
+        plugins: [parserTypeScript, parserEstree],
+      });
+
+      editorRef.current.setValue(formatted);
+      setNeedsFormatting(false);
+    } catch (error) {
+      console.error("Prettier error:", error);
+    }
+  }, []);
 
   // Bring editor to front
   const handleEditorFocus = useCallback(() => {
@@ -937,6 +1139,16 @@ declare const screen: import('@unblessed/browser').Screen;
               }
             >
               <div className="editor-container">
+                {needsFormatting && (
+                  <button
+                    className="format-button"
+                    onClick={formatCode}
+                    title="Format code (Cmd+S)"
+                    aria-label="Format code"
+                  >
+                    {"{}"}
+                  </button>
+                )}
                 <Editor
                   height="100%"
                   defaultLanguage="typescript"
@@ -1011,29 +1223,11 @@ declare const screen: import('@unblessed/browser').Screen;
         </div>
 
         {/* Code snippet previews */}
-        <div className="code-snippets">
-          {CODE_EXAMPLES.map((example, index) => (
-            <div
-              key={example.id}
-              className={`snippet-card ${activeExample === example.id ? "active" : ""}`}
-              onClick={() => handleExampleClick(example.id)}
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className="snippet-header">
-                <h3>{example.title}</h3>
-                {activeExample === example.id && (
-                  <span className="active-badge">Active</span>
-                )}
-              </div>
-              <p className="snippet-description">{example.description}</p>
-              <div className="snippet-preview">
-                <code>
-                  {example.code.split("\n").slice(0, 3).join("\n")}...
-                </code>
-              </div>
-            </div>
-          ))}
-        </div>
+        <CodeSnippetsCarousel
+          examples={CODE_EXAMPLES}
+          activeExampleId={activeExample}
+          onExampleClick={handleExampleClick}
+        />
       </div>
     </div>
   );

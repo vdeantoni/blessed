@@ -54,8 +54,8 @@ const config: Config = {
     image: "img/unblessed-social-card.jpg",
     colorMode: {
       defaultMode: "dark",
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: "unblessed",

@@ -1,0 +1,16 @@
+/* Code Snippets Carousel - Basic Embla */
+.code-snippets-carousel {
+}
+
+.embla {
+}
+
+.embla__container {
+  display: flex;
+  gap: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+.embla__slide {
+  flex: 0 0 350px;
+}
