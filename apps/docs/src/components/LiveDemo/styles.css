@@ -91,7 +91,7 @@
 }
 
 .title-gradient {
-    background: linear-gradient(135deg, #0dbc79 0%, #61afef 50%, #c678dd 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #c2c2c2 50%, #f2f2f2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

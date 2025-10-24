@@ -1,16 +1,28 @@
-/* Code Snippets Carousel - Basic Embla */
+/* Code Snippets Carousel - Native Scroll */
 .code-snippets-carousel {
+  width: 100%;
+  position: relative;
+  padding: 1rem 0;
 }
 
-.embla {
-}
-
-.embla__container {
+.carousel-container {
   display: flex;
   gap: 1.5rem;
-  padding-left: 1.5rem;
+  padding: 0.5rem 1.5rem 2rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  /* Hide scrollbar */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.embla__slide {
+.carousel-container::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-slide {
   flex: 0 0 350px;
+  min-width: 350px;
 }

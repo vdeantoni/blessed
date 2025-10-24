@@ -691,8 +691,12 @@ export default function LiveDemo() {
     try {
       // Fetch type definitions from static folder
       const [browserTypes, coreTypes] = await Promise.all([
-        fetch("/types/browser.d.ts").then((r) => r.text()).catch(() => ""),
-        fetch("/types/core.d.ts").then((r) => r.text()).catch(() => ""),
+        fetch("/types/browser.d.ts")
+          .then((r) => r.text())
+          .catch(() => ""),
+        fetch("/types/core.d.ts")
+          .then((r) => r.text())
+          .catch(() => ""),
       ]);
 
       // Add types to Monaco's TypeScript compiler
@@ -825,22 +829,28 @@ export default function LiveDemo() {
   const handleExampleClick = (exampleId: string) => {
     if (exampleId === activeExample || isTransitioning) return;
 
+    // Immediate visual feedback - update active state first
+    setActiveExample(exampleId);
     setIsTransitioning(true);
 
-    // Fade out transition
-    setTimeout(() => {
-      setActiveExample(exampleId);
-      const example = CODE_EXAMPLES.find((e) => e.id === exampleId);
-      if (example) {
-        setEditorCode(example.code);
-        runDemo(example.code);
-      }
+    const example = CODE_EXAMPLES.find((e) => e.id === exampleId);
+    if (example) {
+      setEditorCode(example.code);
+    }
 
-      // Fade in
-      setTimeout(() => {
-        setIsTransitioning(false);
-      }, 300);
-    }, 300);
+    // Defer heavy work to next frame to allow UI to update
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        if (example) {
+          // Run the demo after UI has painted
+          runDemo(example.code).finally(() => {
+            setIsTransitioning(false);
+          });
+        } else {
+          setIsTransitioning(false);
+        }
+      });
+    });
   };
 
   // Handle terminal resize
@@ -923,7 +933,7 @@ export default function LiveDemo() {
 
       <div className="desktop-content">
         <h1 className="desktop-title">
-          <span className="title-gradient">unblessed</span>
+          <span className="title-gradient">Unblessed</span>
         </h1>
         <p className="desktop-subtitle">
           Modern, TypeScript-first terminal UI library for Node.js and browsers
@@ -939,12 +949,10 @@ export default function LiveDemo() {
               zIndex={editorZIndex}
               onFocus={handleEditorFocus}
               header={
-                <>
-                  <div className="window-title">Code Editor</div>
-                  <div className="window-status">
-                    <span className="status-indicator">● TypeScript</span>
-                  </div>
-                </>
+                <div className="window-title">
+                  {CODE_EXAMPLES.find((e) => e.id === activeExample)?.title ||
+                    "Code Editor"}
+                </div>
               }
             >
               <div className="editor-container">
@@ -989,10 +997,7 @@ export default function LiveDemo() {
               onSizeChange={handleTerminalResize}
               header={
                 <>
-                  <div className="window-title">
-                    {CODE_EXAMPLES.find((e) => e.id === activeExample)?.title ||
-                      "Terminal"}
-                  </div>
+                  <div className="window-title">Terminal</div>
                   <div className="window-status">
                     {isLoaded && (
                       <span className="status-indicator">● Live</span>

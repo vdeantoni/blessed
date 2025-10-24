@@ -1,5 +1,6 @@
 /* Snippet Card */
 .snippet-card {
+  position: relative;
   background: rgba(20, 20, 25, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
@@ -8,18 +9,7 @@
   transition: all 0.3s ease;
   width: 100%;
   height: 100%;
-  animation: fadeInUp 0.6s ease-out both;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  overflow: hidden;
 }
 
 .snippet-card::before {
@@ -29,17 +19,19 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #0dbc79, #61afef, #c678dd);
+  background: linear-gradient(90deg, #ffffff, #c2c2c2, #f2f2f2);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
+
+
 .snippet-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(13, 188, 121, 0.4);
+  border-color: rgba(255, 255, 255, 0.4);
   box-shadow:
     0 12px 24px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(13, 188, 121, 0.2);
+    0 0 0 1px rgba(240, 240, 240, 0.2);
 }
 
 .snippet-card:hover::before {
@@ -52,6 +44,7 @@
   box-shadow:
     0 8px 32px rgba(13, 188, 121, 0.3),
     0 0 0 1px #0dbc79;
+  transform: translateY(-4px);
 }
 
 .snippet-card.active::before {
