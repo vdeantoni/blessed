@@ -1,3 +1,19 @@
+# [1.0.0-alpha.3](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2025-10-24)
+
+
+### Bug Fixes
+
+* **core:** prevent infinite recursion in textarea inputOnFocus with multiple inputs ([1509aff](https://github.com/vdeantoni/unblessed/commit/1509aff25ca24e0cced897e75d64d3824737940b))
+* **docs:** enable IntelliSense and autocomplete in Monaco Editor ([2770982](https://github.com/vdeantoni/unblessed/commit/2770982da807b88f08157532d374c043a43628be))
+* **docs:** improved landing page ([2653a51](https://github.com/vdeantoni/unblessed/commit/2653a517dfbe3ad678dab2c600f94bcc9a424336))
+
+
+### Features
+
+* **docs:** add Prettier formatting to Monaco Editor ([9e724f0](https://github.com/vdeantoni/unblessed/commit/9e724f068b9411b189b2f7444143b582ce5e4544))
+* **docs:** add TypeScript type support to Monaco Editor ([ace1ce4](https://github.com/vdeantoni/unblessed/commit/ace1ce427c09df3086490602be346ec328da29af))
+* **docs:** improve code interpreter with modern import syntax ([6afc730](https://github.com/vdeantoni/unblessed/commit/6afc730abd20e013c127001ea20969c3c982ef23))
+
 # [1.0.0-alpha.2](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2025-10-23)
 
 
