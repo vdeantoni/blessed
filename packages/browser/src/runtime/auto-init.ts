@@ -22,7 +22,7 @@ if (
     (globalThis as any).process = {
       platform: "browser",
       arch: "x64",
-      env: { TERM: "xterm-256color" },
+      env: { TERM: "xterm-256color", LANG: "en_US.UTF-8" },
       cwd: () => "/",
       exit: (code?: number) => {
         console.log(`Process exit called with code: ${code ?? 0}`);
