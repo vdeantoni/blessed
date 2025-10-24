@@ -1,3 +1,10 @@
+# [1.0.0-alpha.4](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2025-10-24)
+
+
+### Performance Improvements
+
+* **docs:** replace Embla carousel with native scroll and optimize demo UX ([72b5d8e](https://github.com/vdeantoni/unblessed/commit/72b5d8e4c48b30629d6efdd45ddd3649cce9e4ce))
+
 # [1.0.0-alpha.3](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2025-10-24)
 
 
