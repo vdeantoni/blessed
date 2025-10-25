@@ -3,7 +3,6 @@
   background: #1e1e1e;
   border: 1px solid #3e3e42;
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
   position: absolute;
   display: flex;
@@ -51,7 +50,6 @@
 /* Content */
 .drb-content {
   flex: 1;
-  overflow: hidden;
   position: relative;
 }
 
