@@ -1,3 +1,12 @@
+# [1.0.0-alpha.6](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2025-10-26)
+
+
+### Bug Fixes
+
+* **core:** broken data path ([82fca00](https://github.com/vdeantoni/unblessed/commit/82fca009f49d186a0f86b1f4296752a0a392fba5))
+* **core:** prevent Tab key from deleting characters in form textboxes ([fd5eeb0](https://github.com/vdeantoni/unblessed/commit/fd5eeb0fe320d6d07d37863ec74ed3c5aa87d102))
+* internal package bundling ([6bef6cf](https://github.com/vdeantoni/unblessed/commit/6bef6cfb1c07df21d8fa9e7481ce8f3a6d33c4e7))
+
 # [1.0.0-alpha.5](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2025-10-26)
 
 
