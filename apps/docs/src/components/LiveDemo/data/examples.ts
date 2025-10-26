@@ -13,8 +13,7 @@ export const CODE_EXAMPLES: CodeExample[] = [
     code: `import { Box } from "@unblessed/browser";
 
 // Simple centered box
-const box = new Box({
-  parent: screen,
+export const box = new Box({
   top: "center",
   left: "center",
   width: "50%",
@@ -31,8 +30,6 @@ const box = new Box({
     border: { fg: "cyan" },
   },
 });
-
-screen.render();
 `,
   },
   {
@@ -42,8 +39,7 @@ screen.render();
     code: `import { List, Box } from "@unblessed/browser";
 
 // Interactive list with selection
-const list = new List({
-  parent: screen,
+export const list = new List({
   top: "center",
   left: "center",
   width: "50%",
@@ -65,8 +61,7 @@ const list = new List({
   items: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"],
 });
 
-const box = new Box({
-  parent: screen,
+export const box = new Box({
   top: 3,
   left: "center",
   width: "50%",
@@ -80,11 +75,9 @@ list.on("select", (item, index) => {
   box.setContent(
     \`{bold}Selected:{/bold} \${item.getText()} (index: \${index})\`,
   );
-  screen.render();
 });
 
 list.focus();
-screen.render();
 `,
   },
   {
@@ -94,8 +87,7 @@ screen.render();
     code: `import { Table } from "@unblessed/browser";
 
 // Data table
-const table = new Table({
-  parent: screen,
+export const table = new Table({
   top: "center",
   left: "center",
   width: "80%",
@@ -122,7 +114,6 @@ const table = new Table({
 });
 
 table.focus();
-screen.render();
 `,
   },
   {
@@ -132,8 +123,7 @@ screen.render();
     code: `import { Form, Textbox, Button, Box } from "@unblessed/browser";
 
 // Interactive form with inputs
-const form = new Form({
-  parent: screen,
+export const form = new Form({
   top: "center",
   left: "center",
   width: "50%",
@@ -208,11 +198,9 @@ form.on("submit", (data) => {
   output.setContent(
     \`{bold}Submitted:{/bold}\\nName: \${data.name || "(empty)"}\\nEmail: \${data.email || "(empty)"}\`,
   );
-  screen.render();
 });
 
 form.focus();
-screen.render();
 `,
   },
   {
@@ -222,8 +210,7 @@ screen.render();
     code: `import { Box, ProgressBar, Text } from "@unblessed/browser";
 
 // Animated progress bar
-const box = new Box({
-  parent: screen,
+export const box = new Box({
   top: "center",
   left: "center",
   width: "60%",
@@ -270,11 +257,7 @@ const interval = setInterval(() => {
     statusText.setContent("{bold}{green-fg}Complete!{/green-fg}{/bold}");
     clearInterval(interval);
   }
-
-  screen.render();
 }, 100);
-
-screen.render();
 `,
   },
   {
@@ -284,8 +267,7 @@ screen.render();
     code: `import { Box, List } from "@unblessed/browser";
 
 // Multi-pane layout
-const container = new Box({
-  parent: screen,
+export const container = new Box({
   width: "100%",
   height: "100%",
 });
@@ -357,11 +339,9 @@ sidebar.on("select", (item) => {
   content.setContent(
     \`{center}{bold}\${selected}{/bold}{/center}\\n\\nThis is the \${selected} page.\`,
   );
-  screen.render();
 });
 
 sidebar.focus();
-screen.render();
 `,
   },
   {
@@ -371,8 +351,7 @@ screen.render();
     code: `import { BigText, Box, List } from "@unblessed/browser";
 
 // ASCII art and big text
-const title = new BigText({
-  parent: screen,
+export const title = new BigText({
   top: 2,
   left: "center",
   width: "90%",
@@ -384,8 +363,7 @@ const title = new BigText({
   },
 });
 
-const subtitle = new Box({
-  parent: screen,
+export const subtitle = new Box({
   top: 13,
   left: "center",
   width: "60%",
@@ -395,8 +373,7 @@ const subtitle = new Box({
   style: { fg: "white" },
 });
 
-const features = new List({
-  parent: screen,
+export const features = new List({
   top: 17,
   left: "center",
   width: "50%",
@@ -414,8 +391,6 @@ const features = new List({
     "✓ Browser Support",
   ],
 });
-
-screen.render();
 `,
   },
   {
@@ -425,8 +400,7 @@ screen.render();
     code: `import { Box, Log, Textbox, List, FileManager } from '@unblessed/browser';
 
 // Header
-const header = new Box({
-  parent: screen,
+export const header = new Box({
   top: 0,
   left: 0,
   right: 0,
@@ -438,8 +412,7 @@ const header = new Box({
 });
 
 // Main conversation area
-const conversation = new Log({
-  parent: screen,
+export const conversation = new Log({
   label: ' 💬 Conversation ',
   top: 3,
   left: 0,
@@ -479,8 +452,7 @@ conversation.log('            Or just type a prompt and press Enter!');
 conversation.log('');
 
 // Sidebar for context/files
-const sidebar = new List({
-  parent: screen,
+export const sidebar = new List({
   label: ' 📁 Context Files ',
   top: 3,
   left: '70%',
@@ -509,8 +481,7 @@ const sidebar = new List({
 });
 
 // Input prompt
-const promptInput = new Textbox({
-  parent: screen,
+export const promptInput = new Textbox({
   label: ' {bold}{cyan-fg}>{/cyan-fg}{/bold} Your Prompt ',
   bottom: 3,
   left: 0,
@@ -530,8 +501,7 @@ const promptInput = new Textbox({
 });
 
 // Status bar
-const status = new Box({
-  parent: screen,
+export const status = new Box({
   bottom: 0,
   left: 0,
   right: 0,
@@ -543,8 +513,7 @@ const status = new Box({
 });
 
 // File manager (hidden by default)
-const fileMgr = new FileManager({
-  parent: screen,
+export const fileMgr = new FileManager({
   top: 'center',
   left: 'center',
   width: '80%',
@@ -596,7 +565,6 @@ const commands = {
     fileMgr.show();
     fileMgr.focus();
     fileMgr.refresh();
-    screen.render();
   },
   '/clear': () => {
     conversation.setContent('');
@@ -611,7 +579,6 @@ promptInput.on('submit', (value) => {
   if (!input) {
     promptInput.clearValue();
     promptInput.focus();
-    screen.render();
     return;
   }
 
@@ -644,7 +611,6 @@ promptInput.on('submit', (value) => {
 
   promptInput.clearValue();
   promptInput.focus();
-  screen.render();
 });
 
 // File manager selection
@@ -659,19 +625,15 @@ fileMgr.on('file', (file) => {
   const items = sidebar.items.slice();
   items.push(\`{green-fg}✓{/} \${file}\`);
   sidebar.setItems(items);
-
-  screen.render();
 });
 
 fileMgr.key('escape', () => {
   fileMgr.hide();
   promptInput.focus();
-  screen.render();
 });
 
 // Focus input initially
 promptInput.focus();
-screen.render();
 `,
   },
 ];
