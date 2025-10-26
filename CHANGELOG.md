@@ -1,3 +1,17 @@
+# [1.0.0-alpha.5](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2025-10-26)
+
+
+### Bug Fixes
+
+* **browser:** resolve emoji rendering by adding LANG environment variable ([443e8e4](https://github.com/vdeantoni/unblessed/commit/443e8e4053db1f02c32989d71afeaaea93649766))
+* **docs:** editor tooltips cuttin off (overflow) ([80ff3c8](https://github.com/vdeantoni/unblessed/commit/80ff3c819460ce6ac8c43850257dac0f90fa8232))
+* **docs:** simplify LiveDemo examples with consistent parent: screen usage ([8a94734](https://github.com/vdeantoni/unblessed/commit/8a94734b12ade5d94368e528f383d0ba74937e3c))
+
+
+### Features
+
+* **docs:** add AI Assistant demo to live demo showcase ([c96a29e](https://github.com/vdeantoni/unblessed/commit/c96a29ea663e3f2e6fcafd5c3d8ea15d12302a97))
+
 # [1.0.0-alpha.4](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2025-10-24)
 
 
