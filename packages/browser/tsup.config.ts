@@ -1,4 +1,5 @@
 import { defineConfig } from "tsup";
+import { cp } from "fs/promises";
 
 export default defineConfig([
   // Main tui-browser bundle for browser
@@ -35,11 +36,8 @@ export default defineConfig([
       global: "globalThis",
     },
 
-    // Node.js polyfills for browser
-    // Don't bundle browser - let it be an external dependency
-    // This allows the consuming bundler (like Vite) to handle it properly
-    external: ["@unblessed/core", "xterm"],
-    noExternal: [/@unblessed\/browser/],
+    external: ["xterm"],
+    noExternal: ["@unblessed/core"],
 
     // No Node.js shims (we're targeting browser)
     shims: false,
@@ -100,6 +98,8 @@ export default defineConfig([
     external: ["vite", "path", "url"],
 
     onSuccess: async () => {
+      await cp("../core/data", "dist/data", { recursive: true });
+      console.log("✅ Copied ../core/data/ to dist/data/");
       console.log("✅ @unblessed/browser build complete");
       console.log("📦 Output: dist/index.js (ESM)");
       console.log("📦 Output: dist/index.cjs (CJS)");

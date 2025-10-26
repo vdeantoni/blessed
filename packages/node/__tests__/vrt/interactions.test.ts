@@ -6,10 +6,13 @@
  */
 
 import { describe } from "vitest";
-import { Box, ScrollableText } from "@unblessed/core";
+import { Box, initCore, ScrollableText } from "@unblessed/core";
 import { createMultiFrameVRTTest } from "../helpers/vrt-test.js";
+import { NodeRuntime } from "../../src";
 
 describe("VRT - Widget Interactions", () => {
+  initCore(new NodeRuntime());
+
   createMultiFrameVRTTest(
     "draggable box moves to different positions",
     async (screen, capture) => {

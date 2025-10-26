@@ -19,18 +19,18 @@ export default defineConfig({
   dts: {
     entry: "src/index.ts",
   },
-  minify: true,
+  minify: false,
   shims: true,
   cjsInterop: true,
 
-  external: ["@unblessed/node"],
+  noExternal: ["@unblessed/node"],
 
   platform: "node",
   target: "node22",
 
   onSuccess: async () => {
-    await cp("../core/data", "dist/usr", { recursive: true });
-    console.log("✅ Copied ../core/data/ to dist/usr/");
+    await cp("../core/data", "dist/data", { recursive: true });
+    console.log("✅ Copied ../core/data/ to dist/data/");
     console.log("✅ @unblessed/blessed build complete");
   },
 });

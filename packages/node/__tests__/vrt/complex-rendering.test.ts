@@ -5,10 +5,13 @@
  */
 
 import { describe } from "vitest";
-import { Box } from "@unblessed/core";
+import { Box, initCore } from "@unblessed/core";
 import { createVRTTest } from "../helpers/vrt-test.js";
+import { NodeRuntime } from "../../src";
 
 describe("VRT - Complex Rendering", () => {
+  initCore(new NodeRuntime());
+
   createVRTTest(
     "overlapping boxes with shadows render correctly",
     async (screen) => {

@@ -1,4 +1,5 @@
 import { defineConfig } from "tsup";
+import { cp } from "fs/promises";
 
 export default defineConfig({
   entry: {
@@ -19,12 +20,14 @@ export default defineConfig({
   shims: true,
   cjsInterop: true,
 
-  external: [/^node:.*/, "@unblessed/core"],
+  noExternal: ["@unblessed/core"],
 
   platform: "node",
   target: "node22",
 
   onSuccess: async () => {
+    await cp("../core/data", "dist/data", { recursive: true });
+    console.log("✅ Copied ../core/data/ to dist/data/");
     console.log("✅ @unblessed/node build complete");
   },
 });

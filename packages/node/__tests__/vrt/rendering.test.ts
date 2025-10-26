@@ -6,10 +6,14 @@
  */
 
 import { describe } from "vitest";
-import { Box, List, Text } from "@unblessed/core";
+import { Box, List, Text } from "../../dist/index.js";
 import { createVRTTest } from "../helpers/vrt-test.js";
+import { initCore } from "@unblessed/core";
+import { NodeRuntime } from "../../src";
 
 describe("VRT - Widget Rendering", () => {
+  initCore(new NodeRuntime());
+
   createVRTTest(
     "box with border and content",
     async (screen) => {

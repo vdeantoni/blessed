@@ -86,12 +86,6 @@ importers:
       '@unblessed/browser':
         specifier: workspace:*
         version: link:../../packages/browser
-      '@unblessed/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      '@unblessed/node':
-        specifier: workspace:*
-        version: link:../../packages/node
       '@xterm/addon-fit':
         specifier: ^0.10.0
         version: 0.10.0(@xterm/xterm@5.5.0)
@@ -138,12 +132,15 @@ importers:
 
   packages/blessed:
     dependencies:
-      '@unblessed/core':
-        specifier: workspace:*
-        version: link:../core
       '@unblessed/node':
         specifier: workspace:*
         version: link:../node
+      omggif:
+        specifier: ^1.0.10
+        version: 1.0.10
+      pngjs:
+        specifier: ^7.0.0
+        version: 7.0.0
     devDependencies:
       '@types/blessed':
         specifier: ^0.1.25
@@ -260,12 +257,6 @@ importers:
       '@unblessed/core':
         specifier: workspace:*
         version: link:../core
-      omggif:
-        specifier: ^1.0.10
-        version: 1.0.10
-      pngjs:
-        specifier: ^7.0.0
-        version: 7.0.0
     devDependencies:
       '@types/node':
         specifier: 24.6.2
@@ -285,6 +276,12 @@ importers:
       '@vitest/ui':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
+      omggif:
+        specifier: ^1.0.10
+        version: 1.0.10
+      pngjs:
+        specifier: ^7.0.0
+        version: 7.0.0
       tsup:
         specifier: 8.5.0
         version: 8.5.0(jiti@2.6.1)(postcss@8.5.6)(tsx@4.20.6)(typescript@5.9.3)(yaml@2.8.1)

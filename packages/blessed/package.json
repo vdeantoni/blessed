@@ -78,8 +78,9 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
-    "@unblessed/core": "workspace:*",
-    "@unblessed/node": "workspace:*"
+    "@unblessed/node": "workspace:*",
+    "omggif": "^1.0.10",
+    "pngjs": "^7.0.0"
   },
   "devDependencies": {
     "@types/blessed": "^0.1.25",
@@ -89,9 +90,5 @@
     "tsup": "8.5.0",
     "typescript": "5.9.3",
     "vitest": "^3.2.4"
-  },
-  "peerDependencies": {
-    "@unblessed/core": "workspace:^",
-    "@unblessed/node": "workspace:^"
   }
 }

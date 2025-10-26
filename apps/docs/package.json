@@ -22,8 +22,6 @@
     "@monaco-editor/react": "^4.6.0",
     "@sentry/react": "^10.21.0",
     "@unblessed/browser": "workspace:*",
-    "@unblessed/core": "workspace:*",
-    "@unblessed/node": "workspace:*",
     "@xterm/addon-fit": "^0.10.0",
     "clsx": "^2.0.0",
     "prettier": "^3.6.2",

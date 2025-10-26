@@ -38,7 +38,7 @@ import { GifReader } from "omggif";
  * Node.js runtime implementation (internal)
  * @internal
  */
-class NodeRuntime implements Runtime {
+export class NodeRuntime implements Runtime {
   fs = fs as Runtime["fs"];
   path = path as Runtime["path"];
   process = process as Runtime["process"];

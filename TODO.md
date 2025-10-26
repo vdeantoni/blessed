@@ -2,6 +2,11 @@
 
 Code modernization and cleanup tasks for @unblessed.
 
+## Triage
+
+1. Investigate why initCore(new NodeRuntime()); is needed by the vrt tests and can we improve it.
+
+
 ## High Priority
 
 ### 1. Remove `var self = this` pattern
