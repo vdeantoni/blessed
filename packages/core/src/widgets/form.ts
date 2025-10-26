@@ -47,10 +47,6 @@ class Form extends Box {
         ) {
           if (el.type === "textbox" || el.type === "textarea") {
             if (key.name === "j") return;
-            if (key.name === "tab") {
-              // Workaround, since we can't stop the tab from being added.
-              el.emit("keypress", null, { name: "backspace" });
-            }
             el.emit("keypress", "\x1b", { name: "escape" });
           }
           // Set _selected to the element that triggered navigation if not set

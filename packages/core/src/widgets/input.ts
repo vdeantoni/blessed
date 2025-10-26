@@ -15,9 +15,15 @@ import Box from "./box.js";
 
 class Input extends Box {
   override type = "input";
+  keyable: boolean;
 
   constructor(options: InputOptions = {}) {
+    // Input widgets should be keyable by default for form navigation
+    options.input = true;
     super(options);
+
+    // Set instance property for form navigation
+    this.keyable = true;
   }
 }
 

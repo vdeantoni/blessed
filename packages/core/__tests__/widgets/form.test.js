@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, vi } from "vitest";
 import Form from "../../src/widgets/form.js";
 import Button from "../../src/widgets/button.js";
 import Checkbox from "../../src/widgets/checkbox.js";
+import Textbox from "../../src/widgets/textbox.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 // Helper to create a keyable button
@@ -553,10 +554,12 @@ describe("Form", () => {
       const form = new Form({ screen });
       screen.append(form);
 
-      // Add non-keyable elements
+      // Add non-keyable elements (Box, not Button/Input)
       const box1 = new Button({ screen });
       const box2 = new Button({ screen });
-      // Don't set keyable to true
+      // Override keyable since Button is now auto-keyable
+      box1.keyable = false;
+      box2.keyable = false;
 
       form.append(box1);
       form.append(box2);
@@ -972,6 +975,76 @@ describe("Form", () => {
 
       expect(data.option1).toBe(true);
       expect(data.option2).toBe(false);
+    });
+
+    it("should collect data from textbox fields when navigating with Tab", async () => {
+      const form = new Form({ screen, keys: true });
+      screen.append(form);
+
+      const nameInput = new Textbox({
+        screen,
+        name: "name",
+        width: 40,
+        height: 3,
+        keys: true,
+      });
+
+      const emailInput = new Textbox({
+        screen,
+        name: "email",
+        width: 40,
+        height: 3,
+        keys: true,
+      });
+
+      form.append(nameInput);
+      form.append(emailInput);
+
+      // Focus and start reading input on first textbox
+      nameInput.focus();
+      nameInput.readInput();
+
+      // Wait for nextTick so listener is attached
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Simulate typing "John Doe" character by character via the listener
+      ["J", "o", "h", "n", " ", "D", "o", "e"].forEach((char) => {
+        nameInput.__listener(char, { name: char.toLowerCase() });
+      });
+
+      // At this point, nameInput.value should be "John Doe"
+      expect(nameInput.value).toBe("John Doe");
+
+      // Simulate Tab key press to move to next field
+      // This should trigger form's navigation logic
+      form.emit("element keypress", nameInput, "\t", {
+        name: "tab",
+        shift: false,
+      });
+
+      // Verify the name field still has the full value after Tab
+      expect(nameInput.value).toBe("John Doe");
+
+      // Focus should have moved to emailInput
+      expect(form._selected).toBe(emailInput);
+
+      // Start reading input on second textbox
+      emailInput.readInput();
+
+      await new Promise((resolve) => setTimeout(resolve, 10));
+
+      // Simulate typing "john@example.com"
+      const emailChars = "john@example.com".split("");
+      emailChars.forEach((char) => {
+        emailInput.__listener(char, { name: char });
+      });
+
+      // Submit the form
+      const formData = form.submit();
+
+      // Verify both fields retained their values
+      expect(formData.name).toBe("John Doe");
+      expect(formData.email).toBe("john@example.com");
     });
   });
 });

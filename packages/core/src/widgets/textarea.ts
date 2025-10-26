@@ -279,6 +279,11 @@ class Textarea extends Input {
       ch = "\n";
     }
 
+    // Ignore tab - it's handled by form navigation
+    if (key.name === "tab") {
+      return;
+    }
+
     // TODO: Handle directional keys.
     if (
       key.name === "left" ||

@@ -38,7 +38,7 @@ export default defineConfig([
     // Node.js polyfills for browser
     // Don't bundle browser - let it be an external dependency
     // This allows the consuming bundler (like Vite) to handle it properly
-    external: [],
+    external: ["@unblessed/core", "xterm"],
     noExternal: [/@unblessed\/browser/],
 
     // No Node.js shims (we're targeting browser)
