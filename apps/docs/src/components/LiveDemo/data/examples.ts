@@ -13,7 +13,8 @@ export const CODE_EXAMPLES: CodeExample[] = [
     code: `import { Box } from "@unblessed/browser";
 
 // Simple centered box
-export const box = new Box({
+const box = new Box({
+  parent: screen,
   top: "center",
   left: "center",
   width: "50%",
@@ -39,7 +40,8 @@ export const box = new Box({
     code: `import { List, Box } from "@unblessed/browser";
 
 // Interactive list with selection
-export const list = new List({
+const list = new List({
+  parent: screen,
   top: "center",
   left: "center",
   width: "50%",
@@ -61,7 +63,8 @@ export const list = new List({
   items: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"],
 });
 
-export const box = new Box({
+const box = new Box({
+  parent: screen,
   top: 3,
   left: "center",
   width: "50%",
@@ -75,6 +78,7 @@ list.on("select", (item, index) => {
   box.setContent(
     \`{bold}Selected:{/bold} \${item.getText()} (index: \${index})\`,
   );
+  list.screen.render();
 });
 
 list.focus();
@@ -87,7 +91,8 @@ list.focus();
     code: `import { Table } from "@unblessed/browser";
 
 // Data table
-export const table = new Table({
+const table = new Table({
+  parent: screen,
   top: "center",
   left: "center",
   width: "80%",
@@ -123,7 +128,8 @@ table.focus();
     code: `import { Form, Textbox, Button, Box } from "@unblessed/browser";
 
 // Interactive form with inputs
-export const form = new Form({
+const form = new Form({
+  parent: screen,
   top: "center",
   left: "center",
   width: "50%",
@@ -198,6 +204,7 @@ form.on("submit", (data) => {
   output.setContent(
     \`{bold}Submitted:{/bold}\\nName: \${data.name || "(empty)"}\\nEmail: \${data.email || "(empty)"}\`,
   );
+  form.screen.render();
 });
 
 form.focus();
@@ -210,7 +217,8 @@ form.focus();
     code: `import { Box, ProgressBar, Text } from "@unblessed/browser";
 
 // Animated progress bar
-export const box = new Box({
+const box = new Box({
+  parent: screen,
   top: "center",
   left: "center",
   width: "60%",
@@ -257,6 +265,8 @@ const interval = setInterval(() => {
     statusText.setContent("{bold}{green-fg}Complete!{/green-fg}{/bold}");
     clearInterval(interval);
   }
+
+  box.screen.render();
 }, 100);
 `,
   },
@@ -267,7 +277,8 @@ const interval = setInterval(() => {
     code: `import { Box, List } from "@unblessed/browser";
 
 // Multi-pane layout
-export const container = new Box({
+const container = new Box({
+  parent: screen,
   width: "100%",
   height: "100%",
 });
@@ -339,6 +350,7 @@ sidebar.on("select", (item) => {
   content.setContent(
     \`{center}{bold}\${selected}{/bold}{/center}\\n\\nThis is the \${selected} page.\`,
   );
+  container.screen.render();
 });
 
 sidebar.focus();
@@ -351,7 +363,8 @@ sidebar.focus();
     code: `import { BigText, Box, List } from "@unblessed/browser";
 
 // ASCII art and big text
-export const title = new BigText({
+const title = new BigText({
+  parent: screen,
   top: 2,
   left: "center",
   width: "90%",
@@ -363,7 +376,8 @@ export const title = new BigText({
   },
 });
 
-export const subtitle = new Box({
+const subtitle = new Box({
+  parent: screen,
   top: 13,
   left: "center",
   width: "60%",
@@ -373,7 +387,8 @@ export const subtitle = new Box({
   style: { fg: "white" },
 });
 
-export const features = new List({
+const features = new List({
+  parent: screen,
   top: 17,
   left: "center",
   width: "50%",
@@ -400,7 +415,8 @@ export const features = new List({
     code: `import { Box, Log, Textbox, List, FileManager } from '@unblessed/browser';
 
 // Header
-export const header = new Box({
+const header = new Box({
+  parent: screen,
   top: 0,
   left: 0,
   right: 0,
@@ -412,7 +428,8 @@ export const header = new Box({
 });
 
 // Main conversation area
-export const conversation = new Log({
+const conversation = new Log({
+  parent: screen,
   label: ' 💬 Conversation ',
   top: 3,
   left: 0,
@@ -452,7 +469,8 @@ conversation.log('            Or just type a prompt and press Enter!');
 conversation.log('');
 
 // Sidebar for context/files
-export const sidebar = new List({
+const sidebar = new List({
+  parent: screen,
   label: ' 📁 Context Files ',
   top: 3,
   left: '70%',
@@ -481,7 +499,8 @@ export const sidebar = new List({
 });
 
 // Input prompt
-export const promptInput = new Textbox({
+const promptInput = new Textbox({
+  parent: screen,
   label: ' {bold}{cyan-fg}>{/cyan-fg}{/bold} Your Prompt ',
   bottom: 3,
   left: 0,
@@ -501,7 +520,8 @@ export const promptInput = new Textbox({
 });
 
 // Status bar
-export const status = new Box({
+const status = new Box({
+  parent: screen,
   bottom: 0,
   left: 0,
   right: 0,
@@ -513,7 +533,8 @@ export const status = new Box({
 });
 
 // File manager (hidden by default)
-export const fileMgr = new FileManager({
+const fileMgr = new FileManager({
+  parent: screen,
   top: 'center',
   left: 'center',
   width: '80%',
@@ -543,6 +564,7 @@ const commands = {
     conversation.log('  {cyan-fg}/adddir{/}   - Browse and add directory');
     conversation.log('  {cyan-fg}/clear{/}    - Clear conversation history');
     conversation.log('');
+    conversation.screen.render();
   },
   '/compact': () => {
     conversation.log('');
@@ -551,6 +573,7 @@ const commands = {
       conversation.log('{green-fg}[ASSISTANT]{/} ✓ Compacted! Reduced context by 40%');
       conversation.log('            Summary: Working on React components with TypeScript.');
       conversation.log('');
+      conversation.screen.render();
     }, 800);
   },
   '/context': () => {
@@ -560,16 +583,19 @@ const commands = {
     conversation.log('  Files: 4 files (2,340 lines)');
     conversation.log('  Tokens: ~8,500 / 200,000');
     conversation.log('');
+    conversation.screen.render();
   },
   '/adddir': () => {
     fileMgr.show();
     fileMgr.focus();
     fileMgr.refresh();
+    fileMgr.screen.render();
   },
   '/clear': () => {
     conversation.setContent('');
     conversation.log('{green-fg}[SYSTEM]{/} Conversation cleared!');
     conversation.log('');
+    conversation.screen.render();
   },
 };
 
@@ -594,10 +620,12 @@ promptInput.on('submit', (value) => {
     } else {
       conversation.log(\`{red-fg}[ERROR]{/} Unknown command: \${cmd}\`);
       conversation.log('        Type {cyan-fg}/help{/} for available commands');
+      conversation.screen.render();
     }
   } else {
     // Simulate Assistant response
     conversation.log('{yellow-fg}[ASSISTANT]{/} {dim}Thinking...{/dim}');
+    conversation.screen.render();
     setTimeout(() => {
       conversation.log('{green-fg}[ASSISTANT]{/} I can help you with that! Here is what I will do:');
       conversation.log('            1. Analyze your codebase structure');
@@ -606,6 +634,7 @@ promptInput.on('submit', (value) => {
       conversation.log('');
       conversation.log('            Would you like me to proceed?');
       conversation.log('');
+      conversation.screen.render();
     }, 1000);
   }
 
@@ -625,11 +654,14 @@ fileMgr.on('file', (file) => {
   const items = sidebar.items.slice();
   items.push(\`{green-fg}✓{/} \${file}\`);
   sidebar.setItems(items);
+
+  fileMgr.screen.render();
 });
 
 fileMgr.key('escape', () => {
   fileMgr.hide();
   promptInput.focus();
+  fileMgr.screen.render();
 });
 
 // Focus input initially

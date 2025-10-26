@@ -45,31 +45,17 @@ export function useCodeExecution(
           names.forEach((name) => importedNames.add(name));
         }
 
-        // Parse export statements to track what should be attached to screen
-        const exportedNames = new Set<string>();
-
-        // Match: export const foo = ...
-        const exportConstMatches = code.matchAll(/export\s+const\s+(\w+)\s*=/g);
-        for (const match of exportConstMatches) {
-          exportedNames.add(match[1]);
-        }
-
-        // Match: export { foo, bar }
-        const exportBlockMatches = code.matchAll(/export\s*\{([^}]+)\}/g);
-        for (const match of exportBlockMatches) {
-          const names = match[1].split(",").map((n) => n.trim());
-          names.forEach((name) => exportedNames.add(name));
-        }
-
-        // Remove import statements and export keywords
+        // Remove import and export statements
         let cleanCode = code
           .replace(/import.*from.*['"];?\s*/g, "")
           .replace(/export\s+const\s+/g, "const ")
+          .replace(/export\s+/g, "")
           .replace(/export\s*\{[^}]+\}\s*;?\s*/g, "");
 
-        // Build scope with tui namespace and individual imports
+        // Build scope with screen and individual imports
         const scope: Record<string, any> = {
-          tui, // Keep tui for backward compatibility
+          screen: screen.current,
+          tui,
         };
 
         // Add each imported widget to scope
@@ -79,27 +65,12 @@ export function useCodeExecution(
           }
         }
 
-        // Add return statement to capture exported values
-        if (exportedNames.size > 0) {
-          const exportVars = Array.from(exportedNames).join(", ");
-          cleanCode += `\n\nreturn { ${exportVars} };`;
-        }
-
         // Create function with dynamic scope
         const paramNames = Object.keys(scope);
         const paramValues = Object.values(scope);
         const userFunction = new Function(...paramNames, cleanCode);
 
-        const exports = await userFunction(...paramValues);
-
-        // Attach all exported components to screen
-        if (exports) {
-          for (const [name, component] of Object.entries(exports)) {
-            if (component && typeof component === "object") {
-              screen.current.append(component);
-            }
-          }
-        }
+        await userFunction(...paramValues);
 
         // Render the screen
         screen.current.render();
