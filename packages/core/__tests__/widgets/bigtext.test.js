@@ -1,47 +1,21 @@
 import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  beforeAll,
   afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
   vi,
 } from "vitest";
-import fs from "fs";
-
-import path from "path";
-import url from "url";
-import { setRuntime } from "../../src/runtime-context.js";
 import BigText from "../../src/widgets/bigtext.js";
-import { createMockScreen } from "../helpers/mock.js";
+import { createMockScreen, initTestRuntime } from "../helpers/mock.js";
 
 describe("BigText", () => {
   let screen;
 
+  // Initialize runtime before all tests
   beforeAll(() => {
-    // Initialize runtime
-    setRuntime({
-      fs: {
-        readFileSync: vi.fn((filePath, encoding) => {
-          let correctedPath = filePath;
-
-          // Redirect paths that try to access /widgets/data/ or /lib/data/ or /src/data/
-          if (typeof filePath === "string") {
-            if (filePath.includes("/src/data/")) {
-              correctedPath = filePath.replace("/src/data/", "/data/");
-            }
-          }
-
-          return fs.readFileSync(correctedPath, encoding);
-        }),
-        existsSync: fs.existsSync,
-        readdirSync: fs.readdirSync,
-        statSync: fs.statSync,
-      },
-      path,
-      url,
-      process,
-    });
+    initTestRuntime();
   });
 
   beforeEach(() => {
@@ -76,7 +50,7 @@ describe("BigText", () => {
     it("should accept custom font", () => {
       const bigtext = new BigText({
         screen,
-        font: __dirname + "/../../src/data/fonts/ter-u14n.json",
+        font: __dirname + "/data/fonts/ter-u14n.json",
       });
 
       expect(bigtext.font).toBeDefined();
@@ -113,6 +87,20 @@ describe("BigText", () => {
 
       expect(bigtext.font).toBe(bigtext.fontBold);
     });
+
+    it("should create bigtext with content", () => {
+      const bigtext = new BigText({
+        parent: screen,
+        content: "Hello",
+        top: "center",
+        left: "center",
+        width: "80%",
+        height: "50%",
+      });
+
+      expect(bigtext).toBeDefined();
+      expect(bigtext.text).toBe("Hello");
+    });
   });
 
   describe("loadFont()", () => {
@@ -125,9 +113,7 @@ describe("BigText", () => {
     it("should return font object", () => {
       const bigtext = new BigText({ screen });
 
-      const font = bigtext.loadFont(
-        __dirname + "/../../src/data/fonts/ter-u14n.json",
-      );
+      const font = bigtext.loadFont(__dirname + "/data/fonts/ter-u14n.json");
 
       expect(typeof font).toBe("object");
     });

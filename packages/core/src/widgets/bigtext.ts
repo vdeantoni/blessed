@@ -39,6 +39,8 @@ class BigText extends Box {
     if (this.style.bold) {
       this.font = this.fontBold;
     }
+
+    this.text = options.content || "";
   }
 
   loadFont(filename: string): any {

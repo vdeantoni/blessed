@@ -69,7 +69,7 @@ export function getDataPath(): string {
     const rt = runtime.getRuntime();
     const dir = getDir();
     // Go up from src/lib to package root, then into data
-    __dataPath = rt.path.resolve(rt.path.join(dir, "../../data"));
+    __dataPath = rt.path.resolve(rt.path.join(dir, "data"));
   }
   return __dataPath;
 }

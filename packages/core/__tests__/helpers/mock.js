@@ -5,7 +5,7 @@
 import { EventEmitter } from "events";
 import { vi } from "vitest";
 import {
-  setRuntime,
+  initCore,
   getRuntime,
   _clearRuntime,
 } from "../../src/runtime-context.js";
@@ -59,19 +59,19 @@ export function createNodeRuntimeForTests() {
   return {
     // Core APIs (required)
     fs: {
-      readFileSync: fs.readFileSync,
-      readdirSync: fs.readdirSync,
-      existsSync: fs.existsSync,
-      statSync: fs.statSync,
-      lstatSync: fs.lstatSync,
-      readlinkSync: fs.readlinkSync,
-      mkdirSync: fs.mkdirSync,
-      createWriteStream: fs.createWriteStream,
-      readFile: fs.readFile,
-      readdir: fs.readdir,
-      unlink: fs.unlink,
-      writeFile: fs.writeFile,
-      stat: fs.stat,
+      ...fs,
+      readFileSync: vi.fn((filePath, encoding) => {
+        let correctedPath = filePath;
+
+        // Redirect paths that try to access /widgets/data/ or /lib/data/ or /src/data/
+        if (typeof filePath === "string") {
+          if (filePath.includes("/data/")) {
+            correctedPath = filePath.replace("/data/", "/../../data/");
+          }
+        }
+
+        return fs.readFileSync(correctedPath, encoding);
+      }),
     },
     path: {
       join: path.join,
@@ -326,7 +326,7 @@ export function initTestRuntime(options = {}) {
       ? createMockRuntime(options)
       : createNodeRuntimeForTests();
 
-  setRuntime(runtime);
+  initCore(runtime);
   return runtime;
 }
 
