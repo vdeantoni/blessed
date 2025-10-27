@@ -59,12 +59,6 @@ importers:
       turbo:
         specifier: ^2.5.8
         version: 2.5.8
-      typedoc:
-        specifier: ^0.28.14
-        version: 0.28.14(typescript@5.9.3)
-      typedoc-plugin-markdown:
-        specifier: ^4.9.0
-        version: 4.9.0(typedoc@0.28.14(typescript@5.9.3))
 
   apps/docs:
     dependencies:
@@ -126,6 +120,12 @@ importers:
       rimraf:
         specifier: ^6.0.1
         version: 6.0.1
+      typedoc:
+        specifier: ^0.28.14
+        version: 0.28.14(typescript@5.6.3)
+      typedoc-plugin-markdown:
+        specifier: ^4.9.0
+        version: 4.9.0(typedoc@0.28.14(typescript@5.6.3))
       typescript:
         specifier: ~5.6.2
         version: 5.6.3
@@ -15769,17 +15769,17 @@ snapshots:
     dependencies:
       is-typedarray: 1.0.0
 
-  typedoc-plugin-markdown@4.9.0(typedoc@0.28.14(typescript@5.9.3)):
+  typedoc-plugin-markdown@4.9.0(typedoc@0.28.14(typescript@5.6.3)):
     dependencies:
-      typedoc: 0.28.14(typescript@5.9.3)
+      typedoc: 0.28.14(typescript@5.6.3)
 
-  typedoc@0.28.14(typescript@5.9.3):
+  typedoc@0.28.14(typescript@5.6.3):
     dependencies:
       '@gerrit0/mini-shiki': 3.13.1
       lunr: 2.3.9
       markdown-it: 14.1.0
       minimatch: 9.0.5
-      typescript: 5.9.3
+      typescript: 5.6.3
       yaml: 2.8.1
 
   typescript@5.6.3: {}

@@ -1,6 +1,6 @@
 # Interface: NetworkingAPI
 
-Defined in: [packages/core/src/runtime.ts:428](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L428)
+Defined in: [packages/core/src/runtime.ts:428](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L428)
 
 Networking API group (optional)
 Network connections and TTY operations
@@ -11,7 +11,7 @@ Network connections and TTY operations
 
 > **net**: [`NetAPI`](runtime.Interface.NetAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:430](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L430)
+Defined in: [packages/core/src/runtime.ts:430](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L430)
 
 Network socket operations
 
@@ -21,6 +21,6 @@ Network socket operations
 
 > **tty**: [`TtyAPI`](runtime.Interface.TtyAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:432](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L432)
+Defined in: [packages/core/src/runtime.ts:432](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L432)
 
 TTY operations

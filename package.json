@@ -45,7 +45,6 @@
     "lint:check": "turbo lint:check",
     "format": "turbo format",
     "format:check": "turbo format:check",
-    "docs:generate": "typedoc --options typedoc.json",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -65,8 +64,6 @@
     "prettier": "^3.4.2",
     "rimraf": "^6.0.1",
     "semantic-release": "^25.0.0",
-    "turbo": "^2.5.8",
-    "typedoc": "^0.28.14",
-    "typedoc-plugin-markdown": "^4.9.0"
+    "turbo": "^2.5.8"
   }
 }

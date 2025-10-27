@@ -1,6 +1,6 @@
 # Interface: Runtime
 
-Defined in: [packages/core/src/runtime.ts:111](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L111)
+Defined in: [packages/core/src/runtime.ts:111](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L111)
 
 Complete runtime abstraction interface
 All @unblessed/core modules accept this interface for platform operations
@@ -19,7 +19,7 @@ Optional APIs (use feature detection):
 
 > **fs**: [`FileSystemAPI`](runtime.Interface.FileSystemAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:117](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L117)
+Defined in: [packages/core/src/runtime.ts:117](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L117)
 
 File system operations
 
@@ -29,7 +29,7 @@ File system operations
 
 > **path**: [`PathAPI`](runtime.Interface.PathAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:119](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L119)
+Defined in: [packages/core/src/runtime.ts:119](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L119)
 
 Path manipulation operations
 
@@ -39,7 +39,7 @@ Path manipulation operations
 
 > **process**: [`ProcessAPI`](runtime.Interface.ProcessAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:121](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L121)
+Defined in: [packages/core/src/runtime.ts:121](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L121)
 
 Process operations (stdin/stdout/env/etc)
 
@@ -49,7 +49,7 @@ Process operations (stdin/stdout/env/etc)
 
 > **buffer**: [`BufferAPI`](runtime.Interface.BufferAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:123](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L123)
+Defined in: [packages/core/src/runtime.ts:123](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L123)
 
 Buffer operations
 
@@ -59,7 +59,7 @@ Buffer operations
 
 > **url**: [`UrlAPI`](runtime.Interface.UrlAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:125](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L125)
+Defined in: [packages/core/src/runtime.ts:125](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L125)
 
 URL operations (fileURLToPath for module resolution)
 
@@ -69,7 +69,7 @@ URL operations (fileURLToPath for module resolution)
 
 > **utils**: [`UtilsAPI`](runtime.Interface.UtilsAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:127](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L127)
+Defined in: [packages/core/src/runtime.ts:127](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L127)
 
 Utility functions and streams
 
@@ -79,7 +79,7 @@ Utility functions and streams
 
 > `optional` **images**: [`ImageAPI`](runtime.Interface.ImageAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:134](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L134)
+Defined in: [packages/core/src/runtime.ts:134](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L134)
 
 Image processing (PNG/GIF rendering) - Optional
 
@@ -89,7 +89,7 @@ Image processing (PNG/GIF rendering) - Optional
 
 > `optional` **processes**: [`ProcessesAPI`](runtime.Interface.ProcessesAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:136](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L136)
+Defined in: [packages/core/src/runtime.ts:136](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L136)
 
 Process spawning - Optional
 
@@ -99,6 +99,6 @@ Process spawning - Optional
 
 > `optional` **networking**: [`NetworkingAPI`](runtime.Interface.NetworkingAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:138](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L138)
+Defined in: [packages/core/src/runtime.ts:138](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L138)
 
 Networking and TTY operations - Optional

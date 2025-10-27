@@ -1,6 +1,6 @@
 # Interface: UtilsAPI
 
-Defined in: [packages/core/src/runtime.ts:439](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L439)
+Defined in: [packages/core/src/runtime.ts:439](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L439)
 
 Utilities API group (optional)
 Utility functions, streams, and string decoding
@@ -11,7 +11,7 @@ Utility functions, streams, and string decoding
 
 > **util**: [`UtilAPI`](runtime.Interface.UtilAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:441](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L441)
+Defined in: [packages/core/src/runtime.ts:441](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L441)
 
 Utility functions (inspect, format)
 
@@ -21,7 +21,7 @@ Utility functions (inspect, format)
 
 > **stream**: [`StreamAPI`](runtime.Interface.StreamAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:443](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L443)
+Defined in: [packages/core/src/runtime.ts:443](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L443)
 
 Stream operations (Readable, Writable)
 
@@ -31,7 +31,7 @@ Stream operations (Readable, Writable)
 
 > **stringDecoder**: [`StringDecoderAPI`](runtime.Interface.StringDecoderAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:445](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L445)
+Defined in: [packages/core/src/runtime.ts:445](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L445)
 
 String decoder for buffer/string conversion
 
@@ -41,6 +41,6 @@ String decoder for buffer/string conversion
 
 > **events**: [`EventsAPI`](runtime.Interface.EventsAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:447](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L447)
+Defined in: [packages/core/src/runtime.ts:447](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L447)
 
 Event emitter for event-driven programming

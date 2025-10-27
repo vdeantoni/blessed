@@ -7,6 +7,7 @@
     "docusaurus": "docusaurus",
     "dev": "docusaurus start --port 4000",
     "build": "docusaurus build",
+    "build:api": "typedoc --options typedoc.json",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clean": "docusaurus clear && rimraf build .docusaurus",
@@ -37,6 +38,8 @@
     "@docusaurus/types": "3.9.2",
     "@types/react": "^19.0.0",
     "rimraf": "^6.0.1",
+    "typedoc": "^0.28.14",
+    "typedoc-plugin-markdown": "^4.9.0",
     "typescript": "~5.6.2"
   },
   "browserslist": {

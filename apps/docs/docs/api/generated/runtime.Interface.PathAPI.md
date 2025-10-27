@@ -1,6 +1,6 @@
 # Interface: PathAPI
 
-Defined in: [packages/core/src/runtime.ts:185](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L185)
+Defined in: [packages/core/src/runtime.ts:185](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L185)
 
 Path manipulation interface
 Subset of Node.js path module
@@ -11,7 +11,7 @@ Subset of Node.js path module
 
 > **join**: (...`paths`) => `string`
 
-Defined in: [packages/core/src/runtime.ts:186](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L186)
+Defined in: [packages/core/src/runtime.ts:186](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L186)
 
 Join all arguments together and normalize the resulting path.
 
@@ -37,14 +37,14 @@ if any of the path segments is not a string.
 
 > **resolve**: (...`paths`) => `string`
 
-Defined in: [packages/core/src/runtime.ts:187](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L187)
+Defined in: [packages/core/src/runtime.ts:187](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L187)
 
-The right-most parameter is considered `to`. Other parameters are considered an array of `from`.
+The right-most parameter is considered {to}. Other parameters are considered an array of {from}.
 
-Starting from leftmost `from` parameter, resolves `to` to an absolute path.
+Starting from leftmost {from} parameter, resolves {to} to an absolute path.
 
-If `to` isn't already absolute, `from` arguments are prepended in right to left order,
-until an absolute path is found. If after using all `from` paths still no absolute path is found,
+If {to} isn't already absolute, {from} arguments are prepended in right to left order,
+until an absolute path is found. If after using all {from} paths still no absolute path is found,
 the current working directory is used as well. The resulting path is normalized,
 and trailing slashes are removed unless the path gets resolved to the root directory.
 
@@ -70,7 +70,7 @@ if any of the arguments is not a string.
 
 > **dirname**: (`path`) => `string`
 
-Defined in: [packages/core/src/runtime.ts:188](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L188)
+Defined in: [packages/core/src/runtime.ts:188](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L188)
 
 Return the directory name of a path. Similar to the Unix dirname command.
 
@@ -96,7 +96,7 @@ if `path` is not a string.
 
 > **basename**: (`path`, `suffix?`) => `string`
 
-Defined in: [packages/core/src/runtime.ts:189](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L189)
+Defined in: [packages/core/src/runtime.ts:189](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L189)
 
 Return the last portion of a path. Similar to the Unix basename command.
 Often used to extract the file name from a fully qualified path.
@@ -129,7 +129,7 @@ if `path` is not a string or if `ext` is given and is not a string.
 
 > **normalize**: (`path`) => `string`
 
-Defined in: [packages/core/src/runtime.ts:190](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L190)
+Defined in: [packages/core/src/runtime.ts:190](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L190)
 
 Normalize a string path, reducing '..' and '.' parts.
 When multiple slashes are found, they're replaced by a single one; when the path contains a trailing slash, it is preserved. On Windows backslashes are used.
@@ -156,7 +156,7 @@ if `path` is not a string.
 
 > **extname**: (`path`) => `string`
 
-Defined in: [packages/core/src/runtime.ts:191](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L191)
+Defined in: [packages/core/src/runtime.ts:191](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L191)
 
 Return the extension of the path, from the last '.' to end of string in the last portion of the path.
 If there is no '.' in the last portion of the path or the first character of it is '.', then it returns an empty string.
@@ -183,7 +183,7 @@ if `path` is not a string.
 
 > **sep**: "\\" \| `"/"`
 
-Defined in: [packages/core/src/runtime.ts:192](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L192)
+Defined in: [packages/core/src/runtime.ts:192](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L192)
 
 ***
 
@@ -191,4 +191,4 @@ Defined in: [packages/core/src/runtime.ts:192](https://github.com/vdeantoni/unbl
 
 > **delimiter**: `";"` \| `":"`
 
-Defined in: [packages/core/src/runtime.ts:193](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L193)
+Defined in: [packages/core/src/runtime.ts:193](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L193)

@@ -1,6 +1,6 @@
 # Interface: ChildProcessAPI
 
-Defined in: [packages/core/src/runtime.ts:249](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L249)
+Defined in: [packages/core/src/runtime.ts:249](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L249)
 
 Child process operations interface
 Subset of Node.js child_process module
@@ -11,7 +11,7 @@ Subset of Node.js child_process module
 
 > **spawn**: \{(`command`, `options?`): `ChildProcessWithoutNullStreams`; (`command`, `options`): `ChildProcessByStdio`\<`Writable`, `Readable`, `Readable`\>; (`command`, `options`): `ChildProcessByStdio`\<`Writable`, `Readable`, `null`\>; (`command`, `options`): `ChildProcessByStdio`\<`Writable`, `null`, `Readable`\>; (`command`, `options`): `ChildProcessByStdio`\<`null`, `Readable`, `Readable`\>; (`command`, `options`): `ChildProcessByStdio`\<`Writable`, `null`, `null`\>; (`command`, `options`): `ChildProcessByStdio`\<`null`, `Readable`, `null`\>; (`command`, `options`): `ChildProcessByStdio`\<`null`, `null`, `Readable`\>; (`command`, `options`): `ChildProcessByStdio`\<`null`, `null`, `null`\>; (`command`, `options`): `ChildProcess`; (`command`, `args?`, `options?`): `ChildProcessWithoutNullStreams`; (`command`, `args`, `options`): `ChildProcessByStdio`\<`Writable`, `Readable`, `Readable`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`Writable`, `Readable`, `null`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`Writable`, `null`, `Readable`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`null`, `Readable`, `Readable`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`Writable`, `null`, `null`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`null`, `Readable`, `null`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`null`, `null`, `Readable`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`null`, `null`, `null`\>; (`command`, `args`, `options`): `ChildProcess`; \}
 
-Defined in: [packages/core/src/runtime.ts:250](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L250)
+Defined in: [packages/core/src/runtime.ts:250](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L250)
 
 #### Call Signature
 
@@ -2857,9 +2857,9 @@ v0.1.90
 
 ### execSync()
 
-> **execSync**: \{(`command`): `Buffer`; (`command`, `options`): `string`; (`command`, `options`): `Buffer`; (`command`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>; \}
+> **execSync**: \{(`command`): `Buffer`; (`command`, `options`): `string`; (`command`, `options`): `Buffer`; (`command`, `options?`): `string` \| `Buffer`; \}
 
-Defined in: [packages/core/src/runtime.ts:251](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L251)
+Defined in: [packages/core/src/runtime.ts:251](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L251)
 
 #### Call Signature
 
@@ -2973,7 +2973,7 @@ v0.11.12
 
 #### Call Signature
 
-> (`command`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>
+> (`command`, `options?`): `string` \| `Buffer`
 
 The `child_process.execSync()` method is generally identical to exec with the exception that the method will not return
 until the child process has fully closed. When a timeout has been encountered
@@ -3001,7 +3001,7 @@ The command to run.
 
 ##### Returns
 
-`string` \| `Buffer`\<`ArrayBufferLike`\>
+`string` \| `Buffer`
 
 The stdout from the command.
 
@@ -3013,9 +3013,9 @@ v0.11.12
 
 ### execFileSync()
 
-> **execFileSync**: \{(`file`): `Buffer`; (`file`, `options`): `string`; (`file`, `options`): `Buffer`; (`file`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>; (`file`, `args`): `Buffer`; (`file`, `args`, `options`): `string`; (`file`, `args`, `options`): `Buffer`; (`file`, `args?`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>; \}
+> **execFileSync**: \{(`file`): `Buffer`; (`file`, `options`): `string`; (`file`, `options`): `Buffer`; (`file`, `options?`): `string` \| `Buffer`; (`file`, `args`): `Buffer`; (`file`, `args`, `options`): `string`; (`file`, `args`, `options`): `Buffer`; (`file`, `args?`, `options?`): `string` \| `Buffer`; \}
 
-Defined in: [packages/core/src/runtime.ts:252](https://github.com/vdeantoni/unblessed/blob/a72e88c91d2a070cc4394e9ee2afc215f7520f53/packages/core/src/runtime.ts#L252)
+Defined in: [packages/core/src/runtime.ts:252](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L252)
 
 #### Call Signature
 
@@ -3138,7 +3138,7 @@ v0.11.12
 
 #### Call Signature
 
-> (`file`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>
+> (`file`, `options?`): `string` \| `Buffer`
 
 The `child_process.execFileSync()` method is generally identical to execFile with the exception that the method will not
 return until the child process has fully closed. When a timeout has been
@@ -3169,7 +3169,7 @@ The name or path of the executable file to run.
 
 ##### Returns
 
-`string` \| `Buffer`\<`ArrayBufferLike`\>
+`string` \| `Buffer`
 
 The stdout from the command.
 
@@ -3316,7 +3316,7 @@ v0.11.12
 
 #### Call Signature
 
-> (`file`, `args?`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>
+> (`file`, `args?`, `options?`): `string` \| `Buffer`
 
 The `child_process.execFileSync()` method is generally identical to execFile with the exception that the method will not
 return until the child process has fully closed. When a timeout has been
@@ -3353,7 +3353,7 @@ List of string arguments.
 
 ##### Returns
 
-`string` \| `Buffer`\<`ArrayBufferLike`\>
+`string` \| `Buffer`
 
 The stdout from the command.
 

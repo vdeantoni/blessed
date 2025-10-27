@@ -2,16 +2,16 @@
   "$schema": "https://typedoc.org/schema.json",
   "name": "unblessed",
   "entryPoints": [
-    "packages/core/src/widgets",
-    "packages/core/src/lib/program.ts",
-    "packages/core/src/runtime.ts"
+    "../../packages/core/src/widgets",
+    "../../packages/core/src/lib/program.ts",
+    "../../packages/core/src/runtime.ts"
   ],
   "entryPointStrategy": "expand",
-  "out": "apps/docs/docs/api/generated",
+  "out": "docs/api/generated",
   "plugin": ["typedoc-plugin-markdown"],
   "flattenOutputFiles": true,
   "fileExtension": ".md",
-  "tsconfig": "packages/core/tsconfig.json",
+  "tsconfig": "../../packages/core/tsconfig.json",
   "excludePrivate": true,
   "excludeProtected": false,
   "excludeInternal": true,
