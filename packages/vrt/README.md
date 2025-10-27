@@ -14,6 +14,71 @@ npm install --save-dev @unblessed/vrt
 pnpm add -D @unblessed/vrt
 ```
 
+## CLI Tools
+
+The `vrt` command provides tools for working with VRT recordings directly from the terminal.
+
+### Available Commands
+
+#### `vrt play` - Play back a recording
+
+```bash
+vrt play recording.vrt.json
+vrt play recording.vrt.json --speed 2.0  # 2x speed
+```
+
+Plays the recording to your terminal, showing exactly what was captured.
+
+#### `vrt info` - Show recording information
+
+```bash
+vrt info recording.vrt.json
+```
+
+Displays metadata about the recording including dimensions, duration, frame count, and timestamps.
+
+#### `vrt compare` - Compare two recordings
+
+```bash
+# Basic comparison
+vrt compare expected.vrt.json actual.vrt.json
+
+# With options
+vrt compare expected.vrt.json actual.vrt.json \
+  --threshold 5 \
+  --ignore-colors \
+  --verbose
+```
+
+**Options:**
+
+- `-t, --threshold <number>` - Allow N character differences (default: 0)
+- `--ignore-colors` - Ignore ANSI color code differences
+- `--ignore-whitespace` - Ignore whitespace differences
+- `-v, --verbose` - Show detailed diff information
+
+#### `vrt export` - Export to image formats
+
+```bash
+vrt export recording.vrt.json output.gif        # Animated GIF
+vrt export recording.vrt.json output.png --frame 0  # Single frame PNG
+```
+
+_Note: Export functionality coming soon_
+
+### Usage in Scripts
+
+Add CLI commands to your `package.json` scripts:
+
+```json
+{
+  "scripts": {
+    "vrt:info": "vrt info tests/fixtures/golden.vrt.json",
+    "vrt:compare": "vrt compare tests/fixtures/golden.vrt.json tests/fixtures/current.vrt.json"
+  }
+}
+```
+
 ## Quick Start - Golden Snapshot Testing
 
 The most common use case is golden snapshot testing with the `compareWithGolden` utility:
@@ -315,6 +380,38 @@ VRT recordings are JSON files with this structure:
   ]
 }
 ```
+
+## Future Work
+
+### Image Export
+
+The `vrt export` command is planned to support exporting VRT recordings to image formats:
+
+**Planned Features:**
+
+- **PNG Export**: Export individual frames as static PNG images
+  - Useful for documentation, GitHub PRs, and CI reports
+  - Renders ANSI escape codes to pixel buffers
+  - Uses `pngjs` library (already included)
+
+- **GIF Export**: Export entire recordings as animated GIFs
+  - Perfect for showcasing UI interactions
+  - Configurable frame rate and speed
+  - Uses `omggif` library (already included)
+
+**Implementation Requirements:**
+
+- ANSI-to-image renderer that converts terminal escape codes to pixel buffers
+- Font rendering (monospace font required)
+- Color palette mapping (256-color and true color support)
+- Text rendering with proper character spacing
+
+**Potential Extensions:**
+
+- SVG export for scalable terminal output
+- HTML export with interactive playback controls
+- Video export (MP4/WebM) for high-quality recordings
+- Side-by-side diff visualization
 
 ## License
 

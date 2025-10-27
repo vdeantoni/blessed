@@ -13,6 +13,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "vrt": "./dist/cli/index.js"
+  },
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
@@ -57,6 +60,9 @@
     "lint:check": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
   },
   "peerDependencies": {
     "@unblessed/core": "workspace:^"
