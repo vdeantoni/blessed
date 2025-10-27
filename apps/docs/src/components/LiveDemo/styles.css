@@ -4,7 +4,7 @@
     position: relative;
     overflow-y: auto;
     overflow-x: clip; /* Use clip instead of hidden to allow positioned descendants */
-    padding: 2rem 2rem 3rem;
+    padding: 2rem 2rem 1rem;
     display: flex;
     flex-direction: column;
 }
@@ -119,12 +119,12 @@
 /* Split View Container */
 .split-view-container {
     position: relative;
-    width: 100%;
-    padding: 3rem 1rem;
     flex: 1;
-    min-height: 0;
+    padding: 1rem 0rem;
+    gap: 1.5rem;
+    min-height: 52rem;
     display: flex;
-    gap: 2rem;
+    flex-direction: row
 }
 
 /* Editor Box - 40% */
@@ -272,8 +272,8 @@
     }
 
     .split-view-container {
-        flex-direction: column;
-        gap: 1rem;
+        flex-direction: column-reverse;
+        gap: 2rem;
         margin-bottom: 2rem;
     }
 
@@ -306,13 +306,13 @@
     }
 
     .split-view-container {
-        gap: 1rem;
+        gap: 2rem;
         margin-bottom: 1.5rem;
     }
 
     .editor-box-container,
     .terminal-box-container {
-        min-height: 250px;
+        min-height: 400px;
     }
 
     .editor-box,

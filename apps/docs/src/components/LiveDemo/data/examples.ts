@@ -367,8 +367,7 @@ const title = new BigText({
   parent: screen,
   top: 2,
   left: "center",
-  width: "90%",
-  height: 10,
+  height: 20,
   content: "UNBLESSED",
   style: {
     fg: "cyan",
@@ -378,7 +377,7 @@ const title = new BigText({
 
 const subtitle = new Box({
   parent: screen,
-  top: 13,
+  top: 16,
   left: "center",
   width: "60%",
   height: 3,
@@ -389,7 +388,7 @@ const subtitle = new Box({
 
 const features = new List({
   parent: screen,
-  top: 17,
+  top: 20,
   left: "center",
   width: "50%",
   height: 8,
@@ -411,7 +410,8 @@ const features = new List({
   {
     id: "ai-assistant",
     title: "🤖 AI Assistant",
-    description: "Full AI assistant terminal interface with conversation, commands, and file browser",
+    description:
+      "Full AI assistant terminal interface with conversation, commands, and file browser",
     code: `import { Box, Log, Textbox, List, FileManager } from '@unblessed/browser';
 
 // Header
