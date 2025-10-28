@@ -224,10 +224,10 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 ## 🎯 Project Status
 
-**Current Version:** `1.0.0-alpha.1`
+**Current Version:** `1.0.0-alpha.7`
 
 **🔗 Links:**
-- 📚 [Documentation](https://unblessed-docs.vercel.app)
+- 📚 [Documentation](https://unblessed.dev)
 - 📦 [npm Registry](https://www.npmjs.com/package/@unblessed/node)
 - 🐙 [GitHub](https://github.com/vdeantoni/unblessed)
 
