@@ -1,3 +1,27 @@
+# [1.0.0-alpha.7](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2025-10-28)
+
+
+### Bug Fixes
+
+* **docs:** add post-processing script to fix MDX curly braces in generated API docs ([3819dc4](https://github.com/vdeantoni/unblessed/commit/3819dc4f8af831968af94c9df7e10e631c02ff91))
+* **docs:** Tweak livedemo spacing and responsiveness ([a21fd0b](https://github.com/vdeantoni/unblessed/commit/a21fd0be1c28d2c6e0cd7c240f37bb9187907e48))
+
+
+### Features
+
+* **core:** implement global Tab navigation with tabIndex and rest state ([4222992](https://github.com/vdeantoni/unblessed/commit/42229924d7e616abbc5af4cf06436b0a7c06558b))
+* **vrt:** add CLI tools for playback, comparison, and inspection ([cda5e27](https://github.com/vdeantoni/unblessed/commit/cda5e27f3d59c079a4be779247045dff26f0e9d3))
+
+
+### BREAKING CHANGES
+
+* **core:** Form keyboard navigation (keys/vi options) removed in favor
+of global Screen Tab navigation. Forms still support navigation via next()/previous().
+
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>
+
 # [1.0.0-alpha.6](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2025-10-26)
 
 
