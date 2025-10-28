@@ -1,6 +1,6 @@
 # Class: Element
 
-Defined in: [packages/core/src/widgets/element.ts:46](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L46)
+Defined in: [packages/core/src/widgets/element.ts:46](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L46)
 
 Node
 
@@ -20,7 +20,7 @@ Node
 
 > **new Element**(`options`): `Element`
 
-Defined in: [packages/core/src/widgets/element.ts:117](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L117)
+Defined in: [packages/core/src/widgets/element.ts:117](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L117)
 
 #### Parameters
 
@@ -42,7 +42,7 @@ Defined in: [packages/core/src/widgets/element.ts:117](https://github.com/vdeant
 
 > **\_events**: `any`
 
-Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L10)
+Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L10)
 
 #### Inherited from
 
@@ -54,7 +54,7 @@ Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/un
 
 > `optional` **\_maxListeners**: `number`
 
-Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L11)
+Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L11)
 
 #### Inherited from
 
@@ -66,7 +66,7 @@ Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/un
 
 > **type**: `string` = `"element"`
 
-Defined in: [packages/core/src/widgets/element.ts:47](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L47)
+Defined in: [packages/core/src/widgets/element.ts:47](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L47)
 
 Type of the node (e.g. box, list, form, etc.).
 Used to identify the widget type at runtime.
@@ -81,7 +81,7 @@ Used to identify the widget type at runtime.
 
 > **options**: `ElementOptions`
 
-Defined in: [packages/core/src/widgets/element.ts:48](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L48)
+Defined in: [packages/core/src/widgets/element.ts:48](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L48)
 
 #### Overrides
 
@@ -93,7 +93,7 @@ Defined in: [packages/core/src/widgets/element.ts:48](https://github.com/vdeanto
 
 > `optional` **name**: `string`
 
-Defined in: [packages/core/src/widgets/element.ts:50](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L50)
+Defined in: [packages/core/src/widgets/element.ts:50](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L50)
 
 ***
 
@@ -101,7 +101,7 @@ Defined in: [packages/core/src/widgets/element.ts:50](https://github.com/vdeanto
 
 > **position**: `any`
 
-Defined in: [packages/core/src/widgets/element.ts:55](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L55)
+Defined in: [packages/core/src/widgets/element.ts:55](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L55)
 
 Position specification. Can be relative coordinates or keywords.
 Kept as any due to complex internal position calculation system.
@@ -112,7 +112,7 @@ Kept as any due to complex internal position calculation system.
 
 > `optional` **noOverflow**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:56](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L56)
+Defined in: [packages/core/src/widgets/element.ts:56](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L56)
 
 ***
 
@@ -120,7 +120,7 @@ Defined in: [packages/core/src/widgets/element.ts:56](https://github.com/vdeanto
 
 > `optional` **dockBorders**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:57](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L57)
+Defined in: [packages/core/src/widgets/element.ts:57](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L57)
 
 ***
 
@@ -128,7 +128,7 @@ Defined in: [packages/core/src/widgets/element.ts:57](https://github.com/vdeanto
 
 > `optional` **shadow**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:58](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L58)
+Defined in: [packages/core/src/widgets/element.ts:58](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L58)
 
 ***
 
@@ -136,7 +136,7 @@ Defined in: [packages/core/src/widgets/element.ts:58](https://github.com/vdeanto
 
 > **style**: `Style`
 
-Defined in: [packages/core/src/widgets/element.ts:60](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L60)
+Defined in: [packages/core/src/widgets/element.ts:60](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L60)
 
 Element style configuration (colors, attributes, hover/focus effects)
 
@@ -146,7 +146,7 @@ Element style configuration (colors, attributes, hover/focus effects)
 
 > **hidden**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:61](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L61)
+Defined in: [packages/core/src/widgets/element.ts:61](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L61)
 
 ***
 
@@ -154,7 +154,7 @@ Defined in: [packages/core/src/widgets/element.ts:61](https://github.com/vdeanto
 
 > **fixed**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:62](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L62)
+Defined in: [packages/core/src/widgets/element.ts:62](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L62)
 
 ***
 
@@ -162,7 +162,7 @@ Defined in: [packages/core/src/widgets/element.ts:62](https://github.com/vdeanto
 
 > **align**: `string`
 
-Defined in: [packages/core/src/widgets/element.ts:63](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L63)
+Defined in: [packages/core/src/widgets/element.ts:63](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L63)
 
 ***
 
@@ -170,7 +170,7 @@ Defined in: [packages/core/src/widgets/element.ts:63](https://github.com/vdeanto
 
 > **valign**: `string`
 
-Defined in: [packages/core/src/widgets/element.ts:64](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L64)
+Defined in: [packages/core/src/widgets/element.ts:64](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L64)
 
 ***
 
@@ -178,7 +178,7 @@ Defined in: [packages/core/src/widgets/element.ts:64](https://github.com/vdeanto
 
 > **wrap**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:65](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L65)
+Defined in: [packages/core/src/widgets/element.ts:65](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L65)
 
 ***
 
@@ -186,7 +186,7 @@ Defined in: [packages/core/src/widgets/element.ts:65](https://github.com/vdeanto
 
 > `optional` **shrink**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:66](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L66)
+Defined in: [packages/core/src/widgets/element.ts:66](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L66)
 
 ***
 
@@ -194,7 +194,7 @@ Defined in: [packages/core/src/widgets/element.ts:66](https://github.com/vdeanto
 
 > **ch**: `string`
 
-Defined in: [packages/core/src/widgets/element.ts:67](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L67)
+Defined in: [packages/core/src/widgets/element.ts:67](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L67)
 
 ***
 
@@ -202,7 +202,7 @@ Defined in: [packages/core/src/widgets/element.ts:67](https://github.com/vdeanto
 
 > **padding**: `Padding`
 
-Defined in: [packages/core/src/widgets/element.ts:69](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L69)
+Defined in: [packages/core/src/widgets/element.ts:69](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L69)
 
 Padding configuration for all sides
 
@@ -212,7 +212,7 @@ Padding configuration for all sides
 
 > `optional` **border**: `Border`
 
-Defined in: [packages/core/src/widgets/element.ts:71](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L71)
+Defined in: [packages/core/src/widgets/element.ts:71](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L71)
 
 Border configuration
 
@@ -222,7 +222,7 @@ Border configuration
 
 > `optional` **parseTags**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:72](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L72)
+Defined in: [packages/core/src/widgets/element.ts:72](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L72)
 
 ***
 
@@ -230,7 +230,7 @@ Defined in: [packages/core/src/widgets/element.ts:72](https://github.com/vdeanto
 
 > **content**: `string` = `""`
 
-Defined in: [packages/core/src/widgets/element.ts:73](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L73)
+Defined in: [packages/core/src/widgets/element.ts:73](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L73)
 
 ***
 
@@ -238,7 +238,7 @@ Defined in: [packages/core/src/widgets/element.ts:73](https://github.com/vdeanto
 
 > `optional` **lpos**: `RenderCoords`
 
-Defined in: [packages/core/src/widgets/element.ts:75](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L75)
+Defined in: [packages/core/src/widgets/element.ts:75](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L75)
 
 Last rendered position coordinates
 
@@ -248,7 +248,7 @@ Last rendered position coordinates
 
 > `optional` **\_clines**: `any`
 
-Defined in: [packages/core/src/widgets/element.ts:76](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L76)
+Defined in: [packages/core/src/widgets/element.ts:76](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L76)
 
 ***
 
@@ -256,7 +256,7 @@ Defined in: [packages/core/src/widgets/element.ts:76](https://github.com/vdeanto
 
 > `optional` **\_pcontent**: `string`
 
-Defined in: [packages/core/src/widgets/element.ts:77](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L77)
+Defined in: [packages/core/src/widgets/element.ts:77](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L77)
 
 ***
 
@@ -264,7 +264,7 @@ Defined in: [packages/core/src/widgets/element.ts:77](https://github.com/vdeanto
 
 > `optional` **\_slisteners**: `any`[]
 
-Defined in: [packages/core/src/widgets/element.ts:78](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L78)
+Defined in: [packages/core/src/widgets/element.ts:78](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L78)
 
 ***
 
@@ -272,7 +272,7 @@ Defined in: [packages/core/src/widgets/element.ts:78](https://github.com/vdeanto
 
 > `optional` **\_label**: `any`
 
-Defined in: [packages/core/src/widgets/element.ts:79](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L79)
+Defined in: [packages/core/src/widgets/element.ts:79](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L79)
 
 ***
 
@@ -280,7 +280,7 @@ Defined in: [packages/core/src/widgets/element.ts:79](https://github.com/vdeanto
 
 > `optional` **\_labelScroll**: () => `void`
 
-Defined in: [packages/core/src/widgets/element.ts:80](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L80)
+Defined in: [packages/core/src/widgets/element.ts:80](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L80)
 
 #### Returns
 
@@ -292,7 +292,7 @@ Defined in: [packages/core/src/widgets/element.ts:80](https://github.com/vdeanto
 
 > `optional` **\_labelResize**: () => `void`
 
-Defined in: [packages/core/src/widgets/element.ts:81](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L81)
+Defined in: [packages/core/src/widgets/element.ts:81](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L81)
 
 #### Returns
 
@@ -304,7 +304,7 @@ Defined in: [packages/core/src/widgets/element.ts:81](https://github.com/vdeanto
 
 > `optional` **\_hoverOptions**: `any`
 
-Defined in: [packages/core/src/widgets/element.ts:82](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L82)
+Defined in: [packages/core/src/widgets/element.ts:82](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L82)
 
 ***
 
@@ -312,7 +312,7 @@ Defined in: [packages/core/src/widgets/element.ts:82](https://github.com/vdeanto
 
 > `optional` **\_draggable**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:83](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L83)
+Defined in: [packages/core/src/widgets/element.ts:83](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L83)
 
 ***
 
@@ -320,7 +320,7 @@ Defined in: [packages/core/src/widgets/element.ts:83](https://github.com/vdeanto
 
 > `optional` **\_dragMD**: (`data`) => `void`
 
-Defined in: [packages/core/src/widgets/element.ts:84](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L84)
+Defined in: [packages/core/src/widgets/element.ts:84](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L84)
 
 #### Parameters
 
@@ -338,7 +338,7 @@ Defined in: [packages/core/src/widgets/element.ts:84](https://github.com/vdeanto
 
 > `optional` **\_dragM**: (`data`) => `void`
 
-Defined in: [packages/core/src/widgets/element.ts:85](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L85)
+Defined in: [packages/core/src/widgets/element.ts:85](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L85)
 
 #### Parameters
 
@@ -356,7 +356,7 @@ Defined in: [packages/core/src/widgets/element.ts:85](https://github.com/vdeanto
 
 > `optional` **\_drag**: `any`
 
-Defined in: [packages/core/src/widgets/element.ts:86](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L86)
+Defined in: [packages/core/src/widgets/element.ts:86](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L86)
 
 ***
 
@@ -364,7 +364,7 @@ Defined in: [packages/core/src/widgets/element.ts:86](https://github.com/vdeanto
 
 > `optional` **\_noFill**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:87](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L87)
+Defined in: [packages/core/src/widgets/element.ts:87](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L87)
 
 ***
 
@@ -372,7 +372,7 @@ Defined in: [packages/core/src/widgets/element.ts:87](https://github.com/vdeanto
 
 > `optional` **\_isLabel**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:88](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L88)
+Defined in: [packages/core/src/widgets/element.ts:88](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L88)
 
 ***
 
@@ -380,7 +380,7 @@ Defined in: [packages/core/src/widgets/element.ts:88](https://github.com/vdeanto
 
 > `optional` **\_isList**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:89](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L89)
+Defined in: [packages/core/src/widgets/element.ts:89](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L89)
 
 ***
 
@@ -388,7 +388,7 @@ Defined in: [packages/core/src/widgets/element.ts:89](https://github.com/vdeanto
 
 > `optional` **childBase**: `number`
 
-Defined in: [packages/core/src/widgets/element.ts:90](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L90)
+Defined in: [packages/core/src/widgets/element.ts:90](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L90)
 
 ***
 
@@ -396,7 +396,7 @@ Defined in: [packages/core/src/widgets/element.ts:90](https://github.com/vdeanto
 
 > `optional` **childOffset**: `number`
 
-Defined in: [packages/core/src/widgets/element.ts:91](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L91)
+Defined in: [packages/core/src/widgets/element.ts:91](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L91)
 
 ***
 
@@ -404,7 +404,7 @@ Defined in: [packages/core/src/widgets/element.ts:91](https://github.com/vdeanto
 
 > `optional` **alwaysScroll**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:92](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L92)
+Defined in: [packages/core/src/widgets/element.ts:92](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L92)
 
 ***
 
@@ -412,7 +412,7 @@ Defined in: [packages/core/src/widgets/element.ts:92](https://github.com/vdeanto
 
 > `optional` **baseLimit**: `number`
 
-Defined in: [packages/core/src/widgets/element.ts:93](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L93)
+Defined in: [packages/core/src/widgets/element.ts:93](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L93)
 
 ***
 
@@ -420,7 +420,7 @@ Defined in: [packages/core/src/widgets/element.ts:93](https://github.com/vdeanto
 
 > `optional` **track**: `TrackConfig`
 
-Defined in: [packages/core/src/widgets/element.ts:94](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L94)
+Defined in: [packages/core/src/widgets/element.ts:94](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L94)
 
 ***
 
@@ -428,7 +428,7 @@ Defined in: [packages/core/src/widgets/element.ts:94](https://github.com/vdeanto
 
 > `optional` **scrollbar**: `ScrollbarConfig`
 
-Defined in: [packages/core/src/widgets/element.ts:95](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L95)
+Defined in: [packages/core/src/widgets/element.ts:95](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L95)
 
 ***
 
@@ -436,7 +436,7 @@ Defined in: [packages/core/src/widgets/element.ts:95](https://github.com/vdeanto
 
 > `optional` **items**: `any`[]
 
-Defined in: [packages/core/src/widgets/element.ts:96](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L96)
+Defined in: [packages/core/src/widgets/element.ts:96](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L96)
 
 ***
 
@@ -444,7 +444,7 @@ Defined in: [packages/core/src/widgets/element.ts:96](https://github.com/vdeanto
 
 > `optional` **scrollable**: `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:99](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L99)
+Defined in: [packages/core/src/widgets/element.ts:99](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L99)
 
 ***
 
@@ -452,7 +452,7 @@ Defined in: [packages/core/src/widgets/element.ts:99](https://github.com/vdeanto
 
 > `optional` **scroll**: (`offset`, `always?`) => `any`
 
-Defined in: [packages/core/src/widgets/element.ts:102](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L102)
+Defined in: [packages/core/src/widgets/element.ts:102](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L102)
 
 Scroll the content by a relative offset.
 
@@ -480,7 +480,7 @@ Force the scroll operation even if position hasn't changed
 
 > `optional` **scrollTo**: (`offset`, `always?`) => `void`
 
-Defined in: [packages/core/src/widgets/element.ts:103](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L103)
+Defined in: [packages/core/src/widgets/element.ts:103](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L103)
 
 Scroll the content to an absolute index.
 
@@ -508,7 +508,7 @@ Force the scroll operation even if position hasn't changed
 
 > `optional` **setScroll**: (`offset`, `always?`) => `void`
 
-Defined in: [packages/core/src/widgets/element.ts:104](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L104)
+Defined in: [packages/core/src/widgets/element.ts:104](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L104)
 
 Scroll the content to an absolute index (alias for scrollTo).
 
@@ -536,7 +536,7 @@ Force the scroll operation even if position hasn't changed
 
 > `optional` **getScroll**: () => `number`
 
-Defined in: [packages/core/src/widgets/element.ts:105](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L105)
+Defined in: [packages/core/src/widgets/element.ts:105](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L105)
 
 Get the current scroll index in lines.
 
@@ -552,7 +552,7 @@ The current absolute scroll position
 
 > `optional` **getScrollHeight**: () => `number`
 
-Defined in: [packages/core/src/widgets/element.ts:106](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L106)
+Defined in: [packages/core/src/widgets/element.ts:106](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L106)
 
 Get the actual height of the scrolling area (total content height).
 
@@ -568,7 +568,7 @@ The total scrollable content height in lines
 
 > `optional` **getScrollPerc**: (`s?`) => `number`
 
-Defined in: [packages/core/src/widgets/element.ts:107](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L107)
+Defined in: [packages/core/src/widgets/element.ts:107](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L107)
 
 Get the current scroll index in percentage (0-100).
 
@@ -592,7 +592,7 @@ The scroll position as a percentage (0-100), or -1 if not scrollable
 
 > `optional` **setScrollPerc**: (`i`) => `void`
 
-Defined in: [packages/core/src/widgets/element.ts:108](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L108)
+Defined in: [packages/core/src/widgets/element.ts:108](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L108)
 
 Set the current scroll index in percentage (0-100).
 
@@ -614,7 +614,7 @@ The target scroll percentage (0-100)
 
 > `optional` **resetScroll**: () => `any`
 
-Defined in: [packages/core/src/widgets/element.ts:109](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L109)
+Defined in: [packages/core/src/widgets/element.ts:109](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L109)
 
 Reset the scroll index to its initial state (top).
 
@@ -628,7 +628,7 @@ Reset the scroll index to its initial state (top).
 
 > `optional` **\_scrollBottom**: () => `number`
 
-Defined in: [packages/core/src/widgets/element.ts:110](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L110)
+Defined in: [packages/core/src/widgets/element.ts:110](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L110)
 
 #### Returns
 
@@ -640,7 +640,7 @@ Defined in: [packages/core/src/widgets/element.ts:110](https://github.com/vdeant
 
 > `optional` **\_recalculateIndex**: () => `number`
 
-Defined in: [packages/core/src/widgets/element.ts:111](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L111)
+Defined in: [packages/core/src/widgets/element.ts:111](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L111)
 
 #### Returns
 
@@ -652,7 +652,7 @@ Defined in: [packages/core/src/widgets/element.ts:111](https://github.com/vdeant
 
 > `static` **uid**: `number` = `0`
 
-Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L30)
+Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L30)
 
 #### Inherited from
 
@@ -664,7 +664,7 @@ Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/
 
 > `static` **ScreenRegistry**: `any`
 
-Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L31)
+Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L31)
 
 #### Inherited from
 
@@ -676,7 +676,7 @@ Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/
 
 > **screen**: `any`
 
-Defined in: [packages/core/src/widgets/node.ts:47](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L47)
+Defined in: [packages/core/src/widgets/node.ts:47](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L47)
 
 Reference to the parent Screen instance.
 Type: Screen (subclass of Node)
@@ -695,7 +695,7 @@ render(), and the program property without complex generic typing.
 
 > **parent**: `any`
 
-Defined in: [packages/core/src/widgets/node.ts:56](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L56)
+Defined in: [packages/core/src/widgets/node.ts:56](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L56)
 
 Reference to the parent element in the widget tree.
 Type: Node (can be any Element/Box/List/etc subclass)
@@ -714,7 +714,7 @@ methods from subclasses like Box, List, Form, etc.
 
 > **children**: `any`[]
 
-Defined in: [packages/core/src/widgets/node.ts:63](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L63)
+Defined in: [packages/core/src/widgets/node.ts:63](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L63)
 
 Array of child elements.
 Type: Node[] (can contain any Node subclasses)
@@ -731,7 +731,7 @@ Kept as any[] to preserve flexibility with mixed widget types.
 
 > **$**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/core/src/widgets/node.ts:68](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L68)
+Defined in: [packages/core/src/widgets/node.ts:68](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L68)
 
 An object for any miscellaneous user data.
 
@@ -745,7 +745,7 @@ An object for any miscellaneous user data.
 
 > **\_**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/core/src/widgets/node.ts:73](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L73)
+Defined in: [packages/core/src/widgets/node.ts:73](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L73)
 
 An object for any miscellaneous user data.
 
@@ -759,7 +759,7 @@ An object for any miscellaneous user data.
 
 > **data**: `Record`\<`string`, `unknown`\>
 
-Defined in: [packages/core/src/widgets/node.ts:78](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L78)
+Defined in: [packages/core/src/widgets/node.ts:78](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L78)
 
 An object for any miscellaneous user data.
 
@@ -773,7 +773,7 @@ An object for any miscellaneous user data.
 
 > **uid**: `number`
 
-Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L80)
+Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L80)
 
 #### Inherited from
 
@@ -785,7 +785,7 @@ Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/
 
 > **index**: `number` = `-1`
 
-Defined in: [packages/core/src/widgets/node.ts:86](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L86)
+Defined in: [packages/core/src/widgets/node.ts:86](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L86)
 
 Render index (document order index) of the last render call.
 Indicates the order in which this element was rendered relative to others.
@@ -801,7 +801,7 @@ Set to -1 initially, updated during rendering.
 
 > `optional` **detached**: `boolean`
 
-Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L87)
+Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L87)
 
 #### Inherited from
 
@@ -813,7 +813,7 @@ Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/
 
 > `optional` **destroyed**: `boolean`
 
-Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L88)
+Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L88)
 
 #### Inherited from
 
@@ -825,7 +825,7 @@ Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/
 
 > **runtime**: [`Runtime`](runtime.Interface.Runtime.md)
 
-Defined in: [packages/core/src/widgets/node.ts:90](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L90)
+Defined in: [packages/core/src/widgets/node.ts:90](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L90)
 
 #### Inherited from
 
@@ -839,7 +839,7 @@ Defined in: [packages/core/src/widgets/node.ts:90](https://github.com/vdeantoni/
 
 > **get** **focused**(): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:113](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L113)
+Defined in: [packages/core/src/widgets/element.ts:113](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L113)
 
 ##### Returns
 
@@ -853,7 +853,7 @@ Defined in: [packages/core/src/widgets/element.ts:113](https://github.com/vdeant
 
 > **get** **visible**(): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:935](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L935)
+Defined in: [packages/core/src/widgets/element.ts:924](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L924)
 
 ##### Returns
 
@@ -867,7 +867,7 @@ Defined in: [packages/core/src/widgets/element.ts:935](https://github.com/vdeant
 
 > **get** **\_detached**(): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:946](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L946)
+Defined in: [packages/core/src/widgets/element.ts:935](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L935)
 
 ##### Returns
 
@@ -881,7 +881,7 @@ Defined in: [packages/core/src/widgets/element.ts:946](https://github.com/vdeant
 
 > **get** **draggable**(): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:979](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L979)
+Defined in: [packages/core/src/widgets/element.ts:968](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L968)
 
 ##### Returns
 
@@ -891,7 +891,7 @@ Defined in: [packages/core/src/widgets/element.ts:979](https://github.com/vdeant
 
 > **set** **draggable**(`draggable`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:983](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L983)
+Defined in: [packages/core/src/widgets/element.ts:972](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L972)
 
 ##### Parameters
 
@@ -911,7 +911,7 @@ Defined in: [packages/core/src/widgets/element.ts:983](https://github.com/vdeant
 
 > **get** **width**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1380](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1380)
+Defined in: [packages/core/src/widgets/element.ts:1369](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1369)
 
 ##### Returns
 
@@ -921,7 +921,7 @@ Defined in: [packages/core/src/widgets/element.ts:1380](https://github.com/vdean
 
 > **set** **width**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1584](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1584)
+Defined in: [packages/core/src/widgets/element.ts:1573](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1573)
 
 Position Setters
 
@@ -943,7 +943,7 @@ Position Setters
 
 > **get** **height**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1431](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1431)
+Defined in: [packages/core/src/widgets/element.ts:1420](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1420)
 
 ##### Returns
 
@@ -953,7 +953,7 @@ Defined in: [packages/core/src/widgets/element.ts:1431](https://github.com/vdean
 
 > **set** **height**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1592](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1592)
+Defined in: [packages/core/src/widgets/element.ts:1581](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1581)
 
 ##### Parameters
 
@@ -973,7 +973,7 @@ Defined in: [packages/core/src/widgets/element.ts:1592](https://github.com/vdean
 
 > **get** **aleft**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1468](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1468)
+Defined in: [packages/core/src/widgets/element.ts:1457](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1457)
 
 ##### Returns
 
@@ -983,7 +983,7 @@ Defined in: [packages/core/src/widgets/element.ts:1468](https://github.com/vdean
 
 > **set** **aleft**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1600](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1600)
+Defined in: [packages/core/src/widgets/element.ts:1589](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1589)
 
 ##### Parameters
 
@@ -1003,7 +1003,7 @@ Defined in: [packages/core/src/widgets/element.ts:1600](https://github.com/vdean
 
 > **get** **aright**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1493](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1493)
+Defined in: [packages/core/src/widgets/element.ts:1482](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1482)
 
 ##### Returns
 
@@ -1013,7 +1013,7 @@ Defined in: [packages/core/src/widgets/element.ts:1493](https://github.com/vdean
 
 > **set** **aright**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1621](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1621)
+Defined in: [packages/core/src/widgets/element.ts:1610](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1610)
 
 ##### Parameters
 
@@ -1033,7 +1033,7 @@ Defined in: [packages/core/src/widgets/element.ts:1621](https://github.com/vdean
 
 > **get** **atop**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1530](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1530)
+Defined in: [packages/core/src/widgets/element.ts:1519](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1519)
 
 ##### Returns
 
@@ -1043,7 +1043,7 @@ Defined in: [packages/core/src/widgets/element.ts:1530](https://github.com/vdean
 
 > **set** **atop**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1629](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1629)
+Defined in: [packages/core/src/widgets/element.ts:1618](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1618)
 
 ##### Parameters
 
@@ -1063,7 +1063,7 @@ Defined in: [packages/core/src/widgets/element.ts:1629](https://github.com/vdean
 
 > **get** **abottom**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1555](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1555)
+Defined in: [packages/core/src/widgets/element.ts:1544](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1544)
 
 ##### Returns
 
@@ -1073,7 +1073,7 @@ Defined in: [packages/core/src/widgets/element.ts:1555](https://github.com/vdean
 
 > **set** **abottom**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1650](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1650)
+Defined in: [packages/core/src/widgets/element.ts:1639](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1639)
 
 ##### Parameters
 
@@ -1093,7 +1093,7 @@ Defined in: [packages/core/src/widgets/element.ts:1650](https://github.com/vdean
 
 > **get** **rleft**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1559](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1559)
+Defined in: [packages/core/src/widgets/element.ts:1548](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1548)
 
 ##### Returns
 
@@ -1103,7 +1103,7 @@ Defined in: [packages/core/src/widgets/element.ts:1559](https://github.com/vdean
 
 > **set** **rleft**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1658](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1658)
+Defined in: [packages/core/src/widgets/element.ts:1647](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1647)
 
 ##### Parameters
 
@@ -1123,7 +1123,7 @@ Defined in: [packages/core/src/widgets/element.ts:1658](https://github.com/vdean
 
 > **get** **rright**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1563](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1563)
+Defined in: [packages/core/src/widgets/element.ts:1552](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1552)
 
 ##### Returns
 
@@ -1133,7 +1133,7 @@ Defined in: [packages/core/src/widgets/element.ts:1563](https://github.com/vdean
 
 > **set** **rright**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1666](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1666)
+Defined in: [packages/core/src/widgets/element.ts:1655](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1655)
 
 ##### Parameters
 
@@ -1153,7 +1153,7 @@ Defined in: [packages/core/src/widgets/element.ts:1666](https://github.com/vdean
 
 > **get** **rtop**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1567](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1567)
+Defined in: [packages/core/src/widgets/element.ts:1556](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1556)
 
 ##### Returns
 
@@ -1163,7 +1163,7 @@ Defined in: [packages/core/src/widgets/element.ts:1567](https://github.com/vdean
 
 > **set** **rtop**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1673](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1673)
+Defined in: [packages/core/src/widgets/element.ts:1662](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1662)
 
 ##### Parameters
 
@@ -1183,7 +1183,7 @@ Defined in: [packages/core/src/widgets/element.ts:1673](https://github.com/vdean
 
 > **get** **rbottom**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1571](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1571)
+Defined in: [packages/core/src/widgets/element.ts:1560](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1560)
 
 ##### Returns
 
@@ -1193,7 +1193,7 @@ Defined in: [packages/core/src/widgets/element.ts:1571](https://github.com/vdean
 
 > **set** **rbottom**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1681](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1681)
+Defined in: [packages/core/src/widgets/element.ts:1670](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1670)
 
 ##### Parameters
 
@@ -1213,7 +1213,7 @@ Defined in: [packages/core/src/widgets/element.ts:1681](https://github.com/vdean
 
 > **get** **ileft**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1688](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1688)
+Defined in: [packages/core/src/widgets/element.ts:1677](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1677)
 
 ##### Returns
 
@@ -1227,7 +1227,7 @@ Defined in: [packages/core/src/widgets/element.ts:1688](https://github.com/vdean
 
 > **get** **itop**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1693](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1693)
+Defined in: [packages/core/src/widgets/element.ts:1682](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1682)
 
 ##### Returns
 
@@ -1241,7 +1241,7 @@ Defined in: [packages/core/src/widgets/element.ts:1693](https://github.com/vdean
 
 > **get** **iright**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1698](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1698)
+Defined in: [packages/core/src/widgets/element.ts:1687](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1687)
 
 ##### Returns
 
@@ -1255,7 +1255,7 @@ Defined in: [packages/core/src/widgets/element.ts:1698](https://github.com/vdean
 
 > **get** **ibottom**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1703](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1703)
+Defined in: [packages/core/src/widgets/element.ts:1692](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1692)
 
 ##### Returns
 
@@ -1269,7 +1269,7 @@ Defined in: [packages/core/src/widgets/element.ts:1703](https://github.com/vdean
 
 > **get** **iwidth**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1708](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1708)
+Defined in: [packages/core/src/widgets/element.ts:1697](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1697)
 
 ##### Returns
 
@@ -1283,7 +1283,7 @@ Defined in: [packages/core/src/widgets/element.ts:1708](https://github.com/vdean
 
 > **get** **iheight**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1715](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1715)
+Defined in: [packages/core/src/widgets/element.ts:1704](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1704)
 
 ##### Returns
 
@@ -1297,7 +1297,7 @@ Defined in: [packages/core/src/widgets/element.ts:1715](https://github.com/vdean
 
 > **get** **tpadding**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1722](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1722)
+Defined in: [packages/core/src/widgets/element.ts:1711](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1711)
 
 ##### Returns
 
@@ -1311,7 +1311,7 @@ Defined in: [packages/core/src/widgets/element.ts:1722](https://github.com/vdean
 
 > **get** **left**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1735](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1735)
+Defined in: [packages/core/src/widgets/element.ts:1724](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1724)
 
 Relative coordinates as default properties
 
@@ -1323,7 +1323,7 @@ Relative coordinates as default properties
 
 > **set** **left**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1751](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1751)
+Defined in: [packages/core/src/widgets/element.ts:1740](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1740)
 
 ##### Parameters
 
@@ -1343,7 +1343,7 @@ Defined in: [packages/core/src/widgets/element.ts:1751](https://github.com/vdean
 
 > **get** **right**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1739](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1739)
+Defined in: [packages/core/src/widgets/element.ts:1728](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1728)
 
 ##### Returns
 
@@ -1353,7 +1353,7 @@ Defined in: [packages/core/src/widgets/element.ts:1739](https://github.com/vdean
 
 > **set** **right**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1755](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1755)
+Defined in: [packages/core/src/widgets/element.ts:1744](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1744)
 
 ##### Parameters
 
@@ -1373,7 +1373,7 @@ Defined in: [packages/core/src/widgets/element.ts:1755](https://github.com/vdean
 
 > **get** **top**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1743](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1743)
+Defined in: [packages/core/src/widgets/element.ts:1732](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1732)
 
 ##### Returns
 
@@ -1383,7 +1383,7 @@ Defined in: [packages/core/src/widgets/element.ts:1743](https://github.com/vdean
 
 > **set** **top**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1759](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1759)
+Defined in: [packages/core/src/widgets/element.ts:1748](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1748)
 
 ##### Parameters
 
@@ -1403,7 +1403,7 @@ Defined in: [packages/core/src/widgets/element.ts:1759](https://github.com/vdean
 
 > **get** **bottom**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1747](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1747)
+Defined in: [packages/core/src/widgets/element.ts:1736](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1736)
 
 ##### Returns
 
@@ -1413,7 +1413,7 @@ Defined in: [packages/core/src/widgets/element.ts:1747](https://github.com/vdean
 
 > **set** **bottom**(`val`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1763](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1763)
+Defined in: [packages/core/src/widgets/element.ts:1752](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1752)
 
 ##### Parameters
 
@@ -1431,7 +1431,7 @@ Defined in: [packages/core/src/widgets/element.ts:1763](https://github.com/vdean
 
 > **setMaxListeners**(`n`): `void`
 
-Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L19)
+Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L19)
 
 #### Parameters
 
@@ -1453,7 +1453,7 @@ Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/un
 
 > **addListener**(`type`, `listener`): `void`
 
-Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L23)
+Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L23)
 
 #### Parameters
 
@@ -1479,7 +1479,7 @@ Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/un
 
 > **on**(`type`, `listener`): `any`
 
-Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L34)
+Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L34)
 
 #### Parameters
 
@@ -1505,7 +1505,7 @@ Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/un
 
 > **removeListener**(`type`, `listener`): `void`
 
-Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L38)
+Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L38)
 
 #### Parameters
 
@@ -1531,7 +1531,7 @@ Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/un
 
 > **off**(`type`, `listener`): `any`
 
-Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L57)
+Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L57)
 
 #### Parameters
 
@@ -1557,7 +1557,7 @@ Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/un
 
 > **removeAllListeners**(`type?`): `void`
 
-Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L61)
+Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L61)
 
 #### Parameters
 
@@ -1579,7 +1579,7 @@ Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/un
 
 > **once**(`type`, `listener`): `any`
 
-Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L69)
+Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L69)
 
 #### Parameters
 
@@ -1605,7 +1605,7 @@ Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/un
 
 > **listeners**(`type`): `Function`[]
 
-Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L79)
+Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L79)
 
 #### Parameters
 
@@ -1627,7 +1627,7 @@ Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/un
 
 > **\_emit**(`type`, `args`): `any`
 
-Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L85)
+Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L85)
 
 #### Parameters
 
@@ -1653,7 +1653,7 @@ Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/un
 
 > **emit**(`type`, ...`rest`): `boolean`
 
-Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/lib/events.ts#L113)
+Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/events.ts#L113)
 
 #### Parameters
 
@@ -1679,7 +1679,7 @@ Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/u
 
 > **sattr**(`style`, `fg?`, `bg?`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:320](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L320)
+Defined in: [packages/core/src/widgets/element.ts:320](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L320)
 
 #### Parameters
 
@@ -1705,7 +1705,7 @@ Defined in: [packages/core/src/widgets/element.ts:320](https://github.com/vdeant
 
 > **onScreenEvent**(`type`, `handler`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:363](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L363)
+Defined in: [packages/core/src/widgets/element.ts:363](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L363)
 
 Same as el.on('screen', ...) except this will automatically keep track of which listeners
 are bound to the screen object. For use with removeScreenEvent(), free(), and destroy().
@@ -1734,7 +1734,7 @@ Event handler function
 
 > **onceScreenEvent**(`type`, `handler`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:374](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L374)
+Defined in: [packages/core/src/widgets/element.ts:374](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L374)
 
 Same as onScreenEvent() but fires only once.
 
@@ -1762,7 +1762,7 @@ Event handler function
 
 > **removeScreenEvent**(`type`, `handler`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:391](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L391)
+Defined in: [packages/core/src/widgets/element.ts:391](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L391)
 
 Same as el.removeListener('screen', ...) except this will automatically keep track of which
 listeners are bound to the screen object. For use with onScreenEvent(), free(), and destroy().
@@ -1791,7 +1791,7 @@ Event handler function
 
 > **free**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:411](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L411)
+Defined in: [packages/core/src/widgets/element.ts:411](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L411)
 
 Free up the element. Automatically unbind all events that may have been bound to the screen
 object. This prevents memory leaks. For use with onScreenEvent(), removeScreenEvent(),
@@ -1811,7 +1811,7 @@ and destroy().
 
 > **hide**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:423](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L423)
+Defined in: [packages/core/src/widgets/element.ts:423](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L423)
 
 Hide element.
 
@@ -1825,7 +1825,7 @@ Hide element.
 
 > **show**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:436](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L436)
+Defined in: [packages/core/src/widgets/element.ts:436](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L436)
 
 Show element.
 
@@ -1839,7 +1839,7 @@ Show element.
 
 > **toggle**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:445](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L445)
+Defined in: [packages/core/src/widgets/element.ts:445](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L445)
 
 Toggle hidden/shown.
 
@@ -1853,7 +1853,7 @@ Toggle hidden/shown.
 
 > **focus**(): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:452](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L452)
+Defined in: [packages/core/src/widgets/element.ts:452](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L452)
 
 Focus element.
 
@@ -1867,17 +1867,14 @@ Focus element.
 
 > **isFocusable**(): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:462](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L462)
+Defined in: [packages/core/src/widgets/element.ts:460](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L460)
 
 Check if this element can receive keyboard focus.
-Elements are focusable if they have tabIndex >= -1
-AND they are visible and attached.
+Elements are focusable if they have tabIndex >= -1 and are visible/attached.
 
 #### Returns
 
 `boolean`
-
-True if element can receive focus
 
 ***
 
@@ -1885,17 +1882,14 @@ True if element can receive focus
 
 > **isInTabOrder**(): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:475](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L475)
+Defined in: [packages/core/src/widgets/element.ts:469](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L469)
 
-Check if element participates in Tab key navigation order.
-Elements with tabIndex=-1 can be focused programmatically but are
-excluded from Tab navigation (like hidden dialogs in browsers).
+Check if element participates in Tab key navigation.
+Elements with tabIndex=-1 are focusable but excluded from Tab order.
 
 #### Returns
 
 `boolean`
-
-True if element is in Tab order
 
 ***
 
@@ -1903,15 +1897,13 @@ True if element is in Tab order
 
 > **getTabIndex**(): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:488](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L488)
+Defined in: [packages/core/src/widgets/element.ts:478](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L478)
 
-Get effective tab index for ordering in focus navigation.
+Get effective tab index for focus navigation ordering.
 
 #### Returns
 
 `number`
-
-Effective tab index value, or Infinity if not in tab order
 
 ***
 
@@ -1919,7 +1911,7 @@ Effective tab index value, or Infinity if not in tab order
 
 > **setContent**(`content`, `noClear?`, `noTags?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:501](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L501)
+Defined in: [packages/core/src/widgets/element.ts:490](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L490)
 
 Set or get the content. Note: When text is input, it will be stripped of all non-SGR
 escape codes, tabs will be replaced with 8 spaces, and tags will be replaced
@@ -1949,7 +1941,7 @@ with SGR codes (if enabled).
 
 > **getContent**(): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:511](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L511)
+Defined in: [packages/core/src/widgets/element.ts:500](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L500)
 
 Return content, slightly different from el.content. Assume the above formatting.
 
@@ -1963,7 +1955,7 @@ Return content, slightly different from el.content. Assume the above formatting.
 
 > **setText**(`content`, `noClear?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:519](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L519)
+Defined in: [packages/core/src/widgets/element.ts:508](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L508)
 
 Similar to setContent, but ignore tags and remove escape codes.
 
@@ -1987,7 +1979,7 @@ Similar to setContent, but ignore tags and remove escape codes.
 
 > **getText**(): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:528](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L528)
+Defined in: [packages/core/src/widgets/element.ts:517](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L517)
 
 Similar to getContent, but return content with tags and escape codes removed.
 
@@ -2001,7 +1993,7 @@ Similar to getContent, but return content with tags and escape codes removed.
 
 > **parseContent**(`noTags?`): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:532](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L532)
+Defined in: [packages/core/src/widgets/element.ts:521](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L521)
 
 #### Parameters
 
@@ -2019,7 +2011,7 @@ Defined in: [packages/core/src/widgets/element.ts:532](https://github.com/vdeant
 
 > **\_parseTags**(`text`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:599](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L599)
+Defined in: [packages/core/src/widgets/element.ts:588](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L588)
 
 #### Parameters
 
@@ -2037,7 +2029,7 @@ Defined in: [packages/core/src/widgets/element.ts:599](https://github.com/vdeant
 
 > **\_parseAttr**(`lines`): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:704](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L704)
+Defined in: [packages/core/src/widgets/element.ts:693](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L693)
 
 #### Parameters
 
@@ -2055,7 +2047,7 @@ Defined in: [packages/core/src/widgets/element.ts:704](https://github.com/vdeant
 
 > **\_align**(`line`, `width`, `align?`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:733](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L733)
+Defined in: [packages/core/src/widgets/element.ts:722](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L722)
 
 #### Parameters
 
@@ -2081,7 +2073,7 @@ Defined in: [packages/core/src/widgets/element.ts:733](https://github.com/vdeant
 
 > **\_wrapContent**(`content`, `width`): `WrappedContent`
 
-Defined in: [packages/core/src/widgets/element.ts:765](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L765)
+Defined in: [packages/core/src/widgets/element.ts:754](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L754)
 
 #### Parameters
 
@@ -2103,7 +2095,7 @@ Defined in: [packages/core/src/widgets/element.ts:765](https://github.com/vdeant
 
 > **enableMouse**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:959](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L959)
+Defined in: [packages/core/src/widgets/element.ts:948](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L948)
 
 Enable mouse events for the element (automatically called when a form of on('mouse') is bound).
 Registers the element as clickable with the screen.
@@ -2118,7 +2110,7 @@ Registers the element as clickable with the screen.
 
 > **enableKeys**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:967](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L967)
+Defined in: [packages/core/src/widgets/element.ts:956](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L956)
 
 Enable keypress events for the element (automatically called when a form of on('keypress') is bound).
 Registers the element as keyable with the screen.
@@ -2133,7 +2125,7 @@ Registers the element as keyable with the screen.
 
 > **enableInput**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:974](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L974)
+Defined in: [packages/core/src/widgets/element.ts:963](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L963)
 
 Enable key and mouse events. Calls both enableMouse() and enableKeys().
 
@@ -2147,7 +2139,7 @@ Enable key and mouse events. Calls both enableMouse() and enableKeys().
 
 > **enableDrag**(`verify?`): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:997](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L997)
+Defined in: [packages/core/src/widgets/element.ts:986](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L986)
 
 Enable dragging of the element.
 Allows the element to be dragged with the mouse. Automatically calls enableMouse().
@@ -2172,7 +2164,7 @@ True if dragging was enabled
 
 > **disableDrag**(): `boolean`
 
-Defined in: [packages/core/src/widgets/element.ts:1071](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1071)
+Defined in: [packages/core/src/widgets/element.ts:1060](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1060)
 
 Disable dragging of the element.
 Removes drag event handlers and resets dragging state.
@@ -2189,7 +2181,7 @@ True if dragging was disabled
 
 > **key**(...`args`): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:1085](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1085)
+Defined in: [packages/core/src/widgets/element.ts:1074](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1074)
 
 Bind a key event handler.
 
@@ -2213,7 +2205,7 @@ The bound key handler
 
 > **onceKey**(...`args`): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:1094](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1094)
+Defined in: [packages/core/src/widgets/element.ts:1083](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1083)
 
 Bind a key event handler that fires only once.
 
@@ -2237,7 +2229,7 @@ The bound key handler
 
 > **unkey**(...`args`): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:1103](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1103)
+Defined in: [packages/core/src/widgets/element.ts:1092](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1092)
 
 Unbind a key event handler.
 
@@ -2261,7 +2253,7 @@ Result of unbinding
 
 > **removeKey**(...`args`): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:1113](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1113)
+Defined in: [packages/core/src/widgets/element.ts:1102](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1102)
 
 Remove a key event handler.
 Alias for unkey().
@@ -2286,7 +2278,7 @@ Result of removing
 
 > **setIndex**(`index`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1122](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1122)
+Defined in: [packages/core/src/widgets/element.ts:1111](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1111)
 
 Set the z-index of the element (changes rendering order).
 Higher indices are rendered later (on top). Negative indices count from the end.
@@ -2309,7 +2301,7 @@ New z-index value
 
 > **setFront**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1143](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1143)
+Defined in: [packages/core/src/widgets/element.ts:1132](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1132)
 
 Put the element in front of its siblings.
 Sets the element's z-index to the highest value (renders last/on top).
@@ -2324,7 +2316,7 @@ Sets the element's z-index to the highest value (renders last/on top).
 
 > **setBack**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1151](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1151)
+Defined in: [packages/core/src/widgets/element.ts:1140](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1140)
 
 Put the element in back of its siblings.
 Sets the element's z-index to the lowest value (renders first/at bottom).
@@ -2339,7 +2331,7 @@ Sets the element's z-index to the lowest value (renders first/at bottom).
 
 > **clearPos**(`get?`, `override?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1161](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1161)
+Defined in: [packages/core/src/widgets/element.ts:1150](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1150)
 
 Clear the element's position in the screen buffer.
 Fills the region with spaces, used when moving or hiding elements.
@@ -2368,7 +2360,7 @@ If true, always clear even if cell hasn't changed
 
 > **setLabel**(`options`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1176](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1176)
+Defined in: [packages/core/src/widgets/element.ts:1165](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1165)
 
 Set the label text for the top-left (or top-right) corner.
 Creates or updates a label that appears on the top border of the element.
@@ -2398,7 +2390,7 @@ element.setLabel({ text: 'My Label', side: 'right' });
 
 > **removeLabel**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1255](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1255)
+Defined in: [packages/core/src/widgets/element.ts:1244](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1244)
 
 Remove the label completely.
 Detaches the label element and removes associated event listeners.
@@ -2413,7 +2405,7 @@ Detaches the label element and removes associated event listeners.
 
 > **setHover**(`options`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1272](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1272)
+Defined in: [packages/core/src/widgets/element.ts:1261](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1261)
 
 Set a hover text box to follow the cursor. Similar to the "title" DOM attribute in the browser.
 
@@ -2442,7 +2434,7 @@ element.setHover({ text: 'Hover text here' });
 
 > **removeHover**(): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:1286](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1286)
+Defined in: [packages/core/src/widgets/element.ts:1275](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1275)
 
 Remove the hover label completely.
 Detaches the hover text box if it's currently displayed.
@@ -2457,7 +2449,7 @@ Detaches the hover text box if it's currently displayed.
 
 > **\_getPos**(): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:1312](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1312)
+Defined in: [packages/core/src/widgets/element.ts:1301](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1301)
 
 Positioning
 
@@ -2471,7 +2463,7 @@ Positioning
 
 > **\_getWidth**(`get?`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1333](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1333)
+Defined in: [packages/core/src/widgets/element.ts:1322](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1322)
 
 Position Getters
 
@@ -2491,7 +2483,7 @@ Position Getters
 
 > **\_getHeight**(`get?`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1384](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1384)
+Defined in: [packages/core/src/widgets/element.ts:1373](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1373)
 
 #### Parameters
 
@@ -2509,7 +2501,7 @@ Defined in: [packages/core/src/widgets/element.ts:1384](https://github.com/vdean
 
 > **\_getLeft**(`get?`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1435](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1435)
+Defined in: [packages/core/src/widgets/element.ts:1424](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1424)
 
 #### Parameters
 
@@ -2527,7 +2519,7 @@ Defined in: [packages/core/src/widgets/element.ts:1435](https://github.com/vdean
 
 > **\_getRight**(`get?`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1472](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1472)
+Defined in: [packages/core/src/widgets/element.ts:1461](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1461)
 
 #### Parameters
 
@@ -2545,7 +2537,7 @@ Defined in: [packages/core/src/widgets/element.ts:1472](https://github.com/vdean
 
 > **\_getTop**(`get?`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1497](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1497)
+Defined in: [packages/core/src/widgets/element.ts:1486](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1486)
 
 #### Parameters
 
@@ -2563,7 +2555,7 @@ Defined in: [packages/core/src/widgets/element.ts:1497](https://github.com/vdean
 
 > **\_getBottom**(`get?`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:1534](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1534)
+Defined in: [packages/core/src/widgets/element.ts:1523](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1523)
 
 #### Parameters
 
@@ -2581,7 +2573,7 @@ Defined in: [packages/core/src/widgets/element.ts:1534](https://github.com/vdean
 
 > **\_getShrinkBox**(`xi`, `xl`, `yi`, `yl`, `get?`): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:1771](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1771)
+Defined in: [packages/core/src/widgets/element.ts:1760](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1760)
 
 Rendering - here be dragons
 
@@ -2617,7 +2609,7 @@ Rendering - here be dragons
 
 > **\_getShrinkContent**(`xi`, `xl`, `yi`, `yl`, `_get?`): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:1922](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1922)
+Defined in: [packages/core/src/widgets/element.ts:1911](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1911)
 
 #### Parameters
 
@@ -2651,7 +2643,7 @@ Defined in: [packages/core/src/widgets/element.ts:1922](https://github.com/vdean
 
 > **\_getShrink**(`xi`, `xl`, `yi`, `yl`, `get?`): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:1958](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L1958)
+Defined in: [packages/core/src/widgets/element.ts:1947](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1947)
 
 #### Parameters
 
@@ -2685,7 +2677,7 @@ Defined in: [packages/core/src/widgets/element.ts:1958](https://github.com/vdean
 
 > **\_getCoords**(`get?`, `noscroll?`): `RenderCoords` \| `undefined`
 
-Defined in: [packages/core/src/widgets/element.ts:2003](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2003)
+Defined in: [packages/core/src/widgets/element.ts:1992](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L1992)
 
 #### Parameters
 
@@ -2707,7 +2699,7 @@ Defined in: [packages/core/src/widgets/element.ts:2003](https://github.com/vdean
 
 > **render**(): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:2176](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2176)
+Defined in: [packages/core/src/widgets/element.ts:2165](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2165)
 
 Write content and children to the screen buffer.
 This is the main rendering method that draws the element, its border, scrollbar,
@@ -2725,7 +2717,7 @@ Rendered coordinates object, or undefined if hidden/invalid
 
 > **\_render**(): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:2714](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2714)
+Defined in: [packages/core/src/widgets/element.ts:2703](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2703)
 
 Internal alias for render().
 
@@ -2741,7 +2733,7 @@ Rendered coordinates object
 
 > **insertLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2728](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2728)
+Defined in: [packages/core/src/widgets/element.ts:2717](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2717)
 
 Insert a line into the box's content.
 Handles wrapped content by inserting at the specified fake line index.
@@ -2770,7 +2762,7 @@ Line or array of lines to insert
 
 > **deleteLine**(`i`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2789](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2789)
+Defined in: [packages/core/src/widgets/element.ts:2778](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2778)
 
 Delete a line from the box's content.
 Handles wrapped content by deleting at the specified fake line index.
@@ -2799,7 +2791,7 @@ Number of lines to delete (default: 1)
 
 > **insertTop**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2845](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2845)
+Defined in: [packages/core/src/widgets/element.ts:2834](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2834)
 
 Insert a line at the top of the box.
 Inserts at the first visible line based on childBase.
@@ -2822,7 +2814,7 @@ Line or array of lines to insert
 
 > **insertBottom**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2855](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2855)
+Defined in: [packages/core/src/widgets/element.ts:2844](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2844)
 
 Insert a line at the bottom of the box.
 Inserts after the last visible line based on height and childBase.
@@ -2845,7 +2837,7 @@ Line or array of lines to insert
 
 > **deleteTop**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2868](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2868)
+Defined in: [packages/core/src/widgets/element.ts:2857](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2857)
 
 Delete a line at the top of the box.
 Deletes from the first visible line based on childBase.
@@ -2868,7 +2860,7 @@ Number of lines to delete (default: 1)
 
 > **deleteBottom**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2878](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2878)
+Defined in: [packages/core/src/widgets/element.ts:2867](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2867)
 
 Delete a line at the bottom of the box.
 Deletes from the last visible line based on height and childBase.
@@ -2891,7 +2883,7 @@ Number of lines to delete (default: 1)
 
 > **setLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2893](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2893)
+Defined in: [packages/core/src/widgets/element.ts:2882](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2882)
 
 Set a line in the box's content.
 
@@ -2919,7 +2911,7 @@ Line content to set
 
 > **setBaseLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2907](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2907)
+Defined in: [packages/core/src/widgets/element.ts:2896](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2896)
 
 Set a line in the box's content from the visible top.
 
@@ -2947,7 +2939,7 @@ Line content to set
 
 > **getLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:2917](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2917)
+Defined in: [packages/core/src/widgets/element.ts:2906](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2906)
 
 Get a line from the box's content.
 
@@ -2971,7 +2963,7 @@ Line content
 
 > **getBaseLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:2928](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2928)
+Defined in: [packages/core/src/widgets/element.ts:2917](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2917)
 
 Get a line from the box's content from the visible top.
 
@@ -2995,7 +2987,7 @@ Line content
 
 > **clearLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2937](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2937)
+Defined in: [packages/core/src/widgets/element.ts:2926](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2926)
 
 Clear a line from the box's content.
 
@@ -3017,7 +3009,7 @@ Line index to clear (fake line number)
 
 > **clearBaseLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2946](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2946)
+Defined in: [packages/core/src/widgets/element.ts:2935](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2935)
 
 Clear a line from the box's content from the visible top.
 
@@ -3039,7 +3031,7 @@ Line offset from visible top
 
 > **unshiftLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2955](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2955)
+Defined in: [packages/core/src/widgets/element.ts:2944](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2944)
 
 Unshift a line onto the top of the content.
 
@@ -3061,7 +3053,7 @@ Line or array of lines to insert
 
 > **shiftLine**(`i?`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2964](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2964)
+Defined in: [packages/core/src/widgets/element.ts:2953](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2953)
 
 Shift a line off the top of the content.
 
@@ -3089,7 +3081,7 @@ Number of lines to remove (default: 1)
 
 > **pushLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2972](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2972)
+Defined in: [packages/core/src/widgets/element.ts:2961](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2961)
 
 Push a line onto the bottom of the content.
 
@@ -3111,7 +3103,7 @@ Line or array of lines to insert
 
 > **popLine**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2981](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2981)
+Defined in: [packages/core/src/widgets/element.ts:2970](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2970)
 
 Pop a line off the bottom of the content.
 
@@ -3133,7 +3125,7 @@ Number of lines to remove (default: 1)
 
 > **getLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:2989](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2989)
+Defined in: [packages/core/src/widgets/element.ts:2978](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2978)
 
 An array containing the content lines.
 
@@ -3149,7 +3141,7 @@ Array of fake (unwrapped) lines
 
 > **getScreenLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:2997](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L2997)
+Defined in: [packages/core/src/widgets/element.ts:2986](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2986)
 
 An array containing the lines as they are displayed on the screen.
 
@@ -3165,7 +3157,7 @@ Array of real (wrapped) lines
 
 > **strWidth**(`text`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:3007](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L3007)
+Defined in: [packages/core/src/widgets/element.ts:2996](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2996)
 
 Get a string's displayed width, taking into account double-width, surrogate pairs,
 combining characters, tags, and SGR escape codes.
@@ -3190,7 +3182,7 @@ Displayed width in cells
 
 > **screenshot**(`xi?`, `xl?`, `yi?`, `yl?`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3023](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/element.ts#L3023)
+Defined in: [packages/core/src/widgets/element.ts:3012](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3012)
 
 Take an SGR screenshot of the element within the region. Returns a string containing only
 characters and SGR codes. Can be displayed by simply echoing it in a terminal.
@@ -3233,7 +3225,7 @@ SGR-encoded screenshot string
 
 > **insert**(`element`, `i`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:154](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L154)
+Defined in: [packages/core/src/widgets/node.ts:154](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L154)
 
 Insert a node to this node's children at index i.
 
@@ -3261,7 +3253,7 @@ Insert a node to this node's children at index i.
 
 > **prepend**(`element`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:191](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L191)
+Defined in: [packages/core/src/widgets/node.ts:191](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L191)
 
 Prepend a node to this node's children.
 
@@ -3285,7 +3277,7 @@ Prepend a node to this node's children.
 
 > **append**(`element`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:198](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L198)
+Defined in: [packages/core/src/widgets/node.ts:198](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L198)
 
 Append a node to this node's children.
 
@@ -3309,7 +3301,7 @@ Append a node to this node's children.
 
 > **insertBefore**(`element`, `other`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:205](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L205)
+Defined in: [packages/core/src/widgets/node.ts:205](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L205)
 
 Insert a node to this node's children before the reference node.
 
@@ -3337,7 +3329,7 @@ Insert a node to this node's children before the reference node.
 
 > **insertAfter**(`element`, `other`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:213](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L213)
+Defined in: [packages/core/src/widgets/node.ts:213](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L213)
 
 Insert a node from node after the reference node.
 
@@ -3365,7 +3357,7 @@ Insert a node from node after the reference node.
 
 > **remove**(`element`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:221](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L221)
+Defined in: [packages/core/src/widgets/node.ts:221](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L221)
 
 Remove child node from node.
 
@@ -3389,7 +3381,7 @@ Remove child node from node.
 
 > **detach**(): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:255](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L255)
+Defined in: [packages/core/src/widgets/node.ts:255](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L255)
 
 Remove node from its parent.
 
@@ -3407,7 +3399,7 @@ Remove node from its parent.
 
 > **destroy**(): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:271](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L271)
+Defined in: [packages/core/src/widgets/node.ts:271](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L271)
 
 Same as the detach() method, except this will automatically call free() and unbind any screen
 events to prevent memory leaks. For use with onScreenEvent(), removeScreenEvent(), and free().
@@ -3426,7 +3418,7 @@ events to prevent memory leaks. For use with onScreenEvent(), removeScreenEvent(
 
 > **forDescendants**(`iter`, `s?`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:283](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L283)
+Defined in: [packages/core/src/widgets/node.ts:283](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L283)
 
 Iterate over all descendants, calling iter(el) for each.
 
@@ -3454,7 +3446,7 @@ Iterate over all descendants, calling iter(el) for each.
 
 > **forAncestors**(`iter`, `s?`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:294](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L294)
+Defined in: [packages/core/src/widgets/node.ts:294](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L294)
 
 Iterate over all ancestors, calling iter(el) for each.
 
@@ -3482,7 +3474,7 @@ Iterate over all ancestors, calling iter(el) for each.
 
 > **collectDescendants**(`s?`): `any`[]
 
-Defined in: [packages/core/src/widgets/node.ts:305](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L305)
+Defined in: [packages/core/src/widgets/node.ts:305](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L305)
 
 Collect all descendants into an array.
 
@@ -3506,7 +3498,7 @@ Collect all descendants into an array.
 
 > **collectAncestors**(`s?`): `any`[]
 
-Defined in: [packages/core/src/widgets/node.ts:316](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L316)
+Defined in: [packages/core/src/widgets/node.ts:316](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L316)
 
 Collect all ancestors into an array.
 
@@ -3530,7 +3522,7 @@ Collect all ancestors into an array.
 
 > **emitDescendants**(...`args`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:327](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L327)
+Defined in: [packages/core/src/widgets/node.ts:327](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L327)
 
 Emit event for element, and recursively emit same event for all descendants.
 
@@ -3554,7 +3546,7 @@ Emit event for element, and recursively emit same event for all descendants.
 
 > **emitAncestors**(...`args`): `void`
 
-Defined in: [packages/core/src/widgets/node.ts:343](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L343)
+Defined in: [packages/core/src/widgets/node.ts:343](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L343)
 
 Emit event for element, and recursively emit same event for all ancestors.
 
@@ -3578,7 +3570,7 @@ Emit event for element, and recursively emit same event for all ancestors.
 
 > **hasDescendant**(`target`): `boolean`
 
-Defined in: [packages/core/src/widgets/node.ts:359](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L359)
+Defined in: [packages/core/src/widgets/node.ts:359](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L359)
 
 Check if target is a descendant of this node.
 
@@ -3602,7 +3594,7 @@ Check if target is a descendant of this node.
 
 > **hasAncestor**(`target`): `boolean`
 
-Defined in: [packages/core/src/widgets/node.ts:377](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L377)
+Defined in: [packages/core/src/widgets/node.ts:377](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L377)
 
 Check if target is an ancestor of this node.
 
@@ -3626,7 +3618,7 @@ Check if target is an ancestor of this node.
 
 > **get**(`name`, `value?`): `any`
 
-Defined in: [packages/core/src/widgets/node.ts:388](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L388)
+Defined in: [packages/core/src/widgets/node.ts:388](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L388)
 
 Get user property with a potential default value.
 
@@ -3654,7 +3646,7 @@ Get user property with a potential default value.
 
 > **set**(`name`, `value`): `any`
 
-Defined in: [packages/core/src/widgets/node.ts:398](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/widgets/node.ts#L398)
+Defined in: [packages/core/src/widgets/node.ts:398](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L398)
 
 Set user property to value.
 

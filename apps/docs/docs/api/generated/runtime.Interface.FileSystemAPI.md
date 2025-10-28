@@ -1,6 +1,6 @@
 # Interface: FileSystemAPI
 
-Defined in: [packages/core/src/runtime.ts:165](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L165)
+Defined in: [packages/core/src/runtime.ts:165](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L165)
 
 File system operations interface
 
@@ -32,7 +32,7 @@ if (runtime.fs.existsSync('/path/to/file')) {
 
 > **readFileSync**: \{(`path`, `options?`): `Buffer`; (`path`, `options`): `string`; (`path`, `options?`): `string` \| `Buffer`; \}
 
-Defined in: [packages/core/src/runtime.ts:166](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L166)
+Defined in: [packages/core/src/runtime.ts:166](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L166)
 
 #### Call Signature
 
@@ -137,7 +137,7 @@ If a flag is not provided, it defaults to `'r'`.
 
 > **readdirSync**: \{(`path`, `options?`): `string`[]; (`path`, `options`): `Buffer`[]; (`path`, `options?`): `string`[] \| `Buffer`[]; (`path`, `options`): `Dirent`\<`string`\>[]; (`path`, `options`): `Dirent`\<`Buffer`\>[]; \}
 
-Defined in: [packages/core/src/runtime.ts:167](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L167)
+Defined in: [packages/core/src/runtime.ts:167](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L167)
 
 #### Call Signature
 
@@ -284,7 +284,7 @@ Must include `withFileTypes: true` and `encoding: 'buffer'`.
 
 > **existsSync**: (`path`) => `boolean`
 
-Defined in: [packages/core/src/runtime.ts:168](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L168)
+Defined in: [packages/core/src/runtime.ts:168](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L168)
 
 Returns `true` if the path exists, `false` otherwise.
 
@@ -321,7 +321,7 @@ v0.1.21
 
 > **statSync**: `StatSyncFn`
 
-Defined in: [packages/core/src/runtime.ts:169](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L169)
+Defined in: [packages/core/src/runtime.ts:169](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L169)
 
 ***
 
@@ -329,7 +329,7 @@ Defined in: [packages/core/src/runtime.ts:169](https://github.com/vdeantoni/unbl
 
 > **mkdirSync**: \{(`path`, `options`): `string` \| `undefined`; (`path`, `options?`): `void`; (`path`, `options?`): `string` \| `undefined`; \}
 
-Defined in: [packages/core/src/runtime.ts:170](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L170)
+Defined in: [packages/core/src/runtime.ts:170](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L170)
 
 #### Call Signature
 
@@ -414,7 +414,7 @@ should be created. If a string is passed, it is parsed as an octal integer. If n
 
 > **createWriteStream**: (`path`, `options?`) => `WriteStream`
 
-Defined in: [packages/core/src/runtime.ts:171](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L171)
+Defined in: [packages/core/src/runtime.ts:171](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L171)
 
 `options` may also include a `start` option to allow writing data at some
 position past the beginning of the file, allowed values are in the
@@ -465,7 +465,7 @@ v0.1.31
 
 > **readFile**: *typeof* `readFile`
 
-Defined in: [packages/core/src/runtime.ts:172](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L172)
+Defined in: [packages/core/src/runtime.ts:172](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L172)
 
 ***
 
@@ -473,7 +473,7 @@ Defined in: [packages/core/src/runtime.ts:172](https://github.com/vdeantoni/unbl
 
 > **unlink**: *typeof* `unlink`
 
-Defined in: [packages/core/src/runtime.ts:173](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L173)
+Defined in: [packages/core/src/runtime.ts:173](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L173)
 
 ***
 
@@ -481,7 +481,7 @@ Defined in: [packages/core/src/runtime.ts:173](https://github.com/vdeantoni/unbl
 
 > **writeFile**: *typeof* `writeFile`
 
-Defined in: [packages/core/src/runtime.ts:174](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L174)
+Defined in: [packages/core/src/runtime.ts:174](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L174)
 
 ***
 
@@ -489,7 +489,7 @@ Defined in: [packages/core/src/runtime.ts:174](https://github.com/vdeantoni/unbl
 
 > **stat**: *typeof* `stat`
 
-Defined in: [packages/core/src/runtime.ts:175](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L175)
+Defined in: [packages/core/src/runtime.ts:175](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L175)
 
 ***
 
@@ -497,7 +497,7 @@ Defined in: [packages/core/src/runtime.ts:175](https://github.com/vdeantoni/unbl
 
 > **readdir**: *typeof* `readdir`
 
-Defined in: [packages/core/src/runtime.ts:176](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L176)
+Defined in: [packages/core/src/runtime.ts:176](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L176)
 
 ***
 
@@ -505,7 +505,7 @@ Defined in: [packages/core/src/runtime.ts:176](https://github.com/vdeantoni/unbl
 
 > **lstatSync**: `StatSyncFn`
 
-Defined in: [packages/core/src/runtime.ts:177](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L177)
+Defined in: [packages/core/src/runtime.ts:177](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L177)
 
 ***
 
@@ -513,7 +513,7 @@ Defined in: [packages/core/src/runtime.ts:177](https://github.com/vdeantoni/unbl
 
 > **readlinkSync**: \{(`path`, `options?`): `string`; (`path`, `options`): `Buffer`; (`path`, `options?`): `string` \| `Buffer`; \}
 
-Defined in: [packages/core/src/runtime.ts:178](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L178)
+Defined in: [packages/core/src/runtime.ts:178](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L178)
 
 #### Call Signature
 

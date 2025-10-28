@@ -20,7 +20,7 @@
   "cleanOutputDir": true,
   "includeVersion": false,
   "disableSources": false,
-  "sourceLinkTemplate": "https://github.com/vdeantoni/unblessed/blob/{gitRevision}/{path}#L{line}",
+  "sourceLinkTemplate": "https://github.com/vdeantoni/unblessed/blob/alpha/{path}#L{line}",
   "githubPages": false,
   "hideBreadcrumbs": true,
   "hidePageHeader": true,

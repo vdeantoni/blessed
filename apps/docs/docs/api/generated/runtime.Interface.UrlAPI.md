@@ -1,6 +1,6 @@
 # Interface: UrlAPI
 
-Defined in: [packages/core/src/runtime.ts:267](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L267)
+Defined in: [packages/core/src/runtime.ts:267](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L267)
 
 URL operations interface
 Subset of Node.js url module
@@ -11,7 +11,7 @@ Subset of Node.js url module
 
 > **parse**: \{(`urlString`): `UrlWithStringQuery`; (`urlString`, `parseQueryString`, `slashesDenoteHost?`): `UrlWithStringQuery`; (`urlString`, `parseQueryString`, `slashesDenoteHost?`): `UrlWithParsedQuery`; (`urlString`, `parseQueryString`, `slashesDenoteHost?`): `Url`; \}
 
-Defined in: [packages/core/src/runtime.ts:268](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L268)
+Defined in: [packages/core/src/runtime.ts:268](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L268)
 
 #### Call Signature
 
@@ -201,7 +201,7 @@ Use the WHATWG URL API instead.
 
 > **format**: \{(`urlObject`, `options?`): `string`; (`urlObject`): `string`; \}
 
-Defined in: [packages/core/src/runtime.ts:269](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L269)
+Defined in: [packages/core/src/runtime.ts:269](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L269)
 
 #### Call Signature
 
@@ -379,7 +379,7 @@ Use the WHATWG URL API instead.
 
 > **fileURLToPath**: (`url`, `options?`) => `string`
 
-Defined in: [packages/core/src/runtime.ts:270](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L270)
+Defined in: [packages/core/src/runtime.ts:270](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L270)
 
 This function ensures the correct decodings of percent-encoded characters as
 well as ensuring a cross-platform valid absolute path string.

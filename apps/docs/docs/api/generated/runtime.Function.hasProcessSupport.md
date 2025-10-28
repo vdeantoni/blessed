@@ -2,7 +2,7 @@
 
 > **hasProcessSupport**(`runtime`): `runtime is Runtime & { processes: ProcessesAPI }`
 
-Defined in: [packages/core/src/runtime.ts:502](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L502)
+Defined in: [packages/core/src/runtime.ts:502](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L502)
 
 Check if runtime has process spawning support
 

@@ -2,7 +2,7 @@
 
 > **hasImageSupport**(`runtime`): `runtime is Runtime & { images: ImageAPI }`
 
-Defined in: [packages/core/src/runtime.ts:474](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L474)
+Defined in: [packages/core/src/runtime.ts:474](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L474)
 
 Check if runtime has image processing support
 

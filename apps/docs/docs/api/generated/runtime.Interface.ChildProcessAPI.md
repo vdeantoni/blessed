@@ -1,6 +1,6 @@
 # Interface: ChildProcessAPI
 
-Defined in: [packages/core/src/runtime.ts:249](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L249)
+Defined in: [packages/core/src/runtime.ts:249](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L249)
 
 Child process operations interface
 Subset of Node.js child_process module
@@ -11,7 +11,7 @@ Subset of Node.js child_process module
 
 > **spawn**: \{(`command`, `options?`): `ChildProcessWithoutNullStreams`; (`command`, `options`): `ChildProcessByStdio`\<`Writable`, `Readable`, `Readable`\>; (`command`, `options`): `ChildProcessByStdio`\<`Writable`, `Readable`, `null`\>; (`command`, `options`): `ChildProcessByStdio`\<`Writable`, `null`, `Readable`\>; (`command`, `options`): `ChildProcessByStdio`\<`null`, `Readable`, `Readable`\>; (`command`, `options`): `ChildProcessByStdio`\<`Writable`, `null`, `null`\>; (`command`, `options`): `ChildProcessByStdio`\<`null`, `Readable`, `null`\>; (`command`, `options`): `ChildProcessByStdio`\<`null`, `null`, `Readable`\>; (`command`, `options`): `ChildProcessByStdio`\<`null`, `null`, `null`\>; (`command`, `options`): `ChildProcess`; (`command`, `args?`, `options?`): `ChildProcessWithoutNullStreams`; (`command`, `args`, `options`): `ChildProcessByStdio`\<`Writable`, `Readable`, `Readable`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`Writable`, `Readable`, `null`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`Writable`, `null`, `Readable`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`null`, `Readable`, `Readable`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`Writable`, `null`, `null`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`null`, `Readable`, `null`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`null`, `null`, `Readable`\>; (`command`, `args`, `options`): `ChildProcessByStdio`\<`null`, `null`, `null`\>; (`command`, `args`, `options`): `ChildProcess`; \}
 
-Defined in: [packages/core/src/runtime.ts:250](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L250)
+Defined in: [packages/core/src/runtime.ts:250](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L250)
 
 #### Call Signature
 
@@ -2859,7 +2859,7 @@ v0.1.90
 
 > **execSync**: \{(`command`): `Buffer`; (`command`, `options`): `string`; (`command`, `options`): `Buffer`; (`command`, `options?`): `string` \| `Buffer`; \}
 
-Defined in: [packages/core/src/runtime.ts:251](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L251)
+Defined in: [packages/core/src/runtime.ts:251](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L251)
 
 #### Call Signature
 
@@ -3015,7 +3015,7 @@ v0.11.12
 
 > **execFileSync**: \{(`file`): `Buffer`; (`file`, `options`): `string`; (`file`, `options`): `Buffer`; (`file`, `options?`): `string` \| `Buffer`; (`file`, `args`): `Buffer`; (`file`, `args`, `options`): `string`; (`file`, `args`, `options`): `Buffer`; (`file`, `args?`, `options?`): `string` \| `Buffer`; \}
 
-Defined in: [packages/core/src/runtime.ts:252](https://github.com/vdeantoni/unblessed/blob/cda5e27f3d59c079a4be779247045dff26f0e9d3/packages/core/src/runtime.ts#L252)
+Defined in: [packages/core/src/runtime.ts:252](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L252)
 
 #### Call Signature
 
