@@ -138,7 +138,7 @@ export default function LiveDemo() {
 
       <div className="desktop-content">
         <h1 className="desktop-title">
-          <span className="title-gradient">Unblessed</span>
+          <span className="title-gradient">unblessed</span>
         </h1>
         <p className="desktop-subtitle">
           Modern, TypeScript-first terminal UI library for Node.js and browsers
