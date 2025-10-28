@@ -369,7 +369,6 @@ import { Form, Textbox, Button } from "@unblessed/core";
 
 const form = new Form({
   parent: screen,
-  keys: true,
 });
 
 const username = new Textbox({
