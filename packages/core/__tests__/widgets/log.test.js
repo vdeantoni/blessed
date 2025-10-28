@@ -399,4 +399,160 @@ describe("Log", () => {
       expect(log.scrollOnInput).toBe(true);
     });
   });
+
+  describe("static header and footer", () => {
+    it("should create static header when provided", () => {
+      const log = new Log({
+        screen,
+        staticHeader: "=== Application Logs ===",
+      });
+
+      expect(log._staticHeaderWidget).toBeDefined();
+      expect(log._staticHeaderWidget.content).toBe("=== Application Logs ===");
+    });
+
+    it("should create static footer when provided", () => {
+      const log = new Log({
+        screen,
+        staticFooter: "[Scroll: ↑/↓ | Quit: q]",
+      });
+
+      expect(log._staticFooterWidget).toBeDefined();
+      expect(log._staticFooterWidget.content).toBe("[Scroll: ↑/↓ | Quit: q]");
+    });
+
+    it("should create both header and footer", () => {
+      const log = new Log({
+        screen,
+        staticHeader: "=== Header ===",
+        staticFooter: "=== Footer ===",
+      });
+
+      expect(log._staticHeaderWidget).toBeDefined();
+      expect(log._staticFooterWidget).toBeDefined();
+      expect(log._staticHeaderWidget.content).toBe("=== Header ===");
+      expect(log._staticFooterWidget.content).toBe("=== Footer ===");
+    });
+
+    it("should position static header at top", () => {
+      const log = new Log({
+        screen,
+        staticHeader: "Header",
+      });
+
+      expect(log._staticHeaderWidget.position.top).toBe(0);
+      expect(log._staticHeaderWidget.position.left).toBe(0);
+      expect(log._staticHeaderWidget.position.height).toBe(1);
+    });
+
+    it("should position static footer at bottom", () => {
+      const log = new Log({
+        screen,
+        staticFooter: "Footer",
+      });
+
+      expect(log._staticFooterWidget.position.bottom).toBe(0);
+      expect(log._staticFooterWidget.position.left).toBe(0);
+      expect(log._staticFooterWidget.position.height).toBe(1);
+    });
+
+    it("should set static header dynamically", () => {
+      const log = new Log({ screen });
+
+      expect(log._staticHeaderWidget).toBeUndefined();
+
+      log.setStaticHeader("New Header");
+
+      expect(log._staticHeaderWidget).toBeDefined();
+      expect(log._staticHeaderWidget.content).toBe("New Header");
+    });
+
+    it("should update existing static header", () => {
+      const log = new Log({
+        screen,
+        staticHeader: "Initial Header",
+      });
+
+      log.setStaticHeader("Updated Header");
+
+      expect(log._staticHeaderWidget.content).toBe("Updated Header");
+    });
+
+    it("should set static footer dynamically", () => {
+      const log = new Log({ screen });
+
+      expect(log._staticFooterWidget).toBeUndefined();
+
+      log.setStaticFooter("New Footer");
+
+      expect(log._staticFooterWidget).toBeDefined();
+      expect(log._staticFooterWidget.content).toBe("New Footer");
+    });
+
+    it("should update existing static footer", () => {
+      const log = new Log({
+        screen,
+        staticFooter: "Initial Footer",
+      });
+
+      log.setStaticFooter("Updated Footer");
+
+      expect(log._staticFooterWidget.content).toBe("Updated Footer");
+    });
+
+    it("should inherit log styles for static widgets", () => {
+      const log = new Log({
+        screen,
+        staticHeader: "Header",
+        style: {
+          fg: "white",
+          bg: "blue",
+        },
+      });
+
+      expect(log._staticHeaderWidget.style).toBe(log.style);
+    });
+
+    it("should respect parseTags option in static widgets", () => {
+      const log = new Log({
+        screen,
+        staticHeader: "{bold}Header{/bold}",
+        parseTags: true,
+      });
+
+      expect(log._staticHeaderWidget.parseTags).toBe(true);
+    });
+
+    it("should work with static header and log messages", () => {
+      const log = new Log({
+        screen,
+        staticHeader: "=== Logs ===",
+        scrollback: 100,
+      });
+      log.pushLine = vi.fn();
+      log._clines = { fake: [] };
+
+      log.log("Message 1");
+      log.log("Message 2");
+
+      expect(log._staticHeaderWidget).toBeDefined();
+      expect(log.pushLine).toHaveBeenCalledTimes(2);
+    });
+
+    it("should maintain static widgets when scrolling log content", () => {
+      const log = new Log({
+        screen,
+        staticHeader: "Header",
+        staticFooter: "Footer",
+      });
+      log._scroll = vi.fn();
+      log.getScrollPerc = vi.fn(() => 50);
+
+      log.scroll(5);
+
+      // Static widgets should still exist
+      expect(log._staticHeaderWidget).toBeDefined();
+      expect(log._staticFooterWidget).toBeDefined();
+    });
+  });
 });

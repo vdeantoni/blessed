@@ -1,59 +1,74 @@
-# Class: Log
+# Class: Dialog
 
-Defined in: [packages/core/src/widgets/log.ts:42](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L42)
+Defined in: [packages/core/src/widgets/dialog.ts:56](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/dialog.ts#L56)
 
-Log widget for displaying scrolling log messages.
+Dialog widget for modal dialogs and overlays.
 
-A specialized scrollable text widget optimized for log output with
-automatic scrolling, scrollback limits, and optional static header/footer.
+A specialized widget for creating modal dialogs with sensible defaults
+for centered positioning, shadows, and automatic focus management.
+
+**Key behaviors:**
+- **ESC**: Automatically hides the dialog when pressed on dialog or any child element
 
 ## Examples
 
 ```typescript
-const log = new Log({
+const dialog = new Dialog({
   parent: screen,
-  scrollback: 1000,
-  border: { type: 'line' }
+  width: '50%',
+  height: '50%',
+  content: 'Dialog content',
+  border: { type: 'line' },
+  label: ' Dialog Title '
 });
 
-log.log('Server started');
-log.log('User %s connected', username);
+dialog.show();
+screen.render();
+
+// ESC key automatically hides the dialog
+// Or manually:
+dialog.hide();
+screen.render();
 ```
 
 ```typescript
-const log = new Log({
+const dialog = new Dialog({
   parent: screen,
-  scrollback: 1000,
-  staticHeader: '=== Application Logs ===',
-  staticFooter: '[↑/↓] Scroll | [Q] Quit'
+  width: '50%',
+  height: '50%',
+  border: { type: 'line' }
 });
+
+dialog.show();
+screen.render();
+// Focus is automatically saved and restored
 ```
 
 ## Extends
 
-- [`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md)
+- [`Box`](widgets.box.Class.Box.md)
 
 ## Constructors
 
 ### Constructor
 
-> **new Log**(`options`): `Log`
+> **new Dialog**(`options`): `Dialog`
 
-Defined in: [packages/core/src/widgets/log.ts:64](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L64)
+Defined in: [packages/core/src/widgets/dialog.ts:60](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/dialog.ts#L60)
 
 #### Parameters
 
 ##### options
 
-`LogOptions` = `{}`
+`DialogOptions` = `{}`
 
 #### Returns
 
-`Log`
+`Dialog`
 
 #### Overrides
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`constructor`](widgets.scrollabletext.Class.ScrollableText.md#constructor)
+[`Box`](widgets.box.Class.Box.md).[`constructor`](widgets.box.Class.Box.md#constructor)
 
 ## Properties
 
@@ -65,7 +80,7 @@ Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_events`](widgets.scrollabletext.Class.ScrollableText.md#_events)
+[`Box`](widgets.box.Class.Box.md).[`_events`](widgets.box.Class.Box.md#_events)
 
 ***
 
@@ -77,19 +92,34 @@ Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_maxListeners`](widgets.scrollabletext.Class.ScrollableText.md#_maxlisteners)
+[`Box`](widgets.box.Class.Box.md).[`_maxListeners`](widgets.box.Class.Box.md#_maxlisteners)
+
+***
+
+### type
+
+> **type**: `string` = `"dialog"`
+
+Defined in: [packages/core/src/widgets/dialog.ts:57](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/dialog.ts#L57)
+
+Type of the node (e.g. box, list, form, etc.).
+Used to identify the widget type at runtime.
+
+#### Overrides
+
+[`Box`](widgets.box.Class.Box.md).[`type`](widgets.box.Class.Box.md#type)
 
 ***
 
 ### options
 
-> **options**: `ElementOptions`
+> **options**: `DialogOptions`
 
-Defined in: [packages/core/src/widgets/element.ts:48](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L48)
+Defined in: [packages/core/src/widgets/dialog.ts:58](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/dialog.ts#L58)
 
-#### Inherited from
+#### Overrides
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`options`](widgets.scrollabletext.Class.ScrollableText.md#options)
+[`Box`](widgets.box.Class.Box.md).[`options`](widgets.box.Class.Box.md#options)
 
 ***
 
@@ -101,7 +131,7 @@ Defined in: [packages/core/src/widgets/element.ts:50](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`name`](widgets.scrollabletext.Class.ScrollableText.md#name)
+[`Box`](widgets.box.Class.Box.md).[`name`](widgets.box.Class.Box.md#name)
 
 ***
 
@@ -116,7 +146,7 @@ Kept as any due to complex internal position calculation system.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`position`](widgets.scrollabletext.Class.ScrollableText.md#position)
+[`Box`](widgets.box.Class.Box.md).[`position`](widgets.box.Class.Box.md#position)
 
 ***
 
@@ -128,7 +158,7 @@ Defined in: [packages/core/src/widgets/element.ts:56](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`noOverflow`](widgets.scrollabletext.Class.ScrollableText.md#nooverflow)
+[`Box`](widgets.box.Class.Box.md).[`noOverflow`](widgets.box.Class.Box.md#nooverflow)
 
 ***
 
@@ -140,7 +170,7 @@ Defined in: [packages/core/src/widgets/element.ts:57](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`dockBorders`](widgets.scrollabletext.Class.ScrollableText.md#dockborders)
+[`Box`](widgets.box.Class.Box.md).[`dockBorders`](widgets.box.Class.Box.md#dockborders)
 
 ***
 
@@ -152,7 +182,7 @@ Defined in: [packages/core/src/widgets/element.ts:58](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`shadow`](widgets.scrollabletext.Class.ScrollableText.md#shadow)
+[`Box`](widgets.box.Class.Box.md).[`shadow`](widgets.box.Class.Box.md#shadow)
 
 ***
 
@@ -166,7 +196,7 @@ Element style configuration (colors, attributes, hover/focus effects)
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`style`](widgets.scrollabletext.Class.ScrollableText.md#style)
+[`Box`](widgets.box.Class.Box.md).[`style`](widgets.box.Class.Box.md#style)
 
 ***
 
@@ -178,7 +208,7 @@ Defined in: [packages/core/src/widgets/element.ts:61](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`hidden`](widgets.scrollabletext.Class.ScrollableText.md#hidden)
+[`Box`](widgets.box.Class.Box.md).[`hidden`](widgets.box.Class.Box.md#hidden)
 
 ***
 
@@ -190,7 +220,7 @@ Defined in: [packages/core/src/widgets/element.ts:62](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`fixed`](widgets.scrollabletext.Class.ScrollableText.md#fixed)
+[`Box`](widgets.box.Class.Box.md).[`fixed`](widgets.box.Class.Box.md#fixed)
 
 ***
 
@@ -202,7 +232,7 @@ Defined in: [packages/core/src/widgets/element.ts:63](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`align`](widgets.scrollabletext.Class.ScrollableText.md#align)
+[`Box`](widgets.box.Class.Box.md).[`align`](widgets.box.Class.Box.md#align)
 
 ***
 
@@ -214,7 +244,7 @@ Defined in: [packages/core/src/widgets/element.ts:64](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`valign`](widgets.scrollabletext.Class.ScrollableText.md#valign)
+[`Box`](widgets.box.Class.Box.md).[`valign`](widgets.box.Class.Box.md#valign)
 
 ***
 
@@ -226,7 +256,7 @@ Defined in: [packages/core/src/widgets/element.ts:65](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`wrap`](widgets.scrollabletext.Class.ScrollableText.md#wrap)
+[`Box`](widgets.box.Class.Box.md).[`wrap`](widgets.box.Class.Box.md#wrap)
 
 ***
 
@@ -238,7 +268,7 @@ Defined in: [packages/core/src/widgets/element.ts:66](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`shrink`](widgets.scrollabletext.Class.ScrollableText.md#shrink)
+[`Box`](widgets.box.Class.Box.md).[`shrink`](widgets.box.Class.Box.md#shrink)
 
 ***
 
@@ -250,7 +280,7 @@ Defined in: [packages/core/src/widgets/element.ts:67](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`ch`](widgets.scrollabletext.Class.ScrollableText.md#ch)
+[`Box`](widgets.box.Class.Box.md).[`ch`](widgets.box.Class.Box.md#ch)
 
 ***
 
@@ -264,7 +294,7 @@ Padding configuration for all sides
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`padding`](widgets.scrollabletext.Class.ScrollableText.md#padding)
+[`Box`](widgets.box.Class.Box.md).[`padding`](widgets.box.Class.Box.md#padding)
 
 ***
 
@@ -278,7 +308,7 @@ Border configuration
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`border`](widgets.scrollabletext.Class.ScrollableText.md#border)
+[`Box`](widgets.box.Class.Box.md).[`border`](widgets.box.Class.Box.md#border)
 
 ***
 
@@ -290,7 +320,7 @@ Defined in: [packages/core/src/widgets/element.ts:72](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`parseTags`](widgets.scrollabletext.Class.ScrollableText.md#parsetags)
+[`Box`](widgets.box.Class.Box.md).[`parseTags`](widgets.box.Class.Box.md#parsetags)
 
 ***
 
@@ -302,7 +332,7 @@ Defined in: [packages/core/src/widgets/element.ts:73](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`content`](widgets.scrollabletext.Class.ScrollableText.md#content)
+[`Box`](widgets.box.Class.Box.md).[`content`](widgets.box.Class.Box.md#content)
 
 ***
 
@@ -316,7 +346,7 @@ Last rendered position coordinates
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`lpos`](widgets.scrollabletext.Class.ScrollableText.md#lpos)
+[`Box`](widgets.box.Class.Box.md).[`lpos`](widgets.box.Class.Box.md#lpos)
 
 ***
 
@@ -328,7 +358,7 @@ Defined in: [packages/core/src/widgets/element.ts:76](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_clines`](widgets.scrollabletext.Class.ScrollableText.md#_clines)
+[`Box`](widgets.box.Class.Box.md).[`_clines`](widgets.box.Class.Box.md#_clines)
 
 ***
 
@@ -340,7 +370,7 @@ Defined in: [packages/core/src/widgets/element.ts:77](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_pcontent`](widgets.scrollabletext.Class.ScrollableText.md#_pcontent)
+[`Box`](widgets.box.Class.Box.md).[`_pcontent`](widgets.box.Class.Box.md#_pcontent)
 
 ***
 
@@ -352,7 +382,7 @@ Defined in: [packages/core/src/widgets/element.ts:78](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_slisteners`](widgets.scrollabletext.Class.ScrollableText.md#_slisteners)
+[`Box`](widgets.box.Class.Box.md).[`_slisteners`](widgets.box.Class.Box.md#_slisteners)
 
 ***
 
@@ -364,7 +394,7 @@ Defined in: [packages/core/src/widgets/element.ts:79](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_label`](widgets.scrollabletext.Class.ScrollableText.md#_label)
+[`Box`](widgets.box.Class.Box.md).[`_label`](widgets.box.Class.Box.md#_label)
 
 ***
 
@@ -380,7 +410,7 @@ Defined in: [packages/core/src/widgets/element.ts:80](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_labelScroll`](widgets.scrollabletext.Class.ScrollableText.md#_labelscroll)
+[`Box`](widgets.box.Class.Box.md).[`_labelScroll`](widgets.box.Class.Box.md#_labelscroll)
 
 ***
 
@@ -396,7 +426,7 @@ Defined in: [packages/core/src/widgets/element.ts:81](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_labelResize`](widgets.scrollabletext.Class.ScrollableText.md#_labelresize)
+[`Box`](widgets.box.Class.Box.md).[`_labelResize`](widgets.box.Class.Box.md#_labelresize)
 
 ***
 
@@ -408,7 +438,7 @@ Defined in: [packages/core/src/widgets/element.ts:82](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_hoverOptions`](widgets.scrollabletext.Class.ScrollableText.md#_hoveroptions)
+[`Box`](widgets.box.Class.Box.md).[`_hoverOptions`](widgets.box.Class.Box.md#_hoveroptions)
 
 ***
 
@@ -420,7 +450,7 @@ Defined in: [packages/core/src/widgets/element.ts:83](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_draggable`](widgets.scrollabletext.Class.ScrollableText.md#_draggable)
+[`Box`](widgets.box.Class.Box.md).[`_draggable`](widgets.box.Class.Box.md#_draggable)
 
 ***
 
@@ -442,7 +472,7 @@ Defined in: [packages/core/src/widgets/element.ts:84](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_dragMD`](widgets.scrollabletext.Class.ScrollableText.md#_dragmd)
+[`Box`](widgets.box.Class.Box.md).[`_dragMD`](widgets.box.Class.Box.md#_dragmd)
 
 ***
 
@@ -464,7 +494,7 @@ Defined in: [packages/core/src/widgets/element.ts:85](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_dragM`](widgets.scrollabletext.Class.ScrollableText.md#_dragm)
+[`Box`](widgets.box.Class.Box.md).[`_dragM`](widgets.box.Class.Box.md#_dragm)
 
 ***
 
@@ -476,7 +506,7 @@ Defined in: [packages/core/src/widgets/element.ts:86](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_drag`](widgets.scrollabletext.Class.ScrollableText.md#_drag)
+[`Box`](widgets.box.Class.Box.md).[`_drag`](widgets.box.Class.Box.md#_drag)
 
 ***
 
@@ -488,7 +518,7 @@ Defined in: [packages/core/src/widgets/element.ts:87](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_noFill`](widgets.scrollabletext.Class.ScrollableText.md#_nofill)
+[`Box`](widgets.box.Class.Box.md).[`_noFill`](widgets.box.Class.Box.md#_nofill)
 
 ***
 
@@ -500,7 +530,7 @@ Defined in: [packages/core/src/widgets/element.ts:88](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_isLabel`](widgets.scrollabletext.Class.ScrollableText.md#_islabel)
+[`Box`](widgets.box.Class.Box.md).[`_isLabel`](widgets.box.Class.Box.md#_islabel)
 
 ***
 
@@ -512,7 +542,7 @@ Defined in: [packages/core/src/widgets/element.ts:89](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_isList`](widgets.scrollabletext.Class.ScrollableText.md#_islist)
+[`Box`](widgets.box.Class.Box.md).[`_isList`](widgets.box.Class.Box.md#_islist)
 
 ***
 
@@ -524,7 +554,7 @@ Defined in: [packages/core/src/widgets/element.ts:90](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`childBase`](widgets.scrollabletext.Class.ScrollableText.md#childbase)
+[`Box`](widgets.box.Class.Box.md).[`childBase`](widgets.box.Class.Box.md#childbase)
 
 ***
 
@@ -536,7 +566,7 @@ Defined in: [packages/core/src/widgets/element.ts:91](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`childOffset`](widgets.scrollabletext.Class.ScrollableText.md#childoffset)
+[`Box`](widgets.box.Class.Box.md).[`childOffset`](widgets.box.Class.Box.md#childoffset)
 
 ***
 
@@ -548,7 +578,7 @@ Defined in: [packages/core/src/widgets/element.ts:92](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`alwaysScroll`](widgets.scrollabletext.Class.ScrollableText.md#alwaysscroll)
+[`Box`](widgets.box.Class.Box.md).[`alwaysScroll`](widgets.box.Class.Box.md#alwaysscroll)
 
 ***
 
@@ -560,7 +590,7 @@ Defined in: [packages/core/src/widgets/element.ts:93](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`baseLimit`](widgets.scrollabletext.Class.ScrollableText.md#baselimit)
+[`Box`](widgets.box.Class.Box.md).[`baseLimit`](widgets.box.Class.Box.md#baselimit)
 
 ***
 
@@ -572,7 +602,7 @@ Defined in: [packages/core/src/widgets/element.ts:94](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`track`](widgets.scrollabletext.Class.ScrollableText.md#track)
+[`Box`](widgets.box.Class.Box.md).[`track`](widgets.box.Class.Box.md#track)
 
 ***
 
@@ -584,7 +614,7 @@ Defined in: [packages/core/src/widgets/element.ts:95](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`scrollbar`](widgets.scrollabletext.Class.ScrollableText.md#scrollbar)
+[`Box`](widgets.box.Class.Box.md).[`scrollbar`](widgets.box.Class.Box.md#scrollbar)
 
 ***
 
@@ -596,7 +626,7 @@ Defined in: [packages/core/src/widgets/element.ts:96](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`items`](widgets.scrollabletext.Class.ScrollableText.md#items)
+[`Box`](widgets.box.Class.Box.md).[`items`](widgets.box.Class.Box.md#items)
 
 ***
 
@@ -608,7 +638,39 @@ Defined in: [packages/core/src/widgets/element.ts:99](https://github.com/vdeanto
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`scrollable`](widgets.scrollabletext.Class.ScrollableText.md#scrollable)
+[`Box`](widgets.box.Class.Box.md).[`scrollable`](widgets.box.Class.Box.md#scrollable)
+
+***
+
+### scroll()?
+
+> `optional` **scroll**: (`offset`, `always?`) => `any`
+
+Defined in: [packages/core/src/widgets/element.ts:102](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L102)
+
+Scroll the content by a relative offset.
+
+#### Parameters
+
+##### offset
+
+`number`
+
+The number of lines/items to scroll (positive = down, negative = up)
+
+##### always?
+
+`boolean`
+
+Force the scroll operation even if position hasn't changed
+
+#### Returns
+
+`any`
+
+#### Inherited from
+
+[`Box`](widgets.box.Class.Box.md).[`scroll`](widgets.box.Class.Box.md#scroll)
 
 ***
 
@@ -640,7 +702,7 @@ Force the scroll operation even if position hasn't changed
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`scrollTo`](widgets.scrollabletext.Class.ScrollableText.md#scrollto)
+[`Box`](widgets.box.Class.Box.md).[`scrollTo`](widgets.box.Class.Box.md#scrollto)
 
 ***
 
@@ -672,7 +734,7 @@ Force the scroll operation even if position hasn't changed
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setScroll`](widgets.scrollabletext.Class.ScrollableText.md#setscroll)
+[`Box`](widgets.box.Class.Box.md).[`setScroll`](widgets.box.Class.Box.md#setscroll)
 
 ***
 
@@ -692,7 +754,7 @@ The current absolute scroll position
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getScroll`](widgets.scrollabletext.Class.ScrollableText.md#getscroll)
+[`Box`](widgets.box.Class.Box.md).[`getScroll`](widgets.box.Class.Box.md#getscroll)
 
 ***
 
@@ -712,7 +774,7 @@ The total scrollable content height in lines
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getScrollHeight`](widgets.scrollabletext.Class.ScrollableText.md#getscrollheight)
+[`Box`](widgets.box.Class.Box.md).[`getScrollHeight`](widgets.box.Class.Box.md#getscrollheight)
 
 ***
 
@@ -740,7 +802,7 @@ The scroll position as a percentage (0-100), or -1 if not scrollable
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getScrollPerc`](widgets.scrollabletext.Class.ScrollableText.md#getscrollperc)
+[`Box`](widgets.box.Class.Box.md).[`getScrollPerc`](widgets.box.Class.Box.md#getscrollperc)
 
 ***
 
@@ -766,7 +828,7 @@ The target scroll percentage (0-100)
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setScrollPerc`](widgets.scrollabletext.Class.ScrollableText.md#setscrollperc)
+[`Box`](widgets.box.Class.Box.md).[`setScrollPerc`](widgets.box.Class.Box.md#setscrollperc)
 
 ***
 
@@ -784,7 +846,7 @@ Reset the scroll index to its initial state (top).
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`resetScroll`](widgets.scrollabletext.Class.ScrollableText.md#resetscroll)
+[`Box`](widgets.box.Class.Box.md).[`resetScroll`](widgets.box.Class.Box.md#resetscroll)
 
 ***
 
@@ -800,7 +862,7 @@ Defined in: [packages/core/src/widgets/element.ts:110](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_scrollBottom`](widgets.scrollabletext.Class.ScrollableText.md#_scrollbottom)
+[`Box`](widgets.box.Class.Box.md).[`_scrollBottom`](widgets.box.Class.Box.md#_scrollbottom)
 
 ***
 
@@ -816,55 +878,7 @@ Defined in: [packages/core/src/widgets/element.ts:111](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_recalculateIndex`](widgets.scrollabletext.Class.ScrollableText.md#_recalculateindex)
-
-***
-
-### type
-
-> **type**: `string` = `"log"`
-
-Defined in: [packages/core/src/widgets/log.ts:43](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L43)
-
-Type of the node (e.g. box, list, form, etc.).
-Used to identify the widget type at runtime.
-
-#### Overrides
-
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`type`](widgets.scrollabletext.Class.ScrollableText.md#type)
-
-***
-
-### scrollback
-
-> **scrollback**: `number`
-
-Defined in: [packages/core/src/widgets/log.ts:51](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L51)
-
-Amount of scrollback lines allowed.
-When exceeded, oldest lines are removed.
-
-#### Default
-
-```ts
-Infinity
-```
-
-***
-
-### scrollOnInput
-
-> **scrollOnInput**: `boolean` \| `undefined`
-
-Defined in: [packages/core/src/widgets/log.ts:58](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L58)
-
-Whether to automatically scroll to bottom on new input.
-
-#### Default
-
-```ts
-false
-```
+[`Box`](widgets.box.Class.Box.md).[`_recalculateIndex`](widgets.box.Class.Box.md#_recalculateindex)
 
 ***
 
@@ -876,7 +890,7 @@ Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`uid`](widgets.scrollabletext.Class.ScrollableText.md#uid)
+[`Box`](widgets.box.Class.Box.md).[`uid`](widgets.box.Class.Box.md#uid)
 
 ***
 
@@ -888,7 +902,7 @@ Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`ScreenRegistry`](widgets.scrollabletext.Class.ScrollableText.md#screenregistry)
+[`Box`](widgets.box.Class.Box.md).[`ScreenRegistry`](widgets.box.Class.Box.md#screenregistry)
 
 ***
 
@@ -907,7 +921,7 @@ render(), and the program property without complex generic typing.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`screen`](widgets.scrollabletext.Class.ScrollableText.md#screen)
+[`Box`](widgets.box.Class.Box.md).[`screen`](widgets.box.Class.Box.md#screen)
 
 ***
 
@@ -926,7 +940,7 @@ methods from subclasses like Box, List, Form, etc.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`parent`](widgets.scrollabletext.Class.ScrollableText.md#parent)
+[`Box`](widgets.box.Class.Box.md).[`parent`](widgets.box.Class.Box.md#parent)
 
 ***
 
@@ -943,7 +957,7 @@ Kept as any[] to preserve flexibility with mixed widget types.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`children`](widgets.scrollabletext.Class.ScrollableText.md#children)
+[`Box`](widgets.box.Class.Box.md).[`children`](widgets.box.Class.Box.md#children)
 
 ***
 
@@ -957,7 +971,7 @@ An object for any miscellaneous user data.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`$`](widgets.scrollabletext.Class.ScrollableText.md#)
+[`Box`](widgets.box.Class.Box.md).[`$`](widgets.box.Class.Box.md#)
 
 ***
 
@@ -971,7 +985,7 @@ An object for any miscellaneous user data.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_`](widgets.scrollabletext.Class.ScrollableText.md#_)
+[`Box`](widgets.box.Class.Box.md).[`_`](widgets.box.Class.Box.md#_)
 
 ***
 
@@ -985,7 +999,7 @@ An object for any miscellaneous user data.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`data`](widgets.scrollabletext.Class.ScrollableText.md#data)
+[`Box`](widgets.box.Class.Box.md).[`data`](widgets.box.Class.Box.md#data)
 
 ***
 
@@ -997,7 +1011,7 @@ Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`uid`](widgets.scrollabletext.Class.ScrollableText.md#uid-1)
+[`Box`](widgets.box.Class.Box.md).[`uid`](widgets.box.Class.Box.md#uid-1)
 
 ***
 
@@ -1013,7 +1027,7 @@ Set to -1 initially, updated during rendering.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`index`](widgets.scrollabletext.Class.ScrollableText.md#index)
+[`Box`](widgets.box.Class.Box.md).[`index`](widgets.box.Class.Box.md#index)
 
 ***
 
@@ -1025,7 +1039,7 @@ Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`detached`](widgets.scrollabletext.Class.ScrollableText.md#detached)
+[`Box`](widgets.box.Class.Box.md).[`detached`](widgets.box.Class.Box.md#detached)
 
 ***
 
@@ -1037,7 +1051,7 @@ Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`destroyed`](widgets.scrollabletext.Class.ScrollableText.md#destroyed)
+[`Box`](widgets.box.Class.Box.md).[`destroyed`](widgets.box.Class.Box.md#destroyed)
 
 ***
 
@@ -1049,7 +1063,7 @@ Defined in: [packages/core/src/widgets/node.ts:90](https://github.com/vdeantoni/
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`runtime`](widgets.scrollabletext.Class.ScrollableText.md#runtime)
+[`Box`](widgets.box.Class.Box.md).[`runtime`](widgets.box.Class.Box.md#runtime)
 
 ## Accessors
 
@@ -1067,7 +1081,7 @@ Defined in: [packages/core/src/widgets/element.ts:113](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`focused`](widgets.scrollabletext.Class.ScrollableText.md#focused)
+[`Box`](widgets.box.Class.Box.md).[`focused`](widgets.box.Class.Box.md#focused)
 
 ***
 
@@ -1085,7 +1099,7 @@ Defined in: [packages/core/src/widgets/element.ts:924](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`visible`](widgets.scrollabletext.Class.ScrollableText.md#visible)
+[`Box`](widgets.box.Class.Box.md).[`visible`](widgets.box.Class.Box.md#visible)
 
 ***
 
@@ -1103,7 +1117,7 @@ Defined in: [packages/core/src/widgets/element.ts:935](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_detached`](widgets.scrollabletext.Class.ScrollableText.md#_detached)
+[`Box`](widgets.box.Class.Box.md).[`_detached`](widgets.box.Class.Box.md#_detached)
 
 ***
 
@@ -1137,7 +1151,7 @@ Defined in: [packages/core/src/widgets/element.ts:972](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`draggable`](widgets.scrollabletext.Class.ScrollableText.md#draggable)
+[`Box`](widgets.box.Class.Box.md).[`draggable`](widgets.box.Class.Box.md#draggable)
 
 ***
 
@@ -1173,7 +1187,7 @@ Position Setters
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`width`](widgets.scrollabletext.Class.ScrollableText.md#width)
+[`Box`](widgets.box.Class.Box.md).[`width`](widgets.box.Class.Box.md#width)
 
 ***
 
@@ -1207,7 +1221,7 @@ Defined in: [packages/core/src/widgets/element.ts:1581](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`height`](widgets.scrollabletext.Class.ScrollableText.md#height)
+[`Box`](widgets.box.Class.Box.md).[`height`](widgets.box.Class.Box.md#height)
 
 ***
 
@@ -1241,7 +1255,7 @@ Defined in: [packages/core/src/widgets/element.ts:1589](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`aleft`](widgets.scrollabletext.Class.ScrollableText.md#aleft)
+[`Box`](widgets.box.Class.Box.md).[`aleft`](widgets.box.Class.Box.md#aleft)
 
 ***
 
@@ -1275,7 +1289,7 @@ Defined in: [packages/core/src/widgets/element.ts:1610](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`aright`](widgets.scrollabletext.Class.ScrollableText.md#aright)
+[`Box`](widgets.box.Class.Box.md).[`aright`](widgets.box.Class.Box.md#aright)
 
 ***
 
@@ -1309,7 +1323,7 @@ Defined in: [packages/core/src/widgets/element.ts:1618](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`atop`](widgets.scrollabletext.Class.ScrollableText.md#atop)
+[`Box`](widgets.box.Class.Box.md).[`atop`](widgets.box.Class.Box.md#atop)
 
 ***
 
@@ -1343,7 +1357,7 @@ Defined in: [packages/core/src/widgets/element.ts:1639](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`abottom`](widgets.scrollabletext.Class.ScrollableText.md#abottom)
+[`Box`](widgets.box.Class.Box.md).[`abottom`](widgets.box.Class.Box.md#abottom)
 
 ***
 
@@ -1377,7 +1391,7 @@ Defined in: [packages/core/src/widgets/element.ts:1647](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`rleft`](widgets.scrollabletext.Class.ScrollableText.md#rleft)
+[`Box`](widgets.box.Class.Box.md).[`rleft`](widgets.box.Class.Box.md#rleft)
 
 ***
 
@@ -1411,7 +1425,7 @@ Defined in: [packages/core/src/widgets/element.ts:1655](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`rright`](widgets.scrollabletext.Class.ScrollableText.md#rright)
+[`Box`](widgets.box.Class.Box.md).[`rright`](widgets.box.Class.Box.md#rright)
 
 ***
 
@@ -1445,7 +1459,7 @@ Defined in: [packages/core/src/widgets/element.ts:1662](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`rtop`](widgets.scrollabletext.Class.ScrollableText.md#rtop)
+[`Box`](widgets.box.Class.Box.md).[`rtop`](widgets.box.Class.Box.md#rtop)
 
 ***
 
@@ -1479,7 +1493,7 @@ Defined in: [packages/core/src/widgets/element.ts:1670](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`rbottom`](widgets.scrollabletext.Class.ScrollableText.md#rbottom)
+[`Box`](widgets.box.Class.Box.md).[`rbottom`](widgets.box.Class.Box.md#rbottom)
 
 ***
 
@@ -1497,7 +1511,7 @@ Defined in: [packages/core/src/widgets/element.ts:1677](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`ileft`](widgets.scrollabletext.Class.ScrollableText.md#ileft)
+[`Box`](widgets.box.Class.Box.md).[`ileft`](widgets.box.Class.Box.md#ileft)
 
 ***
 
@@ -1515,7 +1529,7 @@ Defined in: [packages/core/src/widgets/element.ts:1682](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`itop`](widgets.scrollabletext.Class.ScrollableText.md#itop)
+[`Box`](widgets.box.Class.Box.md).[`itop`](widgets.box.Class.Box.md#itop)
 
 ***
 
@@ -1533,7 +1547,7 @@ Defined in: [packages/core/src/widgets/element.ts:1687](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`iright`](widgets.scrollabletext.Class.ScrollableText.md#iright)
+[`Box`](widgets.box.Class.Box.md).[`iright`](widgets.box.Class.Box.md#iright)
 
 ***
 
@@ -1551,7 +1565,7 @@ Defined in: [packages/core/src/widgets/element.ts:1692](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`ibottom`](widgets.scrollabletext.Class.ScrollableText.md#ibottom)
+[`Box`](widgets.box.Class.Box.md).[`ibottom`](widgets.box.Class.Box.md#ibottom)
 
 ***
 
@@ -1569,7 +1583,7 @@ Defined in: [packages/core/src/widgets/element.ts:1697](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`iwidth`](widgets.scrollabletext.Class.ScrollableText.md#iwidth)
+[`Box`](widgets.box.Class.Box.md).[`iwidth`](widgets.box.Class.Box.md#iwidth)
 
 ***
 
@@ -1587,7 +1601,7 @@ Defined in: [packages/core/src/widgets/element.ts:1704](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`iheight`](widgets.scrollabletext.Class.ScrollableText.md#iheight)
+[`Box`](widgets.box.Class.Box.md).[`iheight`](widgets.box.Class.Box.md#iheight)
 
 ***
 
@@ -1605,7 +1619,7 @@ Defined in: [packages/core/src/widgets/element.ts:1711](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`tpadding`](widgets.scrollabletext.Class.ScrollableText.md#tpadding)
+[`Box`](widgets.box.Class.Box.md).[`tpadding`](widgets.box.Class.Box.md#tpadding)
 
 ***
 
@@ -1641,7 +1655,7 @@ Defined in: [packages/core/src/widgets/element.ts:1740](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`left`](widgets.scrollabletext.Class.ScrollableText.md#left)
+[`Box`](widgets.box.Class.Box.md).[`left`](widgets.box.Class.Box.md#left)
 
 ***
 
@@ -1675,7 +1689,7 @@ Defined in: [packages/core/src/widgets/element.ts:1744](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`right`](widgets.scrollabletext.Class.ScrollableText.md#right)
+[`Box`](widgets.box.Class.Box.md).[`right`](widgets.box.Class.Box.md#right)
 
 ***
 
@@ -1709,7 +1723,7 @@ Defined in: [packages/core/src/widgets/element.ts:1748](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`top`](widgets.scrollabletext.Class.ScrollableText.md#top)
+[`Box`](widgets.box.Class.Box.md).[`top`](widgets.box.Class.Box.md#top)
 
 ***
 
@@ -1743,7 +1757,7 @@ Defined in: [packages/core/src/widgets/element.ts:1752](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`bottom`](widgets.scrollabletext.Class.ScrollableText.md#bottom)
+[`Box`](widgets.box.Class.Box.md).[`bottom`](widgets.box.Class.Box.md#bottom)
 
 ## Methods
 
@@ -1765,7 +1779,7 @@ Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setMaxListeners`](widgets.scrollabletext.Class.ScrollableText.md#setmaxlisteners)
+[`Box`](widgets.box.Class.Box.md).[`setMaxListeners`](widgets.box.Class.Box.md#setmaxlisteners)
 
 ***
 
@@ -1791,7 +1805,7 @@ Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`addListener`](widgets.scrollabletext.Class.ScrollableText.md#addlistener)
+[`Box`](widgets.box.Class.Box.md).[`addListener`](widgets.box.Class.Box.md#addlistener)
 
 ***
 
@@ -1817,7 +1831,7 @@ Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`on`](widgets.scrollabletext.Class.ScrollableText.md#on)
+[`Box`](widgets.box.Class.Box.md).[`on`](widgets.box.Class.Box.md#on)
 
 ***
 
@@ -1843,7 +1857,7 @@ Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`removeListener`](widgets.scrollabletext.Class.ScrollableText.md#removelistener)
+[`Box`](widgets.box.Class.Box.md).[`removeListener`](widgets.box.Class.Box.md#removelistener)
 
 ***
 
@@ -1869,7 +1883,7 @@ Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`off`](widgets.scrollabletext.Class.ScrollableText.md#off)
+[`Box`](widgets.box.Class.Box.md).[`off`](widgets.box.Class.Box.md#off)
 
 ***
 
@@ -1891,7 +1905,7 @@ Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`removeAllListeners`](widgets.scrollabletext.Class.ScrollableText.md#removealllisteners)
+[`Box`](widgets.box.Class.Box.md).[`removeAllListeners`](widgets.box.Class.Box.md#removealllisteners)
 
 ***
 
@@ -1917,7 +1931,7 @@ Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`once`](widgets.scrollabletext.Class.ScrollableText.md#once)
+[`Box`](widgets.box.Class.Box.md).[`once`](widgets.box.Class.Box.md#once)
 
 ***
 
@@ -1939,7 +1953,7 @@ Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`listeners`](widgets.scrollabletext.Class.ScrollableText.md#listeners)
+[`Box`](widgets.box.Class.Box.md).[`listeners`](widgets.box.Class.Box.md#listeners)
 
 ***
 
@@ -1965,7 +1979,7 @@ Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/un
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_emit`](widgets.scrollabletext.Class.ScrollableText.md#_emit)
+[`Box`](widgets.box.Class.Box.md).[`_emit`](widgets.box.Class.Box.md#_emit)
 
 ***
 
@@ -1991,7 +2005,87 @@ Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/u
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`emit`](widgets.scrollabletext.Class.ScrollableText.md#emit)
+[`Box`](widgets.box.Class.Box.md).[`emit`](widgets.box.Class.Box.md#emit)
+
+***
+
+### show()
+
+> **show**(`saveFocus`): `void`
+
+Defined in: [packages/core/src/widgets/dialog.ts:88](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/dialog.ts#L88)
+
+Show the dialog and optionally save current focus.
+
+#### Parameters
+
+##### saveFocus
+
+`boolean` = `true`
+
+Whether to save the current focus (default: true)
+
+#### Returns
+
+`void`
+
+#### Overrides
+
+[`Box`](widgets.box.Class.Box.md).[`show`](widgets.box.Class.Box.md#show)
+
+***
+
+### hide()
+
+> **hide**(`restoreFocus`): `void`
+
+Defined in: [packages/core/src/widgets/dialog.ts:105](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/dialog.ts#L105)
+
+Hide the dialog and optionally restore previous focus.
+
+#### Parameters
+
+##### restoreFocus
+
+`boolean` = `true`
+
+Whether to restore the previous focus (default: true)
+
+#### Returns
+
+`void`
+
+#### Overrides
+
+[`Box`](widgets.box.Class.Box.md).[`hide`](widgets.box.Class.Box.md#hide)
+
+***
+
+### display()
+
+> **display**(): `void`
+
+Defined in: [packages/core/src/widgets/dialog.ts:120](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/dialog.ts#L120)
+
+Display the dialog (alias for show).
+
+#### Returns
+
+`void`
+
+***
+
+### close()
+
+> **close**(): `void`
+
+Defined in: [packages/core/src/widgets/dialog.ts:127](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/dialog.ts#L127)
+
+Close the dialog (alias for hide).
+
+#### Returns
+
+`void`
 
 ***
 
@@ -2021,7 +2115,7 @@ Defined in: [packages/core/src/widgets/element.ts:320](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`sattr`](widgets.scrollabletext.Class.ScrollableText.md#sattr)
+[`Box`](widgets.box.Class.Box.md).[`sattr`](widgets.box.Class.Box.md#sattr)
 
 ***
 
@@ -2054,7 +2148,7 @@ Event handler function
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`onScreenEvent`](widgets.scrollabletext.Class.ScrollableText.md#onscreenevent)
+[`Box`](widgets.box.Class.Box.md).[`onScreenEvent`](widgets.box.Class.Box.md#onscreenevent)
 
 ***
 
@@ -2086,7 +2180,7 @@ Event handler function
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`onceScreenEvent`](widgets.scrollabletext.Class.ScrollableText.md#oncescreenevent)
+[`Box`](widgets.box.Class.Box.md).[`onceScreenEvent`](widgets.box.Class.Box.md#oncescreenevent)
 
 ***
 
@@ -2119,7 +2213,7 @@ Event handler function
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`removeScreenEvent`](widgets.scrollabletext.Class.ScrollableText.md#removescreenevent)
+[`Box`](widgets.box.Class.Box.md).[`removeScreenEvent`](widgets.box.Class.Box.md#removescreenevent)
 
 ***
 
@@ -2139,43 +2233,7 @@ and destroy().
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`free`](widgets.scrollabletext.Class.ScrollableText.md#free)
-
-***
-
-### hide()
-
-> **hide**(): `void`
-
-Defined in: [packages/core/src/widgets/element.ts:423](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L423)
-
-Hide element.
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`hide`](widgets.scrollabletext.Class.ScrollableText.md#hide)
-
-***
-
-### show()
-
-> **show**(): `void`
-
-Defined in: [packages/core/src/widgets/element.ts:436](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L436)
-
-Show element.
-
-#### Returns
-
-`void`
-
-#### Inherited from
-
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`show`](widgets.scrollabletext.Class.ScrollableText.md#show)
+[`Box`](widgets.box.Class.Box.md).[`free`](widgets.box.Class.Box.md#free)
 
 ***
 
@@ -2193,7 +2251,7 @@ Toggle hidden/shown.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`toggle`](widgets.scrollabletext.Class.ScrollableText.md#toggle)
+[`Box`](widgets.box.Class.Box.md).[`toggle`](widgets.box.Class.Box.md#toggle)
 
 ***
 
@@ -2211,7 +2269,7 @@ Focus element.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`focus`](widgets.scrollabletext.Class.ScrollableText.md#focus)
+[`Box`](widgets.box.Class.Box.md).[`focus`](widgets.box.Class.Box.md#focus)
 
 ***
 
@@ -2230,7 +2288,7 @@ Elements are focusable if they have tabIndex >= -1 and are visible/attached.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`isFocusable`](widgets.scrollabletext.Class.ScrollableText.md#isfocusable)
+[`Box`](widgets.box.Class.Box.md).[`isFocusable`](widgets.box.Class.Box.md#isfocusable)
 
 ***
 
@@ -2249,7 +2307,7 @@ Elements with tabIndex=-1 are focusable but excluded from Tab order.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`isInTabOrder`](widgets.scrollabletext.Class.ScrollableText.md#isintaborder)
+[`Box`](widgets.box.Class.Box.md).[`isInTabOrder`](widgets.box.Class.Box.md#isintaborder)
 
 ***
 
@@ -2267,7 +2325,7 @@ Get effective tab index for focus navigation ordering.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getTabIndex`](widgets.scrollabletext.Class.ScrollableText.md#gettabindex)
+[`Box`](widgets.box.Class.Box.md).[`getTabIndex`](widgets.box.Class.Box.md#gettabindex)
 
 ***
 
@@ -2301,7 +2359,7 @@ with SGR codes (if enabled).
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setContent`](widgets.scrollabletext.Class.ScrollableText.md#setcontent)
+[`Box`](widgets.box.Class.Box.md).[`setContent`](widgets.box.Class.Box.md#setcontent)
 
 ***
 
@@ -2319,7 +2377,7 @@ Return content, slightly different from el.content. Assume the above formatting.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getContent`](widgets.scrollabletext.Class.ScrollableText.md#getcontent)
+[`Box`](widgets.box.Class.Box.md).[`getContent`](widgets.box.Class.Box.md#getcontent)
 
 ***
 
@@ -2347,7 +2405,7 @@ Similar to setContent, but ignore tags and remove escape codes.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setText`](widgets.scrollabletext.Class.ScrollableText.md#settext)
+[`Box`](widgets.box.Class.Box.md).[`setText`](widgets.box.Class.Box.md#settext)
 
 ***
 
@@ -2365,7 +2423,7 @@ Similar to getContent, but return content with tags and escape codes removed.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getText`](widgets.scrollabletext.Class.ScrollableText.md#gettext)
+[`Box`](widgets.box.Class.Box.md).[`getText`](widgets.box.Class.Box.md#gettext)
 
 ***
 
@@ -2387,7 +2445,7 @@ Defined in: [packages/core/src/widgets/element.ts:521](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`parseContent`](widgets.scrollabletext.Class.ScrollableText.md#parsecontent)
+[`Box`](widgets.box.Class.Box.md).[`parseContent`](widgets.box.Class.Box.md#parsecontent)
 
 ***
 
@@ -2409,7 +2467,7 @@ Defined in: [packages/core/src/widgets/element.ts:588](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_parseTags`](widgets.scrollabletext.Class.ScrollableText.md#_parsetags)
+[`Box`](widgets.box.Class.Box.md).[`_parseTags`](widgets.box.Class.Box.md#_parsetags)
 
 ***
 
@@ -2431,7 +2489,7 @@ Defined in: [packages/core/src/widgets/element.ts:693](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_parseAttr`](widgets.scrollabletext.Class.ScrollableText.md#_parseattr)
+[`Box`](widgets.box.Class.Box.md).[`_parseAttr`](widgets.box.Class.Box.md#_parseattr)
 
 ***
 
@@ -2461,7 +2519,7 @@ Defined in: [packages/core/src/widgets/element.ts:722](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_align`](widgets.scrollabletext.Class.ScrollableText.md#_align)
+[`Box`](widgets.box.Class.Box.md).[`_align`](widgets.box.Class.Box.md#_align)
 
 ***
 
@@ -2487,7 +2545,7 @@ Defined in: [packages/core/src/widgets/element.ts:754](https://github.com/vdeant
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_wrapContent`](widgets.scrollabletext.Class.ScrollableText.md#_wrapcontent)
+[`Box`](widgets.box.Class.Box.md).[`_wrapContent`](widgets.box.Class.Box.md#_wrapcontent)
 
 ***
 
@@ -2506,7 +2564,7 @@ Registers the element as clickable with the screen.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`enableMouse`](widgets.scrollabletext.Class.ScrollableText.md#enablemouse)
+[`Box`](widgets.box.Class.Box.md).[`enableMouse`](widgets.box.Class.Box.md#enablemouse)
 
 ***
 
@@ -2525,7 +2583,7 @@ Registers the element as keyable with the screen.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`enableKeys`](widgets.scrollabletext.Class.ScrollableText.md#enablekeys)
+[`Box`](widgets.box.Class.Box.md).[`enableKeys`](widgets.box.Class.Box.md#enablekeys)
 
 ***
 
@@ -2543,7 +2601,7 @@ Enable key and mouse events. Calls both enableMouse() and enableKeys().
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`enableInput`](widgets.scrollabletext.Class.ScrollableText.md#enableinput)
+[`Box`](widgets.box.Class.Box.md).[`enableInput`](widgets.box.Class.Box.md#enableinput)
 
 ***
 
@@ -2572,7 +2630,7 @@ True if dragging was enabled
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`enableDrag`](widgets.scrollabletext.Class.ScrollableText.md#enabledrag)
+[`Box`](widgets.box.Class.Box.md).[`enableDrag`](widgets.box.Class.Box.md#enabledrag)
 
 ***
 
@@ -2593,7 +2651,7 @@ True if dragging was disabled
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`disableDrag`](widgets.scrollabletext.Class.ScrollableText.md#disabledrag)
+[`Box`](widgets.box.Class.Box.md).[`disableDrag`](widgets.box.Class.Box.md#disabledrag)
 
 ***
 
@@ -2621,7 +2679,7 @@ The bound key handler
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`key`](widgets.scrollabletext.Class.ScrollableText.md#key)
+[`Box`](widgets.box.Class.Box.md).[`key`](widgets.box.Class.Box.md#key)
 
 ***
 
@@ -2649,7 +2707,7 @@ The bound key handler
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`onceKey`](widgets.scrollabletext.Class.ScrollableText.md#oncekey)
+[`Box`](widgets.box.Class.Box.md).[`onceKey`](widgets.box.Class.Box.md#oncekey)
 
 ***
 
@@ -2677,7 +2735,7 @@ Result of unbinding
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`unkey`](widgets.scrollabletext.Class.ScrollableText.md#unkey)
+[`Box`](widgets.box.Class.Box.md).[`unkey`](widgets.box.Class.Box.md#unkey)
 
 ***
 
@@ -2706,7 +2764,7 @@ Result of removing
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`removeKey`](widgets.scrollabletext.Class.ScrollableText.md#removekey)
+[`Box`](widgets.box.Class.Box.md).[`removeKey`](widgets.box.Class.Box.md#removekey)
 
 ***
 
@@ -2733,7 +2791,7 @@ New z-index value
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setIndex`](widgets.scrollabletext.Class.ScrollableText.md#setindex)
+[`Box`](widgets.box.Class.Box.md).[`setIndex`](widgets.box.Class.Box.md#setindex)
 
 ***
 
@@ -2752,7 +2810,7 @@ Sets the element's z-index to the highest value (renders last/on top).
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setFront`](widgets.scrollabletext.Class.ScrollableText.md#setfront)
+[`Box`](widgets.box.Class.Box.md).[`setFront`](widgets.box.Class.Box.md#setfront)
 
 ***
 
@@ -2771,7 +2829,7 @@ Sets the element's z-index to the lowest value (renders first/at bottom).
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setBack`](widgets.scrollabletext.Class.ScrollableText.md#setback)
+[`Box`](widgets.box.Class.Box.md).[`setBack`](widgets.box.Class.Box.md#setback)
 
 ***
 
@@ -2804,7 +2862,7 @@ If true, always clear even if cell hasn't changed
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`clearPos`](widgets.scrollabletext.Class.ScrollableText.md#clearpos)
+[`Box`](widgets.box.Class.Box.md).[`clearPos`](widgets.box.Class.Box.md#clearpos)
 
 ***
 
@@ -2838,7 +2896,7 @@ element.setLabel({ text: 'My Label', side: 'right' });
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setLabel`](widgets.scrollabletext.Class.ScrollableText.md#setlabel)
+[`Box`](widgets.box.Class.Box.md).[`setLabel`](widgets.box.Class.Box.md#setlabel)
 
 ***
 
@@ -2857,7 +2915,7 @@ Detaches the label element and removes associated event listeners.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`removeLabel`](widgets.scrollabletext.Class.ScrollableText.md#removelabel)
+[`Box`](widgets.box.Class.Box.md).[`removeLabel`](widgets.box.Class.Box.md#removelabel)
 
 ***
 
@@ -2890,7 +2948,7 @@ element.setHover({ text: 'Hover text here' });
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setHover`](widgets.scrollabletext.Class.ScrollableText.md#sethover)
+[`Box`](widgets.box.Class.Box.md).[`setHover`](widgets.box.Class.Box.md#sethover)
 
 ***
 
@@ -2909,7 +2967,7 @@ Detaches the hover text box if it's currently displayed.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`removeHover`](widgets.scrollabletext.Class.ScrollableText.md#removehover)
+[`Box`](widgets.box.Class.Box.md).[`removeHover`](widgets.box.Class.Box.md#removehover)
 
 ***
 
@@ -2927,7 +2985,7 @@ Positioning
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getPos`](widgets.scrollabletext.Class.ScrollableText.md#_getpos)
+[`Box`](widgets.box.Class.Box.md).[`_getPos`](widgets.box.Class.Box.md#_getpos)
 
 ***
 
@@ -2951,7 +3009,7 @@ Position Getters
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getWidth`](widgets.scrollabletext.Class.ScrollableText.md#_getwidth)
+[`Box`](widgets.box.Class.Box.md).[`_getWidth`](widgets.box.Class.Box.md#_getwidth)
 
 ***
 
@@ -2973,7 +3031,7 @@ Defined in: [packages/core/src/widgets/element.ts:1373](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getHeight`](widgets.scrollabletext.Class.ScrollableText.md#_getheight)
+[`Box`](widgets.box.Class.Box.md).[`_getHeight`](widgets.box.Class.Box.md#_getheight)
 
 ***
 
@@ -2995,7 +3053,7 @@ Defined in: [packages/core/src/widgets/element.ts:1424](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getLeft`](widgets.scrollabletext.Class.ScrollableText.md#_getleft)
+[`Box`](widgets.box.Class.Box.md).[`_getLeft`](widgets.box.Class.Box.md#_getleft)
 
 ***
 
@@ -3017,7 +3075,7 @@ Defined in: [packages/core/src/widgets/element.ts:1461](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getRight`](widgets.scrollabletext.Class.ScrollableText.md#_getright)
+[`Box`](widgets.box.Class.Box.md).[`_getRight`](widgets.box.Class.Box.md#_getright)
 
 ***
 
@@ -3039,7 +3097,7 @@ Defined in: [packages/core/src/widgets/element.ts:1486](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getTop`](widgets.scrollabletext.Class.ScrollableText.md#_gettop)
+[`Box`](widgets.box.Class.Box.md).[`_getTop`](widgets.box.Class.Box.md#_gettop)
 
 ***
 
@@ -3061,7 +3119,7 @@ Defined in: [packages/core/src/widgets/element.ts:1523](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getBottom`](widgets.scrollabletext.Class.ScrollableText.md#_getbottom)
+[`Box`](widgets.box.Class.Box.md).[`_getBottom`](widgets.box.Class.Box.md#_getbottom)
 
 ***
 
@@ -3101,7 +3159,7 @@ Rendering - here be dragons
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getShrinkBox`](widgets.scrollabletext.Class.ScrollableText.md#_getshrinkbox)
+[`Box`](widgets.box.Class.Box.md).[`_getShrinkBox`](widgets.box.Class.Box.md#_getshrinkbox)
 
 ***
 
@@ -3139,7 +3197,7 @@ Defined in: [packages/core/src/widgets/element.ts:1911](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getShrinkContent`](widgets.scrollabletext.Class.ScrollableText.md#_getshrinkcontent)
+[`Box`](widgets.box.Class.Box.md).[`_getShrinkContent`](widgets.box.Class.Box.md#_getshrinkcontent)
 
 ***
 
@@ -3177,7 +3235,7 @@ Defined in: [packages/core/src/widgets/element.ts:1947](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getShrink`](widgets.scrollabletext.Class.ScrollableText.md#_getshrink)
+[`Box`](widgets.box.Class.Box.md).[`_getShrink`](widgets.box.Class.Box.md#_getshrink)
 
 ***
 
@@ -3203,7 +3261,7 @@ Defined in: [packages/core/src/widgets/element.ts:1992](https://github.com/vdean
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_getCoords`](widgets.scrollabletext.Class.ScrollableText.md#_getcoords)
+[`Box`](widgets.box.Class.Box.md).[`_getCoords`](widgets.box.Class.Box.md#_getcoords)
 
 ***
 
@@ -3225,7 +3283,7 @@ Rendered coordinates object, or undefined if hidden/invalid
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`render`](widgets.scrollabletext.Class.ScrollableText.md#render)
+[`Box`](widgets.box.Class.Box.md).[`render`](widgets.box.Class.Box.md#render)
 
 ***
 
@@ -3245,7 +3303,7 @@ Rendered coordinates object
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`_render`](widgets.scrollabletext.Class.ScrollableText.md#_render)
+[`Box`](widgets.box.Class.Box.md).[`_render`](widgets.box.Class.Box.md#_render)
 
 ***
 
@@ -3278,7 +3336,7 @@ Line or array of lines to insert
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`insertLine`](widgets.scrollabletext.Class.ScrollableText.md#insertline)
+[`Box`](widgets.box.Class.Box.md).[`insertLine`](widgets.box.Class.Box.md#insertline)
 
 ***
 
@@ -3311,7 +3369,7 @@ Number of lines to delete (default: 1)
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`deleteLine`](widgets.scrollabletext.Class.ScrollableText.md#deleteline)
+[`Box`](widgets.box.Class.Box.md).[`deleteLine`](widgets.box.Class.Box.md#deleteline)
 
 ***
 
@@ -3338,7 +3396,7 @@ Line or array of lines to insert
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`insertTop`](widgets.scrollabletext.Class.ScrollableText.md#inserttop)
+[`Box`](widgets.box.Class.Box.md).[`insertTop`](widgets.box.Class.Box.md#inserttop)
 
 ***
 
@@ -3365,7 +3423,7 @@ Line or array of lines to insert
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`insertBottom`](widgets.scrollabletext.Class.ScrollableText.md#insertbottom)
+[`Box`](widgets.box.Class.Box.md).[`insertBottom`](widgets.box.Class.Box.md#insertbottom)
 
 ***
 
@@ -3392,7 +3450,7 @@ Number of lines to delete (default: 1)
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`deleteTop`](widgets.scrollabletext.Class.ScrollableText.md#deletetop)
+[`Box`](widgets.box.Class.Box.md).[`deleteTop`](widgets.box.Class.Box.md#deletetop)
 
 ***
 
@@ -3419,7 +3477,7 @@ Number of lines to delete (default: 1)
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`deleteBottom`](widgets.scrollabletext.Class.ScrollableText.md#deletebottom)
+[`Box`](widgets.box.Class.Box.md).[`deleteBottom`](widgets.box.Class.Box.md#deletebottom)
 
 ***
 
@@ -3451,7 +3509,7 @@ Line content to set
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setLine`](widgets.scrollabletext.Class.ScrollableText.md#setline)
+[`Box`](widgets.box.Class.Box.md).[`setLine`](widgets.box.Class.Box.md#setline)
 
 ***
 
@@ -3483,7 +3541,7 @@ Line content to set
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`setBaseLine`](widgets.scrollabletext.Class.ScrollableText.md#setbaseline)
+[`Box`](widgets.box.Class.Box.md).[`setBaseLine`](widgets.box.Class.Box.md#setbaseline)
 
 ***
 
@@ -3511,7 +3569,7 @@ Line content
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getLine`](widgets.scrollabletext.Class.ScrollableText.md#getline)
+[`Box`](widgets.box.Class.Box.md).[`getLine`](widgets.box.Class.Box.md#getline)
 
 ***
 
@@ -3539,7 +3597,7 @@ Line content
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getBaseLine`](widgets.scrollabletext.Class.ScrollableText.md#getbaseline)
+[`Box`](widgets.box.Class.Box.md).[`getBaseLine`](widgets.box.Class.Box.md#getbaseline)
 
 ***
 
@@ -3565,7 +3623,7 @@ Line index to clear (fake line number)
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`clearLine`](widgets.scrollabletext.Class.ScrollableText.md#clearline)
+[`Box`](widgets.box.Class.Box.md).[`clearLine`](widgets.box.Class.Box.md#clearline)
 
 ***
 
@@ -3591,7 +3649,7 @@ Line offset from visible top
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`clearBaseLine`](widgets.scrollabletext.Class.ScrollableText.md#clearbaseline)
+[`Box`](widgets.box.Class.Box.md).[`clearBaseLine`](widgets.box.Class.Box.md#clearbaseline)
 
 ***
 
@@ -3617,7 +3675,7 @@ Line or array of lines to insert
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`unshiftLine`](widgets.scrollabletext.Class.ScrollableText.md#unshiftline)
+[`Box`](widgets.box.Class.Box.md).[`unshiftLine`](widgets.box.Class.Box.md#unshiftline)
 
 ***
 
@@ -3649,7 +3707,7 @@ Number of lines to remove (default: 1)
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`shiftLine`](widgets.scrollabletext.Class.ScrollableText.md#shiftline)
+[`Box`](widgets.box.Class.Box.md).[`shiftLine`](widgets.box.Class.Box.md#shiftline)
 
 ***
 
@@ -3675,7 +3733,7 @@ Line or array of lines to insert
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`pushLine`](widgets.scrollabletext.Class.ScrollableText.md#pushline)
+[`Box`](widgets.box.Class.Box.md).[`pushLine`](widgets.box.Class.Box.md#pushline)
 
 ***
 
@@ -3701,7 +3759,7 @@ Number of lines to remove (default: 1)
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`popLine`](widgets.scrollabletext.Class.ScrollableText.md#popline)
+[`Box`](widgets.box.Class.Box.md).[`popLine`](widgets.box.Class.Box.md#popline)
 
 ***
 
@@ -3721,7 +3779,7 @@ Array of fake (unwrapped) lines
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getLines`](widgets.scrollabletext.Class.ScrollableText.md#getlines)
+[`Box`](widgets.box.Class.Box.md).[`getLines`](widgets.box.Class.Box.md#getlines)
 
 ***
 
@@ -3741,7 +3799,7 @@ Array of real (wrapped) lines
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`getScreenLines`](widgets.scrollabletext.Class.ScrollableText.md#getscreenlines)
+[`Box`](widgets.box.Class.Box.md).[`getScreenLines`](widgets.box.Class.Box.md#getscreenlines)
 
 ***
 
@@ -3770,7 +3828,7 @@ Displayed width in cells
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`strWidth`](widgets.scrollabletext.Class.ScrollableText.md#strwidth)
+[`Box`](widgets.box.Class.Box.md).[`strWidth`](widgets.box.Class.Box.md#strwidth)
 
 ***
 
@@ -3817,147 +3875,7 @@ SGR-encoded screenshot string
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`screenshot`](widgets.scrollabletext.Class.ScrollableText.md#screenshot)
-
-***
-
-### setStaticHeader()
-
-> **setStaticHeader**(`text`): `void`
-
-Defined in: [packages/core/src/widgets/log.ts:113](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L113)
-
-Set the static header text.
-
-#### Parameters
-
-##### text
-
-`string`
-
-Header text to display
-
-#### Returns
-
-`void`
-
-***
-
-### setStaticFooter()
-
-> **setStaticFooter**(`text`): `void`
-
-Defined in: [packages/core/src/widgets/log.ts:135](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L135)
-
-Set the static footer text.
-
-#### Parameters
-
-##### text
-
-`string`
-
-Footer text to display
-
-#### Returns
-
-`void`
-
-***
-
-### log()
-
-> **log**(...`args`): `any`
-
-Defined in: [packages/core/src/widgets/log.ts:165](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L165)
-
-Add a log line to the log element.
-Alias for add().
-Automatically scrolls to bottom unless user has scrolled manually.
-
-#### Parameters
-
-##### args
-
-...`any`[]
-
-Content to log (can be multiple arguments, formatted like util.format)
-
-#### Returns
-
-`any`
-
-#### Example
-
-```typescript
-log.log('Server started');
-log.log('User %s connected', username);
-```
-
-***
-
-### add()
-
-> **add**(...`args`): `any`
-
-Defined in: [packages/core/src/widgets/log.ts:183](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L183)
-
-Add a log line to the log element.
-Automatically scrolls to bottom unless user has scrolled manually.
-Supports formatting like util.format.
-
-#### Parameters
-
-##### args
-
-...`any`[]
-
-Content to add (can be multiple arguments, formatted like util.format)
-
-#### Returns
-
-`any`
-
-Result from pushLine() operation
-
-#### Example
-
-```typescript
-log.add('Status: OK');
-log.add('Processing %d items', count);
-```
-
-***
-
-### scroll()
-
-> **scroll**(`offset`, `always?`): `any`
-
-Defined in: [packages/core/src/widgets/log.ts:197](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/log.ts#L197)
-
-Scroll the content by a relative offset.
-
-#### Parameters
-
-##### offset
-
-`number`
-
-The number of lines/items to scroll (positive = down, negative = up)
-
-##### always?
-
-`any`
-
-Force the scroll operation even if position hasn't changed
-
-#### Returns
-
-`any`
-
-#### Overrides
-
-`ScrollableText.scroll`
+[`Box`](widgets.box.Class.Box.md).[`screenshot`](widgets.box.Class.Box.md#screenshot)
 
 ***
 
@@ -3985,7 +3903,7 @@ Insert a node to this node's children at index i.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`insert`](widgets.scrollabletext.Class.ScrollableText.md#insert)
+[`Box`](widgets.box.Class.Box.md).[`insert`](widgets.box.Class.Box.md#insert)
 
 ***
 
@@ -4009,7 +3927,7 @@ Prepend a node to this node's children.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`prepend`](widgets.scrollabletext.Class.ScrollableText.md#prepend)
+[`Box`](widgets.box.Class.Box.md).[`prepend`](widgets.box.Class.Box.md#prepend)
 
 ***
 
@@ -4033,7 +3951,7 @@ Append a node to this node's children.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`append`](widgets.scrollabletext.Class.ScrollableText.md#append)
+[`Box`](widgets.box.Class.Box.md).[`append`](widgets.box.Class.Box.md#append)
 
 ***
 
@@ -4061,7 +3979,7 @@ Insert a node to this node's children before the reference node.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`insertBefore`](widgets.scrollabletext.Class.ScrollableText.md#insertbefore)
+[`Box`](widgets.box.Class.Box.md).[`insertBefore`](widgets.box.Class.Box.md#insertbefore)
 
 ***
 
@@ -4089,7 +4007,7 @@ Insert a node from node after the reference node.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`insertAfter`](widgets.scrollabletext.Class.ScrollableText.md#insertafter)
+[`Box`](widgets.box.Class.Box.md).[`insertAfter`](widgets.box.Class.Box.md#insertafter)
 
 ***
 
@@ -4113,7 +4031,7 @@ Remove child node from node.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`remove`](widgets.scrollabletext.Class.ScrollableText.md#remove)
+[`Box`](widgets.box.Class.Box.md).[`remove`](widgets.box.Class.Box.md#remove)
 
 ***
 
@@ -4131,7 +4049,7 @@ Remove node from its parent.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`detach`](widgets.scrollabletext.Class.ScrollableText.md#detach)
+[`Box`](widgets.box.Class.Box.md).[`detach`](widgets.box.Class.Box.md#detach)
 
 ***
 
@@ -4150,7 +4068,7 @@ events to prevent memory leaks. For use with onScreenEvent(), removeScreenEvent(
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`destroy`](widgets.scrollabletext.Class.ScrollableText.md#destroy)
+[`Box`](widgets.box.Class.Box.md).[`destroy`](widgets.box.Class.Box.md#destroy)
 
 ***
 
@@ -4178,7 +4096,7 @@ Iterate over all descendants, calling iter(el) for each.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`forDescendants`](widgets.scrollabletext.Class.ScrollableText.md#fordescendants)
+[`Box`](widgets.box.Class.Box.md).[`forDescendants`](widgets.box.Class.Box.md#fordescendants)
 
 ***
 
@@ -4206,7 +4124,7 @@ Iterate over all ancestors, calling iter(el) for each.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`forAncestors`](widgets.scrollabletext.Class.ScrollableText.md#forancestors)
+[`Box`](widgets.box.Class.Box.md).[`forAncestors`](widgets.box.Class.Box.md#forancestors)
 
 ***
 
@@ -4230,7 +4148,7 @@ Collect all descendants into an array.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`collectDescendants`](widgets.scrollabletext.Class.ScrollableText.md#collectdescendants)
+[`Box`](widgets.box.Class.Box.md).[`collectDescendants`](widgets.box.Class.Box.md#collectdescendants)
 
 ***
 
@@ -4254,7 +4172,7 @@ Collect all ancestors into an array.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`collectAncestors`](widgets.scrollabletext.Class.ScrollableText.md#collectancestors)
+[`Box`](widgets.box.Class.Box.md).[`collectAncestors`](widgets.box.Class.Box.md#collectancestors)
 
 ***
 
@@ -4278,7 +4196,7 @@ Emit event for element, and recursively emit same event for all descendants.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`emitDescendants`](widgets.scrollabletext.Class.ScrollableText.md#emitdescendants)
+[`Box`](widgets.box.Class.Box.md).[`emitDescendants`](widgets.box.Class.Box.md#emitdescendants)
 
 ***
 
@@ -4302,7 +4220,7 @@ Emit event for element, and recursively emit same event for all ancestors.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`emitAncestors`](widgets.scrollabletext.Class.ScrollableText.md#emitancestors)
+[`Box`](widgets.box.Class.Box.md).[`emitAncestors`](widgets.box.Class.Box.md#emitancestors)
 
 ***
 
@@ -4326,7 +4244,7 @@ Check if target is a descendant of this node.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`hasDescendant`](widgets.scrollabletext.Class.ScrollableText.md#hasdescendant)
+[`Box`](widgets.box.Class.Box.md).[`hasDescendant`](widgets.box.Class.Box.md#hasdescendant)
 
 ***
 
@@ -4350,7 +4268,7 @@ Check if target is an ancestor of this node.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`hasAncestor`](widgets.scrollabletext.Class.ScrollableText.md#hasancestor)
+[`Box`](widgets.box.Class.Box.md).[`hasAncestor`](widgets.box.Class.Box.md#hasancestor)
 
 ***
 
@@ -4378,7 +4296,7 @@ Get user property with a potential default value.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`get`](widgets.scrollabletext.Class.ScrollableText.md#get)
+[`Box`](widgets.box.Class.Box.md).[`get`](widgets.box.Class.Box.md#get)
 
 ***
 
@@ -4406,4 +4324,4 @@ Set user property to value.
 
 #### Inherited from
 
-[`ScrollableText`](widgets.scrollabletext.Class.ScrollableText.md).[`set`](widgets.scrollabletext.Class.ScrollableText.md#set)
+[`Box`](widgets.box.Class.Box.md).[`set`](widgets.box.Class.Box.md#set)

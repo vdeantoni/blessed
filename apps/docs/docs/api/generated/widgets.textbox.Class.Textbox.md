@@ -1,8 +1,33 @@
 # Class: Textbox
 
-Defined in: [packages/core/src/widgets/textbox.ts:16](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L16)
+Defined in: [packages/core/src/widgets/textbox.ts:40](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L40)
 
-Textbox
+Textbox widget for single-line text input.
+
+Extends Textarea with single-line behavior and password masking support.
+When ENTER is pressed, automatically submits the parent Form (if inside one).
+
+## Examples
+
+```typescript
+const textbox = new Textbox({
+  parent: form,
+  border: { type: 'line' },
+  inputOnFocus: true
+});
+
+textbox.on('submit', (value) => {
+  console.log('Value:', value);
+});
+```
+
+```typescript
+const password = new Textbox({
+  parent: form,
+  secret: true,  // Hide all text
+  inputOnFocus: true
+});
+```
 
 ## Extends
 
@@ -14,7 +39,7 @@ Textbox
 
 > **new Textbox**(`options`): `Textbox`
 
-Defined in: [packages/core/src/widgets/textbox.ts:36](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L36)
+Defined in: [packages/core/src/widgets/textbox.ts:61](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L61)
 
 #### Parameters
 
@@ -1112,7 +1137,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:32](https://github.com/vdeant
 
 > **type**: `string` = `"textbox"`
 
-Defined in: [packages/core/src/widgets/textbox.ts:17](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L17)
+Defined in: [packages/core/src/widgets/textbox.ts:41](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L41)
 
 Type of the node (e.g. box, list, form, etc.).
 Used to identify the widget type at runtime.
@@ -1127,15 +1152,15 @@ Used to identify the widget type at runtime.
 
 > **secret**: `boolean`
 
-Defined in: [packages/core/src/widgets/textbox.ts:25](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L25)
+Defined in: [packages/core/src/widgets/textbox.ts:49](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L49)
 
 Completely hide all text (no characters displayed).
 Useful for password fields.
 
-#### Example
+#### Default
 
 ```ts
-const passwordBox = blessed.textbox({ secret: true });
+false
 ```
 
 ***
@@ -1144,24 +1169,16 @@ const passwordBox = blessed.textbox({ secret: true });
 
 > **censor**: `boolean`
 
-Defined in: [packages/core/src/widgets/textbox.ts:33](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L33)
+Defined in: [packages/core/src/widgets/textbox.ts:57](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L57)
 
 Replace all characters with asterisks.
 Useful for password fields with visual feedback.
 
-#### Example
+#### Default
 
 ```ts
-const passwordBox = blessed.textbox({ censor: true });
+false
 ```
-
-***
-
-### \_\_olistener
-
-> **\_\_olistener**: `any`
-
-Defined in: [packages/core/src/widgets/textbox.ts:34](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L34)
 
 ## Accessors
 
@@ -4871,7 +4888,7 @@ textarea.readEditor((err, value) => {
 
 > **\_listener**(`ch`, `key`): `any`
 
-Defined in: [packages/core/src/widgets/textbox.ts:48](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L48)
+Defined in: [packages/core/src/widgets/textbox.ts:71](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L71)
 
 #### Parameters
 
@@ -4897,7 +4914,7 @@ Defined in: [packages/core/src/widgets/textbox.ts:48](https://github.com/vdeanto
 
 > **setValue**(`value?`): `void`
 
-Defined in: [packages/core/src/widgets/textbox.ts:56](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L56)
+Defined in: [packages/core/src/widgets/textbox.ts:91](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L91)
 
 Set the textarea value.
 Updates display and cursor position.
@@ -4930,10 +4947,9 @@ textarea.setValue('New text content');
 
 > **submit**(): `any`
 
-Defined in: [packages/core/src/widgets/textbox.ts:79](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L79)
+Defined in: [packages/core/src/widgets/textbox.ts:122](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/textbox.ts#L122)
 
-Submit the textarea (emits 'submit' event).
-Only works if readInput is currently active.
+Submit the textbox by simulating an ENTER key press.
 
 #### Returns
 
@@ -4941,8 +4957,8 @@ Only works if readInput is currently active.
 
 #### Example
 
-```ts
-textarea.submit();
+```typescript
+textbox.submit(); // Triggers submit event
 ```
 
 #### Overrides

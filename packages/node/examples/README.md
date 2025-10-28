@@ -4,30 +4,47 @@ Simple examples demonstrating how to use @unblessed/node.
 
 ## Prerequisites
 
+**Important:** You must build the packages before running examples:
+
 ```bash
-# Install dependencies from the monorepo root
+# From the monorepo root
 pnpm install
 
 # Build @unblessed/core and @unblessed/node
 pnpm build
+
+# Or build from packages/node
+pnpm --filter @unblessed/core build
+pnpm --filter @unblessed/node build
 ```
 
 ## Running Examples
 
-All examples can be run directly with `tsx`:
+All examples can be run with either `node` or `tsx`:
 
 ```bash
 # From the packages/node directory:
+
+# With Node.js (faster startup)
+node examples/hello-world.ts
+node examples/interactive.ts
+node examples/dashboard.ts
+node examples/static-widget.ts
+node examples/dialog.ts
+node examples/log-widget.ts
+node examples/form-submit.ts
+
+# Or with tsx
 pnpm tsx examples/hello-world.ts
 pnpm tsx examples/interactive.ts
 pnpm tsx examples/dashboard.ts
+pnpm tsx examples/static-widget.ts
+pnpm tsx examples/dialog.ts
+pnpm tsx examples/log-widget.ts
+pnpm tsx examples/form-submit.ts
 ```
 
-Or add a script to package.json and run with `pnpm`:
-
-```bash
-pnpm example:hello-world
-```
+**Note:** Examples import from `../dist/`, so you must build the packages first (see Prerequisites above).
 
 ## Examples
 
@@ -64,6 +81,57 @@ A more complex example showing a dashboard layout with multiple widgets.
 - Tables
 - Live updating (simulated metrics)
 - Multiple interactive widgets
+
+### static-widget.ts
+
+Demonstrates the Static widget for immutable content rendering (inspired by ink's `<Static>`).
+
+**Features:**
+
+- Immutable rendering (items never re-render once displayed)
+- Perfect for completed tasks, logs, build output
+- Custom item rendering with generics
+- Dynamic item addition
+- Simulated task processing with status indicators
+
+### dialog.ts
+
+Modal dialogs and overlays with automatic focus management.
+
+**Features:**
+
+- Simple confirmation dialogs
+- Form input dialogs with text input
+- List selection dialogs
+- Nested dialog management
+- Automatic focus save/restore
+- Shadow and centering by default
+
+### log-widget.ts
+
+Enhanced log widget with static header and footer that don't scroll.
+
+**Features:**
+
+- Side-by-side comparison of regular vs enhanced log
+- Static header with live timestamp updates
+- Static footer with line count
+- Simulated log streaming with different levels (INFO, WARN, ERROR, DEBUG)
+- Speed controls (Normal, Fast, Very Fast)
+- Manual scrolling while content streams
+
+### form-submit.ts
+
+Form widget with automatic submission on ENTER key.
+
+**Features:**
+
+- Complete login form example with username and password fields
+- ENTER in any textbox automatically submits the entire form
+- Form submit event handler
+- Submission log showing all form data
+- Auto-clear and refocus after submission
+- Demonstrates Form widget and form validation patterns
 
 ## Code Structure
 

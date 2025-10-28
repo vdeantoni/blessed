@@ -761,9 +761,68 @@ export interface LogOptions extends ScrollableTextOptions {
   scrollback?: number;
 
   /**
-   * Scroll to bottom on input even if the user has scrolled up. Default: false.
+   * Scroll to bottom on input even if the user has scrolled up.
+   *
+   * @default false
    */
   scrollOnInput?: boolean;
+
+  /**
+   * Static header text that doesn't scroll with log content.
+   * Always visible at the top of the log widget.
+   *
+   * @example
+   * const log = new Log({
+   *   staticHeader: '=== Application Logs ===',
+   *   scrollback: 1000
+   * });
+   */
+  staticHeader?: string;
+
+  /**
+   * Static footer text that doesn't scroll with log content.
+   * Always visible at the bottom of the log widget.
+   *
+   * @example
+   * const log = new Log({
+   *   staticFooter: '[Scroll: ↑/↓ | Quit: q]',
+   *   scrollback: 1000
+   * });
+   */
+  staticFooter?: string;
+}
+
+export interface StaticOptions<T = any> extends BoxOptions {
+  /**
+   * Array of items to render.
+   * Items are immutable once rendered - new items added to the array will be
+   * rendered, but previous items will never be re-rendered.
+   */
+  items?: T[];
+
+  /**
+   * Function to render each item to a string.
+   * Receives the item and its index in the items array.
+   *
+   * @param item - The item to render
+   * @param index - The index of the item in the items array
+   * @returns String representation of the item
+   *
+   * @example
+   * ```typescript
+   * renderItem: (task, index) => `${index + 1}. ${task.name} - ${task.status}`
+   * ```
+   */
+  renderItem?: (item: T, index: number) => string;
+}
+
+export interface DialogOptions extends BoxOptions {
+  /**
+   * Whether the dialog is initially hidden.
+   *
+   * @default true
+   */
+  hidden?: boolean;
 }
 
 export interface TableOptions extends BoxOptions {

@@ -59,6 +59,8 @@ export * from "./widgets/table.js";
 // Re-export UI widgets
 export * from "./widgets/loading.js";
 export * from "./widgets/log.js";
+export * from "./widgets/static.js";
+export * from "./widgets/dialog.js";
 export * from "./widgets/message.js";
 export * from "./widgets/progressbar.js";
 export * from "./widgets/prompt.js";

@@ -68,6 +68,7 @@ screen.render();
 
 - [`ANSIImage`](widgets.ansiimage.Class.ANSIImage.md)
 - [`BigText`](widgets.bigtext.Class.BigText.md)
+- [`Dialog`](widgets.dialog.Class.Dialog.md)
 - [`Form`](widgets.form.Class.Form.md)
 - [`Image`](widgets.image.Class.Image.md)
 - [`Input`](widgets.input.Class.Input.md)
@@ -80,6 +81,7 @@ screen.render();
 - [`Question`](widgets.question.Class.Question.md)
 - [`RadioSet`](widgets.radioset.Class.RadioSet.md)
 - [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md)
+- [`Static`](widgets.static.Class.Static.md)
 - [`Table`](widgets.table.Class.Table.md)
 - [`Terminal`](widgets.terminal.Class.Terminal.md)
 - [`Video`](widgets.video.Class.Video.md)

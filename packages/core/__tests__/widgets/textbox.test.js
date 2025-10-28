@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import Textbox from "../../src/widgets/textbox.js";
+import Form from "../../src/widgets/form.js";
+import Box from "../../src/widgets/box.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 describe("Textbox", () => {
@@ -427,6 +429,57 @@ describe("Textbox", () => {
       textbox.setValue("this is a very long text value");
 
       expect(textbox.value).toBe("this is a very long text value");
+    });
+  });
+
+  describe("form submission on ENTER", () => {
+    it("should submit parent form when ENTER is pressed", () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const textbox = new Textbox({
+        parent: form,
+        inputOnFocus: true,
+      });
+
+      form.submit = vi.fn();
+      textbox._done = vi.fn();
+
+      // Simulate ENTER key press
+      textbox._listener("", { name: "enter" });
+
+      expect(textbox._done).toHaveBeenCalledWith(null, textbox.value);
+      expect(form.submit).toHaveBeenCalled();
+    });
+
+    it("should not submit if not inside a form", () => {
+      const textbox = new Textbox({ screen });
+      screen.append(textbox);
+
+      textbox._done = vi.fn();
+
+      // Simulate ENTER key press
+      textbox._listener("", { name: "enter" });
+
+      expect(textbox._done).toHaveBeenCalledWith(null, textbox.value);
+      // No form.submit() should be called
+    });
+
+    it("should find form through nested parents", () => {
+      const form = new Form({ screen });
+      screen.append(form);
+
+      const container = new Box({ parent: form });
+      const textbox = new Textbox({ parent: container, inputOnFocus: true });
+
+      form.submit = vi.fn();
+      textbox._done = vi.fn();
+
+      // Simulate ENTER key press
+      textbox._listener("", { name: "enter" });
+
+      expect(textbox._done).toHaveBeenCalled();
+      expect(form.submit).toHaveBeenCalled();
     });
   });
 });

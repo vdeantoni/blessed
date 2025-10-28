@@ -10,28 +10,53 @@ import type { KeyEvent, TextboxOptions } from "../types";
 import Textarea from "./textarea.js";
 
 /**
- * Textbox
+ * Textbox widget for single-line text input.
+ *
+ * Extends Textarea with single-line behavior and password masking support.
+ * When ENTER is pressed, automatically submits the parent Form (if inside one).
+ *
+ * @example Basic textbox
+ * ```typescript
+ * const textbox = new Textbox({
+ *   parent: form,
+ *   border: { type: 'line' },
+ *   inputOnFocus: true
+ * });
+ *
+ * textbox.on('submit', (value) => {
+ *   console.log('Value:', value);
+ * });
+ * ```
+ *
+ * @example Password field
+ * ```typescript
+ * const password = new Textbox({
+ *   parent: form,
+ *   secret: true,  // Hide all text
+ *   inputOnFocus: true
+ * });
+ * ```
  */
-
 class Textbox extends Textarea {
   override type = "textbox";
+
   /**
    * Completely hide all text (no characters displayed).
    * Useful for password fields.
    *
-   * @example
-   * const passwordBox = blessed.textbox({ secret: true });
+   * @default false
    */
   secret: boolean;
+
   /**
    * Replace all characters with asterisks.
    * Useful for password fields with visual feedback.
    *
-   * @example
-   * const passwordBox = blessed.textbox({ censor: true });
+   * @default false
    */
   censor: boolean;
-  __olistener: any;
+
+  private __olistener: any;
 
   constructor(options: TextboxOptions = {}) {
     options.scrollable = false;
@@ -40,14 +65,24 @@ class Textbox extends Textarea {
 
     this.secret = options.secret || false;
     this.censor = options.censor || false;
-
-    // Store the original listener
     this.__olistener = super._listener;
   }
 
   override _listener(ch: any, key: KeyEvent) {
     if (key.name === "enter") {
       this._done(null, this.value);
+
+      // Walk up parent tree to find Form
+      let parent = this.parent;
+      while (parent && parent.type !== "form" && parent.type !== "screen") {
+        parent = parent.parent;
+      }
+
+      // Submit form if found
+      if (parent && parent.type === "form") {
+        (parent as any).submit();
+      }
+
       return;
     }
     return this.__olistener.call(this, ch, key);
@@ -76,6 +111,14 @@ class Textbox extends Textarea {
     this._updateCursor();
   }
 
+  /**
+   * Submit the textbox by simulating an ENTER key press.
+   *
+   * @example
+   * ```typescript
+   * textbox.submit(); // Triggers submit event
+   * ```
+   */
   override submit() {
     if (!this.__listener) return;
     return this.__listener("\r", { name: "enter" });
