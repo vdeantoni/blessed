@@ -19,6 +19,7 @@
   "dependencies": {
     "@docusaurus/core": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
+    "@docusaurus/theme-search-algolia": "^3.9.2",
     "@mdx-js/react": "^3.0.0",
     "@monaco-editor/react": "^4.6.0",
     "@sentry/react": "^10.21.0",

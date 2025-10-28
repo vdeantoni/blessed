@@ -132,6 +132,30 @@ body {
   font-weight: 600;
 }
 
+/* Center the search box in navbar */
+.navbar__search {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Ensure navbar items don't overlap with centered search */
+.navbar__items {
+  flex: 1;
+}
+
+.navbar__items--right {
+  justify-content: flex-end;
+}
+
+/* Responsive: move search to right on mobile */
+@media (max-width: 996px) {
+  .navbar__search {
+    position: static;
+    transform: none;
+  }
+}
+
 /* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 14px;
@@ -150,4 +174,36 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #4e4e4e;
+}
+
+/* Algolia DocSearch - Wide search box */
+.DocSearch-Button {
+  width: 400px;
+  height: 40px;
+  border-radius: 6px;
+  background: var(--ifm-background-surface-color);
+  border: 1px solid #3e3e42;
+  transition: all 0.2s ease;
+}
+
+.DocSearch-Button:hover {
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 0 0 2px rgba(13, 188, 121, 0.1);
+}
+
+.DocSearch-Button-Placeholder {
+  font-size: 14px;
+}
+
+/* Responsive: smaller on mobile */
+@media (max-width: 768px) {
+  .DocSearch-Button {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .DocSearch-Button {
+    width: 150px;
+  }
 }

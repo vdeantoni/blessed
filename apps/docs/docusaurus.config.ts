@@ -145,6 +145,13 @@ const config: Config = {
       darkTheme: prismThemes.vsDark,
       additionalLanguages: ["typescript", "javascript", "bash", "json"],
     },
+    algolia: {
+      appId: "I4NDKPVBEY",
+      apiKey: "a71ca6a825a6a05f3b135d9612b23bd8",
+      indexName: "Unblessed Docs",
+      contextualSearch: true,
+      searchParameters: {},
+    },
   } satisfies Preset.ThemeConfig,
 };
 
