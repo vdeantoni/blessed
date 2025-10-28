@@ -15,6 +15,7 @@ export default defineConfig({
       },
     },
     coverage: {
+      enabled: false, // This is a thin runtime adapter - no code coverage needed
       provider: "v8",
       reporter: ["text", "json", "html", "lcov"],
       exclude: [

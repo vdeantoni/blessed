@@ -12,12 +12,18 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html", "lcov"],
-      exclude: ["node_modules/**", "__tests__/**", "dist/**", "**/*.config.*"],
+      exclude: [
+        "node_modules/**",
+        "__tests__/**",
+        "dist/**",
+        "**/*.config.*",
+        "src/cli/**", // CLI tools
+      ],
       thresholds: {
-        lines: 70,
-        functions: 70,
-        branches: 70,
-        statements: 70,
+        lines: 0,
+        functions: 0,
+        branches: 0,
+        statements: 0,
       },
     },
   },

@@ -1,6 +1,9 @@
 # Codecov configuration for monorepo
 # https://docs.codecov.com/docs/codecov-yaml
 
+# Note: @unblessed/node and @unblessed/blessed have coverage disabled
+# as they are thin wrapper packages with no business logic to test
+
 coverage:
   status:
     project:
