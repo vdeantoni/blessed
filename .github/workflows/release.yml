@@ -49,14 +49,17 @@ jobs:
       - name: Build packages
         run: pnpm build
 
-#      - name: Run tests with coverage
-#        run: pnpm test:coverage
+      - name: Run tests with coverage
+        run: pnpm test:coverage
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: false
+          files: ./packages/*/coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
 
       - name: Semantic Release
         env:
