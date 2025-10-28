@@ -5,7 +5,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 const config: Config = {
   title: "unblessed",
   tagline: "Modern, platform-agnostic terminal UI library",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.svg",
 
   future: {
     v4: true,
