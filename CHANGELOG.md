@@ -1,3 +1,18 @@
+# [1.0.0-alpha.8](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2025-10-28)
+
+
+### Bug Fixes
+
+* **ci:** configure Codecov for monorepo coverage reporting ([09a46f0](https://github.com/vdeantoni/unblessed/commit/09a46f099e133068a8de87e8a54deb1695d76dc5))
+* **ci:** configure Codecov for monorepo with disabled coverage collection ([f909c1a](https://github.com/vdeantoni/unblessed/commit/f909c1a6b7500d1c5785193d8051b8da9c532679))
+* **ci:** removed test:coverage from release action ([f8740a7](https://github.com/vdeantoni/unblessed/commit/f8740a726abd912e75fb2da0333252bf7c9e41c1))
+
+
+### Features
+
+* **core:** add Static and Dialog widgets with enhanced Log and Textbox ([e3a82ca](https://github.com/vdeantoni/unblessed/commit/e3a82ca781211bfa8d76ee060ee0bea71d23d4bd))
+* **docs:** add Algolia DocSearch with wide, centered search box ([9fe632e](https://github.com/vdeantoni/unblessed/commit/9fe632ea9e24d01509783587a20b6dcb260015c5))
+
 # [1.0.0-alpha.7](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2025-10-28)
 
 
