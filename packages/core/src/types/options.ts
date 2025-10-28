@@ -181,6 +181,26 @@ export interface ElementOptions extends NodeOptions, ScrollableOptions {
   keyable?: boolean;
 
   /**
+   * Controls keyboard focus navigation (similar to HTML tabindex attribute).
+   *
+   * - `undefined`: Not focusable (default for Box, Text, etc.)
+   * - `-1`: Programmatically focusable only, excluded from Tab order
+   * - `0`: Focusable in natural document order (default for Input and List widgets)
+   * - `1+`: Explicit tab order (focused before natural order elements)
+   *
+   * @example
+   * // Make a box focusable in natural order
+   * const box = new Box({ parent: screen, tabIndex: 0 });
+   *
+   * // Programmatic focus only (excluded from Tab navigation)
+   * const modal = new Box({ parent: screen, tabIndex: -1 });
+   *
+   * // Explicit order (focused before natural order elements)
+   * const importantBox = new Box({ parent: screen, tabIndex: 1 });
+   */
+  tabIndex?: number;
+
+  /**
    * Element is focused.
    */
   focused?: BlessedElement;

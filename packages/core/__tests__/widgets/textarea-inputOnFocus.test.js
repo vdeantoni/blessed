@@ -312,7 +312,7 @@ describe("Textarea - inputOnFocus option", () => {
       expect(rewindSpy).not.toHaveBeenCalled();
     });
 
-    it("should call rewindFocus when switching to a non-textarea widget", () => {
+    it("should NOT call rewindFocus when switching to any other widget", () => {
       const textarea = new Textarea({ screen, inputOnFocus: true });
       const otherWidget = { type: "box" };
       screen.append(textarea);
@@ -325,11 +325,11 @@ describe("Textarea - inputOnFocus option", () => {
       textarea.readInput();
       expect(textarea._reading).toBe(true);
 
-      // Simulate blur to switch to non-textarea widget
+      // Simulate blur to switch to another widget (intentional navigation)
       textarea.emit("blur", otherWidget);
 
-      // Should have called rewindFocus (not a textarea switch)
-      expect(rewindSpy).toHaveBeenCalled();
+      // Should NOT call rewindFocus (newFocusedEl is defined = intentional navigation)
+      expect(rewindSpy).not.toHaveBeenCalled();
     });
 
     it("should NOT call rewindFocus when input completes without inputOnFocus", () => {

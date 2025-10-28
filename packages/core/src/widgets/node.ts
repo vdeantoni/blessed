@@ -179,7 +179,8 @@ class Node extends EventEmitter {
     };
     emit(element);
 
-    if (!this.screen.focused) {
+    // Only auto-focus elements that are actually focusable
+    if (!this.screen.focused && element.isFocusable && element.isFocusable()) {
       this.screen.focused = element;
     }
   }

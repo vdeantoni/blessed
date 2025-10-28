@@ -694,14 +694,14 @@ describe("Screen", () => {
       s.destroy();
     });
 
-    it("should handle focus with no clickable elements", () => {
+    it("should handle focus with no focusable elements", () => {
       const s = new Screen({ smartCSR: true });
       const box = new Box({ screen: s, clickable: false });
 
       s.append(box);
 
-      // Focus should be defined (may be null or previous focus)
-      expect(s.focused).toBeDefined();
+      // Box is not focusable (no tabIndex), so focus should remain undefined
+      expect(s.focused).toBeUndefined();
 
       s.destroy();
     });

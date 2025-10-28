@@ -18,8 +18,12 @@ class Input extends Box {
   keyable: boolean;
 
   constructor(options: InputOptions = {}) {
-    // Input widgets should be keyable by default for form navigation
     options.input = true;
+
+    if (options.tabIndex === undefined) {
+      options.tabIndex = 0;
+    }
+
     super(options);
 
     // Set instance property for form navigation

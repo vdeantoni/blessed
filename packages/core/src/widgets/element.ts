@@ -45,6 +45,7 @@ interface WrappedContent extends Array<string> {
 
 class Element extends Node {
   override type = "element";
+  declare options: ElementOptions;
 
   name?: string;
   /**
@@ -453,7 +454,36 @@ class Element extends Node {
   }
 
   /**
-   * Set the content. Note: When text is input, it will be stripped of all non-SGR
+   * Check if this element can receive keyboard focus.
+   * Elements are focusable if they have tabIndex >= -1 and are visible/attached.
+   */
+  isFocusable(): boolean {
+    if (this.detached || !this.visible) return false;
+    return this.options.tabIndex !== undefined && this.options.tabIndex >= -1;
+  }
+
+  /**
+   * Check if element participates in Tab key navigation.
+   * Elements with tabIndex=-1 are focusable but excluded from Tab order.
+   */
+  isInTabOrder(): boolean {
+    if (!this.isFocusable()) return false;
+    if (this.options.tabIndex === -1) return false;
+    return true;
+  }
+
+  /**
+   * Get effective tab index for focus navigation ordering.
+   */
+  getTabIndex(): number {
+    if (this.options.tabIndex !== undefined && this.options.tabIndex >= 0) {
+      return this.options.tabIndex;
+    }
+    return Infinity;
+  }
+
+  /**
+   * Set or get the content. Note: When text is input, it will be stripped of all non-SGR
    * escape codes, tabs will be replaced with 8 spaces, and tags will be replaced
    * with SGR codes (if enabled).
    */

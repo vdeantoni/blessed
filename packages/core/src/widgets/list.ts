@@ -36,6 +36,10 @@ class List extends ScrollableBox {
     // Possibly put this here: this.items = [];
     // Note: Don't set scrollable: true here since List extends ScrollableBox
 
+    if (options.tabIndex === undefined) {
+      options.tabIndex = 0;
+    }
+
     super(options);
 
     this.value = "";

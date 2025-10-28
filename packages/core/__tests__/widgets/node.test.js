@@ -739,14 +739,15 @@ describe("Node", () => {
       expect(child.screen).toBe(screen);
     });
 
-    it("should set initial focused element", () => {
+    it("should not auto-focus plain Nodes", () => {
       const parent = new Node({ screen });
       const child = new Node({ screen });
 
       screen.focused = null;
       parent.append(child);
 
-      expect(screen.focused).toBe(child);
+      // Plain Nodes don't have isFocusable(), so shouldn't be auto-focused
+      expect(screen.focused).toBeNull();
     });
 
     it("should not override existing focused element", () => {
@@ -754,11 +755,15 @@ describe("Node", () => {
       const child1 = new Node({ screen });
       const child2 = new Node({ screen });
 
-      screen.focused = null;
+      // Set an existing focus
+      const existing = { isFocusable: () => true };
+      screen.focused = existing;
+
       parent.append(child1);
       parent.append(child2);
 
-      expect(screen.focused).toBe(child1);
+      // Should not override existing focus
+      expect(screen.focused).toBe(existing);
     });
   });
 

@@ -206,13 +206,8 @@ class Textarea extends Input {
       }
 
       if (this.options.inputOnFocus) {
-        // Skip rewindFocus if we're switching to another textarea/textbox
-        // to prevent infinite recursion with multiple inputs
-        const isTextareaSwitch =
-          newFocusedEl &&
-          (newFocusedEl.type === "textarea" || newFocusedEl.type === "textbox");
-
-        if (!isTextareaSwitch) {
+        // Only rewind if no new focus target (element hidden/removed)
+        if (!newFocusedEl) {
           this.screen.rewindFocus();
         }
       }
@@ -279,7 +274,7 @@ class Textarea extends Input {
       ch = "\n";
     }
 
-    // Ignore tab - it's handled by form navigation
+    // Ignore tab - handled by global screen navigation
     if (key.name === "tab") {
       return;
     }

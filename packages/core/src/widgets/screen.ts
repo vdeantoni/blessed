@@ -196,16 +196,19 @@ class Screen extends Node {
     this.dattr = (0 << 18) | (0x1ff << 9) | 0x1ff;
 
     this.renders = 0;
+
+    // Capture screen reference for position getters
+    const self = this;
     this.position = {
       left: (this.left = this.aleft = this.rleft = 0),
       right: (this.right = this.aright = this.rright = 0),
       top: (this.top = this.atop = this.rtop = 0),
       bottom: (this.bottom = this.abottom = this.rbottom = 0),
       get height() {
-        return this.height;
+        return self.height;
       },
       get width() {
-        return this.width;
+        return self.width;
       },
     };
 
@@ -736,6 +739,16 @@ class Screen extends Node {
     // weren't changed, and handles those situations appropriately.
     this.program.on("keypress", (ch: any, key: KeyEvent) => {
       if (this.lockKeys && !~this.ignoreLocked.indexOf(key.full)) {
+        return;
+      }
+
+      // Global Tab navigation
+      if (key.name === "tab") {
+        if (key.shift) {
+          this.focusPrevious();
+        } else {
+          this.focusNext();
+        }
         return;
       }
 
@@ -1848,38 +1861,85 @@ class Screen extends Node {
   }
 
   /**
+   * Collect and sort all focusable elements in tab order.
+   * @private
+   */
+  _getFocusableElements(): any[] {
+    const focusable: any[] = [];
+
+    const collect = (node: any) => {
+      if (node.isInTabOrder && node.isInTabOrder()) {
+        focusable.push(node);
+      }
+      if (node.children) {
+        node.children.forEach(collect);
+      }
+    };
+
+    this.children.forEach(collect);
+
+    focusable.sort((a, b) => {
+      const aIndex = a.getTabIndex();
+      const bIndex = b.getTabIndex();
+
+      if (aIndex > 0 && bIndex > 0) return aIndex - bIndex;
+      if (aIndex > 0) return -1;
+      if (bIndex > 0) return 1;
+
+      return 0;
+    });
+
+    return focusable;
+  }
+
+  /**
    * Focus element by offset of focusable elements.
-   * Moves focus forward or backward through the list of keyable elements,
+   * Moves focus forward or backward through the list of focusable elements in tab order,
    * skipping detached or hidden elements.
    * @param offset - Number of elements to move (positive for forward, negative for backward)
    * @returns The newly focused element, or undefined if no element was found
    */
   focusOffset(offset: number): any {
-    const shown = this.keyable.filter((el: any) => {
-      return !el.detached && el.visible;
-    }).length;
+    const focusable = this._getFocusableElements();
 
-    if (!shown || !offset) {
+    if (!focusable.length || !offset) {
       return;
     }
 
-    let i = this.keyable.indexOf(this.focused);
-    if (!~i) return;
-
-    if (offset > 0) {
-      while (offset--) {
-        if (++i > this.keyable.length - 1) i = 0;
-        if (this.keyable[i].detached || !this.keyable[i].visible) offset++;
-      }
-    } else {
-      offset = -offset;
-      while (offset--) {
-        if (--i < 0) i = this.keyable.length - 1;
-        if (this.keyable[i].detached || !this.keyable[i].visible) offset++;
+    let i = focusable.indexOf(this.focused);
+    if (!~i) {
+      // If nothing focused, start from appropriate end
+      if (offset > 0) {
+        return focusable[0].focus();
+      } else {
+        return focusable[focusable.length - 1].focus();
       }
     }
 
-    return this.keyable[i].focus();
+    if (offset > 0) {
+      while (offset-- > 0) {
+        if (++i > focusable.length - 1) i = 0;
+      }
+    } else {
+      offset = -offset;
+      while (offset-- > 0) {
+        if (--i < 0) i = focusable.length - 1;
+      }
+    }
+
+    const target = focusable[i];
+
+    // If we're about to re-focus the same element, enter "rest state" (unfocus) instead
+    // This prevents duplicate focus events and provides an escape for single-element cases
+    if (target === this.focused) {
+      const old = this.history.pop();
+      if (old) {
+        old.emit("blur");
+      }
+      return undefined;
+    }
+
+    return target.focus();
   }
 
   /**
@@ -1998,7 +2058,8 @@ class Screen extends Node {
 
     // If we're in a scrollable element,
     // automatically scroll to the focused element.
-    if (el && !el.detached) {
+    // Only attempt auto-scrolling if element has been rendered (has lpos).
+    if (el && !el.detached && self.lpos) {
       // NOTE: This is different from the other "visible" values - it needs the
       // visible height of the scrolling element itself, not the element within
       // it.

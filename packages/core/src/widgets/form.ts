@@ -6,7 +6,7 @@
  * Modules
  */
 
-import type { FormOptions, KeyEvent } from "../types";
+import type { FormOptions } from "../types";
 import Box from "./box.js";
 
 /**
@@ -35,51 +35,6 @@ class Form extends Box {
   constructor(options: FormOptions = {}) {
     options.ignoreKeys = true;
     super(options);
-
-    if (options.keys) {
-      this.screen._listenKeys(this);
-      this.on("element keypress", (el: any, _ch: any, key: KeyEvent) => {
-        if (
-          (key.name === "tab" && !key.shift) ||
-          (el.type === "textbox" && options.autoNext && key.name === "enter") ||
-          key.name === "down" ||
-          (options.vi && key.name === "j")
-        ) {
-          if (el.type === "textbox" || el.type === "textarea") {
-            if (key.name === "j") return;
-            el.emit("keypress", "\x1b", { name: "escape" });
-          }
-          // Set _selected to the element that triggered navigation if not set
-          if (!this._selected) {
-            this._selected = el;
-          }
-          this.focusNext();
-          return;
-        }
-
-        if (
-          (key.name === "tab" && key.shift) ||
-          key.name === "up" ||
-          (options.vi && key.name === "k")
-        ) {
-          if (el.type === "textbox" || el.type === "textarea") {
-            if (key.name === "k") return;
-            el.emit("keypress", "\x1b", { name: "escape" });
-          }
-          // Set _selected to the element that triggered navigation if not set
-          if (!this._selected) {
-            this._selected = el;
-          }
-          this.focusPrevious();
-          return;
-        }
-
-        if (key.name === "escape") {
-          this.focus();
-          return;
-        }
-      });
-    }
   }
 
   _refresh() {

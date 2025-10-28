@@ -397,6 +397,7 @@ export function createMockProgram(options = {}) {
   program.zero = true;
   program.x = 0;
   program.y = 0;
+  program.options = {};
 
   // Mock tput
   program.tput = {
@@ -461,6 +462,7 @@ export function createMockProgram(options = {}) {
   program.cub = vi.fn(); // Cursor backward
   program.cud = vi.fn(); // Cursor down
   program.cuu = vi.fn(); // Cursor up
+  program.csr = vi.fn(); // Change scroll region
   program.lsaveCursor = vi.fn();
   program.lrestoreCursor = vi.fn();
 
@@ -468,6 +470,18 @@ export function createMockProgram(options = {}) {
   program.enableMouse = vi.fn();
   program.disableMouse = vi.fn();
   program.setMouse = vi.fn();
+
+  // Add put property with methods
+  program.put = {
+    keypad_xmit: vi.fn(),
+    keypad_local: vi.fn(),
+  };
+
+  // Mock write method
+  program._write = vi.fn();
+
+  // Mock destroy method
+  program.destroy = vi.fn();
 
   return program;
 }
