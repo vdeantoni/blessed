@@ -23,6 +23,7 @@ export { default as unicode } from "./lib/unicode.js";
 export * from "./lib/alias.js";
 export * from "./lib/events.js";
 export * from "./lib/image-renderer.js";
+export * from "./lib/border-colors.js";
 
 // Re-export core widgets
 export * from "./widgets/node.js";

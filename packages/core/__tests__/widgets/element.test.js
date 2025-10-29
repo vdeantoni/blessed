@@ -1498,4 +1498,596 @@ describe("Element", () => {
       expect(stripped).toContain("\x03");
     });
   });
+
+  describe("Border - per-side colors", () => {
+    it("should support per-side border colors with string color names", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          topColor: "cyan",
+          bottomColor: "yellow",
+          leftColor: "green",
+          rightColor: "red",
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      // Verify border object has the per-side colors
+      expect(el.border.topColor).toBe("cyan");
+      expect(el.border.bottomColor).toBe("yellow");
+      expect(el.border.leftColor).toBe("green");
+      expect(el.border.rightColor).toBe("red");
+    });
+
+    it("should support per-side border colors with numeric color codes", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          topColor: 6, // cyan
+          bottomColor: 3, // yellow
+          leftColor: 2, // green
+          rightColor: 1, // red
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      expect(el.border.topColor).toBe(6);
+      expect(el.border.bottomColor).toBe(3);
+      expect(el.border.leftColor).toBe(2);
+      expect(el.border.rightColor).toBe(1);
+    });
+
+    it("should support mixed per-side colors and base fg color", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          fg: 7, // white
+          topColor: "cyan", // override top
+          bottomColor: "yellow", // override bottom
+          // left and right will use base fg (white)
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      expect(el.border.fg).toBe(7);
+      expect(el.border.topColor).toBe("cyan");
+      expect(el.border.bottomColor).toBe("yellow");
+      expect(el.border.leftColor).toBeUndefined();
+      expect(el.border.rightColor).toBeUndefined();
+    });
+
+    it("should render borders with per-side colors on bg type", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "bg",
+          ch: "#",
+          topColor: "cyan",
+          bottomColor: "yellow",
+          leftColor: "green",
+          rightColor: "red",
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      expect(el.border.type).toBe("bg");
+      expect(el.border.ch).toBe("#");
+      expect(el.border.topColor).toBe("cyan");
+    });
+  });
+
+  describe("Border - dim effect", () => {
+    it("should support dim for all borders", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          fg: 7, // white
+          dim: true,
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      expect(el.border.dim).toBe(true);
+    });
+
+    it("should support per-side dim borders", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          fg: 7,
+          topDim: true,
+          bottomDim: false,
+          leftDim: true,
+          rightDim: false,
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      expect(el.border.topDim).toBe(true);
+      expect(el.border.bottomDim).toBe(false);
+      expect(el.border.leftDim).toBe(true);
+      expect(el.border.rightDim).toBe(false);
+    });
+
+    it("should combine per-side colors with per-side dim", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          topColor: "cyan",
+          bottomColor: "yellow",
+          leftColor: "green",
+          rightColor: "red",
+          topDim: true, // dim cyan top border
+          leftDim: true, // dim green left border
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      expect(el.border.topColor).toBe("cyan");
+      expect(el.border.topDim).toBe(true);
+      expect(el.border.leftColor).toBe("green");
+      expect(el.border.leftDim).toBe(true);
+      expect(el.border.bottomDim).toBeUndefined();
+      expect(el.border.rightDim).toBeUndefined();
+    });
+
+    it("should support dim with per-side dim overrides", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          fg: 7,
+          dim: true, // all borders dim by default
+          topDim: false, // override: top is NOT dim
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      expect(el.border.dim).toBe(true);
+      expect(el.border.topDim).toBe(false);
+    });
+  });
+
+  describe("Border - complex scenarios", () => {
+    it("should support all border features together", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 30,
+        height: 15,
+        border: {
+          type: "line",
+          fg: 7, // base white
+          bg: 0, // base black
+          bold: true,
+          topColor: "cyan",
+          bottomColor: "yellow",
+          leftColor: "green",
+          rightColor: "red",
+          topDim: true,
+          bottomDim: false,
+          leftDim: true,
+          rightDim: false,
+          top: true,
+          bottom: true,
+          left: true,
+          right: true,
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      // Verify all properties are set
+      expect(el.border.type).toBe("line");
+      expect(el.border.bold).toBe(true);
+      expect(el.border.topColor).toBe("cyan");
+      expect(el.border.bottomColor).toBe("yellow");
+      expect(el.border.leftColor).toBe("green");
+      expect(el.border.rightColor).toBe("red");
+      expect(el.border.topDim).toBe(true);
+      expect(el.border.leftDim).toBe(true);
+    });
+
+    it("should support partial borders with per-side colors", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          top: true,
+          bottom: false, // no bottom border
+          left: true,
+          right: false, // no right border
+          topColor: "cyan",
+          leftColor: "green",
+          // bottom and right colors shouldn't matter since borders are disabled
+          bottomColor: "yellow",
+          rightColor: "red",
+        },
+      });
+
+      screen.append(el);
+      screen.render();
+
+      expect(el.border.top).toBe(true);
+      expect(el.border.bottom).toBe(false);
+      expect(el.border.left).toBe(true);
+      expect(el.border.right).toBe(false);
+    });
+  });
+
+  describe("Border - cornerColorMode", () => {
+    it("should default to 'vertical' corner mode when not specified", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          topColor: "yellow",
+          leftColor: "cyan",
+        },
+      });
+
+      screen.append(el);
+
+      // Default should be 'vertical'
+      expect(el.border.cornerColorMode).toBeUndefined(); // Not explicitly set
+      // Implicitly defaults to 'vertical' in rendering code
+    });
+
+    it("should accept cornerColorMode: 'vertical'", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          cornerColorMode: "vertical",
+        },
+      });
+
+      screen.append(el);
+      expect(el.border.cornerColorMode).toBe("vertical");
+    });
+
+    it("should accept cornerColorMode: 'horizontal'", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          cornerColorMode: "horizontal",
+        },
+      });
+
+      screen.append(el);
+      expect(el.border.cornerColorMode).toBe("horizontal");
+    });
+
+    it("should work with both cornerColorMode and per-side colors", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          topColor: "yellow",
+          bottomColor: "blue",
+          leftColor: "cyan",
+          rightColor: "red",
+          cornerColorMode: "horizontal",
+        },
+      });
+
+      screen.append(el);
+      expect(el.border.cornerColorMode).toBe("horizontal");
+      expect(el.border.topColor).toBe("yellow");
+      expect(el.border.leftColor).toBe("cyan");
+    });
+
+    it("should work with cornerColorMode and dim effects", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          topColor: "green",
+          leftColor: "green",
+          leftDim: true,
+          cornerColorMode: "vertical",
+        },
+      });
+
+      screen.append(el);
+      expect(el.border.cornerColorMode).toBe("vertical");
+      expect(el.border.leftDim).toBe(true);
+    });
+  });
+
+  describe("Border - addressable colors", () => {
+    it("should accept colors array in border options", () => {
+      const colors = ["red", "green", "blue"];
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          colors: colors,
+        },
+      });
+
+      screen.append(el);
+      expect(el.border.colors).toEqual(colors);
+      expect(el._borderColors).toEqual(colors);
+    });
+
+    it("should default repeatColors to true when not specified", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          colors: ["red", "green"],
+        },
+      });
+
+      screen.append(el);
+      // repeatColors should be undefined (defaults to true in rendering)
+      expect(el.border.repeatColors).toBeUndefined();
+    });
+
+    it("should accept repeatColors: false", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          colors: ["red", "green"],
+          repeatColors: false,
+        },
+      });
+
+      screen.append(el);
+      expect(el.border.repeatColors).toBe(false);
+    });
+
+    it("should calculate border length correctly", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: { type: "line" },
+      });
+
+      screen.append(el);
+      const length = el.getBorderLength();
+      // 2 * (width + height) - 4
+      // 2 * (20 + 10) - 4 = 56
+      expect(length).toBe(56);
+    });
+
+    it("should return 0 border length when no border", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+      });
+
+      screen.append(el);
+      expect(el.getBorderLength()).toBe(0);
+    });
+
+    it("should get border colors array", () => {
+      const colors = ["red", "green", "blue"];
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          colors: colors,
+        },
+      });
+
+      screen.append(el);
+      const retrieved = el.getBorderColors();
+      expect(retrieved).toEqual(colors);
+      // Should return a copy, not the original
+      expect(retrieved).not.toBe(el._borderColors);
+    });
+
+    it("should return empty array when no border colors set", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: { type: "line" },
+      });
+
+      screen.append(el);
+      expect(el.getBorderColors()).toEqual([]);
+    });
+
+    it("should set border colors array", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: { type: "line" },
+      });
+
+      screen.append(el);
+      const colors = ["red", "green", "blue"];
+      el.setBorderColors(colors);
+
+      expect(el.getBorderColors()).toEqual(colors);
+      // Should store a copy, not the original
+      expect(el._borderColors).not.toBe(colors);
+    });
+
+    it("should update border colors via setBorderColors", () => {
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          colors: ["red", "green"],
+        },
+      });
+
+      screen.append(el);
+      expect(el.getBorderColors()).toEqual(["red", "green"]);
+
+      el.setBorderColors(["blue", "yellow", "cyan"]);
+      expect(el.getBorderColors()).toEqual(["blue", "yellow", "cyan"]);
+    });
+
+    it("should work with numeric color codes in colors array", () => {
+      const colors = [1, 2, 3, 4, 5, 6]; // red, green, yellow, blue, magenta, cyan
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          colors: colors,
+        },
+      });
+
+      screen.append(el);
+      expect(el.getBorderColors()).toEqual(colors);
+    });
+
+    it("should work with hex color codes in colors array", () => {
+      const colors = ["#ff0000", "#00ff00", "#0000ff"];
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          colors: colors,
+        },
+      });
+
+      screen.append(el);
+      expect(el.getBorderColors()).toEqual(colors);
+    });
+
+    it("should work with mixed color formats in colors array", () => {
+      const colors = ["red", 2, "#0000ff"]; // name, numeric, hex
+      const el = new Element({
+        screen,
+        top: 0,
+        left: 0,
+        width: 20,
+        height: 10,
+        border: {
+          type: "line",
+          colors: colors,
+        },
+      });
+
+      screen.append(el);
+      expect(el.getBorderColors()).toEqual(colors);
+    });
+  });
 });

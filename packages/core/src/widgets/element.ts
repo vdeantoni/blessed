@@ -75,6 +75,7 @@ class Element extends Node {
   lpos?: RenderCoords;
   _clines?: any;
   _pcontent?: string;
+  _borderColors?: (string | number)[]; // Addressable border colors array
   _slisteners?: any[];
   _label?: any;
   _labelScroll?: () => void;
@@ -211,6 +212,11 @@ class Element extends Node {
       if (border.right == null) border.right = true;
       if (border.bottom == null) border.bottom = true;
       this.border = border;
+
+      // Initialize addressable border colors array if provided
+      if (border.colors) {
+        this._borderColors = [...border.colors];
+      }
     }
 
     // if (options.mouse || options.clickable) {
@@ -500,6 +506,56 @@ class Element extends Node {
   getContent(): string {
     if (!this._clines) return "";
     return this._clines.fake.join("\n");
+  }
+
+  /**
+   * Get the border perimeter length (number of border cells).
+   * Useful for creating colors arrays for addressable border animations.
+   * @returns Number of border cells, or 0 if no border
+   * @example
+   * const box = new Box({ width: 20, height: 10, border: { type: 'line' } });
+   * console.log(box.getBorderLength()); // 56 (2 * (20 + 10) - 4)
+   */
+  getBorderLength(): number {
+    if (!this.border) return 0;
+    const w = this.width || 0;
+    const h = this.height || 0;
+    return 2 * (w + h) - 4;
+  }
+
+  /**
+   * Get the current border colors array (for addressable border animations).
+   * Returns a copy to prevent external mutations.
+   * @returns Copy of colors array, or empty array if not set
+   * @example
+   * const colors = box.getBorderColors();
+   * const rotated = rotateColors(colors, 1);
+   * box.setBorderColors(rotated);
+   */
+  getBorderColors(): (string | number)[] {
+    return this._borderColors ? [...this._borderColors] : [];
+  }
+
+  /**
+   * Set border colors array for addressable border animations.
+   * Stores an internal copy to prevent external mutations.
+   * Call screen.render() after to see changes.
+   * @param colors - Array of colors (names, hex codes, or numeric codes)
+   * @example
+   * // Rainbow animation
+   * const colors = generateRainbow(box.getBorderLength());
+   * box.setBorderColors(colors);
+   * screen.render();
+   *
+   * // Later, animate
+   * setInterval(() => {
+   *   const rotated = rotateColors(box.getBorderColors(), 1);
+   *   box.setBorderColors(rotated);
+   *   screen.render();
+   * }, 100);
+   */
+  setBorderColors(colors: (string | number)[]): void {
+    this._borderColors = [...colors];
   }
 
   /**
@@ -2199,7 +2255,6 @@ class Element extends Node {
     let ch: string = "";
     const content = this._pcontent;
     let ci = (this._clines.ci && this._clines.ci[coords.base]) || 0;
-    let battr: number;
     let dattr: number;
     let c: any;
     let visible: number;
@@ -2487,7 +2542,80 @@ class Element extends Node {
 
     // Draw the border.
     if (this.border) {
-      battr = this.sattr(this.style.border);
+      // Helper to get border attribute for a specific side (with per-side color and dim support)
+      const getBorderAttr = (side: 'top' | 'bottom' | 'left' | 'right'): number => {
+        const baseStyle = this.style.border || {};
+        const sideStyle: any = { ...baseStyle };
+
+        // Apply per-side color if specified
+        const sideColorKey = `${side}Color` as keyof typeof this.border;
+        const sideColor = this.border?.[sideColorKey];
+        if (sideColor !== undefined) {
+          // Convert color (supports names like "cyan", hex like "#00ff00", or numeric codes)
+          if (typeof sideColor === 'string') {
+            sideStyle.fg = colors.convert(sideColor);
+          } else {
+            sideStyle.fg = sideColor;
+          }
+        }
+
+        // Apply dim effect if specified (by blending the fg color with black)
+        const dimKey = `${side}Dim` as keyof typeof this.border;
+        const sideDim = this.border?.[dimKey] ?? this.border?.dim;
+        if (sideDim && sideStyle.fg != null && sideStyle.fg >= 0) {
+          // Use mixColors to darken the foreground color (blend with black at 50%)
+          sideStyle.fg = colors.mixColors(sideStyle.fg, 0, 0.5);
+        }
+
+        // Get final attribute with potentially dimmed color
+        return this.sattr(sideStyle);
+      };
+
+      // Helper: get color for specific cell index (addressable border colors)
+      const getBorderColorAt = (cellIndex: number, side: 'top' | 'bottom' | 'left' | 'right'): number => {
+        let colorValue: string | number | null = null;
+
+        // Priority 1: colors array (addressable border)
+        if (this._borderColors && this._borderColors.length > 0) {
+          const repeatColors = this.border?.repeatColors !== false; // default: true
+          let colorIndex = cellIndex;
+
+          if (repeatColors) {
+            colorIndex = cellIndex % this._borderColors.length;
+          }
+
+          if (colorIndex < this._borderColors.length) {
+            colorValue = this._borderColors[colorIndex];
+          }
+        }
+
+        // Priority 2-4: Use existing getBorderAttr() for fallback
+        if (colorValue === null || colorValue === undefined) {
+          return getBorderAttr(side);
+        }
+
+        // Convert color from array
+        const baseStyle = this.style.border || {};
+        const sideStyle: any = { ...baseStyle };
+        sideStyle.fg = typeof colorValue === 'string' ? colors.convert(colorValue) : colorValue;
+
+        // Apply dim for this side (dim applies to colors array too!)
+        const dimKey = `${side}Dim` as keyof typeof this.border;
+        const sideDim = this.border?.[dimKey] ?? this.border?.dim;
+        if (sideDim && sideStyle.fg != null && sideStyle.fg >= 0) {
+          sideStyle.fg = colors.mixColors(sideStyle.fg, 0, 0.5);
+        }
+
+        return this.sattr(sideStyle);
+      };
+
+      // Determine corner color mode (default to 'vertical')
+      const cornerMode = this.border.cornerColorMode || 'vertical';
+
+      // Track cell index for addressable colors
+      let cellIndex = 0;
+
+      // Top border (left to right, cellIndex: 0 to width-1)
       y = yi;
       if (coords.notop) y = -1;
       for (x = xi; x < xl; x++) {
@@ -2496,6 +2624,18 @@ class Element extends Node {
         if (coords.noright && x === xl - 1) continue;
         cell = lines[y][x];
         if (!cell) continue;
+
+        // Determine which side's fallback to use for corners
+        let fallbackSide: 'top' | 'left' | 'right' = 'top';
+        if (x === xi) {
+          fallbackSide = cornerMode === 'vertical' ? 'left' : 'top';
+        } else if (x === xl - 1) {
+          fallbackSide = cornerMode === 'vertical' ? 'right' : 'top';
+        }
+
+        // Get color for this specific cell (addressable or fallback)
+        const currentAttr = getBorderColorAt(cellIndex++, fallbackSide);
+
         if (this.border.type === "line") {
           if (x === xi) {
             ch = "\u250c"; // '┌'
@@ -2538,49 +2678,31 @@ class Element extends Node {
             continue;
           }
         }
-        if (battr !== cell[0] || ch !== cell[1]) {
-          lines[y][x][0] = battr;
+        if (currentAttr !== cell[0] || ch !== cell[1]) {
+          lines[y][x][0] = currentAttr;
           lines[y][x][1] = ch;
           lines[y].dirty = true;
         }
       }
+
+      // Right border (top to bottom, excluding corners)
       y = yi + 1;
       for (; y < yl - 1; y++) {
         if (!lines[y]) continue;
-        cell = lines[y][xi];
-        if (cell) {
-          if (this.border.left) {
-            if (this.border.type === "line") {
-              ch = "\u2502"; // '│'
-            } else if (this.border.type === "bg") {
-              ch = this.border.ch || " ";
-            }
-            if (!coords.noleft)
-              if (battr !== cell[0] || ch !== cell[1]) {
-                lines[y][xi][0] = battr;
-                lines[y][xi][1] = ch;
-                lines[y].dirty = true;
-              }
-          } else {
-            ch = " ";
-            if (dattr !== cell[0] || ch !== cell[1]) {
-              lines[y][xi][0] = dattr;
-              lines[y][xi][1] = ch;
-              lines[y].dirty = true;
-            }
-          }
-        }
         cell = lines[y][xl - 1];
         if (cell) {
           if (this.border.right) {
+            // Get color for this specific cell
+            const currentAttr = getBorderColorAt(cellIndex++, 'right');
+
             if (this.border.type === "line") {
               ch = "\u2502"; // '│'
             } else if (this.border.type === "bg") {
               ch = this.border.ch || " ";
             }
             if (!coords.noright)
-              if (battr !== cell[0] || ch !== cell[1]) {
-                lines[y][xl - 1][0] = battr;
+              if (currentAttr !== cell[0] || ch !== cell[1]) {
+                lines[y][xl - 1][0] = currentAttr;
                 lines[y][xl - 1][1] = ch;
                 lines[y].dirty = true;
               }
@@ -2594,14 +2716,28 @@ class Element extends Node {
           }
         }
       }
+
+      // Bottom border (right to left for clockwise order)
       y = yl - 1;
       if (coords.nobot) y = -1;
-      for (x = xi; x < xl; x++) {
+      for (x = xl - 1; x >= xi; x--) {
         if (!lines[y]) break;
         if (coords.noleft && x === xi) continue;
         if (coords.noright && x === xl - 1) continue;
         cell = lines[y][x];
         if (!cell) continue;
+
+        // Determine which side's fallback to use for corners
+        let fallbackSide: 'bottom' | 'left' | 'right' = 'bottom';
+        if (x === xi) {
+          fallbackSide = cornerMode === 'vertical' ? 'left' : 'bottom';
+        } else if (x === xl - 1) {
+          fallbackSide = cornerMode === 'vertical' ? 'right' : 'bottom';
+        }
+
+        // Get color for this specific cell (addressable or fallback)
+        const currentAttr = getBorderColorAt(cellIndex++, fallbackSide);
+
         if (this.border.type === "line") {
           if (x === xi) {
             ch = "\u2514"; // '└'
@@ -2644,10 +2780,42 @@ class Element extends Node {
           }
           continue;
         }
-        if (battr !== cell[0] || ch !== cell[1]) {
-          lines[y][x][0] = battr;
+        if (currentAttr !== cell[0] || ch !== cell[1]) {
+          lines[y][x][0] = currentAttr;
           lines[y][x][1] = ch;
           lines[y].dirty = true;
+        }
+      }
+
+      // Left border (bottom to top for clockwise order, excluding corners)
+      y = yl - 2;
+      for (; y > yi; y--) {
+        if (!lines[y]) continue;
+        cell = lines[y][xi];
+        if (cell) {
+          if (this.border.left) {
+            // Get color for this specific cell
+            const currentAttr = getBorderColorAt(cellIndex++, 'left');
+
+            if (this.border.type === "line") {
+              ch = "\u2502"; // '│'
+            } else if (this.border.type === "bg") {
+              ch = this.border.ch || " ";
+            }
+            if (!coords.noleft)
+              if (currentAttr !== cell[0] || ch !== cell[1]) {
+                lines[y][xi][0] = currentAttr;
+                lines[y][xi][1] = ch;
+                lines[y].dirty = true;
+              }
+          } else {
+            ch = " ";
+            if (dattr !== cell[0] || ch !== cell[1]) {
+              lines[y][xi][0] = dattr;
+              lines[y][xi][1] = ch;
+              lines[y].dirty = true;
+            }
+          }
         }
       }
     }

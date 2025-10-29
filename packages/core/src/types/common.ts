@@ -194,6 +194,44 @@ export interface Border {
   left?: boolean;
   /** Whether to draw right border */
   right?: boolean;
+  /** Top border color (overrides fg). Can be color name or number. */
+  topColor?: number | string;
+  /** Bottom border color (overrides fg). Can be color name or number. */
+  bottomColor?: number | string;
+  /** Left border color (overrides fg). Can be color name or number. */
+  leftColor?: number | string;
+  /** Right border color (overrides fg). Can be color name or number. */
+  rightColor?: number | string;
+  /** Dim all borders (50% opacity effect) */
+  dim?: boolean;
+  /** Dim top border */
+  topDim?: boolean;
+  /** Dim bottom border */
+  bottomDim?: boolean;
+  /** Dim left border */
+  leftDim?: boolean;
+  /** Dim right border */
+  rightDim?: boolean;
+  /**
+   * Controls which border colors corners inherit.
+   * - 'horizontal': corners use top/bottom border colors (Ink's approach)
+   * - 'vertical': corners use left/right border colors
+   * @default 'vertical'
+   */
+  cornerColorMode?: "horizontal" | "vertical";
+  /**
+   * Array of colors for each border cell (addressable, like LED strips).
+   * Enables per-cell color control for animations (rainbow waves, chase effects, etc.).
+   * Index 0 starts at top-left corner, proceeds clockwise around perimeter.
+   * Can contain color names ("cyan"), hex codes ("#00ff00"), or numeric codes (6).
+   */
+  colors?: (string | number)[];
+  /**
+   * Whether to repeat the colors array if shorter than border perimeter.
+   * When false, uses fallback colors (topColor/leftColor/fg) after array ends.
+   * @default true
+   */
+  repeatColors?: boolean;
 }
 
 /**
