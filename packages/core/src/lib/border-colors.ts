@@ -164,4 +164,3 @@ export function rotateColors(
 
   return result;
 }
-

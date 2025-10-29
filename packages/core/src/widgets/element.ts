@@ -2543,7 +2543,9 @@ class Element extends Node {
     // Draw the border.
     if (this.border) {
       // Helper to get border attribute for a specific side (with per-side color and dim support)
-      const getBorderAttr = (side: 'top' | 'bottom' | 'left' | 'right'): number => {
+      const getBorderAttr = (
+        side: "top" | "bottom" | "left" | "right",
+      ): number => {
         const baseStyle = this.style.border || {};
         const sideStyle: any = { ...baseStyle };
 
@@ -2552,7 +2554,7 @@ class Element extends Node {
         const sideColor = this.border?.[sideColorKey];
         if (sideColor !== undefined) {
           // Convert color (supports names like "cyan", hex like "#00ff00", or numeric codes)
-          if (typeof sideColor === 'string') {
+          if (typeof sideColor === "string") {
             sideStyle.fg = colors.convert(sideColor);
           } else {
             sideStyle.fg = sideColor;
@@ -2572,7 +2574,10 @@ class Element extends Node {
       };
 
       // Helper: get color for specific cell index (addressable border colors)
-      const getBorderColorAt = (cellIndex: number, side: 'top' | 'bottom' | 'left' | 'right'): number => {
+      const getBorderColorAt = (
+        cellIndex: number,
+        side: "top" | "bottom" | "left" | "right",
+      ): number => {
         let colorValue: string | number | null = null;
 
         // Priority 1: colors array (addressable border)
@@ -2597,7 +2602,10 @@ class Element extends Node {
         // Convert color from array
         const baseStyle = this.style.border || {};
         const sideStyle: any = { ...baseStyle };
-        sideStyle.fg = typeof colorValue === 'string' ? colors.convert(colorValue) : colorValue;
+        sideStyle.fg =
+          typeof colorValue === "string"
+            ? colors.convert(colorValue)
+            : colorValue;
 
         // Apply dim for this side (dim applies to colors array too!)
         const dimKey = `${side}Dim` as keyof typeof this.border;
@@ -2610,7 +2618,7 @@ class Element extends Node {
       };
 
       // Determine corner color mode (default to 'vertical')
-      const cornerMode = this.border.cornerColorMode || 'vertical';
+      const cornerMode = this.border.cornerColorMode || "vertical";
 
       // Track cell index for addressable colors
       let cellIndex = 0;
@@ -2626,11 +2634,11 @@ class Element extends Node {
         if (!cell) continue;
 
         // Determine which side's fallback to use for corners
-        let fallbackSide: 'top' | 'left' | 'right' = 'top';
+        let fallbackSide: "top" | "left" | "right" = "top";
         if (x === xi) {
-          fallbackSide = cornerMode === 'vertical' ? 'left' : 'top';
+          fallbackSide = cornerMode === "vertical" ? "left" : "top";
         } else if (x === xl - 1) {
-          fallbackSide = cornerMode === 'vertical' ? 'right' : 'top';
+          fallbackSide = cornerMode === "vertical" ? "right" : "top";
         }
 
         // Get color for this specific cell (addressable or fallback)
@@ -2693,7 +2701,7 @@ class Element extends Node {
         if (cell) {
           if (this.border.right) {
             // Get color for this specific cell
-            const currentAttr = getBorderColorAt(cellIndex++, 'right');
+            const currentAttr = getBorderColorAt(cellIndex++, "right");
 
             if (this.border.type === "line") {
               ch = "\u2502"; // '│'
@@ -2728,11 +2736,11 @@ class Element extends Node {
         if (!cell) continue;
 
         // Determine which side's fallback to use for corners
-        let fallbackSide: 'bottom' | 'left' | 'right' = 'bottom';
+        let fallbackSide: "bottom" | "left" | "right" = "bottom";
         if (x === xi) {
-          fallbackSide = cornerMode === 'vertical' ? 'left' : 'bottom';
+          fallbackSide = cornerMode === "vertical" ? "left" : "bottom";
         } else if (x === xl - 1) {
-          fallbackSide = cornerMode === 'vertical' ? 'right' : 'bottom';
+          fallbackSide = cornerMode === "vertical" ? "right" : "bottom";
         }
 
         // Get color for this specific cell (addressable or fallback)
@@ -2795,7 +2803,7 @@ class Element extends Node {
         if (cell) {
           if (this.border.left) {
             // Get color for this specific cell
-            const currentAttr = getBorderColorAt(cellIndex++, 'left');
+            const currentAttr = getBorderColorAt(cellIndex++, "left");
 
             if (this.border.type === "line") {
               ch = "\u2502"; // '│'
