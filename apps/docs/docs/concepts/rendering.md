@@ -17,9 +17,9 @@ unblessed uses a smart rendering system that minimizes terminal updates for smoo
 Widgets are marked as "dirty" when they change:
 
 ```typescript
-box.setContent('New content');  // Marks box as dirty
-box.style.fg = 'red';           // Marks box as dirty
-box.hide();                     // Marks box as dirty
+box.setContent("New content"); // Marks box as dirty
+box.style.fg = "red"; // Marks box as dirty
+box.hide(); // Marks box as dirty
 ```
 
 **Dirty flag**: Internal flag indicating the widget needs re-rendering.
@@ -30,8 +30,8 @@ Call `screen.render()` to update the display:
 
 ```typescript
 // Make multiple changes
-box1.setContent('Changed');
-box2.style.bg = 'blue';
+box1.setContent("Changed");
+box2.style.bg = "blue";
 list.select(5);
 
 // Single render updates all changes
@@ -116,13 +116,14 @@ Efficiently scroll content using terminal scroll regions:
 
 ```typescript
 const screen = new Screen({
-  smartCSR: true  // Enable smart scroll regions
+  smartCSR: true, // Enable smart scroll regions
 });
 ```
 
 **How it works**: When scrolling, uses `\x1b[L` (insert line) and `\x1b[M` (delete line) instead of redrawing everything.
 
 **Benefits**:
+
 - Faster scrolling in lists and logs
 - Reduced flickering
 - Less bandwidth
@@ -134,7 +135,7 @@ Even more aggressive scroll optimization:
 ```typescript
 const screen = new Screen({
   smartCSR: true,
-  fastCSR: true  // More aggressive optimization
+  fastCSR: true, // More aggressive optimization
 });
 ```
 
@@ -146,11 +147,12 @@ Support for wide characters and emojis:
 
 ```typescript
 const screen = new Screen({
-  fullUnicode: true  // Enable full Unicode support
+  fullUnicode: true, // Enable full Unicode support
 });
 ```
 
 **Features**:
+
 - Correct width calculation for emoji and CJK characters
 - Proper alignment with wide characters
 - Better international support
@@ -162,8 +164,8 @@ const screen = new Screen({
 Default mode - renders immediately:
 
 ```typescript
-box.setContent('Update');
-screen.render();  // Blocks until complete
+box.setContent("Update");
+screen.render(); // Blocks until complete
 ```
 
 **Use case**: Simple apps, immediate feedback needed
@@ -174,12 +176,12 @@ Batch multiple updates:
 
 ```typescript
 // Queue multiple renders
-box1.setContent('A');
-screen.render();  // Queued
-box2.setContent('B');
-screen.render();  // Queued
-box3.setContent('C');
-screen.render();  // Queued
+box1.setContent("A");
+screen.render(); // Queued
+box2.setContent("B");
+screen.render(); // Queued
+box3.setContent("C");
+screen.render(); // Queued
 
 // Next tick: all renders batched into one
 ```
@@ -187,6 +189,7 @@ screen.render();  // Queued
 **How**: Uses `process.nextTick()` or `requestAnimationFrame()` to batch.
 
 **Benefits**:
+
 - Fewer actual renders
 - Better performance
 - Smoother animations
@@ -197,12 +200,12 @@ Disable auto-rendering for fine control:
 
 ```typescript
 const screen = new Screen({
-  autoRender: false
+  autoRender: false,
 });
 
 // Make changes
-box.setContent('A');
-box.style.fg = 'red';
+box.setContent("A");
+box.style.fg = "red";
 
 // Manually trigger render when ready
 screen.render();
@@ -214,17 +217,17 @@ screen.render();
 
 ```typescript
 // ❌ Inefficient - renders 3 times
-box.setContent('Line 1');
+box.setContent("Line 1");
 screen.render();
-box.setContent('Line 2');
+box.setContent("Line 2");
 screen.render();
-box.setContent('Line 3');
+box.setContent("Line 3");
 screen.render();
 
 // ✅ Efficient - renders once
-box.setContent('Line 1');
-box.setContent('Line 2');
-box.setContent('Line 3');
+box.setContent("Line 1");
+box.setContent("Line 2");
+box.setContent("Line 3");
 screen.render();
 ```
 
@@ -248,15 +251,15 @@ if (newContent !== box.content) {
 // ❌ Renders offscreen widget
 const hiddenBox = new Box({
   parent: screen,
-  top: 1000,  // Offscreen
-  content: 'Hidden'
+  top: 1000, // Offscreen
+  content: "Hidden",
 });
 
 // ✅ Use hidden flag
 const hiddenBox = new Box({
   parent: screen,
-  hidden: true,  // Not rendered
-  content: 'Hidden'
+  hidden: true, // Not rendered
+  content: "Hidden",
 });
 
 // Show when needed
@@ -271,15 +274,15 @@ screen.render();
 const log = new Log({
   parent: screen,
   scrollable: true,
-  content: tenThousandLines
+  content: tenThousandLines,
 });
 
 // ✅ Limit visible content
 const log = new Log({
   parent: screen,
   scrollable: true,
-  scrollback: 1000,  // Keep only last 1000 lines
-  content: tenThousandLines
+  scrollback: 1000, // Keep only last 1000 lines
+  content: tenThousandLines,
 });
 ```
 
@@ -373,8 +376,8 @@ unblessed uses double buffering to prevent tearing:
 
 ```typescript
 class Screen {
-  _buf: Buffer[];   // Current buffer being built
-  _obuf: Buffer[];  // Previous rendered buffer
+  _buf: Buffer[]; // Current buffer being built
+  _obuf: Buffer[]; // Previous rendered buffer
 
   render() {
     // Build new frame in _buf
@@ -393,6 +396,7 @@ class Screen {
 ```
 
 **Benefits**:
+
 - No visual tearing
 - Minimal terminal updates
 - Smooth animations
@@ -403,10 +407,10 @@ Each buffer cell contains:
 
 ```typescript
 interface Cell {
-  ch: string;      // Character(s)
+  ch: string; // Character(s)
   attr: {
-    fg: number;    // Foreground color
-    bg: number;    // Background color
+    fg: number; // Foreground color
+    bg: number; // Background color
     bold: boolean;
     underline: boolean;
     // ... other attributes
@@ -420,21 +424,21 @@ interface Cell {
 
 On modern hardware:
 
-| Operation | Time |
-|-----------|------|
-| Empty screen | ~6.5ms |
-| 100 boxes | ~11ms |
-| 1K list items | ~187ms |
-| Full screen update | ~15ms |
+| Operation          | Time   |
+| ------------------ | ------ |
+| Empty screen       | ~6.5ms |
+| 100 boxes          | ~11ms  |
+| 1K list items      | ~187ms |
+| Full screen update | ~15ms  |
 
 ### Profiling
 
 Profile rendering performance:
 
 ```typescript
-console.time('render');
+console.time("render");
 screen.render();
-console.timeEnd('render');
+console.timeEnd("render");
 // render: 12.456ms
 
 // Detailed profiling
@@ -452,14 +456,15 @@ console.log(`Render took ${ms.toFixed(3)}ms`);
 **Cause**: Rendering too frequently or clearing screen
 
 **Solution**:
+
 ```typescript
 // ❌ Causes flicker
 screen.clear();
 screen.render();
 
 // ✅ Use dirty tracking
-box.setContent('Update');
-screen.render();  // Only updates changed area
+box.setContent("Update");
+screen.render(); // Only updates changed area
 ```
 
 ### Slow Rendering
@@ -467,12 +472,13 @@ screen.render();  // Only updates changed area
 **Cause**: Too many widgets or large content
 
 **Solution**:
+
 ```typescript
 // ✅ Optimize widget count
 // Use single scrollable box instead of many small boxes
 
 // ✅ Limit content
-log.setContent(content.slice(-1000));  // Last 1000 lines
+log.setContent(content.slice(-1000)); // Last 1000 lines
 
 // ✅ Use hidden flag
 widget.hidden = !shouldShow;
@@ -483,11 +489,12 @@ widget.hidden = !shouldShow;
 **Cause**: Terminal doesn't support CSR or Unicode
 
 **Solution**:
+
 ```typescript
 const screen = new Screen({
-  smartCSR: false,      // Disable CSR if issues
-  fullUnicode: false,   // Disable Unicode if needed
-  dockBorders: true     // Prevent border artifacts
+  smartCSR: false, // Disable CSR if issues
+  fullUnicode: false, // Disable Unicode if needed
+  dockBorders: true, // Prevent border artifacts
 });
 ```
 
@@ -501,7 +508,7 @@ function updateDashboard() {
   header.setContent(getHeader());
   sidebar.setItems(getItems());
   content.setContent(getContent());
-  screen.render();  // Single render
+  screen.render(); // Single render
 }
 ```
 
@@ -523,7 +530,7 @@ function animate() {
 ```typescript
 let timeout: NodeJS.Timeout;
 
-input.on('keypress', (ch, key) => {
+input.on("keypress", (ch, key) => {
   clearTimeout(timeout);
   timeout = setTimeout(() => {
     updateSearch(input.getValue());
@@ -536,9 +543,9 @@ input.on('keypress', (ch, key) => {
 
 ```typescript
 // Measure actual performance
-console.time('render');
+console.time("render");
 screen.render();
-console.timeEnd('render');
+console.timeEnd("render");
 
 // Only optimize if slow (>16ms for 60fps)
 ```

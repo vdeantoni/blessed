@@ -2,7 +2,7 @@
  * Test named colors in borders
  */
 
-import { Screen, Box } from "@unblessed/node";
+import { Box, Screen } from "@unblessed/node";
 
 const screen = new Screen({
   smartCSR: true,

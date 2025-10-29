@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import ProgressBar from "../../src/widgets/progressbar.js";
 import { createMockScreen } from "../helpers/mock.js";
 

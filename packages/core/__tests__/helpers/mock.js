@@ -2,29 +2,28 @@
  * Test utilities for mocking terminal I/O and screen buffers
  */
 
-import { EventEmitter } from "events";
-import { vi } from "vitest";
-import {
-  initCore,
-  getRuntime,
-  _clearRuntime,
-} from "../../src/runtime-context.js";
-import { clearEnvCache } from "../../src/lib/runtime-helpers.js";
-import fs from "fs";
-import path from "path";
-import process from "process";
+import { Buffer } from "buffer";
 import * as child_process from "child_process";
+import { EventEmitter } from "events";
+import fs from "fs";
+import net from "net";
+import { GifReader } from "omggif";
+import path, { dirname } from "path";
+import { PNG } from "pngjs";
+import process from "process";
+import { Readable, Writable } from "stream";
+import { StringDecoder } from "string_decoder";
 import tty from "tty";
 import * as url from "url";
-import * as util from "util";
-import net from "net";
-import { StringDecoder } from "string_decoder";
 import { fileURLToPath } from "url";
-import { dirname } from "path";
-import { Readable, Writable } from "stream";
-import { Buffer } from "buffer";
-import { PNG } from "pngjs";
-import { GifReader } from "omggif";
+import * as util from "util";
+import { vi } from "vitest";
+import { clearEnvCache } from "../../src/lib/runtime-helpers.js";
+import {
+  _clearRuntime,
+  getRuntime,
+  initCore,
+} from "../../src/runtime-context.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

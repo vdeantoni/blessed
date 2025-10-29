@@ -7,9 +7,9 @@
  * A blessed telnet server.
  * See: https://github.com/TooTallNate/node-telnet
  */
-import blessed from "../index.js";
 import path from "path";
 import telnet from "telnet2";
+import blessed from "../index.js";
 
 const __dirname = import.meta.dirname;
 

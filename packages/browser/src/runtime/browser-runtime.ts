@@ -6,17 +6,17 @@
  */
 
 import type { Runtime } from "@unblessed/core";
-import type { PathLike } from "fs";
 import { Buffer } from "buffer";
 import { EventEmitter } from "events";
+import type { PathLike } from "fs";
 // @ts-ignore
 import path from "path-browserify";
 import { StringDecoder } from "string_decoder";
 
 // Import terminfo and font data
-import xtermData from "@unblessed/core/data/terminfo/xterm-256color.json";
-import terU14n from "@unblessed/core/data/fonts/ter-u14n.json";
 import terU14b from "@unblessed/core/data/fonts/ter-u14b.json";
+import terU14n from "@unblessed/core/data/fonts/ter-u14n.json";
+import xtermData from "@unblessed/core/data/terminfo/xterm-256color.json";
 
 /**
  * Browser-compatible util implementation

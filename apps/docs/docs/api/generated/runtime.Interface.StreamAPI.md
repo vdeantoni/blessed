@@ -9,14 +9,14 @@ Subset of Node.js stream module
 
 ### Readable
 
-> **Readable**: *typeof* `Readable`
+> **Readable**: _typeof_ `Readable`
 
 Defined in: [packages/core/src/runtime.ts:299](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L299)
 
-***
+---
 
 ### Writable
 
-> **Writable**: *typeof* `Writable`
+> **Writable**: _typeof_ `Writable`
 
 Defined in: [packages/core/src/runtime.ts:300](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L300)

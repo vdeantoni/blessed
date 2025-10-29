@@ -24,9 +24,9 @@ will be added as a listener for the `'connect'` event **once**.
 
 Possible signatures:
 
-* [createConnection](#createconnection)
-* [createConnection](#createconnection) for `IPC` connections.
-* [createConnection](#createconnection) for TCP connections.
+- [createConnection](#createconnection)
+- [createConnection](#createconnection) for `IPC` connections.
+- [createConnection](#createconnection) for TCP connections.
 
 The connect function is an alias to this function.
 
@@ -58,9 +58,9 @@ will be added as a listener for the `'connect'` event **once**.
 
 Possible signatures:
 
-* [createConnection](#createconnection)
-* [createConnection](#createconnection) for `IPC` connections.
-* [createConnection](#createconnection) for TCP connections.
+- [createConnection](#createconnection)
+- [createConnection](#createconnection) for `IPC` connections.
+- [createConnection](#createconnection) for TCP connections.
 
 The connect function is an alias to this function.
 
@@ -96,9 +96,9 @@ will be added as a listener for the `'connect'` event **once**.
 
 Possible signatures:
 
-* [createConnection](#createconnection)
-* [createConnection](#createconnection) for `IPC` connections.
-* [createConnection](#createconnection) for TCP connections.
+- [createConnection](#createconnection)
+- [createConnection](#createconnection) for `IPC` connections.
+- [createConnection](#createconnection) for TCP connections.
 
 The connect function is an alias to this function.
 

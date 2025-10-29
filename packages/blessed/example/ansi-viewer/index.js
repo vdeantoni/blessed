@@ -5,10 +5,10 @@
  * https://github.com/chjj/blessed
  */
 
-import blessed from "../../index.js";
-import request from "request";
-import singlebyte from "./singlebyte.js";
 import fs from "fs";
+import request from "request";
+import blessed from "../../index.js";
+import singlebyte from "./singlebyte.js";
 
 const __dirname = import.meta.dirname;
 

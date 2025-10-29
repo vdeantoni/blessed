@@ -12,20 +12,20 @@ When ENTER is pressed, automatically submits the parent Form (if inside one).
 ```typescript
 const textbox = new Textbox({
   parent: form,
-  border: { type: 'line' },
-  inputOnFocus: true
+  border: { type: "line" },
+  inputOnFocus: true,
 });
 
-textbox.on('submit', (value) => {
-  console.log('Value:', value);
+textbox.on("submit", (value) => {
+  console.log("Value:", value);
 });
 ```
 
 ```typescript
 const password = new Textbox({
   parent: form,
-  secret: true,  // Hide all text
-  inputOnFocus: true
+  secret: true, // Hide all text
+  inputOnFocus: true,
 });
 ```
 
@@ -67,7 +67,7 @@ Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_events`](widgets.textarea.Class.Textarea.md#_events)
 
-***
+---
 
 ### \_maxListeners?
 
@@ -79,7 +79,7 @@ Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_maxListeners`](widgets.textarea.Class.Textarea.md#_maxlisteners)
 
-***
+---
 
 ### name?
 
@@ -91,7 +91,7 @@ Defined in: [packages/core/src/widgets/element.ts:50](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`name`](widgets.textarea.Class.Textarea.md#name)
 
-***
+---
 
 ### position
 
@@ -106,7 +106,7 @@ Kept as any due to complex internal position calculation system.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`position`](widgets.textarea.Class.Textarea.md#position)
 
-***
+---
 
 ### noOverflow?
 
@@ -118,7 +118,7 @@ Defined in: [packages/core/src/widgets/element.ts:56](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`noOverflow`](widgets.textarea.Class.Textarea.md#nooverflow)
 
-***
+---
 
 ### dockBorders?
 
@@ -130,7 +130,7 @@ Defined in: [packages/core/src/widgets/element.ts:57](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`dockBorders`](widgets.textarea.Class.Textarea.md#dockborders)
 
-***
+---
 
 ### shadow?
 
@@ -142,7 +142,7 @@ Defined in: [packages/core/src/widgets/element.ts:58](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`shadow`](widgets.textarea.Class.Textarea.md#shadow)
 
-***
+---
 
 ### style
 
@@ -156,7 +156,7 @@ Element style configuration (colors, attributes, hover/focus effects)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`style`](widgets.textarea.Class.Textarea.md#style)
 
-***
+---
 
 ### hidden
 
@@ -168,7 +168,7 @@ Defined in: [packages/core/src/widgets/element.ts:61](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`hidden`](widgets.textarea.Class.Textarea.md#hidden)
 
-***
+---
 
 ### fixed
 
@@ -180,7 +180,7 @@ Defined in: [packages/core/src/widgets/element.ts:62](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`fixed`](widgets.textarea.Class.Textarea.md#fixed)
 
-***
+---
 
 ### align
 
@@ -192,7 +192,7 @@ Defined in: [packages/core/src/widgets/element.ts:63](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`align`](widgets.textarea.Class.Textarea.md#align)
 
-***
+---
 
 ### valign
 
@@ -204,7 +204,7 @@ Defined in: [packages/core/src/widgets/element.ts:64](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`valign`](widgets.textarea.Class.Textarea.md#valign)
 
-***
+---
 
 ### wrap
 
@@ -216,7 +216,7 @@ Defined in: [packages/core/src/widgets/element.ts:65](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`wrap`](widgets.textarea.Class.Textarea.md#wrap)
 
-***
+---
 
 ### shrink?
 
@@ -228,7 +228,7 @@ Defined in: [packages/core/src/widgets/element.ts:66](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`shrink`](widgets.textarea.Class.Textarea.md#shrink)
 
-***
+---
 
 ### ch
 
@@ -240,7 +240,7 @@ Defined in: [packages/core/src/widgets/element.ts:67](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`ch`](widgets.textarea.Class.Textarea.md#ch)
 
-***
+---
 
 ### padding
 
@@ -254,7 +254,7 @@ Padding configuration for all sides
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`padding`](widgets.textarea.Class.Textarea.md#padding)
 
-***
+---
 
 ### border?
 
@@ -268,7 +268,7 @@ Border configuration
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`border`](widgets.textarea.Class.Textarea.md#border)
 
-***
+---
 
 ### parseTags?
 
@@ -280,7 +280,7 @@ Defined in: [packages/core/src/widgets/element.ts:72](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`parseTags`](widgets.textarea.Class.Textarea.md#parsetags)
 
-***
+---
 
 ### content
 
@@ -292,7 +292,7 @@ Defined in: [packages/core/src/widgets/element.ts:73](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`content`](widgets.textarea.Class.Textarea.md#content)
 
-***
+---
 
 ### lpos?
 
@@ -306,7 +306,7 @@ Last rendered position coordinates
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`lpos`](widgets.textarea.Class.Textarea.md#lpos)
 
-***
+---
 
 ### \_clines?
 
@@ -318,7 +318,7 @@ Defined in: [packages/core/src/widgets/element.ts:76](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_clines`](widgets.textarea.Class.Textarea.md#_clines)
 
-***
+---
 
 ### \_pcontent?
 
@@ -330,7 +330,7 @@ Defined in: [packages/core/src/widgets/element.ts:77](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_pcontent`](widgets.textarea.Class.Textarea.md#_pcontent)
 
-***
+---
 
 ### \_borderColors?
 
@@ -342,7 +342,7 @@ Defined in: [packages/core/src/widgets/element.ts:78](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_borderColors`](widgets.textarea.Class.Textarea.md#_bordercolors)
 
-***
+---
 
 ### \_slisteners?
 
@@ -354,7 +354,7 @@ Defined in: [packages/core/src/widgets/element.ts:79](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_slisteners`](widgets.textarea.Class.Textarea.md#_slisteners)
 
-***
+---
 
 ### \_label?
 
@@ -366,7 +366,7 @@ Defined in: [packages/core/src/widgets/element.ts:80](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_label`](widgets.textarea.Class.Textarea.md#_label)
 
-***
+---
 
 ### \_labelScroll()?
 
@@ -382,7 +382,7 @@ Defined in: [packages/core/src/widgets/element.ts:81](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_labelScroll`](widgets.textarea.Class.Textarea.md#_labelscroll)
 
-***
+---
 
 ### \_labelResize()?
 
@@ -398,7 +398,7 @@ Defined in: [packages/core/src/widgets/element.ts:82](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_labelResize`](widgets.textarea.Class.Textarea.md#_labelresize)
 
-***
+---
 
 ### \_hoverOptions?
 
@@ -410,7 +410,7 @@ Defined in: [packages/core/src/widgets/element.ts:83](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_hoverOptions`](widgets.textarea.Class.Textarea.md#_hoveroptions)
 
-***
+---
 
 ### \_draggable?
 
@@ -422,7 +422,7 @@ Defined in: [packages/core/src/widgets/element.ts:84](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_draggable`](widgets.textarea.Class.Textarea.md#_draggable)
 
-***
+---
 
 ### \_dragMD()?
 
@@ -444,7 +444,7 @@ Defined in: [packages/core/src/widgets/element.ts:85](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_dragMD`](widgets.textarea.Class.Textarea.md#_dragmd)
 
-***
+---
 
 ### \_dragM()?
 
@@ -466,7 +466,7 @@ Defined in: [packages/core/src/widgets/element.ts:86](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_dragM`](widgets.textarea.Class.Textarea.md#_dragm)
 
-***
+---
 
 ### \_drag?
 
@@ -478,7 +478,7 @@ Defined in: [packages/core/src/widgets/element.ts:87](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_drag`](widgets.textarea.Class.Textarea.md#_drag)
 
-***
+---
 
 ### \_noFill?
 
@@ -490,7 +490,7 @@ Defined in: [packages/core/src/widgets/element.ts:88](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_noFill`](widgets.textarea.Class.Textarea.md#_nofill)
 
-***
+---
 
 ### \_isLabel?
 
@@ -502,7 +502,7 @@ Defined in: [packages/core/src/widgets/element.ts:89](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_isLabel`](widgets.textarea.Class.Textarea.md#_islabel)
 
-***
+---
 
 ### \_isList?
 
@@ -514,7 +514,7 @@ Defined in: [packages/core/src/widgets/element.ts:90](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_isList`](widgets.textarea.Class.Textarea.md#_islist)
 
-***
+---
 
 ### childBase?
 
@@ -526,7 +526,7 @@ Defined in: [packages/core/src/widgets/element.ts:91](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`childBase`](widgets.textarea.Class.Textarea.md#childbase)
 
-***
+---
 
 ### childOffset?
 
@@ -538,7 +538,7 @@ Defined in: [packages/core/src/widgets/element.ts:92](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`childOffset`](widgets.textarea.Class.Textarea.md#childoffset)
 
-***
+---
 
 ### alwaysScroll?
 
@@ -550,7 +550,7 @@ Defined in: [packages/core/src/widgets/element.ts:93](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`alwaysScroll`](widgets.textarea.Class.Textarea.md#alwaysscroll)
 
-***
+---
 
 ### baseLimit?
 
@@ -562,7 +562,7 @@ Defined in: [packages/core/src/widgets/element.ts:94](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`baseLimit`](widgets.textarea.Class.Textarea.md#baselimit)
 
-***
+---
 
 ### track?
 
@@ -574,7 +574,7 @@ Defined in: [packages/core/src/widgets/element.ts:95](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`track`](widgets.textarea.Class.Textarea.md#track)
 
-***
+---
 
 ### scrollbar?
 
@@ -586,7 +586,7 @@ Defined in: [packages/core/src/widgets/element.ts:96](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`scrollbar`](widgets.textarea.Class.Textarea.md#scrollbar)
 
-***
+---
 
 ### items?
 
@@ -598,7 +598,7 @@ Defined in: [packages/core/src/widgets/element.ts:97](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`items`](widgets.textarea.Class.Textarea.md#items)
 
-***
+---
 
 ### scroll()?
 
@@ -630,7 +630,7 @@ Force the scroll operation even if position hasn't changed
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`scroll`](widgets.textarea.Class.Textarea.md#scroll)
 
-***
+---
 
 ### scrollTo()?
 
@@ -662,7 +662,7 @@ Force the scroll operation even if position hasn't changed
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`scrollTo`](widgets.textarea.Class.Textarea.md#scrollto)
 
-***
+---
 
 ### setScroll()?
 
@@ -694,7 +694,7 @@ Force the scroll operation even if position hasn't changed
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setScroll`](widgets.textarea.Class.Textarea.md#setscroll)
 
-***
+---
 
 ### getScroll()?
 
@@ -714,7 +714,7 @@ The current absolute scroll position
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getScroll`](widgets.textarea.Class.Textarea.md#getscroll)
 
-***
+---
 
 ### getScrollHeight()?
 
@@ -734,7 +734,7 @@ The total scrollable content height in lines
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getScrollHeight`](widgets.textarea.Class.Textarea.md#getscrollheight)
 
-***
+---
 
 ### getScrollPerc()?
 
@@ -762,7 +762,7 @@ The scroll position as a percentage (0-100), or -1 if not scrollable
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getScrollPerc`](widgets.textarea.Class.Textarea.md#getscrollperc)
 
-***
+---
 
 ### setScrollPerc()?
 
@@ -788,7 +788,7 @@ The target scroll percentage (0-100)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setScrollPerc`](widgets.textarea.Class.Textarea.md#setscrollperc)
 
-***
+---
 
 ### resetScroll()?
 
@@ -806,7 +806,7 @@ Reset the scroll index to its initial state (top).
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`resetScroll`](widgets.textarea.Class.Textarea.md#resetscroll)
 
-***
+---
 
 ### \_scrollBottom()?
 
@@ -822,7 +822,7 @@ Defined in: [packages/core/src/widgets/element.ts:111](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_scrollBottom`](widgets.textarea.Class.Textarea.md#_scrollbottom)
 
-***
+---
 
 ### \_recalculateIndex()?
 
@@ -838,7 +838,7 @@ Defined in: [packages/core/src/widgets/element.ts:112](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_recalculateIndex`](widgets.textarea.Class.Textarea.md#_recalculateindex)
 
-***
+---
 
 ### keyable
 
@@ -850,7 +850,7 @@ Defined in: [packages/core/src/widgets/input.ts:18](https://github.com/vdeantoni
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`keyable`](widgets.textarea.Class.Textarea.md#keyable)
 
-***
+---
 
 ### uid
 
@@ -862,7 +862,7 @@ Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`uid`](widgets.textarea.Class.Textarea.md#uid)
 
-***
+---
 
 ### ScreenRegistry
 
@@ -874,7 +874,7 @@ Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`ScreenRegistry`](widgets.textarea.Class.Textarea.md#screenregistry)
 
-***
+---
 
 ### screen
 
@@ -893,7 +893,7 @@ render(), and the program property without complex generic typing.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`screen`](widgets.textarea.Class.Textarea.md#screen)
 
-***
+---
 
 ### parent
 
@@ -912,7 +912,7 @@ methods from subclasses like Box, List, Form, etc.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`parent`](widgets.textarea.Class.Textarea.md#parent)
 
-***
+---
 
 ### children
 
@@ -929,7 +929,7 @@ Kept as any[] to preserve flexibility with mixed widget types.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`children`](widgets.textarea.Class.Textarea.md#children)
 
-***
+---
 
 ### $
 
@@ -943,7 +943,7 @@ An object for any miscellaneous user data.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`$`](widgets.textarea.Class.Textarea.md#)
 
-***
+---
 
 ### \_
 
@@ -957,7 +957,7 @@ An object for any miscellaneous user data.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_`](widgets.textarea.Class.Textarea.md#_)
 
-***
+---
 
 ### data
 
@@ -971,7 +971,7 @@ An object for any miscellaneous user data.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`data`](widgets.textarea.Class.Textarea.md#data)
 
-***
+---
 
 ### uid
 
@@ -983,7 +983,7 @@ Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`uid`](widgets.textarea.Class.Textarea.md#uid-1)
 
-***
+---
 
 ### index
 
@@ -999,7 +999,7 @@ Set to -1 initially, updated during rendering.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`index`](widgets.textarea.Class.Textarea.md#index)
 
-***
+---
 
 ### detached?
 
@@ -1011,7 +1011,7 @@ Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`detached`](widgets.textarea.Class.Textarea.md#detached)
 
-***
+---
 
 ### destroyed?
 
@@ -1023,7 +1023,7 @@ Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`destroyed`](widgets.textarea.Class.Textarea.md#destroyed)
 
-***
+---
 
 ### runtime
 
@@ -1035,7 +1035,7 @@ Defined in: [packages/core/src/widgets/node.ts:90](https://github.com/vdeantoni/
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`runtime`](widgets.textarea.Class.Textarea.md#runtime)
 
-***
+---
 
 ### options
 
@@ -1047,7 +1047,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:24](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`options`](widgets.textarea.Class.Textarea.md#options)
 
-***
+---
 
 ### scrollable
 
@@ -1059,7 +1059,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:25](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`scrollable`](widgets.textarea.Class.Textarea.md#scrollable)
 
-***
+---
 
 ### \_\_updateCursor
 
@@ -1071,7 +1071,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:26](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`__updateCursor`](widgets.textarea.Class.Textarea.md#__updatecursor)
 
-***
+---
 
 ### \_\_listener
 
@@ -1083,7 +1083,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:27](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`__listener`](widgets.textarea.Class.Textarea.md#__listener)
 
-***
+---
 
 ### \_\_done
 
@@ -1095,7 +1095,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:28](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`__done`](widgets.textarea.Class.Textarea.md#__done)
 
-***
+---
 
 ### \_reading
 
@@ -1107,7 +1107,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:29](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_reading`](widgets.textarea.Class.Textarea.md#_reading)
 
-***
+---
 
 ### \_callback
 
@@ -1119,7 +1119,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:30](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_callback`](widgets.textarea.Class.Textarea.md#_callback)
 
-***
+---
 
 ### \_done
 
@@ -1131,7 +1131,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:31](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_done`](widgets.textarea.Class.Textarea.md#_done)
 
-***
+---
 
 ### \_value
 
@@ -1143,7 +1143,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:32](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_value`](widgets.textarea.Class.Textarea.md#_value)
 
-***
+---
 
 ### type
 
@@ -1158,7 +1158,7 @@ Used to identify the widget type at runtime.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`type`](widgets.textarea.Class.Textarea.md#type)
 
-***
+---
 
 ### secret
 
@@ -1172,10 +1172,10 @@ Useful for password fields.
 #### Default
 
 ```ts
-false
+false;
 ```
 
-***
+---
 
 ### censor
 
@@ -1189,7 +1189,7 @@ Useful for password fields with visual feedback.
 #### Default
 
 ```ts
-false
+false;
 ```
 
 ## Accessors
@@ -1210,7 +1210,7 @@ Defined in: [packages/core/src/widgets/element.ts:114](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`focused`](widgets.textarea.Class.Textarea.md#focused)
 
-***
+---
 
 ### visible
 
@@ -1228,7 +1228,7 @@ Defined in: [packages/core/src/widgets/element.ts:980](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`visible`](widgets.textarea.Class.Textarea.md#visible)
 
-***
+---
 
 ### \_detached
 
@@ -1246,7 +1246,7 @@ Defined in: [packages/core/src/widgets/element.ts:991](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_detached`](widgets.textarea.Class.Textarea.md#_detached)
 
-***
+---
 
 ### draggable
 
@@ -1280,7 +1280,7 @@ Defined in: [packages/core/src/widgets/element.ts:1028](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`draggable`](widgets.textarea.Class.Textarea.md#draggable)
 
-***
+---
 
 ### width
 
@@ -1316,7 +1316,7 @@ Position Setters
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`width`](widgets.textarea.Class.Textarea.md#width)
 
-***
+---
 
 ### height
 
@@ -1350,7 +1350,7 @@ Defined in: [packages/core/src/widgets/element.ts:1637](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`height`](widgets.textarea.Class.Textarea.md#height)
 
-***
+---
 
 ### aleft
 
@@ -1384,7 +1384,7 @@ Defined in: [packages/core/src/widgets/element.ts:1645](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`aleft`](widgets.textarea.Class.Textarea.md#aleft)
 
-***
+---
 
 ### aright
 
@@ -1418,7 +1418,7 @@ Defined in: [packages/core/src/widgets/element.ts:1666](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`aright`](widgets.textarea.Class.Textarea.md#aright)
 
-***
+---
 
 ### atop
 
@@ -1452,7 +1452,7 @@ Defined in: [packages/core/src/widgets/element.ts:1674](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`atop`](widgets.textarea.Class.Textarea.md#atop)
 
-***
+---
 
 ### abottom
 
@@ -1486,7 +1486,7 @@ Defined in: [packages/core/src/widgets/element.ts:1695](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`abottom`](widgets.textarea.Class.Textarea.md#abottom)
 
-***
+---
 
 ### rleft
 
@@ -1520,7 +1520,7 @@ Defined in: [packages/core/src/widgets/element.ts:1703](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`rleft`](widgets.textarea.Class.Textarea.md#rleft)
 
-***
+---
 
 ### rright
 
@@ -1554,7 +1554,7 @@ Defined in: [packages/core/src/widgets/element.ts:1711](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`rright`](widgets.textarea.Class.Textarea.md#rright)
 
-***
+---
 
 ### rtop
 
@@ -1588,7 +1588,7 @@ Defined in: [packages/core/src/widgets/element.ts:1718](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`rtop`](widgets.textarea.Class.Textarea.md#rtop)
 
-***
+---
 
 ### rbottom
 
@@ -1622,7 +1622,7 @@ Defined in: [packages/core/src/widgets/element.ts:1726](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`rbottom`](widgets.textarea.Class.Textarea.md#rbottom)
 
-***
+---
 
 ### ileft
 
@@ -1640,7 +1640,7 @@ Defined in: [packages/core/src/widgets/element.ts:1733](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`ileft`](widgets.textarea.Class.Textarea.md#ileft)
 
-***
+---
 
 ### itop
 
@@ -1658,7 +1658,7 @@ Defined in: [packages/core/src/widgets/element.ts:1738](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`itop`](widgets.textarea.Class.Textarea.md#itop)
 
-***
+---
 
 ### iright
 
@@ -1676,7 +1676,7 @@ Defined in: [packages/core/src/widgets/element.ts:1743](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`iright`](widgets.textarea.Class.Textarea.md#iright)
 
-***
+---
 
 ### ibottom
 
@@ -1694,7 +1694,7 @@ Defined in: [packages/core/src/widgets/element.ts:1748](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`ibottom`](widgets.textarea.Class.Textarea.md#ibottom)
 
-***
+---
 
 ### iwidth
 
@@ -1712,7 +1712,7 @@ Defined in: [packages/core/src/widgets/element.ts:1753](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`iwidth`](widgets.textarea.Class.Textarea.md#iwidth)
 
-***
+---
 
 ### iheight
 
@@ -1730,7 +1730,7 @@ Defined in: [packages/core/src/widgets/element.ts:1760](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`iheight`](widgets.textarea.Class.Textarea.md#iheight)
 
-***
+---
 
 ### tpadding
 
@@ -1748,7 +1748,7 @@ Defined in: [packages/core/src/widgets/element.ts:1767](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`tpadding`](widgets.textarea.Class.Textarea.md#tpadding)
 
-***
+---
 
 ### left
 
@@ -1784,7 +1784,7 @@ Defined in: [packages/core/src/widgets/element.ts:1796](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`left`](widgets.textarea.Class.Textarea.md#left)
 
-***
+---
 
 ### right
 
@@ -1818,7 +1818,7 @@ Defined in: [packages/core/src/widgets/element.ts:1800](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`right`](widgets.textarea.Class.Textarea.md#right)
 
-***
+---
 
 ### top
 
@@ -1852,7 +1852,7 @@ Defined in: [packages/core/src/widgets/element.ts:1804](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`top`](widgets.textarea.Class.Textarea.md#top)
 
-***
+---
 
 ### bottom
 
@@ -1886,7 +1886,7 @@ Defined in: [packages/core/src/widgets/element.ts:1808](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`bottom`](widgets.textarea.Class.Textarea.md#bottom)
 
-***
+---
 
 ### value
 
@@ -1929,7 +1929,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:45](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`value`](widgets.textarea.Class.Textarea.md#value)
 
-***
+---
 
 ### input
 
@@ -1945,7 +1945,7 @@ Alias for readInput. Grab key events and read text.
 
 ```ts
 textarea.input((err, value) => {
-  console.log('Input:', value);
+  console.log("Input:", value);
 });
 ```
 
@@ -1974,7 +1974,7 @@ Function called with (err, value) when input completes
 ```ts
 textarea.readInput((err, value) => {
   if (err) return console.error(err);
-  console.log('Input:', value);
+  console.log("Input:", value);
 });
 ```
 
@@ -1982,7 +1982,7 @@ textarea.readInput((err, value) => {
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`input`](widgets.textarea.Class.Textarea.md#input)
 
-***
+---
 
 ### setInput
 
@@ -1998,7 +1998,7 @@ Alias for readInput. Grab key events and read text.
 
 ```ts
 textarea.setInput((err, value) => {
-  console.log('Input:', value);
+  console.log("Input:", value);
 });
 ```
 
@@ -2027,7 +2027,7 @@ Function called with (err, value) when input completes
 ```ts
 textarea.readInput((err, value) => {
   if (err) return console.error(err);
-  console.log('Input:', value);
+  console.log("Input:", value);
 });
 ```
 
@@ -2035,7 +2035,7 @@ textarea.readInput((err, value) => {
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setInput`](widgets.textarea.Class.Textarea.md#setinput)
 
-***
+---
 
 ### clearInput
 
@@ -2075,7 +2075,7 @@ textarea.clearValue();
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`clearInput`](widgets.textarea.Class.Textarea.md#clearinput)
 
-***
+---
 
 ### editor
 
@@ -2091,7 +2091,7 @@ Alias for readEditor. Open $EDITOR to edit the textarea value.
 
 ```ts
 textarea.editor((err, value) => {
-  console.log('Edited:', value);
+  console.log("Edited:", value);
 });
 ```
 
@@ -2120,7 +2120,7 @@ Function called with (err, value) when editing completes
 ```ts
 textarea.readEditor((err, value) => {
   if (err) return console.error(err);
-  console.log('Edited value:', value);
+  console.log("Edited value:", value);
 });
 ```
 
@@ -2128,7 +2128,7 @@ textarea.readEditor((err, value) => {
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`editor`](widgets.textarea.Class.Textarea.md#editor)
 
-***
+---
 
 ### setEditor
 
@@ -2144,7 +2144,7 @@ Alias for readEditor. Open $EDITOR to edit the textarea value.
 
 ```ts
 textarea.setEditor((err, value) => {
-  console.log('Edited:', value);
+  console.log("Edited:", value);
 });
 ```
 
@@ -2173,7 +2173,7 @@ Function called with (err, value) when editing completes
 ```ts
 textarea.readEditor((err, value) => {
   if (err) return console.error(err);
-  console.log('Edited value:', value);
+  console.log("Edited value:", value);
 });
 ```
 
@@ -2203,7 +2203,7 @@ Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setMaxListeners`](widgets.textarea.Class.Textarea.md#setmaxlisteners)
 
-***
+---
 
 ### addListener()
 
@@ -2229,7 +2229,7 @@ Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`addListener`](widgets.textarea.Class.Textarea.md#addlistener)
 
-***
+---
 
 ### on()
 
@@ -2255,7 +2255,7 @@ Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`on`](widgets.textarea.Class.Textarea.md#on)
 
-***
+---
 
 ### removeListener()
 
@@ -2281,7 +2281,7 @@ Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`removeListener`](widgets.textarea.Class.Textarea.md#removelistener)
 
-***
+---
 
 ### off()
 
@@ -2307,7 +2307,7 @@ Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`off`](widgets.textarea.Class.Textarea.md#off)
 
-***
+---
 
 ### removeAllListeners()
 
@@ -2329,7 +2329,7 @@ Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`removeAllListeners`](widgets.textarea.Class.Textarea.md#removealllisteners)
 
-***
+---
 
 ### once()
 
@@ -2355,7 +2355,7 @@ Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`once`](widgets.textarea.Class.Textarea.md#once)
 
-***
+---
 
 ### listeners()
 
@@ -2377,7 +2377,7 @@ Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`listeners`](widgets.textarea.Class.Textarea.md#listeners)
 
-***
+---
 
 ### \_emit()
 
@@ -2403,7 +2403,7 @@ Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/un
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_emit`](widgets.textarea.Class.Textarea.md#_emit)
 
-***
+---
 
 ### emit()
 
@@ -2429,7 +2429,7 @@ Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/u
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`emit`](widgets.textarea.Class.Textarea.md#emit)
 
-***
+---
 
 ### sattr()
 
@@ -2459,7 +2459,7 @@ Defined in: [packages/core/src/widgets/element.ts:326](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`sattr`](widgets.textarea.Class.Textarea.md#sattr)
 
-***
+---
 
 ### onScreenEvent()
 
@@ -2492,7 +2492,7 @@ Event handler function
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`onScreenEvent`](widgets.textarea.Class.Textarea.md#onscreenevent)
 
-***
+---
 
 ### onceScreenEvent()
 
@@ -2524,7 +2524,7 @@ Event handler function
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`onceScreenEvent`](widgets.textarea.Class.Textarea.md#oncescreenevent)
 
-***
+---
 
 ### removeScreenEvent()
 
@@ -2557,7 +2557,7 @@ Event handler function
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`removeScreenEvent`](widgets.textarea.Class.Textarea.md#removescreenevent)
 
-***
+---
 
 ### free()
 
@@ -2577,7 +2577,7 @@ and destroy().
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`free`](widgets.textarea.Class.Textarea.md#free)
 
-***
+---
 
 ### hide()
 
@@ -2595,7 +2595,7 @@ Hide element.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`hide`](widgets.textarea.Class.Textarea.md#hide)
 
-***
+---
 
 ### show()
 
@@ -2613,7 +2613,7 @@ Show element.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`show`](widgets.textarea.Class.Textarea.md#show)
 
-***
+---
 
 ### toggle()
 
@@ -2631,7 +2631,7 @@ Toggle hidden/shown.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`toggle`](widgets.textarea.Class.Textarea.md#toggle)
 
-***
+---
 
 ### focus()
 
@@ -2649,7 +2649,7 @@ Focus element.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`focus`](widgets.textarea.Class.Textarea.md#focus)
 
-***
+---
 
 ### isFocusable()
 
@@ -2668,7 +2668,7 @@ Elements are focusable if they have tabIndex >= -1 and are visible/attached.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`isFocusable`](widgets.textarea.Class.Textarea.md#isfocusable)
 
-***
+---
 
 ### isInTabOrder()
 
@@ -2687,7 +2687,7 @@ Elements with tabIndex=-1 are focusable but excluded from Tab order.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`isInTabOrder`](widgets.textarea.Class.Textarea.md#isintaborder)
 
-***
+---
 
 ### getTabIndex()
 
@@ -2705,7 +2705,7 @@ Get effective tab index for focus navigation ordering.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getTabIndex`](widgets.textarea.Class.Textarea.md#gettabindex)
 
-***
+---
 
 ### setContent()
 
@@ -2739,7 +2739,7 @@ with SGR codes (if enabled).
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setContent`](widgets.textarea.Class.Textarea.md#setcontent)
 
-***
+---
 
 ### getContent()
 
@@ -2757,7 +2757,7 @@ Return content, slightly different from el.content. Assume the above formatting.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getContent`](widgets.textarea.Class.Textarea.md#getcontent)
 
-***
+---
 
 ### getBorderLength()
 
@@ -2777,7 +2777,7 @@ Number of border cells, or 0 if no border
 #### Example
 
 ```ts
-const box = new Box({ width: 20, height: 10, border: { type: 'line' } });
+const box = new Box({ width: 20, height: 10, border: { type: "line" } });
 console.log(box.getBorderLength()); // 56 (2 * (20 + 10) - 4)
 ```
 
@@ -2785,7 +2785,7 @@ console.log(box.getBorderLength()); // 56 (2 * (20 + 10) - 4)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getBorderLength`](widgets.textarea.Class.Textarea.md#getborderlength)
 
-***
+---
 
 ### getBorderColors()
 
@@ -2814,7 +2814,7 @@ box.setBorderColors(rotated);
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getBorderColors`](widgets.textarea.Class.Textarea.md#getbordercolors)
 
-***
+---
 
 ### setBorderColors()
 
@@ -2858,7 +2858,7 @@ setInterval(() => {
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setBorderColors`](widgets.textarea.Class.Textarea.md#setbordercolors)
 
-***
+---
 
 ### setText()
 
@@ -2886,7 +2886,7 @@ Similar to setContent, but ignore tags and remove escape codes.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setText`](widgets.textarea.Class.Textarea.md#settext)
 
-***
+---
 
 ### getText()
 
@@ -2904,7 +2904,7 @@ Similar to getContent, but return content with tags and escape codes removed.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getText`](widgets.textarea.Class.Textarea.md#gettext)
 
-***
+---
 
 ### parseContent()
 
@@ -2926,7 +2926,7 @@ Defined in: [packages/core/src/widgets/element.ts:577](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`parseContent`](widgets.textarea.Class.Textarea.md#parsecontent)
 
-***
+---
 
 ### \_parseTags()
 
@@ -2948,7 +2948,7 @@ Defined in: [packages/core/src/widgets/element.ts:644](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_parseTags`](widgets.textarea.Class.Textarea.md#_parsetags)
 
-***
+---
 
 ### \_parseAttr()
 
@@ -2970,7 +2970,7 @@ Defined in: [packages/core/src/widgets/element.ts:749](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_parseAttr`](widgets.textarea.Class.Textarea.md#_parseattr)
 
-***
+---
 
 ### \_align()
 
@@ -3000,7 +3000,7 @@ Defined in: [packages/core/src/widgets/element.ts:778](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_align`](widgets.textarea.Class.Textarea.md#_align)
 
-***
+---
 
 ### \_wrapContent()
 
@@ -3026,7 +3026,7 @@ Defined in: [packages/core/src/widgets/element.ts:810](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_wrapContent`](widgets.textarea.Class.Textarea.md#_wrapcontent)
 
-***
+---
 
 ### enableMouse()
 
@@ -3045,7 +3045,7 @@ Registers the element as clickable with the screen.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`enableMouse`](widgets.textarea.Class.Textarea.md#enablemouse)
 
-***
+---
 
 ### enableKeys()
 
@@ -3064,7 +3064,7 @@ Registers the element as keyable with the screen.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`enableKeys`](widgets.textarea.Class.Textarea.md#enablekeys)
 
-***
+---
 
 ### enableInput()
 
@@ -3082,7 +3082,7 @@ Enable key and mouse events. Calls both enableMouse() and enableKeys().
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`enableInput`](widgets.textarea.Class.Textarea.md#enableinput)
 
-***
+---
 
 ### enableDrag()
 
@@ -3111,7 +3111,7 @@ True if dragging was enabled
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`enableDrag`](widgets.textarea.Class.Textarea.md#enabledrag)
 
-***
+---
 
 ### disableDrag()
 
@@ -3132,7 +3132,7 @@ True if dragging was disabled
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`disableDrag`](widgets.textarea.Class.Textarea.md#disabledrag)
 
-***
+---
 
 ### key()
 
@@ -3160,7 +3160,7 @@ The bound key handler
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`key`](widgets.textarea.Class.Textarea.md#key)
 
-***
+---
 
 ### onceKey()
 
@@ -3188,7 +3188,7 @@ The bound key handler
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`onceKey`](widgets.textarea.Class.Textarea.md#oncekey)
 
-***
+---
 
 ### unkey()
 
@@ -3216,7 +3216,7 @@ Result of unbinding
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`unkey`](widgets.textarea.Class.Textarea.md#unkey)
 
-***
+---
 
 ### removeKey()
 
@@ -3245,7 +3245,7 @@ Result of removing
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`removeKey`](widgets.textarea.Class.Textarea.md#removekey)
 
-***
+---
 
 ### setIndex()
 
@@ -3272,7 +3272,7 @@ New z-index value
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setIndex`](widgets.textarea.Class.Textarea.md#setindex)
 
-***
+---
 
 ### setFront()
 
@@ -3291,7 +3291,7 @@ Sets the element's z-index to the highest value (renders last/on top).
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setFront`](widgets.textarea.Class.Textarea.md#setfront)
 
-***
+---
 
 ### setBack()
 
@@ -3310,7 +3310,7 @@ Sets the element's z-index to the lowest value (renders first/at bottom).
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setBack`](widgets.textarea.Class.Textarea.md#setback)
 
-***
+---
 
 ### clearPos()
 
@@ -3327,7 +3327,7 @@ Fills the region with spaces, used when moving or hiding elements.
 
 `boolean`
 
-Whether to use _getCoords (default: false)
+Whether to use \_getCoords (default: false)
 
 ##### override?
 
@@ -3343,7 +3343,7 @@ If true, always clear even if cell hasn't changed
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`clearPos`](widgets.textarea.Class.Textarea.md#clearpos)
 
-***
+---
 
 ### setLabel()
 
@@ -3369,15 +3369,15 @@ Label text (string) or options object with text and side properties
 #### Example
 
 ```ts
-element.setLabel('My Label');
-element.setLabel({ text: 'My Label', side: 'right' });
+element.setLabel("My Label");
+element.setLabel({ text: "My Label", side: "right" });
 ```
 
 #### Inherited from
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setLabel`](widgets.textarea.Class.Textarea.md#setlabel)
 
-***
+---
 
 ### removeLabel()
 
@@ -3396,7 +3396,7 @@ Detaches the label element and removes associated event listeners.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`removeLabel`](widgets.textarea.Class.Textarea.md#removelabel)
 
-***
+---
 
 ### setHover()
 
@@ -3421,15 +3421,15 @@ Hover text (string) or options object with text property
 #### Example
 
 ```ts
-element.setHover('Hover text here');
-element.setHover({ text: 'Hover text here' });
+element.setHover("Hover text here");
+element.setHover({ text: "Hover text here" });
 ```
 
 #### Inherited from
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setHover`](widgets.textarea.Class.Textarea.md#sethover)
 
-***
+---
 
 ### removeHover()
 
@@ -3448,7 +3448,7 @@ Detaches the hover text box if it's currently displayed.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`removeHover`](widgets.textarea.Class.Textarea.md#removehover)
 
-***
+---
 
 ### \_getPos()
 
@@ -3466,7 +3466,7 @@ Positioning
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getPos`](widgets.textarea.Class.Textarea.md#_getpos)
 
-***
+---
 
 ### \_getWidth()
 
@@ -3490,7 +3490,7 @@ Position Getters
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getWidth`](widgets.textarea.Class.Textarea.md#_getwidth)
 
-***
+---
 
 ### \_getHeight()
 
@@ -3512,7 +3512,7 @@ Defined in: [packages/core/src/widgets/element.ts:1429](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getHeight`](widgets.textarea.Class.Textarea.md#_getheight)
 
-***
+---
 
 ### \_getLeft()
 
@@ -3534,7 +3534,7 @@ Defined in: [packages/core/src/widgets/element.ts:1480](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getLeft`](widgets.textarea.Class.Textarea.md#_getleft)
 
-***
+---
 
 ### \_getRight()
 
@@ -3556,7 +3556,7 @@ Defined in: [packages/core/src/widgets/element.ts:1517](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getRight`](widgets.textarea.Class.Textarea.md#_getright)
 
-***
+---
 
 ### \_getTop()
 
@@ -3578,7 +3578,7 @@ Defined in: [packages/core/src/widgets/element.ts:1542](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getTop`](widgets.textarea.Class.Textarea.md#_gettop)
 
-***
+---
 
 ### \_getBottom()
 
@@ -3600,7 +3600,7 @@ Defined in: [packages/core/src/widgets/element.ts:1579](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getBottom`](widgets.textarea.Class.Textarea.md#_getbottom)
 
-***
+---
 
 ### \_getShrinkBox()
 
@@ -3640,7 +3640,7 @@ Rendering - here be dragons
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getShrinkBox`](widgets.textarea.Class.Textarea.md#_getshrinkbox)
 
-***
+---
 
 ### \_getShrinkContent()
 
@@ -3678,7 +3678,7 @@ Defined in: [packages/core/src/widgets/element.ts:1967](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getShrinkContent`](widgets.textarea.Class.Textarea.md#_getshrinkcontent)
 
-***
+---
 
 ### \_getShrink()
 
@@ -3716,7 +3716,7 @@ Defined in: [packages/core/src/widgets/element.ts:2003](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getShrink`](widgets.textarea.Class.Textarea.md#_getshrink)
 
-***
+---
 
 ### \_getCoords()
 
@@ -3742,13 +3742,13 @@ Defined in: [packages/core/src/widgets/element.ts:2048](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_getCoords`](widgets.textarea.Class.Textarea.md#_getcoords)
 
-***
+---
 
 ### \_render()
 
 > **\_render**(): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:2871](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2871)
+Defined in: [packages/core/src/widgets/element.ts:2879](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2879)
 
 Internal alias for render().
 
@@ -3762,13 +3762,13 @@ Rendered coordinates object
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_render`](widgets.textarea.Class.Textarea.md#_render)
 
-***
+---
 
 ### insertLine()
 
 > **insertLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2885](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2885)
+Defined in: [packages/core/src/widgets/element.ts:2893](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2893)
 
 Insert a line into the box's content.
 Handles wrapped content by inserting at the specified fake line index.
@@ -3795,13 +3795,13 @@ Line or array of lines to insert
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`insertLine`](widgets.textarea.Class.Textarea.md#insertline)
 
-***
+---
 
 ### deleteLine()
 
 > **deleteLine**(`i`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2946](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2946)
+Defined in: [packages/core/src/widgets/element.ts:2954](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2954)
 
 Delete a line from the box's content.
 Handles wrapped content by deleting at the specified fake line index.
@@ -3828,13 +3828,13 @@ Number of lines to delete (default: 1)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`deleteLine`](widgets.textarea.Class.Textarea.md#deleteline)
 
-***
+---
 
 ### insertTop()
 
 > **insertTop**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3002](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3002)
+Defined in: [packages/core/src/widgets/element.ts:3010](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3010)
 
 Insert a line at the top of the box.
 Inserts at the first visible line based on childBase.
@@ -3855,13 +3855,13 @@ Line or array of lines to insert
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`insertTop`](widgets.textarea.Class.Textarea.md#inserttop)
 
-***
+---
 
 ### insertBottom()
 
 > **insertBottom**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3012](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3012)
+Defined in: [packages/core/src/widgets/element.ts:3020](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3020)
 
 Insert a line at the bottom of the box.
 Inserts after the last visible line based on height and childBase.
@@ -3882,13 +3882,13 @@ Line or array of lines to insert
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`insertBottom`](widgets.textarea.Class.Textarea.md#insertbottom)
 
-***
+---
 
 ### deleteTop()
 
 > **deleteTop**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3025](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3025)
+Defined in: [packages/core/src/widgets/element.ts:3033](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3033)
 
 Delete a line at the top of the box.
 Deletes from the first visible line based on childBase.
@@ -3909,13 +3909,13 @@ Number of lines to delete (default: 1)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`deleteTop`](widgets.textarea.Class.Textarea.md#deletetop)
 
-***
+---
 
 ### deleteBottom()
 
 > **deleteBottom**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3035](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3035)
+Defined in: [packages/core/src/widgets/element.ts:3043](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3043)
 
 Delete a line at the bottom of the box.
 Deletes from the last visible line based on height and childBase.
@@ -3936,13 +3936,13 @@ Number of lines to delete (default: 1)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`deleteBottom`](widgets.textarea.Class.Textarea.md#deletebottom)
 
-***
+---
 
 ### setLine()
 
 > **setLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3050](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3050)
+Defined in: [packages/core/src/widgets/element.ts:3058](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3058)
 
 Set a line in the box's content.
 
@@ -3968,13 +3968,13 @@ Line content to set
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setLine`](widgets.textarea.Class.Textarea.md#setline)
 
-***
+---
 
 ### setBaseLine()
 
 > **setBaseLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3064](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3064)
+Defined in: [packages/core/src/widgets/element.ts:3072](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3072)
 
 Set a line in the box's content from the visible top.
 
@@ -4000,13 +4000,13 @@ Line content to set
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setBaseLine`](widgets.textarea.Class.Textarea.md#setbaseline)
 
-***
+---
 
 ### getLine()
 
 > **getLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3074](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3074)
+Defined in: [packages/core/src/widgets/element.ts:3082](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3082)
 
 Get a line from the box's content.
 
@@ -4028,13 +4028,13 @@ Line content
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getLine`](widgets.textarea.Class.Textarea.md#getline)
 
-***
+---
 
 ### getBaseLine()
 
 > **getBaseLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3085](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3085)
+Defined in: [packages/core/src/widgets/element.ts:3093](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3093)
 
 Get a line from the box's content from the visible top.
 
@@ -4056,13 +4056,13 @@ Line content
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getBaseLine`](widgets.textarea.Class.Textarea.md#getbaseline)
 
-***
+---
 
 ### clearLine()
 
 > **clearLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3094](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3094)
+Defined in: [packages/core/src/widgets/element.ts:3102](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3102)
 
 Clear a line from the box's content.
 
@@ -4082,13 +4082,13 @@ Line index to clear (fake line number)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`clearLine`](widgets.textarea.Class.Textarea.md#clearline)
 
-***
+---
 
 ### clearBaseLine()
 
 > **clearBaseLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3103](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3103)
+Defined in: [packages/core/src/widgets/element.ts:3111](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3111)
 
 Clear a line from the box's content from the visible top.
 
@@ -4108,13 +4108,13 @@ Line offset from visible top
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`clearBaseLine`](widgets.textarea.Class.Textarea.md#clearbaseline)
 
-***
+---
 
 ### unshiftLine()
 
 > **unshiftLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3112](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3112)
+Defined in: [packages/core/src/widgets/element.ts:3120](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3120)
 
 Unshift a line onto the top of the content.
 
@@ -4134,13 +4134,13 @@ Line or array of lines to insert
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`unshiftLine`](widgets.textarea.Class.Textarea.md#unshiftline)
 
-***
+---
 
 ### shiftLine()
 
 > **shiftLine**(`i?`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3121](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3121)
+Defined in: [packages/core/src/widgets/element.ts:3129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3129)
 
 Shift a line off the top of the content.
 
@@ -4166,13 +4166,13 @@ Number of lines to remove (default: 1)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`shiftLine`](widgets.textarea.Class.Textarea.md#shiftline)
 
-***
+---
 
 ### pushLine()
 
 > **pushLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3129)
+Defined in: [packages/core/src/widgets/element.ts:3137](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3137)
 
 Push a line onto the bottom of the content.
 
@@ -4192,13 +4192,13 @@ Line or array of lines to insert
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`pushLine`](widgets.textarea.Class.Textarea.md#pushline)
 
-***
+---
 
 ### popLine()
 
 > **popLine**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3138](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3138)
+Defined in: [packages/core/src/widgets/element.ts:3146](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3146)
 
 Pop a line off the bottom of the content.
 
@@ -4218,13 +4218,13 @@ Number of lines to remove (default: 1)
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`popLine`](widgets.textarea.Class.Textarea.md#popline)
 
-***
+---
 
 ### getLines()
 
 > **getLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:3146](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3146)
+Defined in: [packages/core/src/widgets/element.ts:3154](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3154)
 
 An array containing the content lines.
 
@@ -4238,13 +4238,13 @@ Array of fake (unwrapped) lines
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getLines`](widgets.textarea.Class.Textarea.md#getlines)
 
-***
+---
 
 ### getScreenLines()
 
 > **getScreenLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:3154](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3154)
+Defined in: [packages/core/src/widgets/element.ts:3162](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3162)
 
 An array containing the lines as they are displayed on the screen.
 
@@ -4258,13 +4258,13 @@ Array of real (wrapped) lines
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getScreenLines`](widgets.textarea.Class.Textarea.md#getscreenlines)
 
-***
+---
 
 ### strWidth()
 
 > **strWidth**(`text`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:3164](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3164)
+Defined in: [packages/core/src/widgets/element.ts:3172](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3172)
 
 Get a string's displayed width, taking into account double-width, surrogate pairs,
 combining characters, tags, and SGR escape codes.
@@ -4287,13 +4287,13 @@ Displayed width in cells
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`strWidth`](widgets.textarea.Class.Textarea.md#strwidth)
 
-***
+---
 
 ### screenshot()
 
 > **screenshot**(`xi?`, `xl?`, `yi?`, `yl?`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3180](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3180)
+Defined in: [packages/core/src/widgets/element.ts:3188](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3188)
 
 Take an SGR screenshot of the element within the region. Returns a string containing only
 characters and SGR codes. Can be displayed by simply echoing it in a terminal.
@@ -4334,7 +4334,7 @@ SGR-encoded screenshot string
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`screenshot`](widgets.textarea.Class.Textarea.md#screenshot)
 
-***
+---
 
 ### insert()
 
@@ -4362,7 +4362,7 @@ Insert a node to this node's children at index i.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`insert`](widgets.textarea.Class.Textarea.md#insert)
 
-***
+---
 
 ### prepend()
 
@@ -4386,7 +4386,7 @@ Prepend a node to this node's children.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`prepend`](widgets.textarea.Class.Textarea.md#prepend)
 
-***
+---
 
 ### append()
 
@@ -4410,7 +4410,7 @@ Append a node to this node's children.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`append`](widgets.textarea.Class.Textarea.md#append)
 
-***
+---
 
 ### insertBefore()
 
@@ -4438,7 +4438,7 @@ Insert a node to this node's children before the reference node.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`insertBefore`](widgets.textarea.Class.Textarea.md#insertbefore)
 
-***
+---
 
 ### insertAfter()
 
@@ -4466,7 +4466,7 @@ Insert a node from node after the reference node.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`insertAfter`](widgets.textarea.Class.Textarea.md#insertafter)
 
-***
+---
 
 ### remove()
 
@@ -4490,7 +4490,7 @@ Remove child node from node.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`remove`](widgets.textarea.Class.Textarea.md#remove)
 
-***
+---
 
 ### detach()
 
@@ -4508,7 +4508,7 @@ Remove node from its parent.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`detach`](widgets.textarea.Class.Textarea.md#detach)
 
-***
+---
 
 ### destroy()
 
@@ -4527,7 +4527,7 @@ events to prevent memory leaks. For use with onScreenEvent(), removeScreenEvent(
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`destroy`](widgets.textarea.Class.Textarea.md#destroy)
 
-***
+---
 
 ### forDescendants()
 
@@ -4555,7 +4555,7 @@ Iterate over all descendants, calling iter(el) for each.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`forDescendants`](widgets.textarea.Class.Textarea.md#fordescendants)
 
-***
+---
 
 ### forAncestors()
 
@@ -4583,7 +4583,7 @@ Iterate over all ancestors, calling iter(el) for each.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`forAncestors`](widgets.textarea.Class.Textarea.md#forancestors)
 
-***
+---
 
 ### collectDescendants()
 
@@ -4607,7 +4607,7 @@ Collect all descendants into an array.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`collectDescendants`](widgets.textarea.Class.Textarea.md#collectdescendants)
 
-***
+---
 
 ### collectAncestors()
 
@@ -4631,7 +4631,7 @@ Collect all ancestors into an array.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`collectAncestors`](widgets.textarea.Class.Textarea.md#collectancestors)
 
-***
+---
 
 ### emitDescendants()
 
@@ -4655,7 +4655,7 @@ Emit event for element, and recursively emit same event for all descendants.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`emitDescendants`](widgets.textarea.Class.Textarea.md#emitdescendants)
 
-***
+---
 
 ### emitAncestors()
 
@@ -4679,7 +4679,7 @@ Emit event for element, and recursively emit same event for all ancestors.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`emitAncestors`](widgets.textarea.Class.Textarea.md#emitancestors)
 
-***
+---
 
 ### hasDescendant()
 
@@ -4703,7 +4703,7 @@ Check if target is a descendant of this node.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`hasDescendant`](widgets.textarea.Class.Textarea.md#hasdescendant)
 
-***
+---
 
 ### hasAncestor()
 
@@ -4727,7 +4727,7 @@ Check if target is an ancestor of this node.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`hasAncestor`](widgets.textarea.Class.Textarea.md#hasancestor)
 
-***
+---
 
 ### get()
 
@@ -4755,7 +4755,7 @@ Get user property with a potential default value.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`get`](widgets.textarea.Class.Textarea.md#get)
 
-***
+---
 
 ### set()
 
@@ -4783,7 +4783,7 @@ Set user property to value.
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`set`](widgets.textarea.Class.Textarea.md#set)
 
-***
+---
 
 ### \_updateCursor()
 
@@ -4805,7 +4805,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:95](https://github.com/vdeant
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_updateCursor`](widgets.textarea.Class.Textarea.md#_updatecursor)
 
-***
+---
 
 ### readInput()
 
@@ -4834,7 +4834,7 @@ Function called with (err, value) when input completes
 ```ts
 textarea.readInput((err, value) => {
   if (err) return console.error(err);
-  console.log('Input:', value);
+  console.log("Input:", value);
 });
 ```
 
@@ -4842,7 +4842,7 @@ textarea.readInput((err, value) => {
 
 `Textarea.readInput`
 
-***
+---
 
 ### \_typeScroll()
 
@@ -4858,7 +4858,7 @@ Defined in: [packages/core/src/widgets/textarea.ts:323](https://github.com/vdean
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_typeScroll`](widgets.textarea.Class.Textarea.md#_typescroll)
 
-***
+---
 
 ### getValue()
 
@@ -4885,7 +4885,7 @@ const text = textarea.getValue();
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`getValue`](widgets.textarea.Class.Textarea.md#getvalue)
 
-***
+---
 
 ### clearValue()
 
@@ -4911,7 +4911,7 @@ textarea.clearValue();
 
 `Textarea.clearValue`
 
-***
+---
 
 ### cancel()
 
@@ -4936,7 +4936,7 @@ textarea.cancel();
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`cancel`](widgets.textarea.Class.Textarea.md#cancel)
 
-***
+---
 
 ### render()
 
@@ -4958,7 +4958,7 @@ Rendered coordinates object, or undefined if hidden/invalid
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`render`](widgets.textarea.Class.Textarea.md#render)
 
-***
+---
 
 ### readEditor()
 
@@ -4987,7 +4987,7 @@ Function called with (err, value) when editing completes
 ```ts
 textarea.readEditor((err, value) => {
   if (err) return console.error(err);
-  console.log('Edited value:', value);
+  console.log("Edited value:", value);
 });
 ```
 
@@ -4995,7 +4995,7 @@ textarea.readEditor((err, value) => {
 
 `Textarea.readEditor`
 
-***
+---
 
 ### \_listener()
 
@@ -5021,7 +5021,7 @@ Defined in: [packages/core/src/widgets/textbox.ts:71](https://github.com/vdeanto
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`_listener`](widgets.textarea.Class.Textarea.md#_listener)
 
-***
+---
 
 ### setValue()
 
@@ -5047,14 +5047,14 @@ New value to set (defaults to current value if omitted)
 #### Example
 
 ```ts
-textarea.setValue('New text content');
+textarea.setValue("New text content");
 ```
 
 #### Overrides
 
 [`Textarea`](widgets.textarea.Class.Textarea.md).[`setValue`](widgets.textarea.Class.Textarea.md#setvalue)
 
-***
+---
 
 ### submit()
 

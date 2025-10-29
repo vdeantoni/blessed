@@ -9,7 +9,7 @@
  *   node examples/form-submit.ts
  */
 
-import { Screen, Box, Form, Textbox, Button, List } from "../dist/index.js";
+import { Box, Button, Form, List, Screen, Textbox } from "../dist/index.js";
 
 const screen = new Screen({
   smartCSR: true,

@@ -15,7 +15,7 @@ unblessed provides a flexible widget system that you can extend to create custom
 ### Basic Custom Widget
 
 ```typescript
-import { Box, type BoxOptions } from '@unblessed/node';
+import { Box, type BoxOptions } from "@unblessed/node";
 
 interface StatusBarOptions extends BoxOptions {
   status?: string;
@@ -28,23 +28,23 @@ export class StatusBar extends Box {
   private interval?: NodeJS.Timeout;
 
   constructor(options: StatusBarOptions = {}) {
-    const { status = 'Ready', showClock = true, ...opts } = options;
+    const { status = "Ready", showClock = true, ...opts } = options;
 
     super({
       ...opts,
       bottom: 0,
       left: 0,
-      width: '100%',
+      width: "100%",
       height: 3,
       style: {
-        bg: 'blue',
-        fg: 'white',
-        ...opts.style
+        bg: "blue",
+        fg: "white",
+        ...opts.style,
       },
-      tags: true
+      tags: true,
     });
 
-    this.type = 'statusbar';
+    this.type = "statusbar";
     this.status = status;
     this.showClock = showClock;
 
@@ -58,13 +58,9 @@ export class StatusBar extends Box {
   }
 
   private updateContent() {
-    const time = this.showClock
-      ? new Date().toLocaleTimeString()
-      : '';
+    const time = this.showClock ? new Date().toLocaleTimeString() : "";
 
-    this.setContent(
-      `{left}  ${this.status}{/left}{right}${time}  {/right}`
-    );
+    this.setContent(`{left}  ${this.status}{/left}{right}${time}  {/right}`);
   }
 
   start() {
@@ -92,12 +88,12 @@ export class StatusBar extends Box {
 // Usage
 const statusBar = new StatusBar({
   parent: screen,
-  status: 'Loading...',
-  showClock: true
+  status: "Loading...",
+  showClock: true,
 });
 
 statusBar.start();
-statusBar.setStatus('Ready!');
+statusBar.setStatus("Ready!");
 ```
 
 ## Widget Hierarchy
@@ -144,12 +140,12 @@ class Badge extends Box {
 Use TypeScript interfaces to define widget-specific options:
 
 ```typescript
-import { Box, type BoxOptions } from '@unblessed/node';
+import { Box, type BoxOptions } from "@unblessed/node";
 
 // Extend BoxOptions for type safety
 export interface BadgeOptions extends BoxOptions {
   value?: number;
-  color?: 'red' | 'green' | 'blue' | 'yellow';
+  color?: "red" | "green" | "blue" | "yellow";
   pulse?: boolean;
 }
 
@@ -160,22 +156,17 @@ export class Badge extends Box {
 
   constructor(options: BadgeOptions = {}) {
     // Extract custom options with defaults
-    const {
-      value = 0,
-      color = 'blue',
-      pulse = false,
-      ...boxOptions
-    } = options;
+    const { value = 0, color = "blue", pulse = false, ...boxOptions } = options;
 
     // Pass remaining options to parent
     super({
       ...boxOptions,
       width: 10,
       height: 3,
-      tags: true
+      tags: true,
     });
 
-    this.type = 'badge';
+    this.type = "badge";
     this._value = value;
     this.color = color;
     this.pulse = pulse;
@@ -195,10 +186,8 @@ export class Badge extends Box {
 
   private updateDisplay() {
     const colorTag = `{${this.color}-fg}`;
-    const bold = this.pulse ? '{bold}' : '';
-    this.setContent(
-      `{center}${bold}${colorTag}${this._value}{/}{/}{/center}`
-    );
+    const bold = this.pulse ? "{bold}" : "";
+    this.setContent(`{center}${bold}${colorTag}${this._value}{/}{/}{/center}`);
   }
 }
 
@@ -208,11 +197,11 @@ const badge = new Badge({
   top: 0,
   right: 0,
   value: 5,
-  color: 'red',
-  pulse: true
+  color: "red",
+  pulse: true,
 });
 
-badge.value = 10;  // Update value
+badge.value = 10; // Update value
 ```
 
 ## Custom Rendering
@@ -229,14 +218,14 @@ export class ProgressRing extends Element {
 
   constructor(options: ProgressRingOptions = {}) {
     super(options);
-    this.type = 'progress-ring';
+    this.type = "progress-ring";
     this.radius = options.radius || 10;
     this.thickness = options.thickness || 2;
   }
 
   setProgress(value: number) {
     this.progress = Math.max(0, Math.min(100, value));
-    this.emit('progress', this.progress);
+    this.emit("progress", this.progress);
     this.screen?.render();
   }
 
@@ -262,7 +251,7 @@ export class ProgressRing extends Element {
           distance <= this.radius
         ) {
           const angle = (Math.atan2(dy, dx) + Math.PI) / (2 * Math.PI);
-          const char = angle * 100 <= this.progress ? '█' : '░';
+          const char = angle * 100 <= this.progress ? "█" : "░";
 
           this.screen!.program.move(x, y);
           this.screen!.program.write(char);
@@ -276,7 +265,7 @@ export class ProgressRing extends Element {
 }
 ```
 
-### Using _render for Element Content
+### Using \_render for Element Content
 
 ```typescript
 export class Graph extends Element {
@@ -297,7 +286,7 @@ export class Graph extends Element {
 
     // Normalize data to height
     const max = Math.max(...this.data);
-    const normalized = this.data.map(v => (v / max) * height);
+    const normalized = this.data.map((v) => (v / max) * height);
 
     // Draw graph
     for (let i = 0; i < Math.min(this.data.length, width); i++) {
@@ -306,7 +295,7 @@ export class Graph extends Element {
 
       for (let j = 0; j < barHeight; j++) {
         const y = yl - j - 1;
-        this.screen!.draw.set(y, x, '█');
+        this.screen!.draw.set(y, x, "█");
       }
     }
 
@@ -327,14 +316,14 @@ export class Tabs extends Box {
 
   constructor(options: TabsOptions = {}) {
     super(options);
-    this.type = 'tabs';
+    this.type = "tabs";
     this.tabs = options.tabs || [];
     this.createTabs();
   }
 
   private createTabs() {
     // Clean up old tabs
-    this.tabWidgets.forEach(t => t.destroy());
+    this.tabWidgets.forEach((t) => t.destroy());
     this.tabWidgets = [];
 
     const tabWidth = Math.floor(100 / this.tabs.length);
@@ -349,13 +338,13 @@ export class Tabs extends Box {
         content: `{center}${label}{/center}`,
         tags: true,
         style: {
-          bg: index === this.activeIndex ? 'blue' : 'black',
-          fg: 'white'
+          bg: index === this.activeIndex ? "blue" : "black",
+          fg: "white",
         },
-        mouse: true
+        mouse: true,
       });
 
-      tab.on('click', () => {
+      tab.on("click", () => {
         this.setActiveTab(index);
       });
 
@@ -371,13 +360,13 @@ export class Tabs extends Box {
 
     // Update tab styles
     this.tabWidgets.forEach((tab, i) => {
-      tab.style.bg = i === index ? 'blue' : 'black';
+      tab.style.bg = i === index ? "blue" : "black";
     });
 
-    this.emit('tab-change', {
+    this.emit("tab-change", {
       oldIndex,
       newIndex: index,
-      label: this.tabs[index]
+      label: this.tabs[index],
     });
 
     this.screen?.render();
@@ -412,17 +401,17 @@ const tabs = new Tabs({
   parent: screen,
   top: 0,
   left: 0,
-  width: '100%',
+  width: "100%",
   height: 3,
-  tabs: ['Home', 'Profile', 'Settings']
+  tabs: ["Home", "Profile", "Settings"],
 });
 
-tabs.on('tab-change', ({ newIndex, label }) => {
+tabs.on("tab-change", ({ newIndex, label }) => {
   console.log(`Switched to ${label} tab`);
 });
 
-tabs.setActiveTab(1);  // Switch to Profile
-tabs.addTab('Help');   // Add new tab
+tabs.setActiveTab(1); // Switch to Profile
+tabs.addTab("Help"); // Add new tab
 ```
 
 ### Reactive Properties
@@ -434,11 +423,11 @@ export class Counter extends Box {
   constructor(options: CounterOptions = {}) {
     super({
       ...options,
-      tags: true
+      tags: true,
     });
 
     this._count = options.initialCount || 0;
-    this.type = 'counter';
+    this.type = "counter";
     this.updateDisplay();
   }
 
@@ -453,7 +442,7 @@ export class Counter extends Box {
     this._count = value;
 
     // Emit event
-    this.emit('change', { oldValue, newValue: value });
+    this.emit("change", { oldValue, newValue: value });
 
     // Update display
     this.updateDisplay();
@@ -475,23 +464,21 @@ export class Counter extends Box {
   }
 
   private updateDisplay() {
-    this.setContent(
-      `{center}{bold}Count: ${this._count}{/bold}{/center}`
-    );
+    this.setContent(`{center}{bold}Count: ${this._count}{/bold}{/center}`);
   }
 }
 
 // Usage
 const counter = new Counter({
   parent: screen,
-  initialCount: 0
+  initialCount: 0,
 });
 
-counter.on('change', ({ oldValue, newValue }) => {
+counter.on("change", ({ oldValue, newValue }) => {
   console.log(`Count changed: ${oldValue} → ${newValue}`);
 });
 
-counter.increment();  // Count: 1
+counter.increment(); // Count: 1
 ```
 
 ## Event Handling
@@ -500,7 +487,7 @@ counter.increment();  // Count: 1
 
 ```typescript
 export class LoadingSpinner extends Box {
-  private frames = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏'];
+  private frames = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
   private currentFrame = 0;
   private interval?: NodeJS.Timeout;
   private isLoading = false;
@@ -510,10 +497,10 @@ export class LoadingSpinner extends Box {
       ...options,
       width: 5,
       height: 3,
-      tags: true
+      tags: true,
     });
 
-    this.type = 'spinner';
+    this.type = "spinner";
     this.updateFrame();
   }
 
@@ -521,12 +508,12 @@ export class LoadingSpinner extends Box {
     if (this.isLoading) return;
 
     this.isLoading = true;
-    this.emit('start');  // Custom event
+    this.emit("start"); // Custom event
 
     this.interval = setInterval(() => {
       this.currentFrame = (this.currentFrame + 1) % this.frames.length;
       this.updateFrame();
-      this.emit('tick', this.currentFrame);  // Custom event
+      this.emit("tick", this.currentFrame); // Custom event
       this.screen?.render();
     }, 80);
   }
@@ -535,14 +522,14 @@ export class LoadingSpinner extends Box {
     if (!this.isLoading) return;
 
     this.isLoading = false;
-    this.emit('stop');  // Custom event
+    this.emit("stop"); // Custom event
 
     if (this.interval) {
       clearInterval(this.interval);
       this.interval = undefined;
     }
 
-    this.setContent('{center}{green-fg}✓{/green-fg}{/center}');
+    this.setContent("{center}{green-fg}✓{/green-fg}{/center}");
     this.screen?.render();
   }
 
@@ -560,9 +547,9 @@ export class LoadingSpinner extends Box {
 // Usage
 const spinner = new LoadingSpinner({ parent: screen });
 
-spinner.on('start', () => console.log('Loading started'));
-spinner.on('tick', (frame) => console.log(`Frame: ${frame}`));
-spinner.on('stop', () => console.log('Loading complete'));
+spinner.on("start", () => console.log("Loading started"));
+spinner.on("tick", (frame) => console.log(`Frame: ${frame}`));
+spinner.on("stop", () => console.log("Loading complete"));
 
 spinner.start();
 setTimeout(() => spinner.stop(), 3000);
@@ -580,21 +567,21 @@ export class SearchBox extends Box {
       ...options,
       height: 20,
       keys: true,
-      vi: true
+      vi: true,
     });
 
-    this.type = 'searchbox';
+    this.type = "searchbox";
 
     // Input field
     this.input = new Textbox({
       parent: this,
       top: 0,
       left: 0,
-      width: '100%',
+      width: "100%",
       height: 3,
-      border: { type: 'line' },
-      label: ' Search ',
-      inputOnFocus: true
+      border: { type: "line" },
+      label: " Search ",
+      inputOnFocus: true,
     });
 
     // Results list
@@ -602,12 +589,12 @@ export class SearchBox extends Box {
       parent: this,
       top: 3,
       left: 0,
-      width: '100%',
-      height: '100%-3',
-      border: { type: 'line' },
+      width: "100%",
+      height: "100%-3",
+      border: { type: "line" },
       keys: true,
       vi: true,
-      mouse: true
+      mouse: true,
     });
 
     this.setupKeyBindings();
@@ -615,29 +602,29 @@ export class SearchBox extends Box {
 
   private setupKeyBindings() {
     // Custom keyboard shortcuts
-    this.key(['escape'], () => {
+    this.key(["escape"], () => {
       this.input.clearValue();
       this.results.clearItems();
-      this.emit('clear');
+      this.emit("clear");
       this.screen?.render();
     });
 
-    this.key(['C-a'], () => {
-      this.results.select(0);  // Select first result
+    this.key(["C-a"], () => {
+      this.results.select(0); // Select first result
       this.screen?.render();
     });
 
-    this.key(['C-e'], () => {
-      this.results.select(this.results.items.length - 1);  // Select last
+    this.key(["C-e"], () => {
+      this.results.select(this.results.items.length - 1); // Select last
       this.screen?.render();
     });
 
-    this.input.on('submit', (value) => {
-      this.emit('search', value);
+    this.input.on("submit", (value) => {
+      this.emit("search", value);
     });
 
-    this.results.on('select', (item, index) => {
-      this.emit('select', { item: item.getText(), index });
+    this.results.on("select", (item, index) => {
+      this.emit("select", { item: item.getText(), index });
     });
   }
 
@@ -654,12 +641,12 @@ export class SearchBox extends Box {
 // Usage
 const searchBox = new SearchBox({ parent: screen });
 
-searchBox.on('search', (query) => {
+searchBox.on("search", (query) => {
   const results = performSearch(query);
   searchBox.setResults(results);
 });
 
-searchBox.on('select', ({ item, index }) => {
+searchBox.on("select", ({ item, index }) => {
   console.log(`Selected: ${item} at ${index}`);
 });
 
@@ -680,11 +667,11 @@ export class Dashboard extends Box {
   constructor(options: DashboardOptions = {}) {
     super({
       ...options,
-      width: '100%',
-      height: '100%'
+      width: "100%",
+      height: "100%",
     });
 
-    this.type = 'dashboard';
+    this.type = "dashboard";
     this.createLayout();
   }
 
@@ -694,11 +681,11 @@ export class Dashboard extends Box {
       parent: this,
       top: 0,
       left: 0,
-      width: '100%',
+      width: "100%",
       height: 3,
-      content: '{center}{bold}Dashboard{/bold}{/center}',
+      content: "{center}{bold}Dashboard{/bold}{/center}",
       tags: true,
-      style: { bg: 'blue', fg: 'white' }
+      style: { bg: "blue", fg: "white" },
     });
 
     // Sidebar
@@ -706,43 +693,43 @@ export class Dashboard extends Box {
       parent: this,
       top: 3,
       left: 0,
-      width: '20%',
-      height: '100%-6',
-      label: ' Menu ',
-      border: { type: 'line' },
+      width: "20%",
+      height: "100%-6",
+      label: " Menu ",
+      border: { type: "line" },
       keys: true,
       vi: true,
       mouse: true,
       style: {
-        selected: { bg: 'blue', fg: 'white' }
+        selected: { bg: "blue", fg: "white" },
       },
-      items: ['Overview', 'Analytics', 'Settings']
+      items: ["Overview", "Analytics", "Settings"],
     });
 
     // Content area
     this.content = new Box({
       parent: this,
       top: 3,
-      left: '20%',
-      width: '80%',
-      height: '100%-6',
-      border: { type: 'line' },
+      left: "20%",
+      width: "80%",
+      height: "100%-6",
+      border: { type: "line" },
       scrollable: true,
       mouse: true,
-      keys: true
+      keys: true,
     });
 
     // Footer
     this.footer = new StatusBar({
       parent: this,
-      status: 'Ready'
+      status: "Ready",
     });
 
     this.setupNavigation();
   }
 
   private setupNavigation() {
-    this.sidebar.on('select', (item) => {
+    this.sidebar.on("select", (item) => {
       const page = item.getText();
       this.loadPage(page);
     });
@@ -753,7 +740,7 @@ export class Dashboard extends Box {
   loadPage(name: string) {
     this.content.setContent(`{center}Loading ${name}...{/center}`);
     this.footer.setStatus(`Viewing: ${name}`);
-    this.emit('page-change', name);
+    this.emit("page-change", name);
     this.screen?.render();
   }
 
@@ -770,7 +757,7 @@ export class Dashboard extends Box {
 // Usage
 const dashboard = new Dashboard({ parent: screen });
 
-dashboard.on('page-change', (page) => {
+dashboard.on("page-change", (page) => {
   // Load page content
   const content = loadPageContent(page);
   dashboard.setContent(content);
@@ -791,21 +778,21 @@ export class DataTable extends Box {
 
   constructor(options: DataTableOptions = {}) {
     super(options);
-    this.type = 'datatable';
+    this.type = "datatable";
 
     // Initialize state
     this.data = options.data || [];
     this.headers = options.headers || [];
 
     // Defer heavy initialization
-    this.once('attach', () => {
+    this.once("attach", () => {
       this.initialize();
     });
   }
 
   // Called when widget is attached to screen
   private initialize() {
-    this.emit('init');
+    this.emit("init");
     this.renderTable();
 
     // Start polling if configured
@@ -817,7 +804,7 @@ export class DataTable extends Box {
   // Set up data polling
   private startPolling() {
     this.pollInterval = setInterval(() => {
-      this.emit('poll');
+      this.emit("poll");
       this.refresh();
     }, this.options.pollInterval || 5000);
   }
@@ -831,11 +818,11 @@ export class DataTable extends Box {
 
   // Update display
   private renderTable() {
-    let content = this.headers.join(' | ') + '\n';
-    content += '-'.repeat(50) + '\n';
+    let content = this.headers.join(" | ") + "\n";
+    content += "-".repeat(50) + "\n";
 
-    this.data.forEach(row => {
-      content += this.headers.map(h => row[h]).join(' | ') + '\n';
+    this.data.forEach((row) => {
+      content += this.headers.map((h) => row[h]).join(" | ") + "\n";
     });
 
     this.setContent(content);
@@ -849,7 +836,7 @@ export class DataTable extends Box {
   }
 
   refresh() {
-    this.emit('refresh');
+    this.emit("refresh");
     this.renderTable();
     this.screen?.render();
   }
@@ -868,11 +855,11 @@ export class DataTable extends Box {
 ### Unit Testing
 
 ```typescript
-import { describe, it, expect, beforeEach } from 'vitest';
-import { Screen } from '@unblessed/node';
-import { Counter } from './counter.js';
+import { describe, it, expect, beforeEach } from "vitest";
+import { Screen } from "@unblessed/node";
+import { Counter } from "./counter.js";
 
-describe('Counter Widget', () => {
+describe("Counter Widget", () => {
   let screen: Screen;
   let counter: Counter;
 
@@ -880,31 +867,31 @@ describe('Counter Widget', () => {
     screen = new Screen({ dump: true });
     counter = new Counter({
       parent: screen,
-      initialCount: 0
+      initialCount: 0,
     });
   });
 
-  it('should initialize with count 0', () => {
+  it("should initialize with count 0", () => {
     expect(counter.count).toBe(0);
   });
 
-  it('should increment count', () => {
+  it("should increment count", () => {
     counter.increment();
     expect(counter.count).toBe(1);
   });
 
-  it('should decrement count', () => {
+  it("should decrement count", () => {
     counter.count = 5;
     counter.decrement();
     expect(counter.count).toBe(4);
   });
 
-  it('should emit change events', () => {
+  it("should emit change events", () => {
     let changed = false;
     let oldValue: number;
     let newValue: number;
 
-    counter.on('change', (data) => {
+    counter.on("change", (data) => {
       changed = true;
       oldValue = data.oldValue;
       newValue = data.newValue;
@@ -917,18 +904,18 @@ describe('Counter Widget', () => {
     expect(newValue).toBe(10);
   });
 
-  it('should reset count', () => {
+  it("should reset count", () => {
     counter.count = 100;
     counter.reset();
     expect(counter.count).toBe(0);
   });
 
-  it('should update display', () => {
+  it("should update display", () => {
     counter.count = 42;
     screen.render();
 
     const output = screen.screenshot();
-    expect(output).toContain('Count: 42');
+    expect(output).toContain("Count: 42");
   });
 });
 ```
@@ -936,7 +923,7 @@ describe('Counter Widget', () => {
 ### Integration Testing
 
 ```typescript
-describe('Dashboard Widget', () => {
+describe("Dashboard Widget", () => {
   let screen: Screen;
   let dashboard: Dashboard;
 
@@ -945,36 +932,36 @@ describe('Dashboard Widget', () => {
     dashboard = new Dashboard({ parent: screen });
   });
 
-  it('should render all components', () => {
+  it("should render all components", () => {
     screen.render();
     const output = screen.screenshot();
 
-    expect(output).toContain('Dashboard');  // Header
-    expect(output).toContain('Menu');       // Sidebar
-    expect(output).toContain('Ready');      // Footer
+    expect(output).toContain("Dashboard"); // Header
+    expect(output).toContain("Menu"); // Sidebar
+    expect(output).toContain("Ready"); // Footer
   });
 
-  it('should navigate between pages', () => {
+  it("should navigate between pages", () => {
     let pageChanged = false;
     let currentPage: string;
 
-    dashboard.on('page-change', (page) => {
+    dashboard.on("page-change", (page) => {
       pageChanged = true;
       currentPage = page;
     });
 
-    dashboard.loadPage('Settings');
+    dashboard.loadPage("Settings");
 
     expect(pageChanged).toBe(true);
-    expect(currentPage).toBe('Settings');
+    expect(currentPage).toBe("Settings");
   });
 
-  it('should update status', () => {
-    dashboard.setStatus('Loading...');
+  it("should update status", () => {
+    dashboard.setStatus("Loading...");
     screen.render();
 
     const output = screen.screenshot();
-    expect(output).toContain('Loading...');
+    expect(output).toContain("Loading...");
   });
 });
 ```
@@ -992,12 +979,12 @@ interface MyWidgetOptions extends BoxOptions {
 }
 
 class MyWidget extends Box {
-  constructor(options: MyWidgetOptions = {}) { }
+  constructor(options: MyWidgetOptions = {}) {}
 }
 
 // ❌ Bad
 class MyWidget extends Box {
-  constructor(options: any = {}) { }
+  constructor(options: any = {}) {}
 }
 ```
 
@@ -1028,12 +1015,12 @@ class MyWidget extends Box {
 
 ```typescript
 // ✅ Good - specific events with data
-this.emit('item-select', { item, index });
-this.emit('search-complete', { query, results });
+this.emit("item-select", { item, index });
+this.emit("search-complete", { query, results });
 
 // ❌ Bad - generic events
-this.emit('change');
-this.emit('update');
+this.emit("change");
+this.emit("update");
 ```
 
 ### 4. Provide Sensible Defaults
@@ -1060,7 +1047,7 @@ constructor(options: MyWidgetOptions = {}) {
 
 ### 5. Document Your Widget
 
-```typescript
+````typescript
 /**
  * A customizable progress indicator that displays completion percentage.
  *
@@ -1082,7 +1069,7 @@ constructor(options: MyWidgetOptions = {}) {
 export class ProgressIndicator extends Box {
   // ...
 }
-```
+````
 
 ## Common Patterns
 
@@ -1090,18 +1077,18 @@ export class ProgressIndicator extends Box {
 
 ```typescript
 class DataWidget extends Box {
-  private state: 'idle' | 'loading' | 'error' | 'success' = 'idle';
+  private state: "idle" | "loading" | "error" | "success" = "idle";
 
   async loadData() {
-    this.setState('loading');
+    this.setState("loading");
 
     try {
       const data = await fetchData();
       this.setData(data);
-      this.setState('success');
+      this.setState("success");
     } catch (error) {
       this.setError(error.message);
-      this.setState('error');
+      this.setState("error");
     }
   }
 
@@ -1112,13 +1099,13 @@ class DataWidget extends Box {
 
   private updateDisplay() {
     switch (this.state) {
-      case 'loading':
-        this.setContent('{center}Loading...{/center}');
+      case "loading":
+        this.setContent("{center}Loading...{/center}");
         break;
-      case 'error':
-        this.setContent('{center}{red-fg}Error!{/red-fg}{/center}');
+      case "error":
+        this.setContent("{center}{red-fg}Error!{/red-fg}{/center}");
         break;
-      case 'success':
+      case "success":
         // Show data
         break;
     }
@@ -1162,9 +1149,9 @@ class PaginatedList extends List {
     const pageItems = this.allItems.slice(start, end);
 
     this.setItems(pageItems);
-    this.emit('page-change', {
+    this.emit("page-change", {
       page: this.currentPage,
-      totalPages: Math.ceil(this.allItems.length / this.pageSize)
+      totalPages: Math.ceil(this.allItems.length / this.pageSize),
     });
 
     this.screen?.render();

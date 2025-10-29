@@ -8,6 +8,7 @@ Screen - The top-level container and rendering engine for terminal UI applicatio
 
 Screen manages the terminal, handles rendering, processes input, and serves as the root
 container for all widgets. It provides:
+
 - **Terminal management**: Alt screen buffer, cursor control, raw mode
 - **Rendering engine**: Efficient screen updates with smart CSR
 - **Input handling**: Keyboard and mouse events
@@ -17,24 +18,24 @@ container for all widgets. It provides:
 ## Examples
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 const screen = new Screen({
   smartCSR: true,
-  title: 'My App'
+  title: "My App",
 });
 
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello World!',
-  border: { type: 'line' }
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello World!",
+  border: { type: "line" },
 });
 
-screen.key(['q', 'C-c'], () => {
+screen.key(["q", "C-c"], () => {
   screen.destroy();
   process.exit(0);
 });
@@ -45,7 +46,7 @@ screen.render();
 ```typescript
 const screen = new Screen({
   smartCSR: true,
-  sendFocus: true
+  sendFocus: true,
 });
 
 const box = new Box({
@@ -54,8 +55,8 @@ const box = new Box({
   // ...
 });
 
-box.on('click', () => {
-  box.setContent('Clicked!');
+box.on("click", () => {
+  box.setContent("Clicked!");
   screen.render();
 });
 
@@ -64,9 +65,9 @@ screen.render();
 
 ## See
 
- - ScreenOptions for all available configuration options
- - [Program](lib.program.Class.Program.md) for low-level terminal control
- - Runtime for platform abstraction
+- ScreenOptions for all available configuration options
+- [Program](lib.program.Class.Program.md) for low-level terminal control
+- Runtime for platform abstraction
 
 ## Extends
 
@@ -106,7 +107,7 @@ Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`_events`](widgets.node.Class.Node.md#_events)
 
-***
+---
 
 ### \_maxListeners?
 
@@ -118,7 +119,7 @@ Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`_maxListeners`](widgets.node.Class.Node.md#_maxlisteners)
 
-***
+---
 
 ### uid
 
@@ -130,7 +131,7 @@ Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/
 
 [`Node`](widgets.node.Class.Node.md).[`uid`](widgets.node.Class.Node.md#uid)
 
-***
+---
 
 ### ScreenRegistry
 
@@ -142,7 +143,7 @@ Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/
 
 [`Node`](widgets.node.Class.Node.md).[`ScreenRegistry`](widgets.node.Class.Node.md#screenregistry)
 
-***
+---
 
 ### screen
 
@@ -161,7 +162,7 @@ render(), and the program property without complex generic typing.
 
 [`Node`](widgets.node.Class.Node.md).[`screen`](widgets.node.Class.Node.md#screen)
 
-***
+---
 
 ### parent
 
@@ -180,7 +181,7 @@ methods from subclasses like Box, List, Form, etc.
 
 [`Node`](widgets.node.Class.Node.md).[`parent`](widgets.node.Class.Node.md#parent)
 
-***
+---
 
 ### children
 
@@ -197,7 +198,7 @@ Kept as any[] to preserve flexibility with mixed widget types.
 
 [`Node`](widgets.node.Class.Node.md).[`children`](widgets.node.Class.Node.md#children)
 
-***
+---
 
 ### $
 
@@ -211,7 +212,7 @@ An object for any miscellaneous user data.
 
 [`Node`](widgets.node.Class.Node.md).[`$`](widgets.node.Class.Node.md#)
 
-***
+---
 
 ### \_
 
@@ -225,7 +226,7 @@ An object for any miscellaneous user data.
 
 [`Node`](widgets.node.Class.Node.md).[`_`](widgets.node.Class.Node.md#_)
 
-***
+---
 
 ### data
 
@@ -239,7 +240,7 @@ An object for any miscellaneous user data.
 
 [`Node`](widgets.node.Class.Node.md).[`data`](widgets.node.Class.Node.md#data)
 
-***
+---
 
 ### uid
 
@@ -251,7 +252,7 @@ Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/
 
 [`Node`](widgets.node.Class.Node.md).[`uid`](widgets.node.Class.Node.md#uid-1)
 
-***
+---
 
 ### index
 
@@ -267,7 +268,7 @@ Set to -1 initially, updated during rendering.
 
 [`Node`](widgets.node.Class.Node.md).[`index`](widgets.node.Class.Node.md#index)
 
-***
+---
 
 ### detached?
 
@@ -279,7 +280,7 @@ Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/
 
 [`Node`](widgets.node.Class.Node.md).[`detached`](widgets.node.Class.Node.md#detached)
 
-***
+---
 
 ### destroyed?
 
@@ -291,7 +292,7 @@ Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/
 
 [`Node`](widgets.node.Class.Node.md).[`destroyed`](widgets.node.Class.Node.md#destroyed)
 
-***
+---
 
 ### runtime
 
@@ -303,7 +304,7 @@ Defined in: [packages/core/src/widgets/node.ts:90](https://github.com/vdeantoni/
 
 [`Node`](widgets.node.Class.Node.md).[`runtime`](widgets.node.Class.Node.md#runtime)
 
-***
+---
 
 ### options
 
@@ -315,7 +316,7 @@ Defined in: [packages/core/src/widgets/screen.ts:91](https://github.com/vdeanton
 
 [`Node`](widgets.node.Class.Node.md).[`options`](widgets.node.Class.Node.md#options)
 
-***
+---
 
 ### program
 
@@ -323,7 +324,7 @@ Defined in: [packages/core/src/widgets/screen.ts:91](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:92](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L92)
 
-***
+---
 
 ### tput
 
@@ -331,7 +332,7 @@ Defined in: [packages/core/src/widgets/screen.ts:92](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:93](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L93)
 
-***
+---
 
 ### autoPadding
 
@@ -339,7 +340,7 @@ Defined in: [packages/core/src/widgets/screen.ts:93](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:94](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L94)
 
-***
+---
 
 ### tabc
 
@@ -347,7 +348,7 @@ Defined in: [packages/core/src/widgets/screen.ts:94](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:95](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L95)
 
-***
+---
 
 ### dockBorders
 
@@ -355,7 +356,7 @@ Defined in: [packages/core/src/widgets/screen.ts:95](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:96](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L96)
 
-***
+---
 
 ### ignoreLocked
 
@@ -363,7 +364,7 @@ Defined in: [packages/core/src/widgets/screen.ts:96](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:97](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L97)
 
-***
+---
 
 ### \_unicode
 
@@ -371,7 +372,7 @@ Defined in: [packages/core/src/widgets/screen.ts:97](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:98](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L98)
 
-***
+---
 
 ### fullUnicode
 
@@ -379,7 +380,7 @@ Defined in: [packages/core/src/widgets/screen.ts:98](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:99](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L99)
 
-***
+---
 
 ### dattr
 
@@ -387,7 +388,7 @@ Defined in: [packages/core/src/widgets/screen.ts:99](https://github.com/vdeanton
 
 Defined in: [packages/core/src/widgets/screen.ts:100](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L100)
 
-***
+---
 
 ### renders
 
@@ -395,7 +396,7 @@ Defined in: [packages/core/src/widgets/screen.ts:100](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:101](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L101)
 
-***
+---
 
 ### position
 
@@ -403,7 +404,7 @@ Defined in: [packages/core/src/widgets/screen.ts:101](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:102](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L102)
 
-***
+---
 
 ### left
 
@@ -411,7 +412,7 @@ Defined in: [packages/core/src/widgets/screen.ts:102](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:103](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L103)
 
-***
+---
 
 ### aleft
 
@@ -419,7 +420,7 @@ Defined in: [packages/core/src/widgets/screen.ts:103](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:104](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L104)
 
-***
+---
 
 ### rleft
 
@@ -427,7 +428,7 @@ Defined in: [packages/core/src/widgets/screen.ts:104](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:105](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L105)
 
-***
+---
 
 ### right
 
@@ -435,7 +436,7 @@ Defined in: [packages/core/src/widgets/screen.ts:105](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:106](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L106)
 
-***
+---
 
 ### aright
 
@@ -443,7 +444,7 @@ Defined in: [packages/core/src/widgets/screen.ts:106](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:107](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L107)
 
-***
+---
 
 ### rright
 
@@ -451,7 +452,7 @@ Defined in: [packages/core/src/widgets/screen.ts:107](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:108](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L108)
 
-***
+---
 
 ### top
 
@@ -459,7 +460,7 @@ Defined in: [packages/core/src/widgets/screen.ts:108](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:109](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L109)
 
-***
+---
 
 ### atop
 
@@ -467,7 +468,7 @@ Defined in: [packages/core/src/widgets/screen.ts:109](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:110](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L110)
 
-***
+---
 
 ### rtop
 
@@ -475,7 +476,7 @@ Defined in: [packages/core/src/widgets/screen.ts:110](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:111](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L111)
 
-***
+---
 
 ### bottom
 
@@ -483,7 +484,7 @@ Defined in: [packages/core/src/widgets/screen.ts:111](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:112](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L112)
 
-***
+---
 
 ### abottom
 
@@ -491,7 +492,7 @@ Defined in: [packages/core/src/widgets/screen.ts:112](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:113](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L113)
 
-***
+---
 
 ### rbottom
 
@@ -499,7 +500,7 @@ Defined in: [packages/core/src/widgets/screen.ts:113](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:114](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L114)
 
-***
+---
 
 ### ileft
 
@@ -507,7 +508,7 @@ Defined in: [packages/core/src/widgets/screen.ts:114](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:115](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L115)
 
-***
+---
 
 ### itop
 
@@ -515,7 +516,7 @@ Defined in: [packages/core/src/widgets/screen.ts:115](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:116](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L116)
 
-***
+---
 
 ### iright
 
@@ -523,7 +524,7 @@ Defined in: [packages/core/src/widgets/screen.ts:116](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:117](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L117)
 
-***
+---
 
 ### ibottom
 
@@ -531,7 +532,7 @@ Defined in: [packages/core/src/widgets/screen.ts:117](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:118](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L118)
 
-***
+---
 
 ### iheight
 
@@ -539,7 +540,7 @@ Defined in: [packages/core/src/widgets/screen.ts:118](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:119](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L119)
 
-***
+---
 
 ### iwidth
 
@@ -547,7 +548,7 @@ Defined in: [packages/core/src/widgets/screen.ts:119](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:120](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L120)
 
-***
+---
 
 ### padding
 
@@ -555,7 +556,7 @@ Defined in: [packages/core/src/widgets/screen.ts:120](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:121](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L121)
 
-***
+---
 
 ### hover
 
@@ -563,7 +564,7 @@ Defined in: [packages/core/src/widgets/screen.ts:121](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:122](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L122)
 
-***
+---
 
 ### history
 
@@ -571,7 +572,7 @@ Defined in: [packages/core/src/widgets/screen.ts:122](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:123](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L123)
 
-***
+---
 
 ### clickable
 
@@ -579,7 +580,7 @@ Defined in: [packages/core/src/widgets/screen.ts:123](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:124](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L124)
 
-***
+---
 
 ### keyable
 
@@ -587,7 +588,7 @@ Defined in: [packages/core/src/widgets/screen.ts:124](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:125](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L125)
 
-***
+---
 
 ### grabKeys
 
@@ -595,7 +596,7 @@ Defined in: [packages/core/src/widgets/screen.ts:125](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:126](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L126)
 
-***
+---
 
 ### lockKeys
 
@@ -603,7 +604,7 @@ Defined in: [packages/core/src/widgets/screen.ts:126](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:127](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L127)
 
-***
+---
 
 ### \_buf
 
@@ -611,7 +612,7 @@ Defined in: [packages/core/src/widgets/screen.ts:127](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:128](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L128)
 
-***
+---
 
 ### \_ci
 
@@ -619,7 +620,7 @@ Defined in: [packages/core/src/widgets/screen.ts:128](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L129)
 
-***
+---
 
 ### cursor
 
@@ -627,7 +628,7 @@ Defined in: [packages/core/src/widgets/screen.ts:129](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:130](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L130)
 
-***
+---
 
 ### \_listenedMouse?
 
@@ -635,7 +636,7 @@ Defined in: [packages/core/src/widgets/screen.ts:130](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:131](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L131)
 
-***
+---
 
 ### \_listenedKeys?
 
@@ -643,7 +644,7 @@ Defined in: [packages/core/src/widgets/screen.ts:131](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:132](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L132)
 
-***
+---
 
 ### \_needsClickableSort?
 
@@ -651,7 +652,7 @@ Defined in: [packages/core/src/widgets/screen.ts:132](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:133](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L133)
 
-***
+---
 
 ### mouseDown?
 
@@ -659,7 +660,7 @@ Defined in: [packages/core/src/widgets/screen.ts:133](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:134](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L134)
 
-***
+---
 
 ### lines
 
@@ -667,7 +668,7 @@ Defined in: [packages/core/src/widgets/screen.ts:134](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:135](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L135)
 
-***
+---
 
 ### olines
 
@@ -675,7 +676,7 @@ Defined in: [packages/core/src/widgets/screen.ts:135](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:136](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L136)
 
-***
+---
 
 ### \_borderStops?
 
@@ -683,7 +684,7 @@ Defined in: [packages/core/src/widgets/screen.ts:136](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:137](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L137)
 
-***
+---
 
 ### debugLog?
 
@@ -691,7 +692,7 @@ Defined in: [packages/core/src/widgets/screen.ts:137](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:138](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L138)
 
-***
+---
 
 ### \_hoverText?
 
@@ -699,7 +700,7 @@ Defined in: [packages/core/src/widgets/screen.ts:138](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:139](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L139)
 
-***
+---
 
 ### \_savedFocus?
 
@@ -707,7 +708,7 @@ Defined in: [packages/core/src/widgets/screen.ts:139](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:140](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L140)
 
-***
+---
 
 ### \_cursorBlink?
 
@@ -715,7 +716,7 @@ Defined in: [packages/core/src/widgets/screen.ts:140](https://github.com/vdeanto
 
 Defined in: [packages/core/src/widgets/screen.ts:141](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L141)
 
-***
+---
 
 ### type
 
@@ -730,7 +731,7 @@ Used to identify the widget type at runtime.
 
 [`Node`](widgets.node.Class.Node.md).[`type`](widgets.node.Class.Node.md#type)
 
-***
+---
 
 ### resetCursor
 
@@ -738,7 +739,7 @@ Used to identify the widget type at runtime.
 
 Defined in: [packages/core/src/widgets/screen.ts:2765](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2765)
 
-***
+---
 
 ### \_exceptionHandler
 
@@ -746,7 +747,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2765](https://github.com/vdeant
 
 Defined in: [packages/core/src/widgets/screen.ts:2766](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2766)
 
-***
+---
 
 ### \_sigtermHandler
 
@@ -754,7 +755,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2766](https://github.com/vdeant
 
 Defined in: [packages/core/src/widgets/screen.ts:2767](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2767)
 
-***
+---
 
 ### \_sigintHandler
 
@@ -762,7 +763,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2767](https://github.com/vdeant
 
 Defined in: [packages/core/src/widgets/screen.ts:2768](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2768)
 
-***
+---
 
 ### \_sigquitHandler
 
@@ -770,7 +771,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2768](https://github.com/vdeant
 
 Defined in: [packages/core/src/widgets/screen.ts:2769](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2769)
 
-***
+---
 
 ### \_exitHandler
 
@@ -778,7 +779,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2769](https://github.com/vdeant
 
 Defined in: [packages/core/src/widgets/screen.ts:2770](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2770)
 
-***
+---
 
 ### \_bound
 
@@ -786,7 +787,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2770](https://github.com/vdeant
 
 Defined in: [packages/core/src/widgets/screen.ts:2771](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2771)
 
-***
+---
 
 ### bind()
 
@@ -839,7 +840,7 @@ Defined in: [packages/core/src/widgets/screen.ts:322](https://github.com/vdeanto
 
 `void`
 
-***
+---
 
 ### terminal
 
@@ -871,7 +872,7 @@ Defined in: [packages/core/src/widgets/screen.ts:333](https://github.com/vdeanto
 
 `void`
 
-***
+---
 
 ### cols
 
@@ -887,7 +888,7 @@ Same as screen.width.
 
 `number`
 
-***
+---
 
 ### rows
 
@@ -903,7 +904,7 @@ Same as screen.height.
 
 `number`
 
-***
+---
 
 ### width
 
@@ -919,7 +920,7 @@ Width of the screen (same as program.cols).
 
 `number`
 
-***
+---
 
 ### height
 
@@ -935,7 +936,7 @@ Height of the screen (same as program.rows).
 
 `number`
 
-***
+---
 
 ### focused
 
@@ -989,7 +990,7 @@ Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`setMaxListeners`](widgets.node.Class.Node.md#setmaxlisteners)
 
-***
+---
 
 ### addListener()
 
@@ -1015,7 +1016,7 @@ Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`addListener`](widgets.node.Class.Node.md#addlistener)
 
-***
+---
 
 ### on()
 
@@ -1041,7 +1042,7 @@ Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`on`](widgets.node.Class.Node.md#on)
 
-***
+---
 
 ### removeListener()
 
@@ -1067,7 +1068,7 @@ Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`removeListener`](widgets.node.Class.Node.md#removelistener)
 
-***
+---
 
 ### off()
 
@@ -1093,7 +1094,7 @@ Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`off`](widgets.node.Class.Node.md#off)
 
-***
+---
 
 ### removeAllListeners()
 
@@ -1115,7 +1116,7 @@ Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`removeAllListeners`](widgets.node.Class.Node.md#removealllisteners)
 
-***
+---
 
 ### once()
 
@@ -1141,7 +1142,7 @@ Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`once`](widgets.node.Class.Node.md#once)
 
-***
+---
 
 ### listeners()
 
@@ -1163,7 +1164,7 @@ Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`listeners`](widgets.node.Class.Node.md#listeners)
 
-***
+---
 
 ### \_emit()
 
@@ -1189,7 +1190,7 @@ Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/un
 
 [`Node`](widgets.node.Class.Node.md).[`_emit`](widgets.node.Class.Node.md#_emit)
 
-***
+---
 
 ### emit()
 
@@ -1215,7 +1216,7 @@ Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/u
 
 [`Node`](widgets.node.Class.Node.md).[`emit`](widgets.node.Class.Node.md#emit)
 
-***
+---
 
 ### insert()
 
@@ -1243,7 +1244,7 @@ Insert a node to this node's children at index i.
 
 [`Node`](widgets.node.Class.Node.md).[`insert`](widgets.node.Class.Node.md#insert)
 
-***
+---
 
 ### prepend()
 
@@ -1267,7 +1268,7 @@ Prepend a node to this node's children.
 
 [`Node`](widgets.node.Class.Node.md).[`prepend`](widgets.node.Class.Node.md#prepend)
 
-***
+---
 
 ### append()
 
@@ -1291,7 +1292,7 @@ Append a node to this node's children.
 
 [`Node`](widgets.node.Class.Node.md).[`append`](widgets.node.Class.Node.md#append)
 
-***
+---
 
 ### insertBefore()
 
@@ -1319,7 +1320,7 @@ Insert a node to this node's children before the reference node.
 
 [`Node`](widgets.node.Class.Node.md).[`insertBefore`](widgets.node.Class.Node.md#insertbefore)
 
-***
+---
 
 ### insertAfter()
 
@@ -1347,7 +1348,7 @@ Insert a node from node after the reference node.
 
 [`Node`](widgets.node.Class.Node.md).[`insertAfter`](widgets.node.Class.Node.md#insertafter)
 
-***
+---
 
 ### remove()
 
@@ -1371,7 +1372,7 @@ Remove child node from node.
 
 [`Node`](widgets.node.Class.Node.md).[`remove`](widgets.node.Class.Node.md#remove)
 
-***
+---
 
 ### detach()
 
@@ -1389,7 +1390,7 @@ Remove node from its parent.
 
 [`Node`](widgets.node.Class.Node.md).[`detach`](widgets.node.Class.Node.md#detach)
 
-***
+---
 
 ### free()
 
@@ -1408,7 +1409,7 @@ to the screen object. This prevents memory leaks.
 
 [`Node`](widgets.node.Class.Node.md).[`free`](widgets.node.Class.Node.md#free)
 
-***
+---
 
 ### forDescendants()
 
@@ -1436,7 +1437,7 @@ Iterate over all descendants, calling iter(el) for each.
 
 [`Node`](widgets.node.Class.Node.md).[`forDescendants`](widgets.node.Class.Node.md#fordescendants)
 
-***
+---
 
 ### forAncestors()
 
@@ -1464,7 +1465,7 @@ Iterate over all ancestors, calling iter(el) for each.
 
 [`Node`](widgets.node.Class.Node.md).[`forAncestors`](widgets.node.Class.Node.md#forancestors)
 
-***
+---
 
 ### collectDescendants()
 
@@ -1488,7 +1489,7 @@ Collect all descendants into an array.
 
 [`Node`](widgets.node.Class.Node.md).[`collectDescendants`](widgets.node.Class.Node.md#collectdescendants)
 
-***
+---
 
 ### collectAncestors()
 
@@ -1512,7 +1513,7 @@ Collect all ancestors into an array.
 
 [`Node`](widgets.node.Class.Node.md).[`collectAncestors`](widgets.node.Class.Node.md#collectancestors)
 
-***
+---
 
 ### emitDescendants()
 
@@ -1536,7 +1537,7 @@ Emit event for element, and recursively emit same event for all descendants.
 
 [`Node`](widgets.node.Class.Node.md).[`emitDescendants`](widgets.node.Class.Node.md#emitdescendants)
 
-***
+---
 
 ### emitAncestors()
 
@@ -1560,7 +1561,7 @@ Emit event for element, and recursively emit same event for all ancestors.
 
 [`Node`](widgets.node.Class.Node.md).[`emitAncestors`](widgets.node.Class.Node.md#emitancestors)
 
-***
+---
 
 ### hasDescendant()
 
@@ -1584,7 +1585,7 @@ Check if target is a descendant of this node.
 
 [`Node`](widgets.node.Class.Node.md).[`hasDescendant`](widgets.node.Class.Node.md#hasdescendant)
 
-***
+---
 
 ### hasAncestor()
 
@@ -1608,7 +1609,7 @@ Check if target is an ancestor of this node.
 
 [`Node`](widgets.node.Class.Node.md).[`hasAncestor`](widgets.node.Class.Node.md#hasancestor)
 
-***
+---
 
 ### get()
 
@@ -1636,7 +1637,7 @@ Get user property with a potential default value.
 
 [`Node`](widgets.node.Class.Node.md).[`get`](widgets.node.Class.Node.md#get)
 
-***
+---
 
 ### set()
 
@@ -1664,7 +1665,7 @@ Set user property to value.
 
 [`Node`](widgets.node.Class.Node.md).[`set`](widgets.node.Class.Node.md#set)
 
-***
+---
 
 ### setTerminal()
 
@@ -1684,7 +1685,7 @@ Reset the terminal to term. Reloads terminfo.
 
 `void`
 
-***
+---
 
 ### enter()
 
@@ -1699,7 +1700,7 @@ Automatically called when the screen is created.
 
 `void`
 
-***
+---
 
 ### leave()
 
@@ -1714,7 +1715,7 @@ Automatically called when the screen is destroyed.
 
 `void`
 
-***
+---
 
 ### postEnter()
 
@@ -1729,7 +1730,7 @@ Automatically called after enter().
 
 `void`
 
-***
+---
 
 ### destroy()
 
@@ -1749,7 +1750,7 @@ to its initial state.
 
 [`Node`](widgets.node.Class.Node.md).[`destroy`](widgets.node.Class.Node.md#destroy)
 
-***
+---
 
 ### log()
 
@@ -1769,7 +1770,7 @@ Write string to the log file if one was created.
 
 `any`
 
-***
+---
 
 ### debug()
 
@@ -1789,7 +1790,7 @@ Same as the log method, but only gets called if the debug option was set.
 
 `any`
 
-***
+---
 
 ### \_listenMouse()
 
@@ -1811,7 +1812,7 @@ Element to register as clickable (optional)
 
 `void`
 
-***
+---
 
 ### enableMouse()
 
@@ -1832,7 +1833,7 @@ on('mouse') is bound).
 
 `void`
 
-***
+---
 
 ### \_listenKeys()
 
@@ -1854,7 +1855,7 @@ Element to register as keyable (optional)
 
 `void`
 
-***
+---
 
 ### enableKeys()
 
@@ -1877,7 +1878,7 @@ Element to enable keys for (optional)
 
 `void`
 
-***
+---
 
 ### enableInput()
 
@@ -1899,7 +1900,7 @@ Element to enable input for (optional)
 
 `void`
 
-***
+---
 
 ### \_initHover()
 
@@ -1914,7 +1915,7 @@ Creates a floating box that follows the mouse cursor.
 
 `void`
 
-***
+---
 
 ### alloc()
 
@@ -1934,7 +1935,7 @@ Allocate a new pending screen buffer and a new output screen buffer.
 
 `void`
 
-***
+---
 
 ### realloc()
 
@@ -1948,7 +1949,7 @@ Reallocate the screen buffers and clear the screen.
 
 `void`
 
-***
+---
 
 ### render()
 
@@ -1962,7 +1963,7 @@ Render all child elements, writing all data to the screen buffer and drawing the
 
 `void`
 
-***
+---
 
 ### blankLine()
 
@@ -1992,7 +1993,7 @@ Whether to mark the line as dirty (requires redraw)
 
 Array representing a blank line in the screen buffer
 
-***
+---
 
 ### insertLine()
 
@@ -2033,7 +2034,7 @@ Bottom of scroll region
 
 `void`
 
-***
+---
 
 ### deleteLine()
 
@@ -2074,7 +2075,7 @@ Bottom of scroll region
 
 `void`
 
-***
+---
 
 ### insertLineNC()
 
@@ -2115,7 +2116,7 @@ Bottom of scroll region
 
 `void`
 
-***
+---
 
 ### deleteLineNC()
 
@@ -2156,7 +2157,7 @@ Bottom of scroll region
 
 `void`
 
-***
+---
 
 ### insertBottom()
 
@@ -2184,7 +2185,7 @@ Bottom of scroll region
 
 `void`
 
-***
+---
 
 ### insertTop()
 
@@ -2212,7 +2213,7 @@ Bottom of scroll region
 
 `void`
 
-***
+---
 
 ### deleteBottom()
 
@@ -2240,7 +2241,7 @@ Bottom of scroll region
 
 `void`
 
-***
+---
 
 ### deleteTop()
 
@@ -2268,7 +2269,7 @@ Bottom of scroll region
 
 `void`
 
-***
+---
 
 ### cleanSides()
 
@@ -2295,7 +2296,7 @@ Element to check
 
 True if the element has clean sides (uniform cells on both sides)
 
-***
+---
 
 ### \_dockBorders()
 
@@ -2311,7 +2312,7 @@ replacing corner and T-junction characters as appropriate.
 
 `void`
 
-***
+---
 
 ### \_getAngle()
 
@@ -2349,7 +2350,7 @@ Y coordinate
 
 Unicode box-drawing character for this position
 
-***
+---
 
 ### draw()
 
@@ -2380,7 +2381,7 @@ Ending line number
 
 `void`
 
-***
+---
 
 ### \_reduceColor()
 
@@ -2404,7 +2405,7 @@ Color value to reduce
 
 Reduced color value
 
-***
+---
 
 ### attrCode()
 
@@ -2442,7 +2443,7 @@ Default attribute value
 
 Packed attribute integer
 
-***
+---
 
 ### codeAttr()
 
@@ -2468,7 +2469,7 @@ Packed attribute integer
 
 SGR escape code string
 
-***
+---
 
 ### focusOffset()
 
@@ -2494,7 +2495,7 @@ Number of elements to move (positive for forward, negative for backward)
 
 The newly focused element, or undefined if no element was found
 
-***
+---
 
 ### focusPrev()
 
@@ -2511,7 +2512,7 @@ Shorthand for focusOffset(-1).
 
 The newly focused element
 
-***
+---
 
 ### focusPrevious()
 
@@ -2528,7 +2529,7 @@ Alias for focusPrev().
 
 The newly focused element
 
-***
+---
 
 ### focusNext()
 
@@ -2545,7 +2546,7 @@ Shorthand for focusOffset(1).
 
 The newly focused element
 
-***
+---
 
 ### focusPush()
 
@@ -2568,7 +2569,7 @@ Element to focus
 
 `void`
 
-***
+---
 
 ### focusPop()
 
@@ -2585,7 +2586,7 @@ Removes the current element from focus and returns focus to the previous element
 
 The element that was popped from the focus stack
 
-***
+---
 
 ### saveFocus()
 
@@ -2602,7 +2603,7 @@ Stores the currently focused element for later restoration via restoreFocus().
 
 The saved focused element
 
-***
+---
 
 ### restoreFocus()
 
@@ -2619,7 +2620,7 @@ Returns focus to the element saved by saveFocus().
 
 The newly focused element
 
-***
+---
 
 ### rewindFocus()
 
@@ -2637,7 +2638,7 @@ visible and attached to the screen.
 
 The element that received focus, or undefined if none found
 
-***
+---
 
 ### \_focus()
 
@@ -2667,7 +2668,7 @@ Element losing focus
 
 `void`
 
-***
+---
 
 ### clearRegion()
 
@@ -2714,7 +2715,7 @@ If true, always write even if cell hasn't changed
 
 `void`
 
-***
+---
 
 ### fillRegion()
 
@@ -2773,7 +2774,7 @@ If true, always write even if cell hasn't changed
 
 `void`
 
-***
+---
 
 ### key()
 
@@ -2797,7 +2798,7 @@ Arguments to pass to program.key()
 
 The bound key handler
 
-***
+---
 
 ### onceKey()
 
@@ -2821,7 +2822,7 @@ Arguments to pass to program.onceKey()
 
 The bound key handler
 
-***
+---
 
 ### unkey()
 
@@ -2845,7 +2846,7 @@ Arguments to pass to program.unkey()
 
 Result of unbinding
 
-***
+---
 
 ### removeKey()
 
@@ -2870,7 +2871,7 @@ Arguments to pass to program.removeKey()
 
 Result of removing
 
-***
+---
 
 ### spawn()
 
@@ -2907,7 +2908,7 @@ Options to pass to child_process.spawn
 
 ChildProcess instance
 
-***
+---
 
 ### exec()
 
@@ -2949,7 +2950,7 @@ Callback function (err, success)
 
 ChildProcess instance
 
-***
+---
 
 ### readEditor()
 
@@ -2980,7 +2981,7 @@ Callback function (err, data)
 
 Result of the editor operation
 
-***
+---
 
 ### displayImage()
 
@@ -3011,7 +3012,7 @@ Callback function (err, success)
 
 Result of the display operation
 
-***
+---
 
 ### setEffects()
 
@@ -3065,7 +3066,7 @@ Property name to store temporary state in
 
 `void`
 
-***
+---
 
 ### sigtstp()
 
@@ -3088,7 +3089,7 @@ Optional callback to execute after resume
 
 `void`
 
-***
+---
 
 ### copyToClipboard()
 
@@ -3113,7 +3114,7 @@ Text to copy to clipboard
 
 True if successful
 
-***
+---
 
 ### cursorShape()
 
@@ -3144,7 +3145,7 @@ Whether the cursor should blink
 
 True if successful
 
-***
+---
 
 ### cursorColor()
 
@@ -3169,7 +3170,7 @@ Color name or code
 
 True if successful
 
-***
+---
 
 ### cursorReset()
 
@@ -3186,7 +3187,7 @@ Restores cursor to default shape, color, and blink state.
 
 True if successful
 
-***
+---
 
 ### resetCursor()
 
@@ -3202,7 +3203,7 @@ Reset cursor (alias for cursorReset() for backward compatibility).
 
 True if successful
 
-***
+---
 
 ### \_cursorAttr()
 
@@ -3233,7 +3234,7 @@ Default attribute (optional)
 
 Object with 'ch' (character) and 'attr' (attribute) properties
 
-***
+---
 
 ### screenshot()
 
@@ -3282,7 +3283,7 @@ Terminal object to screenshot from (default: this screen)
 
 SGR-encoded screenshot string
 
-***
+---
 
 ### \_getPos()
 

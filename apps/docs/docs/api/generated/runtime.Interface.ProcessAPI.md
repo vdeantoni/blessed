@@ -7,6 +7,7 @@ Process operations interface
 ## Remarks
 
 Subset of Node.js process global used for:
+
 - I/O streams (stdin/stdout/stderr)
 - Environment variables (TERM, EDITOR, HOME, etc.)
 - Process events (exit, SIGTSTP, etc.)
@@ -19,16 +20,16 @@ const runtime = getRuntime();
 const { Readable, Writable } = runtime.utils.stream;
 
 const readable = new Readable();
-readable.push('Hello\n');
+readable.push("Hello\n");
 readable.push(null);
 readable.pipe(runtime.process.stdout);
 ```
 
 ```typescript
 const runtime = getRuntime();
-const term = runtime.process.env.TERM || 'xterm-256color';
-const editor = runtime.process.env.EDITOR || 'vi';
-const home = runtime.process.env.HOME || '/';
+const term = runtime.process.env.TERM || "xterm-256color";
+const editor = runtime.process.env.EDITOR || "vi";
+const home = runtime.process.env.HOME || "/";
 ```
 
 ## Properties
@@ -45,7 +46,7 @@ Defined in: [packages/core/src/runtime.ts:226](https://github.com/vdeantoni/unbl
 
 > **fd**: `0`
 
-***
+---
 
 ### stdout
 
@@ -59,7 +60,7 @@ Defined in: [packages/core/src/runtime.ts:227](https://github.com/vdeantoni/unbl
 
 > **fd**: `1`
 
-***
+---
 
 ### stderr
 
@@ -73,7 +74,7 @@ Defined in: [packages/core/src/runtime.ts:228](https://github.com/vdeantoni/unbl
 
 > **fd**: `2`
 
-***
+---
 
 ### platform
 
@@ -81,7 +82,7 @@ Defined in: [packages/core/src/runtime.ts:228](https://github.com/vdeantoni/unbl
 
 Defined in: [packages/core/src/runtime.ts:229](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L229)
 
-***
+---
 
 ### arch
 
@@ -89,7 +90,7 @@ Defined in: [packages/core/src/runtime.ts:229](https://github.com/vdeantoni/unbl
 
 Defined in: [packages/core/src/runtime.ts:230](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L230)
 
-***
+---
 
 ### env
 
@@ -97,7 +98,7 @@ Defined in: [packages/core/src/runtime.ts:230](https://github.com/vdeantoni/unbl
 
 Defined in: [packages/core/src/runtime.ts:231](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L231)
 
-***
+---
 
 ### cwd()
 
@@ -109,7 +110,7 @@ Defined in: [packages/core/src/runtime.ts:232](https://github.com/vdeantoni/unbl
 
 `string`
 
-***
+---
 
 ### exit()
 
@@ -127,7 +128,7 @@ Defined in: [packages/core/src/runtime.ts:233](https://github.com/vdeantoni/unbl
 
 `never`
 
-***
+---
 
 ### pid
 
@@ -135,7 +136,7 @@ Defined in: [packages/core/src/runtime.ts:233](https://github.com/vdeantoni/unbl
 
 Defined in: [packages/core/src/runtime.ts:234](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L234)
 
-***
+---
 
 ### title
 
@@ -143,7 +144,7 @@ Defined in: [packages/core/src/runtime.ts:234](https://github.com/vdeantoni/unbl
 
 Defined in: [packages/core/src/runtime.ts:235](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L235)
 
-***
+---
 
 ### version
 
@@ -151,7 +152,7 @@ Defined in: [packages/core/src/runtime.ts:235](https://github.com/vdeantoni/unbl
 
 Defined in: [packages/core/src/runtime.ts:236](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L236)
 
-***
+---
 
 ### on()
 
@@ -173,7 +174,7 @@ Defined in: [packages/core/src/runtime.ts:237](https://github.com/vdeantoni/unbl
 
 `any`
 
-***
+---
 
 ### once()
 
@@ -195,7 +196,7 @@ Defined in: [packages/core/src/runtime.ts:238](https://github.com/vdeantoni/unbl
 
 `any`
 
-***
+---
 
 ### removeListener()
 
@@ -217,7 +218,7 @@ Defined in: [packages/core/src/runtime.ts:239](https://github.com/vdeantoni/unbl
 
 `any`
 
-***
+---
 
 ### listeners()
 
@@ -235,7 +236,7 @@ Defined in: [packages/core/src/runtime.ts:240](https://github.com/vdeantoni/unbl
 
 `Function`[]
 
-***
+---
 
 ### nextTick()
 
@@ -257,7 +258,7 @@ Defined in: [packages/core/src/runtime.ts:241](https://github.com/vdeantoni/unbl
 
 `void`
 
-***
+---
 
 ### kill()
 

@@ -1,8 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
 import { PNG } from "pngjs";
-import { GifWriter } from "omggif";
-import tng, { ImageRenderer } from "../../src/lib/image-renderer.js";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import colors from "../../src/lib/colors.js";
+import tng, { ImageRenderer } from "../../src/lib/image-renderer.js";
 
 // Runtime is initialized globally in __tests__/setup.js
 

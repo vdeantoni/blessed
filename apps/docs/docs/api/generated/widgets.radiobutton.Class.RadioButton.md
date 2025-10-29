@@ -42,7 +42,7 @@ Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_events`](widgets.checkbox.Class.Checkbox.md#_events)
 
-***
+---
 
 ### \_maxListeners?
 
@@ -54,7 +54,7 @@ Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_maxListeners`](widgets.checkbox.Class.Checkbox.md#_maxlisteners)
 
-***
+---
 
 ### text
 
@@ -67,14 +67,14 @@ The text displayed next to the checkbox.
 #### Example
 
 ```ts
-checkbox.text = 'Accept terms';
+checkbox.text = "Accept terms";
 ```
 
 #### Inherited from
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`text`](widgets.checkbox.Class.Checkbox.md#text)
 
-***
+---
 
 ### checked
 
@@ -88,7 +88,7 @@ Whether the checkbox is currently checked.
 
 ```ts
 if (checkbox.checked) {
-  console.log('Checkbox is checked');
+  console.log("Checkbox is checked");
 }
 ```
 
@@ -96,7 +96,7 @@ if (checkbox.checked) {
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`checked`](widgets.checkbox.Class.Checkbox.md#checked)
 
-***
+---
 
 ### value
 
@@ -117,7 +117,7 @@ console.log(checkbox.value); // true or false
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`value`](widgets.checkbox.Class.Checkbox.md#value)
 
-***
+---
 
 ### options
 
@@ -129,7 +129,7 @@ Defined in: [packages/core/src/widgets/element.ts:48](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`options`](widgets.checkbox.Class.Checkbox.md#options)
 
-***
+---
 
 ### name?
 
@@ -141,7 +141,7 @@ Defined in: [packages/core/src/widgets/element.ts:50](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`name`](widgets.checkbox.Class.Checkbox.md#name)
 
-***
+---
 
 ### position
 
@@ -156,7 +156,7 @@ Kept as any due to complex internal position calculation system.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`position`](widgets.checkbox.Class.Checkbox.md#position)
 
-***
+---
 
 ### noOverflow?
 
@@ -168,7 +168,7 @@ Defined in: [packages/core/src/widgets/element.ts:56](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`noOverflow`](widgets.checkbox.Class.Checkbox.md#nooverflow)
 
-***
+---
 
 ### dockBorders?
 
@@ -180,7 +180,7 @@ Defined in: [packages/core/src/widgets/element.ts:57](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`dockBorders`](widgets.checkbox.Class.Checkbox.md#dockborders)
 
-***
+---
 
 ### shadow?
 
@@ -192,7 +192,7 @@ Defined in: [packages/core/src/widgets/element.ts:58](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`shadow`](widgets.checkbox.Class.Checkbox.md#shadow)
 
-***
+---
 
 ### style
 
@@ -206,7 +206,7 @@ Element style configuration (colors, attributes, hover/focus effects)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`style`](widgets.checkbox.Class.Checkbox.md#style)
 
-***
+---
 
 ### hidden
 
@@ -218,7 +218,7 @@ Defined in: [packages/core/src/widgets/element.ts:61](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`hidden`](widgets.checkbox.Class.Checkbox.md#hidden)
 
-***
+---
 
 ### fixed
 
@@ -230,7 +230,7 @@ Defined in: [packages/core/src/widgets/element.ts:62](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`fixed`](widgets.checkbox.Class.Checkbox.md#fixed)
 
-***
+---
 
 ### align
 
@@ -242,7 +242,7 @@ Defined in: [packages/core/src/widgets/element.ts:63](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`align`](widgets.checkbox.Class.Checkbox.md#align)
 
-***
+---
 
 ### valign
 
@@ -254,7 +254,7 @@ Defined in: [packages/core/src/widgets/element.ts:64](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`valign`](widgets.checkbox.Class.Checkbox.md#valign)
 
-***
+---
 
 ### wrap
 
@@ -266,7 +266,7 @@ Defined in: [packages/core/src/widgets/element.ts:65](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`wrap`](widgets.checkbox.Class.Checkbox.md#wrap)
 
-***
+---
 
 ### shrink?
 
@@ -278,7 +278,7 @@ Defined in: [packages/core/src/widgets/element.ts:66](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`shrink`](widgets.checkbox.Class.Checkbox.md#shrink)
 
-***
+---
 
 ### ch
 
@@ -290,7 +290,7 @@ Defined in: [packages/core/src/widgets/element.ts:67](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`ch`](widgets.checkbox.Class.Checkbox.md#ch)
 
-***
+---
 
 ### padding
 
@@ -304,7 +304,7 @@ Padding configuration for all sides
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`padding`](widgets.checkbox.Class.Checkbox.md#padding)
 
-***
+---
 
 ### border?
 
@@ -318,7 +318,7 @@ Border configuration
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`border`](widgets.checkbox.Class.Checkbox.md#border)
 
-***
+---
 
 ### parseTags?
 
@@ -330,7 +330,7 @@ Defined in: [packages/core/src/widgets/element.ts:72](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`parseTags`](widgets.checkbox.Class.Checkbox.md#parsetags)
 
-***
+---
 
 ### content
 
@@ -342,7 +342,7 @@ Defined in: [packages/core/src/widgets/element.ts:73](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`content`](widgets.checkbox.Class.Checkbox.md#content)
 
-***
+---
 
 ### lpos?
 
@@ -356,7 +356,7 @@ Last rendered position coordinates
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`lpos`](widgets.checkbox.Class.Checkbox.md#lpos)
 
-***
+---
 
 ### \_clines?
 
@@ -368,7 +368,7 @@ Defined in: [packages/core/src/widgets/element.ts:76](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_clines`](widgets.checkbox.Class.Checkbox.md#_clines)
 
-***
+---
 
 ### \_pcontent?
 
@@ -380,7 +380,7 @@ Defined in: [packages/core/src/widgets/element.ts:77](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_pcontent`](widgets.checkbox.Class.Checkbox.md#_pcontent)
 
-***
+---
 
 ### \_borderColors?
 
@@ -392,7 +392,7 @@ Defined in: [packages/core/src/widgets/element.ts:78](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_borderColors`](widgets.checkbox.Class.Checkbox.md#_bordercolors)
 
-***
+---
 
 ### \_slisteners?
 
@@ -404,7 +404,7 @@ Defined in: [packages/core/src/widgets/element.ts:79](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_slisteners`](widgets.checkbox.Class.Checkbox.md#_slisteners)
 
-***
+---
 
 ### \_label?
 
@@ -416,7 +416,7 @@ Defined in: [packages/core/src/widgets/element.ts:80](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_label`](widgets.checkbox.Class.Checkbox.md#_label)
 
-***
+---
 
 ### \_labelScroll()?
 
@@ -432,7 +432,7 @@ Defined in: [packages/core/src/widgets/element.ts:81](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_labelScroll`](widgets.checkbox.Class.Checkbox.md#_labelscroll)
 
-***
+---
 
 ### \_labelResize()?
 
@@ -448,7 +448,7 @@ Defined in: [packages/core/src/widgets/element.ts:82](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_labelResize`](widgets.checkbox.Class.Checkbox.md#_labelresize)
 
-***
+---
 
 ### \_hoverOptions?
 
@@ -460,7 +460,7 @@ Defined in: [packages/core/src/widgets/element.ts:83](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_hoverOptions`](widgets.checkbox.Class.Checkbox.md#_hoveroptions)
 
-***
+---
 
 ### \_draggable?
 
@@ -472,7 +472,7 @@ Defined in: [packages/core/src/widgets/element.ts:84](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_draggable`](widgets.checkbox.Class.Checkbox.md#_draggable)
 
-***
+---
 
 ### \_dragMD()?
 
@@ -494,7 +494,7 @@ Defined in: [packages/core/src/widgets/element.ts:85](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_dragMD`](widgets.checkbox.Class.Checkbox.md#_dragmd)
 
-***
+---
 
 ### \_dragM()?
 
@@ -516,7 +516,7 @@ Defined in: [packages/core/src/widgets/element.ts:86](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_dragM`](widgets.checkbox.Class.Checkbox.md#_dragm)
 
-***
+---
 
 ### \_drag?
 
@@ -528,7 +528,7 @@ Defined in: [packages/core/src/widgets/element.ts:87](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_drag`](widgets.checkbox.Class.Checkbox.md#_drag)
 
-***
+---
 
 ### \_noFill?
 
@@ -540,7 +540,7 @@ Defined in: [packages/core/src/widgets/element.ts:88](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_noFill`](widgets.checkbox.Class.Checkbox.md#_nofill)
 
-***
+---
 
 ### \_isLabel?
 
@@ -552,7 +552,7 @@ Defined in: [packages/core/src/widgets/element.ts:89](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_isLabel`](widgets.checkbox.Class.Checkbox.md#_islabel)
 
-***
+---
 
 ### \_isList?
 
@@ -564,7 +564,7 @@ Defined in: [packages/core/src/widgets/element.ts:90](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_isList`](widgets.checkbox.Class.Checkbox.md#_islist)
 
-***
+---
 
 ### childBase?
 
@@ -576,7 +576,7 @@ Defined in: [packages/core/src/widgets/element.ts:91](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`childBase`](widgets.checkbox.Class.Checkbox.md#childbase)
 
-***
+---
 
 ### childOffset?
 
@@ -588,7 +588,7 @@ Defined in: [packages/core/src/widgets/element.ts:92](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`childOffset`](widgets.checkbox.Class.Checkbox.md#childoffset)
 
-***
+---
 
 ### alwaysScroll?
 
@@ -600,7 +600,7 @@ Defined in: [packages/core/src/widgets/element.ts:93](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`alwaysScroll`](widgets.checkbox.Class.Checkbox.md#alwaysscroll)
 
-***
+---
 
 ### baseLimit?
 
@@ -612,7 +612,7 @@ Defined in: [packages/core/src/widgets/element.ts:94](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`baseLimit`](widgets.checkbox.Class.Checkbox.md#baselimit)
 
-***
+---
 
 ### track?
 
@@ -624,7 +624,7 @@ Defined in: [packages/core/src/widgets/element.ts:95](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`track`](widgets.checkbox.Class.Checkbox.md#track)
 
-***
+---
 
 ### scrollbar?
 
@@ -636,7 +636,7 @@ Defined in: [packages/core/src/widgets/element.ts:96](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`scrollbar`](widgets.checkbox.Class.Checkbox.md#scrollbar)
 
-***
+---
 
 ### items?
 
@@ -648,7 +648,7 @@ Defined in: [packages/core/src/widgets/element.ts:97](https://github.com/vdeanto
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`items`](widgets.checkbox.Class.Checkbox.md#items)
 
-***
+---
 
 ### scrollable?
 
@@ -660,7 +660,7 @@ Defined in: [packages/core/src/widgets/element.ts:100](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`scrollable`](widgets.checkbox.Class.Checkbox.md#scrollable)
 
-***
+---
 
 ### scroll()?
 
@@ -692,7 +692,7 @@ Force the scroll operation even if position hasn't changed
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`scroll`](widgets.checkbox.Class.Checkbox.md#scroll)
 
-***
+---
 
 ### scrollTo()?
 
@@ -724,7 +724,7 @@ Force the scroll operation even if position hasn't changed
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`scrollTo`](widgets.checkbox.Class.Checkbox.md#scrollto)
 
-***
+---
 
 ### setScroll()?
 
@@ -756,7 +756,7 @@ Force the scroll operation even if position hasn't changed
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setScroll`](widgets.checkbox.Class.Checkbox.md#setscroll)
 
-***
+---
 
 ### getScroll()?
 
@@ -776,7 +776,7 @@ The current absolute scroll position
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getScroll`](widgets.checkbox.Class.Checkbox.md#getscroll)
 
-***
+---
 
 ### getScrollHeight()?
 
@@ -796,7 +796,7 @@ The total scrollable content height in lines
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getScrollHeight`](widgets.checkbox.Class.Checkbox.md#getscrollheight)
 
-***
+---
 
 ### getScrollPerc()?
 
@@ -824,7 +824,7 @@ The scroll position as a percentage (0-100), or -1 if not scrollable
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getScrollPerc`](widgets.checkbox.Class.Checkbox.md#getscrollperc)
 
-***
+---
 
 ### setScrollPerc()?
 
@@ -850,7 +850,7 @@ The target scroll percentage (0-100)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setScrollPerc`](widgets.checkbox.Class.Checkbox.md#setscrollperc)
 
-***
+---
 
 ### resetScroll()?
 
@@ -868,7 +868,7 @@ Reset the scroll index to its initial state (top).
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`resetScroll`](widgets.checkbox.Class.Checkbox.md#resetscroll)
 
-***
+---
 
 ### \_scrollBottom()?
 
@@ -884,7 +884,7 @@ Defined in: [packages/core/src/widgets/element.ts:111](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_scrollBottom`](widgets.checkbox.Class.Checkbox.md#_scrollbottom)
 
-***
+---
 
 ### \_recalculateIndex()?
 
@@ -900,7 +900,7 @@ Defined in: [packages/core/src/widgets/element.ts:112](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_recalculateIndex`](widgets.checkbox.Class.Checkbox.md#_recalculateindex)
 
-***
+---
 
 ### keyable
 
@@ -912,7 +912,7 @@ Defined in: [packages/core/src/widgets/input.ts:18](https://github.com/vdeantoni
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`keyable`](widgets.checkbox.Class.Checkbox.md#keyable)
 
-***
+---
 
 ### uid
 
@@ -924,7 +924,7 @@ Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`uid`](widgets.checkbox.Class.Checkbox.md#uid)
 
-***
+---
 
 ### ScreenRegistry
 
@@ -936,7 +936,7 @@ Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`ScreenRegistry`](widgets.checkbox.Class.Checkbox.md#screenregistry)
 
-***
+---
 
 ### screen
 
@@ -955,7 +955,7 @@ render(), and the program property without complex generic typing.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`screen`](widgets.checkbox.Class.Checkbox.md#screen)
 
-***
+---
 
 ### parent
 
@@ -974,7 +974,7 @@ methods from subclasses like Box, List, Form, etc.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`parent`](widgets.checkbox.Class.Checkbox.md#parent)
 
-***
+---
 
 ### children
 
@@ -991,7 +991,7 @@ Kept as any[] to preserve flexibility with mixed widget types.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`children`](widgets.checkbox.Class.Checkbox.md#children)
 
-***
+---
 
 ### $
 
@@ -1005,7 +1005,7 @@ An object for any miscellaneous user data.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`$`](widgets.checkbox.Class.Checkbox.md#)
 
-***
+---
 
 ### \_
 
@@ -1019,7 +1019,7 @@ An object for any miscellaneous user data.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_`](widgets.checkbox.Class.Checkbox.md#_)
 
-***
+---
 
 ### data
 
@@ -1033,7 +1033,7 @@ An object for any miscellaneous user data.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`data`](widgets.checkbox.Class.Checkbox.md#data)
 
-***
+---
 
 ### uid
 
@@ -1045,7 +1045,7 @@ Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`uid`](widgets.checkbox.Class.Checkbox.md#uid-1)
 
-***
+---
 
 ### index
 
@@ -1061,7 +1061,7 @@ Set to -1 initially, updated during rendering.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`index`](widgets.checkbox.Class.Checkbox.md#index)
 
-***
+---
 
 ### detached?
 
@@ -1073,7 +1073,7 @@ Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`detached`](widgets.checkbox.Class.Checkbox.md#detached)
 
-***
+---
 
 ### destroyed?
 
@@ -1085,7 +1085,7 @@ Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`destroyed`](widgets.checkbox.Class.Checkbox.md#destroyed)
 
-***
+---
 
 ### runtime
 
@@ -1097,7 +1097,7 @@ Defined in: [packages/core/src/widgets/node.ts:90](https://github.com/vdeantoni/
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`runtime`](widgets.checkbox.Class.Checkbox.md#runtime)
 
-***
+---
 
 ### type
 
@@ -1130,7 +1130,7 @@ Defined in: [packages/core/src/widgets/element.ts:114](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`focused`](widgets.checkbox.Class.Checkbox.md#focused)
 
-***
+---
 
 ### visible
 
@@ -1148,7 +1148,7 @@ Defined in: [packages/core/src/widgets/element.ts:980](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`visible`](widgets.checkbox.Class.Checkbox.md#visible)
 
-***
+---
 
 ### \_detached
 
@@ -1166,7 +1166,7 @@ Defined in: [packages/core/src/widgets/element.ts:991](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_detached`](widgets.checkbox.Class.Checkbox.md#_detached)
 
-***
+---
 
 ### draggable
 
@@ -1200,7 +1200,7 @@ Defined in: [packages/core/src/widgets/element.ts:1028](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`draggable`](widgets.checkbox.Class.Checkbox.md#draggable)
 
-***
+---
 
 ### width
 
@@ -1236,7 +1236,7 @@ Position Setters
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`width`](widgets.checkbox.Class.Checkbox.md#width)
 
-***
+---
 
 ### height
 
@@ -1270,7 +1270,7 @@ Defined in: [packages/core/src/widgets/element.ts:1637](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`height`](widgets.checkbox.Class.Checkbox.md#height)
 
-***
+---
 
 ### aleft
 
@@ -1304,7 +1304,7 @@ Defined in: [packages/core/src/widgets/element.ts:1645](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`aleft`](widgets.checkbox.Class.Checkbox.md#aleft)
 
-***
+---
 
 ### aright
 
@@ -1338,7 +1338,7 @@ Defined in: [packages/core/src/widgets/element.ts:1666](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`aright`](widgets.checkbox.Class.Checkbox.md#aright)
 
-***
+---
 
 ### atop
 
@@ -1372,7 +1372,7 @@ Defined in: [packages/core/src/widgets/element.ts:1674](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`atop`](widgets.checkbox.Class.Checkbox.md#atop)
 
-***
+---
 
 ### abottom
 
@@ -1406,7 +1406,7 @@ Defined in: [packages/core/src/widgets/element.ts:1695](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`abottom`](widgets.checkbox.Class.Checkbox.md#abottom)
 
-***
+---
 
 ### rleft
 
@@ -1440,7 +1440,7 @@ Defined in: [packages/core/src/widgets/element.ts:1703](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`rleft`](widgets.checkbox.Class.Checkbox.md#rleft)
 
-***
+---
 
 ### rright
 
@@ -1474,7 +1474,7 @@ Defined in: [packages/core/src/widgets/element.ts:1711](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`rright`](widgets.checkbox.Class.Checkbox.md#rright)
 
-***
+---
 
 ### rtop
 
@@ -1508,7 +1508,7 @@ Defined in: [packages/core/src/widgets/element.ts:1718](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`rtop`](widgets.checkbox.Class.Checkbox.md#rtop)
 
-***
+---
 
 ### rbottom
 
@@ -1542,7 +1542,7 @@ Defined in: [packages/core/src/widgets/element.ts:1726](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`rbottom`](widgets.checkbox.Class.Checkbox.md#rbottom)
 
-***
+---
 
 ### ileft
 
@@ -1560,7 +1560,7 @@ Defined in: [packages/core/src/widgets/element.ts:1733](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`ileft`](widgets.checkbox.Class.Checkbox.md#ileft)
 
-***
+---
 
 ### itop
 
@@ -1578,7 +1578,7 @@ Defined in: [packages/core/src/widgets/element.ts:1738](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`itop`](widgets.checkbox.Class.Checkbox.md#itop)
 
-***
+---
 
 ### iright
 
@@ -1596,7 +1596,7 @@ Defined in: [packages/core/src/widgets/element.ts:1743](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`iright`](widgets.checkbox.Class.Checkbox.md#iright)
 
-***
+---
 
 ### ibottom
 
@@ -1614,7 +1614,7 @@ Defined in: [packages/core/src/widgets/element.ts:1748](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`ibottom`](widgets.checkbox.Class.Checkbox.md#ibottom)
 
-***
+---
 
 ### iwidth
 
@@ -1632,7 +1632,7 @@ Defined in: [packages/core/src/widgets/element.ts:1753](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`iwidth`](widgets.checkbox.Class.Checkbox.md#iwidth)
 
-***
+---
 
 ### iheight
 
@@ -1650,7 +1650,7 @@ Defined in: [packages/core/src/widgets/element.ts:1760](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`iheight`](widgets.checkbox.Class.Checkbox.md#iheight)
 
-***
+---
 
 ### tpadding
 
@@ -1668,7 +1668,7 @@ Defined in: [packages/core/src/widgets/element.ts:1767](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`tpadding`](widgets.checkbox.Class.Checkbox.md#tpadding)
 
-***
+---
 
 ### left
 
@@ -1704,7 +1704,7 @@ Defined in: [packages/core/src/widgets/element.ts:1796](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`left`](widgets.checkbox.Class.Checkbox.md#left)
 
-***
+---
 
 ### right
 
@@ -1738,7 +1738,7 @@ Defined in: [packages/core/src/widgets/element.ts:1800](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`right`](widgets.checkbox.Class.Checkbox.md#right)
 
-***
+---
 
 ### top
 
@@ -1772,7 +1772,7 @@ Defined in: [packages/core/src/widgets/element.ts:1804](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`top`](widgets.checkbox.Class.Checkbox.md#top)
 
-***
+---
 
 ### bottom
 
@@ -1828,7 +1828,7 @@ Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setMaxListeners`](widgets.checkbox.Class.Checkbox.md#setmaxlisteners)
 
-***
+---
 
 ### addListener()
 
@@ -1854,7 +1854,7 @@ Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`addListener`](widgets.checkbox.Class.Checkbox.md#addlistener)
 
-***
+---
 
 ### on()
 
@@ -1880,7 +1880,7 @@ Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`on`](widgets.checkbox.Class.Checkbox.md#on)
 
-***
+---
 
 ### removeListener()
 
@@ -1906,7 +1906,7 @@ Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`removeListener`](widgets.checkbox.Class.Checkbox.md#removelistener)
 
-***
+---
 
 ### off()
 
@@ -1932,7 +1932,7 @@ Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`off`](widgets.checkbox.Class.Checkbox.md#off)
 
-***
+---
 
 ### removeAllListeners()
 
@@ -1954,7 +1954,7 @@ Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`removeAllListeners`](widgets.checkbox.Class.Checkbox.md#removealllisteners)
 
-***
+---
 
 ### once()
 
@@ -1980,7 +1980,7 @@ Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`once`](widgets.checkbox.Class.Checkbox.md#once)
 
-***
+---
 
 ### listeners()
 
@@ -2002,7 +2002,7 @@ Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`listeners`](widgets.checkbox.Class.Checkbox.md#listeners)
 
-***
+---
 
 ### \_emit()
 
@@ -2028,7 +2028,7 @@ Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/un
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_emit`](widgets.checkbox.Class.Checkbox.md#_emit)
 
-***
+---
 
 ### emit()
 
@@ -2054,7 +2054,7 @@ Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/u
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`emit`](widgets.checkbox.Class.Checkbox.md#emit)
 
-***
+---
 
 ### check()
 
@@ -2080,7 +2080,7 @@ checkbox.check();
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`check`](widgets.checkbox.Class.Checkbox.md#check)
 
-***
+---
 
 ### uncheck()
 
@@ -2106,7 +2106,7 @@ checkbox.uncheck();
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`uncheck`](widgets.checkbox.Class.Checkbox.md#uncheck)
 
-***
+---
 
 ### toggle()
 
@@ -2131,7 +2131,7 @@ checkbox.toggle();
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`toggle`](widgets.checkbox.Class.Checkbox.md#toggle)
 
-***
+---
 
 ### sattr()
 
@@ -2161,7 +2161,7 @@ Defined in: [packages/core/src/widgets/element.ts:326](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`sattr`](widgets.checkbox.Class.Checkbox.md#sattr)
 
-***
+---
 
 ### onScreenEvent()
 
@@ -2194,7 +2194,7 @@ Event handler function
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`onScreenEvent`](widgets.checkbox.Class.Checkbox.md#onscreenevent)
 
-***
+---
 
 ### onceScreenEvent()
 
@@ -2226,7 +2226,7 @@ Event handler function
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`onceScreenEvent`](widgets.checkbox.Class.Checkbox.md#oncescreenevent)
 
-***
+---
 
 ### removeScreenEvent()
 
@@ -2259,7 +2259,7 @@ Event handler function
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`removeScreenEvent`](widgets.checkbox.Class.Checkbox.md#removescreenevent)
 
-***
+---
 
 ### free()
 
@@ -2279,7 +2279,7 @@ and destroy().
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`free`](widgets.checkbox.Class.Checkbox.md#free)
 
-***
+---
 
 ### hide()
 
@@ -2297,7 +2297,7 @@ Hide element.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`hide`](widgets.checkbox.Class.Checkbox.md#hide)
 
-***
+---
 
 ### show()
 
@@ -2315,7 +2315,7 @@ Show element.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`show`](widgets.checkbox.Class.Checkbox.md#show)
 
-***
+---
 
 ### focus()
 
@@ -2333,7 +2333,7 @@ Focus element.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`focus`](widgets.checkbox.Class.Checkbox.md#focus)
 
-***
+---
 
 ### isFocusable()
 
@@ -2352,7 +2352,7 @@ Elements are focusable if they have tabIndex >= -1 and are visible/attached.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`isFocusable`](widgets.checkbox.Class.Checkbox.md#isfocusable)
 
-***
+---
 
 ### isInTabOrder()
 
@@ -2371,7 +2371,7 @@ Elements with tabIndex=-1 are focusable but excluded from Tab order.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`isInTabOrder`](widgets.checkbox.Class.Checkbox.md#isintaborder)
 
-***
+---
 
 ### getTabIndex()
 
@@ -2389,7 +2389,7 @@ Get effective tab index for focus navigation ordering.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getTabIndex`](widgets.checkbox.Class.Checkbox.md#gettabindex)
 
-***
+---
 
 ### setContent()
 
@@ -2423,7 +2423,7 @@ with SGR codes (if enabled).
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setContent`](widgets.checkbox.Class.Checkbox.md#setcontent)
 
-***
+---
 
 ### getContent()
 
@@ -2441,7 +2441,7 @@ Return content, slightly different from el.content. Assume the above formatting.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getContent`](widgets.checkbox.Class.Checkbox.md#getcontent)
 
-***
+---
 
 ### getBorderLength()
 
@@ -2461,7 +2461,7 @@ Number of border cells, or 0 if no border
 #### Example
 
 ```ts
-const box = new Box({ width: 20, height: 10, border: { type: 'line' } });
+const box = new Box({ width: 20, height: 10, border: { type: "line" } });
 console.log(box.getBorderLength()); // 56 (2 * (20 + 10) - 4)
 ```
 
@@ -2469,7 +2469,7 @@ console.log(box.getBorderLength()); // 56 (2 * (20 + 10) - 4)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getBorderLength`](widgets.checkbox.Class.Checkbox.md#getborderlength)
 
-***
+---
 
 ### getBorderColors()
 
@@ -2498,7 +2498,7 @@ box.setBorderColors(rotated);
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getBorderColors`](widgets.checkbox.Class.Checkbox.md#getbordercolors)
 
-***
+---
 
 ### setBorderColors()
 
@@ -2542,7 +2542,7 @@ setInterval(() => {
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setBorderColors`](widgets.checkbox.Class.Checkbox.md#setbordercolors)
 
-***
+---
 
 ### setText()
 
@@ -2570,7 +2570,7 @@ Similar to setContent, but ignore tags and remove escape codes.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setText`](widgets.checkbox.Class.Checkbox.md#settext)
 
-***
+---
 
 ### getText()
 
@@ -2588,7 +2588,7 @@ Similar to getContent, but return content with tags and escape codes removed.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getText`](widgets.checkbox.Class.Checkbox.md#gettext)
 
-***
+---
 
 ### parseContent()
 
@@ -2610,7 +2610,7 @@ Defined in: [packages/core/src/widgets/element.ts:577](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`parseContent`](widgets.checkbox.Class.Checkbox.md#parsecontent)
 
-***
+---
 
 ### \_parseTags()
 
@@ -2632,7 +2632,7 @@ Defined in: [packages/core/src/widgets/element.ts:644](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_parseTags`](widgets.checkbox.Class.Checkbox.md#_parsetags)
 
-***
+---
 
 ### \_parseAttr()
 
@@ -2654,7 +2654,7 @@ Defined in: [packages/core/src/widgets/element.ts:749](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_parseAttr`](widgets.checkbox.Class.Checkbox.md#_parseattr)
 
-***
+---
 
 ### \_align()
 
@@ -2684,7 +2684,7 @@ Defined in: [packages/core/src/widgets/element.ts:778](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_align`](widgets.checkbox.Class.Checkbox.md#_align)
 
-***
+---
 
 ### \_wrapContent()
 
@@ -2710,7 +2710,7 @@ Defined in: [packages/core/src/widgets/element.ts:810](https://github.com/vdeant
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_wrapContent`](widgets.checkbox.Class.Checkbox.md#_wrapcontent)
 
-***
+---
 
 ### enableMouse()
 
@@ -2729,7 +2729,7 @@ Registers the element as clickable with the screen.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`enableMouse`](widgets.checkbox.Class.Checkbox.md#enablemouse)
 
-***
+---
 
 ### enableKeys()
 
@@ -2748,7 +2748,7 @@ Registers the element as keyable with the screen.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`enableKeys`](widgets.checkbox.Class.Checkbox.md#enablekeys)
 
-***
+---
 
 ### enableInput()
 
@@ -2766,7 +2766,7 @@ Enable key and mouse events. Calls both enableMouse() and enableKeys().
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`enableInput`](widgets.checkbox.Class.Checkbox.md#enableinput)
 
-***
+---
 
 ### enableDrag()
 
@@ -2795,7 +2795,7 @@ True if dragging was enabled
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`enableDrag`](widgets.checkbox.Class.Checkbox.md#enabledrag)
 
-***
+---
 
 ### disableDrag()
 
@@ -2816,7 +2816,7 @@ True if dragging was disabled
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`disableDrag`](widgets.checkbox.Class.Checkbox.md#disabledrag)
 
-***
+---
 
 ### key()
 
@@ -2844,7 +2844,7 @@ The bound key handler
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`key`](widgets.checkbox.Class.Checkbox.md#key)
 
-***
+---
 
 ### onceKey()
 
@@ -2872,7 +2872,7 @@ The bound key handler
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`onceKey`](widgets.checkbox.Class.Checkbox.md#oncekey)
 
-***
+---
 
 ### unkey()
 
@@ -2900,7 +2900,7 @@ Result of unbinding
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`unkey`](widgets.checkbox.Class.Checkbox.md#unkey)
 
-***
+---
 
 ### removeKey()
 
@@ -2929,7 +2929,7 @@ Result of removing
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`removeKey`](widgets.checkbox.Class.Checkbox.md#removekey)
 
-***
+---
 
 ### setIndex()
 
@@ -2956,7 +2956,7 @@ New z-index value
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setIndex`](widgets.checkbox.Class.Checkbox.md#setindex)
 
-***
+---
 
 ### setFront()
 
@@ -2975,7 +2975,7 @@ Sets the element's z-index to the highest value (renders last/on top).
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setFront`](widgets.checkbox.Class.Checkbox.md#setfront)
 
-***
+---
 
 ### setBack()
 
@@ -2994,7 +2994,7 @@ Sets the element's z-index to the lowest value (renders first/at bottom).
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setBack`](widgets.checkbox.Class.Checkbox.md#setback)
 
-***
+---
 
 ### clearPos()
 
@@ -3011,7 +3011,7 @@ Fills the region with spaces, used when moving or hiding elements.
 
 `boolean`
 
-Whether to use _getCoords (default: false)
+Whether to use \_getCoords (default: false)
 
 ##### override?
 
@@ -3027,7 +3027,7 @@ If true, always clear even if cell hasn't changed
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`clearPos`](widgets.checkbox.Class.Checkbox.md#clearpos)
 
-***
+---
 
 ### setLabel()
 
@@ -3053,15 +3053,15 @@ Label text (string) or options object with text and side properties
 #### Example
 
 ```ts
-element.setLabel('My Label');
-element.setLabel({ text: 'My Label', side: 'right' });
+element.setLabel("My Label");
+element.setLabel({ text: "My Label", side: "right" });
 ```
 
 #### Inherited from
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setLabel`](widgets.checkbox.Class.Checkbox.md#setlabel)
 
-***
+---
 
 ### removeLabel()
 
@@ -3080,7 +3080,7 @@ Detaches the label element and removes associated event listeners.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`removeLabel`](widgets.checkbox.Class.Checkbox.md#removelabel)
 
-***
+---
 
 ### setHover()
 
@@ -3105,15 +3105,15 @@ Hover text (string) or options object with text property
 #### Example
 
 ```ts
-element.setHover('Hover text here');
-element.setHover({ text: 'Hover text here' });
+element.setHover("Hover text here");
+element.setHover({ text: "Hover text here" });
 ```
 
 #### Inherited from
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setHover`](widgets.checkbox.Class.Checkbox.md#sethover)
 
-***
+---
 
 ### removeHover()
 
@@ -3132,7 +3132,7 @@ Detaches the hover text box if it's currently displayed.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`removeHover`](widgets.checkbox.Class.Checkbox.md#removehover)
 
-***
+---
 
 ### \_getPos()
 
@@ -3150,7 +3150,7 @@ Positioning
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getPos`](widgets.checkbox.Class.Checkbox.md#_getpos)
 
-***
+---
 
 ### \_getWidth()
 
@@ -3174,7 +3174,7 @@ Position Getters
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getWidth`](widgets.checkbox.Class.Checkbox.md#_getwidth)
 
-***
+---
 
 ### \_getHeight()
 
@@ -3196,7 +3196,7 @@ Defined in: [packages/core/src/widgets/element.ts:1429](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getHeight`](widgets.checkbox.Class.Checkbox.md#_getheight)
 
-***
+---
 
 ### \_getLeft()
 
@@ -3218,7 +3218,7 @@ Defined in: [packages/core/src/widgets/element.ts:1480](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getLeft`](widgets.checkbox.Class.Checkbox.md#_getleft)
 
-***
+---
 
 ### \_getRight()
 
@@ -3240,7 +3240,7 @@ Defined in: [packages/core/src/widgets/element.ts:1517](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getRight`](widgets.checkbox.Class.Checkbox.md#_getright)
 
-***
+---
 
 ### \_getTop()
 
@@ -3262,7 +3262,7 @@ Defined in: [packages/core/src/widgets/element.ts:1542](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getTop`](widgets.checkbox.Class.Checkbox.md#_gettop)
 
-***
+---
 
 ### \_getBottom()
 
@@ -3284,7 +3284,7 @@ Defined in: [packages/core/src/widgets/element.ts:1579](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getBottom`](widgets.checkbox.Class.Checkbox.md#_getbottom)
 
-***
+---
 
 ### \_getShrinkBox()
 
@@ -3324,7 +3324,7 @@ Rendering - here be dragons
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getShrinkBox`](widgets.checkbox.Class.Checkbox.md#_getshrinkbox)
 
-***
+---
 
 ### \_getShrinkContent()
 
@@ -3362,7 +3362,7 @@ Defined in: [packages/core/src/widgets/element.ts:1967](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getShrinkContent`](widgets.checkbox.Class.Checkbox.md#_getshrinkcontent)
 
-***
+---
 
 ### \_getShrink()
 
@@ -3400,7 +3400,7 @@ Defined in: [packages/core/src/widgets/element.ts:2003](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getShrink`](widgets.checkbox.Class.Checkbox.md#_getshrink)
 
-***
+---
 
 ### \_getCoords()
 
@@ -3426,13 +3426,13 @@ Defined in: [packages/core/src/widgets/element.ts:2048](https://github.com/vdean
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_getCoords`](widgets.checkbox.Class.Checkbox.md#_getcoords)
 
-***
+---
 
 ### \_render()
 
 > **\_render**(): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:2871](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2871)
+Defined in: [packages/core/src/widgets/element.ts:2879](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2879)
 
 Internal alias for render().
 
@@ -3446,13 +3446,13 @@ Rendered coordinates object
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`_render`](widgets.checkbox.Class.Checkbox.md#_render)
 
-***
+---
 
 ### insertLine()
 
 > **insertLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2885](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2885)
+Defined in: [packages/core/src/widgets/element.ts:2893](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2893)
 
 Insert a line into the box's content.
 Handles wrapped content by inserting at the specified fake line index.
@@ -3479,13 +3479,13 @@ Line or array of lines to insert
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`insertLine`](widgets.checkbox.Class.Checkbox.md#insertline)
 
-***
+---
 
 ### deleteLine()
 
 > **deleteLine**(`i`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2946](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2946)
+Defined in: [packages/core/src/widgets/element.ts:2954](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2954)
 
 Delete a line from the box's content.
 Handles wrapped content by deleting at the specified fake line index.
@@ -3512,13 +3512,13 @@ Number of lines to delete (default: 1)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`deleteLine`](widgets.checkbox.Class.Checkbox.md#deleteline)
 
-***
+---
 
 ### insertTop()
 
 > **insertTop**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3002](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3002)
+Defined in: [packages/core/src/widgets/element.ts:3010](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3010)
 
 Insert a line at the top of the box.
 Inserts at the first visible line based on childBase.
@@ -3539,13 +3539,13 @@ Line or array of lines to insert
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`insertTop`](widgets.checkbox.Class.Checkbox.md#inserttop)
 
-***
+---
 
 ### insertBottom()
 
 > **insertBottom**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3012](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3012)
+Defined in: [packages/core/src/widgets/element.ts:3020](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3020)
 
 Insert a line at the bottom of the box.
 Inserts after the last visible line based on height and childBase.
@@ -3566,13 +3566,13 @@ Line or array of lines to insert
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`insertBottom`](widgets.checkbox.Class.Checkbox.md#insertbottom)
 
-***
+---
 
 ### deleteTop()
 
 > **deleteTop**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3025](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3025)
+Defined in: [packages/core/src/widgets/element.ts:3033](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3033)
 
 Delete a line at the top of the box.
 Deletes from the first visible line based on childBase.
@@ -3593,13 +3593,13 @@ Number of lines to delete (default: 1)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`deleteTop`](widgets.checkbox.Class.Checkbox.md#deletetop)
 
-***
+---
 
 ### deleteBottom()
 
 > **deleteBottom**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3035](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3035)
+Defined in: [packages/core/src/widgets/element.ts:3043](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3043)
 
 Delete a line at the bottom of the box.
 Deletes from the last visible line based on height and childBase.
@@ -3620,13 +3620,13 @@ Number of lines to delete (default: 1)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`deleteBottom`](widgets.checkbox.Class.Checkbox.md#deletebottom)
 
-***
+---
 
 ### setLine()
 
 > **setLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3050](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3050)
+Defined in: [packages/core/src/widgets/element.ts:3058](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3058)
 
 Set a line in the box's content.
 
@@ -3652,13 +3652,13 @@ Line content to set
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setLine`](widgets.checkbox.Class.Checkbox.md#setline)
 
-***
+---
 
 ### setBaseLine()
 
 > **setBaseLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3064](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3064)
+Defined in: [packages/core/src/widgets/element.ts:3072](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3072)
 
 Set a line in the box's content from the visible top.
 
@@ -3684,13 +3684,13 @@ Line content to set
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`setBaseLine`](widgets.checkbox.Class.Checkbox.md#setbaseline)
 
-***
+---
 
 ### getLine()
 
 > **getLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3074](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3074)
+Defined in: [packages/core/src/widgets/element.ts:3082](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3082)
 
 Get a line from the box's content.
 
@@ -3712,13 +3712,13 @@ Line content
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getLine`](widgets.checkbox.Class.Checkbox.md#getline)
 
-***
+---
 
 ### getBaseLine()
 
 > **getBaseLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3085](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3085)
+Defined in: [packages/core/src/widgets/element.ts:3093](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3093)
 
 Get a line from the box's content from the visible top.
 
@@ -3740,13 +3740,13 @@ Line content
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getBaseLine`](widgets.checkbox.Class.Checkbox.md#getbaseline)
 
-***
+---
 
 ### clearLine()
 
 > **clearLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3094](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3094)
+Defined in: [packages/core/src/widgets/element.ts:3102](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3102)
 
 Clear a line from the box's content.
 
@@ -3766,13 +3766,13 @@ Line index to clear (fake line number)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`clearLine`](widgets.checkbox.Class.Checkbox.md#clearline)
 
-***
+---
 
 ### clearBaseLine()
 
 > **clearBaseLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3103](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3103)
+Defined in: [packages/core/src/widgets/element.ts:3111](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3111)
 
 Clear a line from the box's content from the visible top.
 
@@ -3792,13 +3792,13 @@ Line offset from visible top
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`clearBaseLine`](widgets.checkbox.Class.Checkbox.md#clearbaseline)
 
-***
+---
 
 ### unshiftLine()
 
 > **unshiftLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3112](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3112)
+Defined in: [packages/core/src/widgets/element.ts:3120](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3120)
 
 Unshift a line onto the top of the content.
 
@@ -3818,13 +3818,13 @@ Line or array of lines to insert
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`unshiftLine`](widgets.checkbox.Class.Checkbox.md#unshiftline)
 
-***
+---
 
 ### shiftLine()
 
 > **shiftLine**(`i?`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3121](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3121)
+Defined in: [packages/core/src/widgets/element.ts:3129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3129)
 
 Shift a line off the top of the content.
 
@@ -3850,13 +3850,13 @@ Number of lines to remove (default: 1)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`shiftLine`](widgets.checkbox.Class.Checkbox.md#shiftline)
 
-***
+---
 
 ### pushLine()
 
 > **pushLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3129)
+Defined in: [packages/core/src/widgets/element.ts:3137](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3137)
 
 Push a line onto the bottom of the content.
 
@@ -3876,13 +3876,13 @@ Line or array of lines to insert
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`pushLine`](widgets.checkbox.Class.Checkbox.md#pushline)
 
-***
+---
 
 ### popLine()
 
 > **popLine**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3138](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3138)
+Defined in: [packages/core/src/widgets/element.ts:3146](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3146)
 
 Pop a line off the bottom of the content.
 
@@ -3902,13 +3902,13 @@ Number of lines to remove (default: 1)
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`popLine`](widgets.checkbox.Class.Checkbox.md#popline)
 
-***
+---
 
 ### getLines()
 
 > **getLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:3146](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3146)
+Defined in: [packages/core/src/widgets/element.ts:3154](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3154)
 
 An array containing the content lines.
 
@@ -3922,13 +3922,13 @@ Array of fake (unwrapped) lines
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getLines`](widgets.checkbox.Class.Checkbox.md#getlines)
 
-***
+---
 
 ### getScreenLines()
 
 > **getScreenLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:3154](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3154)
+Defined in: [packages/core/src/widgets/element.ts:3162](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3162)
 
 An array containing the lines as they are displayed on the screen.
 
@@ -3942,13 +3942,13 @@ Array of real (wrapped) lines
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`getScreenLines`](widgets.checkbox.Class.Checkbox.md#getscreenlines)
 
-***
+---
 
 ### strWidth()
 
 > **strWidth**(`text`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:3164](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3164)
+Defined in: [packages/core/src/widgets/element.ts:3172](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3172)
 
 Get a string's displayed width, taking into account double-width, surrogate pairs,
 combining characters, tags, and SGR escape codes.
@@ -3971,13 +3971,13 @@ Displayed width in cells
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`strWidth`](widgets.checkbox.Class.Checkbox.md#strwidth)
 
-***
+---
 
 ### screenshot()
 
 > **screenshot**(`xi?`, `xl?`, `yi?`, `yl?`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3180](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3180)
+Defined in: [packages/core/src/widgets/element.ts:3188](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3188)
 
 Take an SGR screenshot of the element within the region. Returns a string containing only
 characters and SGR codes. Can be displayed by simply echoing it in a terminal.
@@ -4018,7 +4018,7 @@ SGR-encoded screenshot string
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`screenshot`](widgets.checkbox.Class.Checkbox.md#screenshot)
 
-***
+---
 
 ### insert()
 
@@ -4046,7 +4046,7 @@ Insert a node to this node's children at index i.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`insert`](widgets.checkbox.Class.Checkbox.md#insert)
 
-***
+---
 
 ### prepend()
 
@@ -4070,7 +4070,7 @@ Prepend a node to this node's children.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`prepend`](widgets.checkbox.Class.Checkbox.md#prepend)
 
-***
+---
 
 ### append()
 
@@ -4094,7 +4094,7 @@ Append a node to this node's children.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`append`](widgets.checkbox.Class.Checkbox.md#append)
 
-***
+---
 
 ### insertBefore()
 
@@ -4122,7 +4122,7 @@ Insert a node to this node's children before the reference node.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`insertBefore`](widgets.checkbox.Class.Checkbox.md#insertbefore)
 
-***
+---
 
 ### insertAfter()
 
@@ -4150,7 +4150,7 @@ Insert a node from node after the reference node.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`insertAfter`](widgets.checkbox.Class.Checkbox.md#insertafter)
 
-***
+---
 
 ### remove()
 
@@ -4174,7 +4174,7 @@ Remove child node from node.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`remove`](widgets.checkbox.Class.Checkbox.md#remove)
 
-***
+---
 
 ### detach()
 
@@ -4192,7 +4192,7 @@ Remove node from its parent.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`detach`](widgets.checkbox.Class.Checkbox.md#detach)
 
-***
+---
 
 ### destroy()
 
@@ -4211,7 +4211,7 @@ events to prevent memory leaks. For use with onScreenEvent(), removeScreenEvent(
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`destroy`](widgets.checkbox.Class.Checkbox.md#destroy)
 
-***
+---
 
 ### forDescendants()
 
@@ -4239,7 +4239,7 @@ Iterate over all descendants, calling iter(el) for each.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`forDescendants`](widgets.checkbox.Class.Checkbox.md#fordescendants)
 
-***
+---
 
 ### forAncestors()
 
@@ -4267,7 +4267,7 @@ Iterate over all ancestors, calling iter(el) for each.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`forAncestors`](widgets.checkbox.Class.Checkbox.md#forancestors)
 
-***
+---
 
 ### collectDescendants()
 
@@ -4291,7 +4291,7 @@ Collect all descendants into an array.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`collectDescendants`](widgets.checkbox.Class.Checkbox.md#collectdescendants)
 
-***
+---
 
 ### collectAncestors()
 
@@ -4315,7 +4315,7 @@ Collect all ancestors into an array.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`collectAncestors`](widgets.checkbox.Class.Checkbox.md#collectancestors)
 
-***
+---
 
 ### emitDescendants()
 
@@ -4339,7 +4339,7 @@ Emit event for element, and recursively emit same event for all descendants.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`emitDescendants`](widgets.checkbox.Class.Checkbox.md#emitdescendants)
 
-***
+---
 
 ### emitAncestors()
 
@@ -4363,7 +4363,7 @@ Emit event for element, and recursively emit same event for all ancestors.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`emitAncestors`](widgets.checkbox.Class.Checkbox.md#emitancestors)
 
-***
+---
 
 ### hasDescendant()
 
@@ -4387,7 +4387,7 @@ Check if target is a descendant of this node.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`hasDescendant`](widgets.checkbox.Class.Checkbox.md#hasdescendant)
 
-***
+---
 
 ### hasAncestor()
 
@@ -4411,7 +4411,7 @@ Check if target is an ancestor of this node.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`hasAncestor`](widgets.checkbox.Class.Checkbox.md#hasancestor)
 
-***
+---
 
 ### get()
 
@@ -4439,7 +4439,7 @@ Get user property with a potential default value.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`get`](widgets.checkbox.Class.Checkbox.md#get)
 
-***
+---
 
 ### set()
 
@@ -4467,7 +4467,7 @@ Set user property to value.
 
 [`Checkbox`](widgets.checkbox.Class.Checkbox.md).[`set`](widgets.checkbox.Class.Checkbox.md#set)
 
-***
+---
 
 ### render()
 

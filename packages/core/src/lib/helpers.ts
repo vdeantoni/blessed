@@ -6,8 +6,8 @@
  * Modules
  */
 
-import unicode from "./unicode.js";
 import { getRuntime, Runtime } from "../runtime-context";
+import unicode from "./unicode.js";
 
 /**
  * Helpers

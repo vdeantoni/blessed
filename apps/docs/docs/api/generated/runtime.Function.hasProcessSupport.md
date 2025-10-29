@@ -32,8 +32,8 @@ const runtime = getRuntime();
 
 if (hasProcessSupport(runtime)) {
   // TypeScript knows runtime.processes exists
-  const proc = runtime.processes.childProcess.spawn('vi', ['file.txt']);
+  const proc = runtime.processes.childProcess.spawn("vi", ["file.txt"]);
 } else {
-  console.warn('Cannot spawn processes in this environment');
+  console.warn("Cannot spawn processes in this environment");
 }
 ```

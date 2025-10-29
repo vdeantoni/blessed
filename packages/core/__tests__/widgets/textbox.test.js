@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import Textbox from "../../src/widgets/textbox.js";
-import Form from "../../src/widgets/form.js";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import Box from "../../src/widgets/box.js";
+import Form from "../../src/widgets/form.js";
+import Textbox from "../../src/widgets/textbox.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 describe("Textbox", () => {

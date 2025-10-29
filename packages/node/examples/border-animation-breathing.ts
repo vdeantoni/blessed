@@ -5,7 +5,7 @@
  * The border smoothly transitions between colors with a pulsing alpha.
  */
 
-import { Screen, Box, Text, generateGradient } from "@unblessed/node";
+import { Box, Screen, Text, generateGradient } from "@unblessed/node";
 
 const screen = new Screen({
   smartCSR: true,

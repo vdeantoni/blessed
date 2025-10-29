@@ -6,10 +6,10 @@
  * Modules
  */
 
-import type { LogOptions } from "../types";
-import ScrollableText from "./scrollabletext.js";
-import Box from "./box.js";
 import { getNextTick } from "../lib/runtime-helpers";
+import type { LogOptions } from "../types";
+import Box from "./box.js";
+import ScrollableText from "./scrollabletext.js";
 
 /**
  * Log widget for displaying scrolling log messages.

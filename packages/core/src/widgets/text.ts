@@ -6,8 +6,8 @@
  * Modules
  */
 
-import Element from "./element.js";
 import type { TextOptions } from "../types";
+import Element from "./element.js";
 
 /**
  * Text

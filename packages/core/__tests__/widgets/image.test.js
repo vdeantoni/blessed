@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, beforeAll } from "vitest";
+import childProcess from "child_process";
 import fs from "fs";
 import path from "path";
-import childProcess from "child_process";
+import { beforeAll, beforeEach, describe, expect, it } from "vitest";
 import { setRuntime } from "../../src/runtime-context.js";
 import Image from "../../src/widgets/image.js";
 import { createMockScreen } from "../helpers/mock.js";

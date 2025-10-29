@@ -6,22 +6,22 @@
  * Modules
  */
 
+import colors from "../lib/colors.js";
+import helpers from "../lib/helpers.js";
+import Program from "../lib/program.js";
+import { getEnvVar, getNextTick } from "../lib/runtime-helpers";
+import unicode from "../lib/unicode.js";
+import { getRuntime } from "../runtime-context.js";
 import type {
   KeyEvent,
   MouseEvent,
   RenderCoords,
   ScreenOptions,
 } from "../types";
-import colors from "../lib/colors.js";
-import Program from "../lib/program.js";
-import unicode from "../lib/unicode.js";
-import helpers from "../lib/helpers.js";
-import Node from "./node.js";
-import Log from "./log.js";
-import Element from "./element.js";
 import Box from "./box.js";
-import { getEnvVar, getNextTick } from "../lib/runtime-helpers";
-import { getRuntime } from "../runtime-context.js";
+import Element from "./element.js";
+import Log from "./log.js";
+import Node from "./node.js";
 
 /**
  * Screen - The top-level container and rendering engine for terminal UI applications.

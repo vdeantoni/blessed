@@ -30,7 +30,9 @@ export interface Runtime {
 ### API Categories
 
 #### FileSystemAPI
+
 Abstracts file system operations:
+
 ```typescript
 interface FileSystemAPI {
   readFileSync(path: string, encoding?: string): string | Buffer;
@@ -41,7 +43,9 @@ interface FileSystemAPI {
 ```
 
 #### ProcessAPI
+
 Abstracts process information and control:
+
 ```typescript
 interface ProcessAPI {
   platform: string;
@@ -54,7 +58,9 @@ interface ProcessAPI {
 ```
 
 #### TtyAPI
+
 Abstracts terminal control:
+
 ```typescript
 interface TtyAPI {
   isatty(fd: number): boolean;
@@ -66,7 +72,9 @@ interface TtyAPI {
 ```
 
 #### BufferAPI
+
 Abstracts buffer handling:
+
 ```typescript
 interface BufferAPI {
   Buffer: typeof Buffer;
@@ -84,7 +92,7 @@ interface BufferAPI {
 All core code accesses platform APIs through the runtime:
 
 ```typescript
-import { getRuntime } from '@unblessed/core/runtime-context';
+import { getRuntime } from "@unblessed/core/runtime-context";
 
 export class MyWidget extends Element {
   loadData(filename: string) {
@@ -92,7 +100,7 @@ export class MyWidget extends Element {
 
     // Use runtime instead of direct `fs` import
     if (runtime.fs.existsSync(filename)) {
-      const data = runtime.fs.readFileSync(filename, 'utf8');
+      const data = runtime.fs.readFileSync(filename, "utf8");
       this.setContent(data);
     }
   }
@@ -115,7 +123,7 @@ export function setRuntime(runtime: Runtime): void {
 
 export function getRuntime(): Runtime {
   if (!globalRuntime) {
-    throw new Error('Runtime not initialized');
+    throw new Error("Runtime not initialized");
   }
   return globalRuntime;
 }
@@ -129,9 +137,9 @@ export function getRuntime(): Runtime {
 
 ```typescript
 // node-runtime.ts
-import fs from 'fs';
-import process from 'process';
-import tty from 'tty';
+import fs from "fs";
+import process from "process";
+import tty from "tty";
 
 export class NodeRuntime implements Runtime {
   fs = {
@@ -165,7 +173,7 @@ export class NodeRuntime implements Runtime {
 
 ```typescript
 // browser-runtime.ts
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
 export class BrowserRuntime implements Runtime {
   fs = {
@@ -184,11 +192,11 @@ export class BrowserRuntime implements Runtime {
   };
 
   process = {
-    platform: 'browser',
+    platform: "browser",
     env: {},
-    cwd: () => '/',
+    cwd: () => "/",
     exit: (code?: number) => {
-      throw new Error('process.exit() not supported in browser');
+      throw new Error("process.exit() not supported in browser");
     },
     on: (event: string, listener: Function) => {
       // Browser event handling
@@ -213,8 +221,8 @@ Each platform package auto-initializes the runtime on import:
 
 ```typescript
 // @unblessed/node/src/auto-init.ts
-import { setRuntime } from '@unblessed/core';
-import { NodeRuntime } from './node-runtime';
+import { setRuntime } from "@unblessed/core";
+import { NodeRuntime } from "./node-runtime";
 
 // Initialize runtime when package is imported
 setRuntime(new NodeRuntime());
@@ -222,8 +230,8 @@ setRuntime(new NodeRuntime());
 
 ```typescript
 // @unblessed/node/src/index.ts
-import './auto-init';  // Runs first
-export * from '@unblessed/core';  // Then export widgets
+import "./auto-init"; // Runs first
+export * from "@unblessed/core"; // Then export widgets
 ```
 
 When you import from `@unblessed/node`, the runtime is set up before any widgets are created.
@@ -233,16 +241,16 @@ When you import from `@unblessed/node`, the runtime is set up before any widgets
 The runtime system makes testing easy with mock implementations:
 
 ```typescript
-import { setRuntime } from '@unblessed/core';
+import { setRuntime } from "@unblessed/core";
 
 const mockRuntime: Runtime = {
   fs: {
-    readFileSync: vi.fn(() => 'mock data'),
+    readFileSync: vi.fn(() => "mock data"),
     existsSync: vi.fn(() => true),
     // ... other mocked methods
   },
   process: {
-    platform: 'test',
+    platform: "test",
     env: {},
     // ... other mocked methods
   },
@@ -262,7 +270,7 @@ To support a new platform (e.g., Deno):
 
 ```typescript
 // @unblessed/deno/src/deno-runtime.ts
-import { Runtime } from '@unblessed/core';
+import { Runtime } from "@unblessed/core";
 
 export class DenoRuntime implements Runtime {
   fs = {
@@ -295,8 +303,8 @@ export class DenoRuntime implements Runtime {
 
 ```typescript
 // @unblessed/deno/src/auto-init.ts
-import { setRuntime } from '@unblessed/core';
-import { DenoRuntime } from './deno-runtime';
+import { setRuntime } from "@unblessed/core";
+import { DenoRuntime } from "./deno-runtime";
 
 setRuntime(new DenoRuntime());
 ```
@@ -305,8 +313,8 @@ setRuntime(new DenoRuntime());
 
 ```typescript
 // @unblessed/deno/src/index.ts
-import './auto-init';
-export * from '@unblessed/core';
+import "./auto-init";
+export * from "@unblessed/core";
 ```
 
 Now unblessed works in Deno!
@@ -316,13 +324,13 @@ Now unblessed works in Deno!
 Sometimes you need to detect the current platform:
 
 ```typescript
-import { getRuntime } from '@unblessed/core/runtime-context';
+import { getRuntime } from "@unblessed/core/runtime-context";
 
 const runtime = getRuntime();
 
-if (runtime.process.platform === 'browser') {
+if (runtime.process.platform === "browser") {
   // Browser-specific code
-} else if (runtime.process.platform === 'darwin') {
+} else if (runtime.process.platform === "darwin") {
   // macOS-specific code
 }
 ```
@@ -340,7 +348,7 @@ function supportsColor(): boolean {
 function hasFileSystem(): boolean {
   const runtime = getRuntime();
   try {
-    runtime.fs.existsSync('/');
+    runtime.fs.existsSync("/");
     return true;
   } catch {
     return false;
@@ -353,12 +361,13 @@ function hasFileSystem(): boolean {
 ### Cross-Platform Code
 
 Write once, run anywhere:
+
 ```typescript
 // This widget works in Node.js AND browsers
 export class FileViewer extends Box {
   loadFile(path: string) {
     const runtime = getRuntime();
-    const content = runtime.fs.readFileSync(path, 'utf8');
+    const content = runtime.fs.readFileSync(path, "utf8");
     this.setContent(content);
   }
 }
@@ -367,18 +376,19 @@ export class FileViewer extends Box {
 ### Testability
 
 Easy to mock and test:
+
 ```typescript
-test('FileViewer loads file', () => {
+test("FileViewer loads file", () => {
   const mockFs = {
-    readFileSync: vi.fn(() => 'test content'),
+    readFileSync: vi.fn(() => "test content"),
   };
   setRuntime({ ...mockRuntime, fs: mockFs });
 
   const viewer = new FileViewer();
-  viewer.loadFile('/test.txt');
+  viewer.loadFile("/test.txt");
 
-  expect(mockFs.readFileSync).toHaveBeenCalledWith('/test.txt', 'utf8');
-  expect(viewer.content).toBe('test content');
+  expect(mockFs.readFileSync).toHaveBeenCalledWith("/test.txt", "utf8");
+  expect(viewer.content).toBe("test content");
 });
 ```
 

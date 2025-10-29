@@ -9,11 +9,11 @@ Subset of Node.js util module
 
 ### inspect
 
-> **inspect**: *typeof* `inspect`
+> **inspect**: _typeof_ `inspect`
 
 Defined in: [packages/core/src/runtime.ts:278](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L278)
 
-***
+---
 
 ### format()
 
@@ -29,7 +29,7 @@ corresponding argument. Supported specifiers are:
 If a specifier does not have a corresponding argument, it is not replaced:
 
 ```js
-util.format('%s:%s', 'foo');
+util.format("%s:%s", "foo");
 // Returns: 'foo:%s'
 ```
 
@@ -40,7 +40,7 @@ number of specifiers, the extra arguments are concatenated to the returned
 string, separated by spaces:
 
 ```js
-util.format('%s:%s', 'foo', 'bar', 'baz');
+util.format("%s:%s", "foo", "bar", "baz");
 // Returns: 'foo:bar baz'
 ```
 
@@ -55,7 +55,7 @@ If only one argument is passed to `util.format()`, it is returned as it is
 without any formatting:
 
 ```js
-util.format('%% %s');
+util.format("%% %s");
 // Returns: '%% %s'
 ```
 

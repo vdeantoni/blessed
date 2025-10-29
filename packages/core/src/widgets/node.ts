@@ -7,8 +7,8 @@
  */
 
 import { EventEmitter } from "../lib/events.js";
+import { type Runtime, getNextTick, getRuntime } from "../lib/runtime-helpers";
 import type { NodeOptions } from "../types";
-import { type Runtime, getRuntime, getNextTick } from "../lib/runtime-helpers";
 
 /**
  * Screen Registry - breaks circular dependency

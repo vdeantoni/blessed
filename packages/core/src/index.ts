@@ -6,8 +6,8 @@
  * platform-specific functionality.
  */
 
-export * from "./runtime.js";
 export { initCore } from "./runtime-context.js";
+export * from "./runtime.js";
 
 // Re-export types
 export * from "./types/index.js";
@@ -17,20 +17,20 @@ export { default as Program } from "./lib/program.js";
 export { default as Tput, sprintf, tryRead } from "./lib/tput.js";
 
 // Re-export helpers
-export * from "./lib/helpers.js";
-export { default as colors } from "./lib/colors.js";
-export { default as unicode } from "./lib/unicode.js";
 export * from "./lib/alias.js";
-export * from "./lib/events.js";
-export * from "./lib/image-renderer.js";
 export * from "./lib/border-colors.js";
+export { default as colors } from "./lib/colors.js";
+export * from "./lib/events.js";
+export * from "./lib/helpers.js";
+export * from "./lib/image-renderer.js";
+export { default as unicode } from "./lib/unicode.js";
 
 // Re-export core widgets
-export * from "./widgets/node.js";
-export * from "./widgets/element.js";
 export * from "./widgets/box.js";
-export * from "./widgets/text.js";
+export * from "./widgets/element.js";
 export * from "./widgets/line.js";
+export * from "./widgets/node.js";
+export * from "./widgets/text.js";
 
 // Re-export input widgets
 export * from "./widgets/button.js";
@@ -58,19 +58,19 @@ export * from "./widgets/layout.js";
 export * from "./widgets/table.js";
 
 // Re-export UI widgets
+export * from "./widgets/dialog.js";
 export * from "./widgets/loading.js";
 export * from "./widgets/log.js";
-export * from "./widgets/static.js";
-export * from "./widgets/dialog.js";
 export * from "./widgets/message.js";
 export * from "./widgets/progressbar.js";
 export * from "./widgets/prompt.js";
 export * from "./widgets/question.js";
+export * from "./widgets/static.js";
 
 // Re-export special widgets
+export * from "./widgets/ansiimage.js";
 export * from "./widgets/bigtext.js";
 export * from "./widgets/filemanager.js";
-export { default as Screen } from "./widgets/screen.js";
 export * from "./widgets/image.js";
-export * from "./widgets/ansiimage.js";
 export * from "./widgets/overlayimage.js";
+export { default as Screen } from "./widgets/screen.js";

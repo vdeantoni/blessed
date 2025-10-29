@@ -6,10 +6,10 @@
  * Modules
  */
 
-import type { TerminalOptions } from "../types";
-import { getNextTick, getRuntime, getEnvVar } from "../lib/runtime-helpers.js";
-import Box from "./box.js";
 import { createRequire } from "module";
+import { getEnvVar, getNextTick, getRuntime } from "../lib/runtime-helpers.js";
+import type { TerminalOptions } from "../types";
+import Box from "./box.js";
 
 const require = createRequire(import.meta.url);
 

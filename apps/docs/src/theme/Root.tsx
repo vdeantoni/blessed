@@ -1,8 +1,8 @@
-import React from 'react';
-import { initSentry } from '../sentry';
+import React from "react";
+import { initSentry } from "../sentry";
 
 // Initialize Sentry on client side only
-if (typeof window !== 'undefined') {
+if (typeof window !== "undefined") {
   initSentry();
 }
 

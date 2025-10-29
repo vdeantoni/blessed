@@ -5,10 +5,10 @@
  * Uses multi-frame VRT to capture state changes over time.
  */
 
-import { describe } from "vitest";
 import { Box, initCore, ScrollableText } from "@unblessed/core";
-import { createMultiFrameVRTTest } from "../helpers/vrt-test.js";
+import { describe } from "vitest";
 import { NodeRuntime } from "../../src";
+import { createMultiFrameVRTTest } from "../helpers/vrt-test.js";
 
 describe("VRT - Widget Interactions", () => {
   initCore(new NodeRuntime());

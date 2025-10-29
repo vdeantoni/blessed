@@ -15,7 +15,7 @@ Defined in: [packages/core/src/runtime.ts:410](https://github.com/vdeantoni/unbl
 
 PNG image library (pngjs)
 
-***
+---
 
 ### gif
 

@@ -1,8 +1,7 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import Form from "../../src/widgets/form.js";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import Button from "../../src/widgets/button.js";
 import Checkbox from "../../src/widgets/checkbox.js";
-import Textbox from "../../src/widgets/textbox.js";
+import Form from "../../src/widgets/form.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 // Helper to create a keyable button

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import blessed from "../dist/index.js";
 import util from "util";
+import blessed from "../dist/index.js";
 
 const __dirname = import.meta.dirname;
 

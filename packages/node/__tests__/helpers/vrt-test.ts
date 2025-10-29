@@ -4,11 +4,11 @@
  * Provides utilities for creating visual regression tests with golden snapshot workflow.
  */
 
-import { it } from "vitest";
 import { Screen } from "@unblessed/core";
-import { compareWithGolden } from "@unblessed/vrt";
 import type { VRTRecording } from "@unblessed/vrt";
+import { compareWithGolden } from "@unblessed/vrt";
 import { EventEmitter } from "events";
+import { it } from "vitest";
 
 /**
  * Create a mock writable stream for testing

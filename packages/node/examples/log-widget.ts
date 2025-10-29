@@ -9,7 +9,7 @@
  *   pnpm tsx examples/log-widget.ts
  */
 
-import { Screen, Box, Log, Button } from "../dist/index.js";
+import { Box, Button, Log, Screen } from "../dist/index.js";
 
 const screen = new Screen({
   smartCSR: true,

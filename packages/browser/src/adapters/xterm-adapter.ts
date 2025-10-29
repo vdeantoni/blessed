@@ -5,8 +5,8 @@
  * enabling terminal UI applications to run in the browser.
  */
 
-import type { Terminal } from "xterm";
 import { EventEmitter } from "events";
+import type { Terminal } from "xterm";
 
 export interface XTermAdapterOptions {
   terminal: Terminal;

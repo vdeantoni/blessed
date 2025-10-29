@@ -21,26 +21,26 @@ unblessed is a complete modernization of the popular [blessed](https://github.co
 ## Quick Example
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 const screen = new Screen({ smartCSR: true });
 
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello {bold}unblessed{/bold}!',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello {bold}unblessed{/bold}!",
   tags: true,
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    fg: 'white',
-    border: { fg: 'cyan' }
-  }
+    fg: "white",
+    border: { fg: "cyan" },
+  },
 });
 
-screen.key(['q', 'C-c'], () => process.exit(0));
+screen.key(["q", "C-c"], () => process.exit(0));
 screen.render();
 ```
 

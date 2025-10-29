@@ -9,6 +9,6 @@ Subset of Node.js string_decoder module
 
 ### StringDecoder
 
-> **StringDecoder**: *typeof* `StringDecoder`
+> **StringDecoder**: _typeof_ `StringDecoder`
 
 Defined in: [packages/core/src/runtime.ts:291](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L291)

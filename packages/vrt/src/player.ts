@@ -2,8 +2,8 @@
  * VRT Player - Replay recorded terminal UI sessions
  */
 
-import type { VRTRecording, VRTFrame, VRTPlayerOptions } from "./types.js";
 import { readFileSync } from "fs";
+import type { VRTFrame, VRTPlayerOptions, VRTRecording } from "./types.js";
 
 /**
  * VRTPlayer replays VRT recordings for visual inspection or automated testing.

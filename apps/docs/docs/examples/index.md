@@ -60,12 +60,15 @@ Visit the [Home Page](/) to try all examples live in your browser! The interacti
 ## Widget Examples
 
 ### Tables
+
 Display tabular data with headers, sorting, and selection.
 
 ### Forms
+
 Create input forms with text boxes, buttons, and validation.
 
 ### Progress Bars
+
 Show loading states and progress indicators.
 
 (More widget examples coming soon...)
@@ -73,12 +76,15 @@ Show loading states and progress indicators.
 ## Advanced Examples
 
 ### Custom Widgets
+
 Learn how to extend base widgets and create custom components.
 
 ### Animations
+
 Create animated UI elements with timers and updates.
 
 ### Real-time Data
+
 Build live updating dashboards with streaming data.
 
 (Advanced examples coming soon...)

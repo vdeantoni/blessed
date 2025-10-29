@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import RadioSet from "../../src/widgets/radioset.js";
+import { beforeEach, describe, expect, it } from "vitest";
 import RadioButton from "../../src/widgets/radiobutton.js";
+import RadioSet from "../../src/widgets/radioset.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 describe("RadioSet", () => {

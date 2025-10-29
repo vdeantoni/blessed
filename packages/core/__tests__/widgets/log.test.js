@@ -1,13 +1,13 @@
+import util from "util";
 import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  beforeAll,
   afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
   vi,
 } from "vitest";
-import util from "util";
 import { setRuntime } from "../../src/runtime-context.js";
 import Log from "../../src/widgets/log.js";
 import { createMockScreen } from "../helpers/mock.js";

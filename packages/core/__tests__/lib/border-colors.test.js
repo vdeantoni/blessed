@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import {
-  generateRainbow,
   generateGradient,
+  generateRainbow,
   rotateColors,
 } from "../../src/lib/border-colors.js";
 

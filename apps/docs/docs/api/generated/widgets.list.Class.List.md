@@ -59,7 +59,7 @@ Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_events`](widgets.scrollablebox.Class.ScrollableBox.md#_events)
 
-***
+---
 
 ### \_maxListeners?
 
@@ -71,7 +71,7 @@ Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_maxListeners`](widgets.scrollablebox.Class.ScrollableBox.md#_maxlisteners)
 
-***
+---
 
 ### options
 
@@ -83,7 +83,7 @@ Defined in: [packages/core/src/widgets/element.ts:48](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`options`](widgets.scrollablebox.Class.ScrollableBox.md#options)
 
-***
+---
 
 ### name?
 
@@ -95,7 +95,7 @@ Defined in: [packages/core/src/widgets/element.ts:50](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`name`](widgets.scrollablebox.Class.ScrollableBox.md#name)
 
-***
+---
 
 ### position
 
@@ -110,7 +110,7 @@ Kept as any due to complex internal position calculation system.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`position`](widgets.scrollablebox.Class.ScrollableBox.md#position)
 
-***
+---
 
 ### noOverflow?
 
@@ -122,7 +122,7 @@ Defined in: [packages/core/src/widgets/element.ts:56](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`noOverflow`](widgets.scrollablebox.Class.ScrollableBox.md#nooverflow)
 
-***
+---
 
 ### dockBorders?
 
@@ -134,7 +134,7 @@ Defined in: [packages/core/src/widgets/element.ts:57](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`dockBorders`](widgets.scrollablebox.Class.ScrollableBox.md#dockborders)
 
-***
+---
 
 ### shadow?
 
@@ -146,7 +146,7 @@ Defined in: [packages/core/src/widgets/element.ts:58](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`shadow`](widgets.scrollablebox.Class.ScrollableBox.md#shadow)
 
-***
+---
 
 ### hidden
 
@@ -158,7 +158,7 @@ Defined in: [packages/core/src/widgets/element.ts:61](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`hidden`](widgets.scrollablebox.Class.ScrollableBox.md#hidden)
 
-***
+---
 
 ### fixed
 
@@ -170,7 +170,7 @@ Defined in: [packages/core/src/widgets/element.ts:62](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`fixed`](widgets.scrollablebox.Class.ScrollableBox.md#fixed)
 
-***
+---
 
 ### align
 
@@ -182,7 +182,7 @@ Defined in: [packages/core/src/widgets/element.ts:63](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`align`](widgets.scrollablebox.Class.ScrollableBox.md#align)
 
-***
+---
 
 ### valign
 
@@ -194,7 +194,7 @@ Defined in: [packages/core/src/widgets/element.ts:64](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`valign`](widgets.scrollablebox.Class.ScrollableBox.md#valign)
 
-***
+---
 
 ### wrap
 
@@ -206,7 +206,7 @@ Defined in: [packages/core/src/widgets/element.ts:65](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`wrap`](widgets.scrollablebox.Class.ScrollableBox.md#wrap)
 
-***
+---
 
 ### shrink?
 
@@ -218,7 +218,7 @@ Defined in: [packages/core/src/widgets/element.ts:66](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`shrink`](widgets.scrollablebox.Class.ScrollableBox.md#shrink)
 
-***
+---
 
 ### ch
 
@@ -230,7 +230,7 @@ Defined in: [packages/core/src/widgets/element.ts:67](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`ch`](widgets.scrollablebox.Class.ScrollableBox.md#ch)
 
-***
+---
 
 ### padding
 
@@ -244,7 +244,7 @@ Padding configuration for all sides
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`padding`](widgets.scrollablebox.Class.ScrollableBox.md#padding)
 
-***
+---
 
 ### border?
 
@@ -258,7 +258,7 @@ Border configuration
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`border`](widgets.scrollablebox.Class.ScrollableBox.md#border)
 
-***
+---
 
 ### parseTags?
 
@@ -270,7 +270,7 @@ Defined in: [packages/core/src/widgets/element.ts:72](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`parseTags`](widgets.scrollablebox.Class.ScrollableBox.md#parsetags)
 
-***
+---
 
 ### content
 
@@ -282,7 +282,7 @@ Defined in: [packages/core/src/widgets/element.ts:73](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`content`](widgets.scrollablebox.Class.ScrollableBox.md#content)
 
-***
+---
 
 ### lpos?
 
@@ -296,7 +296,7 @@ Last rendered position coordinates
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`lpos`](widgets.scrollablebox.Class.ScrollableBox.md#lpos)
 
-***
+---
 
 ### \_clines?
 
@@ -308,7 +308,7 @@ Defined in: [packages/core/src/widgets/element.ts:76](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_clines`](widgets.scrollablebox.Class.ScrollableBox.md#_clines)
 
-***
+---
 
 ### \_pcontent?
 
@@ -320,7 +320,7 @@ Defined in: [packages/core/src/widgets/element.ts:77](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_pcontent`](widgets.scrollablebox.Class.ScrollableBox.md#_pcontent)
 
-***
+---
 
 ### \_borderColors?
 
@@ -332,7 +332,7 @@ Defined in: [packages/core/src/widgets/element.ts:78](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_borderColors`](widgets.scrollablebox.Class.ScrollableBox.md#_bordercolors)
 
-***
+---
 
 ### \_slisteners?
 
@@ -344,7 +344,7 @@ Defined in: [packages/core/src/widgets/element.ts:79](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_slisteners`](widgets.scrollablebox.Class.ScrollableBox.md#_slisteners)
 
-***
+---
 
 ### \_label?
 
@@ -356,7 +356,7 @@ Defined in: [packages/core/src/widgets/element.ts:80](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_label`](widgets.scrollablebox.Class.ScrollableBox.md#_label)
 
-***
+---
 
 ### \_labelScroll()?
 
@@ -372,7 +372,7 @@ Defined in: [packages/core/src/widgets/element.ts:81](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_labelScroll`](widgets.scrollablebox.Class.ScrollableBox.md#_labelscroll)
 
-***
+---
 
 ### \_labelResize()?
 
@@ -388,7 +388,7 @@ Defined in: [packages/core/src/widgets/element.ts:82](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_labelResize`](widgets.scrollablebox.Class.ScrollableBox.md#_labelresize)
 
-***
+---
 
 ### \_hoverOptions?
 
@@ -400,7 +400,7 @@ Defined in: [packages/core/src/widgets/element.ts:83](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_hoverOptions`](widgets.scrollablebox.Class.ScrollableBox.md#_hoveroptions)
 
-***
+---
 
 ### \_draggable?
 
@@ -412,7 +412,7 @@ Defined in: [packages/core/src/widgets/element.ts:84](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_draggable`](widgets.scrollablebox.Class.ScrollableBox.md#_draggable)
 
-***
+---
 
 ### \_dragMD()?
 
@@ -434,7 +434,7 @@ Defined in: [packages/core/src/widgets/element.ts:85](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_dragMD`](widgets.scrollablebox.Class.ScrollableBox.md#_dragmd)
 
-***
+---
 
 ### \_dragM()?
 
@@ -456,7 +456,7 @@ Defined in: [packages/core/src/widgets/element.ts:86](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_dragM`](widgets.scrollablebox.Class.ScrollableBox.md#_dragm)
 
-***
+---
 
 ### \_drag?
 
@@ -468,7 +468,7 @@ Defined in: [packages/core/src/widgets/element.ts:87](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_drag`](widgets.scrollablebox.Class.ScrollableBox.md#_drag)
 
-***
+---
 
 ### \_noFill?
 
@@ -480,7 +480,7 @@ Defined in: [packages/core/src/widgets/element.ts:88](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_noFill`](widgets.scrollablebox.Class.ScrollableBox.md#_nofill)
 
-***
+---
 
 ### \_isLabel?
 
@@ -492,7 +492,7 @@ Defined in: [packages/core/src/widgets/element.ts:89](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_isLabel`](widgets.scrollablebox.Class.ScrollableBox.md#_islabel)
 
-***
+---
 
 ### childBase?
 
@@ -504,7 +504,7 @@ Defined in: [packages/core/src/widgets/element.ts:91](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`childBase`](widgets.scrollablebox.Class.ScrollableBox.md#childbase)
 
-***
+---
 
 ### childOffset?
 
@@ -516,7 +516,7 @@ Defined in: [packages/core/src/widgets/element.ts:92](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`childOffset`](widgets.scrollablebox.Class.ScrollableBox.md#childoffset)
 
-***
+---
 
 ### alwaysScroll?
 
@@ -528,7 +528,7 @@ Defined in: [packages/core/src/widgets/element.ts:93](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`alwaysScroll`](widgets.scrollablebox.Class.ScrollableBox.md#alwaysscroll)
 
-***
+---
 
 ### baseLimit?
 
@@ -540,7 +540,7 @@ Defined in: [packages/core/src/widgets/element.ts:94](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`baseLimit`](widgets.scrollablebox.Class.ScrollableBox.md#baselimit)
 
-***
+---
 
 ### track?
 
@@ -552,7 +552,7 @@ Defined in: [packages/core/src/widgets/element.ts:95](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`track`](widgets.scrollablebox.Class.ScrollableBox.md#track)
 
-***
+---
 
 ### scrollbar?
 
@@ -564,7 +564,7 @@ Defined in: [packages/core/src/widgets/element.ts:96](https://github.com/vdeanto
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`scrollbar`](widgets.scrollablebox.Class.ScrollableBox.md#scrollbar)
 
-***
+---
 
 ### scrollable?
 
@@ -576,7 +576,7 @@ Defined in: [packages/core/src/widgets/element.ts:100](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`scrollable`](widgets.scrollablebox.Class.ScrollableBox.md#scrollable)
 
-***
+---
 
 ### scroll()?
 
@@ -608,7 +608,7 @@ Force the scroll operation even if position hasn't changed
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`scroll`](widgets.scrollablebox.Class.ScrollableBox.md#scroll)
 
-***
+---
 
 ### scrollTo()?
 
@@ -640,7 +640,7 @@ Force the scroll operation even if position hasn't changed
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`scrollTo`](widgets.scrollablebox.Class.ScrollableBox.md#scrollto)
 
-***
+---
 
 ### setScroll()?
 
@@ -672,7 +672,7 @@ Force the scroll operation even if position hasn't changed
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setScroll`](widgets.scrollablebox.Class.ScrollableBox.md#setscroll)
 
-***
+---
 
 ### getScroll()?
 
@@ -692,7 +692,7 @@ The current absolute scroll position
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getScroll`](widgets.scrollablebox.Class.ScrollableBox.md#getscroll)
 
-***
+---
 
 ### getScrollHeight()?
 
@@ -712,7 +712,7 @@ The total scrollable content height in lines
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getScrollHeight`](widgets.scrollablebox.Class.ScrollableBox.md#getscrollheight)
 
-***
+---
 
 ### getScrollPerc()?
 
@@ -740,7 +740,7 @@ The scroll position as a percentage (0-100), or -1 if not scrollable
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getScrollPerc`](widgets.scrollablebox.Class.ScrollableBox.md#getscrollperc)
 
-***
+---
 
 ### setScrollPerc()?
 
@@ -766,7 +766,7 @@ The target scroll percentage (0-100)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setScrollPerc`](widgets.scrollablebox.Class.ScrollableBox.md#setscrollperc)
 
-***
+---
 
 ### resetScroll()?
 
@@ -784,7 +784,7 @@ Reset the scroll index to its initial state (top).
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`resetScroll`](widgets.scrollablebox.Class.ScrollableBox.md#resetscroll)
 
-***
+---
 
 ### \_scrollBottom()?
 
@@ -800,7 +800,7 @@ Defined in: [packages/core/src/widgets/element.ts:111](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_scrollBottom`](widgets.scrollablebox.Class.ScrollableBox.md#_scrollbottom)
 
-***
+---
 
 ### \_recalculateIndex()?
 
@@ -816,7 +816,7 @@ Defined in: [packages/core/src/widgets/element.ts:112](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_recalculateIndex`](widgets.scrollablebox.Class.ScrollableBox.md#_recalculateindex)
 
-***
+---
 
 ### type
 
@@ -831,7 +831,7 @@ Used to identify the widget type at runtime.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`type`](widgets.scrollablebox.Class.ScrollableBox.md#type)
 
-***
+---
 
 ### style
 
@@ -845,7 +845,7 @@ Element style configuration (colors, attributes, hover/focus effects)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`style`](widgets.scrollablebox.Class.ScrollableBox.md#style)
 
-***
+---
 
 ### value
 
@@ -853,7 +853,7 @@ Element style configuration (colors, attributes, hover/focus effects)
 
 Defined in: [packages/core/src/widgets/list.ts:25](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/list.ts#L25)
 
-***
+---
 
 ### items
 
@@ -865,7 +865,7 @@ Defined in: [packages/core/src/widgets/list.ts:26](https://github.com/vdeantoni/
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`items`](widgets.scrollablebox.Class.ScrollableBox.md#items)
 
-***
+---
 
 ### ritems
 
@@ -873,7 +873,7 @@ Defined in: [packages/core/src/widgets/list.ts:26](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/widgets/list.ts:27](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/list.ts#L27)
 
-***
+---
 
 ### selected
 
@@ -881,7 +881,7 @@ Defined in: [packages/core/src/widgets/list.ts:27](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/widgets/list.ts:28](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/list.ts#L28)
 
-***
+---
 
 ### \_isList
 
@@ -893,7 +893,7 @@ Defined in: [packages/core/src/widgets/list.ts:29](https://github.com/vdeantoni/
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_isList`](widgets.scrollablebox.Class.ScrollableBox.md#_islist)
 
-***
+---
 
 ### interactive
 
@@ -901,7 +901,7 @@ Defined in: [packages/core/src/widgets/list.ts:29](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/widgets/list.ts:30](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/list.ts#L30)
 
-***
+---
 
 ### mouse
 
@@ -909,7 +909,7 @@ Defined in: [packages/core/src/widgets/list.ts:30](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/widgets/list.ts:31](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/list.ts#L31)
 
-***
+---
 
 ### \_listInitialized
 
@@ -917,7 +917,7 @@ Defined in: [packages/core/src/widgets/list.ts:31](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/widgets/list.ts:32](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/list.ts#L32)
 
-***
+---
 
 ### uid
 
@@ -929,7 +929,7 @@ Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`uid`](widgets.scrollablebox.Class.ScrollableBox.md#uid)
 
-***
+---
 
 ### ScreenRegistry
 
@@ -941,7 +941,7 @@ Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`ScreenRegistry`](widgets.scrollablebox.Class.ScrollableBox.md#screenregistry)
 
-***
+---
 
 ### screen
 
@@ -960,7 +960,7 @@ render(), and the program property without complex generic typing.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`screen`](widgets.scrollablebox.Class.ScrollableBox.md#screen)
 
-***
+---
 
 ### parent
 
@@ -979,7 +979,7 @@ methods from subclasses like Box, List, Form, etc.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`parent`](widgets.scrollablebox.Class.ScrollableBox.md#parent)
 
-***
+---
 
 ### children
 
@@ -996,7 +996,7 @@ Kept as any[] to preserve flexibility with mixed widget types.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`children`](widgets.scrollablebox.Class.ScrollableBox.md#children)
 
-***
+---
 
 ### $
 
@@ -1010,7 +1010,7 @@ An object for any miscellaneous user data.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`$`](widgets.scrollablebox.Class.ScrollableBox.md#)
 
-***
+---
 
 ### \_
 
@@ -1024,7 +1024,7 @@ An object for any miscellaneous user data.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_`](widgets.scrollablebox.Class.ScrollableBox.md#_)
 
-***
+---
 
 ### data
 
@@ -1038,7 +1038,7 @@ An object for any miscellaneous user data.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`data`](widgets.scrollablebox.Class.ScrollableBox.md#data)
 
-***
+---
 
 ### uid
 
@@ -1050,7 +1050,7 @@ Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`uid`](widgets.scrollablebox.Class.ScrollableBox.md#uid-1)
 
-***
+---
 
 ### index
 
@@ -1066,7 +1066,7 @@ Set to -1 initially, updated during rendering.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`index`](widgets.scrollablebox.Class.ScrollableBox.md#index)
 
-***
+---
 
 ### detached?
 
@@ -1078,7 +1078,7 @@ Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`detached`](widgets.scrollablebox.Class.ScrollableBox.md#detached)
 
-***
+---
 
 ### destroyed?
 
@@ -1090,7 +1090,7 @@ Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`destroyed`](widgets.scrollablebox.Class.ScrollableBox.md#destroyed)
 
-***
+---
 
 ### runtime
 
@@ -1120,7 +1120,7 @@ Defined in: [packages/core/src/widgets/element.ts:114](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`focused`](widgets.scrollablebox.Class.ScrollableBox.md#focused)
 
-***
+---
 
 ### visible
 
@@ -1138,7 +1138,7 @@ Defined in: [packages/core/src/widgets/element.ts:980](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`visible`](widgets.scrollablebox.Class.ScrollableBox.md#visible)
 
-***
+---
 
 ### \_detached
 
@@ -1156,7 +1156,7 @@ Defined in: [packages/core/src/widgets/element.ts:991](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_detached`](widgets.scrollablebox.Class.ScrollableBox.md#_detached)
 
-***
+---
 
 ### draggable
 
@@ -1190,7 +1190,7 @@ Defined in: [packages/core/src/widgets/element.ts:1028](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`draggable`](widgets.scrollablebox.Class.ScrollableBox.md#draggable)
 
-***
+---
 
 ### width
 
@@ -1226,7 +1226,7 @@ Position Setters
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`width`](widgets.scrollablebox.Class.ScrollableBox.md#width)
 
-***
+---
 
 ### height
 
@@ -1260,7 +1260,7 @@ Defined in: [packages/core/src/widgets/element.ts:1637](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`height`](widgets.scrollablebox.Class.ScrollableBox.md#height)
 
-***
+---
 
 ### aleft
 
@@ -1294,7 +1294,7 @@ Defined in: [packages/core/src/widgets/element.ts:1645](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`aleft`](widgets.scrollablebox.Class.ScrollableBox.md#aleft)
 
-***
+---
 
 ### aright
 
@@ -1328,7 +1328,7 @@ Defined in: [packages/core/src/widgets/element.ts:1666](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`aright`](widgets.scrollablebox.Class.ScrollableBox.md#aright)
 
-***
+---
 
 ### atop
 
@@ -1362,7 +1362,7 @@ Defined in: [packages/core/src/widgets/element.ts:1674](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`atop`](widgets.scrollablebox.Class.ScrollableBox.md#atop)
 
-***
+---
 
 ### abottom
 
@@ -1396,7 +1396,7 @@ Defined in: [packages/core/src/widgets/element.ts:1695](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`abottom`](widgets.scrollablebox.Class.ScrollableBox.md#abottom)
 
-***
+---
 
 ### rleft
 
@@ -1430,7 +1430,7 @@ Defined in: [packages/core/src/widgets/element.ts:1703](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`rleft`](widgets.scrollablebox.Class.ScrollableBox.md#rleft)
 
-***
+---
 
 ### rright
 
@@ -1464,7 +1464,7 @@ Defined in: [packages/core/src/widgets/element.ts:1711](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`rright`](widgets.scrollablebox.Class.ScrollableBox.md#rright)
 
-***
+---
 
 ### rtop
 
@@ -1498,7 +1498,7 @@ Defined in: [packages/core/src/widgets/element.ts:1718](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`rtop`](widgets.scrollablebox.Class.ScrollableBox.md#rtop)
 
-***
+---
 
 ### rbottom
 
@@ -1532,7 +1532,7 @@ Defined in: [packages/core/src/widgets/element.ts:1726](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`rbottom`](widgets.scrollablebox.Class.ScrollableBox.md#rbottom)
 
-***
+---
 
 ### ileft
 
@@ -1550,7 +1550,7 @@ Defined in: [packages/core/src/widgets/element.ts:1733](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`ileft`](widgets.scrollablebox.Class.ScrollableBox.md#ileft)
 
-***
+---
 
 ### itop
 
@@ -1568,7 +1568,7 @@ Defined in: [packages/core/src/widgets/element.ts:1738](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`itop`](widgets.scrollablebox.Class.ScrollableBox.md#itop)
 
-***
+---
 
 ### iright
 
@@ -1586,7 +1586,7 @@ Defined in: [packages/core/src/widgets/element.ts:1743](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`iright`](widgets.scrollablebox.Class.ScrollableBox.md#iright)
 
-***
+---
 
 ### ibottom
 
@@ -1604,7 +1604,7 @@ Defined in: [packages/core/src/widgets/element.ts:1748](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`ibottom`](widgets.scrollablebox.Class.ScrollableBox.md#ibottom)
 
-***
+---
 
 ### iwidth
 
@@ -1622,7 +1622,7 @@ Defined in: [packages/core/src/widgets/element.ts:1753](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`iwidth`](widgets.scrollablebox.Class.ScrollableBox.md#iwidth)
 
-***
+---
 
 ### iheight
 
@@ -1640,7 +1640,7 @@ Defined in: [packages/core/src/widgets/element.ts:1760](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`iheight`](widgets.scrollablebox.Class.ScrollableBox.md#iheight)
 
-***
+---
 
 ### tpadding
 
@@ -1658,7 +1658,7 @@ Defined in: [packages/core/src/widgets/element.ts:1767](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`tpadding`](widgets.scrollablebox.Class.ScrollableBox.md#tpadding)
 
-***
+---
 
 ### left
 
@@ -1694,7 +1694,7 @@ Defined in: [packages/core/src/widgets/element.ts:1796](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`left`](widgets.scrollablebox.Class.ScrollableBox.md#left)
 
-***
+---
 
 ### right
 
@@ -1728,7 +1728,7 @@ Defined in: [packages/core/src/widgets/element.ts:1800](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`right`](widgets.scrollablebox.Class.ScrollableBox.md#right)
 
-***
+---
 
 ### top
 
@@ -1762,7 +1762,7 @@ Defined in: [packages/core/src/widgets/element.ts:1804](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`top`](widgets.scrollablebox.Class.ScrollableBox.md#top)
 
-***
+---
 
 ### bottom
 
@@ -1818,7 +1818,7 @@ Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setMaxListeners`](widgets.scrollablebox.Class.ScrollableBox.md#setmaxlisteners)
 
-***
+---
 
 ### addListener()
 
@@ -1844,7 +1844,7 @@ Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`addListener`](widgets.scrollablebox.Class.ScrollableBox.md#addlistener)
 
-***
+---
 
 ### on()
 
@@ -1870,7 +1870,7 @@ Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`on`](widgets.scrollablebox.Class.ScrollableBox.md#on)
 
-***
+---
 
 ### removeListener()
 
@@ -1896,7 +1896,7 @@ Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`removeListener`](widgets.scrollablebox.Class.ScrollableBox.md#removelistener)
 
-***
+---
 
 ### off()
 
@@ -1922,7 +1922,7 @@ Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`off`](widgets.scrollablebox.Class.ScrollableBox.md#off)
 
-***
+---
 
 ### removeAllListeners()
 
@@ -1944,7 +1944,7 @@ Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`removeAllListeners`](widgets.scrollablebox.Class.ScrollableBox.md#removealllisteners)
 
-***
+---
 
 ### once()
 
@@ -1970,7 +1970,7 @@ Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`once`](widgets.scrollablebox.Class.ScrollableBox.md#once)
 
-***
+---
 
 ### listeners()
 
@@ -1992,7 +1992,7 @@ Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`listeners`](widgets.scrollablebox.Class.ScrollableBox.md#listeners)
 
-***
+---
 
 ### \_emit()
 
@@ -2018,7 +2018,7 @@ Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/un
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_emit`](widgets.scrollablebox.Class.ScrollableBox.md#_emit)
 
-***
+---
 
 ### emit()
 
@@ -2044,7 +2044,7 @@ Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/u
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`emit`](widgets.scrollablebox.Class.ScrollableBox.md#emit)
 
-***
+---
 
 ### sattr()
 
@@ -2074,7 +2074,7 @@ Defined in: [packages/core/src/widgets/element.ts:326](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`sattr`](widgets.scrollablebox.Class.ScrollableBox.md#sattr)
 
-***
+---
 
 ### onScreenEvent()
 
@@ -2107,7 +2107,7 @@ Event handler function
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`onScreenEvent`](widgets.scrollablebox.Class.ScrollableBox.md#onscreenevent)
 
-***
+---
 
 ### onceScreenEvent()
 
@@ -2139,7 +2139,7 @@ Event handler function
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`onceScreenEvent`](widgets.scrollablebox.Class.ScrollableBox.md#oncescreenevent)
 
-***
+---
 
 ### removeScreenEvent()
 
@@ -2172,7 +2172,7 @@ Event handler function
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`removeScreenEvent`](widgets.scrollablebox.Class.ScrollableBox.md#removescreenevent)
 
-***
+---
 
 ### free()
 
@@ -2192,7 +2192,7 @@ and destroy().
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`free`](widgets.scrollablebox.Class.ScrollableBox.md#free)
 
-***
+---
 
 ### hide()
 
@@ -2210,7 +2210,7 @@ Hide element.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`hide`](widgets.scrollablebox.Class.ScrollableBox.md#hide)
 
-***
+---
 
 ### show()
 
@@ -2228,7 +2228,7 @@ Show element.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`show`](widgets.scrollablebox.Class.ScrollableBox.md#show)
 
-***
+---
 
 ### toggle()
 
@@ -2246,7 +2246,7 @@ Toggle hidden/shown.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`toggle`](widgets.scrollablebox.Class.ScrollableBox.md#toggle)
 
-***
+---
 
 ### focus()
 
@@ -2264,7 +2264,7 @@ Focus element.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`focus`](widgets.scrollablebox.Class.ScrollableBox.md#focus)
 
-***
+---
 
 ### isFocusable()
 
@@ -2283,7 +2283,7 @@ Elements are focusable if they have tabIndex >= -1 and are visible/attached.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`isFocusable`](widgets.scrollablebox.Class.ScrollableBox.md#isfocusable)
 
-***
+---
 
 ### isInTabOrder()
 
@@ -2302,7 +2302,7 @@ Elements with tabIndex=-1 are focusable but excluded from Tab order.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`isInTabOrder`](widgets.scrollablebox.Class.ScrollableBox.md#isintaborder)
 
-***
+---
 
 ### getTabIndex()
 
@@ -2320,7 +2320,7 @@ Get effective tab index for focus navigation ordering.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getTabIndex`](widgets.scrollablebox.Class.ScrollableBox.md#gettabindex)
 
-***
+---
 
 ### setContent()
 
@@ -2354,7 +2354,7 @@ with SGR codes (if enabled).
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setContent`](widgets.scrollablebox.Class.ScrollableBox.md#setcontent)
 
-***
+---
 
 ### getContent()
 
@@ -2372,7 +2372,7 @@ Return content, slightly different from el.content. Assume the above formatting.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getContent`](widgets.scrollablebox.Class.ScrollableBox.md#getcontent)
 
-***
+---
 
 ### getBorderLength()
 
@@ -2392,7 +2392,7 @@ Number of border cells, or 0 if no border
 #### Example
 
 ```ts
-const box = new Box({ width: 20, height: 10, border: { type: 'line' } });
+const box = new Box({ width: 20, height: 10, border: { type: "line" } });
 console.log(box.getBorderLength()); // 56 (2 * (20 + 10) - 4)
 ```
 
@@ -2400,7 +2400,7 @@ console.log(box.getBorderLength()); // 56 (2 * (20 + 10) - 4)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getBorderLength`](widgets.scrollablebox.Class.ScrollableBox.md#getborderlength)
 
-***
+---
 
 ### getBorderColors()
 
@@ -2429,7 +2429,7 @@ box.setBorderColors(rotated);
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getBorderColors`](widgets.scrollablebox.Class.ScrollableBox.md#getbordercolors)
 
-***
+---
 
 ### setBorderColors()
 
@@ -2473,7 +2473,7 @@ setInterval(() => {
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setBorderColors`](widgets.scrollablebox.Class.ScrollableBox.md#setbordercolors)
 
-***
+---
 
 ### setText()
 
@@ -2501,7 +2501,7 @@ Similar to setContent, but ignore tags and remove escape codes.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setText`](widgets.scrollablebox.Class.ScrollableBox.md#settext)
 
-***
+---
 
 ### getText()
 
@@ -2519,7 +2519,7 @@ Similar to getContent, but return content with tags and escape codes removed.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getText`](widgets.scrollablebox.Class.ScrollableBox.md#gettext)
 
-***
+---
 
 ### parseContent()
 
@@ -2541,7 +2541,7 @@ Defined in: [packages/core/src/widgets/element.ts:577](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`parseContent`](widgets.scrollablebox.Class.ScrollableBox.md#parsecontent)
 
-***
+---
 
 ### \_parseTags()
 
@@ -2563,7 +2563,7 @@ Defined in: [packages/core/src/widgets/element.ts:644](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_parseTags`](widgets.scrollablebox.Class.ScrollableBox.md#_parsetags)
 
-***
+---
 
 ### \_parseAttr()
 
@@ -2585,7 +2585,7 @@ Defined in: [packages/core/src/widgets/element.ts:749](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_parseAttr`](widgets.scrollablebox.Class.ScrollableBox.md#_parseattr)
 
-***
+---
 
 ### \_align()
 
@@ -2615,7 +2615,7 @@ Defined in: [packages/core/src/widgets/element.ts:778](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_align`](widgets.scrollablebox.Class.ScrollableBox.md#_align)
 
-***
+---
 
 ### \_wrapContent()
 
@@ -2641,7 +2641,7 @@ Defined in: [packages/core/src/widgets/element.ts:810](https://github.com/vdeant
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_wrapContent`](widgets.scrollablebox.Class.ScrollableBox.md#_wrapcontent)
 
-***
+---
 
 ### enableMouse()
 
@@ -2660,7 +2660,7 @@ Registers the element as clickable with the screen.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`enableMouse`](widgets.scrollablebox.Class.ScrollableBox.md#enablemouse)
 
-***
+---
 
 ### enableKeys()
 
@@ -2679,7 +2679,7 @@ Registers the element as keyable with the screen.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`enableKeys`](widgets.scrollablebox.Class.ScrollableBox.md#enablekeys)
 
-***
+---
 
 ### enableInput()
 
@@ -2697,7 +2697,7 @@ Enable key and mouse events. Calls both enableMouse() and enableKeys().
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`enableInput`](widgets.scrollablebox.Class.ScrollableBox.md#enableinput)
 
-***
+---
 
 ### enableDrag()
 
@@ -2726,7 +2726,7 @@ True if dragging was enabled
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`enableDrag`](widgets.scrollablebox.Class.ScrollableBox.md#enabledrag)
 
-***
+---
 
 ### disableDrag()
 
@@ -2747,7 +2747,7 @@ True if dragging was disabled
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`disableDrag`](widgets.scrollablebox.Class.ScrollableBox.md#disabledrag)
 
-***
+---
 
 ### key()
 
@@ -2775,7 +2775,7 @@ The bound key handler
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`key`](widgets.scrollablebox.Class.ScrollableBox.md#key)
 
-***
+---
 
 ### onceKey()
 
@@ -2803,7 +2803,7 @@ The bound key handler
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`onceKey`](widgets.scrollablebox.Class.ScrollableBox.md#oncekey)
 
-***
+---
 
 ### unkey()
 
@@ -2831,7 +2831,7 @@ Result of unbinding
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`unkey`](widgets.scrollablebox.Class.ScrollableBox.md#unkey)
 
-***
+---
 
 ### removeKey()
 
@@ -2860,7 +2860,7 @@ Result of removing
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`removeKey`](widgets.scrollablebox.Class.ScrollableBox.md#removekey)
 
-***
+---
 
 ### setIndex()
 
@@ -2887,7 +2887,7 @@ New z-index value
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setIndex`](widgets.scrollablebox.Class.ScrollableBox.md#setindex)
 
-***
+---
 
 ### setFront()
 
@@ -2906,7 +2906,7 @@ Sets the element's z-index to the highest value (renders last/on top).
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setFront`](widgets.scrollablebox.Class.ScrollableBox.md#setfront)
 
-***
+---
 
 ### setBack()
 
@@ -2925,7 +2925,7 @@ Sets the element's z-index to the lowest value (renders first/at bottom).
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setBack`](widgets.scrollablebox.Class.ScrollableBox.md#setback)
 
-***
+---
 
 ### clearPos()
 
@@ -2942,7 +2942,7 @@ Fills the region with spaces, used when moving or hiding elements.
 
 `boolean`
 
-Whether to use _getCoords (default: false)
+Whether to use \_getCoords (default: false)
 
 ##### override?
 
@@ -2958,7 +2958,7 @@ If true, always clear even if cell hasn't changed
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`clearPos`](widgets.scrollablebox.Class.ScrollableBox.md#clearpos)
 
-***
+---
 
 ### setLabel()
 
@@ -2984,15 +2984,15 @@ Label text (string) or options object with text and side properties
 #### Example
 
 ```ts
-element.setLabel('My Label');
-element.setLabel({ text: 'My Label', side: 'right' });
+element.setLabel("My Label");
+element.setLabel({ text: "My Label", side: "right" });
 ```
 
 #### Inherited from
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setLabel`](widgets.scrollablebox.Class.ScrollableBox.md#setlabel)
 
-***
+---
 
 ### removeLabel()
 
@@ -3011,7 +3011,7 @@ Detaches the label element and removes associated event listeners.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`removeLabel`](widgets.scrollablebox.Class.ScrollableBox.md#removelabel)
 
-***
+---
 
 ### setHover()
 
@@ -3036,15 +3036,15 @@ Hover text (string) or options object with text property
 #### Example
 
 ```ts
-element.setHover('Hover text here');
-element.setHover({ text: 'Hover text here' });
+element.setHover("Hover text here");
+element.setHover({ text: "Hover text here" });
 ```
 
 #### Inherited from
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setHover`](widgets.scrollablebox.Class.ScrollableBox.md#sethover)
 
-***
+---
 
 ### removeHover()
 
@@ -3063,7 +3063,7 @@ Detaches the hover text box if it's currently displayed.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`removeHover`](widgets.scrollablebox.Class.ScrollableBox.md#removehover)
 
-***
+---
 
 ### \_getPos()
 
@@ -3081,7 +3081,7 @@ Positioning
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getPos`](widgets.scrollablebox.Class.ScrollableBox.md#_getpos)
 
-***
+---
 
 ### \_getWidth()
 
@@ -3105,7 +3105,7 @@ Position Getters
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getWidth`](widgets.scrollablebox.Class.ScrollableBox.md#_getwidth)
 
-***
+---
 
 ### \_getHeight()
 
@@ -3127,7 +3127,7 @@ Defined in: [packages/core/src/widgets/element.ts:1429](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getHeight`](widgets.scrollablebox.Class.ScrollableBox.md#_getheight)
 
-***
+---
 
 ### \_getLeft()
 
@@ -3149,7 +3149,7 @@ Defined in: [packages/core/src/widgets/element.ts:1480](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getLeft`](widgets.scrollablebox.Class.ScrollableBox.md#_getleft)
 
-***
+---
 
 ### \_getRight()
 
@@ -3171,7 +3171,7 @@ Defined in: [packages/core/src/widgets/element.ts:1517](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getRight`](widgets.scrollablebox.Class.ScrollableBox.md#_getright)
 
-***
+---
 
 ### \_getTop()
 
@@ -3193,7 +3193,7 @@ Defined in: [packages/core/src/widgets/element.ts:1542](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getTop`](widgets.scrollablebox.Class.ScrollableBox.md#_gettop)
 
-***
+---
 
 ### \_getBottom()
 
@@ -3215,7 +3215,7 @@ Defined in: [packages/core/src/widgets/element.ts:1579](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getBottom`](widgets.scrollablebox.Class.ScrollableBox.md#_getbottom)
 
-***
+---
 
 ### \_getShrinkBox()
 
@@ -3255,7 +3255,7 @@ Rendering - here be dragons
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getShrinkBox`](widgets.scrollablebox.Class.ScrollableBox.md#_getshrinkbox)
 
-***
+---
 
 ### \_getShrinkContent()
 
@@ -3293,7 +3293,7 @@ Defined in: [packages/core/src/widgets/element.ts:1967](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getShrinkContent`](widgets.scrollablebox.Class.ScrollableBox.md#_getshrinkcontent)
 
-***
+---
 
 ### \_getShrink()
 
@@ -3331,7 +3331,7 @@ Defined in: [packages/core/src/widgets/element.ts:2003](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getShrink`](widgets.scrollablebox.Class.ScrollableBox.md#_getshrink)
 
-***
+---
 
 ### \_getCoords()
 
@@ -3357,7 +3357,7 @@ Defined in: [packages/core/src/widgets/element.ts:2048](https://github.com/vdean
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_getCoords`](widgets.scrollablebox.Class.ScrollableBox.md#_getcoords)
 
-***
+---
 
 ### render()
 
@@ -3379,13 +3379,13 @@ Rendered coordinates object, or undefined if hidden/invalid
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`render`](widgets.scrollablebox.Class.ScrollableBox.md#render)
 
-***
+---
 
 ### \_render()
 
 > **\_render**(): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:2871](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2871)
+Defined in: [packages/core/src/widgets/element.ts:2879](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2879)
 
 Internal alias for render().
 
@@ -3399,13 +3399,13 @@ Rendered coordinates object
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`_render`](widgets.scrollablebox.Class.ScrollableBox.md#_render)
 
-***
+---
 
 ### insertLine()
 
 > **insertLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2885](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2885)
+Defined in: [packages/core/src/widgets/element.ts:2893](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2893)
 
 Insert a line into the box's content.
 Handles wrapped content by inserting at the specified fake line index.
@@ -3432,13 +3432,13 @@ Line or array of lines to insert
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`insertLine`](widgets.scrollablebox.Class.ScrollableBox.md#insertline)
 
-***
+---
 
 ### deleteLine()
 
 > **deleteLine**(`i`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2946](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2946)
+Defined in: [packages/core/src/widgets/element.ts:2954](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2954)
 
 Delete a line from the box's content.
 Handles wrapped content by deleting at the specified fake line index.
@@ -3465,13 +3465,13 @@ Number of lines to delete (default: 1)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`deleteLine`](widgets.scrollablebox.Class.ScrollableBox.md#deleteline)
 
-***
+---
 
 ### insertTop()
 
 > **insertTop**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3002](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3002)
+Defined in: [packages/core/src/widgets/element.ts:3010](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3010)
 
 Insert a line at the top of the box.
 Inserts at the first visible line based on childBase.
@@ -3492,13 +3492,13 @@ Line or array of lines to insert
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`insertTop`](widgets.scrollablebox.Class.ScrollableBox.md#inserttop)
 
-***
+---
 
 ### insertBottom()
 
 > **insertBottom**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3012](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3012)
+Defined in: [packages/core/src/widgets/element.ts:3020](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3020)
 
 Insert a line at the bottom of the box.
 Inserts after the last visible line based on height and childBase.
@@ -3519,13 +3519,13 @@ Line or array of lines to insert
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`insertBottom`](widgets.scrollablebox.Class.ScrollableBox.md#insertbottom)
 
-***
+---
 
 ### deleteTop()
 
 > **deleteTop**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3025](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3025)
+Defined in: [packages/core/src/widgets/element.ts:3033](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3033)
 
 Delete a line at the top of the box.
 Deletes from the first visible line based on childBase.
@@ -3546,13 +3546,13 @@ Number of lines to delete (default: 1)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`deleteTop`](widgets.scrollablebox.Class.ScrollableBox.md#deletetop)
 
-***
+---
 
 ### deleteBottom()
 
 > **deleteBottom**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3035](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3035)
+Defined in: [packages/core/src/widgets/element.ts:3043](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3043)
 
 Delete a line at the bottom of the box.
 Deletes from the last visible line based on height and childBase.
@@ -3573,13 +3573,13 @@ Number of lines to delete (default: 1)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`deleteBottom`](widgets.scrollablebox.Class.ScrollableBox.md#deletebottom)
 
-***
+---
 
 ### setLine()
 
 > **setLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3050](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3050)
+Defined in: [packages/core/src/widgets/element.ts:3058](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3058)
 
 Set a line in the box's content.
 
@@ -3605,13 +3605,13 @@ Line content to set
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setLine`](widgets.scrollablebox.Class.ScrollableBox.md#setline)
 
-***
+---
 
 ### setBaseLine()
 
 > **setBaseLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3064](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3064)
+Defined in: [packages/core/src/widgets/element.ts:3072](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3072)
 
 Set a line in the box's content from the visible top.
 
@@ -3637,13 +3637,13 @@ Line content to set
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`setBaseLine`](widgets.scrollablebox.Class.ScrollableBox.md#setbaseline)
 
-***
+---
 
 ### getLine()
 
 > **getLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3074](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3074)
+Defined in: [packages/core/src/widgets/element.ts:3082](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3082)
 
 Get a line from the box's content.
 
@@ -3665,13 +3665,13 @@ Line content
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getLine`](widgets.scrollablebox.Class.ScrollableBox.md#getline)
 
-***
+---
 
 ### getBaseLine()
 
 > **getBaseLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3085](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3085)
+Defined in: [packages/core/src/widgets/element.ts:3093](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3093)
 
 Get a line from the box's content from the visible top.
 
@@ -3693,13 +3693,13 @@ Line content
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getBaseLine`](widgets.scrollablebox.Class.ScrollableBox.md#getbaseline)
 
-***
+---
 
 ### clearLine()
 
 > **clearLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3094](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3094)
+Defined in: [packages/core/src/widgets/element.ts:3102](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3102)
 
 Clear a line from the box's content.
 
@@ -3719,13 +3719,13 @@ Line index to clear (fake line number)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`clearLine`](widgets.scrollablebox.Class.ScrollableBox.md#clearline)
 
-***
+---
 
 ### clearBaseLine()
 
 > **clearBaseLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3103](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3103)
+Defined in: [packages/core/src/widgets/element.ts:3111](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3111)
 
 Clear a line from the box's content from the visible top.
 
@@ -3745,13 +3745,13 @@ Line offset from visible top
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`clearBaseLine`](widgets.scrollablebox.Class.ScrollableBox.md#clearbaseline)
 
-***
+---
 
 ### unshiftLine()
 
 > **unshiftLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3112](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3112)
+Defined in: [packages/core/src/widgets/element.ts:3120](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3120)
 
 Unshift a line onto the top of the content.
 
@@ -3771,13 +3771,13 @@ Line or array of lines to insert
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`unshiftLine`](widgets.scrollablebox.Class.ScrollableBox.md#unshiftline)
 
-***
+---
 
 ### shiftLine()
 
 > **shiftLine**(`i?`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3121](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3121)
+Defined in: [packages/core/src/widgets/element.ts:3129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3129)
 
 Shift a line off the top of the content.
 
@@ -3803,13 +3803,13 @@ Number of lines to remove (default: 1)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`shiftLine`](widgets.scrollablebox.Class.ScrollableBox.md#shiftline)
 
-***
+---
 
 ### pushLine()
 
 > **pushLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3129)
+Defined in: [packages/core/src/widgets/element.ts:3137](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3137)
 
 Push a line onto the bottom of the content.
 
@@ -3829,13 +3829,13 @@ Line or array of lines to insert
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`pushLine`](widgets.scrollablebox.Class.ScrollableBox.md#pushline)
 
-***
+---
 
 ### popLine()
 
 > **popLine**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3138](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3138)
+Defined in: [packages/core/src/widgets/element.ts:3146](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3146)
 
 Pop a line off the bottom of the content.
 
@@ -3855,13 +3855,13 @@ Number of lines to remove (default: 1)
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`popLine`](widgets.scrollablebox.Class.ScrollableBox.md#popline)
 
-***
+---
 
 ### getLines()
 
 > **getLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:3146](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3146)
+Defined in: [packages/core/src/widgets/element.ts:3154](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3154)
 
 An array containing the content lines.
 
@@ -3875,13 +3875,13 @@ Array of fake (unwrapped) lines
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getLines`](widgets.scrollablebox.Class.ScrollableBox.md#getlines)
 
-***
+---
 
 ### getScreenLines()
 
 > **getScreenLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:3154](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3154)
+Defined in: [packages/core/src/widgets/element.ts:3162](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3162)
 
 An array containing the lines as they are displayed on the screen.
 
@@ -3895,13 +3895,13 @@ Array of real (wrapped) lines
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`getScreenLines`](widgets.scrollablebox.Class.ScrollableBox.md#getscreenlines)
 
-***
+---
 
 ### strWidth()
 
 > **strWidth**(`text`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:3164](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3164)
+Defined in: [packages/core/src/widgets/element.ts:3172](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3172)
 
 Get a string's displayed width, taking into account double-width, surrogate pairs,
 combining characters, tags, and SGR escape codes.
@@ -3924,13 +3924,13 @@ Displayed width in cells
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`strWidth`](widgets.scrollablebox.Class.ScrollableBox.md#strwidth)
 
-***
+---
 
 ### screenshot()
 
 > **screenshot**(`xi?`, `xl?`, `yi?`, `yl?`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3180](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3180)
+Defined in: [packages/core/src/widgets/element.ts:3188](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3188)
 
 Take an SGR screenshot of the element within the region. Returns a string containing only
 characters and SGR codes. Can be displayed by simply echoing it in a terminal.
@@ -3971,7 +3971,7 @@ SGR-encoded screenshot string
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`screenshot`](widgets.scrollablebox.Class.ScrollableBox.md#screenshot)
 
-***
+---
 
 ### createItem()
 
@@ -3989,7 +3989,7 @@ Defined in: [packages/core/src/widgets/list.ts:262](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### add()
 
@@ -4017,10 +4017,10 @@ The created item element
 #### Example
 
 ```ts
-list.add('New Item');
+list.add("New Item");
 ```
 
-***
+---
 
 ### addItem()
 
@@ -4048,10 +4048,10 @@ The created item element
 #### Example
 
 ```ts
-list.addItem('Another Item');
+list.addItem("Another Item");
 ```
 
-***
+---
 
 ### appendItem()
 
@@ -4069,7 +4069,7 @@ Defined in: [packages/core/src/widgets/list.ts:354](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### removeItem()
 
@@ -4099,12 +4099,12 @@ The removed child element
 // Remove by index
 list.removeItem(0);
 // Remove by string content
-list.removeItem('Item Text');
+list.removeItem("Item Text");
 // Remove by element reference
 list.removeItem(itemElement);
 ```
 
-***
+---
 
 ### insertItem()
 
@@ -4136,10 +4136,10 @@ String content or element with getContent() method
 
 ```ts
 // Insert at index 2
-list.insertItem(2, 'New Item');
+list.insertItem(2, "New Item");
 ```
 
-***
+---
 
 ### getItem()
 
@@ -4169,7 +4169,7 @@ The item element at the specified position
 const item = list.getItem(0);
 ```
 
-***
+---
 
 ### setItem()
 
@@ -4200,10 +4200,10 @@ String content or element with getContent() method
 #### Example
 
 ```ts
-list.setItem(0, 'Updated Content');
+list.setItem(0, "Updated Content");
 ```
 
-***
+---
 
 ### clearItems()
 
@@ -4223,7 +4223,7 @@ Clear all items from the list.
 list.clearItems();
 ```
 
-***
+---
 
 ### setItems()
 
@@ -4248,10 +4248,10 @@ Array of string items to set
 #### Example
 
 ```ts
-list.setItems(['Item 1', 'Item 2', 'Item 3']);
+list.setItems(["Item 1", "Item 2", "Item 3"]);
 ```
 
-***
+---
 
 ### pushItem()
 
@@ -4278,10 +4278,10 @@ The new length of the items array
 #### Example
 
 ```ts
-list.pushItem('Last Item');
+list.pushItem("Last Item");
 ```
 
-***
+---
 
 ### popItem()
 
@@ -4303,7 +4303,7 @@ The removed item element
 const lastItem = list.popItem();
 ```
 
-***
+---
 
 ### unshiftItem()
 
@@ -4330,10 +4330,10 @@ The new length of the items array
 #### Example
 
 ```ts
-list.unshiftItem('First Item');
+list.unshiftItem("First Item");
 ```
 
-***
+---
 
 ### shiftItem()
 
@@ -4355,7 +4355,7 @@ The removed item element
 const firstItem = list.shiftItem();
 ```
 
-***
+---
 
 ### spliceItem()
 
@@ -4395,10 +4395,10 @@ Array of removed items
 
 ```ts
 // Remove 2 items at index 1 and insert 3 new items
-list.spliceItem(1, 2, 'Item A', 'Item B', 'Item C');
+list.spliceItem(1, 2, "Item A", "Item B", "Item C");
 ```
 
-***
+---
 
 ### find()
 
@@ -4431,10 +4431,10 @@ Index of the found item, or current selection if not found
 #### Example
 
 ```ts
-const index = list.find('search term');
+const index = list.find("search term");
 ```
 
-***
+---
 
 ### fuzzyFind()
 
@@ -4469,14 +4469,14 @@ Index of the found item, or current selection if not found
 
 ```ts
 // Find forward
-list.fuzzyFind('Item');
+list.fuzzyFind("Item");
 // Find backward
-list.fuzzyFind('Item', true);
+list.fuzzyFind("Item", true);
 // Use regex
 list.fuzzyFind(/^Item \d+$/);
 ```
 
-***
+---
 
 ### getItemIndex()
 
@@ -4505,14 +4505,14 @@ The index of the item, or -1 if not found
 
 ```ts
 // By string
-const index = list.getItemIndex('Item Text');
+const index = list.getItemIndex("Item Text");
 // By element
 const index = list.getItemIndex(itemElement);
 // By index (passthrough)
 const index = list.getItemIndex(5);
 ```
 
-***
+---
 
 ### select()
 
@@ -4544,7 +4544,7 @@ list.select(0);
 list.select(itemElement);
 ```
 
-***
+---
 
 ### move()
 
@@ -4575,7 +4575,7 @@ list.move(3);
 list.move(-2);
 ```
 
-***
+---
 
 ### up()
 
@@ -4604,7 +4604,7 @@ list.up();
 list.up(5); // Move up 5 items
 ```
 
-***
+---
 
 ### down()
 
@@ -4633,7 +4633,7 @@ list.down();
 list.down(3); // Move down 3 items
 ```
 
-***
+---
 
 ### pick()
 
@@ -4665,12 +4665,12 @@ Callback function to receive selected item
 #### Example
 
 ```ts
-list.pick('Select an option:', (err, value) => {
-  console.log('Selected:', value);
+list.pick("Select an option:", (err, value) => {
+  console.log("Selected:", value);
 });
 ```
 
-***
+---
 
 ### enterSelected()
 
@@ -4688,7 +4688,7 @@ Defined in: [packages/core/src/widgets/list.ts:820](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### cancelSelected()
 
@@ -4706,7 +4706,7 @@ Defined in: [packages/core/src/widgets/list.ts:826](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### insert()
 
@@ -4734,7 +4734,7 @@ Insert a node to this node's children at index i.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`insert`](widgets.scrollablebox.Class.ScrollableBox.md#insert)
 
-***
+---
 
 ### prepend()
 
@@ -4758,7 +4758,7 @@ Prepend a node to this node's children.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`prepend`](widgets.scrollablebox.Class.ScrollableBox.md#prepend)
 
-***
+---
 
 ### append()
 
@@ -4782,7 +4782,7 @@ Append a node to this node's children.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`append`](widgets.scrollablebox.Class.ScrollableBox.md#append)
 
-***
+---
 
 ### insertBefore()
 
@@ -4810,7 +4810,7 @@ Insert a node to this node's children before the reference node.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`insertBefore`](widgets.scrollablebox.Class.ScrollableBox.md#insertbefore)
 
-***
+---
 
 ### insertAfter()
 
@@ -4838,7 +4838,7 @@ Insert a node from node after the reference node.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`insertAfter`](widgets.scrollablebox.Class.ScrollableBox.md#insertafter)
 
-***
+---
 
 ### remove()
 
@@ -4862,7 +4862,7 @@ Remove child node from node.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`remove`](widgets.scrollablebox.Class.ScrollableBox.md#remove)
 
-***
+---
 
 ### detach()
 
@@ -4880,7 +4880,7 @@ Remove node from its parent.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`detach`](widgets.scrollablebox.Class.ScrollableBox.md#detach)
 
-***
+---
 
 ### destroy()
 
@@ -4899,7 +4899,7 @@ events to prevent memory leaks. For use with onScreenEvent(), removeScreenEvent(
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`destroy`](widgets.scrollablebox.Class.ScrollableBox.md#destroy)
 
-***
+---
 
 ### forDescendants()
 
@@ -4927,7 +4927,7 @@ Iterate over all descendants, calling iter(el) for each.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`forDescendants`](widgets.scrollablebox.Class.ScrollableBox.md#fordescendants)
 
-***
+---
 
 ### forAncestors()
 
@@ -4955,7 +4955,7 @@ Iterate over all ancestors, calling iter(el) for each.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`forAncestors`](widgets.scrollablebox.Class.ScrollableBox.md#forancestors)
 
-***
+---
 
 ### collectDescendants()
 
@@ -4979,7 +4979,7 @@ Collect all descendants into an array.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`collectDescendants`](widgets.scrollablebox.Class.ScrollableBox.md#collectdescendants)
 
-***
+---
 
 ### collectAncestors()
 
@@ -5003,7 +5003,7 @@ Collect all ancestors into an array.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`collectAncestors`](widgets.scrollablebox.Class.ScrollableBox.md#collectancestors)
 
-***
+---
 
 ### emitDescendants()
 
@@ -5027,7 +5027,7 @@ Emit event for element, and recursively emit same event for all descendants.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`emitDescendants`](widgets.scrollablebox.Class.ScrollableBox.md#emitdescendants)
 
-***
+---
 
 ### emitAncestors()
 
@@ -5051,7 +5051,7 @@ Emit event for element, and recursively emit same event for all ancestors.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`emitAncestors`](widgets.scrollablebox.Class.ScrollableBox.md#emitancestors)
 
-***
+---
 
 ### hasDescendant()
 
@@ -5075,7 +5075,7 @@ Check if target is a descendant of this node.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`hasDescendant`](widgets.scrollablebox.Class.ScrollableBox.md#hasdescendant)
 
-***
+---
 
 ### hasAncestor()
 
@@ -5099,7 +5099,7 @@ Check if target is an ancestor of this node.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`hasAncestor`](widgets.scrollablebox.Class.ScrollableBox.md#hasancestor)
 
-***
+---
 
 ### get()
 
@@ -5127,7 +5127,7 @@ Get user property with a potential default value.
 
 [`ScrollableBox`](widgets.scrollablebox.Class.ScrollableBox.md).[`get`](widgets.scrollablebox.Class.ScrollableBox.md#get)
 
-***
+---
 
 ### set()
 

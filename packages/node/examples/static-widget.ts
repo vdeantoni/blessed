@@ -11,7 +11,7 @@
  *   pnpm tsx examples/static-widget.ts
  */
 
-import { Screen, Box, Static } from "../dist/index.js";
+import { Box, Screen, Static } from "../dist/index.js";
 
 const screen = new Screen({
   smartCSR: true,

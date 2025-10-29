@@ -1,6 +1,6 @@
+import { FitAddon } from "@xterm/addon-fit";
 import { useEffect, useRef } from "react";
 import { Terminal } from "xterm";
-import { FitAddon } from "@xterm/addon-fit";
 
 export function useTerminal(containerRef: React.RefObject<HTMLDivElement>) {
   const terminal = useRef<Terminal | null>(null);

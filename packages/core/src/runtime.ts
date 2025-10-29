@@ -84,17 +84,17 @@
  */
 
 // Type-only imports from @types/node
-import type * as fs from "fs";
-import type * as path from "path";
+import type { Buffer } from "buffer";
 import type * as child_process from "child_process";
+import type EventEmitter from "events";
+import type * as fs from "fs";
+import type * as net from "net";
+import type * as path from "path";
+import type { Readable, Writable } from "stream";
+import type { StringDecoder } from "string_decoder";
 import type * as tty from "tty";
 import type * as url from "url";
 import type * as util from "util";
-import type * as net from "net";
-import type { StringDecoder } from "string_decoder";
-import type { Readable, Writable } from "stream";
-import type { Buffer } from "buffer";
-import type EventEmitter from "events";
 
 /**
  * Complete runtime abstraction interface

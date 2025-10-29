@@ -1,6 +1,6 @@
-import * as prettier from "prettier/standalone";
-import * as parserTypeScript from "prettier/plugins/typescript";
 import * as parserEstree from "prettier/plugins/estree";
+import * as parserTypeScript from "prettier/plugins/typescript";
+import * as prettier from "prettier/standalone";
 
 export async function formatCode(code: string): Promise<string> {
   return prettier.format(code, {

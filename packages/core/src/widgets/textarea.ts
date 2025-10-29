@@ -6,10 +6,10 @@
  * Modules
  */
 
-import type { KeyEvent, MouseEvent, TextareaOptions } from "../types";
-import unicode from "../lib/unicode.js";
-import Input from "./input.js";
 import { getNextTick } from "../lib/runtime-helpers.js";
+import unicode from "../lib/unicode.js";
+import type { KeyEvent, MouseEvent, TextareaOptions } from "../types";
+import Input from "./input.js";
 
 /**
  * Textarea

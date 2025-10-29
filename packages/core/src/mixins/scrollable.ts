@@ -2,8 +2,7 @@
  * scrollable.ts - scrollable mixin for blessed elements
  */
 
-import type { ScrollableOptions } from "../types";
-import type { RenderCoords } from "../types";
+import type { RenderCoords, ScrollableOptions } from "../types";
 
 /**
  * Scrollable Mixin

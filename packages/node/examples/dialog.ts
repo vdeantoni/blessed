@@ -9,7 +9,7 @@
  *   pnpm tsx examples/dialog.ts
  */
 
-import { Screen, Box, Dialog, Button, List, Textbox } from "../dist/index.js";
+import { Box, Button, Dialog, List, Screen, Textbox } from "../dist/index.js";
 
 const screen = new Screen({
   smartCSR: true,

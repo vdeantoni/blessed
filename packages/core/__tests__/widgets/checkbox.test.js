@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import Checkbox from "../../src/widgets/checkbox.js";
 import { createMockScreen } from "../helpers/mock.js";
 

@@ -6,8 +6,8 @@
  */
 
 import {
-  Screen,
   Box,
+  Screen,
   Text,
   generateRainbow,
   rotateColors,

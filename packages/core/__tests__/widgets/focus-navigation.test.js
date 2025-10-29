@@ -1,15 +1,15 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import Screen from "../../src/widgets/screen.js";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Box from "../../src/widgets/box.js";
-import Textbox from "../../src/widgets/textbox.js";
-import Textarea from "../../src/widgets/textarea.js";
 import Button from "../../src/widgets/button.js";
 import Checkbox from "../../src/widgets/checkbox.js";
-import RadioButton from "../../src/widgets/radiobutton.js";
-import List from "../../src/widgets/list.js";
 import FileManager from "../../src/widgets/filemanager.js";
+import List from "../../src/widgets/list.js";
 import Prompt from "../../src/widgets/prompt.js";
 import Question from "../../src/widgets/question.js";
+import RadioButton from "../../src/widgets/radiobutton.js";
+import Screen from "../../src/widgets/screen.js";
+import Textarea from "../../src/widgets/textarea.js";
+import Textbox from "../../src/widgets/textbox.js";
 import { createMockProgram } from "../helpers/mock.js";
 
 describe("Focus Navigation", () => {

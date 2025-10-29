@@ -4,10 +4,10 @@
  * Returns imported terminfo and font data for blessed widgets
  */
 
-import { Buffer } from "buffer";
-import xtermData from "@unblessed/core/data/terminfo/xterm-256color.json" assert { type: "json" };
-import terU14n from "@unblessed/core/data/fonts/ter-u14n.json" assert { type: "json" };
 import terU14b from "@unblessed/core/data/fonts/ter-u14b.json" assert { type: "json" };
+import terU14n from "@unblessed/core/data/fonts/ter-u14n.json" assert { type: "json" };
+import xtermData from "@unblessed/core/data/terminfo/xterm-256color.json" assert { type: "json" };
+import { Buffer } from "buffer";
 
 export const readFileSync = (path: string): Buffer => {
   // Handle terminfo files - check if path contains xterm

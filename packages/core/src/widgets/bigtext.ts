@@ -6,8 +6,8 @@
  * Modules
  */
 
-import type { BigTextOptions } from "../types";
 import { getDataPath } from "../lib/runtime-helpers.js";
+import type { BigTextOptions } from "../types";
 import Box from "./box.js";
 
 /**

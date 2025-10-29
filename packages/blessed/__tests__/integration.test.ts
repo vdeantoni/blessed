@@ -5,13 +5,13 @@
  * found in the wild. They test behavior, not just types.
  */
 
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import blessed, {
-  escape,
-  stripTags,
   cleanTags,
-  generateTags,
   colors,
+  escape,
+  generateTags,
+  stripTags,
 } from "../src/blessed.js";
 
 describe("Integration Tests - Real Blessed Patterns", () => {

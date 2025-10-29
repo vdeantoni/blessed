@@ -108,9 +108,7 @@ export async function displayError(
         for (let i = startLine; i < endLine; i++) {
           const lineNo = String(i + 1).padStart(3, " ");
           const prefix =
-            i === lineNum - 1
-              ? `{red-fg}▶ ${lineNo}{/red-fg}`
-              : `  ${lineNo}`;
+            i === lineNum - 1 ? `{red-fg}▶ ${lineNo}{/red-fg}` : `  ${lineNo}`;
           const line = lines[i] || "";
           snippet += `${prefix} │ ${line}\n`;
 

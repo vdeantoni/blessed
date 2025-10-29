@@ -1,5 +1,5 @@
-import { defineConfig } from "tsup";
 import { cp } from "fs/promises";
+import { defineConfig } from "tsup";
 
 export default defineConfig([
   // Main tui-browser bundle for browser

@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import List from "../../src/widgets/list.js";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import Box from "../../src/widgets/box.js";
+import List from "../../src/widgets/list.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 describe("List", () => {

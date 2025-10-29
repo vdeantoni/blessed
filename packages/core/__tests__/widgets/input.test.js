@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from "vitest";
+import { beforeEach, describe, expect, it } from "vitest";
 import Input from "../../src/widgets/input.js";
 import { createMockScreen } from "../helpers/mock.js";
 

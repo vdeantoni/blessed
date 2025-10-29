@@ -6,8 +6,8 @@
  * Modules
  */
 
-import Element from "./element.js";
 import type { BoxOptions } from "../types";
+import Element from "./element.js";
 
 /**
  * Box - The fundamental building block for creating rectangular UI components.

@@ -6,7 +6,7 @@
  *   pnpm example:interactive
  */
 
-import { Screen, Box, Textbox, Button, List } from "../dist/index.js";
+import { Box, Button, List, Screen, Textbox } from "../dist/index.js";
 
 const screen = new Screen({
   smartCSR: true,

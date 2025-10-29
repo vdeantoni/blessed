@@ -3,23 +3,23 @@
  * Manually initializes Node.js runtime (avoids circular dependency with @unblessed/node)
  */
 
-import { beforeAll } from "vitest";
-import { initCore } from "@unblessed/core";
 import type { Runtime } from "@unblessed/core";
-import fs from "fs";
-import path from "path";
-import process from "process";
+import { initCore } from "@unblessed/core";
+import { Buffer } from "buffer";
 import * as child_process from "child_process";
+import { EventEmitter } from "events";
+import fs from "fs";
+import net from "net";
+import { GifReader } from "omggif";
+import path from "path";
+import { PNG } from "pngjs";
+import process from "process";
+import { Readable, Writable } from "stream";
+import { StringDecoder } from "string_decoder";
 import tty from "tty";
 import * as url from "url";
 import * as util from "util";
-import net from "net";
-import { Readable, Writable } from "stream";
-import { Buffer } from "buffer";
-import { StringDecoder } from "string_decoder";
-import { EventEmitter } from "events";
-import { PNG } from "pngjs";
-import { GifReader } from "omggif";
+import { beforeAll } from "vitest";
 
 // Initialize Node.js runtime manually before all tests
 beforeAll(() => {

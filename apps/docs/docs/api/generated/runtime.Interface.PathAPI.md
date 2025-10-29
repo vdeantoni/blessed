@@ -31,7 +31,7 @@ paths to join.
 
 if any of the path segments is not a string.
 
-***
+---
 
 ### resolve()
 
@@ -64,7 +64,7 @@ A sequence of paths or path segments.
 
 if any of the arguments is not a string.
 
-***
+---
 
 ### dirname()
 
@@ -90,7 +90,7 @@ the path to evaluate.
 
 if `path` is not a string.
 
-***
+---
 
 ### basename()
 
@@ -123,7 +123,7 @@ optionally, an extension to remove from the result.
 
 if `path` is not a string or if `ext` is given and is not a string.
 
-***
+---
 
 ### normalize()
 
@@ -150,7 +150,7 @@ string path to normalize.
 
 if `path` is not a string.
 
-***
+---
 
 ### extname()
 
@@ -177,7 +177,7 @@ the path to evaluate.
 
 if `path` is not a string.
 
-***
+---
 
 ### sep
 
@@ -185,7 +185,7 @@ if `path` is not a string.
 
 Defined in: [packages/core/src/runtime.ts:192](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L192)
 
-***
+---
 
 ### delimiter
 

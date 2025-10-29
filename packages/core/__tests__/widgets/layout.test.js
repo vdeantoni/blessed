@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import Layout from "../../src/widgets/layout.js";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import Box from "../../src/widgets/box.js";
+import Layout from "../../src/widgets/layout.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 describe("Layout", () => {

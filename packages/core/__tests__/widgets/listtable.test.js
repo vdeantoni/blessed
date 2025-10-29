@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import ListTable from "../../src/widgets/listtable.js";
 import { createMockScreen } from "../helpers/mock.js";
 

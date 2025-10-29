@@ -1,5 +1,5 @@
-import React, { useRef, useState, useCallback } from "react";
 import Editor from "@monaco-editor/react";
+import { useCallback, useRef, useState } from "react";
 import { formatCode } from "../utils/prettier";
 
 interface CodeEditorProps {
@@ -16,45 +16,48 @@ export default function CodeEditor({
   const editorRef = useRef<any>(null);
   const [needsFormatting, setNeedsFormatting] = useState(false);
 
-  const handleEditorMount = useCallback(async (editor: any, monaco: any) => {
-    editorRef.current = editor;
+  const handleEditorMount = useCallback(
+    async (editor: any, monaco: any) => {
+      editorRef.current = editor;
 
-    try {
-      // Register Prettier formatter
-      monaco.languages.registerDocumentFormattingEditProvider("typescript", {
-        async provideDocumentFormattingEdits(model: any) {
-          try {
-            const text = model.getValue();
-            const formatted = await formatCode(text);
-            return [{ range: model.getFullModelRange(), text: formatted }];
-          } catch (error) {
-            console.error("Prettier formatting error:", error);
-            return [];
+      try {
+        // Register Prettier formatter
+        monaco.languages.registerDocumentFormattingEditProvider("typescript", {
+          async provideDocumentFormattingEdits(model: any) {
+            try {
+              const text = model.getValue();
+              const formatted = await formatCode(text);
+              return [{ range: model.getFullModelRange(), text: formatted }];
+            } catch (error) {
+              console.error("Prettier formatting error:", error);
+              return [];
+            }
+          },
+        });
+
+        // Add Cmd+S / Ctrl+S for format
+        editor.addAction({
+          id: "format-and-save",
+          label: "Format Document",
+          keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS],
+          run: async (ed: any) => {
+            await ed.getAction("editor.action.formatDocument").run();
+          },
+        });
+
+        // Listen for content changes to detect if formatting is needed
+        editor.onDidChangeModelContent(() => {
+          const newValue = editor.getValue();
+          if (newValue !== value) {
+            checkFormatting(newValue);
           }
-        },
-      });
-
-      // Add Cmd+S / Ctrl+S for format
-      editor.addAction({
-        id: "format-and-save",
-        label: "Format Document",
-        keybindings: [monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS],
-        run: async (ed: any) => {
-          await ed.getAction("editor.action.formatDocument").run();
-        },
-      });
-
-      // Listen for content changes to detect if formatting is needed
-      editor.onDidChangeModelContent(() => {
-        const newValue = editor.getValue();
-        if (newValue !== value) {
-          checkFormatting(newValue);
-        }
-      });
-    } catch (error) {
-      console.error("Failed to configure Monaco Editor:", error);
-    }
-  }, [value]);
+        });
+      } catch (error) {
+        console.error("Failed to configure Monaco Editor:", error);
+      }
+    },
+    [value],
+  );
 
   const checkFormatting = useCallback(async (code: string) => {
     try {

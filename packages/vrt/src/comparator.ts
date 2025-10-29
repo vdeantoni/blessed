@@ -2,13 +2,13 @@
  * VRT Comparator - Compare VRT recordings for regression testing
  */
 
+import { readFileSync } from "fs";
 import type {
-  VRTRecording,
   VRTComparatorOptions,
   VRTComparisonResult,
   VRTFrameDifference,
+  VRTRecording,
 } from "./types.js";
-import { readFileSync } from "fs";
 
 /**
  * VRTComparator compares two VRT recordings to detect visual regressions.

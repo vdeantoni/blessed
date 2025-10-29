@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import Screen from "../../src/widgets/screen.js";
-import Box from "../../src/widgets/box.js";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import Program from "../../src/lib/program.js";
+import Box from "../../src/widgets/box.js";
+import Screen from "../../src/widgets/screen.js";
 
 // Runtime is initialized globally in __tests__/setup.js
 

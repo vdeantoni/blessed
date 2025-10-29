@@ -9,7 +9,7 @@
  *   pnpm tsx examples/hello-world.ts
  */
 
-import { Screen, Box } from "../dist/index.js";
+import { Box, Screen } from "../dist/index.js";
 
 // Create a screen
 const screen = new Screen({

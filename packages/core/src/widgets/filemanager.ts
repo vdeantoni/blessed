@@ -6,10 +6,10 @@
  * Modules
  */
 
-import type { FileManagerOptions } from "../types";
 import helpers from "../lib/helpers.js";
-import List from "./list.js";
 import { getEnvVar } from "../lib/runtime-helpers";
+import type { FileManagerOptions } from "../types";
+import List from "./list.js";
 
 /**
  * FileManager

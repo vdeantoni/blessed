@@ -1,14 +1,14 @@
-import {
-  describe,
-  it,
-  expect,
-  beforeEach,
-  beforeAll,
-  afterEach,
-  vi,
-} from "vitest";
 import fs from "fs";
 import path from "path";
+import {
+  afterEach,
+  beforeAll,
+  beforeEach,
+  describe,
+  expect,
+  it,
+  vi,
+} from "vitest";
 import { setRuntime } from "../../src/runtime-context.js";
 import FileManager from "../../src/widgets/filemanager.js";
 import { createMockScreen } from "../helpers/mock.js";

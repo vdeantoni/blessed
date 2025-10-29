@@ -6,7 +6,7 @@
  *   pnpm example:dashboard
  */
 
-import { Screen, Box, ProgressBar, Table, Text } from "../dist/index.js";
+import { Box, ProgressBar, Screen, Table, Text } from "../dist/index.js";
 
 const screen = new Screen({
   smartCSR: true,

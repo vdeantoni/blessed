@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 
 describe("runtime/auto-init", () => {
   // Note: auto-init runs via vitest.setup.ts before tests

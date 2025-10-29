@@ -6,11 +6,11 @@
  * Modules
  */
 
-import type { ANSIImageOptions } from "../types";
-import { getRuntime } from "../runtime-context.js";
 import colors from "../lib/colors.js";
-import Box from "./box.js";
 import tng from "../lib/image-renderer.js";
+import { getRuntime } from "../runtime-context.js";
+import type { ANSIImageOptions } from "../types";
+import Box from "./box.js";
 
 /**
  * ANSIImage

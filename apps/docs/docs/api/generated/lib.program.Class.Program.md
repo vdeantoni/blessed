@@ -7,6 +7,7 @@ Program - Low-level terminal I/O, escape sequences, and terminal control.
 ## Remarks
 
 Program is the low-level interface between unblessed and the terminal. It provides:
+
 - **I/O Management**: Reads input, writes output via streams
 - **Escape Sequences**: Converts high-level commands to terminal codes
 - **Terminal Capabilities**: Loads and uses terminfo/termcap databases
@@ -18,31 +19,31 @@ Program is typically created and managed by Screen. You rarely instantiate it di
 ## Examples
 
 ```typescript
-import { Screen } from '@unblessed/node';
+import { Screen } from "@unblessed/node";
 
 const screen = new Screen();
-const program = screen.program;  // Access Program instance
+const program = screen.program; // Access Program instance
 
 // Use Program methods directly
 program.clear();
-program.cup(5, 10);  // Move cursor to row 5, col 10
-program.write('Hello!');
+program.cup(5, 10); // Move cursor to row 5, col 10
+program.write("Hello!");
 ```
 
 ```typescript
 program.enableMouse();
 program.setMouse({ allMotion: true, sendFocus: true }, true);
 
-program.on('mouse', (data) => {
+program.on("mouse", (data) => {
   console.log(`Mouse: ${data.action} at (${data.x}, ${data.y})`);
 });
 ```
 
 ```typescript
-program.on('keypress', (ch, key) => {
-  console.log('Key:', key.full);
+program.on("keypress", (ch, key) => {
+  console.log("Key:", key.full);
 
-  if (key.name === 'q' || key.ctrl && key.name === 'c') {
+  if (key.name === "q" || (key.ctrl && key.name === "c")) {
     program.normalBuffer();
     program.showCursor();
     process.exit(0);
@@ -52,8 +53,8 @@ program.on('keypress', (ch, key) => {
 
 ## See
 
- - Screen for high-level screen management
- - [Runtime](runtime.Interface.Runtime.md) for platform abstraction
+- Screen for high-level screen management
+- [Runtime](runtime.Interface.Runtime.md) for platform abstraction
 
 ## Extends
 
@@ -97,7 +98,7 @@ Defined in: [packages/core/src/lib/program.ts:134](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:75](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L75)
 
-***
+---
 
 ### options
 
@@ -105,7 +106,7 @@ Defined in: [packages/core/src/lib/program.ts:75](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:76](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L76)
 
-***
+---
 
 ### input
 
@@ -127,7 +128,7 @@ Defined in: [packages/core/src/lib/program.ts:77](https://github.com/vdeantoni/u
 
 > `optional` **\_dataHandler**: `any`
 
-***
+---
 
 ### output
 
@@ -145,7 +146,7 @@ Defined in: [packages/core/src/lib/program.ts:82](https://github.com/vdeantoni/u
 
 > `optional` **\_resizeHandler**: `any`
 
-***
+---
 
 ### \_logger?
 
@@ -153,7 +154,7 @@ Defined in: [packages/core/src/lib/program.ts:82](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:86](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L86)
 
-***
+---
 
 ### zero
 
@@ -161,7 +162,7 @@ Defined in: [packages/core/src/lib/program.ts:86](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:87](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L87)
 
-***
+---
 
 ### useBuffer
 
@@ -169,7 +170,7 @@ Defined in: [packages/core/src/lib/program.ts:87](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:88](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L88)
 
-***
+---
 
 ### x
 
@@ -177,7 +178,7 @@ Defined in: [packages/core/src/lib/program.ts:88](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:89](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L89)
 
-***
+---
 
 ### y
 
@@ -185,7 +186,7 @@ Defined in: [packages/core/src/lib/program.ts:89](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:90](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L90)
 
-***
+---
 
 ### savedX
 
@@ -193,7 +194,7 @@ Defined in: [packages/core/src/lib/program.ts:90](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:91](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L91)
 
-***
+---
 
 ### savedY
 
@@ -201,7 +202,7 @@ Defined in: [packages/core/src/lib/program.ts:91](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:92](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L92)
 
-***
+---
 
 ### cols
 
@@ -209,7 +210,7 @@ Defined in: [packages/core/src/lib/program.ts:92](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:93](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L93)
 
-***
+---
 
 ### rows
 
@@ -217,7 +218,7 @@ Defined in: [packages/core/src/lib/program.ts:93](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:94](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L94)
 
-***
+---
 
 ### scrollTop
 
@@ -225,7 +226,7 @@ Defined in: [packages/core/src/lib/program.ts:94](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:95](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L95)
 
-***
+---
 
 ### scrollBottom
 
@@ -233,7 +234,7 @@ Defined in: [packages/core/src/lib/program.ts:95](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:96](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L96)
 
-***
+---
 
 ### \_terminal
 
@@ -241,7 +242,7 @@ Defined in: [packages/core/src/lib/program.ts:96](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:97](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L97)
 
-***
+---
 
 ### isOSXTerm
 
@@ -249,7 +250,7 @@ Defined in: [packages/core/src/lib/program.ts:97](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:98](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L98)
 
-***
+---
 
 ### isiTerm2
 
@@ -257,7 +258,7 @@ Defined in: [packages/core/src/lib/program.ts:98](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:99](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L99)
 
-***
+---
 
 ### isXFCE
 
@@ -265,7 +266,7 @@ Defined in: [packages/core/src/lib/program.ts:99](https://github.com/vdeantoni/u
 
 Defined in: [packages/core/src/lib/program.ts:100](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L100)
 
-***
+---
 
 ### isTerminator
 
@@ -273,7 +274,7 @@ Defined in: [packages/core/src/lib/program.ts:100](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:101](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L101)
 
-***
+---
 
 ### isLXDE
 
@@ -281,7 +282,7 @@ Defined in: [packages/core/src/lib/program.ts:101](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:102](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L102)
 
-***
+---
 
 ### isVTE
 
@@ -289,7 +290,7 @@ Defined in: [packages/core/src/lib/program.ts:102](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:103](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L103)
 
-***
+---
 
 ### isRxvt
 
@@ -297,7 +298,7 @@ Defined in: [packages/core/src/lib/program.ts:103](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:104](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L104)
 
-***
+---
 
 ### isXterm
 
@@ -305,7 +306,7 @@ Defined in: [packages/core/src/lib/program.ts:104](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:105](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L105)
 
-***
+---
 
 ### tmux
 
@@ -313,7 +314,7 @@ Defined in: [packages/core/src/lib/program.ts:105](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:106](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L106)
 
-***
+---
 
 ### tmuxVersion
 
@@ -321,7 +322,7 @@ Defined in: [packages/core/src/lib/program.ts:106](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:107](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L107)
 
-***
+---
 
 ### \_buf
 
@@ -329,7 +330,7 @@ Defined in: [packages/core/src/lib/program.ts:107](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:108](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L108)
 
-***
+---
 
 ### \_flush()
 
@@ -341,7 +342,7 @@ Defined in: [packages/core/src/lib/program.ts:109](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### tput?
 
@@ -349,7 +350,7 @@ Defined in: [packages/core/src/lib/program.ts:109](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:110](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L110)
 
-***
+---
 
 ### put?
 
@@ -357,7 +358,7 @@ Defined in: [packages/core/src/lib/program.ts:110](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:111](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L111)
 
-***
+---
 
 ### \_tputSetup?
 
@@ -365,7 +366,7 @@ Defined in: [packages/core/src/lib/program.ts:111](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:112](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L112)
 
-***
+---
 
 ### \_newHandler?
 
@@ -373,7 +374,7 @@ Defined in: [packages/core/src/lib/program.ts:112](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:113](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L113)
 
-***
+---
 
 ### \_boundMouse?
 
@@ -381,7 +382,7 @@ Defined in: [packages/core/src/lib/program.ts:113](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:114](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L114)
 
-***
+---
 
 ### \_lastButton?
 
@@ -389,7 +390,7 @@ Defined in: [packages/core/src/lib/program.ts:114](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:115](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L115)
 
-***
+---
 
 ### \_currentMouse?
 
@@ -397,7 +398,7 @@ Defined in: [packages/core/src/lib/program.ts:115](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:116](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L116)
 
-***
+---
 
 ### mouseEnabled?
 
@@ -405,7 +406,7 @@ Defined in: [packages/core/src/lib/program.ts:116](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:117](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L117)
 
-***
+---
 
 ### \_boundResponse?
 
@@ -413,7 +414,7 @@ Defined in: [packages/core/src/lib/program.ts:117](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:118](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L118)
 
-***
+---
 
 ### \_rx?
 
@@ -421,7 +422,7 @@ Defined in: [packages/core/src/lib/program.ts:118](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:119](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L119)
 
-***
+---
 
 ### \_ry?
 
@@ -429,7 +430,7 @@ Defined in: [packages/core/src/lib/program.ts:119](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:120](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L120)
 
-***
+---
 
 ### cursorHidden?
 
@@ -437,7 +438,7 @@ Defined in: [packages/core/src/lib/program.ts:120](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:121](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L121)
 
-***
+---
 
 ### \_saved?
 
@@ -445,7 +446,7 @@ Defined in: [packages/core/src/lib/program.ts:121](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:122](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L122)
 
-***
+---
 
 ### isAlt?
 
@@ -453,7 +454,7 @@ Defined in: [packages/core/src/lib/program.ts:122](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:123](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L123)
 
-***
+---
 
 ### \_title?
 
@@ -461,7 +462,7 @@ Defined in: [packages/core/src/lib/program.ts:123](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:124](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L124)
 
-***
+---
 
 ### \_exiting?
 
@@ -469,7 +470,7 @@ Defined in: [packages/core/src/lib/program.ts:124](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:125](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L125)
 
-***
+---
 
 ### destroyed?
 
@@ -477,7 +478,7 @@ Defined in: [packages/core/src/lib/program.ts:125](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:126](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L126)
 
-***
+---
 
 ### ret?
 
@@ -485,7 +486,7 @@ Defined in: [packages/core/src/lib/program.ts:126](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:127](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L127)
 
-***
+---
 
 ### \_resume()?
 
@@ -497,7 +498,7 @@ Defined in: [packages/core/src/lib/program.ts:128](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### gpm?
 
@@ -505,7 +506,7 @@ Defined in: [packages/core/src/lib/program.ts:128](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L129)
 
-***
+---
 
 ### \_resizeTimer?
 
@@ -513,7 +514,7 @@ Defined in: [packages/core/src/lib/program.ts:129](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:130](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L130)
 
-***
+---
 
 ### \_programIndex?
 
@@ -521,7 +522,7 @@ Defined in: [packages/core/src/lib/program.ts:130](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:131](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L131)
 
-***
+---
 
 ### global
 
@@ -529,7 +530,7 @@ Defined in: [packages/core/src/lib/program.ts:131](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:235](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L235)
 
-***
+---
 
 ### total
 
@@ -537,7 +538,7 @@ Defined in: [packages/core/src/lib/program.ts:235](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:236](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L236)
 
-***
+---
 
 ### instances
 
@@ -545,7 +546,7 @@ Defined in: [packages/core/src/lib/program.ts:236](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:237](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L237)
 
-***
+---
 
 ### \_bound
 
@@ -553,7 +554,7 @@ Defined in: [packages/core/src/lib/program.ts:237](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:238](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L238)
 
-***
+---
 
 ### \_exitHandler
 
@@ -561,7 +562,7 @@ Defined in: [packages/core/src/lib/program.ts:238](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/lib/program.ts:239](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L239)
 
-***
+---
 
 ### type
 
@@ -585,7 +586,7 @@ Get the program's index in the instances array.
 
 `number`
 
-***
+---
 
 ### terminal
 
@@ -615,7 +616,7 @@ Defined in: [packages/core/src/lib/program.ts:450](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### title
 
@@ -659,8 +660,8 @@ been added. Multiple calls passing the same combination of `eventName` and
 `listener` will result in the `listener` being added, and called, multiple times.
 
 ```js
-server.on('connection', (stream) => {
-  console.log('someone connected!');
+server.on("connection", (stream) => {
+  console.log("someone connected!");
 });
 ```
 
@@ -670,11 +671,11 @@ By default, event listeners are invoked in the order they are added. The `emitte
 event listener to the beginning of the listeners array.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const myEE = new EventEmitter();
-myEE.on('foo', () => console.log('a'));
-myEE.prependListener('foo', () => console.log('b'));
-myEE.emit('foo');
+myEE.on("foo", () => console.log("a"));
+myEE.prependListener("foo", () => console.log("b"));
+myEE.emit("foo");
 // Prints:
 //   b
 //   a
@@ -704,7 +705,7 @@ v0.1.101
 
 `EventEmitterBase.on`
 
-***
+---
 
 ### addListener()
 
@@ -736,7 +737,7 @@ v0.1.26
 
 `EventEmitterBase.addListener`
 
-***
+---
 
 ### once()
 
@@ -748,8 +749,8 @@ Adds a **one-time** `listener` function for the event named `eventName`. The
 next time `eventName` is triggered, this listener is removed and then invoked.
 
 ```js
-server.once('connection', (stream) => {
-  console.log('Ah, we have our first user!');
+server.once("connection", (stream) => {
+  console.log("Ah, we have our first user!");
 });
 ```
 
@@ -759,11 +760,11 @@ By default, event listeners are invoked in the order they are added. The `emitte
 event listener to the beginning of the listeners array.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const myEE = new EventEmitter();
-myEE.once('foo', () => console.log('a'));
-myEE.prependOnceListener('foo', () => console.log('b'));
-myEE.emit('foo');
+myEE.once("foo", () => console.log("a"));
+myEE.prependOnceListener("foo", () => console.log("b"));
+myEE.emit("foo");
 // Prints:
 //   b
 //   a
@@ -793,7 +794,7 @@ v0.3.0
 
 `EventEmitterBase.once`
 
-***
+---
 
 ### emit()
 
@@ -807,26 +808,26 @@ to each.
 Returns `true` if the event had listeners, `false` otherwise.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const myEmitter = new EventEmitter();
 
 // First listener
-myEmitter.on('event', function firstListener() {
-  console.log('Helloooo! first listener');
+myEmitter.on("event", function firstListener() {
+  console.log("Helloooo! first listener");
 });
 // Second listener
-myEmitter.on('event', function secondListener(arg1, arg2) {
+myEmitter.on("event", function secondListener(arg1, arg2) {
   console.log(`event with parameters ${arg1}, ${arg2} in second listener`);
 });
 // Third listener
-myEmitter.on('event', function thirdListener(...args) {
-  const parameters = args.join(', ');
+myEmitter.on("event", function thirdListener(...args) {
+  const parameters = args.join(", ");
   console.log(`event with parameters ${parameters} in third listener`);
 });
 
-console.log(myEmitter.listeners('event'));
+console.log(myEmitter.listeners("event"));
 
-myEmitter.emit('event', 1, 2, 3, 4, 5);
+myEmitter.emit("event", 1, 2, 3, 4, 5);
 
 // Prints:
 // [
@@ -861,7 +862,7 @@ v0.1.26
 
 `EventEmitterBase.emit`
 
-***
+---
 
 ### removeListener()
 
@@ -873,11 +874,11 @@ Removes the specified `listener` from the listener array for the event named `ev
 
 ```js
 const callback = (stream) => {
-  console.log('someone connected!');
+  console.log("someone connected!");
 };
-server.on('connection', callback);
+server.on("connection", callback);
 // ...
-server.removeListener('connection', callback);
+server.removeListener("connection", callback);
 ```
 
 `removeListener()` will remove, at most, one instance of a listener from the
@@ -890,33 +891,33 @@ time of emitting are called in order. This implies that any `removeListener()` o
 will not remove them from`emit()` in progress. Subsequent events behave as expected.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 class MyEmitter extends EventEmitter {}
 const myEmitter = new MyEmitter();
 
 const callbackA = () => {
-  console.log('A');
-  myEmitter.removeListener('event', callbackB);
+  console.log("A");
+  myEmitter.removeListener("event", callbackB);
 };
 
 const callbackB = () => {
-  console.log('B');
+  console.log("B");
 };
 
-myEmitter.on('event', callbackA);
+myEmitter.on("event", callbackA);
 
-myEmitter.on('event', callbackB);
+myEmitter.on("event", callbackB);
 
 // callbackA removes listener callbackB but it will still be called.
 // Internal listener array at time of emit [callbackA, callbackB]
-myEmitter.emit('event');
+myEmitter.emit("event");
 // Prints:
 //   A
 //   B
 
 // callbackB is now removed.
 // Internal listener array [callbackA]
-myEmitter.emit('event');
+myEmitter.emit("event");
 // Prints:
 //   A
 ```
@@ -932,19 +933,19 @@ event (as in the example below), `removeListener()` will remove the most
 recently added instance. In the example the `once('ping')` listener is removed:
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const ee = new EventEmitter();
 
 function pong() {
-  console.log('pong');
+  console.log("pong");
 }
 
-ee.on('ping', pong);
-ee.once('ping', pong);
-ee.removeListener('ping', pong);
+ee.on("ping", pong);
+ee.once("ping", pong);
+ee.removeListener("ping", pong);
 
-ee.emit('ping');
-ee.emit('ping');
+ee.emit("ping");
+ee.emit("ping");
 ```
 
 Returns a reference to the `EventEmitter`, so that calls can be chained.
@@ -971,7 +972,7 @@ v0.1.26
 
 `EventEmitterBase.removeListener`
 
-***
+---
 
 ### off()
 
@@ -1003,7 +1004,7 @@ v10.0.0
 
 `EventEmitterBase.off`
 
-***
+---
 
 ### removeAllListeners()
 
@@ -1037,7 +1038,7 @@ v0.1.26
 
 `EventEmitterBase.removeAllListeners`
 
-***
+---
 
 ### listeners()
 
@@ -1048,10 +1049,10 @@ Defined in: [packages/core/src/lib/event-emitter-base.ts:88](https://github.com/
 Returns a copy of the array of listeners for the event named `eventName`.
 
 ```js
-server.on('connection', (stream) => {
-  console.log('someone connected!');
+server.on("connection", (stream) => {
+  console.log("someone connected!");
 });
-console.log(util.inspect(server.listeners('connection')));
+console.log(util.inspect(server.listeners("connection")));
 // Prints: [ [Function] ]
 ```
 
@@ -1073,7 +1074,7 @@ v0.1.26
 
 `EventEmitterBase.listeners`
 
-***
+---
 
 ### listenerCount()
 
@@ -1103,7 +1104,7 @@ v3.2.0
 
 `EventEmitterBase.listenerCount`
 
-***
+---
 
 ### eventNames()
 
@@ -1115,13 +1116,13 @@ Returns an array listing the events for which the emitter has registered
 listeners. The values in the array are strings or `Symbol`s.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 
 const myEE = new EventEmitter();
-myEE.on('foo', () => {});
-myEE.on('bar', () => {});
+myEE.on("foo", () => {});
+myEE.on("bar", () => {});
 
-const sym = Symbol('symbol');
+const sym = Symbol("symbol");
 myEE.on(sym, () => {});
 
 console.log(myEE.eventNames());
@@ -1140,7 +1141,7 @@ v6.0.0
 
 `EventEmitterBase.eventNames`
 
-***
+---
 
 ### setMaxListeners()
 
@@ -1173,7 +1174,7 @@ v0.3.5
 
 `EventEmitterBase.setMaxListeners`
 
-***
+---
 
 ### getMaxListeners()
 
@@ -1196,7 +1197,7 @@ v1.0.0
 
 `EventEmitterBase.getMaxListeners`
 
-***
+---
 
 ### prependListener()
 
@@ -1210,8 +1211,8 @@ already been added. Multiple calls passing the same combination of `eventName`
 and `listener` will result in the `listener` being added, and called, multiple times.
 
 ```js
-server.prependListener('connection', (stream) => {
-  console.log('someone connected!');
+server.prependListener("connection", (stream) => {
+  console.log("someone connected!");
 });
 ```
 
@@ -1241,7 +1242,7 @@ v6.0.0
 
 `EventEmitterBase.prependListener`
 
-***
+---
 
 ### prependOnceListener()
 
@@ -1253,8 +1254,8 @@ Adds a **one-time**`listener` function for the event named `eventName` to the _b
 listener is removed, and then invoked.
 
 ```js
-server.prependOnceListener('connection', (stream) => {
-  console.log('Ah, we have our first user!');
+server.prependOnceListener("connection", (stream) => {
+  console.log("Ah, we have our first user!");
 });
 ```
 
@@ -1284,7 +1285,7 @@ v6.0.0
 
 `EventEmitterBase.prependOnceListener`
 
-***
+---
 
 ### rawListeners()
 
@@ -1296,13 +1297,13 @@ Returns a copy of the array of listeners for the event named `eventName`,
 including any wrappers (such as those created by `.once()`).
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const emitter = new EventEmitter();
-emitter.once('log', () => console.log('log once'));
+emitter.once("log", () => console.log("log once"));
 
 // Returns a new Array with a function `onceWrapper` which has a property
 // `listener` which contains the original listener bound above
-const listeners = emitter.rawListeners('log');
+const listeners = emitter.rawListeners("log");
 const logFnWrapper = listeners[0];
 
 // Logs "log once" to the console and does not unbind the `once` event
@@ -1311,13 +1312,13 @@ logFnWrapper.listener();
 // Logs "log once" to the console and removes the listener
 logFnWrapper();
 
-emitter.on('log', () => console.log('log persistently'));
+emitter.on("log", () => console.log("log persistently"));
 // Will return a new Array with a single function bound by `.on()` above
-const newListeners = emitter.rawListeners('log');
+const newListeners = emitter.rawListeners("log");
 
 // Logs "log persistently" twice
 newListeners[0]();
-emitter.emit('log');
+emitter.emit("log");
 ```
 
 #### Parameters
@@ -1338,7 +1339,7 @@ v9.4.0
 
 `EventEmitterBase.rawListeners`
 
-***
+---
 
 ### bind()
 
@@ -1359,7 +1360,7 @@ The this object of the bound function is associated with the specified object, a
 
 `void`
 
-***
+---
 
 ### log()
 
@@ -1379,7 +1380,7 @@ Write to the log file if one was created.
 
 `boolean` \| `undefined`
 
-***
+---
 
 ### debug()
 
@@ -1399,7 +1400,7 @@ Same as the log method, but only gets called if the debug option was set.
 
 `boolean` \| `undefined`
 
-***
+---
 
 ### \_log()
 
@@ -1421,7 +1422,7 @@ Defined in: [packages/core/src/lib/program.ts:299](https://github.com/vdeantoni/
 
 `boolean` \| `undefined`
 
-***
+---
 
 ### setupDump()
 
@@ -1435,7 +1436,7 @@ Set up dump logging. Dumps all input and output to the log file.
 
 `void`
 
-***
+---
 
 ### setupTput()
 
@@ -1449,7 +1450,7 @@ Set up the terminfo database. Creates the tput object for terminal capability qu
 
 `void`
 
-***
+---
 
 ### setTerminal()
 
@@ -1469,7 +1470,7 @@ Set the terminal type. Reloads terminfo.
 
 `void`
 
-***
+---
 
 ### has()
 
@@ -1489,7 +1490,7 @@ Check if the terminal has a specific capability.
 
 `any`
 
-***
+---
 
 ### term()
 
@@ -1509,7 +1510,7 @@ Check if the current terminal is of a specific type.
 
 `boolean`
 
-***
+---
 
 ### listen()
 
@@ -1523,7 +1524,7 @@ Initialize the program. Sets up input and output listeners.
 
 `void`
 
-***
+---
 
 ### \_listenInput()
 
@@ -1535,7 +1536,7 @@ Defined in: [packages/core/src/lib/program.ts:527](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### \_listenOutput()
 
@@ -1547,7 +1548,7 @@ Defined in: [packages/core/src/lib/program.ts:584](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### destroy()
 
@@ -1559,7 +1560,7 @@ Defined in: [packages/core/src/lib/program.ts:623](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### key()
 
@@ -1581,7 +1582,7 @@ Defined in: [packages/core/src/lib/program.ts:682](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### onceKey()
 
@@ -1603,7 +1604,7 @@ Defined in: [packages/core/src/lib/program.ts:689](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### removeKey()
 
@@ -1625,7 +1626,7 @@ Defined in: [packages/core/src/lib/program.ts:696](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### bindMouse()
 
@@ -1637,7 +1638,7 @@ Defined in: [packages/core/src/lib/program.ts:722](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### \_bindMouse()
 
@@ -1649,7 +1650,7 @@ Defined in: [packages/core/src/lib/program.ts:735](https://github.com/vdeantoni/
 
 ##### s
 
-`string` | `Buffer`
+`string` | `Buffer`\<`ArrayBufferLike`\>
 
 ##### buf
 
@@ -1659,7 +1660,7 @@ Defined in: [packages/core/src/lib/program.ts:735](https://github.com/vdeantoni/
 
 `void`
 
-***
+---
 
 ### enableGpm()
 
@@ -1671,7 +1672,7 @@ Defined in: [packages/core/src/lib/program.ts:1122](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### disableGpm()
 
@@ -1683,7 +1684,7 @@ Defined in: [packages/core/src/lib/program.ts:1247](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### bindResponse()
 
@@ -1695,7 +1696,7 @@ Defined in: [packages/core/src/lib/program.ts:1255](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### \_bindResponse()
 
@@ -1707,13 +1708,13 @@ Defined in: [packages/core/src/lib/program.ts:1268](https://github.com/vdeantoni
 
 ##### s
 
-`string` | `Buffer`
+`string` | `Buffer`\<`ArrayBufferLike`\>
 
 #### Returns
 
 `void`
 
-***
+---
 
 ### response()
 
@@ -1765,7 +1766,7 @@ Defined in: [packages/core/src/lib/program.ts:1829](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### write()
 
@@ -1785,7 +1786,7 @@ Write text to the output stream.
 
 `boolean` \| `undefined`
 
-***
+---
 
 ### \_owrite()
 
@@ -1803,7 +1804,7 @@ Defined in: [packages/core/src/lib/program.ts:1879](https://github.com/vdeantoni
 
 `boolean` \| `undefined`
 
-***
+---
 
 ### \_buffer()
 
@@ -1821,7 +1822,7 @@ Defined in: [packages/core/src/lib/program.ts:1883](https://github.com/vdeantoni
 
 `true` \| `undefined`
 
-***
+---
 
 ### flush()
 
@@ -1835,7 +1836,7 @@ Flush the output buffer.
 
 `void`
 
-***
+---
 
 ### \_write()
 
@@ -1857,7 +1858,7 @@ Defined in: [packages/core/src/lib/program.ts:1911](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### \_twrite()
 
@@ -1875,7 +1876,7 @@ Defined in: [packages/core/src/lib/program.ts:1921](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### print()
 
@@ -1899,7 +1900,7 @@ Print text with optional attributes. Alias for write().
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### \_ncoords()
 
@@ -1911,7 +1912,7 @@ Defined in: [packages/core/src/lib/program.ts:1963](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### setx()
 
@@ -1931,7 +1932,7 @@ Set the absolute x position of the cursor.
 
 `any`
 
-***
+---
 
 ### sety()
 
@@ -1951,7 +1952,7 @@ Set the absolute y position of the cursor.
 
 `any`
 
-***
+---
 
 ### move()
 
@@ -1975,7 +1976,7 @@ Move the cursor to the given absolute position.
 
 `any`
 
-***
+---
 
 ### omove()
 
@@ -1999,7 +2000,7 @@ Move the cursor to the given absolute position (optimized).
 
 `void`
 
-***
+---
 
 ### rsetx()
 
@@ -2019,7 +2020,7 @@ Move cursor relatively on the x axis.
 
 `any`
 
-***
+---
 
 ### rsety()
 
@@ -2039,7 +2040,7 @@ Move cursor relatively on the y axis.
 
 `any`
 
-***
+---
 
 ### rmove()
 
@@ -2063,7 +2064,7 @@ Move cursor relatively by x and y.
 
 `void`
 
-***
+---
 
 ### simpleInsert()
 
@@ -2091,7 +2092,7 @@ Insert a character at the current position.
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### repeat()
 
@@ -2115,7 +2116,7 @@ Repeat a character i times.
 
 `string`
 
-***
+---
 
 ### copyToClipboard()
 
@@ -2135,7 +2136,7 @@ Copy text to clipboard (iTerm2 only). Returns true if successful.
 
 `boolean`
 
-***
+---
 
 ### cursorShape()
 
@@ -2159,7 +2160,7 @@ Attempt to change cursor shape. Will not work in all terminals. Returns true if 
 
 `boolean`
 
-***
+---
 
 ### cursorColor()
 
@@ -2179,7 +2180,7 @@ Attempt to change cursor color. Returns true if successful.
 
 `boolean`
 
-***
+---
 
 ### resetCursor()
 
@@ -2193,7 +2194,7 @@ Attempt to reset cursor. Returns true if successful.
 
 `boolean`
 
-***
+---
 
 ### getTextParams()
 
@@ -2215,7 +2216,7 @@ Defined in: [packages/core/src/lib/program.ts:2178](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### getCursorColor()
 
@@ -2233,7 +2234,7 @@ Defined in: [packages/core/src/lib/program.ts:2192](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### nul()
 
@@ -2247,7 +2248,7 @@ Normal
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### bell()
 
@@ -2259,7 +2260,7 @@ Defined in: [packages/core/src/lib/program.ts:2205](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### vtab()
 
@@ -2271,7 +2272,7 @@ Defined in: [packages/core/src/lib/program.ts:2210](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### form()
 
@@ -2283,7 +2284,7 @@ Defined in: [packages/core/src/lib/program.ts:2216](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### backspace()
 
@@ -2295,7 +2296,7 @@ Defined in: [packages/core/src/lib/program.ts:2221](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### tab()
 
@@ -2307,7 +2308,7 @@ Defined in: [packages/core/src/lib/program.ts:2228](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### shiftOut()
 
@@ -2319,7 +2320,7 @@ Defined in: [packages/core/src/lib/program.ts:2235](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### shiftIn()
 
@@ -2331,7 +2332,7 @@ Defined in: [packages/core/src/lib/program.ts:2240](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### return()
 
@@ -2343,7 +2344,7 @@ Defined in: [packages/core/src/lib/program.ts:2245](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### feed()
 
@@ -2355,7 +2356,7 @@ Defined in: [packages/core/src/lib/program.ts:2251](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### index()
 
@@ -2369,7 +2370,7 @@ Esc
 
 `any`
 
-***
+---
 
 ### reverseIndex()
 
@@ -2381,7 +2382,7 @@ Defined in: [packages/core/src/lib/program.ts:2279](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### nextLine()
 
@@ -2393,7 +2394,7 @@ Defined in: [packages/core/src/lib/program.ts:2287](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### reset()
 
@@ -2405,7 +2406,7 @@ Defined in: [packages/core/src/lib/program.ts:2296](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### tabSet()
 
@@ -2417,7 +2418,7 @@ Defined in: [packages/core/src/lib/program.ts:2305](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### saveCursor()
 
@@ -2435,7 +2436,7 @@ Defined in: [packages/core/src/lib/program.ts:2311](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### restoreCursor()
 
@@ -2457,7 +2458,7 @@ Defined in: [packages/core/src/lib/program.ts:2320](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### lsaveCursor()
 
@@ -2475,7 +2476,7 @@ Defined in: [packages/core/src/lib/program.ts:2329](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### lrestoreCursor()
 
@@ -2497,7 +2498,7 @@ Defined in: [packages/core/src/lib/program.ts:2339](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### lineHeight()
 
@@ -2509,7 +2510,7 @@ Defined in: [packages/core/src/lib/program.ts:2356](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### charset()
 
@@ -2531,11 +2532,11 @@ Defined in: [packages/core/src/lib/program.ts:2361](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
-### enter\_alt\_charset\_mode()
+### enter_alt_charset_mode()
 
-> **enter\_alt\_charset\_mode**(): `any`
+> **enter_alt_charset_mode**(): `any`
 
 Defined in: [packages/core/src/lib/program.ts:2448](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L2448)
 
@@ -2543,7 +2544,7 @@ Defined in: [packages/core/src/lib/program.ts:2448](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### as()
 
@@ -2555,7 +2556,7 @@ Defined in: [packages/core/src/lib/program.ts:2451](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### smacs()
 
@@ -2567,11 +2568,11 @@ Defined in: [packages/core/src/lib/program.ts:2454](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
-### exit\_alt\_charset\_mode()
+### exit_alt_charset_mode()
 
-> **exit\_alt\_charset\_mode**(): `any`
+> **exit_alt_charset_mode**(): `any`
 
 Defined in: [packages/core/src/lib/program.ts:2458](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L2458)
 
@@ -2579,7 +2580,7 @@ Defined in: [packages/core/src/lib/program.ts:2458](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### ae()
 
@@ -2591,7 +2592,7 @@ Defined in: [packages/core/src/lib/program.ts:2461](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### rmacs()
 
@@ -2603,7 +2604,7 @@ Defined in: [packages/core/src/lib/program.ts:2464](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### setG()
 
@@ -2621,7 +2622,7 @@ Defined in: [packages/core/src/lib/program.ts:2484](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setTitle()
 
@@ -2641,7 +2642,7 @@ OSC
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### resetColors()
 
@@ -2659,7 +2660,7 @@ Defined in: [packages/core/src/lib/program.ts:2529](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### dynamicColors()
 
@@ -2677,7 +2678,7 @@ Defined in: [packages/core/src/lib/program.ts:2540](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### selData()
 
@@ -2699,7 +2700,7 @@ Defined in: [packages/core/src/lib/program.ts:2550](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### cursorUp()
 
@@ -2719,7 +2720,7 @@ CSI
 
 `any`
 
-***
+---
 
 ### cursorDown()
 
@@ -2737,7 +2738,7 @@ Defined in: [packages/core/src/lib/program.ts:2577](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### cursorForward()
 
@@ -2755,7 +2756,7 @@ Defined in: [packages/core/src/lib/program.ts:2591](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### cursorBackward()
 
@@ -2773,7 +2774,7 @@ Defined in: [packages/core/src/lib/program.ts:2605](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### cursorPos()
 
@@ -2795,7 +2796,7 @@ Defined in: [packages/core/src/lib/program.ts:2619](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### eraseInDisplay()
 
@@ -2813,7 +2814,7 @@ Defined in: [packages/core/src/lib/program.ts:2644](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### clear()
 
@@ -2825,7 +2826,7 @@ Defined in: [packages/core/src/lib/program.ts:2677](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### eraseInLine()
 
@@ -2843,7 +2844,7 @@ Defined in: [packages/core/src/lib/program.ts:2693](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### charAttributes()
 
@@ -2865,7 +2866,7 @@ Defined in: [packages/core/src/lib/program.ts:2783](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### text()
 
@@ -2891,7 +2892,7 @@ integer color number.
 
 `string`
 
-***
+---
 
 ### \_attr()
 
@@ -2913,7 +2914,7 @@ Defined in: [packages/core/src/lib/program.ts:2797](https://github.com/vdeantoni
 
 `string` \| `null`
 
-***
+---
 
 ### setForeground()
 
@@ -2935,7 +2936,7 @@ Defined in: [packages/core/src/lib/program.ts:3017](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### setBackground()
 
@@ -2957,7 +2958,7 @@ Defined in: [packages/core/src/lib/program.ts:3022](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### deviceStatus()
 
@@ -2987,7 +2988,7 @@ Defined in: [packages/core/src/lib/program.ts:3048](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### getCursor()
 
@@ -3005,7 +3006,7 @@ Defined in: [packages/core/src/lib/program.ts:3070](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### saveReportedCursor()
 
@@ -3023,7 +3024,7 @@ Defined in: [packages/core/src/lib/program.ts:3074](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### restoreReportedCursor()
 
@@ -3035,7 +3036,7 @@ Defined in: [packages/core/src/lib/program.ts:3089](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### insertChars()
 
@@ -3055,7 +3056,7 @@ Additions
 
 `any`
 
-***
+---
 
 ### cursorNextLine()
 
@@ -3073,7 +3074,7 @@ Defined in: [packages/core/src/lib/program.ts:3111](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### cursorPrecedingLine()
 
@@ -3091,7 +3092,7 @@ Defined in: [packages/core/src/lib/program.ts:3120](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### cursorCharAbsolute()
 
@@ -3109,7 +3110,7 @@ Defined in: [packages/core/src/lib/program.ts:3128](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### insertLines()
 
@@ -3127,7 +3128,7 @@ Defined in: [packages/core/src/lib/program.ts:3143](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### deleteLines()
 
@@ -3145,7 +3146,7 @@ Defined in: [packages/core/src/lib/program.ts:3150](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### deleteChars()
 
@@ -3163,7 +3164,7 @@ Defined in: [packages/core/src/lib/program.ts:3157](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### eraseChars()
 
@@ -3181,7 +3182,7 @@ Defined in: [packages/core/src/lib/program.ts:3164](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### charPosAbsolute()
 
@@ -3199,7 +3200,7 @@ Defined in: [packages/core/src/lib/program.ts:3171](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### HPositionRelative()
 
@@ -3217,7 +3218,7 @@ Defined in: [packages/core/src/lib/program.ts:3185](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### sendDeviceAttributes()
 
@@ -3239,7 +3240,7 @@ Defined in: [packages/core/src/lib/program.ts:3229](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### linePosAbsolute()
 
@@ -3257,7 +3258,7 @@ Defined in: [packages/core/src/lib/program.ts:3243](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### VPositionRelative()
 
@@ -3275,7 +3276,7 @@ Defined in: [packages/core/src/lib/program.ts:3256](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### HVPosition()
 
@@ -3297,7 +3298,7 @@ Defined in: [packages/core/src/lib/program.ts:3268](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### setMode()
 
@@ -3315,7 +3316,7 @@ Defined in: [packages/core/src/lib/program.ts:3369](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### decset()
 
@@ -3333,7 +3334,7 @@ Defined in: [packages/core/src/lib/program.ts:3374](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### showCursor()
 
@@ -3345,7 +3346,7 @@ Defined in: [packages/core/src/lib/program.ts:3379](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### alternateBuffer()
 
@@ -3357,7 +3358,7 @@ Defined in: [packages/core/src/lib/program.ts:3391](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### resetMode()
 
@@ -3375,7 +3376,7 @@ Defined in: [packages/core/src/lib/program.ts:3479](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### decrst()
 
@@ -3393,7 +3394,7 @@ Defined in: [packages/core/src/lib/program.ts:3484](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### hideCursor()
 
@@ -3405,11 +3406,11 @@ Defined in: [packages/core/src/lib/program.ts:3489](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
-### cursor\_invisible()
+### cursor_invisible()
 
-> **cursor\_invisible**(): `any`
+> **cursor_invisible**(): `any`
 
 Defined in: [packages/core/src/lib/program.ts:3495](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3495)
 
@@ -3417,7 +3418,7 @@ Defined in: [packages/core/src/lib/program.ts:3495](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### normalBuffer()
 
@@ -3429,7 +3430,7 @@ Defined in: [packages/core/src/lib/program.ts:3499](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### enableMouse()
 
@@ -3441,7 +3442,7 @@ Defined in: [packages/core/src/lib/program.ts:3506](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### disableMouse()
 
@@ -3453,7 +3454,7 @@ Defined in: [packages/core/src/lib/program.ts:3629](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### setMouse()
 
@@ -3475,7 +3476,7 @@ Defined in: [packages/core/src/lib/program.ts:3642](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### setScrollRegion()
 
@@ -3497,7 +3498,7 @@ Defined in: [packages/core/src/lib/program.ts:3773](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### saveCursorA()
 
@@ -3509,7 +3510,7 @@ Defined in: [packages/core/src/lib/program.ts:3792](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### restoreCursorA()
 
@@ -3521,7 +3522,7 @@ Defined in: [packages/core/src/lib/program.ts:3801](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### cursorForwardTab()
 
@@ -3541,7 +3542,7 @@ Lesser Used
 
 `any`
 
-***
+---
 
 ### scrollUp()
 
@@ -3559,7 +3560,7 @@ Defined in: [packages/core/src/lib/program.ts:3822](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### scrollDown()
 
@@ -3577,7 +3578,7 @@ Defined in: [packages/core/src/lib/program.ts:3830](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### initMouseTracking()
 
@@ -3595,7 +3596,7 @@ Defined in: [packages/core/src/lib/program.ts:3841](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### resetTitleModes()
 
@@ -3613,7 +3614,7 @@ Defined in: [packages/core/src/lib/program.ts:3856](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### cursorBackwardTab()
 
@@ -3631,7 +3632,7 @@ Defined in: [packages/core/src/lib/program.ts:3861](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### repeatPrecedingCharacter()
 
@@ -3649,7 +3650,7 @@ Defined in: [packages/core/src/lib/program.ts:3869](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### tabClear()
 
@@ -3667,7 +3668,7 @@ Defined in: [packages/core/src/lib/program.ts:3882](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### mediaCopy()
 
@@ -3685,7 +3686,7 @@ Defined in: [packages/core/src/lib/program.ts:3898](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### mc0()
 
@@ -3697,11 +3698,11 @@ Defined in: [packages/core/src/lib/program.ts:3902](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
-### print\_screen()
+### print_screen()
 
-> **print\_screen**(): `any`
+> **print_screen**(): `any`
 
 Defined in: [packages/core/src/lib/program.ts:3907](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3907)
 
@@ -3709,7 +3710,7 @@ Defined in: [packages/core/src/lib/program.ts:3907](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### mc5()
 
@@ -3721,11 +3722,11 @@ Defined in: [packages/core/src/lib/program.ts:3911](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
-### prtr\_on()
+### prtr_on()
 
-> **prtr\_on**(): `any`
+> **prtr_on**(): `any`
 
 Defined in: [packages/core/src/lib/program.ts:3916](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3916)
 
@@ -3733,7 +3734,7 @@ Defined in: [packages/core/src/lib/program.ts:3916](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### mc4()
 
@@ -3745,11 +3746,11 @@ Defined in: [packages/core/src/lib/program.ts:3920](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
-### prtr\_off()
+### prtr_off()
 
-> **prtr\_off**(): `any`
+> **prtr_off**(): `any`
 
 Defined in: [packages/core/src/lib/program.ts:3925](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3925)
 
@@ -3757,7 +3758,7 @@ Defined in: [packages/core/src/lib/program.ts:3925](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### mc5p()
 
@@ -3769,11 +3770,11 @@ Defined in: [packages/core/src/lib/program.ts:3929](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
-### prtr\_non()
+### prtr_non()
 
-> **prtr\_non**(): `any`
+> **prtr_non**(): `any`
 
 Defined in: [packages/core/src/lib/program.ts:3934](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3934)
 
@@ -3781,7 +3782,7 @@ Defined in: [packages/core/src/lib/program.ts:3934](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### setResources()
 
@@ -3799,7 +3800,7 @@ Defined in: [packages/core/src/lib/program.ts:3950](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### disableModifiers()
 
@@ -3817,7 +3818,7 @@ Defined in: [packages/core/src/lib/program.ts:3967](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setPointerMode()
 
@@ -3835,7 +3836,7 @@ Defined in: [packages/core/src/lib/program.ts:3979](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### softReset()
 
@@ -3847,7 +3848,7 @@ Defined in: [packages/core/src/lib/program.ts:3985](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### requestAnsiMode()
 
@@ -3865,7 +3866,7 @@ Defined in: [packages/core/src/lib/program.ts:4004](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### requestPrivateMode()
 
@@ -3883,7 +3884,7 @@ Defined in: [packages/core/src/lib/program.ts:4013](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setConformanceLevel()
 
@@ -3901,7 +3902,7 @@ Defined in: [packages/core/src/lib/program.ts:4027](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### loadLEDs()
 
@@ -3919,7 +3920,7 @@ Defined in: [packages/core/src/lib/program.ts:4039](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setCursorStyle()
 
@@ -3937,7 +3938,7 @@ Defined in: [packages/core/src/lib/program.ts:4050](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### setCharProtectionAttr()
 
@@ -3955,7 +3956,7 @@ Defined in: [packages/core/src/lib/program.ts:4089](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### restorePrivateValues()
 
@@ -3973,7 +3974,7 @@ Defined in: [packages/core/src/lib/program.ts:4096](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setAttrInRectangle()
 
@@ -3991,7 +3992,7 @@ Defined in: [packages/core/src/lib/program.ts:4105](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### savePrivateValues()
 
@@ -4009,7 +4010,7 @@ Defined in: [packages/core/src/lib/program.ts:4112](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### manipulateWindow()
 
@@ -4027,7 +4028,7 @@ Defined in: [packages/core/src/lib/program.ts:4162](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### getWindowSize()
 
@@ -4045,7 +4046,7 @@ Defined in: [packages/core/src/lib/program.ts:4173](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### reverseAttrInRectangle()
 
@@ -4063,7 +4064,7 @@ Defined in: [packages/core/src/lib/program.ts:4183](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setTitleModeFeature()
 
@@ -4081,7 +4082,7 @@ Defined in: [packages/core/src/lib/program.ts:4196](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setWarningBellVolume()
 
@@ -4099,7 +4100,7 @@ Defined in: [packages/core/src/lib/program.ts:4205](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setMarginBellVolume()
 
@@ -4117,7 +4118,7 @@ Defined in: [packages/core/src/lib/program.ts:4214](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### copyRectangle()
 
@@ -4135,7 +4136,7 @@ Defined in: [packages/core/src/lib/program.ts:4225](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### enableFilterRectangle()
 
@@ -4153,7 +4154,7 @@ Defined in: [packages/core/src/lib/program.ts:4240](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### requestParameters()
 
@@ -4171,7 +4172,7 @@ Defined in: [packages/core/src/lib/program.ts:4255](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### selectChangeExtent()
 
@@ -4189,7 +4190,7 @@ Defined in: [packages/core/src/lib/program.ts:4263](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### fillRectangle()
 
@@ -4207,7 +4208,7 @@ Defined in: [packages/core/src/lib/program.ts:4272](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### enableLocatorReporting()
 
@@ -4225,7 +4226,7 @@ Defined in: [packages/core/src/lib/program.ts:4288](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### eraseRectangle()
 
@@ -4243,7 +4244,7 @@ Defined in: [packages/core/src/lib/program.ts:4296](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### setLocatorEvents()
 
@@ -4261,7 +4262,7 @@ Defined in: [packages/core/src/lib/program.ts:4311](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### selectiveEraseRectangle()
 
@@ -4279,7 +4280,7 @@ Defined in: [packages/core/src/lib/program.ts:4318](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### requestLocatorPosition()
 
@@ -4301,11 +4302,11 @@ Defined in: [packages/core/src/lib/program.ts:4362](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
-### req\_mouse\_pos()
+### req_mouse_pos()
 
-> **req\_mouse\_pos**(): `any`
+> **req_mouse_pos**(): `any`
 
 Defined in: [packages/core/src/lib/program.ts:4381](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4381)
 
@@ -4313,7 +4314,7 @@ Defined in: [packages/core/src/lib/program.ts:4381](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### insertColumns()
 
@@ -4331,7 +4332,7 @@ Defined in: [packages/core/src/lib/program.ts:4388](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### deleteColumns()
 
@@ -4349,7 +4350,7 @@ Defined in: [packages/core/src/lib/program.ts:4395](https://github.com/vdeantoni
 
 `string` \| `boolean` \| `undefined`
 
-***
+---
 
 ### out()
 
@@ -4371,7 +4372,7 @@ Defined in: [packages/core/src/lib/program.ts:4399](https://github.com/vdeantoni
 
 `any`
 
-***
+---
 
 ### sigtstp()
 
@@ -4389,7 +4390,7 @@ Defined in: [packages/core/src/lib/program.ts:4406](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### pause()
 
@@ -4411,7 +4412,7 @@ Defined in: [packages/core/src/lib/program.ts:4417](https://github.com/vdeantoni
 
 `void`
 
-***
+---
 
 ### resume()
 

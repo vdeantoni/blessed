@@ -15,7 +15,7 @@ Defined in: [packages/core/src/runtime.ts:441](https://github.com/vdeantoni/unbl
 
 Utility functions (inspect, format)
 
-***
+---
 
 ### stream
 
@@ -25,7 +25,7 @@ Defined in: [packages/core/src/runtime.ts:443](https://github.com/vdeantoni/unbl
 
 Stream operations (Readable, Writable)
 
-***
+---
 
 ### stringDecoder
 
@@ -35,7 +35,7 @@ Defined in: [packages/core/src/runtime.ts:445](https://github.com/vdeantoni/unbl
 
 String decoder for buffer/string conversion
 
-***
+---
 
 ### events
 

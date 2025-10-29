@@ -1,5 +1,5 @@
-import blessed from "../dist/index.js";
 import fs from "fs";
+import blessed from "../dist/index.js";
 
 const __dirname = import.meta.dirname;
 

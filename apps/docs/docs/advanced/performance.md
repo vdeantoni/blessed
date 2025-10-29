@@ -20,14 +20,14 @@ The most important optimization - minimize render calls:
 // ❌ Bad - renders 100 times
 for (let i = 0; i < 100; i++) {
   boxes[i].setContent(`Item ${i}`);
-  screen.render();  // Renders after each update
+  screen.render(); // Renders after each update
 }
 
 // ✅ Good - renders once
 for (let i = 0; i < 100; i++) {
   boxes[i].setContent(`Item ${i}`);
 }
-screen.render();  // Single render for all changes
+screen.render(); // Single render for all changes
 
 // ✅ Even better - use requestAnimationFrame
 for (let i = 0; i < 100; i++) {
@@ -55,15 +55,16 @@ function scheduleRender() {
 }
 
 // Use for rapid updates
-progressBar.on('update', () => {
-  scheduleRender();  // Automatically throttled to ~60 FPS
+progressBar.on("update", () => {
+  scheduleRender(); // Automatically throttled to ~60 FPS
 });
 ```
 
 **Alternative with timestamp**:
+
 ```typescript
 let lastRender = 0;
-const THROTTLE_MS = 16;  // ~60 FPS
+const THROTTLE_MS = 16; // ~60 FPS
 
 function throttledRender() {
   const now = Date.now();
@@ -80,8 +81,8 @@ Enable Smart Change Scroll Region for better scrolling performance:
 
 ```typescript
 const screen = new Screen({
-  smartCSR: true,   // Use scroll regions instead of full redraw
-  fastCSR: true     // Even faster (may have minor artifacts)
+  smartCSR: true, // Use scroll regions instead of full redraw
+  fastCSR: true, // Even faster (may have minor artifacts)
 });
 ```
 
@@ -139,7 +140,7 @@ for (let i = 0; i < 1000; i++) {
   new Box({
     parent: container,
     top: i,
-    content: `Line ${i}`
+    content: `Line ${i}`,
   });
 }
 
@@ -147,7 +148,7 @@ for (let i = 0; i < 1000; i++) {
 const log = new Log({
   parent: container,
   scrollable: true,
-  content: lines.join('\n')
+  content: lines.join("\n"),
 });
 ```
 
@@ -182,7 +183,7 @@ class VirtualList extends List {
 // Usage
 const list = new VirtualList({
   parent: screen,
-  height: 20
+  height: 20,
 });
 
 // Only renders 20 items at a time, no matter the total
@@ -255,7 +256,7 @@ class LogBox extends Box {
   private maxLines = 1000;
 
   addLine(line: string) {
-    const lines = this.getContent().split('\n');
+    const lines = this.getContent().split("\n");
 
     // Keep only last N lines
     if (lines.length >= this.maxLines) {
@@ -263,7 +264,7 @@ class LogBox extends Box {
     }
 
     lines.push(line);
-    this.setContent(lines.join('\n'));
+    this.setContent(lines.join("\n"));
   }
 }
 ```
@@ -285,7 +286,8 @@ class BufferPool {
   }
 
   release(buf: Buffer) {
-    if (buf.length <= 4096) {  // Don't pool huge buffers
+    if (buf.length <= 4096) {
+      // Don't pool huge buffers
       this.pool.push(buf);
     }
   }
@@ -304,7 +306,12 @@ const box1 = new Box({ top: 0, left: 0, width: 50, height: 10 });
 const box2 = new Box({ top: 10, left: 0, width: 50, height: 10 });
 
 // ⚠️ Slower - calculated positions
-const box1 = new Box({ top: 'center', left: 'center', width: '50%', height: '50%' });
+const box1 = new Box({
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+});
 ```
 
 **Trade-off**: Absolute is faster but less flexible.
@@ -345,11 +352,11 @@ Borders add rendering overhead:
 ```typescript
 // ✅ Use borders only where needed
 const container = new Box({
-  border: false,  // No border = faster
+  border: false, // No border = faster
   children: [
-    new Box({ border: { type: 'line' } }),  // Only children have borders
-    new Box({ border: { type: 'line' } })
-  ]
+    new Box({ border: { type: "line" } }), // Only children have borders
+    new Box({ border: { type: "line" } }),
+  ],
 });
 ```
 
@@ -362,7 +369,7 @@ Limit handler calls:
 ```typescript
 function debounce<T extends (...args: any[]) => any>(
   fn: T,
-  delay: number
+  delay: number,
 ): (...args: Parameters<T>) => void {
   let timeout: NodeJS.Timeout;
 
@@ -377,7 +384,7 @@ const debouncedSearch = debounce((query: string) => {
   performSearch(query);
 }, 300);
 
-input.on('keypress', () => {
+input.on("keypress", () => {
   debouncedSearch(input.getValue());
 });
 ```
@@ -389,12 +396,12 @@ Single handler for multiple children:
 ```typescript
 // ❌ Many handlers
 for (const item of items) {
-  item.on('click', () => handleClick(item));
+  item.on("click", () => handleClick(item));
 }
 
 // ✅ Single handler
-container.on('element click', (el) => {
-  if (el.type === 'button') {
+container.on("element click", (el) => {
+  if (el.type === "button") {
     handleClick(el);
   }
 });
@@ -410,12 +417,12 @@ class SearchBox extends Textbox {
 
   enableSearch() {
     this.searchHandler = (value: string) => performSearch(value);
-    this.on('submit', this.searchHandler);
+    this.on("submit", this.searchHandler);
   }
 
   disableSearch() {
     if (this.searchHandler) {
-      this.off('submit', this.searchHandler);
+      this.off("submit", this.searchHandler);
       this.searchHandler = undefined;
     }
   }
@@ -430,9 +437,9 @@ Use built-in profiling:
 
 ```typescript
 // Time render
-console.time('render');
+console.time("render");
 screen.render();
-console.timeEnd('render');
+console.timeEnd("render");
 // render: 8.234ms
 
 // High-resolution timing
@@ -467,7 +474,7 @@ const used = process.memoryUsage();
 console.log({
   rss: `${(used.rss / 1024 / 1024).toFixed(2)} MB`,
   heapUsed: `${(used.heapUsed / 1024 / 1024).toFixed(2)} MB`,
-  external: `${(used.external / 1024 / 1024).toFixed(2)} MB`
+  external: `${(used.external / 1024 / 1024).toFixed(2)} MB`,
 });
 ```
 
@@ -477,22 +484,22 @@ console.log({
 
 Target times on modern hardware:
 
-| Operation | Target | Good | Acceptable |
-|-----------|--------|------|------------|
-| Empty screen | < 5ms | < 10ms | < 20ms |
-| Simple screen (10 widgets) | < 10ms | < 15ms | < 30ms |
-| Complex screen (100 widgets) | < 20ms | < 30ms | < 50ms |
-| List (1K items) | < 100ms | < 200ms | < 400ms |
-| Animation frame (60 FPS) | < 16ms | < 16ms | < 33ms (30 FPS) |
+| Operation                    | Target  | Good    | Acceptable      |
+| ---------------------------- | ------- | ------- | --------------- |
+| Empty screen                 | < 5ms   | < 10ms  | < 20ms          |
+| Simple screen (10 widgets)   | < 10ms  | < 15ms  | < 30ms          |
+| Complex screen (100 widgets) | < 20ms  | < 30ms  | < 50ms          |
+| List (1K items)              | < 100ms | < 200ms | < 400ms         |
+| Animation frame (60 FPS)     | < 16ms  | < 16ms  | < 33ms (30 FPS) |
 
 ### Memory Usage
 
-| Scenario | Target | Good | Acceptable |
-|----------|--------|------|------------|
-| Empty app | < 20 MB | < 30 MB | < 50 MB |
-| Simple UI | < 50 MB | < 75 MB | < 100 MB |
-| Complex UI | < 100 MB | < 150 MB | < 200 MB |
-| With 10K list items | < 150 MB | < 200 MB | < 300 MB |
+| Scenario            | Target   | Good     | Acceptable |
+| ------------------- | -------- | -------- | ---------- |
+| Empty app           | < 20 MB  | < 30 MB  | < 50 MB    |
+| Simple UI           | < 50 MB  | < 75 MB  | < 100 MB   |
+| Complex UI          | < 100 MB | < 150 MB | < 200 MB   |
+| With 10K list items | < 150 MB | < 200 MB | < 300 MB   |
 
 ## Platform-Specific
 
@@ -503,14 +510,17 @@ Target times on modern hardware:
 const screen = new Screen({
   smartCSR: true,
   fastCSR: true,
-  useBCE: true  // Background color erase
+  useBCE: true, // Background color erase
 });
 
 // Reduce resize debounce for responsive apps
-screen.on('resize', debounce(() => {
-  relayout();
-  screen.render();
-}, 50));  // 50ms instead of default 300ms
+screen.on(
+  "resize",
+  debounce(() => {
+    relayout();
+    screen.render();
+  }, 50),
+); // 50ms instead of default 300ms
 ```
 
 ### Browser
@@ -525,10 +535,10 @@ function animate() {
 
 // Optimize XTerm.js
 const term = new Terminal({
-  scrollback: 100,  // Reduce scrollback
-  rendererType: 'canvas',  // Faster than DOM
+  scrollback: 100, // Reduce scrollback
+  rendererType: "canvas", // Faster than DOM
   disableStdin: false,
-  convertEol: true
+  convertEol: true,
 });
 ```
 
@@ -552,6 +562,7 @@ const term = new Terminal({
 **Symptoms**: Screen updates take > 50ms
 
 **Solutions**:
+
 1. Batch render calls
 2. Reduce widget count
 3. Enable Smart CSR
@@ -562,6 +573,7 @@ const term = new Terminal({
 **Symptoms**: Memory grows over time
 
 **Solutions**:
+
 1. Remove event listeners
 2. Limit content size
 3. Clear old data
@@ -572,6 +584,7 @@ const term = new Terminal({
 **Symptoms**: Animation not smooth
 
 **Solutions**:
+
 1. Use requestAnimationFrame
 2. Throttle to 16ms (60 FPS)
 3. Reduce render complexity

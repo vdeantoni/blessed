@@ -4,10 +4,10 @@
  * Tests complex rendering scenarios like overlapping widgets, shadows, and layering.
  */
 
-import { describe } from "vitest";
 import { Box, initCore } from "@unblessed/core";
-import { createVRTTest } from "../helpers/vrt-test.js";
+import { describe } from "vitest";
 import { NodeRuntime } from "../../src";
+import { createVRTTest } from "../helpers/vrt-test.js";
 
 describe("VRT - Complex Rendering", () => {
   initCore(new NodeRuntime());

@@ -45,8 +45,9 @@ The Node.js runtime implementation:
 - **TTY handling**: Direct terminal control via Node.js
 
 **Usage**:
+
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 // Runtime automatically initialized - just use it!
 ```
 
@@ -60,12 +61,13 @@ The browser runtime implementation:
 - **Bundled data**: Includes terminfo data for terminal emulation
 
 **Usage**:
+
 ```typescript
-import { Screen, Box } from '@unblessed/browser';
-import { Terminal } from 'xterm';
+import { Screen, Box } from "@unblessed/browser";
+import { Terminal } from "xterm";
 
 const term = new Terminal();
-term.open(document.getElementById('terminal'));
+term.open(document.getElementById("terminal"));
 
 const screen = new Screen({ terminal: term });
 // Runtime automatically initialized - works in browser!
@@ -81,6 +83,7 @@ const screen = new Screen({ terminal: term });
 - **Migration path**: Easy upgrade from blessed to unblessed
 
 **Usage**:
+
 ```typescript
 // Old blessed code
 // import blessed from 'blessed';
@@ -103,11 +106,11 @@ The core defines a `Runtime` interface that abstracts all platform-specific APIs
 
 ```typescript
 export interface Runtime {
-  fs: FileSystemAPI;        // File system operations
-  process: ProcessAPI;      // Process info and events
-  tty: TtyAPI;             // Terminal control
-  buffer: BufferAPI;       // Buffer handling
-  stream: StreamAPI;       // Stream operations
+  fs: FileSystemAPI; // File system operations
+  process: ProcessAPI; // Process info and events
+  tty: TtyAPI; // Terminal control
+  buffer: BufferAPI; // Buffer handling
+  stream: StreamAPI; // Stream operations
   // ... other platform APIs
 }
 ```
@@ -115,8 +118,9 @@ export interface Runtime {
 ### How It Works
 
 1. **Core code requests runtime**:
+
 ```typescript
-import { getRuntime } from '@unblessed/core/runtime-context';
+import { getRuntime } from "@unblessed/core/runtime-context";
 
 // In widget code
 const runtime = getRuntime();
@@ -124,21 +128,23 @@ const data = runtime.fs.readFileSync(path);
 ```
 
 2. **Platform package provides runtime**:
+
 ```typescript
 // @unblessed/node/src/auto-init.ts
-import { setRuntime } from '@unblessed/core';
-import { NodeRuntime } from './node-runtime';
+import { setRuntime } from "@unblessed/core";
+import { NodeRuntime } from "./node-runtime";
 
-setRuntime(new NodeRuntime());  // Injects Node.js implementation
+setRuntime(new NodeRuntime()); // Injects Node.js implementation
 ```
 
 3. **Browser uses polyfills**:
+
 ```typescript
 // @unblessed/browser/src/auto-init.ts
-import { setRuntime } from '@unblessed/core';
-import { BrowserRuntime } from './browser-runtime';
+import { setRuntime } from "@unblessed/core";
+import { BrowserRuntime } from "./browser-runtime";
 
-setRuntime(new BrowserRuntime());  // Injects browser polyfills
+setRuntime(new BrowserRuntime()); // Injects browser polyfills
 ```
 
 ### Benefits
@@ -154,12 +160,12 @@ unblessed uses an **auto-initialization** pattern for ergonomics:
 
 ```typescript
 // ✅ Modern unblessed - just import and use
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 const screen = new Screen();
 
 // ❌ Old pattern - no longer needed
-import { initRuntime } from '@unblessed/node';
-initRuntime();  // Not required!
+import { initRuntime } from "@unblessed/node";
+initRuntime(); // Not required!
 ```
 
 When you import from `@unblessed/node` or `@unblessed/browser`, the runtime is automatically initialized before any widgets are created.
@@ -185,12 +191,12 @@ Widgets attach to parents using the `parent` option:
 
 ```typescript
 const box = new Box({
-  parent: screen,  // Attach to screen
-  content: 'Hello'
+  parent: screen, // Attach to screen
+  content: "Hello",
 });
 
 // Child automatically added to parent.children
-console.log(screen.children.includes(box));  // true
+console.log(screen.children.includes(box)); // true
 ```
 
 ### Benefits
@@ -210,8 +216,8 @@ unblessed uses a smart rendering pipeline:
 4. **Buffer optimization**: Minimize escape sequences
 
 ```typescript
-box.setContent('New content');  // Marks box as dirty
-screen.render();                // Only updates changed regions
+box.setContent("New content"); // Marks box as dirty
+screen.render(); // Only updates changed regions
 ```
 
 See [Rendering](./rendering) for details.
@@ -227,13 +233,13 @@ unblessed provides a rich event system:
 
 ```typescript
 // Widget event
-box.on('click', () => console.log('Clicked!'));
+box.on("click", () => console.log("Clicked!"));
 
 // Global key
-screen.key('C-c', () => process.exit(0));
+screen.key("C-c", () => process.exit(0));
 
 // Custom event
-box.emit('custom-event', data);
+box.emit("custom-event", data);
 ```
 
 See [Events](./events) for details.
@@ -248,16 +254,16 @@ unblessed is built with TypeScript in strict mode:
 - **Generic support**: Type-safe custom widgets
 
 ```typescript
-import { Box, type BoxOptions } from '@unblessed/node';
+import { Box, type BoxOptions } from "@unblessed/node";
 
 // Full type checking
 const options: BoxOptions = {
-  top: 'center',
-  left: 'center',
-  width: '50%',
+  top: "center",
+  left: "center",
+  width: "50%",
   height: 10,
-  border: { type: 'line' },
-  style: { fg: 'cyan' }
+  border: { type: "line" },
+  style: { fg: "cyan" },
 };
 
 const box = new Box(options);
@@ -273,6 +279,7 @@ unblessed is designed for performance:
 - **Memory pooling**: Reuse buffers when possible
 
 **Benchmarks** (on modern hardware):
+
 - Empty screen render: ~6.5ms
 - Complex screen (100 boxes): ~11ms
 - Large list (1K items): ~187ms

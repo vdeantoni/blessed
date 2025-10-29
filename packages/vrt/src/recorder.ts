@@ -3,8 +3,8 @@
  */
 
 import type { Screen } from "@unblessed/core";
-import type { VRTRecording, VRTFrame, VRTRecorderOptions } from "./types.js";
 import { writeFileSync } from "fs";
+import type { VRTFrame, VRTRecorderOptions, VRTRecording } from "./types.js";
 
 /**
  * VRTRecorder captures screen screenshots at regular intervals for visual regression testing.

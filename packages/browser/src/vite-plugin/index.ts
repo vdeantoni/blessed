@@ -18,9 +18,9 @@
  * ```
  */
 
-import type { Plugin, UserConfig } from "vite";
-import { resolve, dirname } from "path";
+import { dirname, resolve } from "path";
 import { fileURLToPath } from "url";
+import type { Plugin, UserConfig } from "vite";
 
 export interface BlessedBrowserPluginOptions {
   /**

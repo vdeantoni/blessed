@@ -14,7 +14,7 @@ EventEmitter type alias for use throughout the codebase
 
 > `optional` **\[captureRejectionSymbol\]**\<`K`\>(`error`, `event`, ...`args`): `void`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:103
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:103
 
 #### Type Parameters
 
@@ -34,7 +34,7 @@ Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/eve
 
 ##### args
 
-`AnyRest` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] : `never`
+`AnyRest` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] : `never`
 
 #### Returns
 
@@ -44,13 +44,13 @@ Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/eve
 
 `InstanceType.[captureRejectionSymbol]`
 
-***
+---
 
 ### addListener()
 
 > **addListener**\<`K`\>(`eventName`, `listener`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:642
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:642
 
 Alias for `emitter.on(eventName, listener)`.
 
@@ -68,7 +68,7 @@ Alias for `emitter.on(eventName, listener)`.
 
 ##### listener
 
-(...`args`) => `void` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`
+(...`args`) => `void` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`
 
 #### Returns
 
@@ -82,13 +82,13 @@ v0.1.26
 
 `InstanceType.addListener`
 
-***
+---
 
 ### on()
 
 > **on**\<`K`\>(`eventName`, `listener`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:674
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:674
 
 Adds the `listener` function to the end of the listeners array for the event
 named `eventName`. No checks are made to see if the `listener` has already
@@ -96,8 +96,8 @@ been added. Multiple calls passing the same combination of `eventName` and
 `listener` will result in the `listener` being added, and called, multiple times.
 
 ```js
-server.on('connection', (stream) => {
-  console.log('someone connected!');
+server.on("connection", (stream) => {
+  console.log("someone connected!");
 });
 ```
 
@@ -107,11 +107,11 @@ By default, event listeners are invoked in the order they are added. The `emitte
 event listener to the beginning of the listeners array.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const myEE = new EventEmitter();
-myEE.on('foo', () => console.log('a'));
-myEE.prependListener('foo', () => console.log('b'));
-myEE.emit('foo');
+myEE.on("foo", () => console.log("a"));
+myEE.prependListener("foo", () => console.log("b"));
+myEE.emit("foo");
 // Prints:
 //   b
 //   a
@@ -135,7 +135,7 @@ The name of the event.
 
 The callback function
 
-(...`args`) => `void` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`
+(...`args`) => `void` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`
 
 #### Returns
 
@@ -149,20 +149,20 @@ v0.1.101
 
 `InstanceType.on`
 
-***
+---
 
 ### once()
 
 > **once**\<`K`\>(`eventName`, `listener`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:704
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:704
 
 Adds a **one-time** `listener` function for the event named `eventName`. The
 next time `eventName` is triggered, this listener is removed and then invoked.
 
 ```js
-server.once('connection', (stream) => {
-  console.log('Ah, we have our first user!');
+server.once("connection", (stream) => {
+  console.log("Ah, we have our first user!");
 });
 ```
 
@@ -172,11 +172,11 @@ By default, event listeners are invoked in the order they are added. The `emitte
 event listener to the beginning of the listeners array.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const myEE = new EventEmitter();
-myEE.once('foo', () => console.log('a'));
-myEE.prependOnceListener('foo', () => console.log('b'));
-myEE.emit('foo');
+myEE.once("foo", () => console.log("a"));
+myEE.prependOnceListener("foo", () => console.log("b"));
+myEE.emit("foo");
 // Prints:
 //   b
 //   a
@@ -200,7 +200,7 @@ The name of the event.
 
 The callback function
 
-(...`args`) => `void` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`
+(...`args`) => `void` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`
 
 #### Returns
 
@@ -214,23 +214,23 @@ v0.3.0
 
 `InstanceType.once`
 
-***
+---
 
 ### removeListener()
 
 > **removeListener**\<`K`\>(`eventName`, `listener`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:787
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:787
 
 Removes the specified `listener` from the listener array for the event named `eventName`.
 
 ```js
 const callback = (stream) => {
-  console.log('someone connected!');
+  console.log("someone connected!");
 };
-server.on('connection', callback);
+server.on("connection", callback);
 // ...
-server.removeListener('connection', callback);
+server.removeListener("connection", callback);
 ```
 
 `removeListener()` will remove, at most, one instance of a listener from the
@@ -243,33 +243,33 @@ time of emitting are called in order. This implies that any `removeListener()` o
 will not remove them from`emit()` in progress. Subsequent events behave as expected.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 class MyEmitter extends EventEmitter {}
 const myEmitter = new MyEmitter();
 
 const callbackA = () => {
-  console.log('A');
-  myEmitter.removeListener('event', callbackB);
+  console.log("A");
+  myEmitter.removeListener("event", callbackB);
 };
 
 const callbackB = () => {
-  console.log('B');
+  console.log("B");
 };
 
-myEmitter.on('event', callbackA);
+myEmitter.on("event", callbackA);
 
-myEmitter.on('event', callbackB);
+myEmitter.on("event", callbackB);
 
 // callbackA removes listener callbackB but it will still be called.
 // Internal listener array at time of emit [callbackA, callbackB]
-myEmitter.emit('event');
+myEmitter.emit("event");
 // Prints:
 //   A
 //   B
 
 // callbackB is now removed.
 // Internal listener array [callbackA]
-myEmitter.emit('event');
+myEmitter.emit("event");
 // Prints:
 //   A
 ```
@@ -285,19 +285,19 @@ event (as in the example below), `removeListener()` will remove the most
 recently added instance. In the example the `once('ping')` listener is removed:
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const ee = new EventEmitter();
 
 function pong() {
-  console.log('pong');
+  console.log("pong");
 }
 
-ee.on('ping', pong);
-ee.once('ping', pong);
-ee.removeListener('ping', pong);
+ee.on("ping", pong);
+ee.once("ping", pong);
+ee.removeListener("ping", pong);
 
-ee.emit('ping');
-ee.emit('ping');
+ee.emit("ping");
+ee.emit("ping");
 ```
 
 Returns a reference to the `EventEmitter`, so that calls can be chained.
@@ -316,7 +316,7 @@ Returns a reference to the `EventEmitter`, so that calls can be chained.
 
 ##### listener
 
-(...`args`) => `void` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`
+(...`args`) => `void` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`
 
 #### Returns
 
@@ -330,13 +330,13 @@ v0.1.26
 
 `InstanceType.removeListener`
 
-***
+---
 
 ### off()
 
 > **off**\<`K`\>(`eventName`, `listener`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:792
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:792
 
 Alias for `emitter.removeListener()`.
 
@@ -354,7 +354,7 @@ Alias for `emitter.removeListener()`.
 
 ##### listener
 
-(...`args`) => `void` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`
+(...`args`) => `void` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`
 
 #### Returns
 
@@ -368,13 +368,13 @@ v10.0.0
 
 `InstanceType.off`
 
-***
+---
 
 ### removeAllListeners()
 
 > **removeAllListeners**(`eventName?`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:803
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:803
 
 Removes all listeners, or those of the specified `eventName`.
 
@@ -402,13 +402,13 @@ v0.1.26
 
 `InstanceType.removeAllListeners`
 
-***
+---
 
 ### setMaxListeners()
 
 > **setMaxListeners**(`n`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:813
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:813
 
 By default `EventEmitter`s will print a warning if more than `10` listeners are
 added for a particular event. This is a useful default that helps finding
@@ -435,13 +435,13 @@ v0.3.5
 
 `InstanceType.setMaxListeners`
 
-***
+---
 
 ### getMaxListeners()
 
 > **getMaxListeners**(): `number`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:819
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:819
 
 Returns the current max listener value for the `EventEmitter` which is either
 set by `emitter.setMaxListeners(n)` or defaults to EventEmitter.defaultMaxListeners.
@@ -458,21 +458,21 @@ v1.0.0
 
 `InstanceType.getMaxListeners`
 
-***
+---
 
 ### listeners()
 
-> **listeners**\<`K`\>(`eventName`): (`Function` \| `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`)[]
+> **listeners**\<`K`\>(`eventName`): (`Function` \| `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`)[]
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:832
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:832
 
 Returns a copy of the array of listeners for the event named `eventName`.
 
 ```js
-server.on('connection', (stream) => {
-  console.log('someone connected!');
+server.on("connection", (stream) => {
+  console.log("someone connected!");
 });
-console.log(util.inspect(server.listeners('connection')));
+console.log(util.inspect(server.listeners("connection")));
 // Prints: [ [Function] ]
 ```
 
@@ -490,7 +490,7 @@ console.log(util.inspect(server.listeners('connection')));
 
 #### Returns
 
-(`Function` \| `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`)[]
+(`Function` \| `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`)[]
 
 #### Since
 
@@ -500,25 +500,25 @@ v0.1.26
 
 `InstanceType.listeners`
 
-***
+---
 
 ### rawListeners()
 
-> **rawListeners**\<`K`\>(`eventName`): (`Function` \| `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`)[]
+> **rawListeners**\<`K`\>(`eventName`): (`Function` \| `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`)[]
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:863
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:863
 
 Returns a copy of the array of listeners for the event named `eventName`,
 including any wrappers (such as those created by `.once()`).
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const emitter = new EventEmitter();
-emitter.once('log', () => console.log('log once'));
+emitter.once("log", () => console.log("log once"));
 
 // Returns a new Array with a function `onceWrapper` which has a property
 // `listener` which contains the original listener bound above
-const listeners = emitter.rawListeners('log');
+const listeners = emitter.rawListeners("log");
 const logFnWrapper = listeners[0];
 
 // Logs "log once" to the console and does not unbind the `once` event
@@ -527,13 +527,13 @@ logFnWrapper.listener();
 // Logs "log once" to the console and removes the listener
 logFnWrapper();
 
-emitter.on('log', () => console.log('log persistently'));
+emitter.on("log", () => console.log("log persistently"));
 // Will return a new Array with a single function bound by `.on()` above
-const newListeners = emitter.rawListeners('log');
+const newListeners = emitter.rawListeners("log");
 
 // Logs "log persistently" twice
 newListeners[0]();
-emitter.emit('log');
+emitter.emit("log");
 ```
 
 #### Type Parameters
@@ -550,7 +550,7 @@ emitter.emit('log');
 
 #### Returns
 
-(`Function` \| `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`)[]
+(`Function` \| `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`)[]
 
 #### Since
 
@@ -560,13 +560,13 @@ v9.4.0
 
 `InstanceType.rawListeners`
 
-***
+---
 
 ### emit()
 
 > **emit**\<`K`\>(`eventName`, ...`args`): `boolean`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:904
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:904
 
 Synchronously calls each of the listeners registered for the event named `eventName`, in the order they were registered, passing the supplied arguments
 to each.
@@ -574,26 +574,26 @@ to each.
 Returns `true` if the event had listeners, `false` otherwise.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 const myEmitter = new EventEmitter();
 
 // First listener
-myEmitter.on('event', function firstListener() {
-  console.log('Helloooo! first listener');
+myEmitter.on("event", function firstListener() {
+  console.log("Helloooo! first listener");
 });
 // Second listener
-myEmitter.on('event', function secondListener(arg1, arg2) {
+myEmitter.on("event", function secondListener(arg1, arg2) {
   console.log(`event with parameters ${arg1}, ${arg2} in second listener`);
 });
 // Third listener
-myEmitter.on('event', function thirdListener(...args) {
-  const parameters = args.join(', ');
+myEmitter.on("event", function thirdListener(...args) {
+  const parameters = args.join(", ");
   console.log(`event with parameters ${parameters} in third listener`);
 });
 
-console.log(myEmitter.listeners('event'));
+console.log(myEmitter.listeners("event"));
 
-myEmitter.emit('event', 1, 2, 3, 4, 5);
+myEmitter.emit("event", 1, 2, 3, 4, 5);
 
 // Prints:
 // [
@@ -620,7 +620,7 @@ myEmitter.emit('event', 1, 2, 3, 4, 5);
 
 ##### args
 
-`AnyRest` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] : `never`
+`AnyRest` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] : `never`
 
 #### Returns
 
@@ -634,13 +634,13 @@ v0.1.26
 
 `InstanceType.emit`
 
-***
+---
 
 ### listenerCount()
 
 > **listenerCount**\<`K`\>(`eventName`, `listener?`): `number`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:913
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:913
 
 Returns the number of listeners listening for the event named `eventName`.
 If `listener` is provided, it will return how many times the listener is found
@@ -664,7 +664,7 @@ The name of the event being listened for
 
 The event handler function
 
-`Function` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`
+`Function` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`
 
 #### Returns
 
@@ -678,13 +678,13 @@ v3.2.0
 
 `InstanceType.listenerCount`
 
-***
+---
 
 ### prependListener()
 
 > **prependListener**\<`K`\>(`eventName`, `listener`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:931
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:931
 
 Adds the `listener` function to the _beginning_ of the listeners array for the
 event named `eventName`. No checks are made to see if the `listener` has
@@ -692,8 +692,8 @@ already been added. Multiple calls passing the same combination of `eventName`
 and `listener` will result in the `listener` being added, and called, multiple times.
 
 ```js
-server.prependListener('connection', (stream) => {
-  console.log('someone connected!');
+server.prependListener("connection", (stream) => {
+  console.log("someone connected!");
 });
 ```
 
@@ -717,7 +717,7 @@ The name of the event.
 
 The callback function
 
-(...`args`) => `void` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`
+(...`args`) => `void` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`
 
 #### Returns
 
@@ -731,20 +731,20 @@ v6.0.0
 
 `InstanceType.prependListener`
 
-***
+---
 
 ### prependOnceListener()
 
 > **prependOnceListener**\<`K`\>(`eventName`, `listener`): `this`
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:947
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:947
 
 Adds a **one-time**`listener` function for the event named `eventName` to the _beginning_ of the listeners array. The next time `eventName` is triggered, this
 listener is removed, and then invoked.
 
 ```js
-server.prependOnceListener('connection', (stream) => {
-  console.log('Ah, we have our first user!');
+server.prependOnceListener("connection", (stream) => {
+  console.log("Ah, we have our first user!");
 });
 ```
 
@@ -768,7 +768,7 @@ The name of the event.
 
 The callback function
 
-(...`args`) => `void` | `K` *extends* `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] *extends* `unknown`[] ? (...`args`) => `void` : `never` : `never`
+(...`args`) => `void` | `K` _extends_ `string` \| `number` \| `symbol` ? `Record`\<`string` \| `number` \| `symbol`, `any`[]\>\[`K`\<`K`\>\] _extends_ `unknown`[] ? (...`args`) => `void` : `never` : `never`
 
 #### Returns
 
@@ -782,25 +782,25 @@ v6.0.0
 
 `InstanceType.prependOnceListener`
 
-***
+---
 
 ### eventNames()
 
 > **eventNames**(): (`string` \| `symbol`)[]
 
-Defined in: node\_modules/.pnpm/@types+node@24.6.2/node\_modules/@types/node/events.d.ts:967
+Defined in: node_modules/.pnpm/@types+node@24.6.2/node_modules/@types/node/events.d.ts:967
 
 Returns an array listing the events for which the emitter has registered
 listeners. The values in the array are strings or `Symbol`s.
 
 ```js
-import { EventEmitter } from 'node:events';
+import { EventEmitter } from "node:events";
 
 const myEE = new EventEmitter();
-myEE.on('foo', () => {});
-myEE.on('bar', () => {});
+myEE.on("foo", () => {});
+myEE.on("bar", () => {});
 
-const sym = Symbol('symbol');
+const sym = Symbol("symbol");
 myEE.on(sym, () => {});
 
 console.log(myEE.eventNames());

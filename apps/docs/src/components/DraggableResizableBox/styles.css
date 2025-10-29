@@ -126,11 +126,27 @@
 }
 
 /* Update cursor during resize based on direction */
-.drb-box.drb-resizing-n { cursor: ns-resize !important; }
-.drb-box.drb-resizing-s { cursor: ns-resize !important; }
-.drb-box.drb-resizing-e { cursor: ew-resize !important; }
-.drb-box.drb-resizing-w { cursor: ew-resize !important; }
-.drb-box.drb-resizing-nw { cursor: nwse-resize !important; }
-.drb-box.drb-resizing-ne { cursor: nesw-resize !important; }
-.drb-box.drb-resizing-se { cursor: nwse-resize !important; }
-.drb-box.drb-resizing-sw { cursor: nesw-resize !important; }
+.drb-box.drb-resizing-n {
+  cursor: ns-resize !important;
+}
+.drb-box.drb-resizing-s {
+  cursor: ns-resize !important;
+}
+.drb-box.drb-resizing-e {
+  cursor: ew-resize !important;
+}
+.drb-box.drb-resizing-w {
+  cursor: ew-resize !important;
+}
+.drb-box.drb-resizing-nw {
+  cursor: nwse-resize !important;
+}
+.drb-box.drb-resizing-ne {
+  cursor: nesw-resize !important;
+}
+.drb-box.drb-resizing-se {
+  cursor: nwse-resize !important;
+}
+.drb-box.drb-resizing-sw {
+  cursor: nesw-resize !important;
+}

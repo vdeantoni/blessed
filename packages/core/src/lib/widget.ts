@@ -3,40 +3,40 @@
  */
 
 // Import all widget classes
-import Node from "../widgets/node.js";
-import Screen from "../widgets/screen.js";
-import Element from "../widgets/element.js";
-import Box from "../widgets/box.js";
-import Text from "../widgets/text.js";
-import Line from "../widgets/line.js";
-import ScrollableBox from "../widgets/scrollablebox.js";
-import ScrollableText from "../widgets/scrollabletext.js";
+import ANSIImage from "../widgets/ansiimage.js";
 import BigText from "../widgets/bigtext.js";
-import List from "../widgets/list.js";
-import Form from "../widgets/form.js";
-import Input from "../widgets/input.js";
-import Textarea from "../widgets/textarea.js";
-import Textbox from "../widgets/textbox.js";
+import Box from "../widgets/box.js";
 import Button from "../widgets/button.js";
-import ProgressBar from "../widgets/progressbar.js";
-import FileManager from "../widgets/filemanager.js";
 import Checkbox from "../widgets/checkbox.js";
-import RadioSet from "../widgets/radioset.js";
-import RadioButton from "../widgets/radiobutton.js";
+import Element from "../widgets/element.js";
+import FileManager from "../widgets/filemanager.js";
+import Form from "../widgets/form.js";
+import Image from "../widgets/image.js";
+import Input from "../widgets/input.js";
+import Layout from "../widgets/layout.js";
+import Line from "../widgets/line.js";
+import List from "../widgets/list.js";
+import Listbar from "../widgets/listbar.js";
+import ListTable from "../widgets/listtable.js";
+import Loading from "../widgets/loading.js";
+import Log from "../widgets/log.js";
+import Message from "../widgets/message.js";
+import Node from "../widgets/node.js";
+import OverlayImage from "../widgets/overlayimage.js";
+import ProgressBar from "../widgets/progressbar.js";
 import Prompt from "../widgets/prompt.js";
 import Question from "../widgets/question.js";
-import Message from "../widgets/message.js";
-import Loading from "../widgets/loading.js";
-import Listbar from "../widgets/listbar.js";
-import Log from "../widgets/log.js";
+import RadioButton from "../widgets/radiobutton.js";
+import RadioSet from "../widgets/radioset.js";
+import Screen from "../widgets/screen.js";
+import ScrollableBox from "../widgets/scrollablebox.js";
+import ScrollableText from "../widgets/scrollabletext.js";
 import Table from "../widgets/table.js";
-import ListTable from "../widgets/listtable.js";
 import Terminal from "../widgets/terminal.js";
-import Image from "../widgets/image.js";
-import ANSIImage from "../widgets/ansiimage.js";
-import OverlayImage from "../widgets/overlayimage.js";
+import Text from "../widgets/text.js";
+import Textarea from "../widgets/textarea.js";
+import Textbox from "../widgets/textbox.js";
 import Video from "../widgets/video.js";
-import Layout from "../widgets/layout.js";
 
 const widget: any = {};
 

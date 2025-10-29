@@ -2,17 +2,17 @@
  * Options type definitions for blessed widgets
  */
 
+import type { BufferType, ReadableType, WritableType } from "../runtime.js";
+import type { Node } from "../widgets/node.js";
 import type {
-  PositionValue,
   Alignment,
   Border,
+  Cursor,
   Padding,
   Position,
-  Cursor,
+  PositionValue,
 } from "./common.js";
 import type { ListElementStyle, StyleListTable } from "./style.js";
-import type { Node } from "../widgets/node.js";
-import type { ReadableType, WritableType, BufferType } from "../runtime.js";
 
 // Forward declarations for circular dependencies
 export type Screen = any;

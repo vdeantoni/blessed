@@ -1,5 +1,5 @@
-import blessed from "../dist/index.js";
 import assert from "assert";
+import blessed from "../dist/index.js";
 
 const __dirname = import.meta.dirname;
 

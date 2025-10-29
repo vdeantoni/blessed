@@ -3,6 +3,7 @@
  * Testing low-level terminal control and escape sequence generation
  */
 
+import { EventEmitter } from "events";
 import {
   afterEach,
   beforeAll,
@@ -12,11 +13,10 @@ import {
   it,
   vi,
 } from "vitest";
-import { EventEmitter } from "events";
 
 // Initialize test runtime
-import { initTestRuntime, setTestEnv } from "../helpers/mock.js";
 import { getRuntime } from "../../src/runtime-context.js";
+import { initTestRuntime, setTestEnv } from "../helpers/mock.js";
 
 // Import Program after mocking
 import ProgramModule from "../../src/lib/program.js";

@@ -5,10 +5,10 @@
  * in their test helpers.
  */
 
-import type { VRTRecording, VRTComparisonResult } from "./types.js";
-import { VRTComparator } from "./comparator.js";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { dirname } from "path";
+import { VRTComparator } from "./comparator.js";
+import type { VRTComparisonResult, VRTRecording } from "./types.js";
 
 /**
  * Result of golden snapshot comparison

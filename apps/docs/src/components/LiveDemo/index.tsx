@@ -1,15 +1,14 @@
-import React, { useEffect, useState, useCallback } from "react";
-import DraggableResizableBox from "../DraggableResizableBox";
+import React, { useCallback, useEffect, useState } from "react";
+import "xterm/css/xterm.css";
 import CodeSnippetsCarousel from "../CodeSnippetsCarousel";
+import DraggableResizableBox from "../DraggableResizableBox";
 import CodeEditor from "./components/CodeEditor";
-import TerminalView from "./components/TerminalView";
-import { useTerminal } from "./hooks/useTerminal";
+import { CODE_EXAMPLES } from "./data/examples";
 import { useCodeExecution } from "./hooks/useCodeExecution";
+import { useTerminal } from "./hooks/useTerminal";
+import "./styles.css";
 import { displayError } from "./utils/errorDisplay";
 import { validateSyntax } from "./utils/prettier";
-import { CODE_EXAMPLES } from "./data/examples";
-import "xterm/css/xterm.css";
-import "./styles.css";
 
 export default function LiveDemo() {
   const terminalRef = React.useRef<HTMLDivElement>(null);

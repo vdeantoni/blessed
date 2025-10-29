@@ -48,18 +48,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -67,34 +67,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -104,11 +104,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -122,11 +122,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -187,18 +187,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -206,34 +206,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -243,11 +243,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -261,11 +261,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -326,18 +326,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -345,34 +345,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -382,11 +382,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -400,11 +400,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -465,18 +465,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -484,34 +484,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -521,11 +521,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -539,11 +539,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -604,18 +604,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -623,34 +623,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -660,11 +660,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -678,11 +678,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -743,18 +743,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -762,34 +762,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -799,11 +799,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -817,11 +817,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -882,18 +882,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -901,34 +901,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -938,11 +938,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -956,11 +956,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -1021,18 +1021,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -1040,34 +1040,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -1077,11 +1077,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -1095,11 +1095,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -1160,18 +1160,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -1179,34 +1179,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -1216,11 +1216,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -1234,11 +1234,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -1299,18 +1299,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -1318,34 +1318,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -1355,11 +1355,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -1373,11 +1373,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -1438,18 +1438,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -1457,34 +1457,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -1494,11 +1494,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -1512,11 +1512,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -1583,18 +1583,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -1602,34 +1602,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -1639,11 +1639,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -1657,11 +1657,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -1728,18 +1728,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -1747,34 +1747,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -1784,11 +1784,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -1802,11 +1802,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -1873,18 +1873,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -1892,34 +1892,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -1929,11 +1929,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -1947,11 +1947,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -2018,18 +2018,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -2037,34 +2037,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -2074,11 +2074,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -2092,11 +2092,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -2163,18 +2163,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -2182,34 +2182,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -2219,11 +2219,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -2237,11 +2237,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -2308,18 +2308,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -2327,34 +2327,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -2364,11 +2364,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -2382,11 +2382,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -2453,18 +2453,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -2472,34 +2472,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -2509,11 +2509,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -2527,11 +2527,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -2598,18 +2598,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -2617,34 +2617,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -2654,11 +2654,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -2672,11 +2672,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -2743,18 +2743,18 @@ Example of running `ls -lh /usr`, capturing `stdout`, `stderr`, and the
 exit code:
 
 ```js
-import { spawn } from 'node:child_process';
-const ls = spawn('ls', ['-lh', '/usr']);
+import { spawn } from "node:child_process";
+const ls = spawn("ls", ["-lh", "/usr"]);
 
-ls.stdout.on('data', (data) => {
+ls.stdout.on("data", (data) => {
   console.log(`stdout: ${data}`);
 });
 
-ls.stderr.on('data', (data) => {
+ls.stderr.on("data", (data) => {
   console.error(`stderr: ${data}`);
 });
 
-ls.on('close', (code) => {
+ls.on("close", (code) => {
   console.log(`child process exited with code ${code}`);
 });
 ```
@@ -2762,34 +2762,34 @@ ls.on('close', (code) => {
 Example: A very elaborate way to run `ps ax | grep ssh`
 
 ```js
-import { spawn } from 'node:child_process';
-const ps = spawn('ps', ['ax']);
-const grep = spawn('grep', ['ssh']);
+import { spawn } from "node:child_process";
+const ps = spawn("ps", ["ax"]);
+const grep = spawn("grep", ["ssh"]);
 
-ps.stdout.on('data', (data) => {
+ps.stdout.on("data", (data) => {
   grep.stdin.write(data);
 });
 
-ps.stderr.on('data', (data) => {
+ps.stderr.on("data", (data) => {
   console.error(`ps stderr: ${data}`);
 });
 
-ps.on('close', (code) => {
+ps.on("close", (code) => {
   if (code !== 0) {
     console.log(`ps process exited with code ${code}`);
   }
   grep.stdin.end();
 });
 
-grep.stdout.on('data', (data) => {
+grep.stdout.on("data", (data) => {
   console.log(data.toString());
 });
 
-grep.stderr.on('data', (data) => {
+grep.stderr.on("data", (data) => {
   console.error(`grep stderr: ${data}`);
 });
 
-grep.on('close', (code) => {
+grep.on("close", (code) => {
   if (code !== 0) {
     console.log(`grep process exited with code ${code}`);
   }
@@ -2799,11 +2799,11 @@ grep.on('close', (code) => {
 Example of checking for failed `spawn`:
 
 ```js
-import { spawn } from 'node:child_process';
-const subprocess = spawn('bad_command');
+import { spawn } from "node:child_process";
+const subprocess = spawn("bad_command");
 
-subprocess.on('error', (err) => {
-  console.error('Failed to start subprocess.');
+subprocess.on("error", (err) => {
+  console.error("Failed to start subprocess.");
 });
 ```
 
@@ -2817,11 +2817,11 @@ If the `signal` option is enabled, calling `.abort()` on the corresponding `Abor
 the error passed to the callback will be an `AbortError`:
 
 ```js
-import { spawn } from 'node:child_process';
+import { spawn } from "node:child_process";
 const controller = new AbortController();
 const { signal } = controller;
-const grep = spawn('grep', ['ssh'], { signal });
-grep.on('error', (err) => {
+const grep = spawn("grep", ["ssh"], { signal });
+grep.on("error", (err) => {
   // This will be called with err being an AbortError if the controller aborts
 });
 controller.abort(); // Stops the child process
@@ -2853,11 +2853,11 @@ List of string arguments.
 
 v0.1.90
 
-***
+---
 
 ### execSync()
 
-> **execSync**: \{(`command`): `Buffer`; (`command`, `options`): `string`; (`command`, `options`): `Buffer`; (`command`, `options?`): `string` \| `Buffer`; \}
+> **execSync**: \{(`command`): `Buffer`; (`command`, `options`): `string`; (`command`, `options`): `Buffer`; (`command`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>; \}
 
 Defined in: [packages/core/src/runtime.ts:251](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L251)
 
@@ -2973,7 +2973,7 @@ v0.11.12
 
 #### Call Signature
 
-> (`command`, `options?`): `string` \| `Buffer`
+> (`command`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>
 
 The `child_process.execSync()` method is generally identical to exec with the exception that the method will not return
 until the child process has fully closed. When a timeout has been encountered
@@ -3001,7 +3001,7 @@ The command to run.
 
 ##### Returns
 
-`string` \| `Buffer`
+`string` \| `Buffer`\<`ArrayBufferLike`\>
 
 The stdout from the command.
 
@@ -3009,11 +3009,11 @@ The stdout from the command.
 
 v0.11.12
 
-***
+---
 
 ### execFileSync()
 
-> **execFileSync**: \{(`file`): `Buffer`; (`file`, `options`): `string`; (`file`, `options`): `Buffer`; (`file`, `options?`): `string` \| `Buffer`; (`file`, `args`): `Buffer`; (`file`, `args`, `options`): `string`; (`file`, `args`, `options`): `Buffer`; (`file`, `args?`, `options?`): `string` \| `Buffer`; \}
+> **execFileSync**: \{(`file`): `Buffer`; (`file`, `options`): `string`; (`file`, `options`): `Buffer`; (`file`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>; (`file`, `args`): `Buffer`; (`file`, `args`, `options`): `string`; (`file`, `args`, `options`): `Buffer`; (`file`, `args?`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>; \}
 
 Defined in: [packages/core/src/runtime.ts:252](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L252)
 
@@ -3138,7 +3138,7 @@ v0.11.12
 
 #### Call Signature
 
-> (`file`, `options?`): `string` \| `Buffer`
+> (`file`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>
 
 The `child_process.execFileSync()` method is generally identical to execFile with the exception that the method will not
 return until the child process has fully closed. When a timeout has been
@@ -3169,7 +3169,7 @@ The name or path of the executable file to run.
 
 ##### Returns
 
-`string` \| `Buffer`
+`string` \| `Buffer`\<`ArrayBufferLike`\>
 
 The stdout from the command.
 
@@ -3316,7 +3316,7 @@ v0.11.12
 
 #### Call Signature
 
-> (`file`, `args?`, `options?`): `string` \| `Buffer`
+> (`file`, `args?`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>
 
 The `child_process.execFileSync()` method is generally identical to execFile with the exception that the method will not
 return until the child process has fully closed. When a timeout has been
@@ -3353,7 +3353,7 @@ List of string arguments.
 
 ##### Returns
 
-`string` \| `Buffer`
+`string` \| `Buffer`\<`ArrayBufferLike`\>
 
 The stdout from the command.
 

@@ -5,8 +5,8 @@
  */
 
 import { Command } from "commander";
-import { VRTPlayer } from "../player.js";
 import { VRTComparator } from "../comparator.js";
+import { VRTPlayer } from "../player.js";
 
 const program = new Command();
 

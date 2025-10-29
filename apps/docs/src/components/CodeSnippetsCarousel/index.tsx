@@ -1,4 +1,3 @@
-import React from "react";
 import CodeSnippetCard from "../CodeSnippetCard";
 import "./styles.css";
 
@@ -24,10 +23,7 @@ export default function CodeSnippetsCarousel({
     <div className="code-snippets-carousel">
       <div className="carousel-container">
         {examples.map((example, index) => (
-          <div
-            key={example.id}
-            className="carousel-slide"
-          >
+          <div key={example.id} className="carousel-slide">
             <CodeSnippetCard
               id={example.id}
               title={example.title}

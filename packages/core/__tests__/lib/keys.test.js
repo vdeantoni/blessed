@@ -1,8 +1,8 @@
-import { describe, it, expect, vi, beforeAll } from "vitest";
-import { EventEmitter } from "events";
-import { initTestRuntime } from "../helpers/mock.js";
-import keys from "../../src/lib/keys.js";
 import { Buffer } from "buffer";
+import { EventEmitter } from "events";
+import { beforeAll, describe, expect, it, vi } from "vitest";
+import keys from "../../src/lib/keys.js";
+import { initTestRuntime } from "../helpers/mock.js";
 
 describe("keys", () => {
   beforeAll(() => {

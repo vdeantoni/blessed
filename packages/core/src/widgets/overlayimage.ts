@@ -6,9 +6,9 @@
  * Modules
  */
 
+import helpers from "../lib/helpers";
 import type { OverlayImageOptions } from "../types";
 import Box from "./box.js";
-import helpers from "../lib/helpers";
 
 /**
  * OverlayImage

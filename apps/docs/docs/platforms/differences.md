@@ -8,19 +8,19 @@ Key differences between Node.js and Browser platforms.
 
 ## Quick Comparison
 
-| Feature | Node.js | Browser |
-|---------|---------|---------|
-| **Runtime** | Native Node.js APIs | Polyfills + XTerm.js |
-| **Terminal** | Direct TTY | XTerm.js emulation |
-| **File System** | Full access | Bundled terminfo only |
-| **Process** | Full process control | Limited polyfill |
-| **Exit** | `process.exit()` | Destroy screen + terminal |
-| **Streams** | Native streams | stream-browserify |
-| **Buffer** | Native Buffer | buffer package |
-| **Performance** | Faster (native) | Slower (emulation) |
-| **Bundle Size** | N/A | ~150KB gzipped |
-| **Mouse** | Terminal-dependent | Always available |
-| **Resize** | SIGWINCH signal | Window resize events |
+| Feature         | Node.js              | Browser                   |
+| --------------- | -------------------- | ------------------------- |
+| **Runtime**     | Native Node.js APIs  | Polyfills + XTerm.js      |
+| **Terminal**    | Direct TTY           | XTerm.js emulation        |
+| **File System** | Full access          | Bundled terminfo only     |
+| **Process**     | Full process control | Limited polyfill          |
+| **Exit**        | `process.exit()`     | Destroy screen + terminal |
+| **Streams**     | Native streams       | stream-browserify         |
+| **Buffer**      | Native Buffer        | buffer package            |
+| **Performance** | Faster (native)      | Slower (emulation)        |
+| **Bundle Size** | N/A                  | ~150KB gzipped            |
+| **Mouse**       | Terminal-dependent   | Always available          |
+| **Resize**      | SIGWINCH signal      | Window resize events      |
 
 ## Installation
 
@@ -31,6 +31,7 @@ pnpm add @unblessed/node
 ```
 
 Includes:
+
 - Node.js runtime implementation
 - All core widgets
 - Direct TTY support
@@ -42,6 +43,7 @@ pnpm add @unblessed/browser xterm
 ```
 
 Includes:
+
 - Browser runtime with polyfills
 - All core widgets
 - XTerm.js integration
@@ -53,7 +55,7 @@ Includes:
 Automatic runtime initialization:
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 // Runtime auto-initialized with Node.js APIs
 const screen = new Screen();
@@ -64,12 +66,12 @@ const screen = new Screen();
 Requires XTerm.js terminal:
 
 ```typescript
-import { Terminal } from 'xterm';
-import { Screen, Box } from '@unblessed/browser';
+import { Terminal } from "xterm";
+import { Screen, Box } from "@unblessed/browser";
 
 // Create and mount terminal
 const term = new Terminal();
-term.open(document.getElementById('terminal'));
+term.open(document.getElementById("terminal"));
 
 // Runtime auto-initialized with polyfills
 const screen = new Screen({ terminal: term });
@@ -80,52 +82,58 @@ const screen = new Screen({ terminal: term });
 ### Screen Creation
 
 **Node.js**:
+
 ```typescript
 const screen = new Screen({
-  input: process.stdin,   // Node.js stream
+  input: process.stdin, // Node.js stream
   output: process.stdout, // Node.js stream
-  terminal: 'xterm-256color'
+  terminal: "xterm-256color",
 });
 ```
 
 **Browser**:
+
 ```typescript
 const screen = new Screen({
-  terminal: term  // XTerm.js Terminal instance
+  terminal: term, // XTerm.js Terminal instance
 });
 ```
 
 ### Exiting
 
 **Node.js**:
+
 ```typescript
-screen.key(['q', 'C-c'], () => {
-  process.exit(0);  // Works in Node.js
+screen.key(["q", "C-c"], () => {
+  process.exit(0); // Works in Node.js
 });
 ```
 
 **Browser**:
+
 ```typescript
-screen.key(['q', 'C-c'], () => {
+screen.key(["q", "C-c"], () => {
   screen.destroy();
-  term.dispose();   // Can't actually exit browser
+  term.dispose(); // Can't actually exit browser
 });
 ```
 
 ### File Access
 
 **Node.js**:
-```typescript
-import { readFileSync } from 'fs';
 
-const data = readFileSync('./config.json', 'utf8');
+```typescript
+import { readFileSync } from "fs";
+
+const data = readFileSync("./config.json", "utf8");
 box.setContent(data);
 ```
 
 **Browser**:
+
 ```typescript
 // Use fetch API instead
-const response = await fetch('/api/config.json');
+const response = await fetch("/api/config.json");
 const data = await response.text();
 box.setContent(data);
 ```
@@ -133,12 +141,14 @@ box.setContent(data);
 ### Environment Variables
 
 **Node.js**:
+
 ```typescript
 const apiKey = process.env.API_KEY;
-const isDev = process.env.NODE_ENV === 'development';
+const isDev = process.env.NODE_ENV === "development";
 ```
 
 **Browser**:
+
 ```typescript
 // process.env is empty object
 // Use build-time env variables instead
@@ -183,12 +193,14 @@ const isDev = import.meta.env.DEV;
 ### Node.js
 
 **Advantages**:
+
 - Direct TTY access (no emulation)
 - Faster rendering (~6.5ms empty screen)
 - Lower memory usage
 - Native Buffer operations
 
 **Use cases**:
+
 - CLI tools
 - Server monitoring
 - Build tools
@@ -197,18 +209,21 @@ const isDev = import.meta.env.DEV;
 ### Browser
 
 **Advantages**:
+
 - Works in web browsers
 - No installation required
 - Cross-platform web apps
 - Better for demos/documentation
 
 **Trade-offs**:
+
 - Slower rendering (~10-15ms empty screen)
 - Higher memory usage
 - Larger bundle size (~150KB)
 - XTerm.js emulation overhead
 
 **Use cases**:
+
 - Web-based terminals
 - Interactive documentation
 - Browser DevTools
@@ -222,21 +237,21 @@ Most code works identically:
 
 ```typescript
 // Works in both Node.js and Browser!
-import { Screen, Box, List } from '@unblessed/node'; // or browser
+import { Screen, Box, List } from "@unblessed/node"; // or browser
 
 const screen = new Screen(/* platform-specific options */);
 
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello World!',
-  border: { type: 'line' }
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello World!",
+  border: { type: "line" },
 });
 
-screen.key('q', () => {
+screen.key("q", () => {
   /* platform-specific cleanup */
 });
 
@@ -248,16 +263,16 @@ screen.render();
 Detect current platform:
 
 ```typescript
-import { getRuntime } from '@unblessed/core/runtime-context';
+import { getRuntime } from "@unblessed/core/runtime-context";
 
 const runtime = getRuntime();
 
-if (runtime.process.platform === 'browser') {
+if (runtime.process.platform === "browser") {
   // Browser-specific code
-  console.log('Running in browser');
+  console.log("Running in browser");
 } else {
   // Node.js-specific code
-  console.log('Running in Node.js');
+  console.log("Running in Node.js");
 }
 ```
 
@@ -267,18 +282,18 @@ Use dynamic imports for platform-specific code:
 
 ```typescript
 async function initApp() {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     // Browser
-    const { Terminal } = await import('xterm');
-    const { Screen } = await import('@unblessed/browser');
+    const { Terminal } = await import("xterm");
+    const { Screen } = await import("@unblessed/browser");
 
     const term = new Terminal();
-    term.open(document.getElementById('terminal'));
+    term.open(document.getElementById("terminal"));
 
     return new Screen({ terminal: term });
   } else {
     // Node.js
-    const { Screen } = await import('@unblessed/node');
+    const { Screen } = await import("@unblessed/node");
     return new Screen();
   }
 }
@@ -289,48 +304,53 @@ async function initApp() {
 ### Node.js to Browser
 
 1. **Add XTerm.js**:
+
 ```bash
 pnpm add xterm @xterm/addon-fit
 ```
 
 2. **Change imports**:
+
 ```typescript
 // Before
-import { Screen } from '@unblessed/node';
+import { Screen } from "@unblessed/node";
 
 // After
-import { Terminal } from 'xterm';
-import { Screen } from '@unblessed/browser';
+import { Terminal } from "xterm";
+import { Screen } from "@unblessed/browser";
 ```
 
 3. **Create terminal**:
+
 ```typescript
 // Add this
 const term = new Terminal();
-term.open(document.getElementById('terminal'));
+term.open(document.getElementById("terminal"));
 
 // Update screen creation
 const screen = new Screen({ terminal: term });
 ```
 
 4. **Update file access**:
+
 ```typescript
 // Before
-import { readFileSync } from 'fs';
-const data = readFileSync('./data.txt', 'utf8');
+import { readFileSync } from "fs";
+const data = readFileSync("./data.txt", "utf8");
 
 // After
-const response = await fetch('/data.txt');
+const response = await fetch("/data.txt");
 const data = await response.text();
 ```
 
 5. **Update exit handling**:
+
 ```typescript
 // Before
-screen.key('q', () => process.exit(0));
+screen.key("q", () => process.exit(0));
 
 // After
-screen.key('q', () => {
+screen.key("q", () => {
   screen.destroy();
   term.dispose();
 });
@@ -339,21 +359,24 @@ screen.key('q', () => {
 ### Browser to Node.js
 
 1. **Remove XTerm.js**:
+
 ```bash
 pnpm remove xterm
 ```
 
 2. **Change imports**:
+
 ```typescript
 // Before
-import { Terminal } from 'xterm';
-import { Screen } from '@unblessed/browser';
+import { Terminal } from "xterm";
+import { Screen } from "@unblessed/browser";
 
 // After
-import { Screen } from '@unblessed/node';
+import { Screen } from "@unblessed/node";
 ```
 
 3. **Simplify screen creation**:
+
 ```typescript
 // Before
 const term = new Terminal();
@@ -365,14 +388,15 @@ const screen = new Screen();
 ```
 
 4. **Use Node.js APIs**:
+
 ```typescript
 // Before
-const response = await fetch('/data.txt');
+const response = await fetch("/data.txt");
 const data = await response.text();
 
 // After
-import { readFileSync } from 'fs';
-const data = readFileSync('./data.txt', 'utf8');
+import { readFileSync } from "fs";
+const data = readFileSync("./data.txt", "utf8");
 ```
 
 ## Best Practices
@@ -396,7 +420,7 @@ export class NodePlatform implements PlatformAdapter {
   }
 
   async readFile(path: string) {
-    return readFileSync(path, 'utf8');
+    return readFileSync(path, "utf8");
   }
 
   exit() {
@@ -419,7 +443,7 @@ export class BrowserPlatform implements PlatformAdapter {
 
   exit() {
     // Can't exit browser
-    console.log('Application closed');
+    console.log("Application closed");
   }
 }
 ```
@@ -432,7 +456,7 @@ Check for capabilities:
 function hasFileSystem(): boolean {
   try {
     const runtime = getRuntime();
-    runtime.fs.existsSync('/');
+    runtime.fs.existsSync("/");
     return true;
   } catch {
     return false;
@@ -441,7 +465,7 @@ function hasFileSystem(): boolean {
 
 function canExit(): boolean {
   const runtime = getRuntime();
-  return runtime.process.platform !== 'browser';
+  return runtime.process.platform !== "browser";
 }
 ```
 
@@ -453,13 +477,13 @@ Provide fallbacks:
 async function loadData(path: string) {
   const runtime = getRuntime();
 
-  if (runtime.process.platform === 'browser') {
+  if (runtime.process.platform === "browser") {
     // Browser: fetch from server
     const response = await fetch(path);
     return response.json();
   } else {
     // Node.js: read from file system
-    const data = readFileSync(path, 'utf8');
+    const data = readFileSync(path, "utf8");
     return JSON.parse(data);
   }
 }
@@ -478,7 +502,7 @@ export class StatusBar extends Box {
       bottom: 0,
       left: 0,
       right: 0,
-      style: { bg: 'blue', fg: 'white' }
+      style: { bg: "blue", fg: "white" },
     });
   }
 
@@ -490,7 +514,7 @@ export class StatusBar extends Box {
 
 // Works in both platforms!
 const status = new StatusBar({ parent: screen });
-status.setStatus('Ready');
+status.setStatus("Ready");
 ```
 
 ## Common Pitfalls
@@ -499,12 +523,12 @@ status.setStatus('Ready');
 
 ```typescript
 // DON'T
-screen.key('q', () => process.exit(0)); // Throws error in browser
+screen.key("q", () => process.exit(0)); // Throws error in browser
 
 // DO
-screen.key('q', () => {
+screen.key("q", () => {
   screen.destroy();
-  if (typeof window === 'undefined') {
+  if (typeof window === "undefined") {
     process.exit(0);
   }
 });
@@ -514,14 +538,14 @@ screen.key('q', () => {
 
 ```typescript
 // DON'T
-const config = readFileSync('./config.json'); // Fails in browser
+const config = readFileSync("./config.json"); // Fails in browser
 
 // DO
 async function loadConfig() {
   if (hasFileSystem()) {
-    return readFileSync('./config.json', 'utf8');
+    return readFileSync("./config.json", "utf8");
   } else {
-    const response = await fetch('/config.json');
+    const response = await fetch("/config.json");
     return response.text();
   }
 }

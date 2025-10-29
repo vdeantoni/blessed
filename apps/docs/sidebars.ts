@@ -106,9 +106,7 @@ const sidebars: SidebarsConfig = {
             {
               type: "category",
               label: "Progress & Status",
-              items: [
-                "api/generated/widgets.progressbar.Class.ProgressBar",
-              ],
+              items: ["api/generated/widgets.progressbar.Class.ProgressBar"],
             },
             {
               type: "category",

@@ -7,14 +7,18 @@
     "docusaurus": "docusaurus",
     "dev": "docusaurus start --port 4000",
     "build": "docusaurus build",
-    "build:api": "typedoc --options typedoc.json && node scripts/fix-mdx.mjs",
+    "build:api": "typedoc --options typedoc.json && node scripts/fix-mdx.mjs && turbo format",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clean": "docusaurus clear && rimraf build .docusaurus",
     "serve": "docusaurus serve",
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@docusaurus/core": "3.9.2",
@@ -26,8 +30,6 @@
     "@unblessed/browser": "workspace:*",
     "@xterm/addon-fit": "^0.10.0",
     "clsx": "^2.0.0",
-    "prettier": "^3.6.2",
-    "prettier-plugin-organize-imports": "^4.3.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -38,10 +40,8 @@
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "@types/react": "^19.0.0",
-    "rimraf": "^6.0.1",
     "typedoc": "^0.28.14",
-    "typedoc-plugin-markdown": "^4.9.0",
-    "typescript": "~5.6.2"
+    "typedoc-plugin-markdown": "^4.9.0"
   },
   "browserslist": {
     "production": [
@@ -54,8 +54,5 @@
       "last 3 firefox version",
       "last 5 safari version"
     ]
-  },
-  "engines": {
-    "node": ">=22.0.0"
   }
 }

@@ -1,5 +1,5 @@
-import { defineConfig } from "vite";
 import { resolve } from "path";
+import { defineConfig } from "vite";
 import blessedBrowser from "./dist/vite-plugin/index.js";
 
 export default defineConfig({

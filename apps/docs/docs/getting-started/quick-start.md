@@ -24,12 +24,12 @@ pnpm add @unblessed/node tsx
 Create `index.ts`:
 
 ```typescript
-import { Screen, Box, List } from '@unblessed/node';
+import { Screen, Box, List } from "@unblessed/node";
 
 // Create screen
 const screen = new Screen({
   smartCSR: true,
-  title: 'My Dashboard'
+  title: "My Dashboard",
 });
 
 // Header
@@ -37,14 +37,14 @@ const header = new Box({
   parent: screen,
   top: 0,
   left: 0,
-  width: '100%',
+  width: "100%",
   height: 3,
-  content: '{center}{bold}Welcome to unblessed!{/bold}{/center}',
+  content: "{center}{bold}Welcome to unblessed!{/bold}{/center}",
   tags: true,
   style: {
-    fg: 'white',
-    bg: 'blue'
-  }
+    fg: "white",
+    bg: "blue",
+  },
 });
 
 // Sidebar menu
@@ -52,34 +52,34 @@ const menu = new List({
   parent: screen,
   top: 3,
   left: 0,
-  width: '30%',
-  height: '100%-6',
-  label: ' Menu ',
-  border: { type: 'line' },
+  width: "30%",
+  height: "100%-6",
+  label: " Menu ",
+  border: { type: "line" },
   style: {
-    border: { fg: 'cyan' },
+    border: { fg: "cyan" },
     selected: {
-      bg: 'cyan',
-      fg: 'black'
-    }
+      bg: "cyan",
+      fg: "black",
+    },
   },
   keys: true,
   vi: true,
   mouse: true,
-  items: ['Dashboard', 'Settings', 'Help', 'Exit']
+  items: ["Dashboard", "Settings", "Help", "Exit"],
 });
 
 // Content area
 const content = new Box({
   parent: screen,
   top: 3,
-  left: '30%',
-  width: '70%',
-  height: '100%-6',
-  border: { type: 'line' },
-  label: ' Content ',
+  left: "30%",
+  width: "70%",
+  height: "100%-6",
+  border: { type: "line" },
+  label: " Content ",
   tags: true,
-  content: '{center}Select a menu item{/center}'
+  content: "{center}Select a menu item{/center}",
 });
 
 // Footer
@@ -87,29 +87,32 @@ const footer = new Box({
   parent: screen,
   bottom: 0,
   left: 0,
-  width: '100%',
+  width: "100%",
   height: 3,
-  content: '{center}Press q to quit | Use arrow keys to navigate{/center}',
+  content: "{center}Press q to quit | Use arrow keys to navigate{/center}",
   tags: true,
   style: {
-    fg: 'white',
-    bg: 'blue'
-  }
+    fg: "white",
+    bg: "blue",
+  },
 });
 
 // Handle menu selection
-menu.on('select', (item, index) => {
-  if (index === 3) { // Exit
+menu.on("select", (item, index) => {
+  if (index === 3) {
+    // Exit
     process.exit(0);
   }
 
   const selected = item.getText();
-  content.setContent(`{center}{bold}${selected}{/bold}{/center}\\n\\nThis is the ${selected} page.`);
+  content.setContent(
+    `{center}{bold}${selected}{/bold}{/center}\\n\\nThis is the ${selected} page.`,
+  );
   screen.render();
 });
 
 // Global key handlers
-screen.key(['q', 'C-c'], () => {
+screen.key(["q", "C-c"], () => {
   process.exit(0);
 });
 
@@ -136,8 +139,8 @@ tsx index.ts
 
 ```typescript
 const screen = new Screen({
-  smartCSR: true,  // Smart cursor save/restore
-  title: 'My Dashboard'
+  smartCSR: true, // Smart cursor save/restore
+  title: "My Dashboard",
 });
 ```
 
@@ -149,7 +152,7 @@ Widgets attach to parents using the `parent` option:
 
 ```typescript
 const box = new Box({
-  parent: screen,  // Attach to screen
+  parent: screen, // Attach to screen
   // ... other options
 });
 ```
@@ -187,11 +190,11 @@ Apply colors and borders:
 Listen to events:
 
 ```typescript
-menu.on('select', (item, index) => {
+menu.on("select", (item, index) => {
   // Handle selection
 });
 
-screen.key(['q', 'C-c'], () => {
+screen.key(["q", "C-c"], () => {
   process.exit(0);
 });
 ```

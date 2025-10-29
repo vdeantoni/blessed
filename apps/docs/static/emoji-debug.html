@@ -1,189 +1,204 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XTerm.js Emoji Debug</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css">
-  <style>
-    body {
-      margin: 20px;
-      font-family: system-ui, -apple-system, sans-serif;
-      background: #1e1e1e;
-      color: #d4d4d4;
-    }
-    h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
-    }
-    .test-section {
-      margin: 30px 0;
-      padding: 20px;
-      background: #2d2d2d;
-      border-radius: 8px;
-    }
-    .test-section h2 {
-      font-size: 18px;
-      margin-bottom: 15px;
-      color: #61afef;
-    }
-    #terminal {
-      height: 400px;
-      margin: 20px 0;
-    }
-    .reference {
-      margin-top: 20px;
-      padding: 15px;
-      background: #252525;
-      border-left: 3px solid #0dbc79;
-    }
-    .reference h3 {
-      margin-top: 0;
-      font-size: 14px;
-      color: #0dbc79;
-    }
-    pre {
-      background: #1a1a1a;
-      padding: 10px;
-      border-radius: 4px;
-      overflow-x: auto;
-    }
-    .emoji-row {
-      font-size: 24px;
-      margin: 10px 0;
-      padding: 10px;
-      background: #1a1a1a;
-      border-radius: 4px;
-    }
-  </style>
-</head>
-<body>
-  <h1>🔍 XTerm.js Emoji Rendering Debug</h1>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>XTerm.js Emoji Debug</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css"
+    />
+    <style>
+      body {
+        margin: 20px;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #1e1e1e;
+        color: #d4d4d4;
+      }
+      h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+      .test-section {
+        margin: 30px 0;
+        padding: 20px;
+        background: #2d2d2d;
+        border-radius: 8px;
+      }
+      .test-section h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+        color: #61afef;
+      }
+      #terminal {
+        height: 400px;
+        margin: 20px 0;
+      }
+      .reference {
+        margin-top: 20px;
+        padding: 15px;
+        background: #252525;
+        border-left: 3px solid #0dbc79;
+      }
+      .reference h3 {
+        margin-top: 0;
+        font-size: 14px;
+        color: #0dbc79;
+      }
+      pre {
+        background: #1a1a1a;
+        padding: 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+      }
+      .emoji-row {
+        font-size: 24px;
+        margin: 10px 0;
+        padding: 10px;
+        background: #1a1a1a;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🔍 XTerm.js Emoji Rendering Debug</h1>
 
-  <div class="test-section">
-    <h2>Reference: Browser DOM Rendering (should work)</h2>
-    <div class="emoji-row">
-      💬 Speech balloon | 🤖 Robot face | ✓ Checkmark | ✨ Sparkles | 📁 Folder | 🚀 Rocket
+    <div class="test-section">
+      <h2>Reference: Browser DOM Rendering (should work)</h2>
+      <div class="emoji-row">
+        💬 Speech balloon | 🤖 Robot face | ✓ Checkmark | ✨ Sparkles | 📁
+        Folder | 🚀 Rocket
+      </div>
+      <div class="emoji-row">
+        Box-drawing: ━━━━━━━━━━ │ Vertical │ ┌─────┐ └─────┘
+      </div>
     </div>
-    <div class="emoji-row">
-      Box-drawing: ━━━━━━━━━━ │ Vertical │ ┌─────┐ └─────┘
+
+    <div class="test-section">
+      <h2>Test 1: XTerm.js Default Configuration</h2>
+      <div id="terminal1"></div>
     </div>
-  </div>
 
-  <div class="test-section">
-    <h2>Test 1: XTerm.js Default Configuration</h2>
-    <div id="terminal1"></div>
-  </div>
+    <div class="test-section">
+      <h2>Test 2: XTerm.js with Emoji Fonts</h2>
+      <div id="terminal2"></div>
+    </div>
 
-  <div class="test-section">
-    <h2>Test 2: XTerm.js with Emoji Fonts</h2>
-    <div id="terminal2"></div>
-  </div>
+    <div class="test-section">
+      <h2>Test 3: XTerm.js with Unicode11 Addon</h2>
+      <div id="terminal3"></div>
+    </div>
 
-  <div class="test-section">
-    <h2>Test 3: XTerm.js with Unicode11 Addon</h2>
-    <div id="terminal3"></div>
-  </div>
+    <div class="test-section">
+      <h2>Test 4: XTerm.js with Noto Color Emoji (CDN)</h2>
+      <div id="terminal4"></div>
+    </div>
 
-  <div class="test-section">
-    <h2>Test 4: XTerm.js with Noto Color Emoji (CDN)</h2>
-    <div id="terminal4"></div>
-  </div>
+    <div class="reference">
+      <h3>Expected Behavior</h3>
+      <p>
+        If emojis render correctly, you should see the actual emoji glyphs in
+        the terminals above.
+      </p>
+      <p>
+        If you see "??" or boxes, then xterm.js has limitations with emoji
+        rendering.
+      </p>
+    </div>
 
-  <div class="reference">
-    <h3>Expected Behavior</h3>
-    <p>If emojis render correctly, you should see the actual emoji glyphs in the terminals above.</p>
-    <p>If you see "??" or boxes, then xterm.js has limitations with emoji rendering.</p>
-  </div>
+    <script type="module">
+      import { Terminal } from "https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm";
+      import { Unicode11Addon } from "https://cdn.jsdelivr.net/npm/@xterm/addon-unicode11@0.8.0/+esm";
 
-  <script type="module">
-    import { Terminal } from 'https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm';
-    import { Unicode11Addon } from 'https://cdn.jsdelivr.net/npm/@xterm/addon-unicode11@0.8.0/+esm';
+      const testContent = [
+        "\x1b[1;36m=== Emoji Test ===\x1b[0m",
+        "💬 Speech balloon",
+        "🤖 Robot face",
+        "✓ Checkmark",
+        "✨ Sparkles",
+        "📁 Folder",
+        "🚀 Rocket",
+        "",
+        "\x1b[1;36m=== Box Drawing ===\x1b[0m",
+        "━━━━━━━━━━━━━━━━━━━━",
+        "│ Vertical lines    │",
+        "┌─────────────────┐",
+        "└─────────────────┘",
+      ];
 
-    const testContent = [
-      '\x1b[1;36m=== Emoji Test ===\x1b[0m',
-      '💬 Speech balloon',
-      '🤖 Robot face',
-      '✓ Checkmark',
-      '✨ Sparkles',
-      '📁 Folder',
-      '🚀 Rocket',
-      '',
-      '\x1b[1;36m=== Box Drawing ===\x1b[0m',
-      '━━━━━━━━━━━━━━━━━━━━',
-      '│ Vertical lines    │',
-      '┌─────────────────┐',
-      '└─────────────────┘',
-    ];
+      // Test 1: Default configuration
+      const term1 = new Terminal({
+        rows: 20,
+        cols: 40,
+        allowProposedApi: true,
+      });
+      term1.open(document.getElementById("terminal1"));
+      testContent.forEach((line) => term1.writeln(line));
 
-    // Test 1: Default configuration
-    const term1 = new Terminal({
-      rows: 20,
-      cols: 40,
-      allowProposedApi: true,
-    });
-    term1.open(document.getElementById('terminal1'));
-    testContent.forEach(line => term1.writeln(line));
+      // Test 2: With emoji fonts
+      const term2 = new Terminal({
+        rows: 20,
+        cols: 40,
+        allowProposedApi: true,
+        fontFamily:
+          'Monaco, Menlo, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", monospace',
+      });
+      term2.open(document.getElementById("terminal2"));
+      testContent.forEach((line) => term2.writeln(line));
 
-    // Test 2: With emoji fonts
-    const term2 = new Terminal({
-      rows: 20,
-      cols: 40,
-      allowProposedApi: true,
-      fontFamily: 'Monaco, Menlo, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", monospace',
-    });
-    term2.open(document.getElementById('terminal2'));
-    testContent.forEach(line => term2.writeln(line));
+      // Test 3: With Unicode11 addon
+      const term3 = new Terminal({
+        rows: 20,
+        cols: 40,
+        allowProposedApi: true,
+        fontFamily:
+          'Monaco, Menlo, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", monospace',
+      });
+      term3.open(document.getElementById("terminal3"));
+      const unicode11 = new Unicode11Addon();
+      term3.loadAddon(unicode11);
+      if (term3.unicode.versions.includes("11")) {
+        term3.unicode.activeVersion = "11";
+      }
+      testContent.forEach((line) => term3.writeln(line));
 
-    // Test 3: With Unicode11 addon
-    const term3 = new Terminal({
-      rows: 20,
-      cols: 40,
-      allowProposedApi: true,
-      fontFamily: 'Monaco, Menlo, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", monospace',
-    });
-    term3.open(document.getElementById('terminal3'));
-    const unicode11 = new Unicode11Addon();
-    term3.loadAddon(unicode11);
-    if (term3.unicode.versions.includes('11')) {
-      term3.unicode.activeVersion = '11';
-    }
-    testContent.forEach(line => term3.writeln(line));
+      // Test 4: With Noto Color Emoji from CDN
+      const term4 = new Terminal({
+        rows: 20,
+        cols: 40,
+        allowProposedApi: true,
+        fontFamily: '"Noto Color Emoji", Monaco, Menlo, monospace',
+      });
+      term4.open(document.getElementById("terminal4"));
+      const unicode11_4 = new Unicode11Addon();
+      term4.loadAddon(unicode11_4);
+      if (term4.unicode.versions.includes("11")) {
+        term4.unicode.activeVersion = "11";
+      }
+      testContent.forEach((line) => term4.writeln(line));
 
-    // Test 4: With Noto Color Emoji from CDN
-    const term4 = new Terminal({
-      rows: 20,
-      cols: 40,
-      allowProposedApi: true,
-      fontFamily: '"Noto Color Emoji", Monaco, Menlo, monospace',
-    });
-    term4.open(document.getElementById('terminal4'));
-    const unicode11_4 = new Unicode11Addon();
-    term4.loadAddon(unicode11_4);
-    if (term4.unicode.versions.includes('11')) {
-      term4.unicode.activeVersion = '11';
-    }
-    testContent.forEach(line => term4.writeln(line));
-
-    // Log terminal info
-    console.log('Terminal 1 (default):', {
-      fontFamily: term1.options.fontFamily,
-      unicode: term1.unicode.activeVersion
-    });
-    console.log('Terminal 2 (emoji fonts):', {
-      fontFamily: term2.options.fontFamily,
-      unicode: term2.unicode.activeVersion
-    });
-    console.log('Terminal 3 (unicode11):', {
-      fontFamily: term3.options.fontFamily,
-      unicode: term3.unicode.activeVersion,
-      versions: term3.unicode.versions
-    });
-    console.log('Terminal 4 (noto):', {
-      fontFamily: term4.options.fontFamily,
-      unicode: term4.unicode.activeVersion,
-      versions: term4.unicode.versions
-    });
-  </script>
-</body>
+      // Log terminal info
+      console.log("Terminal 1 (default):", {
+        fontFamily: term1.options.fontFamily,
+        unicode: term1.unicode.activeVersion,
+      });
+      console.log("Terminal 2 (emoji fonts):", {
+        fontFamily: term2.options.fontFamily,
+        unicode: term2.unicode.activeVersion,
+      });
+      console.log("Terminal 3 (unicode11):", {
+        fontFamily: term3.options.fontFamily,
+        unicode: term3.unicode.activeVersion,
+        versions: term3.unicode.versions,
+      });
+      console.log("Terminal 4 (noto):", {
+        fontFamily: term4.options.fontFamily,
+        unicode: term4.unicode.activeVersion,
+        versions: term4.unicode.versions,
+      });
+    </script>
+  </body>
 </html>

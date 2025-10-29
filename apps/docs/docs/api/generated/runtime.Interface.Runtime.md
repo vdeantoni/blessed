@@ -6,9 +6,11 @@ Complete runtime abstraction interface
 All @unblessed/core modules accept this interface for platform operations
 
 Core APIs (always required):
+
 - fs, path, process, buffer, url, utils
 
 Optional APIs (use feature detection):
+
 - images: PNG/GIF rendering (only needed by Image widgets)
 - processes: Child process spawning (Terminal widget, image tools)
 - networking: Network and TTY operations (GPM mouse - very rare)
@@ -23,7 +25,7 @@ Defined in: [packages/core/src/runtime.ts:117](https://github.com/vdeantoni/unbl
 
 File system operations
 
-***
+---
 
 ### path
 
@@ -33,7 +35,7 @@ Defined in: [packages/core/src/runtime.ts:119](https://github.com/vdeantoni/unbl
 
 Path manipulation operations
 
-***
+---
 
 ### process
 
@@ -43,7 +45,7 @@ Defined in: [packages/core/src/runtime.ts:121](https://github.com/vdeantoni/unbl
 
 Process operations (stdin/stdout/env/etc)
 
-***
+---
 
 ### buffer
 
@@ -53,7 +55,7 @@ Defined in: [packages/core/src/runtime.ts:123](https://github.com/vdeantoni/unbl
 
 Buffer operations
 
-***
+---
 
 ### url
 
@@ -63,7 +65,7 @@ Defined in: [packages/core/src/runtime.ts:125](https://github.com/vdeantoni/unbl
 
 URL operations (fileURLToPath for module resolution)
 
-***
+---
 
 ### utils
 
@@ -73,7 +75,7 @@ Defined in: [packages/core/src/runtime.ts:127](https://github.com/vdeantoni/unbl
 
 Utility functions and streams
 
-***
+---
 
 ### images?
 
@@ -83,7 +85,7 @@ Defined in: [packages/core/src/runtime.ts:134](https://github.com/vdeantoni/unbl
 
 Image processing (PNG/GIF rendering) - Optional
 
-***
+---
 
 ### processes?
 
@@ -93,7 +95,7 @@ Defined in: [packages/core/src/runtime.ts:136](https://github.com/vdeantoni/unbl
 
 Process spawning - Optional
 
-***
+---
 
 ### networking?
 

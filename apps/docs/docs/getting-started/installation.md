@@ -33,7 +33,7 @@ npm install @unblessed/browser xterm @xterm/addon-fit
 You'll also need to include the XTerm.js CSS:
 
 ```javascript
-import 'xterm/css/xterm.css';
+import "xterm/css/xterm.css";
 ```
 
 ## blessed Compatibility Layer
@@ -65,17 +65,17 @@ Create a simple test file:
 
 ```typescript
 // test.ts
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 const screen = new Screen();
 const box = new Box({
   parent: screen,
-  content: 'It works!',
-  width: '50%',
-  height: '50%',
-  top: 'center',
-  left: 'center',
-  border: { type: 'line' }
+  content: "It works!",
+  width: "50%",
+  height: "50%",
+  top: "center",
+  left: "center",
+  border: { type: "line" },
 });
 
 screen.render();

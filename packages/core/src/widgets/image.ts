@@ -7,8 +7,8 @@
  */
 
 import type { ImageOptions } from "../types";
-import Box from "./box.js";
 import ANSIImage from "./ansiimage.js";
+import Box from "./box.js";
 import OverlayImage from "./overlayimage.js";
 
 /**

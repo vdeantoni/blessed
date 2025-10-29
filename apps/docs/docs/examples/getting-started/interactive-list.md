@@ -9,61 +9,57 @@ Create an interactive list widget with keyboard and mouse support.
 ## Code
 
 ```typescript
-import { Screen, List, Box } from '@unblessed/node';
+import { Screen, List, Box } from "@unblessed/node";
 
 const screen = new Screen({ smartCSR: true });
 
 const list = new List({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  label: ' {bold}{cyan-fg}Menu{/cyan-fg}{/bold} ',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  label: " {bold}{cyan-fg}Menu{/cyan-fg}{/bold} ",
   tags: true,
-  keys: true,    // Enable keyboard navigation
-  vi: true,      // Enable vi-style keys (j/k)
-  mouse: true,   // Enable mouse selection
+  keys: true, // Enable keyboard navigation
+  vi: true, // Enable vi-style keys (j/k)
+  mouse: true, // Enable mouse selection
   border: {
-    type: 'line'
+    type: "line",
   },
   style: {
-    fg: 'white',
-    border: { fg: 'cyan' },
+    fg: "white",
+    border: { fg: "cyan" },
     selected: {
-      bg: 'cyan',
-      fg: 'black'
-    }
+      bg: "cyan",
+      fg: "black",
+    },
   },
-  items: [
-    'Option 1',
-    'Option 2',
-    'Option 3',
-    'Option 4',
-    'Option 5'
-  ]
+  items: ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"],
 });
 
 const statusBox = new Box({
   parent: screen,
   top: 3,
-  left: 'center',
-  width: '50%',
+  left: "center",
+  width: "50%",
   height: 3,
-  content: 'Select an item with arrow keys or mouse',
+  content: "Select an item with arrow keys or mouse",
   tags: true,
   style: {
-    fg: 'yellow'
-  }
+    fg: "yellow",
+  },
 });
 
-list.on('select', (item, index) => {
-  statusBox.setContent(`{bold}Selected:{/bold} ${item.getText()} (index: ${index})`);
+list.on("select", (item, index) => {
+  statusBox.setContent(
+    `{bold}Selected:{/bold} ${item.getText()} (index: ${index})`,
+  );
   screen.render();
 });
 
 list.focus();
-screen.key(['q', 'C-c'], () => process.exit(0));
+screen.key(["q", "C-c"], () => process.exit(0));
 screen.render();
 ```
 
@@ -74,15 +70,18 @@ Visit the [Home Page](/) and select "Interactive List" from the examples to try 
 ## Key Features
 
 ### Input Handling
+
 - `keys: true` - Arrow key navigation
 - `vi: true` - Vi-style j/k navigation
 - `mouse: true` - Click to select
 
 ### Events
+
 - `select` event - Fires when item is selected
 - Returns selected item and index
 
 ### Styling Selected Items
+
 ```typescript
 style: {
   selected: {

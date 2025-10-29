@@ -4,9 +4,9 @@
  * Tests the VRT infrastructure itself (recorder, player, comparator).
  */
 
-import { describe, it, expect } from "vitest";
-import { Screen, Box } from "@unblessed/core";
-import { VRTRecorder, VRTPlayer, VRTComparator } from "../src/index.js";
+import { Box, Screen } from "@unblessed/core";
+import { describe, expect, it } from "vitest";
+import { VRTComparator, VRTPlayer, VRTRecorder } from "../src/index.js";
 
 describe("VRT Infrastructure", () => {
   describe("VRTRecorder", () => {

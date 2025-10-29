@@ -21,9 +21,9 @@
 
 import alias from "./alias.js";
 import {
-  getRuntime,
-  getEnvVar,
   getDataPath,
+  getEnvVar,
+  getRuntime,
   Runtime,
   type BufferType,
 } from "./runtime-helpers.js";
@@ -3149,4 +3149,4 @@ Tput.utoa = Tput.prototype.utoa = {
  */
 
 export default Tput;
-export { Tput, sprintf, tryRead };
+export { sprintf, Tput, tryRead };

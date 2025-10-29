@@ -73,7 +73,7 @@ class Element extends Node {
 
   // Content
   content: string;
-  tags: boolean;  // Enable tag parsing
+  tags: boolean; // Enable tag parsing
 
   // Methods
   render(): void;
@@ -91,22 +91,22 @@ class Element extends Node {
 The fundamental rectangular widget:
 
 ```typescript
-import { Box } from '@unblessed/node';
+import { Box } from "@unblessed/node";
 
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello {bold}World{/bold}!',
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello {bold}World{/bold}!",
   tags: true,
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    fg: 'white',
-    bg: 'blue',
-    border: { fg: 'cyan' }
-  }
+    fg: "white",
+    bg: "blue",
+    border: { fg: "cyan" },
+  },
 });
 ```
 
@@ -117,27 +117,27 @@ const box = new Box({
 Interactive scrollable list:
 
 ```typescript
-import { List } from '@unblessed/node';
+import { List } from "@unblessed/node";
 
 const list = new List({
   parent: screen,
   top: 0,
   left: 0,
-  width: '100%',
-  height: '100%',
-  items: ['Item 1', 'Item 2', 'Item 3'],
-  keys: true,      // Arrow key navigation
-  vi: true,        // Vim bindings (j/k)
-  mouse: true,     // Mouse support
+  width: "100%",
+  height: "100%",
+  items: ["Item 1", "Item 2", "Item 3"],
+  keys: true, // Arrow key navigation
+  vi: true, // Vim bindings (j/k)
+  mouse: true, // Mouse support
   style: {
     selected: {
-      bg: 'cyan',
-      fg: 'black'
-    }
-  }
+      bg: "cyan",
+      fg: "black",
+    },
+  },
 });
 
-list.on('select', (item, index) => {
+list.on("select", (item, index) => {
   console.log(`Selected: ${item.getText()}`);
 });
 ```
@@ -149,25 +149,25 @@ list.on('select', (item, index) => {
 Tabular data display:
 
 ```typescript
-import { Table } from '@unblessed/node';
+import { Table } from "@unblessed/node";
 
 const table = new Table({
   parent: screen,
   top: 0,
   left: 0,
-  width: '100%',
-  height: '100%',
+  width: "100%",
+  height: "100%",
   data: [
-    ['Name', 'Age', 'City'],
-    ['Alice', '30', 'New York'],
-    ['Bob', '25', 'London'],
-    ['Carol', '35', 'Tokyo']
+    ["Name", "Age", "City"],
+    ["Alice", "30", "New York"],
+    ["Bob", "25", "London"],
+    ["Carol", "35", "Tokyo"],
   ],
-  border: { type: 'line' },
+  border: { type: "line" },
   style: {
-    header: { fg: 'blue', bold: true },
-    cell: { fg: 'white' }
-  }
+    header: { fg: "blue", bold: true },
+    cell: { fg: "white" },
+  },
 });
 ```
 
@@ -178,37 +178,37 @@ const table = new Table({
 Container for input widgets:
 
 ```typescript
-import { Form, Textbox, Button } from '@unblessed/node';
+import { Form, Textbox, Button } from "@unblessed/node";
 
 const form = new Form({
   parent: screen,
   keys: true,
-  mouse: true
+  mouse: true,
 });
 
 const nameInput = new Textbox({
   parent: form,
-  name: 'name',
-  label: 'Name:',
+  name: "name",
+  label: "Name:",
   top: 0,
   left: 0,
-  width: '100%',
-  height: 3
+  width: "100%",
+  height: 3,
 });
 
 const submitButton = new Button({
   parent: form,
-  content: 'Submit',
+  content: "Submit",
   top: 4,
   left: 0,
-  height: 3
+  height: 3,
 });
 
-form.on('submit', (data) => {
-  console.log('Form data:', data);
+form.on("submit", (data) => {
+  console.log("Form data:", data);
 });
 
-submitButton.on('press', () => {
+submitButton.on("press", () => {
   form.submit();
 });
 ```
@@ -220,28 +220,28 @@ submitButton.on('press', () => {
 Text input widgets:
 
 ```typescript
-import { Textbox, Textarea } from '@unblessed/node';
+import { Textbox, Textarea } from "@unblessed/node";
 
 // Single-line input
 const textbox = new Textbox({
   parent: screen,
-  label: 'Username:',
+  label: "Username:",
   inputOnFocus: true,
   keys: true,
-  mouse: true
+  mouse: true,
 });
 
 // Multi-line input
 const textarea = new Textarea({
   parent: screen,
-  label: 'Description:',
+  label: "Description:",
   inputOnFocus: true,
   keys: true,
-  mouse: true
+  mouse: true,
 });
 
-textbox.on('submit', (value) => {
-  console.log('Entered:', value);
+textbox.on("submit", (value) => {
+  console.log("Entered:", value);
 });
 ```
 
@@ -252,25 +252,25 @@ textbox.on('submit', (value) => {
 Clickable button:
 
 ```typescript
-import { Button } from '@unblessed/node';
+import { Button } from "@unblessed/node";
 
 const button = new Button({
   parent: screen,
-  content: 'Click Me',
-  top: 'center',
-  left: 'center',
+  content: "Click Me",
+  top: "center",
+  left: "center",
   width: 20,
   height: 3,
   mouse: true,
   style: {
-    bg: 'green',
-    fg: 'white',
-    focus: { bg: 'cyan' }
-  }
+    bg: "green",
+    fg: "white",
+    focus: { bg: "cyan" },
+  },
 });
 
-button.on('press', () => {
-  console.log('Button clicked!');
+button.on("press", () => {
+  console.log("Button clicked!");
 });
 ```
 
@@ -281,16 +281,16 @@ button.on('press', () => {
 Progress indicator:
 
 ```typescript
-import { ProgressBar } from '@unblessed/node';
+import { ProgressBar } from "@unblessed/node";
 
 const progress = new ProgressBar({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
+  top: "center",
+  left: "center",
+  width: "50%",
   height: 3,
   filled: 0,
-  style: { bar: { bg: 'cyan' } }
+  style: { bar: { bg: "cyan" } },
 });
 
 let value = 0;
@@ -320,13 +320,13 @@ interface WidgetOptions {
   children?: Node[];
 
   // Position (numbers or strings)
-  top?: number | string;     // 0, '50%', 'center'
+  top?: number | string; // 0, '50%', 'center'
   left?: number | string;
   right?: number | string;
   bottom?: number | string;
 
   // Size
-  width?: number | string;   // 50, '50%', 'shrink'
+  width?: number | string; // 50, '50%', 'shrink'
   height?: number | string;
 
   // Visual
@@ -336,7 +336,7 @@ interface WidgetOptions {
 
   // Content
   content?: string;
-  tags?: boolean;            // Enable {bold}, {red-fg}, etc.
+  tags?: boolean; // Enable {bold}, {red-fg}, etc.
   label?: string;
 
   // Behavior
@@ -444,15 +444,17 @@ Enable rich content formatting with `tags: true`:
 ```typescript
 const box = new Box({
   parent: screen,
-  content: '{bold}Bold text{/bold}\n' +
-           '{red-fg}Red text{/red-fg}\n' +
-           '{blue-bg}Blue background{/blue-bg}\n' +
-           '{center}Centered{/center}',
-  tags: true
+  content:
+    "{bold}Bold text{/bold}\n" +
+    "{red-fg}Red text{/red-fg}\n" +
+    "{blue-bg}Blue background{/blue-bg}\n" +
+    "{center}Centered{/center}",
+  tags: true,
 });
 ```
 
 **Available tags**:
+
 - Style: `{bold}`, `{underline}`, `{blink}`, `{inverse}`
 - Colors: `{red-fg}`, `{blue-bg}`, `{#ff0000-fg}`
 - Alignment: `{left}`, `{center}`, `{right}`
@@ -463,16 +465,16 @@ const box = new Box({
 Extend existing widgets to create custom ones:
 
 ```typescript
-import { Box, type BoxOptions } from '@unblessed/node';
+import { Box, type BoxOptions } from "@unblessed/node";
 
 export interface StatusBoxOptions extends BoxOptions {
-  status?: 'success' | 'error' | 'warning';
+  status?: "success" | "error" | "warning";
 }
 
 export class StatusBox extends Box {
   constructor(options: StatusBoxOptions = {}) {
     super(options);
-    this.type = 'statusbox';
+    this.type = "statusbox";
 
     // Set colors based on status
     if (options.status) {
@@ -480,11 +482,11 @@ export class StatusBox extends Box {
     }
   }
 
-  setStatus(status: 'success' | 'error' | 'warning') {
+  setStatus(status: "success" | "error" | "warning") {
     const colors = {
-      success: { fg: 'green', border: 'green' },
-      error: { fg: 'red', border: 'red' },
-      warning: { fg: 'yellow', border: 'yellow' }
+      success: { fg: "green", border: "green" },
+      error: { fg: "red", border: "red" },
+      warning: { fg: "yellow", border: "yellow" },
     };
 
     const color = colors[status];
@@ -498,9 +500,9 @@ export class StatusBox extends Box {
 // Usage
 const status = new StatusBox({
   parent: screen,
-  status: 'success',
-  content: 'Operation completed successfully!',
-  border: { type: 'line' }
+  status: "success",
+  content: "Operation completed successfully!",
+  border: { type: "line" },
 });
 ```
 
@@ -519,13 +521,15 @@ Understanding widget lifecycle helps with proper resource management:
 7. **Destruction**: Resources cleaned up
 
 ```typescript
-const box = new Box({ /* options */ });  // 1. Construction
-box.attach(parent);                       // 2. Attachment
-screen.render();                          // 3. Rendering
-box.on('click', handler);                 // 4. Events
-box.setContent('new content');            // 5. Updates
-box.detach();                             // 6. Detachment
-box.destroy();                            // 7. Destruction
+const box = new Box({
+  /* options */
+}); // 1. Construction
+box.attach(parent); // 2. Attachment
+screen.render(); // 3. Rendering
+box.on("click", handler); // 4. Events
+box.setContent("new content"); // 5. Updates
+box.detach(); // 6. Detachment
+box.destroy(); // 7. Destruction
 ```
 
 ## Best Practices
@@ -545,14 +549,14 @@ screen.append(box);
 
 ```typescript
 // ✅ Efficient
-box.setContent('Line 1');
-box.style.fg = 'cyan';
-screen.render();  // Single render
+box.setContent("Line 1");
+box.style.fg = "cyan";
+screen.render(); // Single render
 
 // ❌ Inefficient
-box.setContent('Line 1');
+box.setContent("Line 1");
 screen.render();
-box.style.fg = 'cyan';
+box.style.fg = "cyan";
 screen.render();
 ```
 

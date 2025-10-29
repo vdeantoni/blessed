@@ -23,31 +23,31 @@ yarn add @unblessed/browser xterm
 ```html
 <!DOCTYPE html>
 <html>
-<head>
-  <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
-</head>
-<body>
-  <div id="terminal"></div>
-  <script type="module" src="./app.js"></script>
-</body>
+  <head>
+    <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
+  </head>
+  <body>
+    <div id="terminal"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
 </html>
 ```
 
 ### JavaScript/TypeScript
 
 ```typescript
-import { Terminal } from 'xterm';
-import { FitAddon } from '@xterm/addon-fit';
-import { Screen, Box } from '@unblessed/browser';
+import { Terminal } from "xterm";
+import { FitAddon } from "@xterm/addon-fit";
+import { Screen, Box } from "@unblessed/browser";
 
 // Create XTerm terminal
 const term = new Terminal({
   cursorBlink: false,
   fontSize: 14,
   theme: {
-    background: '#1e1e1e',
-    foreground: '#d4d4d4'
-  }
+    background: "#1e1e1e",
+    foreground: "#d4d4d4",
+  },
 });
 
 // Add fit addon
@@ -55,7 +55,7 @@ const fitAddon = new FitAddon();
 term.loadAddon(fitAddon);
 
 // Open terminal in DOM
-term.open(document.getElementById('terminal'));
+term.open(document.getElementById("terminal"));
 fitAddon.fit();
 
 // Create unblessed screen with terminal
@@ -64,13 +64,13 @@ const screen = new Screen({ terminal: term });
 // Create widgets
 const box = new Box({
   parent: screen,
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello from Browser!',
-  border: { type: 'line' },
-  style: { border: { fg: 'cyan' } }
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello from Browser!",
+  border: { type: "line" },
+  style: { border: { fg: "cyan" } },
 });
 
 // Render
@@ -82,7 +82,7 @@ screen.render();
 `@unblessed/browser` automatically initializes the browser runtime:
 
 ```typescript
-import { Screen } from '@unblessed/browser';
+import { Screen } from "@unblessed/browser";
 
 // Runtime is automatically initialized with polyfills
 // - File system polyfills with bundled terminfo
@@ -100,8 +100,8 @@ const screen = new Screen({ terminal: term });
 The Screen automatically detects and wraps XTerm.js:
 
 ```typescript
-import { Terminal } from 'xterm';
-import { Screen } from '@unblessed/browser';
+import { Terminal } from "xterm";
+import { Screen } from "@unblessed/browser";
 
 const term = new Terminal();
 term.open(element);
@@ -109,9 +109,9 @@ term.open(element);
 // Screen auto-creates XTermAdapter
 const screen = new Screen({
   terminal: term,
-  smartCSR: true,    // Enabled by default
-  fastCSR: true,     // Enabled by default
-  fullUnicode: true  // Enabled by default
+  smartCSR: true, // Enabled by default
+  fastCSR: true, // Enabled by default
+  fullUnicode: true, // Enabled by default
 });
 ```
 
@@ -123,9 +123,9 @@ Configure XTerm.js terminal:
 const term = new Terminal({
   // Display
   cursorBlink: true,
-  cursorStyle: 'block',
+  cursorStyle: "block",
   fontSize: 14,
-  fontFamily: 'Monaco, monospace',
+  fontFamily: "Monaco, monospace",
 
   // Size
   rows: 24,
@@ -133,17 +133,17 @@ const term = new Terminal({
 
   // Theme
   theme: {
-    background: '#000000',
-    foreground: '#ffffff',
-    cursor: '#ffffff',
-    black: '#000000',
-    red: '#cd0000',
-    green: '#00cd00',
-    yellow: '#cdcd00',
-    blue: '#0000ee',
-    magenta: '#cd00cd',
-    cyan: '#00cdcd',
-    white: '#e5e5e5'
+    background: "#000000",
+    foreground: "#ffffff",
+    cursor: "#ffffff",
+    black: "#000000",
+    red: "#cd0000",
+    green: "#00cd00",
+    yellow: "#cdcd00",
+    blue: "#0000ee",
+    magenta: "#cd00cd",
+    cyan: "#00cdcd",
+    white: "#e5e5e5",
   },
 
   // Scrolling
@@ -151,7 +151,7 @@ const term = new Terminal({
 
   // Selection
   allowTransparency: true,
-  allowProposedApi: true
+  allowProposedApi: true,
 });
 ```
 
@@ -160,9 +160,9 @@ const term = new Terminal({
 Use XTerm.js addons:
 
 ```typescript
-import { FitAddon } from '@xterm/addon-fit';
-import { WebLinksAddon } from '@xterm/addon-web-links';
-import { SearchAddon } from '@xterm/addon-search';
+import { FitAddon } from "@xterm/addon-fit";
+import { WebLinksAddon } from "@xterm/addon-web-links";
+import { SearchAddon } from "@xterm/addon-search";
 
 const fitAddon = new FitAddon();
 const webLinksAddon = new WebLinksAddon();
@@ -186,7 +186,7 @@ Handle window resize:
 const fitAddon = new FitAddon();
 term.loadAddon(fitAddon);
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   fitAddon.fit();
   screen.render();
 });
@@ -197,7 +197,7 @@ window.addEventListener('resize', () => {
 Toggle full screen:
 
 ```typescript
-const container = document.getElementById('terminal');
+const container = document.getElementById("terminal");
 
 function toggleFullScreen() {
   if (!document.fullscreenElement) {
@@ -207,7 +207,7 @@ function toggleFullScreen() {
   }
 }
 
-screen.key('f', toggleFullScreen);
+screen.key("f", toggleFullScreen);
 ```
 
 ### Copy/Paste
@@ -230,14 +230,14 @@ Mouse events work automatically:
 ```typescript
 const box = new Box({
   parent: screen,
-  mouse: true  // Enable mouse
+  mouse: true, // Enable mouse
 });
 
-box.on('click', (data) => {
-  console.log('Clicked at:', data.x, data.y);
+box.on("click", (data) => {
+  console.log("Clicked at:", data.x, data.y);
 });
 
-box.on('wheeldown', () => {
+box.on("wheeldown", () => {
   box.scroll(1);
   screen.render();
 });
@@ -265,10 +265,10 @@ Process polyfill for events:
 
 ```typescript
 // process.env - empty object in browser
-console.log(process.env);  // {}
+console.log(process.env); // {}
 
 // process.platform - always 'browser'
-console.log(process.platform);  // 'browser'
+console.log(process.platform); // 'browser'
 
 // process.exit() - throws error in browser
 // Don't use process.exit() in browser code!
@@ -279,10 +279,10 @@ console.log(process.platform);  // 'browser'
 Full Buffer API via `buffer` package:
 
 ```typescript
-import { Buffer } from 'buffer';
+import { Buffer } from "buffer";
 
-const buf = Buffer.from('Hello');
-console.log(buf.toString());  // 'Hello'
+const buf = Buffer.from("Hello");
+console.log(buf.toString()); // 'Hello'
 ```
 
 ### Streams
@@ -290,11 +290,11 @@ console.log(buf.toString());  // 'Hello'
 Stream polyfills via `stream-browserify`:
 
 ```typescript
-import { Readable, Writable } from 'stream';
+import { Readable, Writable } from "stream";
 
 // Works like Node.js streams
 const readable = new Readable();
-readable.push('data');
+readable.push("data");
 ```
 
 ## Building for Production
@@ -305,23 +305,23 @@ Recommended bundler for browser apps:
 
 ```typescript
 // vite.config.ts
-import { defineConfig } from 'vite';
+import { defineConfig } from "vite";
 
 export default defineConfig({
   resolve: {
     alias: {
-      buffer: 'buffer/',
-      stream: 'stream-browserify',
-      util: 'util/'
-    }
+      buffer: "buffer/",
+      stream: "stream-browserify",
+      util: "util/",
+    },
   },
   define: {
-    'process.env': {},
-    global: 'globalThis'
+    "process.env": {},
+    global: "globalThis",
   },
   optimizeDeps: {
-    include: ['buffer', 'stream-browserify', 'util']
-  }
+    include: ["buffer", "stream-browserify", "util"],
+  },
 });
 ```
 
@@ -334,17 +334,17 @@ Configure webpack:
 module.exports = {
   resolve: {
     fallback: {
-      buffer: require.resolve('buffer/'),
-      stream: require.resolve('stream-browserify'),
-      util: require.resolve('util/')
-    }
+      buffer: require.resolve("buffer/"),
+      stream: require.resolve("stream-browserify"),
+      util: require.resolve("util/"),
+    },
   },
   plugins: [
     new webpack.ProvidePlugin({
-      Buffer: ['buffer', 'Buffer'],
-      process: 'process/browser'
-    })
-  ]
+      Buffer: ["buffer", "Buffer"],
+      process: "process/browser",
+    }),
+  ],
 };
 ```
 
@@ -354,7 +354,7 @@ Optimize bundle size:
 
 ```typescript
 // Only import what you need
-import { Screen, Box, List } from '@unblessed/browser';
+import { Screen, Box, List } from "@unblessed/browser";
 
 // Tree-shaking removes unused widgets
 // Final bundle: ~150KB gzipped (including XTerm.js)
@@ -365,14 +365,14 @@ import { Screen, Box, List } from '@unblessed/browser';
 ### Interactive Dashboard
 
 ```typescript
-import { Terminal } from 'xterm';
-import { FitAddon } from '@xterm/addon-fit';
-import { Screen, Box, List } from '@unblessed/browser';
+import { Terminal } from "xterm";
+import { FitAddon } from "@xterm/addon-fit";
+import { Screen, Box, List } from "@unblessed/browser";
 
 const term = new Terminal();
 const fitAddon = new FitAddon();
 term.loadAddon(fitAddon);
-term.open(document.getElementById('terminal'));
+term.open(document.getElementById("terminal"));
 fitAddon.fit();
 
 const screen = new Screen({ terminal: term });
@@ -381,37 +381,37 @@ const header = new Box({
   parent: screen,
   top: 0,
   left: 0,
-  width: '100%',
+  width: "100%",
   height: 3,
-  content: '{center}{bold}Dashboard{/bold}{/center}',
+  content: "{center}{bold}Dashboard{/bold}{/center}",
   tags: true,
-  style: { bg: 'blue', fg: 'white' }
+  style: { bg: "blue", fg: "white" },
 });
 
 const sidebar = new List({
   parent: screen,
   top: 3,
   left: 0,
-  width: '30%',
-  height: '100%-3',
-  items: ['Overview', 'Analytics', 'Settings'],
+  width: "30%",
+  height: "100%-3",
+  items: ["Overview", "Analytics", "Settings"],
   keys: true,
   mouse: true,
   style: {
-    selected: { bg: 'cyan', fg: 'black' }
-  }
+    selected: { bg: "cyan", fg: "black" },
+  },
 });
 
 const content = new Box({
   parent: screen,
   top: 3,
-  left: '30%',
-  width: '70%',
-  height: '100%-3',
-  border: { type: 'line' }
+  left: "30%",
+  width: "70%",
+  height: "100%-3",
+  border: { type: "line" },
 });
 
-sidebar.on('select', (item) => {
+sidebar.on("select", (item) => {
   content.setContent(`Selected: ${item.getText()}`);
   screen.render();
 });
@@ -423,11 +423,11 @@ screen.render();
 ### Live Code Editor
 
 ```typescript
-import { Terminal } from 'xterm';
-import { Screen, Box, Textbox } from '@unblessed/browser';
+import { Terminal } from "xterm";
+import { Screen, Box, Textbox } from "@unblessed/browser";
 
 const term = new Terminal();
-term.open(document.getElementById('terminal'));
+term.open(document.getElementById("terminal"));
 
 const screen = new Screen({ terminal: term });
 
@@ -435,28 +435,28 @@ const editor = new Textbox({
   parent: screen,
   top: 0,
   left: 0,
-  width: '100%',
-  height: '50%',
-  border: { type: 'line' },
-  label: ' Editor ',
+  width: "100%",
+  height: "50%",
+  border: { type: "line" },
+  label: " Editor ",
   inputOnFocus: true,
   keys: true,
-  mouse: true
+  mouse: true,
 });
 
 const output = new Box({
   parent: screen,
-  top: '50%',
+  top: "50%",
   left: 0,
-  width: '100%',
-  height: '50%',
-  border: { type: 'line' },
-  label: ' Output ',
+  width: "100%",
+  height: "50%",
+  border: { type: "line" },
+  label: " Output ",
   scrollable: true,
-  mouse: true
+  mouse: true,
 });
 
-editor.on('submit', (value) => {
+editor.on("submit", (value) => {
   try {
     const result = eval(value);
     output.setContent(`> ${result}`);
@@ -489,7 +489,7 @@ function scheduleRender() {
 }
 
 // Use instead of direct screen.render()
-box.setContent('Update');
+box.setContent("Update");
 scheduleRender();
 ```
 
@@ -516,7 +516,7 @@ Prevent excessive re-renders:
 ```typescript
 let resizeTimeout: number;
 
-window.addEventListener('resize', () => {
+window.addEventListener("resize", () => {
   clearTimeout(resizeTimeout);
   resizeTimeout = setTimeout(() => {
     fitAddon.fit();
@@ -532,12 +532,12 @@ window.addEventListener('resize', () => {
 Debug to browser console:
 
 ```typescript
-screen.on('keypress', (ch, key) => {
-  console.log('Key:', key);
+screen.on("keypress", (ch, key) => {
+  console.log("Key:", key);
 });
 
-box.on('click', (data) => {
-  console.log('Click:', data);
+box.on("click", (data) => {
+  console.log("Click:", data);
 });
 ```
 
@@ -559,9 +559,9 @@ Use browser DevTools:
 Use Chrome DevTools Performance tab:
 
 ```typescript
-console.time('render');
+console.time("render");
 screen.render();
-console.timeEnd('render');
+console.timeEnd("render");
 ```
 
 ## Limitations
@@ -572,10 +572,10 @@ Can't exit browser:
 
 ```typescript
 // ❌ Don't use
-screen.key('q', () => process.exit(0));
+screen.key("q", () => process.exit(0));
 
 // ✅ Use instead
-screen.key('q', () => {
+screen.key("q", () => {
   screen.destroy();
   term.dispose();
 });
@@ -587,12 +587,12 @@ Limited to bundled files:
 
 ```typescript
 // ❌ Won't work
-fs.readFileSync('./myfile.txt');
+fs.readFileSync("./myfile.txt");
 
 // ✅ Fetch from server instead
-fetch('/api/myfile.txt')
-  .then(res => res.text())
-  .then(data => box.setContent(data));
+fetch("/api/myfile.txt")
+  .then((res) => res.text())
+  .then((data) => box.setContent(data));
 ```
 
 ### No Child Processes
@@ -601,7 +601,7 @@ Can't spawn processes:
 
 ```typescript
 // ❌ Not available
-child_process.spawn('ls');
+child_process.spawn("ls");
 
 // ✅ Use web APIs instead
 // - WebWorkers for background tasks
@@ -620,7 +620,7 @@ function cleanup() {
   term.dispose();
 }
 
-window.addEventListener('beforeunload', cleanup);
+window.addEventListener("beforeunload", cleanup);
 ```
 
 ### 2. Responsive Design
@@ -644,7 +644,7 @@ resizeObserver.observe(container);
 Catch and display errors:
 
 ```typescript
-window.addEventListener('error', (event) => {
+window.addEventListener("error", (event) => {
   errorBox.setContent(`Error: ${event.message}`);
   screen.render();
 });
@@ -659,7 +659,7 @@ const hasClipboard = !!navigator.clipboard;
 const hasFullscreen = !!document.fullscreenEnabled;
 
 if (hasFullscreen) {
-  screen.key('f', toggleFullScreen);
+  screen.key("f", toggleFullScreen);
 }
 ```
 

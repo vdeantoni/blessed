@@ -5,7 +5,7 @@
  * Shows a bright "scanner" moving around the border perimeter.
  */
 
-import { Screen, Box, Text } from "@unblessed/node";
+import { Box, Screen, Text } from "@unblessed/node";
 
 const screen = new Screen({
   smartCSR: true,

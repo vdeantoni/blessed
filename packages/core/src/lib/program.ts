@@ -6,18 +6,18 @@
  * Modules
  */
 
-import Tput from "./tput.js";
 import colors from "./colors.js";
-import { emitKeypressEvents } from "./keys.js";
-import gpmclient from "./gpmclient.js";
-import {
-  getNextTick,
-  getEnvVar,
-  type Runtime,
-  type BufferType,
-  getRuntime,
-} from "./runtime-helpers.js";
 import { EventEmitterBase } from "./event-emitter-base.js";
+import gpmclient from "./gpmclient.js";
+import { emitKeypressEvents } from "./keys.js";
+import {
+  type BufferType,
+  getEnvVar,
+  getNextTick,
+  getRuntime,
+  type Runtime,
+} from "./runtime-helpers.js";
+import Tput from "./tput.js";
 
 /**
  * Program - Low-level terminal I/O, escape sequences, and terminal control.

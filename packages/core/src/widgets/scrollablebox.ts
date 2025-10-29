@@ -6,9 +6,9 @@
  * Modules
  */
 
+import { makeScrollable } from "../mixins/scrollable.js";
 import type { ScrollableBoxOptions } from "../types";
 import Box from "./box.js";
-import { makeScrollable } from "../mixins/scrollable.js";
 
 /**
  * ScrollableBox

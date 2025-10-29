@@ -7,6 +7,7 @@ File system operations interface
 ## Remarks
 
 Subset of Node.js fs module needed by unblessed for:
+
 - Reading terminfo/termcap files
 - Loading font definitions
 - Logging and debugging
@@ -16,13 +17,13 @@ Subset of Node.js fs module needed by unblessed for:
 
 ```typescript
 const runtime = getRuntime();
-const data = runtime.fs.readFileSync('/usr/share/terminfo/x/xterm');
+const data = runtime.fs.readFileSync("/usr/share/terminfo/x/xterm");
 ```
 
 ```typescript
 const runtime = getRuntime();
-if (runtime.fs.existsSync('/path/to/file')) {
-  const content = runtime.fs.readFileSync('/path/to/file', 'utf8');
+if (runtime.fs.existsSync("/path/to/file")) {
+  const content = runtime.fs.readFileSync("/path/to/file", "utf8");
 }
 ```
 
@@ -30,13 +31,13 @@ if (runtime.fs.existsSync('/path/to/file')) {
 
 ### readFileSync()
 
-> **readFileSync**: \{(`path`, `options?`): `Buffer`; (`path`, `options`): `string`; (`path`, `options?`): `string` \| `Buffer`; \}
+> **readFileSync**: \{(`path`, `options?`): `NonSharedBuffer`; (`path`, `options`): `string`; (`path`, `options?`): `string` \| `NonSharedBuffer`; \}
 
 Defined in: [packages/core/src/runtime.ts:166](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L166)
 
 #### Call Signature
 
-> (`path`, `options?`): `Buffer`
+> (`path`, `options?`): `NonSharedBuffer`
 
 Returns the contents of the `path`.
 
@@ -49,14 +50,14 @@ string. Otherwise it returns a buffer.
 Similar to [readFile](#readfile), when the path is a directory, the behavior of `fs.readFileSync()` is platform-specific.
 
 ```js
-import { readFileSync } from 'node:fs';
+import { readFileSync } from "node:fs";
 
 // macOS, Linux, and Windows
-readFileSync('<directory>');
+readFileSync("<directory>");
 // => [Error: EISDIR: illegal operation on a directory, read <directory>]
 
 //  FreeBSD
-readFileSync('<directory>'); // => <data>
+readFileSync("<directory>"); // => <data>
 ```
 
 ##### Parameters
@@ -73,7 +74,7 @@ filename or file descriptor
 
 ##### Returns
 
-`Buffer`
+`NonSharedBuffer`
 
 ##### Since
 
@@ -107,7 +108,7 @@ If a flag is not provided, it defaults to `'r'`.
 
 #### Call Signature
 
-> (`path`, `options?`): `string` \| `Buffer`
+> (`path`, `options?`): `string` \| `NonSharedBuffer`
 
 Synchronously reads the entire contents of a file.
 
@@ -129,13 +130,13 @@ If a flag is not provided, it defaults to `'r'`.
 
 ##### Returns
 
-`string` \| `Buffer`
+`string` \| `NonSharedBuffer`
 
-***
+---
 
 ### readdirSync()
 
-> **readdirSync**: \{(`path`, `options?`): `string`[]; (`path`, `options`): `Buffer`[]; (`path`, `options?`): `string`[] \| `Buffer`[]; (`path`, `options`): `Dirent`\<`string`\>[]; (`path`, `options`): `Dirent`\<`Buffer`\>[]; \}
+> **readdirSync**: \{(`path`, `options?`): `string`[]; (`path`, `options`): `Buffer`\<`ArrayBufferLike`\>[]; (`path`, `options?`): `string`[] \| `Buffer`\<`ArrayBufferLike`\>[]; (`path`, `options`): `Dirent`\<`string`\>[]; (`path`, `options`): `Dirent`\<`Buffer`\<`ArrayBufferLike`\>\>[]; \}
 
 Defined in: [packages/core/src/runtime.ts:167](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L167)
 
@@ -174,7 +175,7 @@ v0.1.21
 
 #### Call Signature
 
-> (`path`, `options`): `Buffer`[]
+> (`path`, `options`): `Buffer`\<`ArrayBufferLike`\>[]
 
 Synchronous readdir(3) - read a directory.
 
@@ -194,11 +195,11 @@ The encoding (or an object specifying the encoding), used as the encoding of the
 
 ##### Returns
 
-`Buffer`[]
+`Buffer`\<`ArrayBufferLike`\>[]
 
 #### Call Signature
 
-> (`path`, `options?`): `string`[] \| `Buffer`[]
+> (`path`, `options?`): `string`[] \| `Buffer`\<`ArrayBufferLike`\>[]
 
 Synchronous readdir(3) - read a directory.
 
@@ -218,7 +219,7 @@ The encoding (or an object specifying the encoding), used as the encoding of the
 
 ##### Returns
 
-`string`[] \| `Buffer`[]
+`string`[] \| `Buffer`\<`ArrayBufferLike`\>[]
 
 #### Call Signature
 
@@ -246,7 +247,7 @@ If called with `withFileTypes: true` the result data will be an array of Dirent.
 
 #### Call Signature
 
-> (`path`, `options`): `Dirent`\<`Buffer`\>[]
+> (`path`, `options`): `Dirent`\<`Buffer`\<`ArrayBufferLike`\>\>[]
 
 Synchronous readdir(3) - read a directory.
 
@@ -276,9 +277,9 @@ Must include `withFileTypes: true` and `encoding: 'buffer'`.
 
 ##### Returns
 
-`Dirent`\<`Buffer`\>[]
+`Dirent`\<`Buffer`\<`ArrayBufferLike`\>\>[]
 
-***
+---
 
 ### existsSync()
 
@@ -295,10 +296,9 @@ this API: exists.
 Node.js callbacks. `fs.existsSync()` does not use a callback.
 
 ```js
-import { existsSync } from 'node:fs';
+import { existsSync } from "node:fs";
 
-if (existsSync('/etc/passwd'))
-  console.log('The path exists.');
+if (existsSync("/etc/passwd")) console.log("The path exists.");
 ```
 
 #### Parameters
@@ -315,7 +315,7 @@ if (existsSync('/etc/passwd'))
 
 v0.1.21
 
-***
+---
 
 ### statSync
 
@@ -323,7 +323,7 @@ v0.1.21
 
 Defined in: [packages/core/src/runtime.ts:169](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L169)
 
-***
+---
 
 ### mkdirSync()
 
@@ -408,7 +408,7 @@ should be created. If a string is passed, it is parsed as an octal integer. If n
 
 `string` \| `undefined`
 
-***
+---
 
 ### createWriteStream()
 
@@ -428,7 +428,7 @@ It is the application's responsibility to close it and make sure there's no
 file descriptor leak.
 
 By default, the stream will emit a `'close'` event after it has been
-destroyed.  Set the `emitClose` option to `false` to change this behavior.
+destroyed. Set the `emitClose` option to `false` to change this behavior.
 
 By providing the `fs` option it is possible to override the corresponding `fs` implementations for `open`, `write`, `writev`, and `close`. Overriding `write()` without `writev()` can reduce
 performance as some optimizations (`_writev()`)
@@ -459,47 +459,47 @@ If `options` is a string, then it specifies the encoding.
 
 v0.1.31
 
-***
+---
 
 ### readFile
 
-> **readFile**: *typeof* `readFile`
+> **readFile**: _typeof_ `readFile`
 
 Defined in: [packages/core/src/runtime.ts:172](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L172)
 
-***
+---
 
 ### unlink
 
-> **unlink**: *typeof* `unlink`
+> **unlink**: _typeof_ `unlink`
 
 Defined in: [packages/core/src/runtime.ts:173](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L173)
 
-***
+---
 
 ### writeFile
 
-> **writeFile**: *typeof* `writeFile`
+> **writeFile**: _typeof_ `writeFile`
 
 Defined in: [packages/core/src/runtime.ts:174](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L174)
 
-***
+---
 
 ### stat
 
-> **stat**: *typeof* `stat`
+> **stat**: _typeof_ `stat`
 
 Defined in: [packages/core/src/runtime.ts:175](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L175)
 
-***
+---
 
 ### readdir
 
-> **readdir**: *typeof* `readdir`
+> **readdir**: _typeof_ `readdir`
 
 Defined in: [packages/core/src/runtime.ts:176](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L176)
 
-***
+---
 
 ### lstatSync
 
@@ -507,11 +507,11 @@ Defined in: [packages/core/src/runtime.ts:176](https://github.com/vdeantoni/unbl
 
 Defined in: [packages/core/src/runtime.ts:177](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L177)
 
-***
+---
 
 ### readlinkSync()
 
-> **readlinkSync**: \{(`path`, `options?`): `string`; (`path`, `options`): `Buffer`; (`path`, `options?`): `string` \| `Buffer`; \}
+> **readlinkSync**: \{(`path`, `options?`): `string`; (`path`, `options`): `Buffer`; (`path`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>; \}
 
 Defined in: [packages/core/src/runtime.ts:178](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L178)
 
@@ -572,7 +572,7 @@ The encoding (or an object specifying the encoding), used as the encoding of the
 
 #### Call Signature
 
-> (`path`, `options?`): `string` \| `Buffer`
+> (`path`, `options?`): `string` \| `Buffer`\<`ArrayBufferLike`\>
 
 Synchronous readlink(2) - read value of a symbolic link.
 
@@ -592,4 +592,4 @@ The encoding (or an object specifying the encoding), used as the encoding of the
 
 ##### Returns
 
-`string` \| `Buffer`
+`string` \| `Buffer`\<`ArrayBufferLike`\>

@@ -12,21 +12,21 @@
  * - Preserves markdown formatting
  */
 
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Directory containing generated docs
-const DOCS_DIR = path.join(__dirname, '../docs/api/generated');
+const DOCS_DIR = path.join(__dirname, "../docs/api/generated");
 
 /**
  * Fix MDX issues in a markdown file
  */
 function fixMdxInFile(filePath) {
-  let content = fs.readFileSync(filePath, 'utf8');
+  let content = fs.readFileSync(filePath, "utf8");
   let modified = false;
 
   // Pattern to find {word} not already in backticks or code blocks
@@ -50,7 +50,7 @@ function fixMdxInFile(filePath) {
   });
 
   if (modified) {
-    fs.writeFileSync(filePath, newContent, 'utf8');
+    fs.writeFileSync(filePath, newContent, "utf8");
     console.log(`✓ Fixed: ${path.relative(DOCS_DIR, filePath)}`);
     return true;
   }
@@ -70,7 +70,7 @@ function processDirectory(dir) {
 
     if (entry.isDirectory()) {
       fixedCount += processDirectory(fullPath);
-    } else if (entry.isFile() && entry.name.endsWith('.md')) {
+    } else if (entry.isFile() && entry.name.endsWith(".md")) {
       if (fixMdxInFile(fullPath)) {
         fixedCount++;
       }
@@ -81,7 +81,7 @@ function processDirectory(dir) {
 }
 
 // Main execution
-console.log('🔧 Fixing MDX issues in generated documentation...\n');
+console.log("🔧 Fixing MDX issues in generated documentation...\n");
 
 if (!fs.existsSync(DOCS_DIR)) {
   console.error(`❌ Directory not found: ${DOCS_DIR}`);

@@ -68,15 +68,13 @@
     "@unblessed/core": "workspace:^"
   },
   "devDependencies": {
-    "@types/node": "24.6.2",
+    "@types/omggif": "^1.0.5",
+    "@types/pngjs": "^6.0.5",
     "@unblessed/core": "workspace:*",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
     "omggif": "^1.0.10",
-    "pngjs": "^7.0.0",
-    "tsup": "8.5.0",
-    "typescript": "5.9.3",
-    "vitest": "^3.2.4"
+    "pngjs": "^7.0.0"
   },
   "engines": {
     "node": ">= 22.0.0"

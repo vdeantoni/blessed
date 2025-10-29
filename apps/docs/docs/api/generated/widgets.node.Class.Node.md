@@ -47,7 +47,7 @@ Defined in: [packages/core/src/lib/events.ts:10](https://github.com/vdeantoni/un
 
 `EventEmitter._events`
 
-***
+---
 
 ### \_maxListeners?
 
@@ -59,7 +59,7 @@ Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/un
 
 `EventEmitter._maxListeners`
 
-***
+---
 
 ### uid
 
@@ -67,7 +67,7 @@ Defined in: [packages/core/src/lib/events.ts:11](https://github.com/vdeantoni/un
 
 Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L30)
 
-***
+---
 
 ### ScreenRegistry
 
@@ -75,7 +75,7 @@ Defined in: [packages/core/src/widgets/node.ts:30](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/widgets/node.ts:31](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L31)
 
-***
+---
 
 ### type
 
@@ -90,7 +90,7 @@ Used to identify the widget type at runtime.
 
 `EventEmitter.type`
 
-***
+---
 
 ### options
 
@@ -98,7 +98,7 @@ Used to identify the widget type at runtime.
 
 Defined in: [packages/core/src/widgets/node.ts:38](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L38)
 
-***
+---
 
 ### screen
 
@@ -113,7 +113,7 @@ Kept as any due to circular dependency between Node and Screen,
 and to preserve access to Screen-specific methods like clearRegion(),
 render(), and the program property without complex generic typing.
 
-***
+---
 
 ### parent
 
@@ -132,7 +132,7 @@ methods from subclasses like Box, List, Form, etc.
 
 `EventEmitter.parent`
 
-***
+---
 
 ### children
 
@@ -145,7 +145,7 @@ Type: Node[] (can contain any Node subclasses)
 
 Kept as any[] to preserve flexibility with mixed widget types.
 
-***
+---
 
 ### $
 
@@ -155,7 +155,7 @@ Defined in: [packages/core/src/widgets/node.ts:68](https://github.com/vdeantoni/
 
 An object for any miscellaneous user data.
 
-***
+---
 
 ### \_
 
@@ -165,7 +165,7 @@ Defined in: [packages/core/src/widgets/node.ts:73](https://github.com/vdeantoni/
 
 An object for any miscellaneous user data.
 
-***
+---
 
 ### data
 
@@ -175,7 +175,7 @@ Defined in: [packages/core/src/widgets/node.ts:78](https://github.com/vdeantoni/
 
 An object for any miscellaneous user data.
 
-***
+---
 
 ### uid
 
@@ -183,7 +183,7 @@ An object for any miscellaneous user data.
 
 Defined in: [packages/core/src/widgets/node.ts:80](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L80)
 
-***
+---
 
 ### index
 
@@ -195,7 +195,7 @@ Render index (document order index) of the last render call.
 Indicates the order in which this element was rendered relative to others.
 Set to -1 initially, updated during rendering.
 
-***
+---
 
 ### detached?
 
@@ -203,7 +203,7 @@ Set to -1 initially, updated during rendering.
 
 Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L87)
 
-***
+---
 
 ### destroyed?
 
@@ -211,7 +211,7 @@ Defined in: [packages/core/src/widgets/node.ts:87](https://github.com/vdeantoni/
 
 Defined in: [packages/core/src/widgets/node.ts:88](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/node.ts#L88)
 
-***
+---
 
 ### runtime
 
@@ -241,7 +241,7 @@ Defined in: [packages/core/src/lib/events.ts:19](https://github.com/vdeantoni/un
 
 `EventEmitter.setMaxListeners`
 
-***
+---
 
 ### addListener()
 
@@ -267,7 +267,7 @@ Defined in: [packages/core/src/lib/events.ts:23](https://github.com/vdeantoni/un
 
 `EventEmitter.addListener`
 
-***
+---
 
 ### on()
 
@@ -293,7 +293,7 @@ Defined in: [packages/core/src/lib/events.ts:34](https://github.com/vdeantoni/un
 
 `EventEmitter.on`
 
-***
+---
 
 ### removeListener()
 
@@ -319,7 +319,7 @@ Defined in: [packages/core/src/lib/events.ts:38](https://github.com/vdeantoni/un
 
 `EventEmitter.removeListener`
 
-***
+---
 
 ### off()
 
@@ -345,7 +345,7 @@ Defined in: [packages/core/src/lib/events.ts:57](https://github.com/vdeantoni/un
 
 `EventEmitter.off`
 
-***
+---
 
 ### removeAllListeners()
 
@@ -367,7 +367,7 @@ Defined in: [packages/core/src/lib/events.ts:61](https://github.com/vdeantoni/un
 
 `EventEmitter.removeAllListeners`
 
-***
+---
 
 ### once()
 
@@ -393,7 +393,7 @@ Defined in: [packages/core/src/lib/events.ts:69](https://github.com/vdeantoni/un
 
 `EventEmitter.once`
 
-***
+---
 
 ### listeners()
 
@@ -415,7 +415,7 @@ Defined in: [packages/core/src/lib/events.ts:79](https://github.com/vdeantoni/un
 
 `EventEmitter.listeners`
 
-***
+---
 
 ### \_emit()
 
@@ -441,7 +441,7 @@ Defined in: [packages/core/src/lib/events.ts:85](https://github.com/vdeantoni/un
 
 `EventEmitter._emit`
 
-***
+---
 
 ### emit()
 
@@ -467,7 +467,7 @@ Defined in: [packages/core/src/lib/events.ts:113](https://github.com/vdeantoni/u
 
 `EventEmitter.emit`
 
-***
+---
 
 ### insert()
 
@@ -491,7 +491,7 @@ Insert a node to this node's children at index i.
 
 `void`
 
-***
+---
 
 ### prepend()
 
@@ -511,7 +511,7 @@ Prepend a node to this node's children.
 
 `void`
 
-***
+---
 
 ### append()
 
@@ -531,7 +531,7 @@ Append a node to this node's children.
 
 `void`
 
-***
+---
 
 ### insertBefore()
 
@@ -555,7 +555,7 @@ Insert a node to this node's children before the reference node.
 
 `void`
 
-***
+---
 
 ### insertAfter()
 
@@ -579,7 +579,7 @@ Insert a node from node after the reference node.
 
 `void`
 
-***
+---
 
 ### remove()
 
@@ -599,7 +599,7 @@ Remove child node from node.
 
 `void`
 
-***
+---
 
 ### detach()
 
@@ -613,7 +613,7 @@ Remove node from its parent.
 
 `void`
 
-***
+---
 
 ### free()
 
@@ -628,7 +628,7 @@ to the screen object. This prevents memory leaks.
 
 `void`
 
-***
+---
 
 ### destroy()
 
@@ -643,7 +643,7 @@ events to prevent memory leaks. For use with onScreenEvent(), removeScreenEvent(
 
 `void`
 
-***
+---
 
 ### forDescendants()
 
@@ -667,7 +667,7 @@ Iterate over all descendants, calling iter(el) for each.
 
 `void`
 
-***
+---
 
 ### forAncestors()
 
@@ -691,7 +691,7 @@ Iterate over all ancestors, calling iter(el) for each.
 
 `void`
 
-***
+---
 
 ### collectDescendants()
 
@@ -711,7 +711,7 @@ Collect all descendants into an array.
 
 `any`[]
 
-***
+---
 
 ### collectAncestors()
 
@@ -731,7 +731,7 @@ Collect all ancestors into an array.
 
 `any`[]
 
-***
+---
 
 ### emitDescendants()
 
@@ -751,7 +751,7 @@ Emit event for element, and recursively emit same event for all descendants.
 
 `void`
 
-***
+---
 
 ### emitAncestors()
 
@@ -771,7 +771,7 @@ Emit event for element, and recursively emit same event for all ancestors.
 
 `void`
 
-***
+---
 
 ### hasDescendant()
 
@@ -791,7 +791,7 @@ Check if target is a descendant of this node.
 
 `boolean`
 
-***
+---
 
 ### hasAncestor()
 
@@ -811,7 +811,7 @@ Check if target is an ancestor of this node.
 
 `boolean`
 
-***
+---
 
 ### get()
 
@@ -835,7 +835,7 @@ Get user property with a potential default value.
 
 `any`
 
-***
+---
 
 ### set()
 

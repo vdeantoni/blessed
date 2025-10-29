@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback, ReactNode } from 'react';
-import './styles.css';
+import React, { ReactNode, useCallback, useEffect, useState } from "react";
+import "./styles.css";
 
 interface Position {
   x: number;
@@ -11,7 +11,7 @@ interface Size {
   height: number;
 }
 
-type ResizeDirection = 'n' | 'ne' | 'e' | 'se' | 's' | 'sw' | 'w' | 'nw';
+type ResizeDirection = "n" | "ne" | "e" | "se" | "s" | "sw" | "w" | "nw";
 
 export interface DraggableResizableBoxProps {
   /** Initial position */
@@ -50,7 +50,7 @@ export default function DraggableResizableBox({
   initialPosition = { x: 0, y: 0 },
   initialSize,
   defaultPosition,
-  className = '',
+  className = "",
   header,
   children,
   draggable = true,
@@ -64,19 +64,28 @@ export default function DraggableResizableBox({
   zIndex = 1,
 }: DraggableResizableBoxProps) {
   const [position, setPosition] = useState<Position>(initialPosition);
-  const [size, setSize] = useState<Size>(initialSize || { width: 0, height: 0 });
+  const [size, setSize] = useState<Size>(
+    initialSize || { width: 0, height: 0 },
+  );
   const [dragging, setDragging] = useState(false);
   const [resizing, setResizing] = useState(false);
-  const [resizeDirection, setResizeDirection] = useState<ResizeDirection | null>(null);
+  const [resizeDirection, setResizeDirection] =
+    useState<ResizeDirection | null>(null);
   const [dragStart, setDragStart] = useState<Position>({ x: 0, y: 0 });
-  const [resizeStart, setResizeStart] = useState<{ pos: Position; size: Size; boxPos: Position }>({
+  const [resizeStart, setResizeStart] = useState<{
+    pos: Position;
+    size: Size;
+    boxPos: Position;
+  }>({
     pos: { x: 0, y: 0 },
     size: { width: 0, height: 0 },
     boxPos: { x: 0, y: 0 },
   });
   const boxRef = React.useRef<HTMLDivElement>(null);
   const [hasInteracted, setHasInteracted] = useState(false);
-  const [absolutePosition, setAbsolutePosition] = useState<Position | null>(null);
+  const [absolutePosition, setAbsolutePosition] = useState<Position | null>(
+    null,
+  );
 
   // Initialize size from parent container when responsive is true
   React.useEffect(() => {
@@ -90,11 +99,52 @@ export default function DraggableResizableBox({
   }, [responsive, hasInteracted]);
 
   // Drag handlers
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    if (!draggable) return;
-    // Check if clicked element is the header or a child of the header
-    if ((e.target as HTMLElement).closest('.drb-header')) {
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent) => {
+      if (!draggable) return;
+      // Check if clicked element is the header or a child of the header
+      if ((e.target as HTMLElement).closest(".drb-header")) {
+        e.preventDefault();
+
+        // Bring to front
+        onFocus?.();
+
+        // If switching from responsive to absolute positioning, capture current position
+        if (responsive && !hasInteracted && boxRef.current) {
+          const rect = boxRef.current.getBoundingClientRect();
+          // Find the closest positioned ancestor (the offset parent for absolute positioning)
+          let offsetParent = boxRef.current.offsetParent as HTMLElement | null;
+
+          if (offsetParent) {
+            const parentRect = offsetParent.getBoundingClientRect();
+            // Position relative to offset parent
+            setAbsolutePosition({
+              x: rect.left - parentRect.left,
+              y: rect.top - parentRect.top,
+            });
+          } else {
+            setAbsolutePosition({
+              x: rect.left,
+              y: rect.top,
+            });
+          }
+          setPosition({ x: 0, y: 0 });
+        }
+
+        setDragging(true);
+        setDragStart({ x: e.clientX, y: e.clientY });
+        setHasInteracted(true);
+      }
+    },
+    [draggable, responsive, hasInteracted, onFocus],
+  );
+
+  // Resize handlers
+  const handleResizeMouseDown = useCallback(
+    (direction: ResizeDirection) => (e: React.MouseEvent) => {
+      if (!resizable) return;
       e.preventDefault();
+      e.stopPropagation();
 
       // Bring to front
       onFocus?.();
@@ -121,52 +171,17 @@ export default function DraggableResizableBox({
         setPosition({ x: 0, y: 0 });
       }
 
-      setDragging(true);
-      setDragStart({ x: e.clientX, y: e.clientY });
+      setResizing(true);
+      setResizeDirection(direction);
+      setResizeStart({
+        pos: { x: e.clientX, y: e.clientY },
+        size: { width: size.width, height: size.height },
+        boxPos: { x: position.x, y: position.y },
+      });
       setHasInteracted(true);
-    }
-  }, [draggable, responsive, hasInteracted, onFocus]);
-
-  // Resize handlers
-  const handleResizeMouseDown = useCallback((direction: ResizeDirection) => (e: React.MouseEvent) => {
-    if (!resizable) return;
-    e.preventDefault();
-    e.stopPropagation();
-
-    // Bring to front
-    onFocus?.();
-
-    // If switching from responsive to absolute positioning, capture current position
-    if (responsive && !hasInteracted && boxRef.current) {
-      const rect = boxRef.current.getBoundingClientRect();
-      // Find the closest positioned ancestor (the offset parent for absolute positioning)
-      let offsetParent = boxRef.current.offsetParent as HTMLElement | null;
-
-      if (offsetParent) {
-        const parentRect = offsetParent.getBoundingClientRect();
-        // Position relative to offset parent
-        setAbsolutePosition({
-          x: rect.left - parentRect.left,
-          y: rect.top - parentRect.top,
-        });
-      } else {
-        setAbsolutePosition({
-          x: rect.left,
-          y: rect.top,
-        });
-      }
-      setPosition({ x: 0, y: 0 });
-    }
-
-    setResizing(true);
-    setResizeDirection(direction);
-    setResizeStart({
-      pos: { x: e.clientX, y: e.clientY },
-      size: { width: size.width, height: size.height },
-      boxPos: { x: position.x, y: position.y },
-    });
-    setHasInteracted(true);
-  }, [resizable, size, position, responsive, hasInteracted, onFocus]);
+    },
+    [resizable, size, position, responsive, hasInteracted, onFocus],
+  );
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -195,10 +210,10 @@ export default function DraggableResizableBox({
         const direction = resizeDirection;
 
         // Horizontal resizing
-        if (direction.includes('e')) {
+        if (direction.includes("e")) {
           // East: expand right
           newSize.width = Math.max(minWidth, resizeStart.size.width + deltaX);
-        } else if (direction.includes('w')) {
+        } else if (direction.includes("w")) {
           // West: expand left (need to move position)
           const newWidth = Math.max(minWidth, resizeStart.size.width - deltaX);
           const widthDelta = newWidth - resizeStart.size.width;
@@ -207,12 +222,18 @@ export default function DraggableResizableBox({
         }
 
         // Vertical resizing
-        if (direction.includes('s')) {
+        if (direction.includes("s")) {
           // South: expand down
-          newSize.height = Math.max(minHeight, resizeStart.size.height + deltaY);
-        } else if (direction.includes('n')) {
+          newSize.height = Math.max(
+            minHeight,
+            resizeStart.size.height + deltaY,
+          );
+        } else if (direction.includes("n")) {
           // North: expand up (need to move position)
-          const newHeight = Math.max(minHeight, resizeStart.size.height - deltaY);
+          const newHeight = Math.max(
+            minHeight,
+            resizeStart.size.height - deltaY,
+          );
           const heightDelta = newHeight - resizeStart.size.height;
           newSize.height = newHeight;
           newPosition.y = resizeStart.boxPos.y - heightDelta;
@@ -232,64 +253,98 @@ export default function DraggableResizableBox({
     };
 
     if (dragging || resizing) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
     }
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [dragging, dragStart, resizing, resizeDirection, resizeStart, position, minWidth, minHeight, onSizeChange, onPositionChange]);
+  }, [
+    dragging,
+    dragStart,
+    resizing,
+    resizeDirection,
+    resizeStart,
+    position,
+    minWidth,
+    minHeight,
+    onSizeChange,
+    onPositionChange,
+  ]);
 
-  const boxStyle: React.CSSProperties = responsive && !hasInteracted
-    ? {
-        transform: `translate(${position.x}px, ${position.y}px)`,
-        transition: (dragging || resizing) ? 'none' : 'transform 0.2s ease',
-        width: '100%',
-        height: '100%',
-        left: defaultPosition?.x ?? 0,
-        top: defaultPosition?.y ?? 0,
-        zIndex,
-      }
-    : {
-        transform: `translate(${position.x}px, ${position.y}px)`,
-        transition: (dragging || resizing) ? 'none' : 'transform 0.2s ease',
-        width: `${size.width}px`,
-        height: `${size.height}px`,
-        left: absolutePosition?.x ?? defaultPosition?.x ?? 0,
-        top: absolutePosition?.y ?? defaultPosition?.y ?? 0,
-        zIndex,
-      };
+  const boxStyle: React.CSSProperties =
+    responsive && !hasInteracted
+      ? {
+          transform: `translate(${position.x}px, ${position.y}px)`,
+          transition: dragging || resizing ? "none" : "transform 0.2s ease",
+          width: "100%",
+          height: "100%",
+          left: defaultPosition?.x ?? 0,
+          top: defaultPosition?.y ?? 0,
+          zIndex,
+        }
+      : {
+          transform: `translate(${position.x}px, ${position.y}px)`,
+          transition: dragging || resizing ? "none" : "transform 0.2s ease",
+          width: `${size.width}px`,
+          height: `${size.height}px`,
+          left: absolutePosition?.x ?? defaultPosition?.x ?? 0,
+          top: absolutePosition?.y ?? defaultPosition?.y ?? 0,
+          zIndex,
+        };
 
   return (
     <div
       ref={boxRef}
-      className={`drb-box ${responsive && !hasInteracted ? 'drb-responsive' : ''} ${className} ${dragging ? 'drb-dragging' : ''} ${resizing ? 'drb-resizing' : ''} ${resizing && resizeDirection ? `drb-resizing-${resizeDirection}` : ''}`}
+      className={`drb-box ${responsive && !hasInteracted ? "drb-responsive" : ""} ${className} ${dragging ? "drb-dragging" : ""} ${resizing ? "drb-resizing" : ""} ${resizing && resizeDirection ? `drb-resizing-${resizeDirection}` : ""}`}
       style={boxStyle}
       onMouseDown={handleMouseDown}
       onClick={() => onFocus?.()}
     >
       {header && (
-        <div className={`drb-header ${draggable ? 'drb-draggable' : ''}`}>
+        <div className={`drb-header ${draggable ? "drb-draggable" : ""}`}>
           {header}
         </div>
       )}
-      <div className="drb-content">
-        {children}
-      </div>
+      <div className="drb-content">{children}</div>
       {resizable && (
         <>
           {/* Corner handles */}
-          <div className="drb-resize-handle drb-resize-nw" onMouseDown={handleResizeMouseDown('nw')} />
-          <div className="drb-resize-handle drb-resize-ne" onMouseDown={handleResizeMouseDown('ne')} />
-          <div className="drb-resize-handle drb-resize-se" onMouseDown={handleResizeMouseDown('se')} />
-          <div className="drb-resize-handle drb-resize-sw" onMouseDown={handleResizeMouseDown('sw')} />
+          <div
+            className="drb-resize-handle drb-resize-nw"
+            onMouseDown={handleResizeMouseDown("nw")}
+          />
+          <div
+            className="drb-resize-handle drb-resize-ne"
+            onMouseDown={handleResizeMouseDown("ne")}
+          />
+          <div
+            className="drb-resize-handle drb-resize-se"
+            onMouseDown={handleResizeMouseDown("se")}
+          />
+          <div
+            className="drb-resize-handle drb-resize-sw"
+            onMouseDown={handleResizeMouseDown("sw")}
+          />
           {/* Edge handles */}
-          <div className="drb-resize-handle drb-resize-n" onMouseDown={handleResizeMouseDown('n')} />
-          <div className="drb-resize-handle drb-resize-e" onMouseDown={handleResizeMouseDown('e')} />
-          <div className="drb-resize-handle drb-resize-s" onMouseDown={handleResizeMouseDown('s')} />
-          <div className="drb-resize-handle drb-resize-w" onMouseDown={handleResizeMouseDown('w')} />
+          <div
+            className="drb-resize-handle drb-resize-n"
+            onMouseDown={handleResizeMouseDown("n")}
+          />
+          <div
+            className="drb-resize-handle drb-resize-e"
+            onMouseDown={handleResizeMouseDown("e")}
+          />
+          <div
+            className="drb-resize-handle drb-resize-s"
+            onMouseDown={handleResizeMouseDown("s")}
+          />
+          <div
+            className="drb-resize-handle drb-resize-w"
+            onMouseDown={handleResizeMouseDown("w")}
+          />
         </>
       )}
     </div>

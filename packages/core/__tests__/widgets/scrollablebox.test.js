@@ -1,6 +1,5 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import ScrollableBox from "../../src/widgets/scrollablebox.js";
-import Box from "../../src/widgets/box.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 describe("ScrollableBox", () => {

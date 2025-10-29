@@ -9,8 +9,8 @@
  * not the actual blessed package. The tests validate type compatibility at compile time.
  */
 
-import { describe, it, expect, expectTypeOf } from "vitest";
 import type * as BlessedOriginal from "blessed";
+import { describe, expect, expectTypeOf, it } from "vitest";
 import * as BlessedTui from "../src/blessed.js";
 
 describe("Type Compatibility with @types/blessed", () => {

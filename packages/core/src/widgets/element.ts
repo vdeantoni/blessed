@@ -7,9 +7,9 @@
  */
 
 import colors from "../lib/colors.js";
-import unicode from "../lib/unicode.js";
 import helpers from "../lib/helpers.js";
-import Node from "./node.js";
+import { getNextTick } from "../lib/runtime-helpers.js";
+import unicode from "../lib/unicode.js";
 import {
   makeScrollable,
   type ScrollableMethods,
@@ -24,7 +24,7 @@ import type {
   Style,
   TrackConfig,
 } from "../types";
-import { getNextTick } from "../lib/runtime-helpers.js";
+import Node from "./node.js";
 
 const nextTick = getNextTick();
 

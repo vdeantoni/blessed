@@ -24,8 +24,6 @@
   transition: opacity 0.3s ease;
 }
 
-
-
 .snippet-card:hover {
   transform: translateY(-4px);
   border-color: rgba(255, 255, 255, 0.4);

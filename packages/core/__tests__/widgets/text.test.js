@@ -1,6 +1,6 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import Text from "../../src/widgets/text.js";
+import { beforeEach, describe, expect, it } from "vitest";
 import Box from "../../src/widgets/box.js";
+import Text from "../../src/widgets/text.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 describe("Text", () => {

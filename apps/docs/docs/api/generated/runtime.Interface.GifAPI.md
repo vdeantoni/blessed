@@ -76,29 +76,29 @@ Defined in: [packages/core/src/runtime.ts:368](https://github.com/vdeantoni/unbl
 
 > **height**: `number`
 
-###### has\_local\_palette
+###### has_local_palette
 
-> **has\_local\_palette**: `boolean`
+> **has_local_palette**: `boolean`
 
-###### palette\_offset
+###### palette_offset
 
-> **palette\_offset**: `number`
+> **palette_offset**: `number`
 
-###### palette\_size
+###### palette_size
 
-> **palette\_size**: `number`
+> **palette_size**: `number`
 
-###### data\_offset
+###### data_offset
 
-> **data\_offset**: `number`
+> **data_offset**: `number`
 
-###### data\_length
+###### data_length
 
-> **data\_length**: `number`
+> **data_length**: `number`
 
-###### transparent\_index
+###### transparent_index
 
-> **transparent\_index**: `number`
+> **transparent_index**: `number`
 
 ###### interlaced
 

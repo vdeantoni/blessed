@@ -1,5 +1,5 @@
-import blessed from "../dist/index.js";
 import util from "util";
+import blessed from "../dist/index.js";
 
 var screen = blessed.screen({
   autoPadding: true,
