@@ -78,7 +78,7 @@ export class BlessedPlayground {
       "\x1b[1;36m╔══════════════════════════════════════════╗\x1b[0m",
     );
     this.terminal.writeln(
-      "\x1b[1;36m║    blessed-browser Interactive Playground    ║\x1b[0m",
+      "\x1b[1;36m║    unblessed-browser Interactive Playground    ║\x1b[0m",
     );
     this.terminal.writeln(
       "\x1b[1;36m╚══════════════════════════════════════════╝\x1b[0m",

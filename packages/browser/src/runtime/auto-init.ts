@@ -89,5 +89,4 @@ if (
 
   // Mark as initialized
   (globalThis as any).__BLESSED_BROWSER_INITIALIZED__ = true;
-  console.log("[blessed-browser] Runtime initialized");
 }

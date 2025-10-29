@@ -2,7 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 /**
  * Playwright configuration for E2E tests
- * Tests blessed-browser in real browsers with xterm.js
+ * Tests unblessed-browser in real browsers with xterm.js
  */
 export default defineConfig({
   testDir: "./__tests__/e2e",
