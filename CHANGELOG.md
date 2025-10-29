@@ -1,3 +1,15 @@
+# [1.0.0-alpha.9](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2025-10-29)
+
+
+### Bug Fixes
+
+* **core:** adjusted label style type ([4ccd77e](https://github.com/vdeantoni/unblessed/commit/4ccd77e05dc115986dd7ce2580a82278814666ae))
+
+
+### Features
+
+* **core:** add enhanced border styling with per-side colors and addressable borders ([98b11fe](https://github.com/vdeantoni/unblessed/commit/98b11fec85582408dec1e58b50d8a825aca73f8c))
+
 # [1.0.0-alpha.8](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2025-10-28)
 
 
