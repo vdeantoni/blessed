@@ -34,6 +34,20 @@ export default function CodeEditor({
         },
       });
 
+      // Add types from @unblessed/browser
+      try {
+        const res = await fetch(
+          "https://unpkg.com/@unblessed/browser/dist/index.d.ts",
+        );
+        const types = await res.text();
+        monaco.languages.typescript.typescriptDefaults.addExtraLib(
+          types,
+          "file:///node_modules/@unblessed/browser/index.d.ts",
+        );
+      } catch (error) {
+        console.error("Failed to fetch @unblessed/browser types:", error);
+      }
+
       // Add Cmd+S / Ctrl+S for format
       editor.addAction({
         id: "format-and-save",
