@@ -356,15 +356,7 @@ const optionsList = new List({
   },
   keys: true,
   mouse: true,
-  items: [
-    "TypeScript",
-    "JavaScript",
-    "Python",
-    "Rust",
-    "Go",
-    "Java",
-    "C++",
-  ],
+  items: ["TypeScript", "JavaScript", "Python", "Rust", "Go", "Java", "C++"],
 });
 
 const listSelectBtn = new Button({

@@ -19,7 +19,8 @@ const title = new Text({
   parent: screen,
   top: 0,
   left: "center",
-  content: "{bold}{cyan-fg}🎨 Per-Side Border Colors & Dim Effects Showcase 🎨{/}",
+  content:
+    "{bold}{cyan-fg}🎨 Per-Side Border Colors & Dim Effects Showcase 🎨{/}",
   tags: true,
 });
 
@@ -30,7 +31,8 @@ const rainbowBox = new Box({
   left: 2,
   width: 35,
   height: 8,
-  content: "{center}{bold}{yellow-fg}🌈 Rainbow Borders{/}\n{center}Each side different color!{/}",
+  content:
+    "{center}{bold}{yellow-fg}🌈 Rainbow Borders{/}\n{center}Each side different color!{/}",
   tags: true,
   padding: 1,
   shadow: true,
@@ -50,7 +52,8 @@ const gradientBox = new Box({
   left: 40,
   width: 35,
   height: 8,
-  content: "{center}{bold}{blue-fg}✨ Dim Gradient{/}\n{center}Top & bottom dimmed{/}",
+  content:
+    "{center}{bold}{blue-fg}✨ Dim Gradient{/}\n{center}Top & bottom dimmed{/}",
   tags: true,
   padding: 1,
   shadow: true,
@@ -72,7 +75,8 @@ const neonBox = new Box({
   left: 2,
   width: 35,
   height: 8,
-  content: "{center}{bold}{magenta-fg}💜 NEON GLOW{/}\n{center}{white-fg}Bright & shadowy{/}",
+  content:
+    "{center}{bold}{magenta-fg}💜 NEON GLOW{/}\n{center}{white-fg}Bright & shadowy{/}",
   tags: true,
   padding: 1,
   shadow: true,
@@ -94,7 +98,8 @@ const sunsetBox = new Box({
   left: 40,
   width: 35,
   height: 8,
-  content: "{center}{bold}{yellow-fg}🌅 Sunset Theme{/}\n{center}Warm colors flowing{/}",
+  content:
+    "{center}{bold}{yellow-fg}🌅 Sunset Theme{/}\n{center}Warm colors flowing{/}",
   tags: true,
   padding: 1,
   shadow: true,
@@ -150,10 +155,10 @@ const bgDimBox = new Box({
   border: {
     type: "bg",
     ch: "▓",
-    topColor: 4,     // blue
-    bottomColor: 4,  // blue
-    leftColor: 6,    // cyan
-    rightColor: 6,   // cyan
+    topColor: 4, // blue
+    bottomColor: 4, // blue
+    leftColor: 6, // cyan
+    rightColor: 6, // cyan
     topDim: true,
     bottomDim: true,
   },
@@ -174,10 +179,10 @@ const verticalCorners = new Box({
   shadow: true,
   border: {
     type: "line",
-    topColor: 3,     // yellow
-    bottomColor: 3,  // yellow
-    leftColor: 6,    // cyan
-    rightColor: 1,   // red
+    topColor: 3, // yellow
+    bottomColor: 3, // yellow
+    leftColor: 6, // cyan
+    rightColor: 1, // red
     cornerColorMode: "vertical", // Corners use left/right colors
   },
 });
@@ -193,10 +198,10 @@ const horizontalCorners = new Box({
   shadow: true,
   border: {
     type: "line",
-    topColor: 3,     // yellow
-    bottomColor: 3,  // yellow
-    leftColor: 6,    // cyan
-    rightColor: 1,   // red
+    topColor: 3, // yellow
+    bottomColor: 3, // yellow
+    leftColor: 6, // cyan
+    rightColor: 1, // red
     cornerColorMode: "horizontal", // Corners use top/bottom colors
   },
 });

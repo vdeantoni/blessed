@@ -75,8 +75,7 @@ const fancyLog = new Log({
   scrollOnInput: true,
   tags: true,
   staticHeader: "{bold}{cyan-bg}{black-fg} Application Logs - v1.0.0 {/}",
-  staticFooter:
-    "{gray-bg}{white-fg} [↑/↓] Scroll | [Q] Quit | Lines: 0 {/}",
+  staticFooter: "{gray-bg}{white-fg} [↑/↓] Scroll | [Q] Quit | Lines: 0 {/}",
 });
 
 // Control panel
@@ -223,8 +222,7 @@ function getWeightedRandom() {
 function generateLogEntry() {
   const timestamp = new Date().toLocaleTimeString();
   const { level, color } = getWeightedRandom();
-  const message =
-    logMessages[Math.floor(Math.random() * logMessages.length)];
+  const message = logMessages[Math.floor(Math.random() * logMessages.length)];
   const reqId = Math.random().toString(36).substring(2, 8);
 
   logCount++;

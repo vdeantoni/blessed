@@ -22,10 +22,10 @@ const lineBox = new Box({
   tags: true,
   border: {
     type: "line",
-    topColor: 6,     // cyan (numeric)
-    bottomColor: 3,  // yellow
-    leftColor: 2,    // green
-    rightColor: 1,   // red
+    topColor: 6, // cyan (numeric)
+    bottomColor: 3, // yellow
+    leftColor: 2, // green
+    rightColor: 1, // red
   },
 });
 
@@ -41,10 +41,10 @@ const bgBox = new Box({
   border: {
     type: "bg",
     ch: "█",
-    topColor: 6,     // cyan
-    bottomColor: 3,  // yellow
-    leftColor: 2,    // green
-    rightColor: 1,   // red
+    topColor: 6, // cyan
+    bottomColor: 3, // yellow
+    leftColor: 2, // green
+    rightColor: 1, // red
   },
 });
 
@@ -59,7 +59,7 @@ const normalBox = new Box({
   tags: true,
   border: {
     type: "line",
-    fg: 1,  // all red
+    fg: 1, // all red
   },
 });
 
@@ -88,8 +88,12 @@ const info = new Box({
   right: 0,
   height: 3,
   content:
-    "{center}TERM: " + (process.env.TERM || "unknown") + "{/}\n" +
-    "{center}Colors: " + (screen.tput ? screen.tput.colors : "unknown") + "{/}\n" +
+    "{center}TERM: " +
+    (process.env.TERM || "unknown") +
+    "{/}\n" +
+    "{center}Colors: " +
+    (screen.tput ? screen.tput.colors : "unknown") +
+    "{/}\n" +
     "{center}Press 'q' to exit{/}",
   tags: true,
 });

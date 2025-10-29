@@ -63,7 +63,8 @@ function updateChase() {
     const r = Math.round(0 * intensity);
     const g = Math.round(255 * intensity);
     const b = Math.round(255 * intensity);
-    const hex = "#" + [r, g, b].map(n => n.toString(16).padStart(2, '0')).join('');
+    const hex =
+      "#" + [r, g, b].map((n) => n.toString(16).padStart(2, "0")).join("");
     borderColors[pos] = hex;
   }
 
@@ -89,7 +90,11 @@ const infoBox = new Box({
   height: 3,
   content:
     "{center}Chase animation: A bright spot moves around the border\n" +
-    "{center}Border length: " + borderLength + " cells | Chase length: " + chaseLength + " cells\n" +
+    "{center}Border length: " +
+    borderLength +
+    " cells | Chase length: " +
+    chaseLength +
+    " cells\n" +
     "{center}{dim}Press 'q' or Ctrl+C to exit{/}",
   tags: true,
 });

@@ -5,7 +5,13 @@
  * Each border cell is individually addressable like an LED strip!
  */
 
-import { Screen, Box, Text, generateRainbow, rotateColors } from "@unblessed/node";
+import {
+  Screen,
+  Box,
+  Text,
+  generateRainbow,
+  rotateColors,
+} from "@unblessed/node";
 
 const screen = new Screen({
   smartCSR: true,
@@ -42,7 +48,9 @@ const rainbowBox = new Box({
     "{center}{bold}{cyan-fg}Addressable Border Colors{/}\n\n" +
     "{center}Each border cell has its own color!\n" +
     "{center}Just like an RGB LED strip\n\n" +
-    "{center}Border Length: " + borderLength + " cells\n" +
+    "{center}Border Length: " +
+    borderLength +
+    " cells\n" +
     "{center}Animation Speed: 60 FPS\n\n" +
     "{center}{dim}Watch the rainbow wave rotate...{/}",
   tags: true,

@@ -59,7 +59,7 @@ function updateBreathing() {
   breathPhase += 0.05;
   const intensity = (Math.sin(breathPhase) + 1) / 2; // 0 to 1
 
-  const breathingColors = baseGradient.map(hexColor => {
+  const breathingColors = baseGradient.map((hexColor) => {
     // Extract RGB
     const r = parseInt(hexColor.slice(1, 3), 16);
     const g = parseInt(hexColor.slice(3, 5), 16);
@@ -71,7 +71,10 @@ function updateBreathing() {
     const newB = Math.round(b * (0.3 + intensity * 0.7));
 
     // Convert back to hex
-    return "#" + [newR, newG, newB].map(n => n.toString(16).padStart(2, '0')).join('');
+    return (
+      "#" +
+      [newR, newG, newB].map((n) => n.toString(16).padStart(2, "0")).join("")
+    );
   });
 
   breathingBox.setBorderColors(breathingColors);
@@ -95,7 +98,9 @@ const infoBox = new Box({
   height: 3,
   content:
     "{center}Breathing effect: Gradient pulses using sine wave modulation\n" +
-    "{center}Border length: " + borderLength + " cells | Gradient: cyan → magenta\n" +
+    "{center}Border length: " +
+    borderLength +
+    " cells | Gradient: cyan → magenta\n" +
     "{center}{dim}Press 'q' or Ctrl+C to exit{/}",
   tags: true,
 });

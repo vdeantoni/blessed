@@ -110,13 +110,25 @@ const instructions = new Box({
 // Sample tasks to simulate
 const taskQueue = [
   { name: "Initialize project", duration: "1.2s", status: "success" as const },
-  { name: "Install dependencies", duration: "3.5s", status: "success" as const },
+  {
+    name: "Install dependencies",
+    duration: "3.5s",
+    status: "success" as const,
+  },
   { name: "Run type checking", duration: "2.1s", status: "success" as const },
   { name: "Run linter", duration: "0.8s", status: "warning" as const },
   { name: "Run unit tests", duration: "4.2s", status: "success" as const },
-  { name: "Build production bundle", duration: "5.7s", status: "success" as const },
+  {
+    name: "Build production bundle",
+    duration: "5.7s",
+    status: "success" as const,
+  },
   { name: "Run integration tests", duration: "2.3s", status: "error" as const },
-  { name: "Generate documentation", duration: "1.9s", status: "success" as const },
+  {
+    name: "Generate documentation",
+    duration: "1.9s",
+    status: "success" as const,
+  },
   { name: "Deploy to staging", duration: "3.2s", status: "success" as const },
 ];
 
@@ -145,19 +157,22 @@ function processNextTask() {
   screen.render();
 
   // Simulate task duration
-  setTimeout(() => {
-    // Add to completed tasks
-    completedTasks.push(task);
-    staticWidget.addItem(task);
+  setTimeout(
+    () => {
+      // Add to completed tasks
+      completedTasks.push(task);
+      staticWidget.addItem(task);
 
-    taskIndex++;
-    screen.render();
+      taskIndex++;
+      screen.render();
 
-    // Process next task
-    if (isRunning) {
-      setTimeout(() => processNextTask(), 500);
-    }
-  }, Math.random() * 1000 + 500);
+      // Process next task
+      if (isRunning) {
+        setTimeout(() => processNextTask(), 500);
+      }
+    },
+    Math.random() * 1000 + 500,
+  );
 }
 
 // Manual task addition

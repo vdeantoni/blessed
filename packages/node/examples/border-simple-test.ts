@@ -22,10 +22,10 @@ const box1 = new Box({
   tags: true,
   border: {
     type: "line",
-    topColor: 6,     // cyan
-    bottomColor: 3,  // yellow
-    leftColor: 2,    // green
-    rightColor: 1,   // red
+    topColor: 6, // cyan
+    bottomColor: 3, // yellow
+    leftColor: 2, // green
+    rightColor: 1, // red
   },
 });
 
@@ -65,10 +65,10 @@ const box3 = new Box({
   shadow: true,
   border: {
     type: "line",
-    topColor: 5,     // magenta
-    bottomColor: 4,  // blue
-    leftColor: 2,    // green
-    rightColor: 1,   // red
+    topColor: 5, // magenta
+    bottomColor: 4, // blue
+    leftColor: 2, // green
+    rightColor: 1, // red
   },
 });
 
