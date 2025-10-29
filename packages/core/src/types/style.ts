@@ -49,7 +49,7 @@ export interface Style {
   border?: StyleBorder;
   hover?: Effects;
   focus?: Effects;
-  label?: string;
+  label?: Partial<Style>;
   track?: { bg?: StyleColor; fg?: StyleColor };
   scrollbar?: { bg?: StyleColor; fg?: StyleColor };
   /** Progress bar fill style (for ProgressBar widget). Style object with fg/bg properties. */
