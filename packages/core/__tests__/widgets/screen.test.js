@@ -1024,4 +1024,79 @@ describe("Screen", () => {
       expect(() => s.destroy()).not.toThrow();
     });
   });
+
+  describe("Attribute Encoding/Decoding", () => {
+    it("should encode dim attribute with codeAttr", () => {
+      const screen = new Screen();
+      const el = new Box({ parent: screen, width: 10, height: 5 });
+
+      // Create an attribute with dim flag set (bit 32)
+      const attr = el.sattr({ dim: true });
+      const code = screen.codeAttr(attr);
+
+      expect(code).toContain("\x1b[2m");
+
+      screen.destroy();
+    });
+
+    it("should decode dim attribute with attrCode", () => {
+      const screen = new Screen();
+
+      // Parse ANSI code for dim
+      const attr = screen.attrCode("\x1b[2m", 0, 0);
+
+      // Extract flags and check bit 32
+      const flags = (attr >> 18) & 0x1ff;
+      expect(flags & 32).toBeTruthy();
+
+      screen.destroy();
+    });
+
+    it("should encode dim with colors", () => {
+      const screen = new Screen();
+      const el = new Box({ parent: screen, width: 10, height: 5 });
+
+      const attr = el.sattr({ dim: true, fg: "red" });
+      const code = screen.codeAttr(attr);
+
+      expect(code).toContain("2"); // dim
+      expect(code).toContain("31"); // red
+
+      screen.destroy();
+    });
+
+    it("should correctly reset dim with SGR 22", () => {
+      const screen = new Screen();
+
+      // First set dim
+      let attr = screen.attrCode("\x1b[2m", 0, 0);
+      let flags = (attr >> 18) & 0x1ff;
+      expect(flags & 32).toBeTruthy();
+
+      // Then reset with SGR 22
+      attr = screen.attrCode("\x1b[22m", attr, 0);
+      flags = (attr >> 18) & 0x1ff;
+      expect(flags & 32).toBeFalsy();
+
+      screen.destroy();
+    });
+
+    it("should correctly clear dim independently with SGR 22", () => {
+      const screen = new Screen();
+
+      // Set bold and dim
+      let attr = screen.attrCode("\x1b[1;2m", 0, 0);
+      let flags = (attr >> 18) & 0x1ff;
+      expect(flags & 1).toBeTruthy(); // bold
+      expect(flags & 32).toBeTruthy(); // dim
+
+      // Clear dim only with SGR 22
+      attr = screen.attrCode("\x1b[22m", attr, 0);
+      flags = (attr >> 18) & 0x1ff;
+      expect(flags & 1).toBeTruthy(); // bold still set
+      expect(flags & 32).toBeFalsy(); // dim cleared
+
+      screen.destroy();
+    });
+  });
 });

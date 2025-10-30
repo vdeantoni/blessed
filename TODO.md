@@ -5,6 +5,14 @@ Code modernization and cleanup tasks for @unblessed.
 ## Triage
 
 1. Investigate why initCore(new NodeRuntime()); is needed by the vrt tests and can we improve it.
+2. implement all remaining tags:
+   Effect	On	Escape Code	Off	Escape Code	Output Example
+   Bold	1	\x1b[1m	21	\x1b[21m	This is BOLD
+   Dim	2	\x1b[2m	22	\x1b[22m	This is DIMMED
+   Underline	4	\x1b[4m	24	\x1b[24m	This is UNDERLINED
+   Blink	5	\x1b[5m	25	\x1b[25m	This is BLINKING
+   Reverse	7	\x1b[7m	27	\x1b[27m	This is REVERSED
+   Hide	8	\x1b[7m	28	\x1b[28m	This is HIDDEN
 
 
 ## High Priority

@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import Element from "../../src/widgets/element.js";
+import Screen from "../../src/widgets/screen.js";
 import { createMockScreen } from "../helpers/mock.js";
 
 describe("Element", () => {
@@ -499,6 +500,28 @@ describe("Element", () => {
       expect(el.style.bold).toBe(true);
     });
 
+    it("should render with dim style attribute", () => {
+      const el = new Element({
+        screen,
+        width: 20,
+        height: 5,
+        content: "Dimmed",
+        style: {
+          dim: true,
+        },
+      });
+
+      screen.append(el);
+      el.render();
+
+      expect(el.style.dim).toBe(true);
+
+      // Test that sattr encodes dim correctly
+      const attr = el.sattr(el.style);
+      const flags = (attr >> 18) & 0x1ff;
+      expect(flags & 32).toBeTruthy(); // bit 32 should be set for dim
+    });
+
     it("should handle tags in content", () => {
       const el = new Element({
         screen,
@@ -511,6 +534,50 @@ describe("Element", () => {
       // Just verify content is set - tags parsing requires full program mock
       expect(el.content).toContain("Error");
       expect(el.content).toContain("message");
+    });
+
+    it("should parse {dim} tags in content", () => {
+      // Use a real screen for this test since it needs attrCode
+      const realScreen = new Screen();
+      const el = new Element({
+        screen: realScreen,
+        width: 30,
+        height: 5,
+        tags: true,
+        content: "Normal {dim}Dimmed{/dim} Normal",
+      });
+
+      realScreen.append(el);
+      el.parseContent();
+
+      // Verify the parsed content contains ANSI codes for dim
+      expect(el._pcontent).toContain("\x1b[2m"); // dim on
+      expect(el._pcontent).toContain("\x1b[22m"); // dim off
+      expect(el._pcontent).toContain("Dimmed");
+
+      realScreen.destroy();
+    });
+
+    it("should parse {dim} with colors", () => {
+      // Use a real screen for this test since it needs attrCode
+      const realScreen = new Screen();
+      const el = new Element({
+        screen: realScreen,
+        width: 40,
+        height: 5,
+        tags: true,
+        content: "{red-fg}Red {dim}Dimmed Red{/dim}{/red-fg}",
+      });
+
+      realScreen.append(el);
+      el.parseContent();
+
+      // Verify it contains both red color and dim codes
+      expect(el._pcontent).toContain("\x1b[31m"); // red
+      expect(el._pcontent).toContain("\x1b[2m"); // dim
+      expect(el._pcontent).toContain("\x1b[22m"); // dim off
+
+      realScreen.destroy();
     });
 
     it("should render when hidden is false", () => {

@@ -2839,7 +2839,9 @@ class Program extends EventEmitterBase {
         if (val === false) return "";
         return "\x1b[m";
       case "bold":
-        return val === false ? "\x1b[22m" : "\x1b[1m";
+        return val === false ? "\x1b[21m" : "\x1b[1m";
+      case "dim":
+        return val === false ? "\x1b[22m" : "\x1b[2m";
       case "ul":
       case "underline":
       case "underlined":

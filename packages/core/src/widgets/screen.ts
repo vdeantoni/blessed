@@ -1507,6 +1507,11 @@ class Screen extends Node {
               out += "8;";
             }
 
+            // dim
+            if (flags & 32) {
+              out += "2;";
+            }
+
             if (bg !== 0x1ff) {
               bg = this._reduceColor(bg);
               if (bg < 16) {
@@ -1695,32 +1700,38 @@ class Screen extends Node {
         case 1: // bold
           flags |= 1;
           break;
+        case 2: // dim
+          flags |= 32;
+          break;
+        case 21:
+          flags &= ~1; // clear bold
+          break;
         case 22:
-          flags = (def >> 18) & 0x1ff;
+          flags &= ~32; // clear dim
           break;
         case 4: // underline
           flags |= 2;
           break;
-        case 24:
-          flags = (def >> 18) & 0x1ff;
+        case 24: // not underlined
+          flags &= ~2;
           break;
         case 5: // blink
           flags |= 4;
           break;
-        case 25:
-          flags = (def >> 18) & 0x1ff;
+        case 25: // not blinking
+          flags &= ~4;
           break;
         case 7: // inverse
           flags |= 8;
           break;
-        case 27:
-          flags = (def >> 18) & 0x1ff;
+        case 27: // not inverse
+          flags &= ~8;
           break;
         case 8: // invisible
           flags |= 16;
           break;
-        case 28:
-          flags = (def >> 18) & 0x1ff;
+        case 28: // visible (not invisible)
+          flags &= ~16;
           break;
         case 39: // default fg
           fg = (def >> 9) & 0x1ff;
@@ -1803,6 +1814,11 @@ class Screen extends Node {
     // bold
     if (flags & 1) {
       out += "1;";
+    }
+
+    // dim
+    if (flags & 32) {
+      out += "2;";
     }
 
     // underline

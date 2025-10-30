@@ -1465,6 +1465,18 @@ describe("Program - Text Attributes & Colors", () => {
       }
     });
 
+    it("should handle dim attribute", () => {
+      const result = program._attr("dim");
+
+      expect(result).toBe("\x1b[2m");
+    });
+
+    it("should handle dim attribute disable", () => {
+      const result = program._attr("dim", false);
+
+      expect(result).toBe("\x1b[22m");
+    });
+
     it("should handle underline attribute", () => {
       const result = program._attr("underline");
 

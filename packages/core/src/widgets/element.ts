@@ -325,6 +325,7 @@ class Element extends Node {
 
   sattr(style: any, fg?: any, bg?: any): number {
     let bold = style.bold;
+    let dim = style.dim;
     let underline = style.underline;
     let blink = style.blink;
     let inverse = style.inverse;
@@ -339,6 +340,7 @@ class Element extends Node {
     // This used to be a loop, but I decided
     // to unroll it for performance's sake.
     if (typeof bold === "function") bold = bold(this);
+    if (typeof dim === "function") dim = dim(this);
     if (typeof underline === "function") underline = underline(this);
     if (typeof blink === "function") blink = blink(this);
     if (typeof inverse === "function") inverse = inverse(this);
@@ -355,6 +357,7 @@ class Element extends Node {
       ((blink ? 4 : 0) << 18) |
       ((underline ? 2 : 0) << 18) |
       ((bold ? 1 : 0) << 18) |
+      ((dim ? 32 : 0) << 18) |
       (colors.convert(fg) << 9) |
       colors.convert(bg)
     );

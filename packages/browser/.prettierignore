@@ -1,0 +1,16 @@
+# Build output
+dist/
+playwright-report/
+test-results/
+
+# Dependencies
+node_modules/
+
+# Coverage
+coverage/
+
+# Logs
+*.log
+
+# Other
+.turbo/

@@ -37,6 +37,8 @@ export interface Style {
   ch?: string;
   /** Bold attribute - can be static or a function evaluated at render time */
   bold?: StyleBoolean;
+  /** Dim attribute - can be static or a function evaluated at render time */
+  dim?: StyleBoolean;
   /** Underline attribute - can be static or a function evaluated at render time */
   underline?: StyleBoolean;
   /** Blink attribute - can be static or a function evaluated at render time */
