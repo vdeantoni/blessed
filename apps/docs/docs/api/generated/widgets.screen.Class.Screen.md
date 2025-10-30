@@ -737,7 +737,7 @@ Used to identify the widget type at runtime.
 
 > `static` **resetCursor**: `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2765](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2765)
+Defined in: [packages/core/src/widgets/screen.ts:2781](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2781)
 
 ---
 
@@ -745,7 +745,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2765](https://github.com/vdeant
 
 > `static` **\_exceptionHandler**: `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2766](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2766)
+Defined in: [packages/core/src/widgets/screen.ts:2782](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2782)
 
 ---
 
@@ -753,7 +753,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2766](https://github.com/vdeant
 
 > `static` **\_sigtermHandler**: `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2767](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2767)
+Defined in: [packages/core/src/widgets/screen.ts:2783](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2783)
 
 ---
 
@@ -761,7 +761,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2767](https://github.com/vdeant
 
 > `static` **\_sigintHandler**: `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2768](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2768)
+Defined in: [packages/core/src/widgets/screen.ts:2784](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2784)
 
 ---
 
@@ -769,7 +769,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2768](https://github.com/vdeant
 
 > `static` **\_sigquitHandler**: `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2769](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2769)
+Defined in: [packages/core/src/widgets/screen.ts:2785](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2785)
 
 ---
 
@@ -777,7 +777,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2769](https://github.com/vdeant
 
 > `static` **\_exitHandler**: `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2770](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2770)
+Defined in: [packages/core/src/widgets/screen.ts:2786](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2786)
 
 ---
 
@@ -785,7 +785,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2770](https://github.com/vdeant
 
 > `static` **\_bound**: `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2771](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2771)
+Defined in: [packages/core/src/widgets/screen.ts:2787](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2787)
 
 ---
 
@@ -793,7 +793,7 @@ Defined in: [packages/core/src/widgets/screen.ts:2771](https://github.com/vdeant
 
 > `static` **bind**: (`screen`) => `void`
 
-Defined in: [packages/core/src/widgets/screen.ts:2772](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2772)
+Defined in: [packages/core/src/widgets/screen.ts:2788](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2788)
 
 For a given function, creates a bound function that has the same body as the original function.
 The this object of the bound function is associated with the specified object, and has the specified initial parameters.
@@ -2387,7 +2387,7 @@ Ending line number
 
 > **\_reduceColor**(`color`): `number`
 
-Defined in: [packages/core/src/widgets/screen.ts:1664](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1664)
+Defined in: [packages/core/src/widgets/screen.ts:1669](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1669)
 
 Internal method to reduce color values to the number of colors supported by the terminal.
 
@@ -2411,7 +2411,7 @@ Reduced color value
 
 > **attrCode**(`code`, `cur`, `def`): `number`
 
-Defined in: [packages/core/src/widgets/screen.ts:1677](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1677)
+Defined in: [packages/core/src/widgets/screen.ts:1682](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1682)
 
 Convert an SGR escape code string to blessed's internal attribute format.
 Parses SGR sequences like "\x1b[1;31m" and returns a packed integer containing
@@ -2449,7 +2449,7 @@ Packed attribute integer
 
 > **codeAttr**(`code`): `string`
 
-Defined in: [packages/core/src/widgets/screen.ts:1797](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1797)
+Defined in: [packages/core/src/widgets/screen.ts:1808](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1808)
 
 Convert blessed's internal attribute format to an SGR escape code string.
 Unpacks the attribute integer and generates the appropriate SGR sequence
@@ -2475,7 +2475,7 @@ SGR escape code string
 
 > **focusOffset**(`offset`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:1902](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1902)
+Defined in: [packages/core/src/widgets/screen.ts:1918](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1918)
 
 Focus element by offset of focusable elements.
 Moves focus forward or backward through the list of focusable elements in tab order,
@@ -2501,7 +2501,7 @@ The newly focused element, or undefined if no element was found
 
 > **focusPrev**(): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:1950](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1950)
+Defined in: [packages/core/src/widgets/screen.ts:1966](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1966)
 
 Focus previous element in the index.
 Shorthand for focusOffset(-1).
@@ -2518,7 +2518,7 @@ The newly focused element
 
 > **focusPrevious**(): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:1959](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1959)
+Defined in: [packages/core/src/widgets/screen.ts:1975](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1975)
 
 Focus previous element in the index.
 Alias for focusPrev().
@@ -2535,7 +2535,7 @@ The newly focused element
 
 > **focusNext**(): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:1968](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1968)
+Defined in: [packages/core/src/widgets/screen.ts:1984](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1984)
 
 Focus next element in the index.
 Shorthand for focusOffset(1).
@@ -2552,7 +2552,7 @@ The newly focused element
 
 > **focusPush**(`el`): `void`
 
-Defined in: [packages/core/src/widgets/screen.ts:1977](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1977)
+Defined in: [packages/core/src/widgets/screen.ts:1993](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1993)
 
 Push element on the focus stack (equivalent to screen.focused = el).
 Maintains a history of up to 10 focused elements for focus management.
@@ -2575,7 +2575,7 @@ Element to focus
 
 > **focusPop**(): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:1992](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L1992)
+Defined in: [packages/core/src/widgets/screen.ts:2008](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2008)
 
 Pop element off the focus stack.
 Removes the current element from focus and returns focus to the previous element.
@@ -2592,7 +2592,7 @@ The element that was popped from the focus stack
 
 > **saveFocus**(): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2005](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2005)
+Defined in: [packages/core/src/widgets/screen.ts:2021](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2021)
 
 Save the focused element.
 Stores the currently focused element for later restoration via restoreFocus().
@@ -2609,7 +2609,7 @@ The saved focused element
 
 > **restoreFocus**(): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2014](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2014)
+Defined in: [packages/core/src/widgets/screen.ts:2030](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2030)
 
 Restore the saved focused element.
 Returns focus to the element saved by saveFocus().
@@ -2626,7 +2626,7 @@ The newly focused element
 
 > **rewindFocus**(): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2027](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2027)
+Defined in: [packages/core/src/widgets/screen.ts:2043](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2043)
 
 "Rewind" focus to the last visible and attached element.
 Walks backward through the focus history to find an element that is still
@@ -2644,7 +2644,7 @@ The element that received focus, or undefined if none found
 
 > **\_focus**(`self`, `old`): `void`
 
-Defined in: [packages/core/src/widgets/screen.ts:2052](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2052)
+Defined in: [packages/core/src/widgets/screen.ts:2068](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2068)
 
 Internal method to handle focus changes.
 Automatically scrolls scrollable ancestors to bring the focused element into view,
@@ -2674,7 +2674,7 @@ Element losing focus
 
 > **clearRegion**(`xi`, `xl`, `yi`, `yl`, `override?`): `void`
 
-Defined in: [packages/core/src/widgets/screen.ts:2098](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2098)
+Defined in: [packages/core/src/widgets/screen.ts:2114](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2114)
 
 Clear any region on the screen.
 Fills the region with spaces using the default attribute.
@@ -2721,7 +2721,7 @@ If true, always write even if cell hasn't changed
 
 > **fillRegion**(`attr`, `ch`, `xi`, `xl`, `yi`, `yl`, `override?`): `void`
 
-Defined in: [packages/core/src/widgets/screen.ts:2119](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2119)
+Defined in: [packages/core/src/widgets/screen.ts:2135](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2135)
 
 Fill any region with a character of a certain attribute.
 Used for clearing regions, drawing backgrounds, etc.
@@ -2780,7 +2780,7 @@ If true, always write even if cell hasn't changed
 
 > **key**(...`args`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2154](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2154)
+Defined in: [packages/core/src/widgets/screen.ts:2170](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2170)
 
 Bind a key event handler.
 
@@ -2804,7 +2804,7 @@ The bound key handler
 
 > **onceKey**(...`args`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2163](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2163)
+Defined in: [packages/core/src/widgets/screen.ts:2179](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2179)
 
 Bind a key event handler that fires only once.
 
@@ -2828,7 +2828,7 @@ The bound key handler
 
 > **unkey**(...`args`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2172](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2172)
+Defined in: [packages/core/src/widgets/screen.ts:2188](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2188)
 
 Unbind a key event handler.
 
@@ -2852,7 +2852,7 @@ Result of unbinding
 
 > **removeKey**(...`args`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2182](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2182)
+Defined in: [packages/core/src/widgets/screen.ts:2198](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2198)
 
 Remove a key event handler.
 Alias for unkey().
@@ -2877,7 +2877,7 @@ Result of removing
 
 > **spawn**(`file`, `args?`, `options?`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2194](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2194)
+Defined in: [packages/core/src/widgets/screen.ts:2210](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2210)
 
 Spawn a process in the foreground, return to blessed app after exit.
 Temporarily leaves the alternate screen buffer and restores it after the process exits.
@@ -2914,7 +2914,7 @@ ChildProcess instance
 
 > **exec**(`file`, `args?`, `options?`, `callback?`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2265](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2265)
+Defined in: [packages/core/src/widgets/screen.ts:2281](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2281)
 
 Spawn a process in the foreground, return to blessed app after exit. Executes callback on error or exit.
 
@@ -2956,7 +2956,7 @@ ChildProcess instance
 
 > **readEditor**(`options`, `callback?`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2288](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2288)
+Defined in: [packages/core/src/widgets/screen.ts:2304](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2304)
 
 Read data from text editor.
 Spawns the user's $EDITOR (or vi) to edit a temporary file, then returns the contents.
@@ -2987,7 +2987,7 @@ Result of the editor operation
 
 > **displayImage**(`file`, `callback?`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2344](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2344)
+Defined in: [packages/core/src/widgets/screen.ts:2360](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2360)
 
 Display an image in the terminal using w3m.
 Experimental feature that spawns w3m to render images.
@@ -3018,7 +3018,7 @@ Result of the display operation
 
 > **setEffects**(`el`, `fel`, `over`, `out`, `effects`, `temp?`): `void`
 
-Defined in: [packages/core/src/widgets/screen.ts:2398](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2398)
+Defined in: [packages/core/src/widgets/screen.ts:2414](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2414)
 
 Set effects based on two events and attributes.
 Used to apply hover and focus effects to elements. When the 'over' event fires,
@@ -3072,7 +3072,7 @@ Property name to store temporary state in
 
 > **sigtstp**(`callback?`): `void`
 
-Defined in: [packages/core/src/widgets/screen.ts:2465](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2465)
+Defined in: [packages/core/src/widgets/screen.ts:2481](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2481)
 
 Handle SIGTSTP signal (Ctrl+Z).
 Sets up a handler to properly restore the screen after the process is resumed.
@@ -3095,7 +3095,7 @@ Optional callback to execute after resume
 
 > **copyToClipboard**(`text`): `boolean`
 
-Defined in: [packages/core/src/widgets/screen.ts:2480](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2480)
+Defined in: [packages/core/src/widgets/screen.ts:2496](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2496)
 
 Attempt to copy text to clipboard using iTerm2's proprietary sequence. Returns true if successful.
 Only works in iTerm2 with the proper terminal sequences enabled.
@@ -3120,7 +3120,7 @@ True if successful
 
 > **cursorShape**(`shape?`, `blink?`): `boolean`
 
-Defined in: [packages/core/src/widgets/screen.ts:2491](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2491)
+Defined in: [packages/core/src/widgets/screen.ts:2507](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2507)
 
 Attempt to change cursor shape. Will not work in all terminals (see artificial cursors for a solution
 to this). Returns true if successful.
@@ -3151,7 +3151,7 @@ True if successful
 
 > **cursorColor**(`color`): `boolean`
 
-Defined in: [packages/core/src/widgets/screen.ts:2537](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2537)
+Defined in: [packages/core/src/widgets/screen.ts:2553](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2553)
 
 Attempt to change cursor color. Returns true if successful.
 Only works in terminals that support the cursor color escape sequence.
@@ -3176,7 +3176,7 @@ True if successful
 
 > **cursorReset**(): `boolean`
 
-Defined in: [packages/core/src/widgets/screen.ts:2553](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2553)
+Defined in: [packages/core/src/widgets/screen.ts:2569](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2569)
 
 Attempt to reset cursor. Returns true if successful.
 Restores cursor to default shape, color, and blink state.
@@ -3193,7 +3193,7 @@ True if successful
 
 > **resetCursor**(): `boolean`
 
-Defined in: [packages/core/src/widgets/screen.ts:2583](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2583)
+Defined in: [packages/core/src/widgets/screen.ts:2599](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2599)
 
 Reset cursor (alias for cursorReset() for backward compatibility).
 
@@ -3209,7 +3209,7 @@ True if successful
 
 > **\_cursorAttr**(`cursor`, `dattr?`): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2594](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2594)
+Defined in: [packages/core/src/widgets/screen.ts:2610](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2610)
 
 Internal method to calculate cursor attribute for artificial cursor rendering.
 Determines the correct attribute and character for rendering the cursor at a given position.
@@ -3240,7 +3240,7 @@ Object with 'ch' (character) and 'attr' (attribute) properties
 
 > **screenshot**(`xi?`, `xl?`, `yi?`, `yl?`, `term?`): `string`
 
-Defined in: [packages/core/src/widgets/screen.ts:2661](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2661)
+Defined in: [packages/core/src/widgets/screen.ts:2677](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2677)
 
 Take an SGR screenshot of the screen within the region. Returns a string containing only
 characters and SGR codes. Can be displayed by simply echoing it in a terminal.
@@ -3289,7 +3289,7 @@ SGR-encoded screenshot string
 
 > **\_getPos**(): `any`
 
-Defined in: [packages/core/src/widgets/screen.ts:2761](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2761)
+Defined in: [packages/core/src/widgets/screen.ts:2777](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/screen.ts#L2777)
 
 Internal method to get position coordinates.
 For Screen, this always returns itself since Screen is the root container.

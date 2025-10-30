@@ -1,6 +1,6 @@
 # Interface: TtyAPI
 
-Defined in: [packages/core/src/runtime.ts:259](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L259)
+Defined in: [packages/core/src/runtime.ts:265](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L265)
 
 TTY operations interface
 Subset of Node.js tty module
@@ -11,7 +11,7 @@ Subset of Node.js tty module
 
 > **isatty**: (`fd`) => `boolean`
 
-Defined in: [packages/core/src/runtime.ts:260](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L260)
+Defined in: [packages/core/src/runtime.ts:266](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L266)
 
 The `tty.isatty()` method returns `true` if the given `fd` is associated with
 a TTY and `false` if it is not, including whenever `fd` is not a non-negative

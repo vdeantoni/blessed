@@ -67,13 +67,43 @@ URL operations (fileURLToPath for module resolution)
 
 ---
 
-### utils
+### util
 
-> **utils**: [`UtilsAPI`](runtime.Interface.UtilsAPI.md)
+> **util**: [`UtilAPI`](runtime.Interface.UtilAPI.md)
 
 Defined in: [packages/core/src/runtime.ts:127](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L127)
 
-Utility functions and streams
+Utility functions (inspect, format)
+
+---
+
+### stream
+
+> **stream**: [`StreamAPI`](runtime.Interface.StreamAPI.md)
+
+Defined in: [packages/core/src/runtime.ts:129](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L129)
+
+Stream operations (Readable, Writable)
+
+---
+
+### stringDecoder
+
+> **stringDecoder**: [`StringDecoderAPI`](runtime.Interface.StringDecoderAPI.md)
+
+Defined in: [packages/core/src/runtime.ts:131](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L131)
+
+String decoder for buffer/string conversion
+
+---
+
+### events
+
+> **events**: [`EventsAPI`](runtime.Interface.EventsAPI.md)
+
+Defined in: [packages/core/src/runtime.ts:133](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L133)
+
+Event emitter for event-driven programming
 
 ---
 
@@ -81,7 +111,7 @@ Utility functions and streams
 
 > `optional` **images**: [`ImageAPI`](runtime.Interface.ImageAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:134](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L134)
+Defined in: [packages/core/src/runtime.ts:140](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L140)
 
 Image processing (PNG/GIF rendering) - Optional
 
@@ -91,7 +121,7 @@ Image processing (PNG/GIF rendering) - Optional
 
 > `optional` **processes**: [`ProcessesAPI`](runtime.Interface.ProcessesAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:136](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L136)
+Defined in: [packages/core/src/runtime.ts:142](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L142)
 
 Process spawning - Optional
 
@@ -101,6 +131,6 @@ Process spawning - Optional
 
 > `optional` **networking**: [`NetworkingAPI`](runtime.Interface.NetworkingAPI.md)
 
-Defined in: [packages/core/src/runtime.ts:138](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L138)
+Defined in: [packages/core/src/runtime.ts:144](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L144)
 
 Networking and TTY operations - Optional

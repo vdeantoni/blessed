@@ -21,7 +21,6 @@
 - [ImageAPI](runtime.Interface.ImageAPI.md)
 - [ProcessesAPI](runtime.Interface.ProcessesAPI.md)
 - [NetworkingAPI](runtime.Interface.NetworkingAPI.md)
-- [UtilsAPI](runtime.Interface.UtilsAPI.md)
 
 ## Type Aliases
 
@@ -31,8 +30,6 @@
 
 ## Functions
 
-- [createRuntime](runtime.Function.createRuntime.md)
 - [hasImageSupport](runtime.Function.hasImageSupport.md)
 - [hasProcessSupport](runtime.Function.hasProcessSupport.md)
 - [hasNetworkSupport](runtime.Function.hasNetworkSupport.md)
-- [hasUtilsSupport](runtime.Function.hasUtilsSupport.md)

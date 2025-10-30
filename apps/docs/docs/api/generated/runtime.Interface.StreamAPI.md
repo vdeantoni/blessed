@@ -1,6 +1,6 @@
 # Interface: StreamAPI
 
-Defined in: [packages/core/src/runtime.ts:298](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L298)
+Defined in: [packages/core/src/runtime.ts:304](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L304)
 
 Stream operations interface
 Subset of Node.js stream module
@@ -11,7 +11,7 @@ Subset of Node.js stream module
 
 > **Readable**: _typeof_ `Readable`
 
-Defined in: [packages/core/src/runtime.ts:299](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L299)
+Defined in: [packages/core/src/runtime.ts:305](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L305)
 
 ---
 
@@ -19,4 +19,4 @@ Defined in: [packages/core/src/runtime.ts:299](https://github.com/vdeantoni/unbl
 
 > **Writable**: _typeof_ `Writable`
 
-Defined in: [packages/core/src/runtime.ts:300](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L300)
+Defined in: [packages/core/src/runtime.ts:306](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L306)

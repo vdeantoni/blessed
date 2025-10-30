@@ -1,6 +1,6 @@
 # Interface: ProcessAPI
 
-Defined in: [packages/core/src/runtime.ts:225](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L225)
+Defined in: [packages/core/src/runtime.ts:231](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L231)
 
 Process operations interface
 
@@ -38,7 +38,7 @@ const home = runtime.process.env.HOME || "/";
 
 > **stdin**: `ReadStream` & `object`
 
-Defined in: [packages/core/src/runtime.ts:226](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L226)
+Defined in: [packages/core/src/runtime.ts:232](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L232)
 
 #### Type Declaration
 
@@ -52,7 +52,7 @@ Defined in: [packages/core/src/runtime.ts:226](https://github.com/vdeantoni/unbl
 
 > **stdout**: `WriteStream` & `object`
 
-Defined in: [packages/core/src/runtime.ts:227](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L227)
+Defined in: [packages/core/src/runtime.ts:233](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L233)
 
 #### Type Declaration
 
@@ -66,7 +66,7 @@ Defined in: [packages/core/src/runtime.ts:227](https://github.com/vdeantoni/unbl
 
 > **stderr**: `WriteStream` & `object`
 
-Defined in: [packages/core/src/runtime.ts:228](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L228)
+Defined in: [packages/core/src/runtime.ts:234](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L234)
 
 #### Type Declaration
 
@@ -80,7 +80,7 @@ Defined in: [packages/core/src/runtime.ts:228](https://github.com/vdeantoni/unbl
 
 > **platform**: `Platform`
 
-Defined in: [packages/core/src/runtime.ts:229](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L229)
+Defined in: [packages/core/src/runtime.ts:235](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L235)
 
 ---
 
@@ -88,7 +88,7 @@ Defined in: [packages/core/src/runtime.ts:229](https://github.com/vdeantoni/unbl
 
 > **arch**: `Architecture`
 
-Defined in: [packages/core/src/runtime.ts:230](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L230)
+Defined in: [packages/core/src/runtime.ts:236](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L236)
 
 ---
 
@@ -96,7 +96,7 @@ Defined in: [packages/core/src/runtime.ts:230](https://github.com/vdeantoni/unbl
 
 > **env**: `ProcessEnv`
 
-Defined in: [packages/core/src/runtime.ts:231](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L231)
+Defined in: [packages/core/src/runtime.ts:237](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L237)
 
 ---
 
@@ -104,7 +104,7 @@ Defined in: [packages/core/src/runtime.ts:231](https://github.com/vdeantoni/unbl
 
 > **cwd**: () => `string`
 
-Defined in: [packages/core/src/runtime.ts:232](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L232)
+Defined in: [packages/core/src/runtime.ts:238](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L238)
 
 #### Returns
 
@@ -116,7 +116,7 @@ Defined in: [packages/core/src/runtime.ts:232](https://github.com/vdeantoni/unbl
 
 > **exit**: (`code?`) => `never`
 
-Defined in: [packages/core/src/runtime.ts:233](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L233)
+Defined in: [packages/core/src/runtime.ts:239](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L239)
 
 #### Parameters
 
@@ -134,7 +134,7 @@ Defined in: [packages/core/src/runtime.ts:233](https://github.com/vdeantoni/unbl
 
 > **pid**: `number`
 
-Defined in: [packages/core/src/runtime.ts:234](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L234)
+Defined in: [packages/core/src/runtime.ts:240](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L240)
 
 ---
 
@@ -142,7 +142,7 @@ Defined in: [packages/core/src/runtime.ts:234](https://github.com/vdeantoni/unbl
 
 > **title**: `string`
 
-Defined in: [packages/core/src/runtime.ts:235](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L235)
+Defined in: [packages/core/src/runtime.ts:241](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L241)
 
 ---
 
@@ -150,7 +150,7 @@ Defined in: [packages/core/src/runtime.ts:235](https://github.com/vdeantoni/unbl
 
 > **version**: `string`
 
-Defined in: [packages/core/src/runtime.ts:236](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L236)
+Defined in: [packages/core/src/runtime.ts:242](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L242)
 
 ---
 
@@ -158,7 +158,7 @@ Defined in: [packages/core/src/runtime.ts:236](https://github.com/vdeantoni/unbl
 
 > **on**: (`event`, `listener`) => `any`
 
-Defined in: [packages/core/src/runtime.ts:237](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L237)
+Defined in: [packages/core/src/runtime.ts:243](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L243)
 
 #### Parameters
 
@@ -180,7 +180,7 @@ Defined in: [packages/core/src/runtime.ts:237](https://github.com/vdeantoni/unbl
 
 > **once**: (`event`, `listener`) => `any`
 
-Defined in: [packages/core/src/runtime.ts:238](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L238)
+Defined in: [packages/core/src/runtime.ts:244](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L244)
 
 #### Parameters
 
@@ -202,7 +202,7 @@ Defined in: [packages/core/src/runtime.ts:238](https://github.com/vdeantoni/unbl
 
 > **removeListener**: (`event`, `listener`) => `any`
 
-Defined in: [packages/core/src/runtime.ts:239](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L239)
+Defined in: [packages/core/src/runtime.ts:245](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L245)
 
 #### Parameters
 
@@ -224,13 +224,13 @@ Defined in: [packages/core/src/runtime.ts:239](https://github.com/vdeantoni/unbl
 
 > **listeners**: (`event`) => `Function`[]
 
-Defined in: [packages/core/src/runtime.ts:240](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L240)
+Defined in: [packages/core/src/runtime.ts:246](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L246)
 
 #### Parameters
 
 ##### event
 
-`string`
+`any`
 
 #### Returns
 
@@ -242,7 +242,7 @@ Defined in: [packages/core/src/runtime.ts:240](https://github.com/vdeantoni/unbl
 
 > **nextTick**: (`callback`, ...`args`) => `void`
 
-Defined in: [packages/core/src/runtime.ts:241](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L241)
+Defined in: [packages/core/src/runtime.ts:247](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L247)
 
 #### Parameters
 
@@ -264,7 +264,7 @@ Defined in: [packages/core/src/runtime.ts:241](https://github.com/vdeantoni/unbl
 
 > **kill**: (`pid`, `signal?`) => `boolean`
 
-Defined in: [packages/core/src/runtime.ts:242](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L242)
+Defined in: [packages/core/src/runtime.ts:248](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L248)
 
 #### Parameters
 

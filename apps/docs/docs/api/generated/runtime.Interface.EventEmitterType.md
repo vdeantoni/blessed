@@ -1,6 +1,6 @@
 # Interface: EventEmitterType
 
-Defined in: [packages/core/src/runtime.ts:320](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L320)
+Defined in: [packages/core/src/runtime.ts:326](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L326)
 
 EventEmitter type alias for use throughout the codebase
 

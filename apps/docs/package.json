@@ -7,7 +7,7 @@
     "docusaurus": "docusaurus",
     "dev": "docusaurus start --port 4000",
     "build": "docusaurus build",
-    "build:api": "typedoc --options typedoc.json && node scripts/fix-mdx.mjs && turbo format",
+    "build:api": "typedoc --options typedoc.json && node scripts/fix-mdx.mjs && pnpm format",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clean": "docusaurus clear && rimraf build .docusaurus",

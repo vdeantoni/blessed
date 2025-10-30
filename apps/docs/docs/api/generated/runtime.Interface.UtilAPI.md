@@ -1,6 +1,6 @@
 # Interface: UtilAPI
 
-Defined in: [packages/core/src/runtime.ts:277](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L277)
+Defined in: [packages/core/src/runtime.ts:283](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L283)
 
 Utility functions interface
 Subset of Node.js util module
@@ -11,7 +11,7 @@ Subset of Node.js util module
 
 > **inspect**: _typeof_ `inspect`
 
-Defined in: [packages/core/src/runtime.ts:278](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L278)
+Defined in: [packages/core/src/runtime.ts:284](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L284)
 
 ---
 
@@ -19,7 +19,7 @@ Defined in: [packages/core/src/runtime.ts:278](https://github.com/vdeantoni/unbl
 
 > **format**: (`format?`, ...`param`) => `string`
 
-Defined in: [packages/core/src/runtime.ts:279](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L279)
+Defined in: [packages/core/src/runtime.ts:285](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L285)
 
 The `util.format()` method returns a formatted string using the first argument
 as a `printf`-like format string which can contain zero or more format

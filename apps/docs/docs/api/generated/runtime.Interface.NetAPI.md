@@ -1,6 +1,6 @@
 # Interface: NetAPI
 
-Defined in: [packages/core/src/runtime.ts:282](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L282)
+Defined in: [packages/core/src/runtime.ts:288](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L288)
 
 ## Properties
 
@@ -8,7 +8,7 @@ Defined in: [packages/core/src/runtime.ts:282](https://github.com/vdeantoni/unbl
 
 > **createConnection**: \{(`options`, `connectionListener?`): `Socket`; (`port`, `host?`, `connectionListener?`): `Socket`; (`path`, `connectionListener?`): `Socket`; \}
 
-Defined in: [packages/core/src/runtime.ts:283](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L283)
+Defined in: [packages/core/src/runtime.ts:289](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L289)
 
 #### Call Signature
 

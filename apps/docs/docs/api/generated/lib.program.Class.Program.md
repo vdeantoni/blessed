@@ -2920,7 +2920,7 @@ Defined in: [packages/core/src/lib/program.ts:2797](https://github.com/vdeantoni
 
 > **setForeground**(`color`, `val?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3017](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3017)
+Defined in: [packages/core/src/lib/program.ts:3019](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3019)
 
 #### Parameters
 
@@ -2942,7 +2942,7 @@ Defined in: [packages/core/src/lib/program.ts:3017](https://github.com/vdeantoni
 
 > **setBackground**(`color`, `val?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3022](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3022)
+Defined in: [packages/core/src/lib/program.ts:3024](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3024)
 
 #### Parameters
 
@@ -2964,7 +2964,7 @@ Defined in: [packages/core/src/lib/program.ts:3022](https://github.com/vdeantoni
 
 > **deviceStatus**(`param?`, `callback?`, `dec?`, `noBypass?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3048](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3048)
+Defined in: [packages/core/src/lib/program.ts:3050](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3050)
 
 #### Parameters
 
@@ -2994,7 +2994,7 @@ Defined in: [packages/core/src/lib/program.ts:3048](https://github.com/vdeantoni
 
 > **getCursor**(`callback?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3070](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3070)
+Defined in: [packages/core/src/lib/program.ts:3072](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3072)
 
 #### Parameters
 
@@ -3012,7 +3012,7 @@ Defined in: [packages/core/src/lib/program.ts:3070](https://github.com/vdeantoni
 
 > **saveReportedCursor**(`callback?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3074](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3074)
+Defined in: [packages/core/src/lib/program.ts:3076](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3076)
 
 #### Parameters
 
@@ -3030,7 +3030,7 @@ Defined in: [packages/core/src/lib/program.ts:3074](https://github.com/vdeantoni
 
 > **restoreReportedCursor**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3089](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3089)
+Defined in: [packages/core/src/lib/program.ts:3091](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3091)
 
 #### Returns
 
@@ -3042,7 +3042,7 @@ Defined in: [packages/core/src/lib/program.ts:3089](https://github.com/vdeantoni
 
 > **insertChars**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3101](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3101)
+Defined in: [packages/core/src/lib/program.ts:3103](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3103)
 
 Additions
 
@@ -3062,7 +3062,7 @@ Additions
 
 > **cursorNextLine**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3111](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3111)
+Defined in: [packages/core/src/lib/program.ts:3113](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3113)
 
 #### Parameters
 
@@ -3080,7 +3080,7 @@ Defined in: [packages/core/src/lib/program.ts:3111](https://github.com/vdeantoni
 
 > **cursorPrecedingLine**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3120](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3120)
+Defined in: [packages/core/src/lib/program.ts:3122](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3122)
 
 #### Parameters
 
@@ -3098,7 +3098,7 @@ Defined in: [packages/core/src/lib/program.ts:3120](https://github.com/vdeantoni
 
 > **cursorCharAbsolute**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3128](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3128)
+Defined in: [packages/core/src/lib/program.ts:3130](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3130)
 
 #### Parameters
 
@@ -3116,7 +3116,7 @@ Defined in: [packages/core/src/lib/program.ts:3128](https://github.com/vdeantoni
 
 > **insertLines**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3143](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3143)
+Defined in: [packages/core/src/lib/program.ts:3145](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3145)
 
 #### Parameters
 
@@ -3134,7 +3134,7 @@ Defined in: [packages/core/src/lib/program.ts:3143](https://github.com/vdeantoni
 
 > **deleteLines**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3150](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3150)
+Defined in: [packages/core/src/lib/program.ts:3152](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3152)
 
 #### Parameters
 
@@ -3152,7 +3152,7 @@ Defined in: [packages/core/src/lib/program.ts:3150](https://github.com/vdeantoni
 
 > **deleteChars**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3157](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3157)
+Defined in: [packages/core/src/lib/program.ts:3159](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3159)
 
 #### Parameters
 
@@ -3170,7 +3170,7 @@ Defined in: [packages/core/src/lib/program.ts:3157](https://github.com/vdeantoni
 
 > **eraseChars**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3164](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3164)
+Defined in: [packages/core/src/lib/program.ts:3166](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3166)
 
 #### Parameters
 
@@ -3188,7 +3188,7 @@ Defined in: [packages/core/src/lib/program.ts:3164](https://github.com/vdeantoni
 
 > **charPosAbsolute**(...`args`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3171](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3171)
+Defined in: [packages/core/src/lib/program.ts:3173](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3173)
 
 #### Parameters
 
@@ -3206,7 +3206,7 @@ Defined in: [packages/core/src/lib/program.ts:3171](https://github.com/vdeantoni
 
 > **HPositionRelative**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3185](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3185)
+Defined in: [packages/core/src/lib/program.ts:3187](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3187)
 
 #### Parameters
 
@@ -3224,7 +3224,7 @@ Defined in: [packages/core/src/lib/program.ts:3185](https://github.com/vdeantoni
 
 > **sendDeviceAttributes**(`param?`, `callback?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3229](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3229)
+Defined in: [packages/core/src/lib/program.ts:3231](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3231)
 
 #### Parameters
 
@@ -3246,7 +3246,7 @@ Defined in: [packages/core/src/lib/program.ts:3229](https://github.com/vdeantoni
 
 > **linePosAbsolute**(...`args`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3243](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3243)
+Defined in: [packages/core/src/lib/program.ts:3245](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3245)
 
 #### Parameters
 
@@ -3264,7 +3264,7 @@ Defined in: [packages/core/src/lib/program.ts:3243](https://github.com/vdeantoni
 
 > **VPositionRelative**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3256](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3256)
+Defined in: [packages/core/src/lib/program.ts:3258](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3258)
 
 #### Parameters
 
@@ -3282,7 +3282,7 @@ Defined in: [packages/core/src/lib/program.ts:3256](https://github.com/vdeantoni
 
 > **HVPosition**(`row?`, `col?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3268](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3268)
+Defined in: [packages/core/src/lib/program.ts:3270](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3270)
 
 #### Parameters
 
@@ -3304,7 +3304,7 @@ Defined in: [packages/core/src/lib/program.ts:3268](https://github.com/vdeantoni
 
 > **setMode**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3369](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3369)
+Defined in: [packages/core/src/lib/program.ts:3371](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3371)
 
 #### Parameters
 
@@ -3322,7 +3322,7 @@ Defined in: [packages/core/src/lib/program.ts:3369](https://github.com/vdeantoni
 
 > **decset**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3374](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3374)
+Defined in: [packages/core/src/lib/program.ts:3376](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3376)
 
 #### Parameters
 
@@ -3340,7 +3340,7 @@ Defined in: [packages/core/src/lib/program.ts:3374](https://github.com/vdeantoni
 
 > **showCursor**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3379](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3379)
+Defined in: [packages/core/src/lib/program.ts:3381](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3381)
 
 #### Returns
 
@@ -3352,7 +3352,7 @@ Defined in: [packages/core/src/lib/program.ts:3379](https://github.com/vdeantoni
 
 > **alternateBuffer**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3391](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3391)
+Defined in: [packages/core/src/lib/program.ts:3393](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3393)
 
 #### Returns
 
@@ -3364,7 +3364,7 @@ Defined in: [packages/core/src/lib/program.ts:3391](https://github.com/vdeantoni
 
 > **resetMode**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3479](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3479)
+Defined in: [packages/core/src/lib/program.ts:3481](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3481)
 
 #### Parameters
 
@@ -3382,7 +3382,7 @@ Defined in: [packages/core/src/lib/program.ts:3479](https://github.com/vdeantoni
 
 > **decrst**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3484](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3484)
+Defined in: [packages/core/src/lib/program.ts:3486](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3486)
 
 #### Parameters
 
@@ -3400,7 +3400,7 @@ Defined in: [packages/core/src/lib/program.ts:3484](https://github.com/vdeantoni
 
 > **hideCursor**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3489](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3489)
+Defined in: [packages/core/src/lib/program.ts:3491](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3491)
 
 #### Returns
 
@@ -3412,7 +3412,7 @@ Defined in: [packages/core/src/lib/program.ts:3489](https://github.com/vdeantoni
 
 > **cursor_invisible**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3495](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3495)
+Defined in: [packages/core/src/lib/program.ts:3497](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3497)
 
 #### Returns
 
@@ -3424,7 +3424,7 @@ Defined in: [packages/core/src/lib/program.ts:3495](https://github.com/vdeantoni
 
 > **normalBuffer**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3499](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3499)
+Defined in: [packages/core/src/lib/program.ts:3501](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3501)
 
 #### Returns
 
@@ -3436,7 +3436,7 @@ Defined in: [packages/core/src/lib/program.ts:3499](https://github.com/vdeantoni
 
 > **enableMouse**(): `void`
 
-Defined in: [packages/core/src/lib/program.ts:3506](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3506)
+Defined in: [packages/core/src/lib/program.ts:3508](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3508)
 
 #### Returns
 
@@ -3448,7 +3448,7 @@ Defined in: [packages/core/src/lib/program.ts:3506](https://github.com/vdeantoni
 
 > **disableMouse**(): `void`
 
-Defined in: [packages/core/src/lib/program.ts:3629](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3629)
+Defined in: [packages/core/src/lib/program.ts:3631](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3631)
 
 #### Returns
 
@@ -3460,7 +3460,7 @@ Defined in: [packages/core/src/lib/program.ts:3629](https://github.com/vdeantoni
 
 > **setMouse**(`opt`, `enable?`): `void`
 
-Defined in: [packages/core/src/lib/program.ts:3642](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3642)
+Defined in: [packages/core/src/lib/program.ts:3644](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3644)
 
 #### Parameters
 
@@ -3482,7 +3482,7 @@ Defined in: [packages/core/src/lib/program.ts:3642](https://github.com/vdeantoni
 
 > **setScrollRegion**(`top?`, `bottom?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3773](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3773)
+Defined in: [packages/core/src/lib/program.ts:3775](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3775)
 
 #### Parameters
 
@@ -3504,7 +3504,7 @@ Defined in: [packages/core/src/lib/program.ts:3773](https://github.com/vdeantoni
 
 > **saveCursorA**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3792](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3792)
+Defined in: [packages/core/src/lib/program.ts:3794](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3794)
 
 #### Returns
 
@@ -3516,7 +3516,7 @@ Defined in: [packages/core/src/lib/program.ts:3792](https://github.com/vdeantoni
 
 > **restoreCursorA**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3801](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3801)
+Defined in: [packages/core/src/lib/program.ts:3803](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3803)
 
 #### Returns
 
@@ -3528,7 +3528,7 @@ Defined in: [packages/core/src/lib/program.ts:3801](https://github.com/vdeantoni
 
 > **cursorForwardTab**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3814](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3814)
+Defined in: [packages/core/src/lib/program.ts:3816](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3816)
 
 Lesser Used
 
@@ -3548,7 +3548,7 @@ Lesser Used
 
 > **scrollUp**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3822](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3822)
+Defined in: [packages/core/src/lib/program.ts:3824](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3824)
 
 #### Parameters
 
@@ -3566,7 +3566,7 @@ Defined in: [packages/core/src/lib/program.ts:3822](https://github.com/vdeantoni
 
 > **scrollDown**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3830](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3830)
+Defined in: [packages/core/src/lib/program.ts:3832](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3832)
 
 #### Parameters
 
@@ -3584,7 +3584,7 @@ Defined in: [packages/core/src/lib/program.ts:3830](https://github.com/vdeantoni
 
 > **initMouseTracking**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3841](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3841)
+Defined in: [packages/core/src/lib/program.ts:3843](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3843)
 
 #### Parameters
 
@@ -3602,7 +3602,7 @@ Defined in: [packages/core/src/lib/program.ts:3841](https://github.com/vdeantoni
 
 > **resetTitleModes**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3856](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3856)
+Defined in: [packages/core/src/lib/program.ts:3858](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3858)
 
 #### Parameters
 
@@ -3620,7 +3620,7 @@ Defined in: [packages/core/src/lib/program.ts:3856](https://github.com/vdeantoni
 
 > **cursorBackwardTab**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3861](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3861)
+Defined in: [packages/core/src/lib/program.ts:3863](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3863)
 
 #### Parameters
 
@@ -3638,7 +3638,7 @@ Defined in: [packages/core/src/lib/program.ts:3861](https://github.com/vdeantoni
 
 > **repeatPrecedingCharacter**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3869](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3869)
+Defined in: [packages/core/src/lib/program.ts:3871](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3871)
 
 #### Parameters
 
@@ -3656,7 +3656,7 @@ Defined in: [packages/core/src/lib/program.ts:3869](https://github.com/vdeantoni
 
 > **tabClear**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3882](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3882)
+Defined in: [packages/core/src/lib/program.ts:3884](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3884)
 
 #### Parameters
 
@@ -3674,7 +3674,7 @@ Defined in: [packages/core/src/lib/program.ts:3882](https://github.com/vdeantoni
 
 > **mediaCopy**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3898](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3898)
+Defined in: [packages/core/src/lib/program.ts:3900](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3900)
 
 #### Parameters
 
@@ -3692,7 +3692,7 @@ Defined in: [packages/core/src/lib/program.ts:3898](https://github.com/vdeantoni
 
 > **mc0**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3902](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3902)
+Defined in: [packages/core/src/lib/program.ts:3904](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3904)
 
 #### Returns
 
@@ -3704,7 +3704,7 @@ Defined in: [packages/core/src/lib/program.ts:3902](https://github.com/vdeantoni
 
 > **print_screen**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3907](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3907)
+Defined in: [packages/core/src/lib/program.ts:3909](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3909)
 
 #### Returns
 
@@ -3716,7 +3716,7 @@ Defined in: [packages/core/src/lib/program.ts:3907](https://github.com/vdeantoni
 
 > **mc5**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3911](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3911)
+Defined in: [packages/core/src/lib/program.ts:3913](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3913)
 
 #### Returns
 
@@ -3728,7 +3728,7 @@ Defined in: [packages/core/src/lib/program.ts:3911](https://github.com/vdeantoni
 
 > **prtr_on**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3916](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3916)
+Defined in: [packages/core/src/lib/program.ts:3918](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3918)
 
 #### Returns
 
@@ -3740,7 +3740,7 @@ Defined in: [packages/core/src/lib/program.ts:3916](https://github.com/vdeantoni
 
 > **mc4**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3920](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3920)
+Defined in: [packages/core/src/lib/program.ts:3922](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3922)
 
 #### Returns
 
@@ -3752,7 +3752,7 @@ Defined in: [packages/core/src/lib/program.ts:3920](https://github.com/vdeantoni
 
 > **prtr_off**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3925](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3925)
+Defined in: [packages/core/src/lib/program.ts:3927](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3927)
 
 #### Returns
 
@@ -3764,7 +3764,7 @@ Defined in: [packages/core/src/lib/program.ts:3925](https://github.com/vdeantoni
 
 > **mc5p**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3929](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3929)
+Defined in: [packages/core/src/lib/program.ts:3931](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3931)
 
 #### Returns
 
@@ -3776,7 +3776,7 @@ Defined in: [packages/core/src/lib/program.ts:3929](https://github.com/vdeantoni
 
 > **prtr_non**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3934](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3934)
+Defined in: [packages/core/src/lib/program.ts:3936](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3936)
 
 #### Returns
 
@@ -3788,7 +3788,7 @@ Defined in: [packages/core/src/lib/program.ts:3934](https://github.com/vdeantoni
 
 > **setResources**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3950](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3950)
+Defined in: [packages/core/src/lib/program.ts:3952](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3952)
 
 #### Parameters
 
@@ -3806,7 +3806,7 @@ Defined in: [packages/core/src/lib/program.ts:3950](https://github.com/vdeantoni
 
 > **disableModifiers**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3967](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3967)
+Defined in: [packages/core/src/lib/program.ts:3969](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3969)
 
 #### Parameters
 
@@ -3824,7 +3824,7 @@ Defined in: [packages/core/src/lib/program.ts:3967](https://github.com/vdeantoni
 
 > **setPointerMode**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:3979](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3979)
+Defined in: [packages/core/src/lib/program.ts:3981](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3981)
 
 #### Parameters
 
@@ -3842,7 +3842,7 @@ Defined in: [packages/core/src/lib/program.ts:3979](https://github.com/vdeantoni
 
 > **softReset**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:3985](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3985)
+Defined in: [packages/core/src/lib/program.ts:3987](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L3987)
 
 #### Returns
 
@@ -3854,7 +3854,7 @@ Defined in: [packages/core/src/lib/program.ts:3985](https://github.com/vdeantoni
 
 > **requestAnsiMode**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4004](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4004)
+Defined in: [packages/core/src/lib/program.ts:4006](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4006)
 
 #### Parameters
 
@@ -3872,7 +3872,7 @@ Defined in: [packages/core/src/lib/program.ts:4004](https://github.com/vdeantoni
 
 > **requestPrivateMode**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4013](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4013)
+Defined in: [packages/core/src/lib/program.ts:4015](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4015)
 
 #### Parameters
 
@@ -3890,7 +3890,7 @@ Defined in: [packages/core/src/lib/program.ts:4013](https://github.com/vdeantoni
 
 > **setConformanceLevel**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4027](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4027)
+Defined in: [packages/core/src/lib/program.ts:4029](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4029)
 
 #### Parameters
 
@@ -3908,7 +3908,7 @@ Defined in: [packages/core/src/lib/program.ts:4027](https://github.com/vdeantoni
 
 > **loadLEDs**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4039](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4039)
+Defined in: [packages/core/src/lib/program.ts:4041](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4041)
 
 #### Parameters
 
@@ -3926,7 +3926,7 @@ Defined in: [packages/core/src/lib/program.ts:4039](https://github.com/vdeantoni
 
 > **setCursorStyle**(`param?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:4050](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4050)
+Defined in: [packages/core/src/lib/program.ts:4052](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4052)
 
 #### Parameters
 
@@ -3944,7 +3944,7 @@ Defined in: [packages/core/src/lib/program.ts:4050](https://github.com/vdeantoni
 
 > **setCharProtectionAttr**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4089](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4089)
+Defined in: [packages/core/src/lib/program.ts:4091](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4091)
 
 #### Parameters
 
@@ -3962,7 +3962,7 @@ Defined in: [packages/core/src/lib/program.ts:4089](https://github.com/vdeantoni
 
 > **restorePrivateValues**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4096](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4096)
+Defined in: [packages/core/src/lib/program.ts:4098](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4098)
 
 #### Parameters
 
@@ -3980,7 +3980,7 @@ Defined in: [packages/core/src/lib/program.ts:4096](https://github.com/vdeantoni
 
 > **setAttrInRectangle**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4105](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4105)
+Defined in: [packages/core/src/lib/program.ts:4107](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4107)
 
 #### Parameters
 
@@ -3998,7 +3998,7 @@ Defined in: [packages/core/src/lib/program.ts:4105](https://github.com/vdeantoni
 
 > **savePrivateValues**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4112](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4112)
+Defined in: [packages/core/src/lib/program.ts:4114](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4114)
 
 #### Parameters
 
@@ -4016,7 +4016,7 @@ Defined in: [packages/core/src/lib/program.ts:4112](https://github.com/vdeantoni
 
 > **manipulateWindow**(...`args`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:4162](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4162)
+Defined in: [packages/core/src/lib/program.ts:4164](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4164)
 
 #### Parameters
 
@@ -4034,7 +4034,7 @@ Defined in: [packages/core/src/lib/program.ts:4162](https://github.com/vdeantoni
 
 > **getWindowSize**(`callback?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:4173](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4173)
+Defined in: [packages/core/src/lib/program.ts:4175](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4175)
 
 #### Parameters
 
@@ -4052,7 +4052,7 @@ Defined in: [packages/core/src/lib/program.ts:4173](https://github.com/vdeantoni
 
 > **reverseAttrInRectangle**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4183](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4183)
+Defined in: [packages/core/src/lib/program.ts:4185](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4185)
 
 #### Parameters
 
@@ -4070,7 +4070,7 @@ Defined in: [packages/core/src/lib/program.ts:4183](https://github.com/vdeantoni
 
 > **setTitleModeFeature**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4196](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4196)
+Defined in: [packages/core/src/lib/program.ts:4198](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4198)
 
 #### Parameters
 
@@ -4088,7 +4088,7 @@ Defined in: [packages/core/src/lib/program.ts:4196](https://github.com/vdeantoni
 
 > **setWarningBellVolume**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4205](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4205)
+Defined in: [packages/core/src/lib/program.ts:4207](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4207)
 
 #### Parameters
 
@@ -4106,7 +4106,7 @@ Defined in: [packages/core/src/lib/program.ts:4205](https://github.com/vdeantoni
 
 > **setMarginBellVolume**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4214](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4214)
+Defined in: [packages/core/src/lib/program.ts:4216](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4216)
 
 #### Parameters
 
@@ -4124,7 +4124,7 @@ Defined in: [packages/core/src/lib/program.ts:4214](https://github.com/vdeantoni
 
 > **copyRectangle**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4225](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4225)
+Defined in: [packages/core/src/lib/program.ts:4227](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4227)
 
 #### Parameters
 
@@ -4142,7 +4142,7 @@ Defined in: [packages/core/src/lib/program.ts:4225](https://github.com/vdeantoni
 
 > **enableFilterRectangle**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4240](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4240)
+Defined in: [packages/core/src/lib/program.ts:4242](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4242)
 
 #### Parameters
 
@@ -4160,7 +4160,7 @@ Defined in: [packages/core/src/lib/program.ts:4240](https://github.com/vdeantoni
 
 > **requestParameters**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4255](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4255)
+Defined in: [packages/core/src/lib/program.ts:4257](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4257)
 
 #### Parameters
 
@@ -4178,7 +4178,7 @@ Defined in: [packages/core/src/lib/program.ts:4255](https://github.com/vdeantoni
 
 > **selectChangeExtent**(`param?`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4263](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4263)
+Defined in: [packages/core/src/lib/program.ts:4265](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4265)
 
 #### Parameters
 
@@ -4196,7 +4196,7 @@ Defined in: [packages/core/src/lib/program.ts:4263](https://github.com/vdeantoni
 
 > **fillRectangle**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4272](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4272)
+Defined in: [packages/core/src/lib/program.ts:4274](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4274)
 
 #### Parameters
 
@@ -4214,7 +4214,7 @@ Defined in: [packages/core/src/lib/program.ts:4272](https://github.com/vdeantoni
 
 > **enableLocatorReporting**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4288](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4288)
+Defined in: [packages/core/src/lib/program.ts:4290](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4290)
 
 #### Parameters
 
@@ -4232,7 +4232,7 @@ Defined in: [packages/core/src/lib/program.ts:4288](https://github.com/vdeantoni
 
 > **eraseRectangle**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4296](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4296)
+Defined in: [packages/core/src/lib/program.ts:4298](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4298)
 
 #### Parameters
 
@@ -4250,7 +4250,7 @@ Defined in: [packages/core/src/lib/program.ts:4296](https://github.com/vdeantoni
 
 > **setLocatorEvents**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4311](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4311)
+Defined in: [packages/core/src/lib/program.ts:4313](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4313)
 
 #### Parameters
 
@@ -4268,7 +4268,7 @@ Defined in: [packages/core/src/lib/program.ts:4311](https://github.com/vdeantoni
 
 > **selectiveEraseRectangle**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4318](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4318)
+Defined in: [packages/core/src/lib/program.ts:4320](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4320)
 
 #### Parameters
 
@@ -4286,7 +4286,7 @@ Defined in: [packages/core/src/lib/program.ts:4318](https://github.com/vdeantoni
 
 > **requestLocatorPosition**(`param?`, `callback?`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:4362](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4362)
+Defined in: [packages/core/src/lib/program.ts:4364](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4364)
 
 #### Parameters
 
@@ -4308,7 +4308,7 @@ Defined in: [packages/core/src/lib/program.ts:4362](https://github.com/vdeantoni
 
 > **req_mouse_pos**(): `any`
 
-Defined in: [packages/core/src/lib/program.ts:4381](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4381)
+Defined in: [packages/core/src/lib/program.ts:4383](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4383)
 
 #### Returns
 
@@ -4320,7 +4320,7 @@ Defined in: [packages/core/src/lib/program.ts:4381](https://github.com/vdeantoni
 
 > **insertColumns**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4388](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4388)
+Defined in: [packages/core/src/lib/program.ts:4390](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4390)
 
 #### Parameters
 
@@ -4338,7 +4338,7 @@ Defined in: [packages/core/src/lib/program.ts:4388](https://github.com/vdeantoni
 
 > **deleteColumns**(...`args`): `string` \| `boolean` \| `undefined`
 
-Defined in: [packages/core/src/lib/program.ts:4395](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4395)
+Defined in: [packages/core/src/lib/program.ts:4397](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4397)
 
 #### Parameters
 
@@ -4356,7 +4356,7 @@ Defined in: [packages/core/src/lib/program.ts:4395](https://github.com/vdeantoni
 
 > **out**(`name`, ...`args`): `any`
 
-Defined in: [packages/core/src/lib/program.ts:4399](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4399)
+Defined in: [packages/core/src/lib/program.ts:4401](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4401)
 
 #### Parameters
 
@@ -4378,7 +4378,7 @@ Defined in: [packages/core/src/lib/program.ts:4399](https://github.com/vdeantoni
 
 > **sigtstp**(`callback?`): `void`
 
-Defined in: [packages/core/src/lib/program.ts:4406](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4406)
+Defined in: [packages/core/src/lib/program.ts:4408](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4408)
 
 #### Parameters
 
@@ -4396,7 +4396,7 @@ Defined in: [packages/core/src/lib/program.ts:4406](https://github.com/vdeantoni
 
 > **pause**(`callback?`): () => `void`
 
-Defined in: [packages/core/src/lib/program.ts:4417](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4417)
+Defined in: [packages/core/src/lib/program.ts:4419](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4419)
 
 #### Parameters
 
@@ -4418,7 +4418,7 @@ Defined in: [packages/core/src/lib/program.ts:4417](https://github.com/vdeantoni
 
 > **resume**(): `void`
 
-Defined in: [packages/core/src/lib/program.ts:4454](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4454)
+Defined in: [packages/core/src/lib/program.ts:4456](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/lib/program.ts#L4456)
 
 #### Returns
 

@@ -1,6 +1,6 @@
 # Interface: GifAPI
 
-Defined in: [packages/core/src/runtime.ts:367](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L367)
+Defined in: [packages/core/src/runtime.ts:373](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L373)
 
 GIF image library interface (omggif)
 
@@ -10,7 +10,7 @@ GIF image library interface (omggif)
 
 > **GifReader**: (`buffer`) => `object`
 
-Defined in: [packages/core/src/runtime.ts:368](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L368)
+Defined in: [packages/core/src/runtime.ts:374](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L374)
 
 #### Parameters
 
@@ -82,11 +82,11 @@ Defined in: [packages/core/src/runtime.ts:368](https://github.com/vdeantoni/unbl
 
 ###### palette_offset
 
-> **palette_offset**: `number`
+> **palette_offset**: `number` \| `null`
 
 ###### palette_size
 
-> **palette_size**: `number`
+> **palette_size**: `number` \| `null`
 
 ###### data_offset
 
@@ -98,7 +98,7 @@ Defined in: [packages/core/src/runtime.ts:368](https://github.com/vdeantoni/unbl
 
 ###### transparent_index
 
-> **transparent_index**: `number`
+> **transparent_index**: `number` \| `null`
 
 ###### interlaced
 

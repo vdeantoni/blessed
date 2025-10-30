@@ -2,7 +2,7 @@
 
 > **hasNetworkSupport**(`runtime`): `runtime is Runtime & { networking: NetworkingAPI }`
 
-Defined in: [packages/core/src/runtime.ts:518](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L518)
+Defined in: [packages/core/src/runtime.ts:501](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/runtime.ts#L501)
 
 Check if runtime has networking support
 
