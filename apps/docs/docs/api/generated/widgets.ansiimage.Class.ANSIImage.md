@@ -3462,7 +3462,7 @@ Defined in: [packages/core/src/widgets/element.ts:2051](https://github.com/vdean
 
 > **\_render**(): `any`
 
-Defined in: [packages/core/src/widgets/element.ts:2882](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2882)
+Defined in: [packages/core/src/widgets/element.ts:2881](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2881)
 
 Internal alias for render().
 
@@ -3482,7 +3482,7 @@ Rendered coordinates object
 
 > **insertLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2896](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2896)
+Defined in: [packages/core/src/widgets/element.ts:2895](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2895)
 
 Insert a line into the box's content.
 Handles wrapped content by inserting at the specified fake line index.
@@ -3515,7 +3515,7 @@ Line or array of lines to insert
 
 > **deleteLine**(`i`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:2957](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2957)
+Defined in: [packages/core/src/widgets/element.ts:2956](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L2956)
 
 Delete a line from the box's content.
 Handles wrapped content by deleting at the specified fake line index.
@@ -3548,7 +3548,7 @@ Number of lines to delete (default: 1)
 
 > **insertTop**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3013](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3013)
+Defined in: [packages/core/src/widgets/element.ts:3012](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3012)
 
 Insert a line at the top of the box.
 Inserts at the first visible line based on childBase.
@@ -3575,7 +3575,7 @@ Line or array of lines to insert
 
 > **insertBottom**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3023](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3023)
+Defined in: [packages/core/src/widgets/element.ts:3022](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3022)
 
 Insert a line at the bottom of the box.
 Inserts after the last visible line based on height and childBase.
@@ -3602,7 +3602,7 @@ Line or array of lines to insert
 
 > **deleteTop**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3036](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3036)
+Defined in: [packages/core/src/widgets/element.ts:3035](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3035)
 
 Delete a line at the top of the box.
 Deletes from the first visible line based on childBase.
@@ -3629,7 +3629,7 @@ Number of lines to delete (default: 1)
 
 > **deleteBottom**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3046](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3046)
+Defined in: [packages/core/src/widgets/element.ts:3045](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3045)
 
 Delete a line at the bottom of the box.
 Deletes from the last visible line based on height and childBase.
@@ -3656,7 +3656,7 @@ Number of lines to delete (default: 1)
 
 > **setLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3061](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3061)
+Defined in: [packages/core/src/widgets/element.ts:3060](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3060)
 
 Set a line in the box's content.
 
@@ -3688,7 +3688,7 @@ Line content to set
 
 > **setBaseLine**(`i`, `line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3075](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3075)
+Defined in: [packages/core/src/widgets/element.ts:3074](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3074)
 
 Set a line in the box's content from the visible top.
 
@@ -3720,7 +3720,7 @@ Line content to set
 
 > **getLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3085](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3085)
+Defined in: [packages/core/src/widgets/element.ts:3084](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3084)
 
 Get a line from the box's content.
 
@@ -3748,7 +3748,7 @@ Line content
 
 > **getBaseLine**(`i`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3096](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3096)
+Defined in: [packages/core/src/widgets/element.ts:3095](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3095)
 
 Get a line from the box's content from the visible top.
 
@@ -3776,7 +3776,7 @@ Line content
 
 > **clearLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3105](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3105)
+Defined in: [packages/core/src/widgets/element.ts:3104](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3104)
 
 Clear a line from the box's content.
 
@@ -3802,7 +3802,7 @@ Line index to clear (fake line number)
 
 > **clearBaseLine**(`i`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3114](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3114)
+Defined in: [packages/core/src/widgets/element.ts:3113](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3113)
 
 Clear a line from the box's content from the visible top.
 
@@ -3828,7 +3828,7 @@ Line offset from visible top
 
 > **unshiftLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3123](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3123)
+Defined in: [packages/core/src/widgets/element.ts:3122](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3122)
 
 Unshift a line onto the top of the content.
 
@@ -3854,7 +3854,7 @@ Line or array of lines to insert
 
 > **shiftLine**(`i?`, `n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3132](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3132)
+Defined in: [packages/core/src/widgets/element.ts:3131](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3131)
 
 Shift a line off the top of the content.
 
@@ -3886,7 +3886,7 @@ Number of lines to remove (default: 1)
 
 > **pushLine**(`line`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3140](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3140)
+Defined in: [packages/core/src/widgets/element.ts:3139](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3139)
 
 Push a line onto the bottom of the content.
 
@@ -3912,7 +3912,7 @@ Line or array of lines to insert
 
 > **popLine**(`n?`): `void`
 
-Defined in: [packages/core/src/widgets/element.ts:3149](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3149)
+Defined in: [packages/core/src/widgets/element.ts:3148](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3148)
 
 Pop a line off the bottom of the content.
 
@@ -3938,7 +3938,7 @@ Number of lines to remove (default: 1)
 
 > **getLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:3157](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3157)
+Defined in: [packages/core/src/widgets/element.ts:3156](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3156)
 
 An array containing the content lines.
 
@@ -3958,7 +3958,7 @@ Array of fake (unwrapped) lines
 
 > **getScreenLines**(): `string`[]
 
-Defined in: [packages/core/src/widgets/element.ts:3165](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3165)
+Defined in: [packages/core/src/widgets/element.ts:3164](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3164)
 
 An array containing the lines as they are displayed on the screen.
 
@@ -3978,7 +3978,7 @@ Array of real (wrapped) lines
 
 > **strWidth**(`text`): `number`
 
-Defined in: [packages/core/src/widgets/element.ts:3175](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3175)
+Defined in: [packages/core/src/widgets/element.ts:3174](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3174)
 
 Get a string's displayed width, taking into account double-width, surrogate pairs,
 combining characters, tags, and SGR escape codes.
@@ -4007,7 +4007,7 @@ Displayed width in cells
 
 > **screenshot**(`xi?`, `xl?`, `yi?`, `yl?`): `string`
 
-Defined in: [packages/core/src/widgets/element.ts:3191](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3191)
+Defined in: [packages/core/src/widgets/element.ts:3190](https://github.com/vdeantoni/unblessed/blob/alpha/packages/core/src/widgets/element.ts#L3190)
 
 Take an SGR screenshot of the element within the region. Returns a string containing only
 characters and SGR codes. Can be displayed by simply echoing it in a terminal.
