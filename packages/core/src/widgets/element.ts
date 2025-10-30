@@ -2564,12 +2564,11 @@ class Element extends Node {
           }
         }
 
-        // Apply dim effect if specified (by blending the fg color with black)
+        // Apply dim effect if specified (using dim attribute flag)
         const dimKey = `${side}Dim` as keyof typeof this.border;
         const sideDim = this.border?.[dimKey] ?? this.border?.dim;
-        if (sideDim && sideStyle.fg != null && sideStyle.fg >= 0) {
-          // Use mixColors to darken the foreground color (blend with black at 50%)
-          sideStyle.fg = colors.mixColors(sideStyle.fg, 0, 0.5);
+        if (sideDim) {
+          sideStyle.dim = true;
         }
 
         // Get final attribute with potentially dimmed color
@@ -2610,11 +2609,11 @@ class Element extends Node {
             ? colors.convert(colorValue)
             : colorValue;
 
-        // Apply dim for this side (dim applies to colors array too!)
+        // Apply dim for this side (using dim attribute flag)
         const dimKey = `${side}Dim` as keyof typeof this.border;
         const sideDim = this.border?.[dimKey] ?? this.border?.dim;
-        if (sideDim && sideStyle.fg != null && sideStyle.fg >= 0) {
-          sideStyle.fg = colors.mixColors(sideStyle.fg, 0, 0.5);
+        if (sideDim) {
+          sideStyle.dim = true;
         }
 
         return this.sattr(sideStyle);
