@@ -41,7 +41,7 @@ export class EventEmitterBase implements EventEmitterType {
 
   constructor() {
     const runtime = getRuntime();
-    const EventEmitter = runtime.utils.events.EventEmitter;
+    const EventEmitter = runtime.events.EventEmitter;
     this._emitter = new EventEmitter();
   }
 

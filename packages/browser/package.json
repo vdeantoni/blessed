@@ -85,6 +85,7 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.49.1",
+    "@types/path-browserify": "^1.0.3",
     "@unblessed/core": "workspace:*",
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",

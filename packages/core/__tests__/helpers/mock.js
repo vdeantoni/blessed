@@ -110,21 +110,19 @@ export function createNodeRuntimeForTests() {
       format: url.format,
       fileURLToPath: url.fileURLToPath,
     },
-    utils: {
-      util: {
-        inspect: util.inspect,
-        format: util.format,
-      },
-      stream: {
-        Readable,
-        Writable,
-      },
-      stringDecoder: {
-        StringDecoder,
-      },
-      events: {
-        EventEmitter,
-      },
+    util: {
+      inspect: util.inspect,
+      format: util.format,
+    },
+    stream: {
+      Readable,
+      Writable,
+    },
+    stringDecoder: {
+      StringDecoder,
+    },
+    events: {
+      EventEmitter,
     },
 
     // Optional APIs
@@ -229,53 +227,51 @@ function createMockRuntime(options = {}) {
         return path.join(__dirname, "../..");
       }),
     },
-    utils: {
-      util: {
-        inspect: vi.fn((obj) => JSON.stringify(obj)),
-        format: vi.fn((...args) => {
-          // Implement basic util.format behavior
-          if (args.length === 0) return "";
-          let str = String(args[0]);
-          let i = 1;
-          str = str.replace(/%[sdifjoO%]/g, (match) => {
-            if (i >= args.length) return match;
-            if (match === "%%") return "%";
-            const arg = args[i++];
-            switch (match) {
-              case "%s":
-                return String(arg);
-              case "%d":
-                return Number(arg);
-              case "%i":
-                return parseInt(arg);
-              case "%f":
-                return parseFloat(arg);
-              case "%j":
-                return JSON.stringify(arg);
-              case "%o":
-              case "%O":
-                return JSON.stringify(arg);
-              default:
-                return match;
-            }
-          });
-          // Append remaining arguments
-          while (i < args.length) {
-            str += " " + args[i++];
+    util: {
+      inspect: vi.fn((obj) => JSON.stringify(obj)),
+      format: vi.fn((...args) => {
+        // Implement basic util.format behavior
+        if (args.length === 0) return "";
+        let str = String(args[0]);
+        let i = 1;
+        str = str.replace(/%[sdifjoO%]/g, (match) => {
+          if (i >= args.length) return match;
+          if (match === "%%") return "%";
+          const arg = args[i++];
+          switch (match) {
+            case "%s":
+              return String(arg);
+            case "%d":
+              return Number(arg);
+            case "%i":
+              return parseInt(arg);
+            case "%f":
+              return parseFloat(arg);
+            case "%j":
+              return JSON.stringify(arg);
+            case "%o":
+            case "%O":
+              return JSON.stringify(arg);
+            default:
+              return match;
           }
-          return str;
-        }),
-      },
-      stringDecoder: {
-        StringDecoder,
-      },
-      stream: {
-        Readable,
-        Writable,
-      },
-      events: {
-        EventEmitter,
-      },
+        });
+        // Append remaining arguments
+        while (i < args.length) {
+          str += " " + args[i++];
+        }
+        return str;
+      }),
+    },
+    stringDecoder: {
+      StringDecoder,
+    },
+    stream: {
+      Readable,
+      Writable,
+    },
+    events: {
+      EventEmitter,
     },
 
     // Optional API groups

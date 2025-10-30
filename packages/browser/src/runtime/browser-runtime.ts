@@ -9,7 +9,6 @@ import type { Runtime } from "@unblessed/core";
 import { Buffer } from "buffer";
 import { EventEmitter } from "events";
 import type { PathLike } from "fs";
-// @ts-ignore
 import path from "path-browserify";
 import { StringDecoder } from "string_decoder";
 
@@ -108,7 +107,10 @@ export class BrowserRuntime implements Runtime {
   process: Runtime["process"];
   buffer: Runtime["buffer"];
   url: Runtime["url"];
-  utils: Runtime["utils"];
+  util: Runtime["util"];
+  stream: Runtime["stream"];
+  stringDecoder: Runtime["stringDecoder"];
+  events: Runtime["events"];
 
   // Optional grouped APIs
   images?: Runtime["images"];
@@ -282,16 +284,14 @@ export class BrowserRuntime implements Runtime {
     // Utilities (util, stringDecoder, stream)
     // Using custom browserUtil to avoid "process is not defined" errors from npm util package
     // Using EventEmitter for stream stubs (simple and works)
-    this.utils = {
-      util: browserUtil as any,
-      stringDecoder: { StringDecoder } as any,
-      stream: {
-        Readable: EventEmitter as any,
-        Writable: EventEmitter as any,
-      },
-      events: {
-        EventEmitter,
-      },
+    this.util = browserUtil as any;
+    this.stringDecoder = { StringDecoder };
+    this.stream = {
+      Readable: EventEmitter as any,
+      Writable: EventEmitter as any,
+    };
+    this.events = {
+      EventEmitter,
     };
 
     // Optional API groups

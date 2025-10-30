@@ -206,6 +206,9 @@ importers:
       '@playwright/test':
         specifier: ^1.49.1
         version: 1.56.0
+      '@types/path-browserify':
+        specifier: ^1.0.3
+        version: 1.0.3
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
@@ -2366,6 +2369,9 @@ packages:
 
   '@types/omggif@1.0.5':
     resolution: {integrity: sha512-gDQJflz1rOgEcUXkMAl80bDGN46f5mp8GbcM5dyvq+zsFV6YRBRtmNxlJJ5mjY77T7BRkRFzdIBVmK90QYhCxA==}
+
+  '@types/path-browserify@1.0.3':
+    resolution: {integrity: sha512-ZmHivEbNCBtAfcrFeBCiTjdIc2dey0l7oCGNGpSuRTy8jP6UVND7oUowlvDujBy8r2Hoa8bfFUOCiPWfmtkfxw==}
 
   '@types/pngjs@6.0.5':
     resolution: {integrity: sha512-0k5eKfrA83JOZPppLtS2C7OUtyNAl2wKNxfyYl9Q5g9lPkgBl/9hNyAu6HuEH2J4XmIv2znEpkDd0SaZVxW6iQ==}
@@ -10458,6 +10464,8 @@ snapshots:
   '@types/normalize-package-data@2.4.4': {}
 
   '@types/omggif@1.0.5': {}
+
+  '@types/path-browserify@1.0.3': {}
 
   '@types/pngjs@6.0.5':
     dependencies:

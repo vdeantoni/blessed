@@ -39,31 +39,29 @@ import * as util from "util";
  * @internal
  */
 export class NodeRuntime implements Runtime {
-  fs = fs as Runtime["fs"];
-  path = path as Runtime["path"];
-  process = process as Runtime["process"];
-  buffer = { Buffer } as Runtime["buffer"];
-  url = url as Runtime["url"];
-  utils = {
-    util: util,
-    stream: { Readable, Writable },
-    stringDecoder: { StringDecoder },
-    events: { EventEmitter },
-  } as Runtime["utils"];
+  fs = fs;
+  path = path;
+  process = process;
+  buffer = { Buffer };
+  url = url;
+  util = util;
+  stream = { Readable, Writable };
+  stringDecoder = { StringDecoder };
+  events = { EventEmitter };
 
   images = {
     png: { PNG },
     gif: { GifReader },
-  } as Runtime["images"];
+  };
 
   processes = {
     childProcess: child_process,
-  } as Runtime["processes"];
+  };
 
   networking = {
     net: net,
     tty: tty,
-  } as Runtime["networking"];
+  };
 }
 
 initCore(new NodeRuntime());

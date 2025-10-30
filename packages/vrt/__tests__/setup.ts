@@ -24,17 +24,15 @@ import { beforeAll } from "vitest";
 // Initialize Node.js runtime manually before all tests
 beforeAll(() => {
   const nodeRuntime: Runtime = {
-    fs: fs as Runtime["fs"],
-    path: path as Runtime["path"],
-    process: process as Runtime["process"],
-    buffer: { Buffer } as Runtime["buffer"],
-    url: url as Runtime["url"],
-    utils: {
-      util: util,
-      stream: { Readable, Writable },
-      stringDecoder: { StringDecoder },
-      events: { EventEmitter },
-    } as Runtime["utils"],
+    fs: fs,
+    path: path,
+    process: process,
+    buffer: { Buffer },
+    url: url,
+    util: util,
+    stream: { Readable, Writable },
+    stringDecoder: { StringDecoder },
+    events: { EventEmitter },
 
     images: {
       png: { PNG },

@@ -123,8 +123,14 @@ export interface Runtime {
   buffer: BufferAPI;
   /** URL operations (fileURLToPath for module resolution) */
   url: UrlAPI;
-  /** Utility functions and streams */
-  utils: UtilsAPI;
+  /** Utility functions (inspect, format) */
+  util: UtilAPI;
+  /** Stream operations (Readable, Writable) */
+  stream: StreamAPI;
+  /** String decoder for buffer/string conversion */
+  stringDecoder: StringDecoderAPI;
+  /** Event emitter for event-driven programming */
+  events: EventsAPI;
 
   // ============================================================
   // OPTIONAL APIs (Feature Detection)
@@ -237,7 +243,7 @@ export interface ProcessAPI {
   on: (event: string, listener: (...args: any[]) => void) => any;
   once: (event: string, listener: (...args: any[]) => void) => any;
   removeListener: (event: string, listener: (...args: any[]) => void) => any;
-  listeners: (event: string) => Function[];
+  listeners: (event: any) => Function[];
   nextTick: (callback: Function, ...args: any[]) => void;
   kill: (pid: number, signal?: string | number) => boolean;
 }
@@ -376,25 +382,17 @@ export interface GifAPI {
       width: number;
       height: number;
       has_local_palette: boolean;
-      palette_offset: number;
-      palette_size: number;
+      palette_offset: number | null;
+      palette_size: number | null;
       data_offset: number;
       data_length: number;
-      transparent_index: number;
+      transparent_index: number | null;
       interlaced: boolean;
       delay: number;
       disposal: number;
     };
     decodeAndBlitFrameRGBA(frameNum: number, pixels: Uint8Array): void;
   };
-}
-
-/**
- * Create a runtime context from individual APIs
- * Helper for constructing Runtime implementations
- */
-export function createRuntime(options: Runtime): Runtime {
-  return options;
 }
 
 // ============================================================
@@ -430,21 +428,6 @@ export interface NetworkingAPI {
   net: NetAPI;
   /** TTY operations */
   tty: TtyAPI;
-}
-
-/**
- * Utilities API group (optional)
- * Utility functions, streams, and string decoding
- */
-export interface UtilsAPI {
-  /** Utility functions (inspect, format) */
-  util: UtilAPI;
-  /** Stream operations (Readable, Writable) */
-  stream: StreamAPI;
-  /** String decoder for buffer/string conversion */
-  stringDecoder: StringDecoderAPI;
-  /** Event emitter for event-driven programming */
-  events: EventsAPI;
 }
 
 // ============================================================
@@ -519,19 +502,4 @@ export function hasNetworkSupport(
   runtime: Runtime,
 ): runtime is Runtime & { networking: NetworkingAPI } {
   return runtime.networking !== undefined;
-}
-
-/**
- * Check if runtime has utility functions
- *
- * @remarks
- * Type guard for util, stream, and string decoder operations.
- *
- * @param runtime - Runtime instance to check
- * @returns True if utils support is available
- */
-export function hasUtilsSupport(
-  runtime: Runtime,
-): runtime is Runtime & { utils: UtilsAPI } {
-  return runtime.utils !== undefined;
 }
