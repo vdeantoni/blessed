@@ -1568,9 +1568,16 @@ class Screen extends Node {
               // behavior is needed. There may be a more efficient way of doing
               // this. See above.
               o[x][1] = "\0";
-              // Eat the next character by moving forward and marking as a
-              // space (which it is).
-              o[++x][1] = "\0";
+
+              // For XTerm.js in browsers, don't skip the next cell.
+              // XTerm automatically advances the cursor by 2 cells when rendering
+              // a wide character, so we need to let the next cell render normally.
+              // Detect browser XTerm by checking TERM="xterm-256color" AND platform="browser".
+              if (getEnvVar("TERM") !== "xterm-256color") {
+                // Traditional terminal: eat the next character by moving forward
+                // and marking as a space (which it is).
+                o[++x][1] = "\0";
+              }
             }
           }
         }

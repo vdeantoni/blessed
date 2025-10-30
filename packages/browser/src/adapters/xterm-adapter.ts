@@ -43,7 +43,7 @@ export class XTermAdapter extends EventEmitter {
     super();
     this.terminal = options.terminal;
     this.options = {
-      mouse: false,
+      mouse: true,
       term: "xterm-256color",
       ...options,
     };

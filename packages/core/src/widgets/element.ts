@@ -8,7 +8,7 @@
 
 import colors from "../lib/colors.js";
 import helpers from "../lib/helpers.js";
-import { getNextTick } from "../lib/runtime-helpers.js";
+import { getEnvVar, getNextTick } from "../lib/runtime-helpers.js";
 import unicode from "../lib/unicode.js";
 import {
   makeScrollable,
@@ -597,7 +597,16 @@ class Element extends Node {
       if (this.screen.fullUnicode) {
         // double-width chars will eat the next char after render. create a
         // blank character after it so it doesn't eat the real next char.
-        content = unicode.padWideChars(content);
+        // For XTerm.js in browsers, we still need padding but use a space instead of \x03
+        // because XTerm will handle the wide char natively and we don't want \x03 to render.
+        if (getEnvVar("TERM") === "xterm-256color") {
+          // For XTerm: Add space padding (XTerm will skip it visually)
+          content = unicode.padWideChars(content).replace(/\x03/g, " ");
+        } else {
+          // For traditional terminals: Add \x03 padding
+          content = unicode.padWideChars(content);
+        }
+
         // iTerm2 cannot render combining characters properly.
         if (this.screen.program.isiTerm2) {
           content = content.replace(unicode.chars.combining, "");
