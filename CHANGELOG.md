@@ -1,3 +1,16 @@
+# [1.0.0-alpha.10](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2025-10-30)
+
+
+### Bug Fixes
+
+* **docs:** adjusted live demo ([c4ce144](https://github.com/vdeantoni/unblessed/commit/c4ce144a63b38b489933f47fb2a15383ac0df5af))
+
+
+### Features
+
+* **core:** add support for dim text attribute ([99ace7e](https://github.com/vdeantoni/unblessed/commit/99ace7e56623c388765bdad1e84893c4445da097))
+* **core:** improve runtime api types ([dd97329](https://github.com/vdeantoni/unblessed/commit/dd973293f8ef177c54c3becc278bbd6e410ddaf1))
+
 # [1.0.0-alpha.9](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2025-10-29)
 
 
