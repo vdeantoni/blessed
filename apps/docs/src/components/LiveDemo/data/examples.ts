@@ -123,91 +123,290 @@ table.focus();
   },
   {
     id: "form",
-    title: "Input Form",
-    description: "Create interactive forms with text inputs and buttons",
-    code: `import { Form, Textbox, Button, Box } from "@unblessed/browser";
+    title: "Animated Login Form",
+    description:
+      "Beautiful login UI with BigText, animated borders, validation, and loading states",
+    code: `import {
+  Box, BigText, Form, Textbox, Button, Text,
+  generateGradient, rotateColors
+} from "@unblessed/browser";
 
-// Interactive form with inputs
-const form = new Form({
+// Container with animated breathing border
+const container = new Box({
   parent: screen,
   top: "center",
   left: "center",
-  width: "50%",
-  height: "70%",
-  label: " {bold}User Registration{/bold} ",
+  width: Math.min(screen.width - 4, 70),
+  height: Math.min(screen.height - 2, 40),
+  border: {
+    type: "line",
+    colors: [], // Will be set below
+    repeatColors: true,
+  },
+  style: { bg: "black" },
+  shadow: true,
   tags: true,
-  border: { type: "line" },
+});
+
+// BigText title
+const title = new BigText({
+  parent: container,
+  top: 1,
+  left: "center",
+  height: 13,
+  content: "LOGIN",
+  style: { fg: "cyan", bold: true },
+});
+
+// Subtitle
+const subtitle = new Text({
+  parent: container,
+  top: 15,
+  left: "center",
+  content: "{dim}Secure Terminal Access{/dim}",
+  tags: true,
+  style: { fg: "white" },
+});
+
+// Login form
+const form = new Form({
+  parent: container,
+  top: 18,
+  left: "center",
+  width: Math.min(container.width - 6, 50),
+  height: 14,
+  tags: true,
   keys: true,
   mouse: true,
 });
 
-const nameInput = new Textbox({
+// Username input
+const usernameInput = new Textbox({
   parent: form,
-  top: 2,
-  left: 2,
-  width: "80%",
+  top: 0,
+  left: 0,
+  width: "100%",
   height: 3,
-  label: " Name: ",
-  name: "name",
+  label: " 👤 Username ",
+  name: "username",
   border: { type: "line" },
+  style: {
+    fg: "white",
+    border: { fg: "cyan" },
+    focus: { border: { fg: "yellow" } },
+  },
   inputOnFocus: true,
   mouse: true,
   keys: true,
 });
 
-const emailInput = new Textbox({
+// Password input
+const passwordInput = new Textbox({
   parent: form,
-  top: 6,
-  left: 2,
-  width: "80%",
+  top: 4,
+  left: 0,
+  width: "100%",
   height: 3,
-  label: " Email: ",
-  name: "email",
+  label: " 🔒 Password ",
+  name: "password",
+  censor: true,
   border: { type: "line" },
+  style: {
+    fg: "white",
+    border: { fg: "cyan" },
+    focus: { border: { fg: "yellow" } },
+  },
   inputOnFocus: true,
   mouse: true,
   keys: true,
 });
 
-const submitBtn = new Button({
+// Status message
+const statusBox = new Box({
+  parent: form,
+  top: 8,
+  left: 0,
+  width: "100%",
+  height: 1,
+  tags: true,
+  style: { fg: "yellow" },
+  content: "{center}{dim}Tab to navigate • Enter to submit{/dim}{/center}",
+});
+
+// Login button
+const loginBtn = new Button({
   parent: form,
   top: 10,
-  left: 2,
+  left: "center",
   width: 20,
   height: 3,
-  content: "Submit",
+  content: "{center}LOGIN{/center}",
+  tags: true,
   mouse: true,
   keys: true,
   style: {
-    bg: "green",
-    fg: "white",
-    focus: { bg: "cyan" },
+    bg: "cyan",
+    fg: "black",
+    bold: true,
+    focus: { bg: "yellow", fg: "black" },
   },
+  border: { type: "line" },
 });
 
-const output = new Box({
-  parent: form,
-  top: 14,
-  left: 2,
-  width: "80%",
-  height: 3,
-  content: "Tab to navigate • Click to focus",
-  tags: true,
-  style: { fg: "yellow" },
-});
+// Animated border setup
+const borderLength = container.getBorderLength();
+const baseGradient = generateGradient("cyan", "blue", borderLength);
+let breathPhase = 0;
+let isLoading = false;
+let loadingProgress = 0;
 
-submitBtn.on("press", () => {
-  form.submit();
-});
+function updateBorder() {
+  if (isLoading) {
+    // Loading animation: chase effect
+    const colors = new Array(borderLength).fill("#1a1a1a");
+    for (let i = 0; i < 8; i++) {
+      const pos = (loadingProgress - i + borderLength) % borderLength;
+      const intensity = 1 - i / 8;
+      const c = Math.round(255 * intensity);
+      colors[pos] = \`#00\${c.toString(16).padStart(2, '0')}00\`;
+    }
+    container.setBorderColors(colors);
+    loadingProgress = (loadingProgress + 1) % borderLength;
+  } else {
+    // Breathing gradient
+    breathPhase += 0.05;
+    const intensity = (Math.sin(breathPhase) + 1) / 2;  
+    const colors = baseGradient.map(hex => {
+      const r = parseInt(hex.slice(1, 3), 16);
+      const g = parseInt(hex.slice(3, 5), 16);
+      const b = parseInt(hex.slice(5, 7), 16);
+      const nr = Math.round(r * (0.3 + intensity * 0.7));
+      const ng = Math.round(g * (0.3 + intensity * 0.7));
+      const nb = Math.round(b * (0.3 + intensity * 0.7));
+      return \`#\${[nr, ng, nb].map(n => n.toString(16).padStart(2, '0')).join('')}\`;
+    });
+    container.setBorderColors(colors);
+  }
+}
 
-form.on("submit", (data) => {
-  output.setContent(
-    \`{bold}Submitted:{/bold}\\nName: \${data.name || "(empty)"}\\nEmail: \${data.email || "(empty)"}\`,
-  );
-  form.screen.render();
-});
+updateBorder();
 
-form.focus();
+const animInterval = setInterval(() => {
+  updateBorder();
+  screen.render();
+}, 1000 / 30);
+
+function validatePassword(password) {
+  return password.length >= 6;
+}
+
+// Submit handler
+function handleSubmit() {
+  const username = usernameInput.getValue();
+  const password = passwordInput.getValue();
+
+  // Validation
+  if (!username || username.trim().length === 0) {
+    statusBox.style.fg = "red";
+    statusBox.setContent("{center}{red-fg}{bold}⚠ Username is required{/bold}{/red-fg}{/center}");
+    screen.render();
+    return;
+  }
+
+  if (!validatePassword(password)) {
+    statusBox.style.fg = "red";
+    statusBox.setContent("{center}{red-fg}{bold}⚠ Password must be at least 6 characters{/bold}{/red-fg}{/center}");
+    screen.render();
+    return;
+  }
+
+  // Start loading
+  isLoading = true;
+  loginBtn.setContent("{center}LOADING...{/center}");
+  loginBtn.style.bg = "yellow";
+  statusBox.style.fg = "yellow";
+  statusBox.setContent("{center}{yellow-fg}🔄 Authenticating...{/yellow-fg}{/center}");
+  usernameInput.readOnly = true;
+  passwordInput.readOnly = true;
+  screen.render();
+
+  // Simulate authentication
+  setTimeout(() => {
+    // Random success/failure (70% success rate)
+    const success = Math.random() > 0.3;
+
+    if (success) {
+      // Success state
+      isLoading = false;
+      loginBtn.setContent("{center}✓ SUCCESS{/center}");
+      loginBtn.style.bg = "green";
+      loginBtn.style.fg = "white";
+      statusBox.style.fg = "green";
+      statusBox.setContent("{center}{green-fg}{bold}✓ Login successful! Redirecting...{/bold}{/green-fg}{/center}");
+
+      // Update border to green
+      const greenGradient = generateGradient("green", "#00ff00", borderLength);
+      container.setBorderColors(greenGradient);
+      screen.render();
+
+      // Simulate redirect
+      setTimeout(() => {
+        title.setContent("WELCOME");
+        subtitle.setContent(\`{center}{green-fg}{bold}Hello, \${username.split('@')[0]}!{/bold}{/green-fg}{/center}\`);
+        form.hide();
+
+        const welcomeMsg = new Box({
+          parent: container,
+          top: 18,
+          left: "center",
+          width: "80%",
+          height: 8,
+          border: { type: "line" },
+          style: { border: { fg: "green" } },
+          tags: true,
+          content:
+            "{center}\\n" +
+            "{green-fg}✓{/green-fg} Authentication successful\\n" +
+            "{green-fg}✓{/green-fg} Session established\\n" +
+            "{green-fg}✓{/green-fg} Loading dashboard...\\n\\n" +
+            "{dim}Redirecting in 3 seconds...{/dim}",
+        });
+        screen.render();
+      }, 1500);
+    } else {
+      // Error state
+      isLoading = false;
+      loginBtn.setContent("{center}LOGIN{/center}");
+      loginBtn.style.bg = "red";
+      loginBtn.style.fg = "white";
+      statusBox.style.fg = "red";
+      statusBox.setContent("{center}{red-fg}{bold}✗ Invalid credentials. Please try again.{/bold}{/red-fg}{/center}");
+
+      // Shake effect with red border
+      const redColors = new Array(borderLength).fill("#ff0000");
+      container.setBorderColors(redColors);
+      screen.render();
+
+      // Reset after 2 seconds
+      setTimeout(() => {
+        loginBtn.style.bg = "cyan";
+        loginBtn.style.fg = "black";
+        statusBox.style.fg = "yellow";
+        statusBox.setContent("{center}{dim}Tab to navigate • Enter to submit{/dim}{/center}");
+        usernameInput.readOnly = false;
+        passwordInput.readOnly = false;
+        passwordInput.clearValue();
+        screen.render();
+      }, 2000);
+    }
+  }, 2000);
+}
+
+loginBtn.on("press", handleSubmit);
+form.on("submit", handleSubmit);
+
+// Initial focus
+usernameInput.focus();
 `,
   },
   {

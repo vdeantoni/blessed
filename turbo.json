@@ -75,10 +75,7 @@
     },
     "bench": {
       "dependsOn": ["build"],
-      "inputs": [
-        "*.js",
-        "benchmarks/**/*.js"
-      ],
+      "inputs": ["*.js", "benchmarks/**/*.js"],
       "outputs": ["results/**/*.json"],
       "cache": false,
       "outputLogs": "new-only"
@@ -112,6 +109,7 @@
         "lib/**/*.ts",
         "lib/**/*.js",
         "bin/**/*.ts",
+        "generated/**/*.md",
         "__tests__/**/*.js",
         "__tests__/**/*.ts",
         ".prettierrc",
@@ -124,6 +122,7 @@
         "lib/**/*.ts",
         "lib/**/*.js",
         "bin/**/*.ts",
+        "generated/**/*.md",
         "__tests__/**/*.js",
         "__tests__/**/*.ts",
         ".prettierrc",
@@ -133,8 +132,5 @@
     }
   },
   "globalEnv": ["NODE_ENV"],
-  "globalDependencies": [
-    "package.json",
-    "pnpm-lock.yaml"
-  ]
+  "globalDependencies": ["package.json", "pnpm-lock.yaml"]
 }

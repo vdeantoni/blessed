@@ -34,20 +34,24 @@ export function useCodeExecution(
 
         screen.current = new tui.Screen({ terminal: terminal.current });
 
-        // Parse import statements to extract requested widgets
+        // Parse import statements to extract requested widgets (handles multi-line)
         const importMatches = code.matchAll(
-          /import\s*\{([^}]+)\}\s*from\s*['"]@unblessed\/browser['"]/g,
+          /import\s*\{([^}]+)\}\s*from\s*['"]@unblessed\/browser['"]/gs,
         );
         const importedNames = new Set<string>();
 
         for (const match of importMatches) {
-          const names = match[1].split(",").map((n) => n.trim());
+          // Split by comma and handle line breaks
+          const names = match[1]
+            .split(",")
+            .map((n) => n.trim())
+            .filter((n) => n.length > 0);
           names.forEach((name) => importedNames.add(name));
         }
 
-        // Remove import and export statements
+        // Remove import and export statements (handles multi-line)
         let cleanCode = code
-          .replace(/import.*from.*['"];?\s*/g, "")
+          .replace(/import\s*\{[^}]+\}\s*from\s*['"][^'"]+['"];?\s*/gs, "")
           .replace(/export\s+const\s+/g, "const ")
           .replace(/export\s+/g, "")
           .replace(/export\s*\{[^}]+\}\s*;?\s*/g, "");
