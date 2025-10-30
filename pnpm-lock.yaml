@@ -32,6 +32,12 @@ importers:
       '@types/node':
         specifier: 24.6.2
         version: 24.6.2
+      '@types/omggif':
+        specifier: ^1.0.5
+        version: 1.0.5
+      '@types/pngjs':
+        specifier: ^6.0.5
+        version: 6.0.5
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.20.0
         version: 8.46.2(@typescript-eslint/parser@8.46.2(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3))(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)
@@ -50,6 +56,12 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
+      omggif:
+        specifier: ^1.0.10
+        version: 1.0.10
+      pngjs:
+        specifier: ^7.0.0
+        version: 7.0.0
       prettier:
         specifier: ^3.4.2
         version: 3.6.2
@@ -151,24 +163,12 @@ importers:
       '@types/blessed':
         specifier: ^0.1.25
         version: 0.1.25
-      '@types/omggif':
-        specifier: ^1.0.5
-        version: 1.0.5
-      '@types/pngjs':
-        specifier: ^6.0.5
-        version: 6.0.5
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
       '@vitest/ui':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
-      omggif:
-        specifier: ^1.0.10
-        version: 1.0.10
-      pngjs:
-        specifier: ^7.0.0
-        version: 7.0.0
 
   packages/browser:
     dependencies:
@@ -221,37 +221,25 @@ importers:
 
   packages/core:
     devDependencies:
-      '@types/omggif':
-        specifier: ^1.0.5
-        version: 1.0.5
-      '@types/pngjs':
-        specifier: ^6.0.5
-        version: 6.0.5
       '@vitest/coverage-v8':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
       '@vitest/ui':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
-      omggif:
-        specifier: ^1.0.10
-        version: 1.0.10
-      pngjs:
-        specifier: ^7.0.0
-        version: 7.0.0
 
   packages/node:
     dependencies:
       '@unblessed/core':
         specifier: workspace:*
         version: link:../core
+      omggif:
+        specifier: ^1.0.10
+        version: 1.0.10
+      pngjs:
+        specifier: ^7.0.0
+        version: 7.0.0
     devDependencies:
-      '@types/omggif':
-        specifier: ^1.0.5
-        version: 1.0.5
-      '@types/pngjs':
-        specifier: ^6.0.5
-        version: 6.0.5
       '@unblessed/vrt':
         specifier: workspace:*
         version: link:../vrt
@@ -261,12 +249,6 @@ importers:
       '@vitest/ui':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
-      omggif:
-        specifier: ^1.0.10
-        version: 1.0.10
-      pngjs:
-        specifier: ^7.0.0
-        version: 7.0.0
 
   packages/vrt:
     dependencies:
@@ -274,12 +256,6 @@ importers:
         specifier: ^12.1.0
         version: 12.1.0
     devDependencies:
-      '@types/omggif':
-        specifier: ^1.0.5
-        version: 1.0.5
-      '@types/pngjs':
-        specifier: ^6.0.5
-        version: 6.0.5
       '@unblessed/core':
         specifier: workspace:*
         version: link:../core
@@ -289,12 +265,6 @@ importers:
       '@vitest/ui':
         specifier: ^3.2.4
         version: 3.2.4(vitest@3.2.4)
-      omggif:
-        specifier: ^1.0.10
-        version: 1.0.10
-      pngjs:
-        specifier: ^7.0.0
-        version: 7.0.0
 
   tools/benchmarks:
     dependencies:
