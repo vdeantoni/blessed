@@ -20,6 +20,48 @@ Node.js runtime adapter for [@unblessed/core](../core) - Build beautiful termina
 - 🎯 **TypeScript first** - Complete type safety
 - 🔧 **Compatible** - Works with the original blessed API
 
+## Why This Package Exists
+
+`@unblessed/node` is a **convenience wrapper** that saves you from runtime initialization boilerplate.
+
+**Without this package**, you'd need to manually initialize the runtime:
+
+```typescript
+import { initCore, Screen, Box } from '@unblessed/core';
+import fs from 'fs';
+import process from 'process';
+import path from 'path';
+import { Buffer } from 'buffer';
+// ... 15+ more imports
+
+// Manual runtime setup (boilerplate!)
+initCore({
+  fs: { readFileSync: fs.readFileSync, existsSync: fs.existsSync, ... },
+  path: { join: path.join, resolve: path.resolve, ... },
+  process: { stdin: process.stdin, stdout: process.stdout, ... },
+  buffer: { Buffer },
+  // ... 50+ more lines
+});
+
+const screen = new Screen();
+```
+
+**With @unblessed/node:**
+
+```typescript
+import { Screen, Box } from '@unblessed/node';  // Auto-initialized!
+
+const screen = new Screen();
+```
+
+**Key Benefits:**
+- ✅ Zero boilerplate - runtime initialized automatically on import
+- ✅ Correct runtime configuration - we handle all the Node.js API wiring
+- ✅ Type safety - full TypeScript support out of the box
+- ✅ Just works - no configuration needed
+
+This package exists to make your life easier while keeping `@unblessed/core` pure and platform-agnostic.
+
 ## Installation
 
 ```bash

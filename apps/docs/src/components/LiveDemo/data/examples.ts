@@ -609,7 +609,8 @@ const features = new List({
   {
     id: "border-styles",
     title: "Border Styles",
-    description: "Showcase of all available border styles (single, double, round, bold, etc.)",
+    description:
+      "Showcase of all available border styles (single, double, round, bold, etc.)",
     code: `import { Box } from "@unblessed/browser";
 
 // Border styles showcase - 8 different styles
