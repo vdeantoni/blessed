@@ -1,3 +1,10 @@
+# [1.0.0-alpha.11](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2025-10-31)
+
+
+### Bug Fixes
+
+* **docs:** fix 404 page by moving to theme and adding Link import ([79afc6d](https://github.com/vdeantoni/unblessed/commit/79afc6dd1f98dd0aae19dbd21f925e00da3747a4))
+
 # [1.0.0-alpha.10](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2025-10-30)
 
 
