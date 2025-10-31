@@ -919,8 +919,17 @@ render(<App />);
 
 ## Current Status
 
-**Last Updated**: 2025-10-28
-**Current Phase**: Phase 1 - Core Enhancements (In Progress)
+**Last Updated**: 2025-10-30
+**Current Phase**: Phase 1 - Core Enhancements + Layout Foundation (In Progress)
+
+### Phase 0: Layout Foundation (NEW)
+- [x] ✅ Create @unblessed/layout package - **COMPLETE**
+  - Yoga integration for flexbox layouts
+  - LayoutManager API for creating and managing layout nodes
+  - Yoga → unblessed widget synchronization
+  - 34 tests passing (yoga-node, layout-engine, widget-sync)
+  - Ready for @unblessed/react integration
+  - Location: `packages/layout/`
 
 ### Phase 1: Core Enhancements + Foundation
 - [x] ✅ Enhance Border interface (per-side colors, dim) - **COMPLETE**
@@ -931,7 +940,7 @@ render(<App />);
   - All 2112 tests passing
   - Examples: `border-showcase.ts`, `border-debug.ts`, `border-simple-test.ts`
 - [x] ✅ Update border rendering in Element - **COMPLETE**
-- [ ] Add Spacer widget
+- [ ] Add Spacer widget (deferred - will implement in @unblessed/react)
 - [ ] Create @unblessed/react package
 - [ ] Set up build config
 - [ ] Install dependencies

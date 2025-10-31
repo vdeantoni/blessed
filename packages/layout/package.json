@@ -1,0 +1,72 @@
+{
+  "name": "@unblessed/layout",
+  "description": "Flexbox layout engine for unblessed using Yoga",
+  "version": "1.0.0-alpha.10",
+  "author": "Vinicius De Antoni <vdeantoni@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "registry": "https://registry.npmjs.org/"
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist/**/*.js",
+    "dist/**/*.cjs",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.cts",
+    "dist/**/*.map",
+    "LICENSE",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vdeantoni/unblessed.git",
+    "directory": "packages/layout"
+  },
+  "homepage": "https://github.com/vdeantoni/unblessed/tree/alpha/packages/layout",
+  "bugs": {
+    "url": "https://github.com/vdeantoni/unblessed/issues"
+  },
+  "keywords": [
+    "unblessed",
+    "layout",
+    "flexbox",
+    "yoga",
+    "terminal",
+    "tui"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "clean": "rimraf dist coverage .turbo",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "dependencies": {
+    "@unblessed/core": "workspace:*",
+    "yoga-layout": "^3.1.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.4",
+    "@vitest/ui": "^3.2.4"
+  },
+  "engines": {
+    "node": ">= 22.0.0"
+  }
+}
