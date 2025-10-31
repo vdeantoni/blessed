@@ -607,6 +607,65 @@ const features = new List({
 `,
   },
   {
+    id: "border-styles",
+    title: "Border Styles",
+    description: "Showcase of all available border styles (single, double, round, bold, etc.)",
+    code: `import { Box } from "@unblessed/browser";
+
+// Border styles showcase - 8 different styles
+const styles = [
+  { name: "single", style: "single", col: 0, row: 0 },
+  { name: "double", style: "double", col: 22, row: 0 },
+  { name: "round", style: "round", col: 44, row: 0 },
+  { name: "bold", style: "bold", col: 66, row: 0 },
+  { name: "singleDouble", style: "singleDouble", col: 0, row: 9 },
+  { name: "doubleSingle", style: "doubleSingle", col: 22, row: 9 },
+  { name: "classic", style: "classic", col: 44, row: 9 },
+  { name: "arrow", style: "arrow", col: 66, row: 9 },
+];
+
+styles.forEach(({ name, style, col, row }) => {
+  new Box({
+    parent: screen,
+    top: row,
+    left: col,
+    width: 20,
+    height: 7,
+    content: \`{center}{bold}\${name}{/bold}{/center}\`,
+    tags: true,
+    border: {
+      type: "line",
+      style: style,
+    },
+    style: {
+      border: { fg: "cyan" },
+      fg: "white",
+    },
+  });
+});
+
+// Per-side colors example
+new Box({
+  parent: screen,
+  top: 18,
+  left: "center",
+  width: 50,
+  height: 5,
+  content: "{center}Per-side Border Colors{/center}",
+  tags: true,
+  border: {
+    type: "line",
+    style: "single",
+    topColor: "red",
+    bottomColor: "green",
+    leftColor: "blue",
+    rightColor: "yellow",
+  },
+  style: { fg: "white" },
+});
+`,
+  },
+  {
     id: "ai-assistant",
     title: "🤖 AI Assistant",
     description:

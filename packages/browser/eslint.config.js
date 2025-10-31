@@ -6,7 +6,13 @@ import prettier from "eslint-config-prettier";
 export default [
   // Ignore patterns
   {
-    ignores: ["dist/**", "node_modules/**", "coverage/**", ".turbo/**"],
+    ignores: [
+      "dist/**",
+      "node_modules/**",
+      "coverage/**",
+      "playwright-report/**",
+      ".turbo/**",
+    ],
   },
 
   // JavaScript files

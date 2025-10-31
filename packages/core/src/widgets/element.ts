@@ -6,6 +6,7 @@
  * Modules
  */
 
+import { getBorderChars } from "../lib/border-styles.js";
 import colors from "../lib/colors.js";
 import helpers from "../lib/helpers.js";
 import { getEnvVar, getNextTick } from "../lib/runtime-helpers.js";
@@ -2634,6 +2635,9 @@ class Element extends Node {
       // Track cell index for addressable colors
       let cellIndex = 0;
 
+      // Get border characters for the selected style
+      const borderChars = getBorderChars(this.border.style || "single");
+
       // Top border (left to right, cellIndex: 0 to width-1)
       y = yi;
       if (coords.notop) y = -1;
@@ -2657,33 +2661,33 @@ class Element extends Node {
 
         if (this.border.type === "line") {
           if (x === xi) {
-            ch = "\u250c"; // '┌'
+            ch = borderChars.topLeft;
             if (!this.border.left) {
               if (this.border.top) {
-                ch = "\u2500"; // '─'
+                ch = borderChars.top;
               } else {
                 continue;
               }
             } else {
               if (!this.border.top) {
-                ch = "\u2502"; // '│'
+                ch = borderChars.left;
               }
             }
           } else if (x === xl - 1) {
-            ch = "\u2510"; // '┐'
+            ch = borderChars.topRight;
             if (!this.border.right) {
               if (this.border.top) {
-                ch = "\u2500"; // '─'
+                ch = borderChars.top;
               } else {
                 continue;
               }
             } else {
               if (!this.border.top) {
-                ch = "\u2502"; // '│'
+                ch = borderChars.right;
               }
             }
           } else {
-            ch = "\u2500"; // '─'
+            ch = borderChars.top;
           }
         } else if (this.border.type === "bg") {
           ch = this.border.ch || " ";
@@ -2715,7 +2719,7 @@ class Element extends Node {
             const currentAttr = getBorderColorAt(cellIndex++, "right");
 
             if (this.border.type === "line") {
-              ch = "\u2502"; // '│'
+              ch = borderChars.right;
             } else if (this.border.type === "bg") {
               ch = this.border.ch || " ";
             }
@@ -2759,33 +2763,33 @@ class Element extends Node {
 
         if (this.border.type === "line") {
           if (x === xi) {
-            ch = "\u2514"; // '└'
+            ch = borderChars.bottomLeft;
             if (!this.border.left) {
               if (this.border.bottom) {
-                ch = "\u2500"; // '─'
+                ch = borderChars.bottom;
               } else {
                 continue;
               }
             } else {
               if (!this.border.bottom) {
-                ch = "\u2502"; // '│'
+                ch = borderChars.left;
               }
             }
           } else if (x === xl - 1) {
-            ch = "\u2518"; // '┘'
+            ch = borderChars.bottomRight;
             if (!this.border.right) {
               if (this.border.bottom) {
-                ch = "\u2500"; // '─'
+                ch = borderChars.bottom;
               } else {
                 continue;
               }
             } else {
               if (!this.border.bottom) {
-                ch = "\u2502"; // '│'
+                ch = borderChars.right;
               }
             }
           } else {
-            ch = "\u2500"; // '─'
+            ch = borderChars.bottom;
           }
         } else if (this.border.type === "bg") {
           ch = this.border.ch || " ";
@@ -2817,7 +2821,7 @@ class Element extends Node {
             const currentAttr = getBorderColorAt(cellIndex++, "left");
 
             if (this.border.type === "line") {
-              ch = "\u2502"; // '│'
+              ch = borderChars.left;
             } else if (this.border.type === "bg") {
               ch = this.border.ch || " ";
             }

@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "dimensions": {
+    "cols": 80,
+    "rows": 24
+  },
+  "metadata": {
+    "createdAt": "2025-10-31T00:45:07.073Z",
+    "duration": 0,
+    "frameCount": 1,
+    "description": "double border style variations"
+  },
+  "frames": [
+    {
+      "screenshot": "                                                                                \n \u001b[35m╔═══════════════════════╗\u001b[m  \u001b[32m╔═══════════════════════╗\u001b[m                           \n \u001b[35m║\u001b[m\u001b[37m        Double         \u001b[m\u001b[35m║\u001b[m  \u001b[32m║\u001b[m\u001b[37m    Double + Color     \u001b[m\u001b[32m║\u001b[m                           \n \u001b[35m║\u001b[m\u001b[37m                       \u001b[m\u001b[35m║\u001b[m  \u001b[32m║\u001b[m\u001b[37m                       \u001b[m\u001b[32m║\u001b[m                           \n \u001b[35m║\u001b[m\u001b[37m                       \u001b[m\u001b[35m║\u001b[m  \u001b[32m║\u001b[m\u001b[37m                       \u001b[m\u001b[32m║\u001b[m                           \n \u001b[35m║\u001b[m\u001b[37m                       \u001b[m\u001b[35m║\u001b[m  \u001b[32m║\u001b[m\u001b[37m                       \u001b[m\u001b[32m║\u001b[m                           \n \u001b[35m║\u001b[m\u001b[37m                       \u001b[m\u001b[35m║\u001b[m  \u001b[32m║\u001b[m\u001b[37m                       \u001b[m\u001b[32m║\u001b[m                           \n \u001b[35m╚═══════════════════════╝\u001b[m  \u001b[32m╚═══════════════════════╝\u001b[m                           \n                                                                                \n \u001b[33m═════════════════════════\u001b[m                                                      \n \u001b[37m      Top + Bottom       \u001b[m                                                      \n \u001b[37m                         \u001b[m                                                      \n \u001b[37m                         \u001b[m                                                      \n \u001b[37m                         \u001b[m                                                      \n \u001b[37m                         \u001b[m                                                      \n \u001b[33m═════════════════════════\u001b[m                                                      \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n                                                                                \n",
+      "timestamp": 0
+    }
+  ]
+}

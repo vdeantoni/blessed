@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>E2E Test: Border Styles Showcase</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.css"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        background: #000;
+      }
+      #terminal {
+        width: 1000px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="terminal"></div>
+    <script type="module">
+      import { Terminal } from "https://cdn.jsdelivr.net/npm/xterm@5.3.0/+esm";
+      import { Screen, Box } from "../../../dist/index.js";
+
+      const term = new Terminal({ rows: 24, cols: 100 });
+      term.open(document.getElementById("terminal"));
+      const screen = new Screen({ terminal: term });
+
+      // All border styles showcase (8 styles in 2 rows)
+      const styles = [
+        { name: "single", style: "single", col: 0, row: 0 },
+        { name: "double", style: "double", col: 20, row: 0 },
+        { name: "round", style: "round", col: 40, row: 0 },
+        { name: "bold", style: "bold", col: 60, row: 0 },
+        { name: "singleDouble", style: "singleDouble", col: 0, row: 9 },
+        { name: "doubleSingle", style: "doubleSingle", col: 20, row: 9 },
+        { name: "classic", style: "classic", col: 40, row: 9 },
+        { name: "arrow", style: "arrow", col: 60, row: 9 },
+      ];
+
+      const boxes = [];
+
+      styles.forEach(({ name, style, col, row }) => {
+        const box = new Box({
+          parent: screen,
+          top: row,
+          left: col,
+          width: 18,
+          height: 7,
+          content: `{center}{bold}${name}{/bold}{/center}`,
+          tags: true,
+          border: {
+            type: "line",
+            style: style,
+          },
+          style: {
+            border: { fg: "cyan" },
+            fg: "white",
+          },
+        });
+        boxes.push(box);
+      });
+
+      screen.render();
+
+      // Expose for Playwright
+      window.testBoxes = boxes;
+      window.testScreen = screen;
+      window.testReady = true;
+    </script>
+  </body>
+</html>

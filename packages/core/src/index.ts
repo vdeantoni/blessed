@@ -19,6 +19,7 @@ export { default as Tput, sprintf, tryRead } from "./lib/tput.js";
 // Re-export helpers
 export * from "./lib/alias.js";
 export * from "./lib/border-colors.js";
+export * from "./lib/border-styles.js";
 export { default as colors } from "./lib/colors.js";
 export * from "./lib/events.js";
 export * from "./lib/helpers.js";

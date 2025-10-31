@@ -1,1 +1,2 @@
 turbo format:check
+turbo lint:check

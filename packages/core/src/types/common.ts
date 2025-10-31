@@ -2,6 +2,11 @@
  * Common type definitions for blessed
  */
 
+import type {
+  BorderCharacters,
+  BorderStyleName,
+} from "../lib/border-styles.js";
+
 /**
  * Position value for element layout.
  *
@@ -176,6 +181,13 @@ export interface RenderCoords {
 export interface Border {
   /** Type of border: "line" or "bg". bg by default. */
   type?: "line" | "bg";
+  /**
+   * Border style when type is "line".
+   * Supports predefined styles ('single', 'double', 'round', 'bold', etc.)
+   * or a custom BorderCharacters object.
+   * @default 'single'
+   */
+  style?: BorderStyleName | BorderCharacters;
   /** Character to use if bg type. Default is space. */
   ch?: string;
   /** Border background color. Must be a number (-1 for default). */

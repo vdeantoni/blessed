@@ -95,4 +95,46 @@ test.describe("Display Widgets", () => {
       expect(logContent).toContain("New log message");
     });
   });
+
+  test.describe("Border Styles", () => {
+    test("renders all border styles", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/border-styles-showcase.html");
+      await page.waitForFunction(() => window.testReady === true);
+
+      const boxCount = await page.evaluate(() => {
+        return window.testBoxes && window.testBoxes.length;
+      });
+
+      expect(boxCount).toBe(8);
+    });
+
+    test("border styles have correct properties", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/border-styles-showcase.html");
+      await page.waitForFunction(() => window.testReady === true);
+
+      const allBoxesHaveBorders = await page.evaluate(() => {
+        return window.testBoxes.every((box) => {
+          return (
+            box.border &&
+            box.border.type === "line" &&
+            box.border.style !== undefined
+          );
+        });
+      });
+
+      expect(allBoxesHaveBorders).toBe(true);
+    });
+
+    test("border styles are unique", async ({ page }) => {
+      await page.goto("/__tests__/e2e/fixtures/border-styles-showcase.html");
+      await page.waitForFunction(() => window.testReady === true);
+
+      const styles = await page.evaluate(() => {
+        return window.testBoxes.map((box) => box.border.style);
+      });
+
+      const uniqueStyles = new Set(styles);
+      expect(uniqueStyles.size).toBe(8);
+    });
+  });
 });
