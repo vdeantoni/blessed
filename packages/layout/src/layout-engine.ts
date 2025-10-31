@@ -194,9 +194,14 @@ export class LayoutManager {
     const indent = "  ".repeat(depth);
     const layout = node.yogaNode.getComputedLayout();
 
+    // Also check computed padding/border
+    const padding = node.yogaNode.getComputedPadding(0); // EDGE_TOP = 0
+    const border = node.yogaNode.getComputedBorder(0);
+
     console.log(
       `${indent}${node.type}: top=${layout.top} left=${layout.left} ` +
-        `width=${layout.width} height=${layout.height}`,
+        `width=${layout.width} height=${layout.height} ` +
+        `padding=${padding} border=${border}`,
     );
 
     for (const child of node.children) {

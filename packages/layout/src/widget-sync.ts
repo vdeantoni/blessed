@@ -2,8 +2,8 @@
  * widget-sync.ts - Synchronize Yoga layout to unblessed widgets
  */
 
-import type { Screen } from "@unblessed/core";
-import { Box } from "@unblessed/core";
+import { Box, Element, Screen, Text } from "@unblessed/core";
+import Yoga from "yoga-layout";
 import type { ComputedLayout, LayoutNode } from "./types.js";
 
 /**
@@ -31,17 +31,52 @@ export function getComputedLayout(node: LayoutNode): ComputedLayout {
  * @param screen - Screen to attach widgets to
  * @returns The created/updated unblessed widget
  */
-export function syncWidgetWithYoga(node: LayoutNode, screen: Screen): Box {
-  // Extract Yoga's computed layout
+export function syncWidgetWithYoga(node: LayoutNode, screen: Screen): Element {
+  // Extract Yoga's computed layout (absolute coordinates)
   const layout = getComputedLayout(node);
+
+  // Convert to coordinates relative to parent's content box
+  // unblessed's append() expects positions relative to parent's content area (after border + padding)
+  let top = layout.top;
+  let left = layout.left;
+
+  if (node.parent) {
+    // Get parent's border and padding from Yoga
+    const parentBorderTop = node.parent.yogaNode.getComputedBorder(
+      Yoga.EDGE_TOP,
+    );
+    const parentBorderLeft = node.parent.yogaNode.getComputedBorder(
+      Yoga.EDGE_LEFT,
+    );
+
+    // Convert from absolute to relative (relative to parent's content box)
+    top = layout.top - parentBorderTop;
+    left = layout.left - parentBorderLeft;
+  }
+
+  // Text nodes are handled differently, we get is children/content and set it as content of the parent.
+  if (node.type === "#text") {
+    if (node.parent?.widget) {
+      node.parent.widget.setContent(node.widgetOptions?.content);
+      return new Element({ screen, hidden: true });
+    }
+  }
 
   // Create or update widget
   if (!node.widget) {
     // First render - create new widget
-    node.widget = new Box({
+    let WidgetClass = Box;
+    switch (node.type) {
+      case "text": {
+        WidgetClass = Text;
+        break;
+      }
+    }
+
+    node.widget = new WidgetClass({
       screen,
-      top: layout.top,
-      left: layout.left,
+      top: top,
+      left: left,
       width: layout.width,
       height: layout.height,
       ...node.widgetOptions, // Merge any additional widget options
@@ -50,10 +85,10 @@ export function syncWidgetWithYoga(node: LayoutNode, screen: Screen): Box {
     // Update existing widget with new layout
     // IMPORTANT: We OVERWRITE position every render
     // This ensures Yoga is always source of truth
-    node.widget.rtop = layout.top;
-    node.widget.rleft = layout.left;
-    node.widget.width = layout.width;
-    node.widget.height = layout.height;
+    node.widget.position.top = top;
+    node.widget.position.left = left;
+    node.widget.position.width = layout.width;
+    node.widget.position.height = layout.height;
 
     // Update other widget options if changed
     if (node.widgetOptions) {
@@ -67,7 +102,7 @@ export function syncWidgetWithYoga(node: LayoutNode, screen: Screen): Box {
 
     // Ensure proper parent-child relationship
     if (childWidget.parent !== node.widget) {
-      childWidget.parent = node.widget;
+      node.widget.append(childWidget);
     }
   }
 
@@ -85,7 +120,7 @@ export function syncTreeAndRender(rootNode: LayoutNode, screen: Screen): void {
 
   // Ensure root widget is attached to screen
   if (!rootWidget.parent) {
-    rootWidget.parent = screen;
+    screen.append(rootWidget);
   }
 
   // Render the screen

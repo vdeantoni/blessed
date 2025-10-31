@@ -49,12 +49,13 @@ const screen = new Screen();
 **With @unblessed/node:**
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';  // Auto-initialized!
+import { Screen, Box } from "@unblessed/node"; // Auto-initialized!
 
 const screen = new Screen();
 ```
 
 **Key Benefits:**
+
 - ✅ Zero boilerplate - runtime initialized automatically on import
 - ✅ Correct runtime configuration - we handle all the Node.js API wiring
 - ✅ Type safety - full TypeScript support out of the box

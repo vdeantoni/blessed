@@ -2,7 +2,7 @@
  * types.ts - Type definitions for @unblessed/layout
  */
 
-import type { Box, Screen } from "@unblessed/core";
+import type { Element, Screen } from "@unblessed/core";
 import type { Node as YogaNode } from "yoga-layout";
 
 /**
@@ -166,6 +166,31 @@ export interface FlexboxProps {
   paddingRight?: number;
 
   /**
+   * Border on all sides.
+   */
+  border?: number;
+
+  /**
+   * Top border.
+   */
+  borderTop?: number;
+
+  /**
+   * Bottom border.
+   */
+  borderBottom?: number;
+
+  /**
+   * Left border.
+   */
+  borderLeft?: number;
+
+  /**
+   * Right border.
+   */
+  borderRight?: number;
+
+  /**
    * Gap between flex items (applies to both row and column gap).
    */
   gap?: number;
@@ -226,7 +251,7 @@ export interface LayoutNode {
   /**
    * The created unblessed widget (set after layout calculation).
    */
-  widget?: Box;
+  widget?: Element;
 
   /**
    * Additional unblessed widget options (non-layout props).

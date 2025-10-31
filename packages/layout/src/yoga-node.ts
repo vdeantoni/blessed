@@ -15,7 +15,14 @@ export function createLayoutNode(
   type: string,
   props: FlexboxProps = {},
 ): LayoutNode {
-  const yogaNode = Yoga.Node.create();
+  const config = Yoga.Config.create();
+  config.setUseWebDefaults(true);
+
+  const yogaNode = Yoga.Node.create(config);
+
+  if (type === "box" && !props.width) {
+    props.width = "100%";
+  }
 
   const node: LayoutNode = {
     type,
@@ -224,7 +231,10 @@ export function applyFlexStyles(yogaNode: YogaNode, props: FlexboxProps): void {
 
   // Padding
   if (props.padding !== undefined) {
-    yogaNode.setPadding(Yoga.EDGE_ALL, props.padding);
+    yogaNode.setPadding(Yoga.EDGE_TOP, props.padding);
+    yogaNode.setPadding(Yoga.EDGE_BOTTOM, props.padding);
+    yogaNode.setPadding(Yoga.EDGE_LEFT, props.padding);
+    yogaNode.setPadding(Yoga.EDGE_RIGHT, props.padding);
   }
 
   if (props.paddingX !== undefined) {
@@ -253,7 +263,10 @@ export function applyFlexStyles(yogaNode: YogaNode, props: FlexboxProps): void {
 
   // Margin
   if (props.margin !== undefined) {
-    yogaNode.setMargin(Yoga.EDGE_ALL, props.margin);
+    yogaNode.setMargin(Yoga.EDGE_TOP, props.margin);
+    yogaNode.setMargin(Yoga.EDGE_BOTTOM, props.margin);
+    yogaNode.setMargin(Yoga.EDGE_LEFT, props.margin);
+    yogaNode.setMargin(Yoga.EDGE_RIGHT, props.margin);
   }
 
   if (props.marginX !== undefined) {
@@ -315,6 +328,30 @@ export function applyFlexStyles(yogaNode: YogaNode, props: FlexboxProps): void {
         yogaNode.setDisplay(Yoga.DISPLAY_NONE);
         break;
     }
+  }
+
+  // Border
+  if (props.border !== undefined) {
+    yogaNode.setBorder(Yoga.EDGE_TOP, props.border);
+    yogaNode.setBorder(Yoga.EDGE_BOTTOM, props.border);
+    yogaNode.setBorder(Yoga.EDGE_LEFT, props.border);
+    yogaNode.setBorder(Yoga.EDGE_RIGHT, props.border);
+  }
+
+  if (props.borderTop !== undefined) {
+    yogaNode.setBorder(Yoga.EDGE_TOP, props.borderTop);
+  }
+
+  if (props.borderBottom !== undefined) {
+    yogaNode.setBorder(Yoga.EDGE_BOTTOM, props.borderBottom);
+  }
+
+  if (props.borderLeft !== undefined) {
+    yogaNode.setBorder(Yoga.EDGE_LEFT, props.borderLeft);
+  }
+
+  if (props.borderRight !== undefined) {
+    yogaNode.setBorder(Yoga.EDGE_RIGHT, props.borderRight);
   }
 }
 

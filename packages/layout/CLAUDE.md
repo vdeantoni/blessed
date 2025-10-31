@@ -824,6 +824,80 @@ const spacer = manager.createNode("spacer", {
 manager.destroy(rootNode); // Frees all Yoga nodes
 ```
 
+### Issue: Borders Not Accounting for Space
+
+**Symptom:** Layout breaks when adding borders - content overflows.
+
+**Cause:** Yoga doesn't know about borders, so doesn't reserve space.
+
+**Solution:** Use `hasBorder` or per-side `border/borderTop/etc` props:
+
+```typescript
+// Option 1: Use hasBorder flag
+const node = manager.createNode("box", {
+  width: 40,
+  height: 10,
+  hasBorder: true, // ← Tells Yoga to reserve 1 char on each side
+});
+
+// Option 2: Use border numbers (per-side)
+const node = manager.createNode("box", {
+  width: 40,
+  height: 10,
+  border: 1, // ← Reserves 1 char on all sides
+  // Or: borderTop: 1, borderBottom: 1, borderLeft: 1, borderRight: 1
+});
+```
+
+This is like CSS `box-sizing: border-box` - the border is included in the width/height.
+
+### Issue: Padding Returns NaN
+
+**Symptom:** `yogaNode.getPadding(EDGE_TOP)` returns `{ value: NaN, unit: 0 }`.
+
+**Cause:** Yoga API quirk with how padding is stored/retrieved.
+
+**Solution:** Call setPadding individually per edge instead of using EDGE_ALL:
+
+```typescript
+// ❌ May not work correctly
+yogaNode.setPadding(Yoga.EDGE_ALL, value);
+
+// ✅ Works correctly
+yogaNode.setPadding(Yoga.EDGE_TOP, value);
+yogaNode.setPadding(Yoga.EDGE_BOTTOM, value);
+yogaNode.setPadding(Yoga.EDGE_LEFT, value);
+yogaNode.setPadding(Yoga.EDGE_RIGHT, value);
+```
+
+After this, `getPadding()` returns `{ value: 1, unit: 1 }` correctly.
+
+### Issue: Children Positioned Incorrectly with Borders/Padding
+
+**Symptom:** Child widgets overlap borders or ignore padding.
+
+**Cause:** Coordinate system mismatch - Yoga uses absolute, unblessed uses relative.
+
+**Solution:** Use absolute coordinates from Yoga directly when using `.append()`:
+
+```typescript
+// ✅ Correct - use Yoga's absolute coordinates
+const childWidget = new Box({
+  top: yogaLayout.top,     // Absolute position
+  left: yogaLayout.left,
+  ...
+});
+parentWidget.append(childWidget);  // append() handles absolute positioning
+
+// ❌ Wrong - don't convert to relative
+const childWidget = new Box({
+  top: yogaTop - parentTop - border - padding,  // Over-complicated
+  ...
+});
+```
+
+When using `.append()`, unblessed handles coordinate translation automatically.
+
 ## Development Guidelines
 
 ### Adding New Flexbox Properties

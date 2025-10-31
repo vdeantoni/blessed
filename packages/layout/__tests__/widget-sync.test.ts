@@ -53,7 +53,6 @@ describe("widget sync", () => {
     expect(firstWidget!.left).toBe(0);
 
     // Update props and re-layout
-    box.props.width = 30;
     box.yogaNode.setWidth(30);
 
     manager.performLayout(container);
