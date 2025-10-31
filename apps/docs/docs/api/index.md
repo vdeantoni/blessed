@@ -109,22 +109,22 @@ Platform abstraction layer:
 All widgets follow the same pattern:
 
 ```typescript
-import { Screen, Box } from '@unblessed/node';
+import { Screen, Box } from "@unblessed/node";
 
 const screen = new Screen({ smartCSR: true });
 
 const box = new Box({
-  parent: screen,  // Required
-  top: 'center',
-  left: 'center',
-  width: '50%',
-  height: '50%',
-  content: 'Hello World',
-  border: { type: 'line' },
+  parent: screen, // Required
+  top: "center",
+  left: "center",
+  width: "50%",
+  height: "50%",
+  content: "Hello World",
+  border: { type: "line" },
   style: {
-    fg: 'white',
-    border: { fg: 'cyan' }
-  }
+    fg: "white",
+    border: { fg: "cyan" },
+  },
 });
 
 screen.render();
@@ -134,14 +134,14 @@ screen.render();
 
 ```typescript
 // Widget events
-box.on('click', () => console.log('Clicked!'));
-box.on('focus', () => console.log('Focused!'));
+box.on("click", () => console.log("Clicked!"));
+box.on("focus", () => console.log("Focused!"));
 
 // Global key bindings
-screen.key(['C-c'], () => process.exit(0));
+screen.key(["C-c"], () => process.exit(0));
 
 // Custom events
-box.emit('custom-event', data);
+box.emit("custom-event", data);
 ```
 
 ### Styling

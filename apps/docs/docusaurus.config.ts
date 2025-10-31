@@ -76,14 +76,16 @@ const config: Config = {
       tagName: "meta",
       attributes: {
         name: "description",
-        content: "Modern, platform-agnostic terminal UI library for Node.js and browsers. TypeScript-first, 100% blessed-compatible, with cross-platform support.",
+        content:
+          "Modern, platform-agnostic terminal UI library for Node.js and browsers. TypeScript-first, 100% blessed-compatible, with cross-platform support.",
       },
     },
     {
       tagName: "meta",
       attributes: {
         name: "keywords",
-        content: "terminal, TUI, CLI, terminal UI, blessed, Node.js, TypeScript, browser, XTerm.js, command line, console, text interface",
+        content:
+          "terminal, TUI, CLI, terminal UI, blessed, Node.js, TypeScript, browser, XTerm.js, command line, console, text interface",
       },
     },
     {
