@@ -7,6 +7,94 @@ const config: Config = {
   tagline: "Modern, platform-agnostic terminal UI library",
   favicon: "img/favicon.svg",
 
+  // SEO
+  url: "https://unblessed.dev",
+  baseUrl: "/",
+
+  // Metadata for SEO
+  headTags: [
+    // Open Graph / Facebook
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:type",
+        content: "website",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:site_name",
+        content: "unblessed",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:image",
+        content: "https://unblessed.dev/img/social-card.png",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:image:width",
+        content: "1200",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        property: "og:image:height",
+        content: "630",
+      },
+    },
+    // Twitter Card
+    {
+      tagName: "meta",
+      attributes: {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "twitter:image",
+        content: "https://unblessed.dev/img/social-card.png",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "twitter:creator",
+        content: "@vdeantoni",
+      },
+    },
+    // Additional SEO
+    {
+      tagName: "meta",
+      attributes: {
+        name: "description",
+        content: "Modern, platform-agnostic terminal UI library for Node.js and browsers. TypeScript-first, 100% blessed-compatible, with cross-platform support.",
+      },
+    },
+    {
+      tagName: "meta",
+      attributes: {
+        name: "keywords",
+        content: "terminal, TUI, CLI, terminal UI, blessed, Node.js, TypeScript, browser, XTerm.js, command line, console, text interface",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "canonical",
+        href: "https://unblessed.dev",
+      },
+    },
+  ],
+
   future: {
     v4: true,
     experimental_faster: true,
