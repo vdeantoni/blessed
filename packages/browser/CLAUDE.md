@@ -427,7 +427,7 @@ const box = new Box({
   left: "center",
   width: "50%",
   height: "50%",
-  content: "Hello from tui in the browser!",
+  content: "Hello from unblessed in the browser!",
   border: { type: "line" },
 });
 

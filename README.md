@@ -180,7 +180,7 @@ That's it! Your code should work without any other changes.
 
 ## 🏗️ Architecture
 
-tui uses a **runtime dependency injection** pattern for platform abstraction:
+unblessed uses a **runtime dependency injection** pattern for platform abstraction:
 
 ```
 ┌─────────────────────────────────────────┐
@@ -209,8 +209,6 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 ## 📚 Documentation
 
-- **[Setup Guide](SETUP_GUIDE.md)** - Development environment setup
-- **[Contributing](CONTRIBUTING.md)** - Contribution guidelines
 - **[API Reference](API_REFERENCE.md)** - Complete API compatibility baseline
 - **[Contributor Guide](CLAUDE.md)** - Architecture and development guide
 
@@ -224,7 +222,7 @@ tui uses a **runtime dependency injection** pattern for platform abstraction:
 
 ## 🎯 Project Status
 
-**Current Version:** `1.0.0-alpha.7`
+**Current Version:** `1.0.0-alpha.10`
 
 **🔗 Links:**
 - 📚 [Documentation](https://unblessed.dev)
@@ -308,7 +306,7 @@ We need your help to make unblessed production-ready! Please test and report:
 
 ## 🎨 Widget Gallery
 
-tui includes 27+ widgets for building rich terminal UIs:
+unblessed includes 27+ widgets for building rich terminal UIs:
 
 **Core Widgets:**
 - Screen, Box, Text, Line, Element
@@ -370,7 +368,14 @@ pnpm clean              # Clean all build artifacts
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
+We welcome contributions! The project uses:
+
+- **TypeScript** with strict mode
+- **pnpm** for package management
+- **Conventional Commits** for commit messages
+- **Semantic Release** for automated versioning
+
+See [CLAUDE.md](CLAUDE.md) for detailed architecture and development guidelines.
 
 ### Getting Started
 

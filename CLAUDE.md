@@ -22,7 +22,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Browser support via XTerm.js
 - 100% backward compatible with blessed
 
-**Current Version:** `1.0.0-alpha.7`
+**Current Version:** `1.0.0-alpha.10`
 
 **Release Status:**
 - ✅ Automated releases via semantic-release on `alpha` branch
@@ -487,7 +487,7 @@ pnpm --filter benchmarks bench
 - ✅ npm publishing with provenance
 
 ### Current (Alpha Release)
-- 🚀 Version 1.0.0-alpha.7 published to npm
+- 🚀 Version 1.0.0-alpha.10 published to npm
 - 📚 Documentation site live at https://unblessed.dev
 - 🔄 CI/CD fully automated (GitHub Actions + semantic-release)
 - 📦 All packages available: core, node, browser, blessed, vrt
@@ -502,8 +502,6 @@ pnpm --filter benchmarks bench
 
 ### Documentation
 - [README.md](./README.md) - Main documentation
-- [SETUP_GUIDE.md](./SETUP_GUIDE.md) - Development setup
-- [CONTRIBUTING.md](./CONTRIBUTING.md) - Contribution guidelines
 - [API_REFERENCE.md](./API_REFERENCE.md) - API compatibility baseline
 - [packages/core/CLAUDE.md](./packages/core/CLAUDE.md) - Core package details
 - [packages/browser/CLAUDE.md](./packages/browser/CLAUDE.md) - Browser package details

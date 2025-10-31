@@ -40,7 +40,7 @@
     "url": "https://github.com/vdeantoni/unblessed.git",
     "directory": "packages/node"
   },
-  "homepage": "https://github.com/vdeantoni/unblessed/tree/master/packages/node",
+  "homepage": "https://github.com/vdeantoni/unblessed/tree/alpha/packages/node",
   "bugs": {
     "url": "https://github.com/vdeantoni/unblessed/issues"
   },

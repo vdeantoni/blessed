@@ -31,7 +31,7 @@
     "url": "https://github.com/vdeantoni/unblessed.git",
     "directory": "packages/blessed"
   },
-  "homepage": "https://github.com/vdeantoni/unblessed/tree/master/packages/blessed",
+  "homepage": "https://github.com/vdeantoni/unblessed/tree/alpha/packages/blessed",
   "bugs": {
     "url": "https://github.com/vdeantoni/unblessed/issues"
   },
