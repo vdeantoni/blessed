@@ -1,13 +1,11 @@
 import Link from "@docusaurus/Link";
+import Translate from "@docusaurus/Translate";
 import Layout from "@theme/Layout";
 import type { ReactNode } from "react";
 
 export default function NotFound(): ReactNode {
   return (
-    <Layout
-      title="404: Page Not Found"
-      description="The page you're looking for doesn't exist."
-    >
+    <Layout>
       <main
         style={{
           display: "flex",
@@ -17,7 +15,7 @@ export default function NotFound(): ReactNode {
           padding: "2rem",
         }}
       >
-        <div style={{ textAlign: "center", maxWidth: "600px" }}>
+        <div style={{ textAlign: "center", maxWidth: "800px" }}>
           {/* Terminal-style 404 */}
           <pre
             style={{
@@ -41,7 +39,12 @@ export default function NotFound(): ReactNode {
               marginBottom: "1rem",
             }}
           >
-            The page you're looking for doesn't exist
+            <Translate
+              id="theme.NotFound.title"
+              description="The title of the 404 page"
+            >
+              The page you're looking for doesn't exist
+            </Translate>
           </h1>
 
           <p
