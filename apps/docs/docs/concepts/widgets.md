@@ -12,6 +12,27 @@ Widgets are the building blocks of unblessed TUIs. They provide UI elements like
 
 ## Widget Hierarchy
 
+```mermaid
+graph TD
+    Screen[Screen<br/>Root Container] --> Header[Box<br/>Header]
+    Screen --> Sidebar[List<br/>Sidebar Menu]
+    Screen --> Content[Box<br/>Main Content]
+    Screen --> Footer[Box<br/>Footer]
+
+    Sidebar --> Item1[Box<br/>Menu Item 1]
+    Sidebar --> Item2[Box<br/>Menu Item 2]
+
+    Content --> Form[Form<br/>User Input]
+    Form --> Input1[Input<br/>Name]
+    Form --> Submit[Button<br/>Submit]
+
+    style Screen fill:#0dbc79,stroke:#0a9d62,color:#000
+    style Header fill:#1177bb,stroke:#0e639c,color:#fff
+    style Sidebar fill:#1177bb,stroke:#0e639c,color:#fff
+    style Content fill:#1177bb,stroke:#0e639c,color:#fff
+    style Footer fill:#1177bb,stroke:#0e639c,color:#fff
+```
+
 All widgets inherit from the base classes:
 
 ```

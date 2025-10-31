@@ -1,0 +1,32 @@
+# Social Card Image Needed
+
+You need to create a social card image for Open Graph/Twitter:
+
+## Requirements:
+- **Size:** 1200x630px
+- **Format:** PNG or JPG
+- **File name:** social-card.png
+- **Location:** apps/docs/static/img/social-card.png
+
+## Content Suggestions:
+- unblessed logo (centered or top)
+- Tagline: "Modern, platform-agnostic terminal UI library"
+- Key features: "TypeScript • Node.js • Browser • blessed-compatible"
+- Terminal-themed background
+- Brand colors: #0dbc79 (green), #1177bb (blue)
+- Dark background (#1e1e1e or #2d2d30)
+
+## Tools You Can Use:
+- Figma (free)
+- Canva (free)
+- Photoshop/Illustrator
+- Online generators: https://www.opengraph.xyz/
+
+## Or Use SVG-to-PNG Converter:
+```bash
+# Using ImageMagick or similar
+convert -background none -size 1200x630 logo.svg social-card.png
+```
+
+Once created, place at:
+apps/docs/static/img/social-card.png

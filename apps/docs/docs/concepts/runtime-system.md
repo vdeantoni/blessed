@@ -10,6 +10,26 @@ Deep dive into unblessed's runtime dependency injection system.
 
 The runtime system is the key to unblessed's cross-platform capability. It allows the same widget code to run in Node.js, browsers, and potentially other platforms like Deno or Bun.
 
+```mermaid
+sequenceDiagram
+    participant App as Your App
+    participant Core as @unblessed/core
+    participant Runtime as Runtime Context
+    participant Platform as Platform Runtime
+
+    App->>Core: import { Screen }
+    Core->>Runtime: getRuntime()
+    Runtime->>Platform: NodeRuntime / BrowserRuntime
+    Platform-->>Runtime: Platform APIs
+    Runtime-->>Core: Runtime interface
+    Core-->>App: Screen instance
+
+    App->>Core: screen.render()
+    Core->>Runtime: getRuntime().tty.write()
+    Runtime->>Platform: Platform-specific write
+    Platform-->>App: Terminal output
+```
+
 ## The Runtime Interface
 
 All platform-specific APIs are abstracted behind the `Runtime` interface:
