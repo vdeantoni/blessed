@@ -136,6 +136,7 @@ const sidebars: SidebarsConfig = {
       label: "Advanced",
       items: [
         "advanced/custom-widgets",
+        "advanced/testing",
         "advanced/performance",
         "advanced/troubleshooting",
       ],
@@ -144,7 +145,6 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Examples",
       items: [
-        "examples/index",
         {
           type: "category",
           label: "Getting Started",
@@ -156,6 +156,7 @@ const sidebars: SidebarsConfig = {
         },
       ],
     },
+    "faq",
   ],
 };
 

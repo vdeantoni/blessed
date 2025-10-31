@@ -1,0 +1,82 @@
+.pwa-reload-popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.pwa-reload-popup__content {
+  background: var(--ifm-color-primary);
+  color: white;
+  padding: 16px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  max-width: 400px;
+}
+
+[data-theme="dark"] .pwa-reload-popup__content {
+  background: #0dbc79;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.pwa-reload-popup__message {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.pwa-reload-popup__button {
+  background: white;
+  color: var(--ifm-color-primary);
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+[data-theme="dark"] .pwa-reload-popup__button {
+  background: #1e1e1e;
+  color: #0dbc79;
+}
+
+.pwa-reload-popup__button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.pwa-reload-popup__button:active {
+  transform: translateY(0);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .pwa-reload-popup {
+    bottom: 10px;
+    right: 10px;
+    left: 10px;
+  }
+
+  .pwa-reload-popup__content {
+    max-width: none;
+  }
+}

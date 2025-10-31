@@ -1,0 +1,47 @@
+{
+  "name": "unblessed Documentation",
+  "short_name": "unblessed",
+  "description": "Modern, platform-agnostic terminal UI library documentation",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0dbc79",
+  "background_color": "#1e1e1e",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/img/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["development", "documentation", "developer tools"],
+  "scope": "/",
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Getting Started",
+      "short_name": "Start",
+      "description": "Quick start guide",
+      "url": "/docs/getting-started/quick-start",
+      "icons": [
+        {
+          "src": "/img/logo.svg",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "API Reference",
+      "short_name": "API",
+      "description": "API documentation",
+      "url": "/docs/api/generated/widgets.screen.Class.Screen",
+      "icons": [
+        {
+          "src": "/img/logo.svg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

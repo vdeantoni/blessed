@@ -527,4 +527,4 @@ const box = new Box(options);
 
 - [Browser Platform](./browser) - Running in browsers
 - [Platform Differences](./differences) - Key differences between platforms
-- [Examples](/docs/examples) - Example applications
+- [Examples](/docs/examples/getting-started/simple-box) - Example applications

@@ -202,5 +202,5 @@ screen.key(["q", "C-c"], () => {
 ## Next Steps
 
 - [API Reference](/docs/api/generated/widgets.screen.Class.Screen) - Explore all available widgets
-- [Examples](/docs/examples) - Browse more examples
+- [Examples](/docs/examples/getting-started/simple-box) - Browse more examples
 - [Platform Guides](/docs/platforms/nodejs) - Platform-specific features

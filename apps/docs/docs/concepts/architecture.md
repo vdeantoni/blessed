@@ -16,11 +16,20 @@ unblessed is built on three fundamental principles:
 
 ## Package Structure
 
-```
-@unblessed/core      → Platform-agnostic core (defines Runtime interface)
-@unblessed/node      → Node.js runtime implementation
-@unblessed/browser   → Browser runtime (XTerm.js integration)
-@unblessed/blessed   → Backward-compatible wrapper for blessed users
+```mermaid
+graph TD
+    A["@unblessed/core
+    Platform-agnostic widgets"] --> B["@unblessed/node
+    Node.js runtime"]
+    A --> C["@unblessed/browser
+    Browser runtime + XTerm.js"]
+    B --> D["@unblessed/blessed
+    Backward compatibility"]
+
+    style A fill:#0dbc79,stroke:#0a9d62,color:#000
+    style B fill:#1177bb,stroke:#0e639c,color:#fff
+    style C fill:#1177bb,stroke:#0e639c,color:#fff
+    style D fill:#454545,stroke:#2d2d30,color:#fff
 ```
 
 ### @unblessed/core

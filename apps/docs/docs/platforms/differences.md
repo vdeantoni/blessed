@@ -567,4 +567,4 @@ const screen = new Screen({ terminal: term });
 
 - [Node.js Platform](./nodejs) - Node.js-specific features
 - [Browser Platform](./browser) - Browser-specific features
-- [Examples](/docs/examples) - Platform-specific examples
+- [Examples](/docs/examples/getting-started/simple-box) - Platform-specific examples

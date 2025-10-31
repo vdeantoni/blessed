@@ -52,7 +52,34 @@ body {
   --ifm-navbar-shadow: 0 1px 0 0 rgba(62, 62, 66, 0.5);
 
   /* Footer */
-  --ifm-footer-background-color: #2d2d30;
+  --ifm-footer-background-color: #1a1a1a;
+  --ifm-footer-link-color: #0dbc79;
+  --ifm-footer-link-hover-color: #23d18b;
+}
+
+/* Footer styling */
+.footer {
+  background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+  border-top: 1px solid #3e3e42;
+}
+
+.footer__title {
+  color: #0dbc79;
+  font-weight: 600;
+}
+
+.footer__link-item {
+  color: #a0a0a0;
+  transition: color 0.2s ease;
+}
+
+.footer__link-item:hover {
+  color: #0dbc79;
+}
+
+.footer__copyright {
+  color: #707070;
+  font-size: 0.875rem;
 }
 
 /* Hero section */
