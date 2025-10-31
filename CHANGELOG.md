@@ -1,3 +1,16 @@
+# [1.0.0-alpha.12](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2025-10-31)
+
+
+### Bug Fixes
+
+* **core:** resolve emoji rendering issues in XTerm.js ([ad5f43d](https://github.com/vdeantoni/unblessed/commit/ad5f43db8186d39f60349997d07cefdb4b8868ee))
+
+
+### Features
+
+* **core:** add border styles support (single, double, round, bold, etc.) ([3f24fb2](https://github.com/vdeantoni/unblessed/commit/3f24fb2c5e1b136e40cc056454e3946334755ab9))
+* **layout:** add @unblessed/layout package with Yoga integration ([fb4fdc7](https://github.com/vdeantoni/unblessed/commit/fb4fdc78e13c48be7daa32c1990e1c82596196f0))
+
 # [1.0.0-alpha.11](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2025-10-31)
 
 
