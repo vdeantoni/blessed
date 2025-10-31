@@ -667,4 +667,4 @@ if (hasFullscreen) {
 
 - [Node.js Platform](./nodejs) - Running in Node.js
 - [Platform Differences](./differences) - Key differences
-- [Examples](/docs/examples) - More examples
+- [Examples](/docs/examples/getting-started/simple-box) - More examples

@@ -9,6 +9,7 @@ const config: Config = {
 
   future: {
     v4: true,
+    experimental_faster: true,
   },
 
   url: "https://unblessed-docs.vercel.app",
@@ -23,6 +24,66 @@ const config: Config = {
   i18n: {
     defaultLocale: "en",
     locales: ["en"],
+  },
+
+  plugins: [
+    // Image zoom on click
+    "docusaurus-plugin-image-zoom",
+
+    // PWA - offline documentation
+    [
+      "@docusaurus/plugin-pwa",
+      {
+        debug: false,
+        offlineModeActivationStrategies: [
+          "appInstalled",
+          "standalone",
+          "queryString",
+        ],
+        pwaHead: [
+          {
+            tagName: "link",
+            rel: "icon",
+            href: "/img/logo.svg",
+          },
+          {
+            tagName: "link",
+            rel: "manifest",
+            href: "/manifest.json",
+          },
+          {
+            tagName: "meta",
+            name: "theme-color",
+            content: "#0dbc79",
+          },
+          {
+            tagName: "meta",
+            name: "apple-mobile-web-app-capable",
+            content: "yes",
+          },
+          {
+            tagName: "meta",
+            name: "apple-mobile-web-app-status-bar-style",
+            content: "black-translucent",
+          },
+        ],
+      },
+    ],
+
+    // Google Analytics
+    [
+      "@docusaurus/plugin-google-gtag",
+      {
+        trackingID: "G-00NB4J6PPG",
+        anonymizeIP: true,
+      },
+    ],
+  ],
+
+  themes: ["@docusaurus/theme-mermaid"],
+
+  markdown: {
+    mermaid: true,
   },
 
   presets: [
@@ -51,7 +112,6 @@ const config: Config = {
   ],
 
   themeConfig: {
-    image: "img/unblessed-social-card.jpg",
     colorMode: {
       defaultMode: "dark",
       disableSwitch: true,
@@ -90,26 +150,47 @@ const config: Config = {
           title: "Documentation",
           items: [
             {
-              label: "Getting Started",
-              to: "/docs/getting-started/installation",
+              label: "Introduction",
+              to: "/docs/getting-started/introduction",
             },
+            {
+              label: "Quick Start",
+              to: "/docs/getting-started/quick-start",
+            },
+            {
+              label: "Migration from blessed",
+              to: "/docs/getting-started/migration-from-blessed",
+            },
+            {
+              label: "FAQ",
+              to: "/docs/faq",
+            },
+          ],
+        },
+        {
+          title: "Guides",
+          items: [
             {
               label: "API Reference",
               to: "/docs/api/generated/widgets.screen.Class.Screen",
             },
             {
+              label: "Testing Guide",
+              to: "/docs/advanced/testing",
+            },
+            {
               label: "Examples",
-              to: "/docs/examples",
+              to: "/docs/examples/getting-started/simple-box",
+            },
+            {
+              label: "Troubleshooting",
+              to: "/docs/advanced/troubleshooting",
             },
           ],
         },
         {
           title: "Packages",
           items: [
-            {
-              label: "@unblessed/core",
-              href: "https://www.npmjs.com/package/@unblessed/core",
-            },
             {
               label: "@unblessed/node",
               href: "https://www.npmjs.com/package/@unblessed/node",
@@ -122,14 +203,22 @@ const config: Config = {
               label: "@unblessed/blessed",
               href: "https://www.npmjs.com/package/@unblessed/blessed",
             },
+            {
+              label: "@unblessed/vrt",
+              href: "https://www.npmjs.com/package/@unblessed/vrt",
+            },
           ],
         },
         {
-          title: "More",
+          title: "Community",
           items: [
             {
               label: "GitHub",
               href: "https://github.com/vdeantoni/unblessed",
+            },
+            {
+              label: "Discussions",
+              href: "https://github.com/vdeantoni/unblessed/discussions",
             },
             {
               label: "Issues",
@@ -151,6 +240,24 @@ const config: Config = {
       indexName: "Unblessed Docs",
       contextualSearch: true,
       searchParameters: {},
+    },
+    // Image zoom configuration
+    zoom: {
+      selector: ".markdown :not(em) > img",
+      background: {
+        light: "rgba(255, 255, 255, 0.9)",
+        dark: "rgba(30, 30, 30, 0.9)",
+      },
+      config: {
+        // Zoom config options
+      },
+    },
+    // Mermaid configuration
+    mermaid: {
+      theme: { light: "neutral", dark: "dark" },
+      options: {
+        maxTextSize: 50000,
+      },
     },
   } satisfies Preset.ThemeConfig,
 };

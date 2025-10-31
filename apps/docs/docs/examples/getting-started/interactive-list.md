@@ -95,4 +95,4 @@ style: {
 
 - Try [Tables](/docs/api/generated/widgets.table.Class.Table)
 - Learn about [Forms](/docs/api/generated/widgets.form.Class.Form)
-- Explore [all examples](/docs/examples)
+- Explore [all examples](/docs/examples/getting-started/simple-box)

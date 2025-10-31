@@ -21,7 +21,7 @@ This guide covers common problems you might encounter when using unblessed, orga
 | Wrong size/position        | Coordinate calculation error               | [Layout Issues](#layout-issues)           |
 | Slow performance           | Too many renders / large widget tree       | [Performance Issues](#performance-issues) |
 | Flickering                 | Missing Smart CSR / too frequent renders   | [Visual Issues](#visual-issues)           |
-| Memory leak                | Event listeners not cleaned up             | [Memory Issues](#memory-issues)           |
+| Memory leak                | Event listeners not cleaned up             | [Performance Issues](#memory-leak)        |
 | Works in Node, not browser | Platform-specific code                     | [Platform Issues](#platform-issues)       |
 | Widgets overlap            | Z-index or layout misconfiguration         | [Layout Issues](#layout-issues)           |
 

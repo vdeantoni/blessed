@@ -117,5 +117,5 @@ Use percentages for responsive layouts:
 
 ## Next Steps
 
-- Explore [more examples](/docs/examples)
+- Explore [more examples](/docs/examples/getting-started/simple-box)
 - Learn about [Performance](/docs/advanced/performance)
