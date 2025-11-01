@@ -1,3 +1,10 @@
+# [1.0.0-alpha.13](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2025-11-01)
+
+
+### Features
+
+* **react:** add @unblessed/react package with React reconciler ([71f6a75](https://github.com/vdeantoni/unblessed/commit/71f6a7576c42bb64248f0337fd64255371b41fe8))
+
 # [1.0.0-alpha.12](https://github.com/vdeantoni/unblessed/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2025-10-31)
 
 
